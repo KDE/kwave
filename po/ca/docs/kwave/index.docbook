@@ -658,7 +658,7 @@
 >freqüència de mostreig</emphasis
 >-. Les freqüències de mostreig habituals són de 8000, 11025, 22050 i 44100 mostres per segon. A la pràctica, les freqüències de mostreig també es donen com a freqüències, en Hz o kHz. </para>
     <para
->La freqüència de mostreig limita la freqüència més alta que un senyal digitalitzat pot representar. A causa del teorema de Shannon, la freqüència d'ús màxima és la meitat de la freqüència de mostreig, de manera que amb una freqüència de mostreig de 44,1 kHz no es poden mostrar senyals amb més de 22 kHz. Per a evitar una violació d'aquesta regla de la meitat de la freqüència de mostreig, la vostra targeta de so ja té filtres integrats que filtren les freqüències que superen la meitat de la freqüència de mostreig emprada. </para>
+>La freqüència de mostreig limita la freqüència més alta que un senyal digitalitzat pot representar. A causa del teorema de Shannon, la freqüència d'ús màxima és la meitat de la freqüència de mostreig, de manera que amb una freqüència de mostreig de 44,1 kHz no es poden mostrar senyals amb més de 22 kHz. Per a evitar una infracció d'aquesta regla de la meitat de la freqüència de mostreig, la vostra targeta de so ja té filtres integrats que filtren les freqüències que superen la meitat de la freqüència de mostreig emprada. </para>
     <para>
 	<inlinemediaobject>
 	<imageobject>
@@ -1662,8 +1662,8 @@
 ><para
 ><emphasis
 >Apropa:</emphasis
-> apropa per a veure més detalls, augmenta en un factor de 3. <itemizedlist>
-	    <listitem
+> apropa per a veure més detalls, augmenta en un factor de 3. <itemizedlist
+> <listitem
 ><para
 >entrada del menú / drecera de teclat: <menuchoice
 > <shortcut
@@ -1679,21 +1679,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->botó de la barra d'eines: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_in.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->«Apropa»</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
 	</para
 ></listitem>
@@ -1702,8 +1687,8 @@
 ><para
 ><emphasis
 >Allunya:</emphasis
-> allunya per a veure menys detalls, es redueix en un factor de 3. <itemizedlist>
-	    <listitem
+> allunya per a veure menys detalls, es redueix en un factor de 3. <itemizedlist
+> <listitem
 ><para
 >entrada del menú / drecera del teclat: <menuchoice
 > <shortcut
@@ -1719,21 +1704,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->botó de la barra d'eines: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_out.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->«Allunya»</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1742,8 +1712,8 @@
 ><para
 ><emphasis
 >Zoom a la selecció:</emphasis
-> apropa ​​a un factor on la selecció actual és completament visible a la vista actual. <itemizedlist>
-	    <listitem
+> apropa ​​a un factor on la selecció actual és completament visible a la vista actual. <itemizedlist
+> <listitem
 ><para
 >entrada del menú / drecera del teclat: <menuchoice
 > <shortcut
@@ -1757,21 +1727,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->botó de la barra d'eines: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmag.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->«Zoom a la selecció»</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1780,8 +1735,8 @@
 ><para
 ><emphasis
 >Apropa a tot el senyal:</emphasis
-> selecciona un factor d'apropament el qual farà que tot el senyal sigui visible a la finestra actual. <itemizedlist>
-	    <listitem
+> selecciona un factor d'apropament el qual farà que tot el senyal sigui visible a la finestra actual. <itemizedlist
+> <listitem
 ><para
 >entrada del menú: <menuchoice
 > <guimenu
@@ -1791,21 +1746,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->botó de la barra d'eines: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
-        </imageobject
-><textobject
-><phrase
-><quote
->«Zoom a tot»</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1814,8 +1754,8 @@
 ><para
 ><emphasis
 >Zoom al 100%:</emphasis
-> augmenta fins a una escala on la representació de la mostra està representada per un píxel a la pantalla. <itemizedlist>
-	    <listitem
+> augmenta fins a una escala on la representació de la mostra està representada per un píxel a la pantalla. <itemizedlist
+> <listitem
 ><para
 >entrada del menú: <menuchoice
 > <guimenu
@@ -1824,21 +1764,6 @@
 >Zoom al 100%</guimenuitem
 > </menuchoice
 > </para
-></listitem>
-	    <listitem
-><para
->botó de la barra d'eines: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->«Zoom al 100%»</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
 ></listitem>
 	    </itemizedlist>
         </para
@@ -1936,19 +1861,6 @@
 >Pàgina anterior</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->botó de la barra d'eines: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->«Pàgina anterior»</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- next page -->
        <listitem
@@ -1968,19 +1880,6 @@
 >Pàgina següent</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->botó de la barra d'eines: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->«Pàgina següent»</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll right -->
         <listitem
@@ -2000,19 +1899,6 @@
 >Desplaça a la dreta</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->botó de la barra d'eines: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->«Desplaça a la dreta»</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll left -->
         <listitem
@@ -2032,19 +1918,6 @@
 >Desplaça a l'esquerra</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->botó de la barra d'eines: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->«Desplaça a l'esquerra»</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	</itemizedlist>
     </para>

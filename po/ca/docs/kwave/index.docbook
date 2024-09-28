@@ -658,7 +658,7 @@
 >freqüència de mostreig</emphasis
 >-. Les freqüències de mostreig habituals són de 8000, 11025, 22050 i 44100 mostres per segon. A la pràctica, les freqüències de mostreig també es donen com a freqüències, en Hz o kHz. </para>
     <para
->La freqüència de mostreig limita la freqüència més alta que un senyal digitalitzat pot representar. A causa del teorema de Shannon, la freqüència d'ús màxima és la meitat de la freqüència de mostreig, de manera que amb una freqüència de mostreig de 44,1 kHz no es poden mostrar senyals amb més de 22 kHz. Per a evitar una violació d'aquesta regla de la meitat de la freqüència de mostreig, la vostra targeta de so ja té filtres integrats que filtren les freqüències que superen la meitat de la freqüència de mostreig emprada. </para>
+>La freqüència de mostreig limita la freqüència més alta que un senyal digitalitzat pot representar. A causa del teorema de Shannon, la freqüència d'ús màxima és la meitat de la freqüència de mostreig, de manera que amb una freqüència de mostreig de 44,1 kHz no es poden mostrar senyals amb més de 22 kHz. Per a evitar una infracció d'aquesta regla de la meitat de la freqüència de mostreig, la vostra targeta de so ja té filtres integrats que filtren les freqüències que superen la meitat de la freqüència de mostreig emprada. </para>
     <para>
 	<inlinemediaobject>
 	<imageobject>

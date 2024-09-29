@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2017 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+// SPDX-License-Identifier: GPL-2.0-or-later
 /*************************************************************************
  *      K3BExportPlugin.h  -  export of K3b project files
  *                             -------------------

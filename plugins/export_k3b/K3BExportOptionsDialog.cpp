@@ -1,5 +1,8 @@
+// SPDX-FileCopyrightText: 2017 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+// SPDX-FileCopyrightText: 2024 Mark Penner <mrp@markpenner.space>
+// SPDX-License-Identifier: GPL-2.0-or-later
 /***************************************************************************
- * K3BExportWidget.cpp -  widget for K3b export options in the file open dlg
+ * K3BExportOptionsDialog.cpp -  dialog for K3b export options
  *                             -------------------
  *    begin                : Thu Apr 13 2017
  *    copyright            : (C) 2017 by Thomas Eschenbacher
@@ -18,16 +21,15 @@
 #include "config.h"
 
 #include <QCheckBox>
+#include <QDialogButtonBox>
 #include <QLineEdit>
 
 #include <KComboBox>
 
-#include "libkwave/String.h"
-
-#include "K3BExportWidget.h"
+#include "K3BExportOptionsDialog.h"
 
 //***************************************************************************
-Kwave::K3BExportWidget::K3BExportWidget(
+Kwave::K3BExportOptionsDialog::K3BExportOptionsDialog(
     QWidget *parent,
     QString &pattern,
     bool selection_only,
@@ -35,7 +37,7 @@ Kwave::K3BExportWidget::K3BExportWidget(
     Kwave::K3BExportPlugin::export_location_t export_location,
     Kwave::K3BExportPlugin::overwrite_policy_t overwrite_policy
 )
-    :QWidget(parent), Ui::K3BExportWidgetBase()
+    :QDialog(parent), Ui::K3BExportOptionsDialogBase()
 {
     setupUi(this);
 
@@ -71,15 +73,18 @@ Kwave::K3BExportWidget::K3BExportWidget(
 
     Q_ASSERT(cbOverwritePolicy);
     cbOverwritePolicy->setCurrentIndex(static_cast<int>(overwrite_policy));
+
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 //***************************************************************************
-Kwave::K3BExportWidget::~K3BExportWidget()
+Kwave::K3BExportOptionsDialog::~K3BExportOptionsDialog()
 {
 }
 
 //***************************************************************************
-QString Kwave::K3BExportWidget::pattern() const
+QString Kwave::K3BExportOptionsDialog::pattern() const
 {
     Q_ASSERT(cbLabelPattern);
     if (!cbLabelPattern) return QString();
@@ -93,7 +98,7 @@ QString Kwave::K3BExportWidget::pattern() const
 }
 
 //***************************************************************************
-bool Kwave::K3BExportWidget::selectionOnly() const
+bool Kwave::K3BExportOptionsDialog::selectionOnly() const
 {
     Q_ASSERT(chkSelectionOnly);
     return (chkSelectionOnly) ? chkSelectionOnly->isChecked() : false;
@@ -101,7 +106,7 @@ bool Kwave::K3BExportWidget::selectionOnly() const
 
 //***************************************************************************
 Kwave::K3BExportPlugin::export_location_t
-    Kwave::K3BExportWidget::exportLocation() const
+    Kwave::K3BExportDialog::exportLocation() const
 {
     Q_ASSERT(cbExportLocation);
     return static_cast<Kwave::K3BExportPlugin::export_location_t>(
@@ -112,7 +117,7 @@ Kwave::K3BExportPlugin::export_location_t
 
 //***************************************************************************
 Kwave::K3BExportPlugin::overwrite_policy_t
-    Kwave::K3BExportWidget::overwritePolicy() const
+    Kwave::K3BExportOptionsDialog::overwritePolicy() const
 {
     Q_ASSERT(cbOverwritePolicy);
     return static_cast<Kwave::K3BExportPlugin::overwrite_policy_t>(
@@ -124,4 +129,4 @@ Kwave::K3BExportPlugin::overwrite_policy_t
 //***************************************************************************
 //***************************************************************************
 
-#include "moc_K3BExportWidget.cpp"
+#include "moc_K3BExportOptionsDialog.cpp"

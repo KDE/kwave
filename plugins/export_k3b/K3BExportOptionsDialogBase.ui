@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>K3BExportWidgetBase</class>
- <widget class="QWidget" name="K3BExportWidgetBase">
+ <class>K3BExportOptionsDialogBase</class>
+ <widget class="QDialog" name="K3BExportOptionsDialogBase">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -181,6 +181,13 @@
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+     </property>
     </widget>
    </item>
   </layout>

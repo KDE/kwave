@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2017 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+// SPDX-FileCopyrightText: 2024 Mark Penner <mrp@markpenner.space>
+// SPDX-License-Identifier: GPL-2.0-or-later
 /*************************************************************************
  *     K3BExportPlugin.cpp -  export of K3b project files
  *                             -------------------
@@ -36,6 +39,8 @@
 #include <KLocalizedString> // for the i18n macro
 #include <KZip>
 
+#include "libgui/FileDialog.h"
+
 #include "libkwave/CodecManager.h"
 #include "libkwave/Encoder.h"
 #include "libkwave/FileInfo.h"
@@ -51,8 +56,10 @@
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
-#include "K3BExportDialog.h"
+#include "K3BExportOptionsDialog.h"
 #include "K3BExportPlugin.h"
+
+using namespace Qt::StringLiterals;
 
 KWAVE_PLUGIN(export_k3b, K3BExportPlugin)
 
@@ -302,43 +309,42 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
         (selection_right + 1 >= signalLength()));
     bool enable_selection_only = selected_something && !selected_all;
 
+    // show a dialog to get the export settings
+    Kwave::K3BExportOptionsDialog *dialog = new Kwave::K3BExportOptionsDialog(
+        parentWidget(),
+        m_pattern,
+        m_selection_only,
+        enable_selection_only,
+        m_export_location,
+        m_overwrite_policy
+    );
+
+    dialog->setWindowTitle(description());
+    if (dialog->exec() != QDialog::Accepted) {
+        return nullptr;
+    }
+
     // show a "File / Save As..." dialog for the *.k3b file
-    QPointer<Kwave::K3BExportDialog> dialog =
-        new(std::nothrow) Kwave::K3BExportDialog(
-            _("kfiledialog:///kwave_export_k3b"),
-            K3B_FILE_SUFFIX + _("|") + i18nc(
+    Kwave::FileDialog *fileDialog = new Kwave::FileDialog(
+            u"kfiledialog:///kwave_export_k3b"_s,
+            Kwave::FileDialog::SaveFile,
+            K3B_FILE_SUFFIX + u"|"_s + i18nc(
                 "file type filter when exporting to K3b",
                 "K3b project file (*.k3b)"
             ),
             parentWidget(),
             Kwave::URLfromUserInput(signalName()),
-            _("*.k3b"),
-            m_pattern,
-            m_selection_only,
-            enable_selection_only,
-            m_export_location,
-            m_overwrite_policy
+            u"*.k3b"_s
         );
-    if (!dialog) return nullptr;
 
-    dialog->setWindowTitle(description());
-    if ((dialog->exec() != QDialog::Accepted) || !dialog) {
-        delete dialog;
-        return nullptr;
-    }
-
-    QStringList *list = new(std::nothrow) QStringList();
-    Q_ASSERT(list);
-    if (!list) {
-        delete dialog;
+    fileDialog->setWindowTitle(description());
+    if ((fileDialog->exec() != QDialog::Accepted)) {
         return nullptr;
     }
 
     // user has pressed "OK"
-    QUrl url = dialog->selectedUrl();
+    QUrl url = fileDialog->selectedUrl();
     if (url.isEmpty()) {
-        delete dialog;
-        delete list;
         return nullptr;
     }
 
@@ -348,6 +354,12 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
     // add the correct extension if necessary
     if (path.suffix() != K3B_FILE_SUFFIX.mid(2))
         url.setPath(name + K3B_FILE_SUFFIX.mid(1));
+
+    QStringList *list = new QStringList();
+    Q_ASSERT(list);
+    if (!list) {
+        return nullptr;
+    }
 
     name                 = Kwave::Parser::escape(url.toString());
     QString pattern      = Kwave::Parser::escape(dialog->pattern());

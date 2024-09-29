@@ -1,5 +1,8 @@
+// SPDX-FileCopyrightText: 2017 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+// SPDX-FileCopyrightText: 2024 Mark Penner <mrp@markpenner.space>
+// SPDX-License-Identifier: GPL-2.0-or-later
 /***************************************************************************
- * K3BExportWidget.h  -  widget for K3b export options in the file open dlg
+ * K3BExportOptionsDialog.h -  dialog for K3b export options
  *                             -------------------
  *    begin                : Thu Apr 13 2017
  *    copyright            : (C) 2017 by Thomas Eschenbacher
@@ -15,32 +18,32 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef K3B_EXPORT_WIDGET_H
-#define K3B_EXPORT_WIDGET_H
+#ifndef K3B_EXPORT_OPTIONS_DIALOG_H
+#define K3B_EXPORT_OPTIONS_DIALOG_H
 
-#include <QWidget>
+#include <QDialog>
 
 #include "K3BExportPlugin.h"
-#include "ui_K3BExportWidgetBase.h"
+#include "ui_K3BExportOptionsDialogBase.h"
 
 namespace Kwave
 {
-    class K3BExportWidget: public QWidget, public Ui::K3BExportWidgetBase
+    class K3BExportOptionsDialog: public QDialog, public Ui::K3BExportOptionsDialogBase
     {
         Q_OBJECT
     public:
 
         /**
          * Constructor
-         * @param widget pointer to the parent widget
+         * @param parent pointer to the parent widget
          * @param pattern the pattern used for detecting title and artist
          * @param selection_only if true, save only the selection
          * @param have_selection if true, there is a selection
          * @param export_location where to export files with tracks
          * @param overwrite_policy overwrite existing files or use a new name
          */
-        K3BExportWidget(
-            QWidget *widget,
+        K3BExportOptionsDialog(
+            QWidget *parent,
             QString &pattern,
             bool selection_only,
             bool have_selection,
@@ -49,18 +52,7 @@ namespace Kwave
         );
 
         /** Destructor */
-        virtual ~K3BExportWidget() override;
-
-        /** @see KPreviewWidgetBase::showPreview() */
-        virtual void showPreview(const QUrl &url)
-        {
-            Q_UNUSED(url)
-        }
-
-        /** @see KPreviewWidgetBase::clearPreview */
-        virtual void clearPreview()
-        {
-        }
+        virtual ~K3BExportOptionsDialog() override;
 
         /** returns the title/artist detection pattern (as is, not escaped) */
         QString pattern() const;
@@ -77,7 +69,7 @@ namespace Kwave
     };
 }
 
-#endif /* K3B_EXPORT_WIDGET_H */
+#endif /* K3B_EXPORT_OPTIONS_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

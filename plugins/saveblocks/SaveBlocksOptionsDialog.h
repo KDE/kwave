@@ -1,5 +1,8 @@
+// SPDX-FileCopyrightText: 2007 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+// SPDX-FileCopyrightText: 2024 Mark Penner <mrp@markpenner.space>
+// SPDX-License-Identifier: GPL-2.0-or-later
 /***************************************************************************
-     SaveBlocksWidget.h  -  widget for extra options in the file open dialog
+     SaveBlocksOptionsDialog.h  -  dialog for extra options for saving blocks
                              -------------------
     begin                : Fri Mar 02 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -15,18 +18,18 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef SAVE_BLOCKS_WIDGET_H
-#define SAVE_BLOCKS_WIDGET_H
+#ifndef SAVE_BLOCKS_OPTIONS_DIALOG_H
+#define SAVE_BLOCKS_OPTIONS_DIALOG_H
 
-#include <QWidget>
+#include <QDialog>
 
 #include "SaveBlocksPlugin.h"
-#include "ui_SaveBlocksWidgetBase.h"
+#include "ui_SaveBlocksOptionsDialogBase.h"
 
 namespace Kwave
 {
-    class SaveBlocksWidget: public QWidget,
-                            public Ui::SaveBlocksWidgetBase
+    class SaveBlocksOptionsDialog: public QDialog,
+                            public Ui::SaveBlocksOptionsDialogBase
     {
         Q_OBJECT
     public:
@@ -34,12 +37,14 @@ namespace Kwave
         /**
          * Constructor
          * @param widget pointer to the parent widget
+         * @param filename the current file name
          * @param filename_pattern pattern used for generating the file names
          * @param numbering_mode the way the numbers are given
          * @param selection_only if true, save only the selection
          * @param have_selection if true, there is a selection
          */
-        SaveBlocksWidget(QWidget *widget,
+        SaveBlocksOptionsDialog(QWidget *widget,
+            QString filename,
             QString filename_pattern,
             Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
             bool selection_only,
@@ -47,18 +52,7 @@ namespace Kwave
         );
 
         /** Destructor */
-        ~SaveBlocksWidget() override;
-
-        /** @see KPreviewWidgetBase::showPreview() */
-        virtual void showPreview(const QUrl &url)
-        {
-            Q_UNUSED(url)
-        }
-
-        /** @see KPreviewWidgetBase::clearPreview */
-        virtual void clearPreview()
-        {
-        }
+        ~SaveBlocksOptionsDialog() override;
 
         /** returns the file name pattern */
         QString pattern();
@@ -71,8 +65,20 @@ namespace Kwave
 
     signals:
 
+        /** emitted whenever a new example has to be shown.
+         * @param filename the current filename
+         * @param pattern the selected filename pattern
+         * @param mode the numbering mode
+         * @param selection_only if true: save only the selection
+         */
+        void sigSelectionChanged(
+            const QString &filename,
+            const QString &pattern,
+            Kwave::SaveBlocksPlugin::numbering_mode_t mode,
+            bool selection_only);
+
         /** emitted whenever one of the input controls has changed */
-        void somethingChanged();
+            void somethingChanged();
 
     public slots:
 
@@ -82,10 +88,15 @@ namespace Kwave
          */
         void setNewExample(const QString &example);
 
+        /** collects all needed data and emits a sigSelectionChanged */
+        void emitUpdate();
+
+    private:
+        QString m_filename;
     };
 }
 
-#endif /* SAVE_BLOCKS_WIDGET_H */
+#endif /* SAVE_BLOCKS_OPTIONS_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

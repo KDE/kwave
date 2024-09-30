@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-23 00:38+0000\n"
-"PO-Revision-Date: 2024-08-18 04:05+0200\n"
+"PO-Revision-Date: 2024-09-29 08:28+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -515,7 +515,7 @@ msgstr "ბლოკები..."
 #: kwave/menus.config:41
 msgctxt "menu: /File/Close"
 msgid "Close"
-msgstr "დაკეტვა"
+msgstr "დახურვა"
 
 #: kwave/menus.config:45
 msgctxt "menu: /File/New Window"
@@ -7372,7 +7372,7 @@ msgstr "გატანა bitmap &ფაილში..."
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
 msgid "&Close"
-msgstr "დაკე&ტვა"
+msgstr "&დახურვა"
 
 #: plugins/sonagram/SonagramWindow.cpp:146
 #, kde-format

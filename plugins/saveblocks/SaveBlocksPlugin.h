@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2007 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+// SPDX-License-Identifier: GPL-2.0-or-later
 /***************************************************************************
      SaveBlocksPlugin.h  -  Plugin for saving blocks between labels
                              -------------------

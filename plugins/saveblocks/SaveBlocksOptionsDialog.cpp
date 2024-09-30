@@ -1,5 +1,8 @@
+// SPDX-FileCopyrightText: 2007 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+// SPDX-FileCopyrightText: 2024 Mark Penner <mrp@markpenner.space>
+// SPDX-License-Identifier: GPL-2.0-or-later
 /***************************************************************************
-   SaveBlocksWidget.cpp  -  widget for extra options in the file open dialog
+   SaveBlocksOptionsDialog.cpp  -  dialog for extra options for saving blocks
                              -------------------
     begin                : Fri Mar 02 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
@@ -25,15 +28,16 @@
 #include "libkwave/FileInfo.h"
 #include "libkwave/String.h"
 
-#include "SaveBlocksWidget.h"
+#include "SaveBlocksOptionsDialog.h"
 
 //***************************************************************************
-Kwave::SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
+Kwave::SaveBlocksOptionsDialog::SaveBlocksOptionsDialog(QWidget *parent,
+        QString filename,
         QString filename_pattern,
         Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
         bool selection_only,
         bool have_selection)
-    :QWidget(parent), Ui::SaveBlocksWidgetBase()
+    :QDialog(parent), Ui::SaveBlocksOptionsDialogBase(), m_filename(filename)
 {
     setupUi(this);
 
@@ -73,33 +77,39 @@ Kwave::SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
     }
 
     // combo box with pattern
-    connect(cbPattern, SIGNAL(editTextChanged(QString)),
-            this, SIGNAL(somethingChanged()));
-    connect(cbPattern, SIGNAL(highlighted(int)),
-            this, SIGNAL(somethingChanged()));
-    connect(cbPattern, SIGNAL(activated(int)),
-            this, SIGNAL(somethingChanged()));
+    connect(cbPattern, &QComboBox::editTextChanged,
+            this, &SaveBlocksOptionsDialog::somethingChanged);
+    connect(cbPattern, &QComboBox::highlighted,
+            this, &SaveBlocksOptionsDialog::somethingChanged);
+    connect(cbPattern, &QComboBox::activated,
+            this, &SaveBlocksOptionsDialog::somethingChanged);
 
     // combo box with numbering
-    connect(cbNumbering, SIGNAL(editTextChanged(QString)),
-            this, SIGNAL(somethingChanged()));
-    connect(cbNumbering, SIGNAL(highlighted(int)),
-            this, SIGNAL(somethingChanged()));
-    connect(cbNumbering, SIGNAL(activated(int)),
-            this, SIGNAL(somethingChanged()));
+    connect(cbNumbering, &QComboBox::editTextChanged,
+            this, &SaveBlocksOptionsDialog::somethingChanged);
+    connect(cbNumbering, &QComboBox::highlighted,
+            this, &SaveBlocksOptionsDialog::somethingChanged);
+    connect(cbNumbering, &QComboBox::activated,
+            this, &SaveBlocksOptionsDialog::somethingChanged);
 
     // selection only checkbox
-    connect(chkSelectionOnly, SIGNAL(stateChanged(int)),
-            this, SIGNAL(somethingChanged()));
+    connect(chkSelectionOnly, &QCheckBox::checkStateChanged,
+            this, &SaveBlocksOptionsDialog::somethingChanged);
+
+    connect(this, &SaveBlocksOptionsDialog::somethingChanged,
+            this, &SaveBlocksOptionsDialog::emitUpdate);
+
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 //***************************************************************************
-Kwave::SaveBlocksWidget::~SaveBlocksWidget()
+Kwave::SaveBlocksOptionsDialog::~SaveBlocksOptionsDialog()
 {
 }
 
 //***************************************************************************
-QString Kwave::SaveBlocksWidget::pattern()
+QString Kwave::SaveBlocksOptionsDialog::pattern()
 {
     Q_ASSERT(cbPattern);
     return (cbPattern) ? cbPattern->currentText() : _("");
@@ -107,7 +117,7 @@ QString Kwave::SaveBlocksWidget::pattern()
 
 //***************************************************************************
 Kwave::SaveBlocksPlugin::numbering_mode_t
-    Kwave::SaveBlocksWidget::numberingMode()
+    Kwave::SaveBlocksOptionsDialog::numberingMode()
 {
     Q_ASSERT(cbNumbering);
     return (cbNumbering) ?
@@ -116,20 +126,25 @@ Kwave::SaveBlocksPlugin::numbering_mode_t
 }
 
 //***************************************************************************
-bool Kwave::SaveBlocksWidget::selectionOnly()
+bool Kwave::SaveBlocksOptionsDialog::selectionOnly()
 {
     Q_ASSERT(chkSelectionOnly);
     return (chkSelectionOnly) ? chkSelectionOnly->isChecked() : false;
 }
 
 //***************************************************************************
-void Kwave::SaveBlocksWidget::setNewExample(const QString &example)
+void Kwave::SaveBlocksOptionsDialog::setNewExample(const QString &example)
 {
     Q_ASSERT(txtExample);
     if (txtExample) txtExample->setText(example);
 }
 
+void Kwave::SaveBlocksOptionsDialog::emitUpdate()
+{
+    Q_EMIT sigSelectionChanged(m_filename, pattern(), numberingMode(), selectionOnly());
+}
+
 //***************************************************************************
 //***************************************************************************
 
-#include "moc_SaveBlocksWidget.cpp"
+#include "moc_SaveBlocksOptionsDialog.cpp"

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2007 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+// SPDX-FileCopyrightText: 2024 Mark Penner <mrp@markpenner.space>
+// SPDX-License-Identifier: GPL-2.0-or-later
 /***************************************************************************
    SaveBlocksPlugin.cpp  -  Plugin for saving blocks between labels
                              -------------------
@@ -28,6 +31,7 @@
 
 #include <KLocalizedString>
 
+#include "libgui/FileDialog.h"
 #include "libkwave/CodecManager.h"
 #include "libkwave/Encoder.h"
 #include "libkwave/FileInfo.h"
@@ -40,8 +44,10 @@
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
-#include "SaveBlocksDialog.h"
+#include "SaveBlocksOptionsDialog.h"
 #include "SaveBlocksPlugin.h"
+
+using namespace Qt::StringLiterals;
 
 KWAVE_PLUGIN(saveblocks, SaveBlocksPlugin)
 
@@ -81,13 +87,11 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
     QString base = findBase(filename, m_pattern);
     scanBlocksToSave(base, m_selection_only && enable_selection_only);
 
-    QPointer<Kwave::SaveBlocksDialog> dialog =
-        new(std::nothrow) Kwave::SaveBlocksDialog(
-            _("kfiledialog:///kwave_save_blocks"),
-            Kwave::CodecManager::encodingFilter(),
+    QUrl signalname = Kwave::URLfromUserInput(signalName());
+
+    Kwave::SaveBlocksOptionsDialog *dialog = new Kwave::SaveBlocksOptionsDialog(
             parentWidget(),
-            Kwave::URLfromUserInput(signalName()),
-            _("*.wav"),
+            signalname.toString(),
             m_pattern,
             m_numbering_mode,
             m_selection_only,
@@ -96,62 +100,67 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
         if (!dialog) return nullptr;
 
     // connect the signals/slots from the plugin and the dialog
-    connect(dialog, SIGNAL(sigSelectionChanged(QString,
-        QString,Kwave::SaveBlocksPlugin::numbering_mode_t,bool)),
-        this, SLOT(updateExample(QString,QString,
-        Kwave::SaveBlocksPlugin::numbering_mode_t,bool)));
-    connect(this, SIGNAL(sigNewExample(QString)),
-        dialog, SLOT(setNewExample(QString)));
+    connect(dialog, &SaveBlocksOptionsDialog::sigSelectionChanged,
+        this, &SaveBlocksPlugin::updateExample);
+    connect(this, &SaveBlocksPlugin::sigNewExample,
+        dialog, &SaveBlocksOptionsDialog::setNewExample);
 
     dialog->setWindowTitle(description());
     dialog->emitUpdate();
     if ((dialog->exec() != QDialog::Accepted) || !dialog) {
-        delete dialog;
         return nullptr;
     }
 
-    QStringList *list = new(std::nothrow) QStringList();
-    Q_ASSERT(list);
-    if (list) {
-        // user has pressed "OK"
-        QString pattern;
+    Kwave::FileDialog *fileDialog = new Kwave::FileDialog(
+        signalname.toLocalFile(),
+        Kwave::FileDialog::SelectDir,
+        u""_s,
+        parentWidget()
+    );
 
-        QUrl url = dialog->selectedUrl();
-        if (url.isEmpty()) {
-            delete dialog;
-            delete list;
-            return nullptr;
-        }
-        QString name = url.path();
-        QFileInfo path(name);
-
-        // add the correct extension if necessary
-        if (!path.suffix().length()) {
-            QString ext = dialog->selectedExtension();
-            QStringList extensions = ext.split(_(" "));
-            ext = extensions.first();
-            name += ext.mid(1);
-        }
-
-        name     = Kwave::Parser::escape(name);
-        pattern  = Kwave::Parser::escape(dialog->pattern());
-        int mode = static_cast<int>(dialog->numberingMode());
-        bool selection_only = (enable_selection_only) ?
-            dialog->selectionOnly() : m_selection_only;
-
-        *list << name;
-        *list << pattern;
-        *list << QString::number(mode);
-        *list << QString::number(selection_only);
-
-        emitCommand(_("plugin:execute(saveblocks,") +
-            name + _(",") + pattern + _(",") +
-            QString::number(mode) + _(",") +
-            QString::number(selection_only) + _(")")
-        );
+    fileDialog->setWindowTitle(description());
+    if ((fileDialog->exec() != QDialog::Accepted) || !fileDialog) {
+        return nullptr;
     }
 
-    delete dialog;
+    QUrl url = fileDialog->selectedUrl();
+    if (url.isEmpty()) {
+        return nullptr;
+    }
+    QString name = url.path();
+    name += u"/"_s + signalname.fileName();
+    QFileInfo path(name);
+
+    // add the correct extension if necessary
+    if (!path.suffix().length()) {
+        QString ext = fileDialog->selectedExtension();
+        QStringList extensions = ext.split(_(" "));
+        ext = extensions.first();
+        name += ext.mid(1);
+    }
+
+    name = Kwave::Parser::escape(name);
+    QString pattern = Kwave::Parser::escape(dialog->pattern());
+    int mode = static_cast<int>(dialog->numberingMode());
+    bool selection_only = (enable_selection_only) ?
+        dialog->selectionOnly() : m_selection_only;
+
+    QStringList *list = new(std::nothrow) QStringList();
+    Q_ASSERT(list);
+    if (!list) {
+        return nullptr;
+    }
+    *list << name;
+    *list << pattern;
+    *list << QString::number(mode);
+    *list << QString::number(selection_only);
+
+    emitCommand(u"plugin:execute(saveblocks,"_s +
+        name + u","_s + pattern + u","_s +
+        QString::number(mode) + u","_s +
+        QString::number(selection_only) + u")"_s
+    );
+
     return list;
 }
 

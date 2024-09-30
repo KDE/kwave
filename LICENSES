@@ -803,13 +803,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
         plugins/saveblocks/CMakeLists.txt               BSD (3 clause)
         plugins/saveblocks/kwaveplugin_saveblocks.json.in (UNKNOWN)
-        plugins/saveblocks/SaveBlocksDialog.cpp         GPL2+
-        plugins/saveblocks/SaveBlocksDialog.h           GPL2+
+        plugins/saveblocks/SaveBlocksOptionsDialog.cpp  GPL2+
+        plugins/saveblocks/SaveBlocksOptionsDialog.h    GPL2+
         plugins/saveblocks/SaveBlocksPlugin.cpp         GPL2+
         plugins/saveblocks/SaveBlocksPlugin.h           GPL2+
-        plugins/saveblocks/SaveBlocksWidgetBase.ui      GPL2+
-        plugins/saveblocks/SaveBlocksWidget.cpp         GPL2+
-        plugins/saveblocks/SaveBlocksWidget.h           GPL2+
+        plugins/saveblocks/SaveBlocksOptionsDialogBase.ui GPL2+
 
         plugins/selectrange/CMakeLists.txt              BSD (3 clause)
         plugins/selectrange/kwaveplugin_selectrange.json.in (UNKNOWN)

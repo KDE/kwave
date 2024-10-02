@@ -1,5 +1,8 @@
+// SPDX-FileCopyrightText: 2002 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+// SPDX-FileCopyrightText: 2024 Mark Penner <mrp@markpenner.space>
+// SPDX-License-Identifier: GPL-2.0-or-later
 /*************************************************************************
-    KwaveFileDialog.cpp  -  enhanced KFileDialog
+    KwaveFileDialog.cpp  -  wrapper for QFileDialog
                              -------------------
     begin                : Thu May 30 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
@@ -18,7 +21,6 @@
 #include <QFileInfo>
 #include <QMimeDatabase>
 #include <QMimeType>
-#include <QPushButton>
 #include <QRegularExpression>
 #include <QStringList>
 
@@ -45,58 +47,30 @@ Kwave::FileDialog::FileDialog(
     const QUrl last_url,
     const QString last_ext
 )
-    :QDialog(parent),
-     m_layout(this),
-     m_file_widget(Kwave::URLfromUserInput(startDir), this),
+    :QObject(parent),
+     m_file_dialog(new QFileDialog(parent)),
      m_config_group(),
      m_last_url(last_url),
      m_last_ext(last_ext)
 {
     const bool saving = (mode == SaveFile);
 
-    // do some layout and init stuff
-    m_layout.addWidget(&m_file_widget);
-    setMinimumSize(m_file_widget.dialogSizeHint());
-    setModal(true);
-    connect(&m_file_widget, SIGNAL(filterChanged(KFileFilter)),
-            this, SIGNAL(filterChanged(KFileFilter)));
-
-    // connect the Cancel button
-    QPushButton *button;
-    button = m_file_widget.cancelButton();
-    connect(button, SIGNAL(clicked()), this, SLOT(reject()));
-    button->show();
-
-    // connect the Open/Save button
-    button = m_file_widget.okButton();
-    connect(&m_file_widget, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(button, SIGNAL(clicked(bool)), &m_file_widget, SLOT(slotOk()));
-    button->show();
-
     switch (mode) {
         case SaveFile:
-            m_file_widget.setOperationMode(KFileWidget::Saving);
-            m_file_widget.setMode(KFile::File);
-            m_file_widget.setConfirmOverwrite(false);
+            m_file_dialog->setAcceptMode(QFileDialog::AcceptSave);
+            m_file_dialog->setFileMode(QFileDialog::AnyFile);
             break;
         case OpenFile:
-            m_file_widget.setOperationMode(KFileWidget::Opening);
-            m_file_widget.setMode(KFile::File |
-                                  KFile::ExistingOnly);
+            m_file_dialog->setFileMode(QFileDialog::ExistingFile);
             break;
         case SelectDir:
-            m_file_widget.setOperationMode(KFileWidget::Opening);
-            m_file_widget.setMode(KFile::Directory |
-                                  KFile::ExistingOnly);
+            m_file_dialog->setFileMode(QFileDialog::Directory);
             break;
         DEFAULT_IGNORE;
     }
 
     QString special_prefix = _("kfiledialog:///");
     if (startDir.startsWith(special_prefix)) {
-        // configuration key given
-        m_file_widget.setKeepLocation(true);
-
         // load initial settings
         QString section = startDir;
         section = section.remove(0, special_prefix.length());
@@ -104,6 +78,9 @@ Kwave::FileDialog::FileDialog(
             section = section.left(section.indexOf(_("/")));
         section.prepend(_("KwaveFileDialog-"));
         loadConfig(section);
+    } else {
+        QUrl d{startDir};
+        m_file_dialog->setDirectoryUrl(d.adjusted(QUrl::RemoveFilename));
     }
 
     // if a file extension was passed but no filter, try to guess
@@ -119,41 +96,55 @@ Kwave::FileDialog::FileDialog(
     if (!m_last_url.isEmpty() && (m_last_url.isLocalFile() || saving)) {
         QFileInfo file(m_last_url.toLocalFile());
         if (QFileInfo::exists(file.path()) || saving)
-            m_file_widget.setUrl(m_last_url.adjusted(QUrl::RemoveFilename));
+            m_file_dialog->setDirectoryUrl(m_last_url.adjusted(QUrl::RemoveFilename));
         if (!file.isDir() && (file.exists() || saving))
-            m_file_widget.setSelectedUrl(
+            m_file_dialog->selectUrl(
                 QUrl::fromLocalFile(m_last_url.fileName()));
     }
 
     // parse the list of file filters and put the last extension on top
     if (file_filter.length()) {
-        QStringList filter_list = file_filter.split(_("\n"));
-        QList<KFileFilter> name_filters;
-        KFileFilter best_filter;
-        foreach (const QString &filter_item, filter_list) {
+        const QStringList filter_list = file_filter.split(u"\n"_s);
+        QStringList name_filters;
+        QString best_filter;
+        for(const QString &filter_item : filter_list) {
             QString f(filter_item);
-            QStringList p(u"*"_s);
+            QString pattern(u"*"_s);
             if (f.contains(_("|"))) {
-                qsizetype i = f.indexOf(_("|"));
-                p = f.left(i).split(u" "_s);
+                qsizetype i = f.indexOf("|"_L1);
+                pattern = f.left(i);
                 f = f.mid(i + 1);
             }
             if (!f.length()) continue;
 
-            // put the last extension to the top of the list
-            // and make it selected
-            KFileFilter ff = KFileFilter(f, p, QStringList());
-            if (m_last_ext.length() && p.contains(m_last_ext))
-                best_filter = ff;
-            name_filters.append(ff);
+            // put filter together like QFileDialog expects it
+            file_filter = f + "("_L1 + pattern + ")"_L1;
+
+            // keep track of the last filter that contains the last used extension
+            if (m_last_ext.length() && pattern.contains(m_last_ext)) {
+                best_filter = file_filter;
+            }
+            name_filters.append(file_filter);
         }
-        if (best_filter.isValid()) {
+        // put the last extension to the top of the list
+        // and make it selected
+        if (best_filter.length()) {
             name_filters.removeAll(best_filter);
             name_filters.prepend(best_filter);
         }
 
-        m_file_widget.setFilters(name_filters, best_filter);
+        m_file_dialog->setNameFilters(name_filters);
     }
+}
+
+//***************************************************************************
+int Kwave::FileDialog::exec()
+{
+    int result = m_file_dialog->exec();
+    if (result == QDialog::Accepted) {
+        saveConfig();
+    }
+    return result;
 }
 
 //***************************************************************************
@@ -164,7 +155,9 @@ void Kwave::FileDialog::loadConfig(const QString &section)
     m_config_group = section;
     if (!m_last_url.isEmpty()) {
         QUrl last_path = cfg.readEntry("last_url", m_last_url);
-        if (!last_path.isEmpty()) {
+        if (m_file_dialog->fileMode() == QFileDialog::Directory) {
+            m_last_url = Kwave::URLfromUserInput(last_path.path());
+        } else {
             // take last path, but user defined file name
             QString file_name = m_last_url.fileName();
             last_path = last_path.adjusted(QUrl::RemoveFilename);
@@ -179,11 +172,11 @@ void Kwave::FileDialog::loadConfig(const QString &section)
 
     // get last dialog size (Kwave global config)
     cfg = KSharedConfig::openConfig()->group(u"FileDialog"_s);
-    int w = cfg.readEntry("dialog_width",  sizeHint().width());
-    int h = cfg.readEntry("dialog_height", sizeHint().height());
-    if (w < minimumWidth())  w = sizeHint().width();
-    if (h < minimumHeight()) w = sizeHint().height();
-    resize(w, h);
+    int w = cfg.readEntry("dialog_width", m_file_dialog->sizeHint().width());
+    int h = cfg.readEntry("dialog_height", m_file_dialog->sizeHint().height());
+    if (w < m_file_dialog->minimumWidth())  w = m_file_dialog->sizeHint().width();
+    if (h < m_file_dialog->minimumHeight()) w = m_file_dialog->sizeHint().height();
+    m_file_dialog->resize(w, h);
 }
 
 //***************************************************************************
@@ -196,7 +189,7 @@ void Kwave::FileDialog::saveConfig()
     if (!file_name.length()) return; // aborted
 
     // store the last URL
-    m_last_url = m_file_widget.baseUrl();
+    m_last_url = baseUrl();
 
     // store the last extension if present
     QFileInfo file(file_name);
@@ -206,7 +199,7 @@ void Kwave::FileDialog::saveConfig()
         m_last_ext = _("*.") + extension;
     } else {
         // tricky case: filename mask
-        QString pattern = m_file_widget.currentFilter().toFilterString();
+        QString pattern = m_file_dialog->selectedNameFilter();
         if (pattern.contains(_("|"))) {
             qsizetype i = pattern.indexOf(_("|"));
             pattern = pattern.left(i);
@@ -229,51 +222,57 @@ void Kwave::FileDialog::saveConfig()
 
     // save the geometry of the dialog (Kwave global config)
     cfg = KSharedConfig::openConfig()->group(u"FileDialog"_s);
-    cfg.writeEntry("dialog_width",  width());
-    cfg.writeEntry("dialog_height", height());
+    cfg.writeEntry("dialog_width",  m_file_dialog->width());
+    cfg.writeEntry("dialog_height", m_file_dialog->height());
     cfg.sync();
 }
 
 //***************************************************************************
 QString Kwave::FileDialog::selectedExtension()
 {
-    QStringList patterns = m_file_widget.currentFilter().filePatterns();
+    QStringList patterns = m_file_dialog->selectedNameFilter().split(u" "_s);
     return (!patterns.isEmpty()) ? patterns.constFirst() : QString();
 }
 
 //***************************************************************************
 QUrl Kwave::FileDialog::selectedUrl() const
 {
-    return m_file_widget.selectedUrl();
+    if(!m_file_dialog->selectedUrls().isEmpty()) {
+        return m_file_dialog->selectedUrls().first();
+    }
+    return QUrl();
 }
 
 //***************************************************************************
 QUrl Kwave::FileDialog::baseUrl() const
 {
-    return m_file_widget.baseUrl();
+    // m_file_dialog->directoryUrl() is the obvious choice, but for some reason
+    // when using the flatpak portal and when in AcceptOpen mode, it just returned
+    // the directory used when it was last opened in AcceptSave mode.
+    if (m_file_dialog->fileMode() == QFileDialog::Directory) {
+        // when choosing a directory, QFileDialog doesn't include a slash at the end
+        // so add one now
+        return QUrl(selectedUrl().toString() + u"/"_s);
+    }
+    return selectedUrl().adjusted(QUrl::RemoveFilename);
 }
 
 //***************************************************************************
 void Kwave::FileDialog::setDirectory(const QString &directory)
 {
-    m_file_widget.setStartDir(Kwave::URLfromUserInput(directory));
+    m_file_dialog->setDirectoryUrl(Kwave::URLfromUserInput(directory));
+}
+
+//***************************************************************************
+void Kwave::FileDialog::setWindowTitle(const QString &title)
+{
+    m_file_dialog->setWindowTitle(title);
 }
 
 //***************************************************************************
 void Kwave::FileDialog::selectUrl(const QUrl &url)
 {
-    m_file_widget.setUrl(url);
-}
-
-//***************************************************************************
-void Kwave::FileDialog::accept()
-{
-    m_file_widget.accept();
-
-    // save the configuration when the dialog was accepted
-    saveConfig();
-
-    QDialog::accept();
+    m_file_dialog->selectUrl(url);
 }
 
 //***************************************************************************
@@ -326,18 +325,6 @@ QString Kwave::FileDialog::guessFilterFromFileExt(const QString &pattern,
     }
 
     return QString();
-}
-
-//***************************************************************************
-void Kwave::FileDialog::setCustomWidget(QWidget *widget)
-{
-    m_file_widget.setCustomWidget(widget);
-}
-
-//***************************************************************************
-KUrlComboBox *Kwave::FileDialog::locationEdit() const
-{
-    return m_file_widget.locationEdit();
 }
 
 //***************************************************************************

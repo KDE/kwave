@@ -1,5 +1,8 @@
+// SPDX-FileCopyrightText: 2002 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+// SPDX-FileCopyrightText: 2024 Mark Penner <mrp@markpenner.space>
+// SPDX-License-Identifier: GPL-2.0-or-later
 /*************************************************************************
-      FileDialog.h  -  enhanced KFileDialog
+      FileDialog.h  -  wrapper for QFileDialog
                              -------------------
     begin                : Thu May 30 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
@@ -22,24 +25,20 @@
 #include "libkwavegui_export.h"
 
 #include <QtGlobal>
-#include <QDialog>
+#include <QFileDialog>
 #include <QObject>
 #include <QString>
 #include <QUrl>
-#include <QVBoxLayout>
-
-#include <KFileWidget>
 
 class QWidget;
-class KUrlComboBox;
 
 namespace Kwave
 {
     /**
-     * An improved version of KFileWidget that does not forget the previous
-     * directory and pre-selects the previous file extension.
+     * A wrapper for QFileDialog that remembers the previous directory
+     * and pre-selects the previous file extension for multiple contexts.
      */
-    class LIBKWAVEGUI_EXPORT FileDialog: public QDialog
+    class LIBKWAVEGUI_EXPORT FileDialog: public QObject
     {
         Q_OBJECT
     public:
@@ -51,7 +50,6 @@ namespace Kwave
 
         /**
          * Constructor.
-         * @see KFileWidget
          * @param startDir directory to start with, can start with the scheme
          *                 "kfiledialog://scope/path"
          * @param mode determines the mode in which the dialog is used, either
@@ -78,6 +76,11 @@ namespace Kwave
         }
 
         /**
+         * execute the QFileDialog
+         */
+        int exec();
+
+        /**
          * Returns the previously used extension, including "*."
          */
         QString selectedExtension();
@@ -99,37 +102,21 @@ namespace Kwave
         void setDirectory(const QString &directory);
 
         /**
+         * Sets the dialog title
+         * @param title the new dialog title
+         */
+        void setWindowTitle(const QString &title);
+
+        /**
          * Sets the currently selected URL
          * @param url the new URL to show
          */
         void selectUrl(const QUrl &url);
 
-        /**
-         * Add a custom widget to the dialog
-         * @see KFileWidget
-         */
-        void setCustomWidget(QWidget *widget);
-
-        /**
-         * Returns the combobox used to type the filename or full
-         * location of the file.
-         * @see KFileWidget
-         */
-        KUrlComboBox *locationEdit() const;
-
     protected:
 
         /** load previous settings */
         void loadConfig(const QString &section);
-
-    signals:
-
-        void filterChanged(const KFileFilter &filter);
-
-    protected slots:
-
-        /** overwritten to call accept() of the KFileWidget and saveConfig() */
-        void accept() override;
 
         /** save current settings */
         void saveConfig();
@@ -147,12 +134,8 @@ namespace Kwave
                                        OperationMode mode);
 
     private:
-
-        /** layout for holding the KFileWidget */
-        QVBoxLayout m_layout;
-
-        /** the KFileWidget that we wrap */
-        KFileWidget m_file_widget;
+        /** the QFileDialog that we wrap */
+        QFileDialog *m_file_dialog;
 
         /** name of the group in the config file */
         QString m_config_group;

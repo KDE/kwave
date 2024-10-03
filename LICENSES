@@ -110,6 +110,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         README.md                                       GPL2+
         snapcraft.yaml                                  CC0-1.0
         TODO                                            GPL2+
+        .flatpak-manifest.json                          CC0-1.0
         .gitignore                                      (UNKNOWN / Laurent Montel <montel@kde.org>)
         .gitlab-ci.yml                                  CC0-1.0
         .kde-ci.yml                                     CC0-1.0
@@ -216,7 +217,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         kwave/pics/light_on.xpm                         LGPL2 (crystal project) [copied from greenled.png]
         kwave/pics/logo.xpm                             (should be GPL2+ / Martin Wilz)
         kwave/pics/noise.png                            (should be GPL2+)
-        kwave/pics/sc-apps-kwave.svg                    (should be GPL2+ / Thomas Eschenbacher)
+        kwave/pics/sc-apps-org.kde.kwave.svg            (should be GPL2+ / Thomas Eschenbacher)
         kwave/pics/selectedknob.xpm                     LGPL2 (crystal project) [derived from greenled.png]
         kwave/pics/sound_card.png                       LGPL2 (crystal project) [copied from kcmpci.png]
         kwave/pics/sound_device.png                     LGPL2 (crystal project) [copied from multimedia.png]

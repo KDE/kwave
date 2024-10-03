@@ -30,6 +30,15 @@ make
 make install
 ```
 
+## Flatpak
+
+To build a flatpak, first install flatpak-builder
+(`flatpak install org.flatpak.Builder`), then in the source directory run:
+`flatpak run org.flatpak.Builder build --user --install-deps-from=flathub --force-clean --ccache --install .flatpak-manifest.json`.
+If you already have the right version of `org.kde.Platform`and `org.kde.Sdk`,
+you can omit `--install-deps-from=flathub`. You can then run the flatpak with:
+`flatpak run --user org.kde.kwave`.
+
 ## Requirements
 
 Please note that required packages for compiling Kwave vary between

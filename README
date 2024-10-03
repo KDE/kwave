@@ -24,6 +24,16 @@ different distributions and versions. It is practically impossible
 to give a complete list of packages and versions, so if you can't
 get along, please feel free to ask on the Kwave mailing list!
 
+Flatpak:
+=========
+
+To build a flatpak, first install flatpak-builder
+(`flatpak install org.flatpak.Builder`), then in the source directory run:
+`flatpak run org.flatpak.Builder build --user --install-deps-from=flathub --force-clean --ccache --install .flatpak-manifest.json`.
+If you already have the right version of `org.kde.Platform`and `org.kde.Sdk`,
+you can omit `--install-deps-from=flathub`. You can then run the flatpak with:
+`flatpak run --user org.kde.kwave`.
+
 COMPILING MANUALLY:
 =====================
 

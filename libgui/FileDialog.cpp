@@ -111,7 +111,7 @@ Kwave::FileDialog::FileDialog(
     QString file_filter = filter;
     if (!file_filter.length() && m_last_ext.length()) {
         file_filter = guessFilterFromFileExt(m_last_ext, mode);
-        qDebug("guessed filter for '%s': '%s",
+        qDebug("guessed filter for '%s': '%s'",
                DBG(m_last_ext), DBG(file_filter));
     }
 
@@ -140,18 +140,11 @@ Kwave::FileDialog::FileDialog(
             }
             if (!f.length()) continue;
 
-            KFileFilter ff = KFileFilter(f, p, QStringList());
             // put the last extension to the top of the list
-            // and thus make it selected
-            if (m_last_ext.length()) {
-                if (p.contains(m_last_ext)) {
-                    if (!best_filter.isValid() ||
-                        (p.length() <= best_filter.filePatterns().length())) {
-                        best_filter = ff;
-                    }
-                }
-            }
-
+            // and make it selected
+            KFileFilter ff = KFileFilter(f, p, QStringList());
+            if (m_last_ext.length() && p.contains(m_last_ext))
+                best_filter = ff;
             name_filters.append(ff);
         }
         if (best_filter.isValid()) {
@@ -244,8 +237,8 @@ void Kwave::FileDialog::saveConfig()
 //***************************************************************************
 QString Kwave::FileDialog::selectedExtension()
 {
-    QStringList ext_list = m_file_widget.currentFilter().toFilterString().split(u" "_s);
-    return *(ext_list.begin());
+    QStringList patterns = m_file_widget.currentFilter().filePatterns();
+    return (!patterns.isEmpty()) ? patterns.constFirst() : QString();
 }
 
 //***************************************************************************

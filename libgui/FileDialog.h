@@ -73,7 +73,7 @@ namespace Kwave
                    const QString last_ext = QString());
 
         /** Destructor */
-        ~FileDialog() override
+        virtual ~FileDialog() override
         {
         }
 

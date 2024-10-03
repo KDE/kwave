@@ -172,7 +172,7 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
             QByteArray value = it.value();
 
             dst.write(name.data(), 4); // chunk name
-            size = value.length(); // length of the chunk
+            size = static_cast<quint32>(value.length()); // length of the chunk
             if (size & 0x01) size++;
             size = qToLittleEndian<quint32>(size);
             dst.write(reinterpret_cast<char *>(&size), 4);
@@ -189,7 +189,7 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
 void Kwave::WavEncoder::writeLabels(QIODevice &dst,
                                     const Kwave::LabelList &labels)
 {
-    const unsigned int labels_count = labels.count();
+    const quint32 labels_count = static_cast<quint32>(labels.count());
     quint32 size, additional_size = 0, index, data;
 
     // shortcut: nothing to do if no labels present
@@ -197,15 +197,15 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
 
     // easy things first: size of the cue list (has fixed record size)
     // without chunk name and chunk size
-    const unsigned int size_of_cue_list =
+    const quint32 size_of_cue_list =
         4 + /* number of entries */
         labels_count * (6 * 4); /* cue list entry: 6 x 32 bit */
 
     // now the size of the labels
-    unsigned int size_of_labels = 0;
+    quint32 size_of_labels = 0;
     foreach (const Kwave::Label &label, labels) {
         if (label.isNull()) continue;
-        unsigned int name_len = label.name().toUtf8().size();
+        quint32 name_len = static_cast<quint32>(label.name().toUtf8().size());
         if (!name_len) continue; // skip zero-length names
         size_of_labels += (3 * 4); // 3 * 4 byte
         size_of_labels += name_len;
@@ -287,7 +287,8 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
              */
             if (name.size()) {
                 dst.write("labl", 4);                // dwChunkID
-                data = qToLittleEndian<quint32>(name.size() + 4);
+                data = qToLittleEndian<quint32>(
+                    static_cast<quint32>(name.size()) + 4);
 
                 // dwChunkSize
                 dst.write(reinterpret_cast<char *>(&data), 4);

@@ -126,7 +126,7 @@ void Kwave::FlacEncoder::VorbisCommentContainer::add(const QString &tag,
 
     // put it into a vorbis_comment_entry structure
     FLAC__StreamMetadata_VorbisComment_Entry entry;
-    entry.length = val.length(); // in bytes, not characters !
+    entry.length = static_cast<FLAC__uint32>(val.length()); // [bytes]
     entry.entry  = reinterpret_cast<FLAC__byte *>(val.data());
 
     // insert the comment into the list
@@ -199,7 +199,7 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
     encodeMetaData(info, flac_metadata);
 
     // convert container to a list of pointers
-    unsigned int meta_count = flac_metadata.size();
+    uint32_t meta_count = static_cast<uint32_t>(flac_metadata.size());
     if (meta_count) {
         // WARNING: this only stores the pointer, it does not copy!
         if (!set_metadata(flac_metadata.data(), meta_count)) {

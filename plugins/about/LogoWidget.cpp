@@ -35,7 +35,7 @@
 #include "logo.xpm"
 
 /** increment value of the "h" channel of the color of the sine waves */
-#define COLOR_INCREMENT (static_cast<double>(0.001))
+#define COLOR_INCREMENT (0.001f)
 
 //***************************************************************************
 Kwave::LogoWidget::LogoWidget(QWidget *parent)
@@ -122,9 +122,9 @@ void Kwave::LogoWidget::paintEvent(QPaintEvent *)
 
         // draw the sine waves with XOR
         p.setCompositionMode(QPainter::CompositionMode_Exclusion);
-        p.setBrush(QColor::fromHsvF(m_color_h, 1.0, 1.0));
+        p.setBrush(QColor::fromHsvF(m_color_h, 1.0f, 1.0f));
         m_color_h += COLOR_INCREMENT; // this gives the nice color change :-)
-        if (m_color_h > 1.0) m_color_h -= 1.0;
+        if (m_color_h > 1.0f) m_color_h -= 1.0f;
 
         double amp = sin(m_deg[MAXSIN - 1] * 3);
         for (int j = 0; j < MAXSIN; j++) {

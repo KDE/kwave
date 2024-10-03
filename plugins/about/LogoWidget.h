@@ -76,7 +76,7 @@ namespace Kwave
         QTimer *m_timer;
 
         /** "H" channel of the sine wave color */
-        double m_color_h;
+        float m_color_h;
     };
 }
 

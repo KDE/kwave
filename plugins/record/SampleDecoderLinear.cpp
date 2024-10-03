@@ -169,7 +169,8 @@ void Kwave::SampleDecoderLinear::decode(QByteArray &raw_data,
     Q_ASSERT(m_decoder);
     if (!m_decoder) return;
 
-    unsigned int samples = raw_data.size() / m_bytes_per_sample;
+    unsigned int raw_size = static_cast<unsigned int>(raw_data.size());
+    unsigned int samples = raw_size / m_bytes_per_sample;
     const quint8 *src  = reinterpret_cast<const quint8 *>(raw_data.constData());
     sample_t *dst = decoded.data();
 

@@ -603,7 +603,7 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
     if (n < 1) n = 1;
     m_buffer_size = n * chunk_bytes;
     m_buffer.resize(m_buffer_size);
-    m_buffer_size = m_buffer.size();
+    m_buffer_size = static_cast<unsigned int>(m_buffer.size());
 
 //     qDebug("PlayBackALSA::open: OK, buffer resized to %u bytes",
 //            m_buffer_size);

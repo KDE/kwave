@@ -298,7 +298,7 @@ void Kwave::SonagramPlugin::makeAllValid()
             if (selected_tracks.contains(signalManager().uuidOfTrack(track)))
                 track_list.append(track);
     }
-    const unsigned int tracks = track_list.count();
+    const unsigned int tracks = static_cast<unsigned int>(track_list.count());
 
     Kwave::WindowFunction func(window_type);
     const QVector<double> windowfunction = func.points(fft_points);

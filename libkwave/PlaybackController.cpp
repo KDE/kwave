@@ -407,9 +407,10 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
     unsigned int out_channels = m_playback_params.channels;
 
     QVector<unsigned int> all_tracks = m_signal_manager.allTracks();
-    unsigned int tracks = all_tracks.count();
+    unsigned int tracks = static_cast<unsigned int>(all_tracks.count());
     QVector<unsigned int> audible_tracks = m_signal_manager.selectedTracks();
-    unsigned int audible_count = audible_tracks.count();
+    unsigned int audible_count =
+        static_cast<unsigned int>(audible_tracks.count());
 
     // get the list of selected channels
     if (!tracks || !m_device) {
@@ -462,7 +463,8 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 
                 if (!mixer) {
                     audible_tracks = m_signal_manager.selectedTracks();
-                    audible_count = audible_tracks.count();
+                    audible_count  =
+                        static_cast<unsigned int>(audible_tracks.count());
                     mixer = new(std::nothrow)
                         Kwave::MixerMatrix(audible_count, out_channels);
                     Q_ASSERT(mixer);
@@ -631,7 +633,8 @@ Kwave::PlayBackDevice *Kwave::PlaybackController::openDevice(
     if (!playback_params) {
         if (!m_signal_manager.isClosed() && !m_signal_manager.isEmpty()) {
             params.rate     = m_signal_manager.rate();
-            params.channels = m_signal_manager.selectedTracks().count();
+            params.channels = static_cast<unsigned int>(
+                m_signal_manager.selectedTracks().count());
         }
     }
 

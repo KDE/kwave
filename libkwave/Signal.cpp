@@ -79,8 +79,10 @@ Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
         if (!t) return nullptr;
 
         // clip the track index
-        if (Kwave::toInt(index) > m_tracks.count())
-            index = m_tracks.count();
+        {
+            unsigned int tracks = static_cast<int>(m_tracks.count());
+            if (index > tracks) index = tracks;
+        }
 
         // insert / append to the list
         m_tracks.insert(index, t);
@@ -251,7 +253,7 @@ void Kwave::Signal::insertSpace(unsigned int track, sample_index_t offset,
 unsigned int Kwave::Signal::tracks()
 {
     QReadLocker lock(&m_lock_tracks);
-    return m_tracks.count();
+    return static_cast<unsigned int>(m_tracks.count());
 }
 
 //***************************************************************************
@@ -575,8 +577,9 @@ unsigned int Kwave::Signal::trackIndex(const Kwave::Track *track)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    int index = m_tracks.indexOf(const_cast<Kwave::Track *>(track));
-    return (index >= 0) ? index : m_tracks.count();
+    qsizetype index = m_tracks.indexOf(const_cast<Kwave::Track *>(track));
+    if (index < 0) index = m_tracks.count();
+    return static_cast<unsigned int>(index);
 }
 
 //***************************************************************************

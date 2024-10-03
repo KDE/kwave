@@ -103,7 +103,8 @@ void Kwave::FilterPlugin::run(QStringList params)
     // switch to interactive mode in pre-listen mode
     Kwave::StreamObject::setInteractive(m_listen);
 
-    Kwave::SampleSource *filter = createFilter(tracks.count());
+    Kwave::SampleSource *filter =
+        createFilter(static_cast<unsigned int>(tracks.count()));
     Q_ASSERT(filter);
 
     // create all objects
@@ -212,7 +213,8 @@ void Kwave::FilterPlugin::startPreListen()
 {
     Q_ASSERT(!m_sink);
     delete m_sink;
-    m_sink = manager().openMultiTrackPlayback(selectedTracks().count());
+    m_sink = manager().openMultiTrackPlayback(
+        static_cast<unsigned int>(selectedTracks().count()));
 
     if (m_sink) {
         m_listen = true;

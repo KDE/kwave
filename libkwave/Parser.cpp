@@ -34,13 +34,12 @@ Kwave::Parser::Parser (const QString &init)
     QString line       = init.trimmed();
     unsigned int level = 0;
     bool escaped       = false;
-    int pos;
 
     m_commands = splitCommands(line);
     line = m_commands.first();
 
     // --- parse the command ---
-    pos = line.indexOf(QLatin1Char('('));
+    qsizetype pos = line.indexOf(QLatin1Char('('));
     if (pos >= 0) {
         // command present
         m_command = line.left(pos).simplified();

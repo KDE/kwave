@@ -76,7 +76,7 @@ void Kwave::OpusDecoder::parseComment(Kwave::FileInfo &info,
                                       const QString &comment)
 {
     // assume that there is a '=' between tag and value
-    int pos = comment.indexOf(_("="));
+    qsizetype pos = comment.indexOf(_("="));
     if (pos < 1) {
         qWarning("OpusDecoder: malformed comment: '%s'", DBG(comment));
         return;

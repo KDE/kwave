@@ -320,7 +320,7 @@ void Kwave::SonagramWindow::insertSlice(const unsigned int slice_nr,
     if (slice_nr >= image_width) return;
 
     unsigned int y;
-    unsigned int size = slice.size();
+    unsigned int size = static_cast<unsigned int>(slice.size());
     for (y = 0; y < size; y++) {
         quint8 p;
 

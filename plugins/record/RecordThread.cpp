@@ -80,21 +80,22 @@ int Kwave::RecordThread::setBuffers(unsigned int count, unsigned int size)
     m_buffer_count = count;
 
     // return number of buffers or -ENOMEM if not even two allocated
-    return (m_empty_queue.count() >= 2) ? m_empty_queue.count() : -ENOMEM;
+    return (m_empty_queue.count() >= 2) ?
+        static_cast<unsigned int>(m_empty_queue.count()) : -ENOMEM;
 }
 
 //***************************************************************************
 unsigned int Kwave::RecordThread::remainingBuffers()
 {
     QMutexLocker lock(&m_lock);
-    return (m_empty_queue.count());
+    return static_cast<unsigned int>(m_empty_queue.count());
 }
 
 //***************************************************************************
 unsigned int Kwave::RecordThread::queuedBuffers()
 {
     QMutexLocker lock(&m_lock);
-    return (m_full_queue.count());
+    return static_cast<unsigned int>(m_full_queue.count());
 }
 
 //***************************************************************************
@@ -128,7 +129,7 @@ void Kwave::RecordThread::run()
         // dequeue a buffer from the "empty" queue
 
         QByteArray buffer;
-        int        len;
+        qsizetype  len;
         {
             QMutexLocker lock(&m_lock);
 

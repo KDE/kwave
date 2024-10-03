@@ -164,7 +164,7 @@ int Kwave::MenuManager::executeCommand(const QString &command)
         QRegularExpression rx{_("::(\\w+)"),
             QRegularExpression::CaseInsensitiveOption};
         QRegularExpressionMatch match;
-        int p = 0;
+        qsizetype p = 0;
         while ((p = param.indexOf(rx, 0, &match)) >= 0) {
             QString stdname = match.captured(1);
             if (m_standard_keys.contains(stdname)) {
@@ -175,7 +175,8 @@ int Kwave::MenuManager::executeCommand(const QString &command)
             } else {
                 // unknown standard key sequence name?
                 qWarning("MenuManager::executeCommand: pos=%d, stdname='%s' "
-                         "-> UNKNOWN ???", p, DBG(stdname));
+                         "-> UNKNOWN ???",
+                         static_cast<int>(p), DBG(stdname));
                 break;
             }
         }

@@ -419,9 +419,9 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
 
                 // split the icon name from the token
                 QString icon_name;
-                int pos = token.indexOf(QLatin1Char('|'));
+                qsizetype pos = token.indexOf(QLatin1Char('|'));
                 if (pos > 0) {
-                    icon_name = token.mid(pos+1);
+                    icon_name = token.mid(pos + 1);
                     token     = token.left(pos);
                 }
 

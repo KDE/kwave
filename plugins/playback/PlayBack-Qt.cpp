@@ -180,7 +180,8 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
 
     // calculate an appropriate timeout, based on the buffer size
     unsigned int bytes_per_frame = m_encoder->rawBytesPerSample() * channels;
-    unsigned int buffer_size = qMax<int>(m_buffer_size, m_output->bufferSize());
+    unsigned int buffer_size = qMax<unsigned int>(m_buffer_size,
+        static_cast<unsigned int>(m_output->bufferSize()));
     unsigned int buffer_frames =
         ((buffer_size * 2) + (bytes_per_frame - 1)) / bytes_per_frame;
     int timeout = qMax(Kwave::toInt((1000 * buffer_frames) / rate), 100);
@@ -282,7 +283,8 @@ int Kwave::PlayBackQt::close()
     QMutexLocker _lock(&m_lock); // context: main thread
 
     if (m_output && m_encoder) {
-        int pad_bytes_cnt   = m_output->bufferSize();
+        unsigned int pad_bytes_cnt =
+            static_cast<unsigned int>(m_output->bufferSize());
         int bytes_per_frame = m_output->format().bytesPerFrame();
         if ((pad_bytes_cnt > 0) && (bytes_per_frame > 0)) {
             unsigned int pad_samples_cnt = pad_bytes_cnt / bytes_per_frame;

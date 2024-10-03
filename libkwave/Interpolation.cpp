@@ -80,7 +80,7 @@ QString Kwave::Interpolation::name(interpolation_t type)
 //***************************************************************************
 unsigned int Kwave::Interpolation::count()
 {
-    return (m_curve ? m_curve->count() : 0);
+    return (m_curve ? static_cast<unsigned int>(m_curve->count()) : 0);
 }
 
 //***************************************************************************
@@ -263,7 +263,7 @@ QVector<double> Kwave::Interpolation::interpolation(
         case INTPOL_SPLINE:
         {
             int t = 1;
-            unsigned int count = points.count();
+            unsigned int count = static_cast<unsigned int>(points.count());
 
             double ny = 0;
             QVector<double> der(count + 1);
@@ -312,7 +312,7 @@ QVector<double> Kwave::Interpolation::interpolation(
         case INTPOL_POLYNOMIAL7:
         {
             if (!degree) degree = 7;
-            const unsigned int count = points.count();
+            unsigned int count = static_cast<unsigned int>(points.count());
             if (count) {
                 QVector<double> x(7);
                 QVector<double> y(7);
@@ -343,10 +343,10 @@ QVector<double> Kwave::Interpolation::interpolation(
         }
         case INTPOL_NPOLYNOMIAL:
         {
-            const int count = points.count();
+            const int count = static_cast<int>(points.count());
             if (count != 0) {
-                QVector<double> x(count+1);
-                QVector<double> y(count+1);
+                QVector<double> x(count + 1);
+                QVector<double> y(count + 1);
 
                 createFullPolynom(points, x, y);
 

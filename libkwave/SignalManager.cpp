@@ -326,7 +326,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
         // zero-length -> nothing to do
         ofs = m_selection.offset();
         len = m_selection.length();
-        tracks = selectedTracks().count();
+        tracks = static_cast<unsigned int>(selectedTracks().count());
     }
 
     if (!tracks || !len) {
@@ -691,7 +691,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
                 // remember the last selection
                 rememberCurrentSelection();
 
-                unsigned int count = tracks.count();
+                unsigned int count = static_cast<unsigned int>(tracks.count());
                 while (count--) {
                     m_signal.deleteRange(count, offset+length, rest);
                     m_signal.deleteRange(count, 0, offset);
@@ -1091,11 +1091,9 @@ bool Kwave::SignalManager::insertSpace(sample_index_t offset,
                                        sample_index_t length,
                                        const QVector<unsigned int> &track_list)
 {
-    if (!length) return true; // nothing to do
-    Kwave::UndoTransactionGuard undo(*this, i18n("Insert Space"));
+    if (!length || track_list.isEmpty()) return true; // nothing to do
 
-    unsigned int count = track_list.count();
-    if (!count) return true; // nothing to do
+    Kwave::UndoTransactionGuard undo(*this, i18n("Insert Space"));
 
     // first store undo data for all tracks
     if (m_undo_enabled) {

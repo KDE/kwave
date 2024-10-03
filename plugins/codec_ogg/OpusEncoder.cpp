@@ -711,11 +711,11 @@ bool Kwave::OpusEncoder::writeOpusTags(QIODevice &dst)
     }
 
     // write the number of user tags
-    _writeInt(buffer, tags.count());
+    _writeInt(buffer, static_cast<quint32>(tags.count()));
 
     // serialize the tags into the buffer
     foreach (const QByteArray &tag, tags) {
-        _writeInt(buffer, tag.size());
+        _writeInt(buffer, static_cast<quint32>(tag.size()));
         buffer.write(tag);
     }
 
@@ -836,10 +836,7 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
                                 QIODevice &dst)
 {
     long int     eos             =  0;
-    opus_int64   nb_encoded      =  0;
     opus_int64   nb_samples      = -1;
-    opus_int64   total_bytes     =  0;
-    opus_int64   total_samples   =  0;
     ogg_int64_t  enc_granulepos  =  0;
     ogg_int64_t  last_granulepos =  0;
     ogg_int32_t  packet_id       =  1;
@@ -859,7 +856,6 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
 
         if (nb_samples < 0) {
             nb_samples = fillInBuffer(src);
-            total_samples += nb_samples;
             m_op.e_o_s = (nb_samples < m_frame_size) ? 1 : 0;
         }
         m_op.e_o_s |= eos; // eof from last pass
@@ -888,9 +884,7 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
             return false;
         }
 
-        nb_encoded     += m_frame_size;
         enc_granulepos += m_frame_size * 48000 / m_coding_rate;
-        total_bytes    += nbBytes;
         size_segments   = (nbBytes + 255) / 255;
 
         // flush early if adding this packet would make us end up with a
@@ -922,7 +916,6 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
         // low delay behavior.
         if ((!m_op.e_o_s ) && (max_ogg_delay > 5760)) {
             nb_samples = fillInBuffer(src);
-            total_samples += nb_samples;
             if (nb_samples < m_frame_size) eos = 1;
             if (nb_samples == 0) m_op.e_o_s = 1;
         } else {

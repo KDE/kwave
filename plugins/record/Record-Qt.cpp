@@ -48,9 +48,6 @@
 /** gui name of the default device */
 #define DEFAULT_DEVICE (i18n("Default device") + _("|sound_note"))
 
-/** timeout for read operation [ms] */
-#define RECORD_POLL_TIMEOUT 200
-
 /**
  * factor that determines how much the device device buffer should be larger
  * compared to the buffers used by the record plugin
@@ -373,7 +370,7 @@ int Kwave::RecordQt::read(QByteArray &buffer, unsigned int offset)
     if (buffer.isNull() || buffer.isEmpty())
         return 0; // no buffer, nothing to do
 
-    int buffer_size = buffer.size();
+    unsigned int buffer_size = static_cast<unsigned int>(buffer.size());
 
     // we configure our device at a late stage, otherwise we would not
     // know the internal buffer size
@@ -391,8 +388,8 @@ int Kwave::RecordQt::read(QByteArray &buffer, unsigned int offset)
     if ((buffer_size > 0) && (m_input->bufferSize() != buffer_size))
         m_input->setBufferSize(buffer_size * BUFFER_SIZE_OVERCOMMIT);
 
-    char *p = buffer.data() + offset;
-    unsigned int len = buffer.length() - offset;
+    char  *p      = buffer.data()   + offset;
+    qint64 len    = buffer.length() - offset;
     qint64 length = m_source->read(p, len);
 
     return (length < 1) ? -EAGAIN : Kwave::toInt(length);

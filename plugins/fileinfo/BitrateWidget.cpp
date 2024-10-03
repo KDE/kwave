@@ -95,15 +95,13 @@ int Kwave::BitrateWidget::nearestIndex(int rate)
         if (qAbs(i - rate) < qAbs(nearest - rate)) nearest = i;
 
     // find the index
-    int index = m_rates.contains(nearest) ? m_rates.indexOf(nearest) : 0;
+    qsizetype index = m_rates.contains(nearest) ?
+        m_rates.indexOf(nearest) : 0;
 
     // limit the index into a reasonable range
-    if (index < 0)
-        index = 0;
-    if (index >= Kwave::toInt(m_rates.size()))
-        index = m_rates.size()-1;
+    index = qBound(0, index, m_rates.size() - 1);
 
-    return index;
+    return static_cast<int>(index);
 }
 
 //***************************************************************************

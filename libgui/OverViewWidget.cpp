@@ -137,7 +137,7 @@ void Kwave::OverViewWidget::mousePressEvent(QMouseEvent *e)
     }
 
     // move the clicked position to the center of the viewport
-    sample_index_t offset = pixels2offset(e->position().x());
+    sample_index_t offset = pixels2offset(e->position().toPoint().x());
     if (offset != m_last_offset) {
         sample_index_t half = (m_view_width / 2);
         offset = (offset > half) ? (offset - half) : 0;
@@ -158,7 +158,7 @@ void Kwave::OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
     }
 
     // move the clicked position to the center of the viewport
-    sample_index_t offset = pixels2offset(e->position().x());
+    sample_index_t offset = pixels2offset(e->position().toPoint().x());
     if (offset != m_last_offset) {
         m_last_offset = offset;
         emit valueChanged(offset);

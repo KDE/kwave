@@ -102,7 +102,7 @@ unsigned int Kwave::Filter::resize(unsigned int newnum)
 unsigned int Kwave::Filter::count()
 {
     Q_ASSERT(m_coeff.count() == m_delay.count());
-    return m_coeff.count();
+    return static_cast<unsigned int>(m_coeff.count());
 }
 
 //***************************************************************************
@@ -196,7 +196,7 @@ void Kwave::Filter::load(const QString &filename)
         if ((line[0] == QLatin1Char('#')) || (line[0] == QLatin1Char('/')))
             continue;
 
-        int spacepos = line.indexOf(QLatin1Char(' '));
+        qsizetype spacepos = line.indexOf(QLatin1Char(' '));
         ok = true;
         m_delay[i] = line.left(spacepos).toUInt(&ok);
         line.remove(0, spacepos);

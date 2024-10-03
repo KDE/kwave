@@ -213,7 +213,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 
     // get the index range
     scanBlocksToSave(base, selection_only);
-    unsigned int count = m_block_info.count();
+    unsigned int count = static_cast<unsigned int>(m_block_info.count());
     unsigned int first = firstIndex(path, base, ext, m_pattern,
                                     m_numbering_mode, count);
 
@@ -692,12 +692,12 @@ QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
                                 QRegularExpression::CaseInsensitiveOption);
 
     QString p = QRegularExpression::escape(pattern);
-    int idx_nr       = p.indexOf(rx_nr);
-    int idx_count    = p.indexOf(rx_count);
-    int idx_total    = p.indexOf(rx_total);
-    int idx_filename = p.indexOf(rx_filename);
-    int idx_fileinfo = p.indexOf(rx_fileinfo);
-    int idx_title    = p.indexOf(rx_fileinfo);
+    qsizetype idx_nr       = p.indexOf(rx_nr);
+    qsizetype idx_count    = p.indexOf(rx_count);
+    qsizetype idx_total    = p.indexOf(rx_total);
+    int       idx_filename = static_cast<int>(p.indexOf(rx_filename));
+    qsizetype idx_fileinfo = p.indexOf(rx_fileinfo);
+    qsizetype idx_title    = p.indexOf(rx_fileinfo);
     p.replace(rx_nr,       _("(\\d+)"));
     p.replace(rx_count,    _("(\\d+)"));
     p.replace(rx_total,    _("(\\d+)"));
@@ -705,8 +705,8 @@ QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
     p.replace(rx_fileinfo, _("(.+)"));
     p.replace(rx_title,    _("(.+)"));
 
-    int max = 0;
-    for (int i = 0; i < pattern.length(); i++) {
+    qsizetype max = 0;
+    for (qsizetype i = 0; i < pattern.length(); i++) {
         if (idx_nr       == max) max++;
         if (idx_count    == max) max++;
         if (idx_total    == max) max++;
@@ -746,7 +746,7 @@ QString Kwave::SaveBlocksPlugin::firstFileName(const QString &filename,
     // now we have a new name, base and extension
     // -> find out the numbering, min/max etc...
     scanBlocksToSave(base, selection_only);
-    unsigned int count = m_block_info.count();
+    unsigned int count = static_cast<unsigned int>(m_block_info.count());
     unsigned int first = firstIndex(path, base, ext, pattern, mode, count);
     unsigned int total = first + count - 1;
 

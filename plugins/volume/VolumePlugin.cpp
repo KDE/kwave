@@ -139,7 +139,8 @@ void Kwave::VolumePlugin::run(QStringList params)
         signalManager(), selectedTracks(), first, last);
     Kwave::MultiTrackWriter sink(signalManager(), tracks, Kwave::Overwrite,
         first, last);
-    Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks.count());
+    Kwave::MultiTrackSource<Kwave::Mul, true> mul(
+        static_cast<unsigned int>(tracks.count()));
 
     // connect the progress dialog
     connect(&source, SIGNAL(progress(qreal)),

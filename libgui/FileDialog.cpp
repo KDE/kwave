@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-
 #include <QFileInfo>
 #include <QMimeDatabase>
 #include <QMimeType>
@@ -135,25 +134,25 @@ Kwave::FileDialog::FileDialog(
             QString f(filter_item);
             QStringList p(u"*"_s);
             if (f.contains(_("|"))) {
-                int i = f.indexOf(_("|"));
+                qsizetype i = f.indexOf(_("|"));
                 p = f.left(i).split(u" "_s);
                 f = f.mid(i + 1);
             }
             if (!f.length()) continue;
 
-            KFileFilter file_filter = KFileFilter(f, p, QStringList());
+            KFileFilter ff = KFileFilter(f, p, QStringList());
             // put the last extension to the top of the list
             // and thus make it selected
             if (m_last_ext.length()) {
                 if (p.contains(m_last_ext)) {
                     if (!best_filter.isValid() ||
                         (p.length() <= best_filter.filePatterns().length())) {
-                        best_filter = file_filter;
+                        best_filter = ff;
                     }
                 }
             }
 
-            name_filters.append(file_filter);
+            name_filters.append(ff);
         }
         if (best_filter.isValid()) {
             name_filters.removeAll(best_filter);
@@ -216,7 +215,7 @@ void Kwave::FileDialog::saveConfig()
         // tricky case: filename mask
         QString pattern = m_file_widget.currentFilter().toFilterString();
         if (pattern.contains(_("|"))) {
-            int i = pattern.indexOf(_("|"));
+            qsizetype i = pattern.indexOf(_("|"));
             pattern = pattern.left(i);
         }
         m_last_ext = _("");
@@ -305,7 +304,7 @@ QString Kwave::FileDialog::guessFilterFromFileExt(const QString &pattern,
     foreach (const QString &filter, filters.split(_(" "))) {
         QString p = filter;
         if (p.contains(_("|"))) {
-            int i = p.indexOf(_("|"));
+            qsizetype i = p.indexOf(_("|"));
             p = p.left(i);
         }
         foreach (const QString &mask, p.split(_(" "))) {

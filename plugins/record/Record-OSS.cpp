@@ -134,7 +134,7 @@ int Kwave::RecordOSS::read(QByteArray &buffer, unsigned int offset)
     struct timeval tv;
     int retval;
     int read_bytes = 0;
-    unsigned int length = buffer.size();
+    unsigned int length = static_cast<unsigned int>(buffer.size());
 
 //     qDebug("RecordOSS::read(), offset=%d, length=%d", offset, length);
     Q_ASSERT(m_fd >= 0);

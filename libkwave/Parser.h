@@ -74,7 +74,7 @@ namespace Kwave
 
         /** Returns the number of parameters. */
         inline unsigned int count() const {
-            return m_param.count();
+            return static_cast<unsigned int>(m_param.count());
         }
 
         /**

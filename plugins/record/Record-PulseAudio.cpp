@@ -666,7 +666,7 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
     if (buffer.isNull() || buffer.isEmpty())
         return 0; // no buffer, nothing to do
 
-    unsigned int length = buffer.size();
+    unsigned int length = static_cast<unsigned int>(buffer.size());
 
     // we configure our device at a late stage, not on the fly like in OSS
     if (!m_initialized) {
@@ -680,7 +680,7 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
     size_t readableSize = pa_stream_readable_size(m_pa_stream);
     if (readableSize > freeBytes) {
         size_t additional_size = readableSize - freeBytes;
-        buffer.resize(static_cast<int>(length + additional_size));
+        buffer.resize(length + additional_size);
     }
 
     size_t readLength = 0;

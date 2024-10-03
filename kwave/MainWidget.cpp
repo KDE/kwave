@@ -280,7 +280,8 @@ void Kwave::MainWidget::dropEvent(QDropEvent *event)
     if (signal_manager->isEmpty() &&
         Kwave::Drag::canDecode(event->mimeData()))
     {
-        sample_index_t pos = m_offset + pixels2samples(event->position().x());
+        sample_index_t pos = m_offset + pixels2samples(
+            event->position().toPoint().x());
         sample_index_t len = 0;
 
         if ((len = Kwave::Drag::decode(this, event->mimeData(),

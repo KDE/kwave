@@ -528,7 +528,7 @@ int Kwave::RecordALSA::initialize()
 //***************************************************************************
 int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
 {
-    unsigned int length = buffer.size();
+    unsigned int length = static_cast<unsigned int>(buffer.size());
 
     if (!m_handle) return m_open_result; // file not opened / open has failed
     if (!length)   return 0;             // no buffer, nothing to do

@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-
 #include <new>
 
 #include <QMutexLocker>
@@ -80,7 +79,7 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 {
     QMutexLocker lock(&m_lock_buffer);
     if (offset == m_offset) return; // no change
-    const unsigned int buflen = m_valid.size();
+    const unsigned int buflen = static_cast<unsigned int>(m_valid.size());
 
     if (m_minmax_mode) {
         // move content of min and max buffer
@@ -190,7 +189,7 @@ void Kwave::TrackPixmap::resizeBuffer()
 {
     bool ok = true;
     int buflen;
-    int oldlen = m_valid.size();
+    int oldlen = static_cast<int>(m_valid.size());
     int w      = width();
     Q_ASSERT(w >= 0);
 
@@ -272,7 +271,7 @@ bool Kwave::TrackPixmap::validateBuffer()
 {
     int first = 0;
     int last = 0;
-    int buflen = m_valid.size();
+    int buflen = static_cast<int>(m_valid.size());
 
     sample_index_t left  = m_offset;
     sample_index_t right = (m_track.length()) ? (m_track.length() - 1) : 0;
@@ -553,7 +552,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     int N;
     int sample;
     int x;
-    int buflen = m_valid.size();
+    int buflen = static_cast<int>(m_valid.size());
     const Kwave::SampleArray &sample_buffer = m_sample_buffer;
 
 //     qDebug("TrackPixmap::drawInterpolatedSignal()");
@@ -717,8 +716,8 @@ void Kwave::TrackPixmap::slotSamplesInserted(Kwave::Track *,
         if (!length) return; // false alarm
 
         // mark all positions from here to right end as "invalid"
-        const int first = Kwave::toInt(offset);
-        const int last  = m_valid.size();
+        const qsizetype first = offset;
+        const qsizetype last  = m_valid.size();
         Q_ASSERT(first < m_valid.size());
         Q_ASSERT(last  > first);
         m_valid.fill(false, first, last);
@@ -743,8 +742,8 @@ void Kwave::TrackPixmap::slotSamplesDeleted(Kwave::Track *,
         if (!length) return; // false alarm
 
         // mark all positions from here to right end as "invalid"
-        const int first = Kwave::toInt(offset);
-        const int last  = m_valid.size();
+        const qsizetype first = offset;
+        const qsizetype last  = m_valid.size();
         Q_ASSERT(first < m_valid.size());
         Q_ASSERT(last  > first);
         m_valid.fill(false, first, last);
@@ -794,7 +793,7 @@ void Kwave::TrackPixmap::convertOverlap(sample_index_t &offset,
         return; // not yet in view
     }
 
-    unsigned int buflen = m_valid.size();
+    unsigned int buflen = static_cast<unsigned int>(m_valid.size());
     if (!buflen) {
         offset = 0;
         length = 0;

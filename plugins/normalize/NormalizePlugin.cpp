@@ -100,7 +100,7 @@ void Kwave::NormalizePlugin::run(QStringList params)
     Kwave::MultiTrackWriter sink(signalManager(), tracks, Kwave::Overwrite,
         first, last);
     Kwave::MultiTrackSource<Kwave::Normalizer, true> normalizer(
-        tracks.count(), this);
+        static_cast<unsigned int>(tracks.count()), this);
 
     // break if aborted
     if (!sink.tracks()) return;

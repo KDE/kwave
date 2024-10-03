@@ -238,7 +238,7 @@ bool Kwave::K3BExportPlugin::detectBlockMetaData(
         placeholder_esc = Kwave::Parser::escape(placeholder);
         if (pattern_esc.contains(placeholder_esc)) {
             const QString rx_string = _("(.+)");
-            int pos = pattern.indexOf(placeholder);
+            int pos = static_cast<int>(pattern.indexOf(placeholder));
             pattern_esc.replace(placeholder_esc, rx_string);
             map_result.insert(pos, map_patterns[placeholder]);
         }
@@ -634,7 +634,7 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
 
     // create a list of blocks to save, but not yet the output file names
     scanBlocksToSave(base, selection_left, selection_right);
-    unsigned int count = m_block_info.count();
+    unsigned int count = static_cast<unsigned int>(m_block_info.count());
     if (!count)
         return -EINVAL;
 

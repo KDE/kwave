@@ -159,7 +159,7 @@ void Kwave::RIFFParser::detectEndianness()
     double half = static_cast<double>(m_dev.size() >> 1);
 
     // loop over all chunk names
-    int count = names.count();
+    int count = static_cast<int>(names.count());
     int index = 0;
     foreach (QString chunk_name, names) {
         // scan all offsets where the name matches
@@ -268,7 +268,7 @@ Kwave::RIFFChunk *Kwave::RIFFParser::addChunk(
         }
     }
 
-    int index = (before) ? chunks.indexOf(before) : chunks.size();
+    qsizetype index = (before) ? chunks.indexOf(before) : chunks.size();
     chunks.insert(index, chunk);
 
     return chunk;
@@ -554,7 +554,7 @@ Kwave::RIFFChunk *Kwave::RIFFParser::findMissingChunk(const QByteArray &name)
     listAllChunks(m_root, all_chunks);
 
     int index = 0;
-    int count = all_chunks.count();
+    int count = static_cast<int>(all_chunks.count());
     foreach (Kwave::RIFFChunk *chunk, all_chunks) {
         if (m_cancel) break;
         if (!chunk) continue;

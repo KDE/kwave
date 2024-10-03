@@ -287,7 +287,8 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
                 continue;
             }
         }
-        const unsigned int dst_tracks = sig.selectedTracks().count();
+        const unsigned int dst_tracks =
+            static_cast<unsigned int>(sig.selectedTracks().count());
 
         // create the final sink
         Kwave::MultiTrackWriter dst(sig, sig.selectedTracks(),

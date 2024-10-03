@@ -100,7 +100,7 @@ namespace Kwave
          */
         unsigned int tracks() const override
         {
-            return QList<SOURCE *>::size();
+            return static_cast<unsigned int>(QList<SOURCE *>::size());
         }
 
         /**

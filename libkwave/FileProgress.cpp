@@ -232,7 +232,7 @@ void Kwave::FileProgress::fitUrlLabel()
     while (m_lbl_url->sizeHint().width() > width) {
         // delete characters in the middle of the string
         url = m_url.toString();
-        int len = url.length();
+        int len = static_cast<int>(url.length());
         if (len <= todel) break;
         url = url.left((len-todel)/2) + _("...") +
             url.right((len-todel)/2 + 4);

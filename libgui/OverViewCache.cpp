@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-
 #include <math.h>
 
 #include <QColor>
@@ -275,7 +274,7 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
     if (minmax.count() < width)
         minmax.resize(width);
     if (minmax.count() < width) // truncated, OOM
-        width = minmax.count();
+        width = static_cast<int>(minmax.count());
 
     QVector<unsigned int> track_list;
     const QList<QUuid> selected_tracks = m_selection.allTracks();

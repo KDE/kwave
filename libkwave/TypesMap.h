@@ -81,7 +81,7 @@ namespace Kwave
 
         /** Returns the number of types. */
         inline unsigned int count() const {
-            return m_list.count();
+            return static_cast<unsigned int>(m_list.count());
         }
 
         /**

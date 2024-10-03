@@ -1188,7 +1188,8 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
                                 unsigned int track,
                                 unsigned int tracks)
 {
-    unsigned int samples = raw_data.size() / bytes_per_sample / tracks;
+    unsigned int raw_data_size = static_cast<unsigned int>(raw_data.size());
+    unsigned int samples = (raw_data_size / bytes_per_sample) / tracks;
 
 #if 0
     // simple sawtooth generator, based on raw data
@@ -1489,7 +1490,8 @@ void Kwave::RecordPlugin::processBuffer()
     Q_ASSERT(bytes_per_sample);
     if (!bytes_per_sample) return;
 
-    unsigned int samples = (buffer.size() / bytes_per_sample) / tracks;
+    unsigned int buffer_size = static_cast<unsigned int>(buffer.size());
+    unsigned int samples = (buffer_size / bytes_per_sample) / tracks;
     Q_ASSERT(samples);
     if (!samples) return;
 

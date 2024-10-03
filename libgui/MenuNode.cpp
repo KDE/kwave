@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-
 #include <new>
 
 #include <QLatin1Char>
@@ -256,7 +255,7 @@ void Kwave::MenuNode::insertNode(const QString &name,
                                  const QKeySequence &shortcut,
                                  const QString &uid)
 {
-    int pos = 0;
+    qsizetype pos = 0;
 
     if (!position.length()) {
         qWarning("MenuNode::insertNode: no position!");

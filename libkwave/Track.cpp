@@ -135,7 +135,7 @@ bool Kwave::Track::mergeStripe(Kwave::Stripe &stripe)
 {
     sample_index_t left  = stripe.start();
     sample_index_t right = stripe.end();
-    int index_before = -1;
+    qsizetype      index_before = 0;
 
 //     qDebug("Track::mergeStripe() [%llu - %llu]", left, right);
 //     dump();
@@ -504,7 +504,7 @@ bool Kwave::Track::appendAfter(Stripe *stripe,  sample_index_t offset,
         buf_offset += len;
     }
 
-    int index_before = (stripe) ? (m_stripes.indexOf(*stripe)) : -1;
+    qsizetype index_before = (stripe) ? (m_stripes.indexOf(*stripe)) : 0;
 
     // append new stripes as long as there is something remaining
     while (length) {

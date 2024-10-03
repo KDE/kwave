@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component type="desktop">
-  <id>org.kde.kwave.desktop</id>
+  <id>org.kde.kwave</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
+  <developer id="org.kde">
+    <name translate="no">KDE</name>
+    <url>https://kde.org</url>
+  </developer>
+  <launchable type="desktop-id">org.kde.kwave.desktop</launchable>
   <name>Kwave</name>
   <name xml:lang="bs">Kwave</name>
   <name xml:lang="ca">Kwave</name>
@@ -40,7 +45,7 @@
   <name xml:lang="x-test">xxKwavexx</name>
   <name xml:lang="zh-CN">Kwave</name>
   <name xml:lang="zh-TW">Kwave</name>
-  <summary>Kwave is a sound editor built on KDE Frameworks 5</summary>
+  <summary>Kwave is a sound editor built on the KDE Frameworks</summary>
   <summary xml:lang="ca">El Kwave és un editor de so construït amb els Frameworks 5 del KDE</summary>
   <summary xml:lang="ca-valencia">Kwave és un editor de so construït amb els Frameworks 5 de KDE</summary>
   <summary xml:lang="cs">KWave je editor zvuku postavený na KDE Frameworks 5</summary>
@@ -152,9 +157,10 @@
     <p xml:lang="zh-CN">Kwave 包括了一些插件从而提供了多种方式转换音频文件，以及通过可缩放滚动的图形视图展示它们。</p>
     <p xml:lang="zh-TW">Kwave 包含一些外掛程式，來用不同的方法轉換音效檔，並以圖形化方式呈現。</p>
   </description>
-  <url type="homepage">http://kwave.sourceforge.net/</url>
+  <url type="homepage">https://kwave.sourceforge.net/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kwave</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kwave&amp;source=appdata</url>
+  <url type="vcs-browser">https://invent.kde.org/multimedia/kwave</url>
   <screenshots>
     <screenshot type="default">
       <caption>Kwave in action</caption>

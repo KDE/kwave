@@ -312,7 +312,6 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
         foreach (const QString &missing, missing_dirs) {
             QUrl url(base_url);
             url.setPath(
-                base_url.path(QUrl::FullyEncoded) +
                 QString::fromLatin1(QUrl::toPercentEncoding(missing)),
                 QUrl::StrictMode
             );

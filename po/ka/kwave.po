@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-23 00:38+0000\n"
+"POT-Creation-Date: 2024-10-04 00:39+0000\n"
 "PO-Revision-Date: 2024-09-29 08:28+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Save As"
 msgstr "შენახვა როგორც"
 
-#: kwave/FileContext.cpp:1018 kwave/MainWidget.cpp:994
+#: kwave/FileContext.cpp:1018 kwave/MainWidget.cpp:995
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -428,22 +428,22 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Kwave-ის ჭდეების სია"
 
-#: kwave/MainWidget.cpp:900 libkwave/SignalManager.cpp:1866
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1864
 #, kde-format
 msgid "Add Label"
 msgstr "ჭდის დამატება"
 
-#: kwave/MainWidget.cpp:934 kwave/MainWidget.cpp:947
+#: kwave/MainWidget.cpp:935 kwave/MainWidget.cpp:948
 #, kde-format
 msgid "Load Labels"
 msgstr "ჭდეების ჩატვირთვა"
 
-#: kwave/MainWidget.cpp:970
+#: kwave/MainWidget.cpp:971
 #, kde-format
 msgid "Save Labels"
 msgstr "ჭდეების შენახვა"
 
-#: kwave/MainWidget.cpp:1077
+#: kwave/MainWidget.cpp:1078
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
@@ -452,7 +452,7 @@ msgstr ""
 "არჩეულ მდებარეობაზე ჭდე უკვე არსებობს.\n"
 "გნებავთ მისი ჩანაცვლება?"
 
-#: kwave/MainWidget.cpp:1104
+#: kwave/MainWidget.cpp:1105
 #, kde-format
 msgid "Modify Label"
 msgstr "ჭდის შეცვლა"
@@ -1188,7 +1188,7 @@ msgstr "ფაილის ჩატვირთვა: '%1'..."
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:515
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:447
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:448
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:159 plugins/playback/PlayBack-Qt.cpp:164
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -1421,7 +1421,7 @@ msgstr "Kwave -ის მრუდის პრესეტი (*.curve)"
 msgid "Save Curve Preset"
 msgstr "მრუდის პრესეტის შენახვა"
 
-#: libgui/FilterPlugin.cpp:238
+#: libgui/FilterPlugin.cpp:240
 #, kde-format
 msgid "Applying '%1'..."
 msgstr "'%1'-ის გადატარება..."
@@ -3311,7 +3311,7 @@ msgstr "ათვლა და შეჩერება"
 msgid "Failed opening the log file '%1' for writing"
 msgstr "ჟურნალის ფაილის '%1' ჩასაწერად გახსნა ჩავარდა"
 
-#: libkwave/PlaybackController.cpp:663
+#: libkwave/PlaybackController.cpp:666
 #, kde-format
 msgid "Unable to open '%1'"
 msgstr "%1-ის გახსნა შეუძლებელია"
@@ -3480,22 +3480,22 @@ msgstr "ბილიკის ჩასმა"
 msgid "Delete Track"
 msgstr "ტრეკის წაშლა"
 
-#: libkwave/SignalManager.cpp:1095
+#: libkwave/SignalManager.cpp:1096
 #, kde-format
 msgid "Insert Space"
 msgstr "გამოტოვების დამატება"
 
-#: libkwave/SignalManager.cpp:1370
+#: libkwave/SignalManager.cpp:1368
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "არასაკმარისი მეხსიერება გაუქმების ინფორმაციის შესანახად."
 
-#: libkwave/SignalManager.cpp:1372
+#: libkwave/SignalManager.cpp:1370
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "გნებავთ გაგრძელება გაუქმების შესაძლებლობის გარეშე?"
 
-#: libkwave/SignalManager.cpp:1374
+#: libkwave/SignalManager.cpp:1372
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3504,42 +3504,42 @@ msgstr ""
 "<b>მინიშნება</b>: ქმედებების გაუქმებისთვის ხელმისაწვდომი მეხსიერების "
 "რაოდენობის მორგება<br>შეგიძლიათ მენიუში '%1'/'%2'."
 
-#: libkwave/SignalManager.cpp:1376
+#: libkwave/SignalManager.cpp:1374
 #, kde-format
 msgid "Settings"
 msgstr "მორგება"
 
-#: libkwave/SignalManager.cpp:1377
+#: libkwave/SignalManager.cpp:1375
 #, kde-format
 msgid "Memory"
 msgstr "მეხსიერება"
 
-#: libkwave/SignalManager.cpp:1521 libkwave/SignalManager.cpp:1528
+#: libkwave/SignalManager.cpp:1519 libkwave/SignalManager.cpp:1526
 #, kde-format
 msgid "Last Action"
 msgstr "ბოლო ქმედება"
 
-#: libkwave/SignalManager.cpp:1818
+#: libkwave/SignalManager.cpp:1816
 #, kde-format
 msgid "Modify File Info"
 msgstr "ფაილის ინფორმაციის შეცვლა"
 
-#: libkwave/SignalManager.cpp:1893
+#: libkwave/SignalManager.cpp:1891
 #, kde-format
 msgid "Delete All Labels"
 msgstr "ყველა ჭდის წაშლა"
 
-#: libkwave/SignalManager.cpp:1912
+#: libkwave/SignalManager.cpp:1910
 #, kde-format
 msgid "Delete Label"
 msgstr "ჭდის წაშლა"
 
-#: libkwave/SignalManager.cpp:2010
+#: libkwave/SignalManager.cpp:2008
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "ტრეკის ხელით არჩევა"
 
-#: libkwave/SignalManager.cpp:2013
+#: libkwave/SignalManager.cpp:2011
 #, kde-format
 msgid "Manual Selection"
 msgstr "ხელით არჩევა"
@@ -3902,43 +3902,43 @@ msgid "Creative Voice"
 msgstr "Creative Voice ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:443
+#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:444
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "ფორმატი ან ფუნქცია განხორციელებული არაა"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:128
-#: plugins/codec_wav/WavEncoder.cpp:450
+#: plugins/codec_wav/WavEncoder.cpp:451
 #, kde-format
 msgid "File header is damaged"
 msgstr "ფაილის თავსართი დაზიანებულია"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:453
+#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:454
 #, kde-format
 msgid "Invalid codec type"
 msgstr "არასწორი კოდეკის ტიპი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:134
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:457
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:458
 #, kde-format
 msgid "Opening the file failed"
 msgstr "ფაილის გახსნა ჩავარდა"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:460
+#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:461
 #, kde-format
 msgid "Read access failed"
 msgstr "წაკითხვის წვდომა ჩავარდა"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:140
-#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:463
+#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:464
 #, kde-format
 msgid "Invalid sample format"
 msgstr "არასწორი სემპლის ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:146
-#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:469
+#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:470
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4064,7 +4064,7 @@ msgstr ""
 "ფაილის ფორმატს, რომელიც აირჩიეთ, მხოლოდ, მონოს და სტერეოს მხარდაჭერა "
 "გააჩნიათ. შენახვისას არხები სტერეოში შეირევა."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:396
+#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:397
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "შესანახი ფაილის გახსნის შეცდომა!"
@@ -4829,7 +4829,7 @@ msgstr "ფაილის თავსართი დაზიანებუ�
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "libaudiofile-ის შიდა შეცდომა #%1: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:349
+#: plugins/codec_wav/WavEncoder.cpp:350
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4838,17 +4838,17 @@ msgstr ""
 "უკაცრავად, ამჟამად არჩეული შეკუმშვის ტიპს შენახვისთვის ვერ გამოიყენებთ. "
 "გნებავთ, სამაგიეროდ, G711 ULAW გამოიყენოთ?"
 
-#: plugins/codec_wav/WavEncoder.cpp:352
+#: plugins/codec_wav/WavEncoder.cpp:353
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "&დიახ, გამოიყენე G711"
 
-#: plugins/codec_wav/WavEncoder.cpp:353
+#: plugins/codec_wav/WavEncoder.cpp:354
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&არა, შეიყვანე შეუკუმშავად"
 
-#: plugins/codec_wav/WavEncoder.cpp:402 plugins/sonagram/SonagramPlugin.cpp:204
+#: plugins/codec_wav/WavEncoder.cpp:403 plugins/sonagram/SonagramPlugin.cpp:204
 #, kde-format
 msgid "File or selection too large"
 msgstr "ფაილი ან მონიშნული მეტისმეტად დიდია"
@@ -6161,7 +6161,7 @@ msgstr "აუდიომოწყობილობა '%1' უცნობი
 msgid "format not supported"
 msgstr "ფორმატი მხარდაჭერილი არაა"
 
-#: plugins/playback/PlayBack-Qt.cpp:192
+#: plugins/playback/PlayBack-Qt.cpp:193
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Qt Multimedia-ის მოწყობილობის '%1' გახსნა ცავარდა"

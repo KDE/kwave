@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-23 00:38+0000\n"
+"POT-Creation-Date: 2024-10-04 00:39+0000\n"
 "PO-Revision-Date: 2020-02-13 12:02+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Save As"
 msgstr "Gravar Como"
 
-#: kwave/FileContext.cpp:1018 kwave/MainWidget.cpp:994
+#: kwave/FileContext.cpp:1018 kwave/MainWidget.cpp:995
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -463,22 +463,22 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Lista de legendas do Kwave"
 
-#: kwave/MainWidget.cpp:900 libkwave/SignalManager.cpp:1866
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1864
 #, kde-format
 msgid "Add Label"
 msgstr "Adicionar uma Legenda"
 
-#: kwave/MainWidget.cpp:934 kwave/MainWidget.cpp:947
+#: kwave/MainWidget.cpp:935 kwave/MainWidget.cpp:948
 #, kde-format
 msgid "Load Labels"
 msgstr "Carregar Legendas"
 
-#: kwave/MainWidget.cpp:970
+#: kwave/MainWidget.cpp:971
 #, kde-format
 msgid "Save Labels"
 msgstr "Gravar as Legendas"
 
-#: kwave/MainWidget.cpp:1077
+#: kwave/MainWidget.cpp:1078
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
@@ -487,7 +487,7 @@ msgstr ""
 "Já existe uma legenda na posição que escolheu.\n"
 "Deseja substituí-la?"
 
-#: kwave/MainWidget.cpp:1104
+#: kwave/MainWidget.cpp:1105
 #, kde-format
 msgid "Modify Label"
 msgstr "Modificar a Legenda"
@@ -1224,7 +1224,7 @@ msgstr "A carregar o ficheiro '%1'..."
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:515
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:447
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:448
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:159 plugins/playback/PlayBack-Qt.cpp:164
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -1457,7 +1457,7 @@ msgstr "Predefinição da curva do Kwave (*.curve)"
 msgid "Save Curve Preset"
 msgstr "Gravar a Predefinição da Curva"
 
-#: libgui/FilterPlugin.cpp:238
+#: libgui/FilterPlugin.cpp:240
 #, kde-format
 msgid "Applying '%1'..."
 msgstr "A aplicar o '%1'..."
@@ -3346,7 +3346,7 @@ msgstr "Amostrar e Reter"
 msgid "Failed opening the log file '%1' for writing"
 msgstr "Não foi possível aceder ao ficheiro de registo '%1' para escrita"
 
-#: libkwave/PlaybackController.cpp:663
+#: libkwave/PlaybackController.cpp:666
 #, kde-format
 msgid "Unable to open '%1'"
 msgstr "Não foi possível aceder ao '%1'"
@@ -3516,24 +3516,24 @@ msgstr "Inserir uma Faixa"
 msgid "Delete Track"
 msgstr "Apagar a Faixa"
 
-#: libkwave/SignalManager.cpp:1095
+#: libkwave/SignalManager.cpp:1096
 #, kde-format
 msgid "Insert Space"
 msgstr "Inserir um Espaço"
 
-#: libkwave/SignalManager.cpp:1370
+#: libkwave/SignalManager.cpp:1368
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr ""
 "Não existe memória suficiente para guardar a informação para desfazer/"
 "refazer."
 
-#: libkwave/SignalManager.cpp:1372
+#: libkwave/SignalManager.cpp:1370
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Deseja continuar sem a possibilidade de desfazer operações?"
 
-#: libkwave/SignalManager.cpp:1374
+#: libkwave/SignalManager.cpp:1372
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3542,42 +3542,42 @@ msgstr ""
 "<b>Sugestão</b>: poderá configurar a quantidade de memória<br/>disponível "
 "para desfazer/refazer em '%1'/'%2'."
 
-#: libkwave/SignalManager.cpp:1376
+#: libkwave/SignalManager.cpp:1374
 #, kde-format
 msgid "Settings"
 msgstr "Configuração"
 
-#: libkwave/SignalManager.cpp:1377
+#: libkwave/SignalManager.cpp:1375
 #, kde-format
 msgid "Memory"
 msgstr "Memória"
 
-#: libkwave/SignalManager.cpp:1521 libkwave/SignalManager.cpp:1528
+#: libkwave/SignalManager.cpp:1519 libkwave/SignalManager.cpp:1526
 #, kde-format
 msgid "Last Action"
 msgstr "Última Acção"
 
-#: libkwave/SignalManager.cpp:1818
+#: libkwave/SignalManager.cpp:1816
 #, kde-format
 msgid "Modify File Info"
 msgstr "Modificar a Informação do Ficheiro"
 
-#: libkwave/SignalManager.cpp:1893
+#: libkwave/SignalManager.cpp:1891
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Apagar Todas as Legendas"
 
-#: libkwave/SignalManager.cpp:1912
+#: libkwave/SignalManager.cpp:1910
 #, kde-format
 msgid "Delete Label"
 msgstr "Apagar a Legenda"
 
-#: libkwave/SignalManager.cpp:2010
+#: libkwave/SignalManager.cpp:2008
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Selecção de Faixas Manual"
 
-#: libkwave/SignalManager.cpp:2013
+#: libkwave/SignalManager.cpp:2011
 #, kde-format
 msgid "Manual Selection"
 msgstr "Selecção Manual"
@@ -3942,43 +3942,43 @@ msgid "Creative Voice"
 msgstr "Creative Voice"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:443
+#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:444
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "O formato ou função não estão implementados"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:128
-#: plugins/codec_wav/WavEncoder.cpp:450
+#: plugins/codec_wav/WavEncoder.cpp:451
 #, kde-format
 msgid "File header is damaged"
 msgstr "O cabeçalho do ficheiro está danificado"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:453
+#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:454
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Tipo de codificador inválido"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:134
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:457
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:458
 #, kde-format
 msgid "Opening the file failed"
 msgstr "Não foi possível abrir o ficheiro"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:460
+#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:461
 #, kde-format
 msgid "Read access failed"
 msgstr "Não foi possível aceder para leitura"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:140
-#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:463
+#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:464
 #, kde-format
 msgid "Invalid sample format"
 msgstr "O formato de amostras é inválido"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:146
-#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:469
+#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:470
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4104,7 +4104,7 @@ msgstr ""
 "O formato de ficheiro que escolheu suporta apenas mono ou estéreo. Este "
 "ficheiro será convertido para estéreo na sua gravação."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:396
+#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:397
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Não foi possível aceder ao ficheiro a gravar!"
@@ -4877,7 +4877,7 @@ msgstr "o cabeçalho do ficheiro está danificado"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "erro interno da 'libaudiofile' #%1: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:349
+#: plugins/codec_wav/WavEncoder.cpp:350
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4886,17 +4886,17 @@ msgstr ""
 "Infelizmente, o tipo de compressão seleccionado de momento não pode ser "
 "usado na gravação. Deseja usar a compressão lei-U do G711 em alternativa?"
 
-#: plugins/codec_wav/WavEncoder.cpp:352
+#: plugins/codec_wav/WavEncoder.cpp:353
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "&Sim, usar o G711"
 
-#: plugins/codec_wav/WavEncoder.cpp:353
+#: plugins/codec_wav/WavEncoder.cpp:354
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&Não, guardar sem compressão"
 
-#: plugins/codec_wav/WavEncoder.cpp:402 plugins/sonagram/SonagramPlugin.cpp:204
+#: plugins/codec_wav/WavEncoder.cpp:403 plugins/sonagram/SonagramPlugin.cpp:204
 #, kde-format
 msgid "File or selection too large"
 msgstr "Ficheiro ou selecção demasiado grandes"
@@ -6217,7 +6217,7 @@ msgstr ""
 msgid "format not supported"
 msgstr "Erro: O codificador não é suportado"
 
-#: plugins/playback/PlayBack-Qt.cpp:192
+#: plugins/playback/PlayBack-Qt.cpp:193
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Não foi possível aceder ao dispositivo do Qt Multimedia '%1'"

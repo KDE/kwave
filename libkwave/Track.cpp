@@ -504,7 +504,7 @@ bool Kwave::Track::appendAfter(Stripe *stripe,  sample_index_t offset,
         buf_offset += len;
     }
 
-    qsizetype index_before = (stripe) ? (m_stripes.indexOf(*stripe)) : 0;
+    qsizetype index = (stripe) ? (m_stripes.indexOf(*stripe)) : 0;
 
     // append new stripes as long as there is something remaining
     while (length) {
@@ -525,18 +525,16 @@ bool Kwave::Track::appendAfter(Stripe *stripe,  sample_index_t offset,
 //      qDebug("new stripe: [%u ... %u] (%u)", new_stripe->start(),
 //             new_stripe->end(), new_stripe->length());
 
-        if (index_before >= 0) {
-            // insert after the last one
-            index_before++;
+        if (index > 0) {
 //          qDebug("Kwave::Track::appendAfter: insert after %p [%10u - %10u]",
 //              stripe, stripe->start(), stripe->end());
-            m_stripes.insert(index_before, new_stripe);
+            m_stripes.insert(index, new_stripe);
         } else {
             // the one and only or insert before all others
 //          qDebug("Kwave::Track::appendAfter: prepending");
             m_stripes.prepend(new_stripe);
-            index_before = 0;
         }
+        index++;
         offset     += len;
         length     -= len;
         buf_offset += len;

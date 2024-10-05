@@ -85,7 +85,7 @@ Kwave::K3BExportPlugin::K3BExportPlugin(QObject *parent,
      m_url(),
      m_pattern(),
      m_selection_only(false),
-     m_export_location(EXPORT_TO_SUB_DIR),
+     m_export_location(),
      m_overwrite_policy(USE_NEW_FILE_NAMES),
      m_block_info()
 {
@@ -121,13 +121,8 @@ int Kwave::K3BExportPlugin::interpreteParameters(QStringList &params)
     m_selection_only = (v != 0);
 
     // export location
-    param = params[3];
-    int where = param.toInt(&ok);
-    Q_ASSERT(ok);
-    if (!ok) return -EINVAL;
-    if ((where != EXPORT_TO_SAME_DIR) &&
-        (where != EXPORT_TO_SUB_DIR)) return -EINVAL;
-    m_export_location = static_cast<export_location_t>(where);
+    m_export_location = Kwave::URLfromUserInput(Kwave::Parser::unescape(params[3]));
+    if (!m_export_location.isValid()) return -EINVAL;
 
     // overwrite policy
     param = params[4];
@@ -315,7 +310,6 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
         m_pattern,
         m_selection_only,
         enable_selection_only,
-        m_export_location,
         m_overwrite_policy
     );
 
@@ -355,29 +349,45 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
     if (path.suffix() != K3B_FILE_SUFFIX.mid(2))
         url.setPath(name + K3B_FILE_SUFFIX.mid(1));
 
+    // show a dialog to select the directory to save the tracks in
+    Kwave::FileDialog *dirDialog = new Kwave::FileDialog(
+        name,
+        Kwave::FileDialog::SelectDir,
+        u""_s,
+        parentWidget()
+    );
+    dirDialog->setWindowTitle(i18n("Export Tracks"));
+    if ((dirDialog->exec() != QDialog::Accepted)) {
+        return nullptr;
+    }
+    QUrl dir = dirDialog->selectedUrl();
+    if (dir.isEmpty()) {
+        return nullptr;
+    }
+
     QStringList *list = new QStringList();
     Q_ASSERT(list);
     if (!list) {
         return nullptr;
     }
 
-    name                 = Kwave::Parser::escape(url.toString());
-    QString pattern      = Kwave::Parser::escape(dialog->pattern());
-    int export_location  = static_cast<int>(dialog->exportLocation());
-    int overwrite_policy = static_cast<int>(dialog->overwritePolicy());
-    bool selection_only  = (enable_selection_only) ?
+    name                    = Kwave::Parser::escape(url.toString());
+    QString pattern         = Kwave::Parser::escape(dialog->pattern());
+    QString export_location = Kwave::Parser::escape(dir.path());
+    int overwrite_policy    = static_cast<int>(dialog->overwritePolicy());
+    bool selection_only     = (enable_selection_only) ?
         dialog->selectionOnly() : m_selection_only;
 
     *list << name;                              // url
     *list << pattern;                           // pattern
     *list << QString::number(selection_only);   // selection only
-    *list << QString::number(export_location);  // export location
+    *list << export_location;                   // export location
     *list << QString::number(overwrite_policy); // overwrite policy
 
     emitCommand(_("plugin:execute(export_k3b,") +
         name + _(",") + pattern + _(",")  +
         QString::number(selection_only)   + _(",") +
-        QString::number(export_location)  + _(",") +
+        export_location  + _(",") +
         QString::number(overwrite_policy) + _(")")
     );
 
@@ -602,17 +612,8 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
     QString   k3b_filename = m_url.path();
     QFileInfo fi(k3b_filename);
     QString   base = fi.completeBaseName();
-    QString   out_dir;
-    QString   out_pattern;
-    if (m_export_location == Kwave::K3BExportPlugin::EXPORT_TO_SUB_DIR) {
-        // export to a subdir with the name "<filename>.dir"
-        out_dir     = fi.absolutePath() + QDir::separator() + base + _(".dir");
-        out_pattern = _("track-") + OUTFILE_PATTERN;
-    } else {
-        // use the same directory as the *.k3b file
-        out_dir     = fi.absolutePath();
-        out_pattern = base + _("-track-") + OUTFILE_PATTERN;
-    }
+    QString   out_dir = m_export_location.path();
+    QString   out_pattern = base + _("-track-") + OUTFILE_PATTERN;
     qDebug("out_dir     = '%s'", DBG(out_dir));
     qDebug("out_pattern = '%s'", DBG(out_pattern));
 

@@ -41,11 +41,6 @@ namespace Kwave
     public:
 
         typedef enum {
-            EXPORT_TO_SAME_DIR = 0,
-            EXPORT_TO_SUB_DIR  = 1
-        } export_location_t ;
-
-        typedef enum {
             OVERWRITE_EXISTING_FILES = 0,
             USE_NEW_FILE_NAMES       = 1
         } overwrite_policy_t;
@@ -163,8 +158,8 @@ namespace Kwave
         /** if true, export only the selected range */
         bool m_selection_only;
 
-        /** where to export the files of the tracks, subdir, same dir, ... */
-        export_location_t m_export_location;
+        /** directory to export the tracks into */
+        QUrl m_export_location;
 
         /** overwrite existing files or create a new file name */
         overwrite_policy_t m_overwrite_policy;

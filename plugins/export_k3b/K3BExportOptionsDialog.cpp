@@ -34,7 +34,6 @@ Kwave::K3BExportOptionsDialog::K3BExportOptionsDialog(
     QString &pattern,
     bool selection_only,
     bool have_selection,
-    Kwave::K3BExportPlugin::export_location_t export_location,
     Kwave::K3BExportPlugin::overwrite_policy_t overwrite_policy
 )
     :QDialog(parent), Ui::K3BExportOptionsDialogBase()
@@ -68,9 +67,6 @@ Kwave::K3BExportOptionsDialog::K3BExportOptionsDialog(
         chkSelectionOnly->setChecked(false);
     }
 
-    Q_ASSERT(cbExportLocation);
-    cbExportLocation->setCurrentIndex(static_cast<int>(export_location));
-
     Q_ASSERT(cbOverwritePolicy);
     cbOverwritePolicy->setCurrentIndex(static_cast<int>(overwrite_policy));
 
@@ -102,17 +98,6 @@ bool Kwave::K3BExportOptionsDialog::selectionOnly() const
 {
     Q_ASSERT(chkSelectionOnly);
     return (chkSelectionOnly) ? chkSelectionOnly->isChecked() : false;
-}
-
-//***************************************************************************
-Kwave::K3BExportPlugin::export_location_t
-    Kwave::K3BExportDialog::exportLocation() const
-{
-    Q_ASSERT(cbExportLocation);
-    return static_cast<Kwave::K3BExportPlugin::export_location_t>(
-        (cbExportLocation) ?
-        cbExportLocation->currentIndex() : 0
-    );
 }
 
 //***************************************************************************

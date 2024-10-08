@@ -80,8 +80,8 @@ Kwave::PlayBackDialog::PlayBackDialog(
     }
     cbMethod->setEnabled(cbMethod->count() > 1);
 
-    connect(cbMethod, SIGNAL(activated(int)),
-            SLOT(methodSelected(int)));
+    connect(cbMethod, &KComboBox::currentIndexChanged,
+            this, &PlayBackDialog::methodSelected);
     connect(cbDevice, SIGNAL(editTextChanged(QString)),
             SLOT(setDevice(QString)));
     connect(cbDevice, SIGNAL(textActivated(QString)),
@@ -144,8 +144,11 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
     m_playback_params.method = method;
 
     // update the selection in the combo box if necessary
+    // initial call will be with method == Kwave::PLAYBACK_NONE
+    // we want to get a valid method set before updating the combo box
+    // we will get called again when the valid method gets set later
     int index = cbMethod->findData(static_cast<int>(method));
-    if (cbMethod->currentIndex() != index) {
+    if ((cbMethod->currentIndex() != index) && (method != Kwave::PLAYBACK_NONE)) {
         cbMethod->setCurrentIndex(index);
         return; // we will get called again, through "methodSelected(...)"
     }

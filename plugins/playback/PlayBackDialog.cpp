@@ -117,12 +117,8 @@ Kwave::PlayBackDialog::PlayBackDialog(
     setFixedHeight(sizeHint().height());
 
     // update the GUI elements
-    // order is: Method -> Device -> "Select..."-button
-    // -> Channels -> Bits per Sample
+    // set Method, which will set Device, Channels, and Bits per Sample
     setMethod(params.method);
-    setDevice(params.device);
-    setBitsPerSample(params.bits_per_sample);
-    setChannels(params.channels);
 
     // buffer size is independent
     setBufferSize(params.bufbase);
@@ -153,8 +149,11 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
         return; // we will get called again, through "methodSelected(...)"
     }
 
+    QString name = (method == Kwave::PLAYBACK_NONE) ?
+                    QStringLiteral("none") :
+                    m_methods_map.name(m_methods_map.findFromData(method));
     qDebug("PlayBackDialog::setMethod('%s' [%d])",
-           DBG(m_methods_map.name(m_methods_map.findFromData(method))),
+           DBG(name),
            static_cast<int>(method) );
 
     // set hourglass cursor
@@ -171,15 +170,17 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
     QString section = _("plugin playback");
     KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
 
-    // save the current device
-    cfg.writeEntry(
-        QString(_("last_device_%1")).arg(static_cast<int>(old_method)),
-        m_playback_params.device);
-    qDebug("SAVE:    '%s' (%d) -> '%s'",
-            DBG(m_methods_map.name(m_methods_map.findFromData(old_method))),
-            static_cast<int>(old_method),
-            DBG(m_playback_params.device.split(_("|")).at(0)));
-    cfg.sync();
+    if (method != Kwave::PLAYBACK_NONE) {
+        // save the current device
+        cfg.writeEntry(
+            QString(_("last_device_%1")).arg(static_cast<int>(old_method)),
+            m_playback_params.device);
+        qDebug("SAVE:    '%s' (%d) -> '%s'",
+                DBG(m_methods_map.name(m_methods_map.findFromData(old_method))),
+                static_cast<int>(old_method),
+                DBG(m_playback_params.device.split(_("|")).at(0)));
+        cfg.sync();
+    }
 
     // NOTE: the "method" may get modified here if not supported!
     m_playback_controller.checkMethod(method);

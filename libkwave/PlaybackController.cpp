@@ -587,9 +587,13 @@ void Kwave::PlaybackController::checkMethod(Kwave::playback_method_t &method)
     }
 
     Kwave::PlayBackTypesMap map;
+    QString name = (method == Kwave::PLAYBACK_NONE) ?
+                    QStringLiteral("none") :
+                    map.name(map.findFromData(method));
+
     qDebug("playback method '%s' (%d) not supported "
            "-> falling back to '%s' (%d)",
-           DBG(map.name(map.findFromData(method))), static_cast<int>(method),
+           DBG(name), static_cast<int>(method),
            DBG(map.name(map.findFromData(best))),   static_cast<int>(best)
     );
 

@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <algorithm>
 #include <new>
 
 #include <QMutexLocker>
@@ -71,7 +72,7 @@ Kwave::Track::Track(sample_index_t length, QUuid *uuid)
     } else {
         Stripe s(length - STRIPE_LENGTH_OPTIMAL);
         s.resize(STRIPE_LENGTH_OPTIMAL);
-        if (s.length()) m_stripes.append(s);
+        if (s.length()) m_stripes.push_back(s);
     }
 }
 
@@ -102,7 +103,7 @@ void Kwave::Track::appendStripe(sample_index_t length)
 
         length -= len;
         start  += len;
-        m_stripes.append(s);
+        m_stripes.push_back(s);
     } while (length);
 
 }
@@ -114,7 +115,7 @@ Kwave::Stripe Kwave::Track::splitStripe(Kwave::Stripe &stripe,
     Q_ASSERT(offset < stripe.length());
     Q_ASSERT(offset);
     if (offset >= stripe.length()) return Stripe();
-    if (!offset) return 0;
+    if (!offset) return Stripe();
 
     // create a new stripe with the data that has been split off
     Stripe s(stripe.start() + offset, stripe, offset);
@@ -123,9 +124,9 @@ Kwave::Stripe Kwave::Track::splitStripe(Kwave::Stripe &stripe,
     // shrink the old stripe
     stripe.resize(offset);
 
-//     qDebug("Kwave::Track::splitStripe(%p, %u): new stripe at "
-//            "[%u ... %u] (%u)",
-//            stripe, offset, s->start(), s->end(), s->length());
+//  qDebug("Kwave::Track::splitStripe(%p, %u): new stripe at "
+//      "[%llu ... %llu] (%u)", static_cast<void *>(&stripe),
+//      offset, s.start(), s.end(), s.length());
 
     return s;
 }
@@ -135,38 +136,37 @@ bool Kwave::Track::mergeStripe(Kwave::Stripe &stripe)
 {
     sample_index_t left  = stripe.start();
     sample_index_t right = stripe.end();
-    qsizetype index_before = -1;
 
-//     qDebug("Track::mergeStripe() [%llu - %llu]", left, right);
-//     dump();
+//  qDebug("Track::mergeStripe() [%llu - %llu]", left, right);
+//  dump();
 
     // remove all stripes that are overlapped completely by
     // this stripe and crop stripes that overlap partially
     unlockedDelete(left, right - left + 1, true);
 
-//     qDebug("Track::mergeStripe() [%llu - %llu] - after delete", left, right);
-//     dump();
+//  qDebug("Track::mergeStripe() [%llu - %llu] - after delete", left, right);
+//  dump();
 
-    // find the stripe after which we have to insert
-    QListIterator<Stripe> it(m_stripes);
-    while (it.hasNext()) {
-        const Stripe &s = it.next();
-        if (left > s.end()) index_before = m_stripes.indexOf(s);
-    }
+    // find the stripe before which we have to insert
+    std::vector<Stripe>::iterator where = std::find_if(
+        m_stripes.begin(), m_stripes.end(),
+        [right] (const Stripe &s) -> bool
+        { return (s.start() > right); }
+    );
 
-    if (index_before >= 0) {
-        // insert after some existing stripe
-//      qDebug("Kwave::Track::mergeStripe: insert after index %d",
-//             index_before);
-        m_stripes.insert(index_before + 1, stripe);
+    if (where != m_stripes.end()) {
+        // insert before some existing stripe
+//      qDebug("insert before %p [%llu - %llu]",
+//          static_cast<void *>(&(*where)), where->start(), where->end());
+        m_stripes.insert(where, stripe);
     } else {
-        // the one and only or insert before all others
-//      qDebug("Kwave::Track::mergeStripe: prepending");
-        m_stripes.prepend(stripe);
+        // the one and only or insert after all others
+//      qDebug("append %p", static_cast<void *>(&(stripe)));
+        m_stripes.push_back(stripe);
     }
 
-//     qDebug("Track::mergeStripe() - done");
-//     dump();
+//  qDebug("Track::mergeStripe() - done");
+//  dump();
     return true;
 }
 
@@ -180,8 +180,8 @@ sample_index_t Kwave::Track::length()
 //***************************************************************************
 sample_index_t Kwave::Track::unlockedLength()
 {
-    if (m_stripes.isEmpty()) return 0;
-    const Stripe &s = m_stripes.last();
+    if (m_stripes.empty()) return 0;
+    const Stripe &s = m_stripes.back();
     return s.start() + s.length();
 }
 
@@ -214,7 +214,7 @@ Kwave::Stripe::List Kwave::Track::stripes(sample_index_t left,
 
     // collect all stripes that are in the requested range
     Kwave::Stripe::List stripes(left, right);
-    foreach (const Stripe &stripe, m_stripes) {
+    for (const Stripe &stripe : m_stripes) {
         if (!stripe.length()) continue;
         sample_index_t start = stripe.start();
         sample_index_t end   = stripe.end();
@@ -254,8 +254,9 @@ bool Kwave::Track::mergeStripes(const Kwave::Stripe::List &stripes)
     bool succeeded = true;
     {
         QMutexLocker lock(&m_lock);
-        foreach (Stripe stripe, stripes) {
-            if (!mergeStripe(stripe)) {
+        for (const Stripe &stripe : stripes) {
+            Stripe s(stripe);
+            if (!mergeStripe(s)) {
                 succeeded = false;
                 break;
             }
@@ -296,7 +297,7 @@ void Kwave::Track::deleteRange(sample_index_t offset, sample_index_t length,
 {
     if (!length) return;
 
-//     qDebug("Kwave::Track::deleteRange() [%u ... %u] (%u)",
+//  qDebug("Kwave::Track::deleteRange() [%llu ... %llu] (%llu)",
 //      offset, offset + length - 1, length);
 
     {
@@ -323,22 +324,25 @@ bool Kwave::Track::insertSpace(sample_index_t offset, sample_index_t shift)
         if (offset < len) {
             // find out whether the offset is within a stripe and
             // split that one if necessary
-            QMutableListIterator<Stripe> it(m_stripes);
-            while (it.hasNext()) {
-                Stripe &s = it.next();
+            std::vector<Stripe>::iterator it(m_stripes.begin());
+            while (it != m_stripes.end()) {
+                Stripe &s = *it;
                 sample_index_t end    = s.end();
-                if (end < offset) continue; // skip, stripe is at left
+                if (end < offset) {
+                    ++it;
+                    continue; // skip, stripe is at left
+                }
 
                 sample_index_t start  = s.start();
                 if (start >= offset) break; // not "within" the stripe
 
-//              qDebug("Kwave::Track::insertSpace => splitting [%u...%u]",
-//                     start,end);
+//             qDebug("Kwave::Track::insertSpace => splitting [%llu...%llu]",
+//                      start,end);
                 Stripe new_stripe = splitStripe(s,
                     Kwave::toUint(offset - start)
                 );
                 if (!new_stripe.length()) return false; // OOM ?
-                it.insert(new_stripe);
+                m_stripes.insert(++it, new_stripe);
                 break;
             }
 
@@ -346,15 +350,15 @@ bool Kwave::Track::insertSpace(sample_index_t offset, sample_index_t shift)
 //          qDebug("Kwave::Track::insertSpace => moving right");
             moveRight(offset, shift);
         } else {
-//          qDebug("Kwave::Track::insertSpace => appending stripe at %u",
+//          qDebug("Kwave::Track::insertSpace => appending stripe at %llu",
 //                  offset + shift - 1);
             Stripe s(offset + shift - 1);
             s.resize(1);
-            if (s.length()) m_stripes.append(s);
+            if (s.length()) m_stripes.push_back(s);
         }
     }
 
-//     dump();
+//  dump();
     emit sigSamplesInserted(this, offset, shift);
     return true;
 }
@@ -369,21 +373,21 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
     sample_index_t left  = offset;
     sample_index_t right = offset + length - 1;
 
-    QMutableListIterator<Stripe> it(m_stripes);
-    it.toBack();
-    while (it.hasPrevious()) {
-        Stripe &s = it.previous();
+    std::vector<Stripe>::reverse_iterator it_r(m_stripes.rbegin());
+    while (it_r != m_stripes.rend()) {
+        Stripe        &s      = *it_r;
         sample_index_t start  = s.start();
         sample_index_t end    = s.end();
 
-        if (end   < left)  break;    // done, stripe is at left
-        if (start > right) continue; // skip, stripe is at right
+        if (end   < left)  break;                // done, stripe is at left
+        if (start > right) { ++it_r; continue; } // skip, stripe is at right
 
         if ((left <= start) && (right >= end)) {
             // case #1: total overlap -> delete whole stripe
-//          qDebug("deleting stripe [%u ... %u]", start, end);
-            it.remove(); // decrements the iterator !!!
-            if (m_stripes.isEmpty()) break;
+//          qDebug("deleting stripe [%llu ... %llu]", start, end);
+            m_stripes.erase(it_r.base() - 1);
+            if (m_stripes.empty()) break;
+            ++it_r;
             continue;
         } else /* if ((end >= left) && (start <= right)) */ {
             //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -391,7 +395,7 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
             // partial stripe overlap
             sample_index_t ofs = (start < left) ? left : start;
             if (end > right) end = right;
-//          qDebug("deleting [%u ... %u] (start=%u, ofs-start=%u, len=%u)",
+//          qDebug("deleting [%llu ... %llu] (start=%llu, ofs-start=%llu, len=%llu)",
 //              ofs, end, start, ofs-start, end - ofs + 1);
 
             if (!make_gap ||
@@ -411,32 +415,30 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
                 // if deleted from start
                 if (left <= s.start()) {
                     // move right, producing a (temporary) gap
-//                  qDebug("shifting [%u ... %u] to %u",
+//                  qDebug("shifting [%llu ... %llu] to %llu",
 //                          start, s.end(), end + 1);
                     s.setStart(end + 1);
                 }
             } else {
                 // case #5: delete from the middle and produce a gap
                 //          by splitting off a new stripe
-//              qDebug("    splitting off to new stripe @ %u (ofs=%u)",
+//              qDebug("    splitting off to new stripe @ %llu (ofs=%llu)",
 //                  right + 1, right + 1 - start);
                 Stripe new_stripe = splitStripe(s,
                     Kwave::toUint(right + 1 - start));
                 if (!new_stripe.length()) break; // OOM ?
-                it.next(); // right after "s"
-                it.insert(new_stripe);
-                it.previous(); // before new_stripe == after s
-                it.previous(); // before s, like
+                m_stripes.insert(it_r.base(), new_stripe);
 
                 // erase to the end (reduce size)
                 const unsigned int todel = Kwave::toUint(s.end() - ofs + 1);
-//              qDebug("ofs-start=%u, s->end()-ofs+1=%u [%u...%u] (%u)",
+//              qDebug("ofs-start=%llu, s->end()-ofs+1=%u [%llu...%llu] (%u)",
 //                  ofs-start, todel, s.start(), s.end(), s.length());
                 s.deleteRange(Kwave::toUint(ofs - start), todel);
-//              qDebug("length now: %u [%u ... %u]", s.length(),
+//              qDebug("length now: %u [%llu ... %llu]", s.length(),
 //                  s.start(), s.end());
 //              Q_ASSERT(s.length());
             }
+            ++it_r;
 //          Q_ASSERT(s.length());
         }
     }
@@ -445,17 +447,16 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
     // (maybe we start the search one stripe too left,
     // but this doesn't matter, we don't care...)
     if (!make_gap) {
-        if (!it.hasNext()) it.toFront();
-
-        while (it.hasNext()) {
-            Stripe &s = it.next();
-//          qDebug("checking for shift [%u ... %u]",
+        std::vector<Stripe>::iterator it(it_r.base());
+        for (; it != m_stripes.end(); ++it) {
+            Stripe &s = *it;
+//          qDebug("checking for shift [%llu ... %llu]",
 //                  s.start(), s.end());
             Q_ASSERT(s.start() != right);
             if (s.start() > right) {
                 // move left
-//              qDebug("moving stripe %p [%u...%u] %u samples left",
-//                      s, s.start(), s.end(), length);
+//              qDebug("moving stripe %p [%llu.%llu] %llu samples left",
+//                     static_cast<void *>(&s), s.start(), s.end(), length);
                 Q_ASSERT(s.start() >= length);
                 s.setStart(s.start() - length);
             }
@@ -487,7 +488,7 @@ bool Kwave::Track::appendAfter(Stripe *stripe,  sample_index_t offset,
 
     // append to the last stripe if one exists and it's not full
     // and the offset is immediately after the last stripe
-    if ((stripe) && (stripe->end()+1 == offset) &&
+    if ((stripe) && (stripe->end() + 1 == offset) &&
         (stripe->length() < STRIPE_LENGTH_MAXIMUM))
     {
         unsigned int len = length;
@@ -495,7 +496,7 @@ bool Kwave::Track::appendAfter(Stripe *stripe,  sample_index_t offset,
             len = STRIPE_LENGTH_MAXIMUM - stripe->length();
 
 //      qDebug("Kwave::Track::appendAfter(): appending %u samples to %p",
-//             len, stripe);
+//              len, static_cast<void *>(stripe));
         if (!stripe->append(buffer, buf_offset, len))
             return false; // out of memory
 
@@ -504,38 +505,41 @@ bool Kwave::Track::appendAfter(Stripe *stripe,  sample_index_t offset,
         buf_offset += len;
     }
 
-    qsizetype index_before = (stripe) ? (m_stripes.indexOf(*stripe)) : -1;
+    std::vector<Stripe>::iterator where(m_stripes.begin());
+    if (stripe != nullptr) {
+        where = std::find(m_stripes.begin(), m_stripes.end(), *stripe);
+        if (where != m_stripes.end()) ++where;
+    }
 
     // append new stripes as long as there is something remaining
     while (length) {
         unsigned int len = Kwave::toUint(qMin<sample_index_t>(
             length, STRIPE_LENGTH_MAXIMUM));
 
-//      qDebug("Kwave::Track::appendAfter: new stripe, ofs=%u, len=%u",
-//             offset, len);
+//      qDebug("Kwave::Track::appendAfter: new stripe, ofs=%llu, len=%u",
+//          offset, len);
         Stripe new_stripe(offset);
 
         // append to the new stripe
         if (!new_stripe.append(buffer, buf_offset, len)) {
-            qWarning("Kwave::Track::appendAfter FAILED / OOM");
             return false; /* out of memory */
         }
         Q_ASSERT(new_stripe.length() == len);
 
-//      qDebug("new stripe: [%u ... %u] (%u)", new_stripe->start(),
-//             new_stripe->end(), new_stripe->length());
-
-        if (index_before >= 0) {
-            // insert after the last one
-            index_before++;
-//          qDebug("Kwave::Track::appendAfter: insert after %p [%10u - %10u]",
-//              stripe, stripe->start(), stripe->end());
-            m_stripes.insert(index_before, new_stripe);
-        } else {
-            // the one and only or insert before all others
+//      qDebug("new stripe: [%llu ... %llu] (%u)", new_stripe.start(),
+//              new_stripe.end(), new_stripe.length());
+        if (where == m_stripes.begin()) {
 //          qDebug("Kwave::Track::appendAfter: prepending");
-            m_stripes.prepend(new_stripe);
-            index_before = 0;
+            where = std::next(m_stripes.insert(where, new_stripe));
+        } else if (where != m_stripes.end()) {
+            // insert after the previous one
+//          qDebug("Kwave::Track::appendAfter: insert after [%10llu - %10llu]",
+//              stripe->start(), stripe->end());
+            where = std::next(m_stripes.insert(where, new_stripe));
+        } else {
+            // append at the end
+//          qDebug("Kwave::Track::appendAfter: appending");
+            m_stripes.push_back(new_stripe);
         }
         offset     += len;
         length     -= len;
@@ -548,11 +552,11 @@ bool Kwave::Track::appendAfter(Stripe *stripe,  sample_index_t offset,
 //***************************************************************************
 void Kwave::Track::moveRight(sample_index_t offset, sample_index_t shift)
 {
-    if (m_stripes.isEmpty()) return;
-    QMutableListIterator<Stripe> it(m_stripes);
-    it.toBack();
-    while (it.hasPrevious()) {
-        Stripe &s = it.previous();
+    if (m_stripes.empty()) return;
+
+    for (std::vector<Stripe>::reverse_iterator it = m_stripes.rbegin();
+         it != m_stripes.rend(); ++it) {
+        Stripe &s = *it;
         sample_index_t start = s.start();
         if (start < offset) break;
 
@@ -577,7 +581,7 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
             {
                 QMutexLocker _lock(&m_lock);
                 appended = appendAfter(
-                    m_stripes.isEmpty() ? nullptr : &(m_stripes.last()),
+                    m_stripes.empty() ? nullptr : &(m_stripes.back()),
                     offset, buffer,
                     buf_offset, length);
             }
@@ -590,15 +594,13 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
         case Kwave::Insert: {
             m_lock.lock();
 
-//          qDebug("Kwave::Track::writeSamples() - Insert @ %u, length=%u",
+//          qDebug("Kwave::Track::writeSamples() - Insert @ %llu, length=%u",
 //                 offset, length);
 
             // find the stripe into which we insert
             Stripe *target_stripe = nullptr;
             Stripe *stripe_before = nullptr;
-            QMutableListIterator<Stripe> it(m_stripes);
-            while (it.hasNext()) {
-                Stripe &s = it.next();
+            for (Stripe &s : m_stripes) {
                 sample_index_t st  = s.start();
                 sample_index_t len = s.length();
                 if (!len) continue; // skip zero-length tracks
@@ -612,18 +614,20 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
                 }
             }
 
-//          qDebug("stripe_before = %p [%u...%u]", stripe_before,
-//                 stripe_before ? stripe_before->start() : 0,
-//                 stripe_before ? (stripe_before->start() +
-//                                 stripe_before->length() - 1) : 0);
-//          qDebug("target_stripe = %p [%u...%u]", target_stripe,
-//                 target_stripe ? target_stripe->start() : 0,
-//                 target_stripe ? (target_stripe->start() +
-//                                 target_stripe->length() - 1) : 0);
+//          qDebug("stripe_before = %p [%llu...%llu]",
+//                  static_cast<void *>(stripe_before),
+//                  stripe_before ? stripe_before->start() : 0,
+//                  stripe_before ? (stripe_before->start() +
+//                                  stripe_before->length() - 1) : 0);
+//          qDebug("target_stripe = %p [%llu...%llu]",
+//                  static_cast<void *>(target_stripe),
+//                  target_stripe ? target_stripe->start() : 0,
+//                  target_stripe ? (target_stripe->start() +
+//                              target_stripe->length() - 1) : 0);
 
             // if insert is requested immediately after the last
             // sample of the stripe before
-            if (stripe_before && (offset == stripe_before->start()+
+            if (stripe_before && (offset == stripe_before->start() +
                                   stripe_before->length()))
             {
                 // append to the existing stripe
@@ -652,8 +656,9 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
                     m_lock.unlock();
                     break;
                 }
-                m_stripes.insert(m_stripes.indexOf(*target_stripe) + 1,
-                    new_stripe);
+                std::vector<Stripe>::iterator it = std::find(
+                    m_stripes.begin(), m_stripes.end(), *target_stripe);
+                m_stripes.insert(++it, new_stripe);
 
                 moveRight(offset, length);
                 appendAfter(target_stripe, offset, buffer,
@@ -668,7 +673,7 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
         case Kwave::Overwrite: {
 //          const sample_index_t left  = offset;
 //          const sample_index_t right = offset + length - 1;
-//          qDebug("writeSamples() - Overwrite [%u - %u]", left, right);
+//          qDebug("writeSamples() - Overwrite [%llu - %llu]", left, right);
 
             {
                 QMutexLocker _lock(&m_lock);
@@ -679,9 +684,7 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
                 // fill in the content of the buffer, append to the stripe
                 // before the gap if possible
                 Stripe *stripe_before = nullptr;
-                QMutableListIterator<Stripe> it(m_stripes);
-                while (it.hasNext()) {
-                    Stripe &s = it.next();
+                for (Stripe &s : m_stripes) {
                     if (s.start() >= offset) break;
                     if (s.end() < offset) stripe_before = &s;
                 }
@@ -706,7 +709,7 @@ void Kwave::Track::defragment()
         return;
     }
 
-    if (m_stripes.count() > 1)
+    if (!m_stripes.empty())
     {
 //      qDebug("Track::defragment(), state before:");
 //      dump();
@@ -717,11 +720,14 @@ void Kwave::Track::defragment()
 
         // use a quick and simple algorithm:
         // iterate over all stripes and analyze pairwise
-        QMutableListIterator<Kwave::Stripe> it(m_stripes);
-        while (it.hasNext()) {
+        std::vector<Stripe>::iterator it(m_stripes.begin());
+        while (it != m_stripes.end()) {
             before = stripe;
-            stripe = &(it.next());
-            if (!before) continue; // skip the first entry
+            stripe = &(*it);
+            if (!before) {
+                ++it;
+                continue; // skip the first entry
+            }
 //          index++;
 
 //          qDebug("Track::defragment(), checking #%u [%llu..%llu] (%u)",
@@ -731,33 +737,38 @@ void Kwave::Track::defragment()
             const sample_index_t stripe_end   = stripe->end();
             const sample_index_t combined_len = stripe_end - before_start + 1;
 
-            if (combined_len > STRIPE_LENGTH_MAXIMUM)
+            if (combined_len > STRIPE_LENGTH_MAXIMUM) {
+                ++it;
                 continue; // would be too large
+            }
 
             if ((before->length() < STRIPE_LENGTH_MINIMUM) ||
                 (stripe->length() < STRIPE_LENGTH_MINIMUM)) {
-//              qDebug("Track::defragment(), combine #%u [%llu..%llu] & "
+//              qDebug("Track::defragment(), combine  #%u [%llu..%llu] & "
 //                     "#%u [%llu..%llu] => [%llu..%llu] (%llu)",
 //                     index - 1, before->start(), before->end(),
-//                     index, stripe->start(), stripe->end(),
+//                     index,     stripe->start(), stripe->end(),
 //                     before->start(), stripe->end(), combined_len);
 
                 // try to resize the stripe before to contain the
                 // combined length
                 const unsigned int offset = Kwave::toUint(
                     stripe->start() - before_start);
-                if (!before->combine(offset, *stripe))
+                if (!before->combine(offset, *stripe)) {
+                    ++it;
                     continue; // not possible, maybe OOM ?
+                }
 
                 // remove the current stripe, to avoid an overlap
-                it.remove();
+                it = m_stripes.erase(it);
                 stripe = before;
 //              index--;
             }
+            else ++it;
         }
 
-//      qDebug("Track::defragment(), state after:");
-//      dump();
+        qDebug("Track::defragment(), state after:");
+        dump();
     }
 
     m_lock.unlock();
@@ -781,12 +792,12 @@ void Kwave::Track::dump()
     qDebug("------------------------------------");
     unsigned int   index    = 0;
     sample_index_t last_end = 0;
-    foreach (const Stripe &s, m_stripes) {
+    for (const Stripe &s : m_stripes) {
         sample_index_t start = s.start();
         if (index && (start <= last_end))
             qDebug("--- OVERLAP ---");
         if (start > last_end+1)
-            qDebug("       : GAP         [%10lu - %10lu] (%10lu)",
+            qDebug("       : GAP              [%10lu - %10lu] (%10lu)",
             static_cast<unsigned long int>(last_end + ((index) ? 1 : 0)),
             static_cast<unsigned long int>(start - 1),
             static_cast<unsigned long int>(start - last_end -

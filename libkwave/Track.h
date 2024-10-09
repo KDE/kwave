@@ -21,8 +21,9 @@
 #include "config.h"
 #include "libkwave_export.h"
 
+#include <vector>
+
 #include <QtGlobal>
-#include <QList>
 #include <QObject>
 #include <QReadWriteLock>
 #include <QRecursiveMutex>
@@ -61,7 +62,7 @@ namespace Kwave
         /**
          * Destructor.
          */
-        ~Track() override;
+        virtual ~Track() override;
 
         /**
          * Returns the length of the track. This is equivalent
@@ -311,7 +312,7 @@ namespace Kwave
         QReadWriteLock m_lock_usage;
 
         /** list of stripes (a track actually is a container for stripes) */
-        QList<Stripe> m_stripes;
+        std::vector<Stripe> m_stripes;
 
         /** True if the track is selected */
         bool m_selected;

@@ -66,7 +66,7 @@ namespace Kwave
         explicit SignalManager(QWidget *parent);
 
         /** Default destructor */
-        ~SignalManager() override;
+        virtual ~SignalManager() override;
 
         /**
          * Closes the current signal and loads a new file.

@@ -186,7 +186,7 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
         if (!tracks) break;
 
         for (track = 0; track < tracks; ++track) {
-            Kwave::Track *t = m_signal.appendTrack(length, nullptr);
+            Kwave::Track *t = m_signal.insertTrack(0, length, nullptr);
             Q_ASSERT(t);
             if (!t || (t->length() != length)) {
                 qWarning("SignalManager::loadFile: out of memory");
@@ -516,7 +516,7 @@ void Kwave::SignalManager::newSignal(sample_index_t samples, double rate,
 
     // add all empty tracks
     while (tracks) {
-        m_signal.appendTrack(samples, nullptr);
+        m_signal.insertTrack(0, samples, nullptr);
         tracks--;
     }
 
@@ -914,7 +914,6 @@ void Kwave::SignalManager::insertTrack(unsigned int index)
     Kwave::UndoTransactionGuard undo(*this, i18n("Insert Track"));
 
     const unsigned int count = tracks();
-    Q_ASSERT(index <= count);
     if (index > count) index = count;
 
     // undo action for the track insert
@@ -925,13 +924,8 @@ void Kwave::SignalManager::insertTrack(unsigned int index)
     // known length instead of the current one
     sample_index_t len = (count) ? length() : m_last_length;
 
-    if (index >= count) {
-        // do an "append"
-        m_signal.appendTrack(len, nullptr);
-    } else {
-        // insert into the list
-        m_signal.insertTrack(index, len, nullptr);
-    }
+    // insert/append to the list
+    m_signal.insertTrack(index, len, nullptr);
 
     // remember the last length
     m_last_length = length();

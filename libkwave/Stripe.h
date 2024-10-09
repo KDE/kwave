@@ -46,6 +46,9 @@ namespace Kwave
         /** Copy constructor */
         Stripe(const Stripe &other);
 
+        /** Move constructor */
+        Stripe(Stripe &&other);
+
         /**
          * Constructor. Creates a new zero-length stripe.
          * @param start position within the track
@@ -75,6 +78,9 @@ namespace Kwave
          * Destructor.
          */
         virtual ~Stripe();
+
+        /** move assignment */
+        Stripe & operator = (Stripe &&other) noexcept;
 
         /**
          * Returns the start position of the stripe within the track.

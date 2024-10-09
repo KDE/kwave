@@ -37,6 +37,14 @@ Kwave::Stripe::Stripe(const Stripe &other)
 }
 
 //***************************************************************************
+Kwave::Stripe::Stripe(Stripe &&other)
+    :m_lock(), m_start(other.m_start), m_data(other.m_data)
+{
+    other.m_start = 0;
+    other.m_data.resize(0);
+}
+
+//***************************************************************************
 Kwave::Stripe::Stripe(sample_index_t start)
     :m_lock(), m_start(start), m_data()
 {
@@ -70,6 +78,18 @@ Kwave::Stripe::Stripe(sample_index_t start,
 Kwave::Stripe::~Stripe()
 {
     QMutexLocker lock(&m_lock);
+}
+
+//***************************************************************************
+Kwave::Stripe & Kwave::Stripe::operator = (Kwave::Stripe &&other) noexcept
+{
+    if (this != &other) {
+        m_start = other.m_start;
+        m_data  = other.m_data;
+        other.m_start = 0;
+        other.m_data.resize(0);
+    }
+    return *this;
 }
 
 //***************************************************************************

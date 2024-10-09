@@ -24,8 +24,9 @@
 
 #include <pthread.h>
 
+#include <vector>
+
 #include <QtGlobal>
-#include <QList>
 #include <QReadWriteLock>
 #include <QUuid>
 #include <QVector>
@@ -66,7 +67,7 @@ namespace Kwave
         /**
          * Destructor.
          */
-        ~Signal() override;
+        virtual ~Signal() override;
 
         /**
          * Closes the signal by removing all tracks.
@@ -75,9 +76,9 @@ namespace Kwave
 
         /**
          * Inserts a new track to into the track list or appends it to the end.
-         * @param index the position where to insert [0...tracks()]. If the
-         *        position is at or after the last track, the new track will
-         *        be appended to the end.
+         * @param index the position where to insert before [0...tracks()].
+         *        If the position is at or after the last track, the new track
+         *        will be appended to the end.
          * @param length number of samples of the new track (zero is allowed)
          * @param uuid pointer to a unique ID (optional, can be null)
          * @return pointer to the created track. If the length is
@@ -85,16 +86,6 @@ namespace Kwave
          */
         Kwave::Track *insertTrack(unsigned int index,
                                   sample_index_t length,
-                                  QUuid *uuid);
-
-        /**
-         * Appends a new track to the end of the tracks list, shortcut for
-         * insertTrack(tracks()-1, length)
-         * @see insertTrack
-         * @param length number of samples of the new track (zero is allowed)
-         * @param uuid pointer to a unique ID (optional, can be null)
-         */
-        Kwave::Track *appendTrack(sample_index_t length,
                                   QUuid *uuid);
 
         /**
@@ -311,7 +302,7 @@ namespace Kwave
     private:
 
         /** list of tracks */
-        QList<Kwave::Track *> m_tracks;
+        std::vector<Kwave::Track *> m_tracks;
 
         /** mutex for access to the track list */
         QReadWriteLock m_lock_tracks;

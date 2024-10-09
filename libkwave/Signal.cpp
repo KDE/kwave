@@ -20,6 +20,7 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <algorithm>
 #include <new>
 
 #include <QReadLocker>
@@ -47,7 +48,7 @@ Kwave::Signal::Signal(unsigned int tracks, sample_index_t length)
     :m_tracks(), m_lock_tracks()
 {
     while (tracks--) {
-        appendTrack(length, nullptr);
+        insertTrack(0, length, nullptr);
     }
 }
 
@@ -78,14 +79,15 @@ Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
         Q_ASSERT(t);
         if (!t) return nullptr;
 
-        // clip the track index
-        {
-            unsigned int tracks = static_cast<int>(m_tracks.count());
-            if (index > tracks) index = tracks;
-        }
-
         // insert / append to the list
-        m_tracks.insert(index, t);
+        unsigned int tracks = static_cast<unsigned int>(m_tracks.size());
+        if (index < tracks)
+            m_tracks.insert(m_tracks.begin() + index, t);
+        else
+        {
+            index = tracks;
+            m_tracks.push_back(t);
+        }
 
         // connect to the new track's signals
         connect(t, SIGNAL(sigSamplesDeleted(Kwave::Track*, sample_index_t,
@@ -110,13 +112,6 @@ Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
     return t;
 }
 
-
-//***************************************************************************
-Kwave::Track *Kwave::Signal::appendTrack(sample_index_t length, QUuid *uuid)
-{
-    return insertTrack(tracks(), length, uuid);
-}
-
 //***************************************************************************
 void Kwave::Signal::deleteTrack(unsigned int index)
 {
@@ -124,11 +119,11 @@ void Kwave::Signal::deleteTrack(unsigned int index)
     Kwave::Track *t = nullptr;
     {
         QWriteLocker lock(&m_lock_tracks);
-        if (Kwave::toInt(index) > m_tracks.count())
+        if (static_cast<size_t>(index) > m_tracks.size())
             return; // bail out if not in range
 
         t = m_tracks.at(index);
-        m_tracks.removeAt(index);
+        m_tracks.erase(m_tracks.begin() + index);
     }
 
     // now emit a signal that the track has been deleted. Maybe
@@ -136,8 +131,8 @@ void Kwave::Signal::deleteTrack(unsigned int index)
     // deleted it yet - still only unlinked from the track list!
     emit sigTrackDeleted(index, t);
 
-    // as everybody now knows that the track is gone, we can safely
-    // delete it now.
+    // now everybody knows that the track is gone
+    // -> we can safely delete it
     delete t;
 }
 
@@ -147,10 +142,9 @@ Kwave::Writer *Kwave::Signal::openWriter(Kwave::InsertMode mode,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    Q_ASSERT(Kwave::toInt(track) < m_tracks.count());
-    if (Kwave::toInt(track) >= m_tracks.count()) {
+    Q_ASSERT(static_cast<size_t>(track) < m_tracks.size());
+    if (static_cast<size_t>(track) >= m_tracks.size())
         return nullptr; // track does not exist !
-    }
 
     Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
@@ -165,7 +159,7 @@ Kwave::SampleReader *Kwave::Signal::openReader(Kwave::ReaderMode mode,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    if (Kwave::toInt(track) >= m_tracks.count())
+    if (static_cast<size_t>(track) >= m_tracks.size())
         return nullptr; // track does not exist !
 
     Kwave::Track *t = m_tracks.at(track);
@@ -180,7 +174,7 @@ Kwave::Stripe::List Kwave::Signal::stripes(unsigned int track,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    if (Kwave::toInt(track) < m_tracks.count()) {
+    if (static_cast<size_t>(track) < m_tracks.size()) {
         Kwave::Track *t = m_tracks.at(track);
         Q_ASSERT(t);
         if (t) return t->stripes(left, right);
@@ -194,8 +188,8 @@ bool Kwave::Signal::mergeStripes(const Kwave::Stripe::List &stripes,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    if (Kwave::toInt(track) >= m_tracks.count())
-        return false;
+    if (static_cast<size_t>(track) >= m_tracks.size())
+        return false; // track does not exist !
 
     Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
@@ -225,8 +219,8 @@ void Kwave::Signal::deleteRange(unsigned int track,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    Q_ASSERT(Kwave::toInt(track) < m_tracks.count());
-    if (Kwave::toInt(track) >= m_tracks.count())
+    Q_ASSERT(static_cast<size_t>(track) < m_tracks.size());
+    if (static_cast<size_t>(track) >= m_tracks.size())
         return; // track does not exist !
 
     Kwave::Track *t = m_tracks.at(track);
@@ -240,8 +234,8 @@ void Kwave::Signal::insertSpace(unsigned int track, sample_index_t offset,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    Q_ASSERT(Kwave::toInt(track) < m_tracks.count());
-    if (Kwave::toInt(track) >= m_tracks.count())
+    Q_ASSERT(static_cast<size_t>(track) < m_tracks.size());
+    if (static_cast<size_t>(track) >= m_tracks.size())
         return; // track does not exist !
 
     Kwave::Track *t = m_tracks.at(track);
@@ -253,7 +247,7 @@ void Kwave::Signal::insertSpace(unsigned int track, sample_index_t offset,
 unsigned int Kwave::Signal::tracks()
 {
     QReadLocker lock(&m_lock_tracks);
-    return static_cast<unsigned int>(m_tracks.count());
+    return static_cast<unsigned int>(m_tracks.size());
 }
 
 //***************************************************************************
@@ -262,7 +256,7 @@ sample_index_t Kwave::Signal::length()
     QReadLocker lock(&m_lock_tracks);
 
     sample_index_t max = 0;
-    foreach (Kwave::Track *track, m_tracks) {
+    for (Kwave::Track *track : m_tracks) {
         if (!track) continue;
         sample_index_t len = track->length();
         if (len > max) max = len;
@@ -275,7 +269,7 @@ bool Kwave::Signal::trackSelected(unsigned int track)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    if (Kwave::toInt(track) >= m_tracks.count()) return false;
+    if (static_cast<size_t>(track) >= m_tracks.size()) return false;
     if (!m_tracks.at(track)) return false;
 
     return m_tracks.at(track)->selected();
@@ -286,8 +280,8 @@ void Kwave::Signal::selectTrack(unsigned int track, bool select)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    Q_ASSERT(Kwave::toInt(track) < m_tracks.count());
-    if (Kwave::toInt(track) >= m_tracks.count()) return;
+    Q_ASSERT(static_cast<size_t>(track) < m_tracks.size());
+    if (static_cast<size_t>(track) >= m_tracks.size()) return;
     Q_ASSERT(m_tracks.at(track));
     if (!m_tracks.at(track)) return;
 
@@ -299,7 +293,7 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    if (Kwave::toInt(track) >= m_tracks.count()) return QUuid();
+    if (static_cast<size_t>(track) >= m_tracks.size()) return QUuid();
     Q_ASSERT(m_tracks.at(track));
     if (!m_tracks.at(track)) return QUuid();
 
@@ -577,9 +571,10 @@ unsigned int Kwave::Signal::trackIndex(const Kwave::Track *track)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    qsizetype index = m_tracks.indexOf(const_cast<Kwave::Track *>(track));
-    if (index < 0) index = m_tracks.count();
-    return static_cast<unsigned int>(index);
+    const auto it = std::find(m_tracks.cbegin(), m_tracks.cend(), track);
+    return static_cast<unsigned int>( (it != m_tracks.cend()) ?
+        std::distance(m_tracks.cbegin(), it) :
+        m_tracks.size());
 }
 
 //***************************************************************************

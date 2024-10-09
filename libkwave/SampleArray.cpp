@@ -158,9 +158,10 @@ void Kwave::SampleArray::SampleStorage::resize(unsigned int size)
     } else {
         // resize to zero == delete/free memory
         Q_ASSERT(m_data);
-        ::free(m_data);
+        sample_t *t = m_data;
         m_data = nullptr;
         m_size = 0;
+        ::free(t);
     }
 }
 

@@ -90,7 +90,6 @@ Kwave::NoiseDialog::NoiseDialog(QWidget *parent,
 
     // set default: 10%
     setMode(m_mode);
-    updateDisplay(+0.1);
 
     connect(buttonBox_Help->button(QDialogButtonBox::Help), SIGNAL(clicked()),
             this,   SLOT(invokeHelp()));
@@ -351,6 +350,7 @@ void Kwave::NoiseDialog::setParams(QStringList &params)
     setMode(m_mode);
 
     // update factor
+    m_noise = -1.0 * factor; // just to get an initial refresh (fake change)
     updateDisplay(factor);
 }
 

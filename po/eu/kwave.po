@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-04 00:39+0000\n"
+"POT-Creation-Date: 2024-10-10 00:39+0000\n"
 "PO-Revision-Date: 2024-08-07 08:23+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -431,7 +431,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Kwave etiketa zerrenda"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1864
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1858
 #, kde-format
 msgid "Add Label"
 msgstr "Gehitu etiketa"
@@ -3316,7 +3316,7 @@ msgstr "Laginketa eta eutsi"
 msgid "Failed opening the log file '%1' for writing"
 msgstr "Huts egin du '%1' egunkari fitxategia idazteko irekitzea"
 
-#: libkwave/PlaybackController.cpp:666
+#: libkwave/PlaybackController.cpp:670
 #, kde-format
 msgid "Unable to open '%1'"
 msgstr "Ezin da ireki '%1'"
@@ -3480,27 +3480,27 @@ msgstr "Erantsi aztarna"
 msgid "Insert Track"
 msgstr "Txertatu aztarna"
 
-#: libkwave/SignalManager.cpp:943 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:937 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Ezabatu aztarna"
 
-#: libkwave/SignalManager.cpp:1096
+#: libkwave/SignalManager.cpp:1090
 #, kde-format
 msgid "Insert Space"
 msgstr "Txertatu zuriunea"
 
-#: libkwave/SignalManager.cpp:1368
+#: libkwave/SignalManager.cpp:1362
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "Ez dago desegite informazioa gordetzeko behar adina memoria."
 
-#: libkwave/SignalManager.cpp:1370
+#: libkwave/SignalManager.cpp:1364
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Jarraitu nahi duzu desegite aukerarik gabe?"
 
-#: libkwave/SignalManager.cpp:1372
+#: libkwave/SignalManager.cpp:1366
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3509,42 +3509,42 @@ msgstr ""
 "<b>Argibidea</b>: desegiteko memoria erabilgarri kopurua konfigura dezakezu "
 "'%1'/'%2'(e)tik behera."
 
-#: libkwave/SignalManager.cpp:1374
+#: libkwave/SignalManager.cpp:1368
 #, kde-format
 msgid "Settings"
 msgstr "Ezarpenak"
 
-#: libkwave/SignalManager.cpp:1375
+#: libkwave/SignalManager.cpp:1369
 #, kde-format
 msgid "Memory"
 msgstr "Memoria"
 
-#: libkwave/SignalManager.cpp:1519 libkwave/SignalManager.cpp:1526
+#: libkwave/SignalManager.cpp:1513 libkwave/SignalManager.cpp:1520
 #, kde-format
 msgid "Last Action"
 msgstr "Azken ekintza"
 
-#: libkwave/SignalManager.cpp:1816
+#: libkwave/SignalManager.cpp:1810
 #, kde-format
 msgid "Modify File Info"
 msgstr "Aldatu fitxategi informazioa"
 
-#: libkwave/SignalManager.cpp:1891
+#: libkwave/SignalManager.cpp:1885
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Ezabatu etiketa guztiak"
 
-#: libkwave/SignalManager.cpp:1910
+#: libkwave/SignalManager.cpp:1904
 #, kde-format
 msgid "Delete Label"
 msgstr "Ezabatu etiketa"
 
-#: libkwave/SignalManager.cpp:2008
+#: libkwave/SignalManager.cpp:2002
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Aztarnak eskuz hautatzea"
 
-#: libkwave/SignalManager.cpp:2011
+#: libkwave/SignalManager.cpp:2005
 #, kde-format
 msgid "Manual Selection"
 msgstr "Eskuz hautatzea"
@@ -3780,7 +3780,7 @@ msgid "Hz"
 msgstr "Hz"
 
 #: plugins/band_pass/BandPassDialog.cpp:68 plugins/lowpass/LowPassDialog.cpp:66
-#: plugins/noise/NoiseDialog.cpp:278
+#: plugins/noise/NoiseDialog.cpp:277
 #: plugins/notch_filter/NotchFilterDialog.cpp:70
 #: plugins/volume/VolumeDialog.cpp:264
 #, kde-format
@@ -6170,33 +6170,33 @@ msgstr "formatua ez da onartzen"
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "'%1' Qt multimedia gailua irekitzea huts egin du."
 
-#: plugins/playback/PlayBackDialog.cpp:515
+#: plugins/playback/PlayBackDialog.cpp:519
 #, kde-format
 msgid "%1 Bytes"
 msgstr "%1 Byte"
 
-#: plugins/playback/PlayBackDialog.cpp:517
+#: plugins/playback/PlayBackDialog.cpp:521
 #, kde-format
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/playback/PlayBackDialog.cpp:615
+#: plugins/playback/PlayBackDialog.cpp:619
 #, kde-format
 msgid "(mono)"
 msgstr "(mono)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/playback/PlayBackDialog.cpp:616 plugins/playback/PlayBackDlg.ui:350
+#: plugins/playback/PlayBackDialog.cpp:620 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
 msgstr "(estereo)"
 
-#: plugins/playback/PlayBackDialog.cpp:617
+#: plugins/playback/PlayBackDialog.cpp:621
 #, kde-format
 msgid "(quadro)"
 msgstr "(koadro)"
 
-#: plugins/playback/PlayBackDialog.cpp:647
+#: plugins/playback/PlayBackDialog.cpp:651
 #, kde-format
 msgid "Select Playback Device"
 msgstr "Hautatu atzera-jotzeko gailua"
@@ -6419,17 +6419,17 @@ msgstr ""
 msgid "&Test..."
 msgstr "&Proba..."
 
-#: plugins/playback/PlayBackPlugin.cpp:404
+#: plugins/playback/PlayBackPlugin.cpp:401
 #, kde-format
 msgid "Please select a playback device first"
 msgstr "Hautatu atzera-jotze gailu bat lehenengo"
 
-#: plugins/playback/PlayBackPlugin.cpp:430
+#: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format
 msgid "Playback Test"
 msgstr "Atzera-jotze proba"
 
-#: plugins/playback/PlayBackPlugin.cpp:439
+#: plugins/playback/PlayBackPlugin.cpp:436
 #, kde-format
 msgid ""
 "You should now hear a %1 Hz test tone.<br/><br/>(If you hear clicks or "

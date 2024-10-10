@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-04 00:39+0000\n"
+"POT-Creation-Date: 2024-10-10 00:39+0000\n"
 "PO-Revision-Date: 2024-08-09 03:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -428,7 +428,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Kwave 標記清單"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1864
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1858
 #, kde-format
 msgid "Add Label"
 msgstr "新增標記"
@@ -3310,7 +3310,7 @@ msgstr ""
 msgid "Failed opening the log file '%1' for writing"
 msgstr ""
 
-#: libkwave/PlaybackController.cpp:666
+#: libkwave/PlaybackController.cpp:670
 #, kde-format
 msgid "Unable to open '%1'"
 msgstr "無法開啟 %1。"
@@ -3474,69 +3474,69 @@ msgstr "加上音軌"
 msgid "Insert Track"
 msgstr "新增軌道"
 
-#: libkwave/SignalManager.cpp:943 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:937 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "刪除軌道"
 
-#: libkwave/SignalManager.cpp:1096
+#: libkwave/SignalManager.cpp:1090
 #, kde-format
 msgid "Insert Space"
 msgstr "插入空白空間"
 
-#: libkwave/SignalManager.cpp:1368
+#: libkwave/SignalManager.cpp:1362
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "沒有足夠的記憶體能夠儲存復原資訊。"
 
-#: libkwave/SignalManager.cpp:1370
+#: libkwave/SignalManager.cpp:1364
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "無法使用復原功能，您是否要繼續使用？"
 
-#: libkwave/SignalManager.cpp:1372
+#: libkwave/SignalManager.cpp:1366
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
 "under '%1'/'%2'."
 msgstr "<b>提示</b>：您可以在「%1/%2」調整可供復原功能<br>使用的記憶體用量。"
 
-#: libkwave/SignalManager.cpp:1374
+#: libkwave/SignalManager.cpp:1368
 #, kde-format
 msgid "Settings"
 msgstr "設定"
 
-#: libkwave/SignalManager.cpp:1375
+#: libkwave/SignalManager.cpp:1369
 #, kde-format
 msgid "Memory"
 msgstr "記憶體"
 
-#: libkwave/SignalManager.cpp:1519 libkwave/SignalManager.cpp:1526
+#: libkwave/SignalManager.cpp:1513 libkwave/SignalManager.cpp:1520
 #, kde-format
 msgid "Last Action"
 msgstr "上一個動作"
 
-#: libkwave/SignalManager.cpp:1816
+#: libkwave/SignalManager.cpp:1810
 #, kde-format
 msgid "Modify File Info"
 msgstr "修改檔案資訊"
 
-#: libkwave/SignalManager.cpp:1891
+#: libkwave/SignalManager.cpp:1885
 #, kde-format
 msgid "Delete All Labels"
 msgstr "刪除所有標記"
 
-#: libkwave/SignalManager.cpp:1910
+#: libkwave/SignalManager.cpp:1904
 #, kde-format
 msgid "Delete Label"
 msgstr "刪除標記"
 
-#: libkwave/SignalManager.cpp:2008
+#: libkwave/SignalManager.cpp:2002
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "手動選擇音軌"
 
-#: libkwave/SignalManager.cpp:2011
+#: libkwave/SignalManager.cpp:2005
 #, kde-format
 msgid "Manual Selection"
 msgstr "手動選擇"
@@ -3770,7 +3770,7 @@ msgid "Hz"
 msgstr "赫茲"
 
 #: plugins/band_pass/BandPassDialog.cpp:68 plugins/lowpass/LowPassDialog.cpp:66
-#: plugins/noise/NoiseDialog.cpp:278
+#: plugins/noise/NoiseDialog.cpp:277
 #: plugins/notch_filter/NotchFilterDialog.cpp:70
 #: plugins/volume/VolumeDialog.cpp:264
 #, kde-format
@@ -6076,33 +6076,33 @@ msgstr "格式不支援"
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "開啟 Qt 多媒體裝置「%1」時失敗"
 
-#: plugins/playback/PlayBackDialog.cpp:515
+#: plugins/playback/PlayBackDialog.cpp:519
 #, kde-format
 msgid "%1 Bytes"
 msgstr "%1 位元組"
 
-#: plugins/playback/PlayBackDialog.cpp:517
+#: plugins/playback/PlayBackDialog.cpp:521
 #, kde-format
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/playback/PlayBackDialog.cpp:615
+#: plugins/playback/PlayBackDialog.cpp:619
 #, kde-format
 msgid "(mono)"
 msgstr "（單聲道）"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/playback/PlayBackDialog.cpp:616 plugins/playback/PlayBackDlg.ui:350
+#: plugins/playback/PlayBackDialog.cpp:620 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
 msgstr "（立體聲）"
 
-#: plugins/playback/PlayBackDialog.cpp:617
+#: plugins/playback/PlayBackDialog.cpp:621
 #, kde-format
 msgid "(quadro)"
 msgstr "（四聲道）"
 
-#: plugins/playback/PlayBackDialog.cpp:647
+#: plugins/playback/PlayBackDialog.cpp:651
 #, kde-format
 msgid "Select Playback Device"
 msgstr "選擇回放裝置"
@@ -6289,17 +6289,17 @@ msgstr ""
 msgid "&Test..."
 msgstr "測試(&T)..."
 
-#: plugins/playback/PlayBackPlugin.cpp:404
+#: plugins/playback/PlayBackPlugin.cpp:401
 #, kde-format
 msgid "Please select a playback device first"
 msgstr "請先選擇回放裝置"
 
-#: plugins/playback/PlayBackPlugin.cpp:430
+#: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format
 msgid "Playback Test"
 msgstr "播放測試"
 
-#: plugins/playback/PlayBackPlugin.cpp:439
+#: plugins/playback/PlayBackPlugin.cpp:436
 #, kde-format
 msgid ""
 "You should now hear a %1 Hz test tone.<br/><br/>(If you hear clicks or "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-04 00:39+0000\n"
+"POT-Creation-Date: 2024-10-10 00:39+0000\n"
 "PO-Revision-Date: 2024-09-20 13:15+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -428,7 +428,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Λίστα ετικετών Kwave"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1864
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1858
 #, kde-format
 msgid "Add Label"
 msgstr "Προσθήκη ετικέτας"
@@ -3314,7 +3314,7 @@ msgstr "Διατήρηση δείγματος ως την επόμενη λήψ�
 msgid "Failed opening the log file '%1' for writing"
 msgstr "Αποτυχία ανοίγματος του αρχείου καταγραφής '%1' για εγγραφή"
 
-#: libkwave/PlaybackController.cpp:666
+#: libkwave/PlaybackController.cpp:670
 #, kde-format
 msgid "Unable to open '%1'"
 msgstr "Αδυναμία ανοίγματος '%1'"
@@ -3478,27 +3478,27 @@ msgstr "Προσθήκη κομματιού"
 msgid "Insert Track"
 msgstr "Εισαγωγή κομματιού"
 
-#: libkwave/SignalManager.cpp:943 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:937 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Διαγραφή κομματιού"
 
-#: libkwave/SignalManager.cpp:1096
+#: libkwave/SignalManager.cpp:1090
 #, kde-format
 msgid "Insert Space"
 msgstr "Εισαγωγή κενού"
 
-#: libkwave/SignalManager.cpp:1368
+#: libkwave/SignalManager.cpp:1362
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "Ανεπαρκής μνήμη για αποθήκευση πληροφοριών αναίρεσης."
 
-#: libkwave/SignalManager.cpp:1370
+#: libkwave/SignalManager.cpp:1364
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Θέλετε να συνεχίσετε χωρίς τη δυνατότητα αναίρεσης;"
 
-#: libkwave/SignalManager.cpp:1372
+#: libkwave/SignalManager.cpp:1366
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3507,42 +3507,42 @@ msgstr ""
 "<b>Συμβουλή</b>: μπορείτε να διαμορφώσετε το μέγεθος της μνήμης<br>που είναι "
 "διαθέσιμη για αναίρεση στο '%1'/'%2'."
 
-#: libkwave/SignalManager.cpp:1374
+#: libkwave/SignalManager.cpp:1368
 #, kde-format
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: libkwave/SignalManager.cpp:1375
+#: libkwave/SignalManager.cpp:1369
 #, kde-format
 msgid "Memory"
 msgstr "Μνήμη"
 
-#: libkwave/SignalManager.cpp:1519 libkwave/SignalManager.cpp:1526
+#: libkwave/SignalManager.cpp:1513 libkwave/SignalManager.cpp:1520
 #, kde-format
 msgid "Last Action"
 msgstr "Τελευταία ενέργεια"
 
-#: libkwave/SignalManager.cpp:1816
+#: libkwave/SignalManager.cpp:1810
 #, kde-format
 msgid "Modify File Info"
 msgstr "Τροποποίηση πληροφοριών αρχείου"
 
-#: libkwave/SignalManager.cpp:1891
+#: libkwave/SignalManager.cpp:1885
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Διαγραφή όλων των ετικετών"
 
-#: libkwave/SignalManager.cpp:1910
+#: libkwave/SignalManager.cpp:1904
 #, kde-format
 msgid "Delete Label"
 msgstr "Διαγραφή ετικέτας"
 
-#: libkwave/SignalManager.cpp:2008
+#: libkwave/SignalManager.cpp:2002
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Χειροκίνητη επιλογή κομματιού"
 
-#: libkwave/SignalManager.cpp:2011
+#: libkwave/SignalManager.cpp:2005
 #, kde-format
 msgid "Manual Selection"
 msgstr "Χειροκίνητη επιλογή"
@@ -3779,7 +3779,7 @@ msgid "Hz"
 msgstr "Hz"
 
 #: plugins/band_pass/BandPassDialog.cpp:68 plugins/lowpass/LowPassDialog.cpp:66
-#: plugins/noise/NoiseDialog.cpp:278
+#: plugins/noise/NoiseDialog.cpp:277
 #: plugins/notch_filter/NotchFilterDialog.cpp:70
 #: plugins/volume/VolumeDialog.cpp:264
 #, kde-format
@@ -6179,33 +6179,33 @@ msgstr "Σφάλμα: ο κωδικοποιητής δεν υποστηρίζε�
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Αποτυχία ανοίγματος της Qt Multimedia συσκευής '%1'"
 
-#: plugins/playback/PlayBackDialog.cpp:515
+#: plugins/playback/PlayBackDialog.cpp:519
 #, kde-format
 msgid "%1 Bytes"
 msgstr "%1 Bytes"
 
-#: plugins/playback/PlayBackDialog.cpp:517
+#: plugins/playback/PlayBackDialog.cpp:521
 #, kde-format
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/playback/PlayBackDialog.cpp:615
+#: plugins/playback/PlayBackDialog.cpp:619
 #, kde-format
 msgid "(mono)"
 msgstr "(μονοφωνική)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/playback/PlayBackDialog.cpp:616 plugins/playback/PlayBackDlg.ui:350
+#: plugins/playback/PlayBackDialog.cpp:620 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
 msgstr "(στερεοφωνική)"
 
-#: plugins/playback/PlayBackDialog.cpp:617
+#: plugins/playback/PlayBackDialog.cpp:621
 #, kde-format
 msgid "(quadro)"
 msgstr "(τετραφωνική)"
 
-#: plugins/playback/PlayBackDialog.cpp:647
+#: plugins/playback/PlayBackDialog.cpp:651
 #, kde-format
 msgid "Select Playback Device"
 msgstr "Επιλογή συσκευής αναπαραγωγής"
@@ -6430,17 +6430,17 @@ msgstr ""
 msgid "&Test..."
 msgstr "&Δοκιμή..."
 
-#: plugins/playback/PlayBackPlugin.cpp:404
+#: plugins/playback/PlayBackPlugin.cpp:401
 #, kde-format
 msgid "Please select a playback device first"
 msgstr "Επιλέξτε πρώτα μια συσκευή αναπαραγωγής"
 
-#: plugins/playback/PlayBackPlugin.cpp:430
+#: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format
 msgid "Playback Test"
 msgstr "Δοκιμή αναπαραγωγής"
 
-#: plugins/playback/PlayBackPlugin.cpp:439
+#: plugins/playback/PlayBackPlugin.cpp:436
 #, kde-format
 msgid ""
 "You should now hear a %1 Hz test tone.<br/><br/>(If you hear clicks or "

@@ -308,13 +308,11 @@ IF (WITH_DOC)
 ENDIF (WITH_DOC)
 
 #############################################################################
-### RPM support                                                           ###
+### distfiles support (deprecated, will be removed in future)             ###
 
 # directory that receives the files of the "distfiles" target
 SET(DISTFILES_DIR ${CMAKE_BINARY_DIR}/v${KWAVE_VERSION})
 FILE(MAKE_DIRECTORY ${DISTFILES_DIR})
-
-INCLUDE(KwaveRPMSupport)
 
 #############################################################################
 ### DEB support                                                           ###

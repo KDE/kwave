@@ -44,7 +44,7 @@ namespace Kwave
         explicit MP3EncoderDialog(QWidget *parent);
 
         /** Destructor */
-        virtual ~MP3EncoderDialog();
+        virtual ~MP3EncoderDialog() override;
 
     public slots:
 

@@ -40,7 +40,7 @@ namespace Kwave
         MixerMatrix(unsigned int inputs, unsigned int outputs);
 
         /** Destructor */
-        virtual ~MixerMatrix();
+        virtual ~MixerMatrix() override;
     };
 
 }

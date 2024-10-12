@@ -172,7 +172,7 @@ namespace Kwave
         }
 
         /** Destructor */
-        virtual ~MultiTrackSource() { }
+        virtual ~MultiTrackSource() override { }
     };
 
 }

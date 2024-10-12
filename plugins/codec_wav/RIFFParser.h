@@ -50,7 +50,7 @@ namespace Kwave
                    const QStringList &known_subchunks);
 
         /** Destructor */
-        virtual ~RIFFParser();
+        virtual ~RIFFParser() override;
 
         /**
          * Parses the whole source.

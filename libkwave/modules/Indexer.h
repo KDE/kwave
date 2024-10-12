@@ -41,7 +41,7 @@ namespace Kwave
         Indexer(unsigned int index);
 
         /** Destructor */
-        virtual ~Indexer();
+        virtual ~Indexer() override;
 
     public slots:
 

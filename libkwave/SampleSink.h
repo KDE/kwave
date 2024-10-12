@@ -41,7 +41,7 @@ namespace Kwave
         explicit SampleSink(QObject *parent = nullptr);
 
         /** Destructor */
-        virtual ~SampleSink();
+        virtual ~SampleSink() override;
 
         /**
          * Returns true if the end of the destination has been reached,

@@ -21,7 +21,6 @@
 #include <new>
 
 #include "libkwave/MultiTrackWriter.h"
-#include "libkwave/SampleArray.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Utils.h"
 #include "libkwave/undo/UndoInsertAction.h"

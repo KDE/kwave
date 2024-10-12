@@ -47,7 +47,7 @@ namespace Kwave
         MultiPlaybackSink(unsigned int tracks, Kwave::PlayBackDevice *device);
 
         /** Destructor */
-        virtual ~MultiPlaybackSink();
+        virtual ~MultiPlaybackSink() override;
 
     private slots:
 

@@ -25,10 +25,11 @@
 
 #include "libkwave/Plugin.h"
 #include "libkwave/Sample.h"
-#include "libkwave/SampleArray.h"
 
 namespace Kwave
 {
+    class SampleArray;
+
     /**
      * @class ReversePlugin
      * Reverses the current selection by exchanging blocks of samples

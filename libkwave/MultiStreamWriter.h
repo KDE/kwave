@@ -45,7 +45,7 @@ namespace Kwave
         explicit MultiStreamWriter(unsigned int tracks);
 
         /** Destructor */
-        virtual ~MultiStreamWriter();
+        virtual ~MultiStreamWriter() override;
 
     };
 }

@@ -25,7 +25,6 @@
 
 #include "libkwave/Plugin.h"
 #include "libkwave/Sample.h"
-#include "libkwave/SampleArray.h"
 
 namespace Kwave
 {

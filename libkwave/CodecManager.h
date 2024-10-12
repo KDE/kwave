@@ -42,7 +42,7 @@ namespace Kwave
         CodecManager();
 
         /** Destructor */
-        virtual ~CodecManager();
+        virtual ~CodecManager() override;
 
         /**
          * Registers a new encoder.

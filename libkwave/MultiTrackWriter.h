@@ -73,7 +73,7 @@ namespace Kwave
                          Kwave::InsertMode mode);
 
         /** Destructor */
-        virtual ~MultiTrackWriter();
+        virtual ~MultiTrackWriter() override;
 
     private:
 

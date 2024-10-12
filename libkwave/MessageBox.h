@@ -164,7 +164,7 @@ namespace Kwave
              * thread and deleteLater() is called. This calls the "show()"
              * method of the Kwave::MessageBox in a safe context.
              */
-            virtual ~Trigger();
+            virtual ~Trigger() override;
 
         private:
 

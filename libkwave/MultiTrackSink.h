@@ -152,7 +152,7 @@ namespace Kwave
         }
 
         /** Destructor */
-        virtual ~MultiTrackSink() { }
+        virtual ~MultiTrackSink() override { }
     };
 
 }

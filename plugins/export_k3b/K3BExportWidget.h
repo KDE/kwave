@@ -49,7 +49,7 @@ namespace Kwave
         );
 
         /** Destructor */
-        virtual ~K3BExportWidget();
+        virtual ~K3BExportWidget() override;
 
         /** @see KPreviewWidgetBase::showPreview() */
         virtual void showPreview(const QUrl &url)

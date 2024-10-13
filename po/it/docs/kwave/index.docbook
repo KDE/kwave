@@ -1688,8 +1688,8 @@
 ><para
 ><emphasis
 >ingrandisci:</emphasis
-> ingrandisce per consentire la visione di più dettagli, moltiplica per fattore 3. <itemizedlist>
-	    <listitem
+> ingrandisce per consentire la visione di più dettagli, moltiplica per fattore 3. <itemizedlist
+> <listitem
 ><para
 >voce di menu / scorciatoia di tastiera: <menuchoice
 > <shortcut
@@ -1705,21 +1705,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->pulsante della barra degli strumenti: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_in.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->ingrandisci</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
 	</para
 ></listitem>
@@ -1728,8 +1713,8 @@
 ><para
 ><emphasis
 >rimpicciolisci:</emphasis
-> riduce per consentire la visione di meno dettagli, riduce di un fattore 3. <itemizedlist>
-	    <listitem
+> riduce per consentire la visione di meno dettagli, riduce di un fattore 3. <itemizedlist
+> <listitem
 ><para
 >voce di menu / scorciatoia di tastiera: <menuchoice
 > <shortcut
@@ -1745,21 +1730,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->pulsante della barra degli strumenti: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_out.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->rimpicciolisci</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1768,8 +1738,8 @@
 ><para
 ><emphasis
 >ingrandisci alla selezione:</emphasis
-> ingrandisce a un fattore che permette di rendere totalmente visibile la selezione corrente nella vista attuale. <itemizedlist>
-	    <listitem
+> ingrandisce a un fattore che permette di rendere totalmente visibile la selezione corrente nella vista attuale. <itemizedlist
+> <listitem
 ><para
 >voce di menu / scorciatoia di tastiera: <menuchoice
 > <shortcut
@@ -1783,21 +1753,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->pulsante della barra degli strumenti: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmag.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->ingrandisci alla selezione</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1806,8 +1761,8 @@
 ><para
 ><emphasis
 >ingrandisci all'intero segnale:</emphasis
-> seleziona un fattore di ingrandimento che rende visibile l'interno segnale all'interno della finestra attiva. <itemizedlist>
-	    <listitem
+> seleziona un fattore di ingrandimento che rende visibile l'interno segnale all'interno della finestra attiva. <itemizedlist
+> <listitem
 ><para
 >voce di menu: <menuchoice
 > <guimenu
@@ -1817,21 +1772,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->pulsante della barra degli strumenti: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
-        </imageobject
-><textobject
-><phrase
-><quote
->ingrandisci a tutto</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1840,8 +1780,8 @@
 ><para
 ><emphasis
 >ingrandisci al 100%:</emphasis
-> ingrandisce fino a una proporzione in cui un campione è rappresentato da un pixel sullo schermo. <itemizedlist>
-	    <listitem
+> ingrandisce fino a una proporzione in cui un campione è rappresentato da un pixel sullo schermo. <itemizedlist
+> <listitem
 ><para
 >voce di menu: <menuchoice
 > <guimenu
@@ -1850,21 +1790,6 @@
 >Ingrandisci al 100%</guimenuitem
 > </menuchoice
 > </para
-></listitem>
-	    <listitem
-><para
->pulsante della barra degli strumenti: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->ingrandisci al 100%</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
 ></listitem>
 	    </itemizedlist>
         </para
@@ -1962,19 +1887,6 @@
 >Pagina precedente</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->pulsante della barra degli strumenti: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->pagina precedente</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- next page -->
        <listitem
@@ -1994,19 +1906,6 @@
 >Pagina successiva</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->pulsante della barra degli strumenti: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->pagina successiva</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll right -->
         <listitem
@@ -2026,19 +1925,6 @@
 >Scorri a destra</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->pulsante della barra degli strumenti: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->scorri a destra</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll left -->
         <listitem
@@ -2058,19 +1944,6 @@
 >Scorri a sinistra</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->pulsante della barra degli strumenti: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->scorri a sinistra</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	</itemizedlist>
     </para>

@@ -60,6 +60,9 @@ namespace Kwave
         /** returns the numbering mode */
         Kwave::SaveBlocksPlugin::numbering_mode_t numberingMode();
 
+        /** returns the file extension */
+        QString extension();
+
         /** returns true if only the selection should be saved */
         bool selectionOnly();
 
@@ -75,10 +78,8 @@ namespace Kwave
             const QString &filename,
             const QString &pattern,
             Kwave::SaveBlocksPlugin::numbering_mode_t mode,
+            const QString &ext,
             bool selection_only);
-
-        /** emitted whenever one of the input controls has changed */
-            void somethingChanged();
 
     public slots:
 

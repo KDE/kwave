@@ -130,8 +130,11 @@ namespace Kwave
          * @param selection_only if true: save only the selection
          * @return name of the first file, escaped
          */
-        QString firstFileName(const QString &filename, const QString &pattern,
-            numbering_mode_t mode, bool selection_only);
+        QString firstFileName(const QString &filename,
+                              const QString &pattern,
+                              numbering_mode_t mode,
+                              const QString &extension,
+                              bool selection_only);
 
     signals:
 
@@ -152,6 +155,7 @@ namespace Kwave
             const QString &filename,
             const QString &pattern,
             Kwave::SaveBlocksPlugin::numbering_mode_t mode,
+            const QString &extension,
             bool selection_only);
 
     private:

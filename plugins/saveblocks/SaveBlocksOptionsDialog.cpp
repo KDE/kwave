@@ -25,10 +25,13 @@
 
 #include <KComboBox>
 
+#include "libkwave/CodecManager.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/String.h"
 
 #include "SaveBlocksOptionsDialog.h"
+
+using namespace Qt::StringLiterals;
 
 //***************************************************************************
 Kwave::SaveBlocksOptionsDialog::SaveBlocksOptionsDialog(QWidget *parent,
@@ -65,6 +68,20 @@ Kwave::SaveBlocksOptionsDialog::SaveBlocksOptionsDialog(QWidget *parent,
     // the numbering mode combo box
     cbNumbering->setCurrentIndex(static_cast<int>(numbering_mode));
 
+    // populate the extension combo box
+    const QStringList encodings = Kwave::CodecManager::encodingFilter().split("\n"_L1);
+    for (auto e : encodings) {
+        QStringList pattern;
+        if (e.contains(_("|"))) {
+            qsizetype i = e.indexOf("|"_L1);
+            pattern = e.left(i).split(" "_L1);
+        }
+        for (auto p : pattern) {
+            QString ext = p.mid(1);
+            if (!cbExtension->contains(ext)) cbExtension->addItem(ext);
+        }
+    }
+
     // the "selection only" checkbox
     if (have_selection) {
         // we have a selection
@@ -78,26 +95,32 @@ Kwave::SaveBlocksOptionsDialog::SaveBlocksOptionsDialog(QWidget *parent,
 
     // combo box with pattern
     connect(cbPattern, &QComboBox::editTextChanged,
-            this, &SaveBlocksOptionsDialog::somethingChanged);
+            this, &SaveBlocksOptionsDialog::emitUpdate);
     connect(cbPattern, &QComboBox::highlighted,
-            this, &SaveBlocksOptionsDialog::somethingChanged);
+            this, &SaveBlocksOptionsDialog::emitUpdate);
     connect(cbPattern, &QComboBox::activated,
-            this, &SaveBlocksOptionsDialog::somethingChanged);
+            this, &SaveBlocksOptionsDialog::emitUpdate);
 
     // combo box with numbering
     connect(cbNumbering, &QComboBox::editTextChanged,
-            this, &SaveBlocksOptionsDialog::somethingChanged);
+            this, &SaveBlocksOptionsDialog::emitUpdate);
     connect(cbNumbering, &QComboBox::highlighted,
-            this, &SaveBlocksOptionsDialog::somethingChanged);
+            this, &SaveBlocksOptionsDialog::emitUpdate);
     connect(cbNumbering, &QComboBox::activated,
-            this, &SaveBlocksOptionsDialog::somethingChanged);
+            this, &SaveBlocksOptionsDialog::emitUpdate);
+
+    // combo box with extension
+    connect(cbExtension, &QComboBox::editTextChanged,
+            this, &SaveBlocksOptionsDialog::emitUpdate);
+    connect(cbExtension, &QComboBox::highlighted,
+            this, &SaveBlocksOptionsDialog::emitUpdate);
+    connect(cbExtension, &QComboBox::activated,
+            this, &SaveBlocksOptionsDialog::emitUpdate);
 
     // selection only checkbox
     connect(chkSelectionOnly, &QCheckBox::checkStateChanged,
-            this, &SaveBlocksOptionsDialog::somethingChanged);
-
-    connect(this, &SaveBlocksOptionsDialog::somethingChanged,
             this, &SaveBlocksOptionsDialog::emitUpdate);
+
 
     connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
@@ -126,6 +149,13 @@ Kwave::SaveBlocksPlugin::numbering_mode_t
 }
 
 //***************************************************************************
+QString Kwave::SaveBlocksOptionsDialog::extension()
+{
+    Q_ASSERT(cbExtension);
+    return (cbExtension) ? cbExtension->currentText() : u".wav"_s;
+}
+
+//***************************************************************************
 bool Kwave::SaveBlocksOptionsDialog::selectionOnly()
 {
     Q_ASSERT(chkSelectionOnly);
@@ -141,7 +171,7 @@ void Kwave::SaveBlocksOptionsDialog::setNewExample(const QString &example)
 
 void Kwave::SaveBlocksOptionsDialog::emitUpdate()
 {
-    Q_EMIT sigSelectionChanged(m_filename, pattern(), numberingMode(), selectionOnly());
+    Q_EMIT sigSelectionChanged(m_filename, pattern(), numberingMode(), extension(), selectionOnly());
 }
 
 //***************************************************************************

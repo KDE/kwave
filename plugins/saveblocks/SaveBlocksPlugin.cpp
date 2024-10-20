@@ -83,8 +83,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
                          (selection_right + 1 >= signalLength()));
     bool enable_selection_only = selected_something && !selected_all;
 
-    QString filename = m_url.path();
-    QString base = findBase(filename, m_pattern);
+    QString base = findBase(m_url.path(), m_pattern);
     scanBlocksToSave(base, m_selection_only && enable_selection_only);
 
     QUrl signalname = Kwave::URLfromUserInput(signalName());
@@ -128,16 +127,16 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
         return nullptr;
     }
     QString name = url.path();
-    name += u"/"_s + signalname.fileName();
-    QFileInfo path(name);
 
-    // add the correct extension if necessary
-    if (!path.suffix().length()) {
-        QString ext = fileDialog->selectedExtension();
-        QStringList extensions = ext.split(_(" "));
-        ext = extensions.first();
-        name += ext.mid(1);
-    }
+    QString filename = signalname.fileName();
+    QFileInfo path(filename);
+
+    // replace the current extension with the selected extension
+    QString old_ext = path.suffix();
+    if (old_ext.length()) filename.remove(old_ext);
+    QString ext = Kwave::Parser::escape(dialog->extension());
+    filename += ext.mid(1);
+    name += u"/"_s + filename;
 
     name = Kwave::Parser::escape(name);
     QString pattern = Kwave::Parser::escape(dialog->pattern());
@@ -226,8 +225,8 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     unsigned int first = firstIndex(path, base, ext, m_pattern,
                                     m_numbering_mode, count);
 
-//     qDebug("m_url            = '%s'", m_url.prettyURL().local8Bit().data());
-//     qDebug("m_pattern        = '%s'", m_pattern.local8Bit().data());
+//     qDebug("m_url            = '%s'", m_url.toDisplayString().toLocal8Bit().data());
+//     qDebug("m_pattern        = '%s'", m_pattern.toLocal8Bit().data());
 //     qDebug("m_numbering_mode = %d", (int)m_numbering_mode);
 //     qDebug("selection_only   = %d", selection_only);
 //     qDebug("indices          = %u...%u (count=%u)", first,
@@ -743,12 +742,14 @@ QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
 
 //***************************************************************************
 QString Kwave::SaveBlocksPlugin::firstFileName(const QString &filename,
-    const QString &pattern, Kwave::SaveBlocksPlugin::numbering_mode_t mode,
-    bool selection_only)
+                                               const QString &pattern,
+                                               Kwave::SaveBlocksPlugin::numbering_mode_t mode,
+                                               const QString &extension,
+                                               bool selection_only)
 {
     QFileInfo file(filename);
     QString path = file.absolutePath();
-    QString ext  = file.suffix();
+    QString ext  = extension.mid(1);
     QString base = findBase(filename, pattern);
 
     // now we have a new name, base and extension
@@ -764,10 +765,12 @@ QString Kwave::SaveBlocksPlugin::firstFileName(const QString &filename,
 
 //***************************************************************************
 void Kwave::SaveBlocksPlugin::updateExample(const QString &filename,
-    const QString &pattern, Kwave::SaveBlocksPlugin::numbering_mode_t mode,
-    bool selection_only)
+                                            const QString &pattern,
+                                            Kwave::SaveBlocksPlugin::numbering_mode_t mode,
+                                            const QString &extension,
+                                            bool selection_only)
 {
-    QString example = firstFileName(filename, pattern, mode, selection_only);
+    QString example = firstFileName(filename, pattern, mode, extension, selection_only);
     emit sigNewExample(Kwave::Parser::unescape(example));
 }
 

@@ -5296,16 +5296,6 @@
 		<listitem>
 		    <variablelist>
 			<varlistentry>
-			    <term><replaceable>filename</replaceable></term>
-			    <listitem>
-				<para>
-				    The name of the K3b project file, will be used as
-				    base name for the exported file names.
-				</para>
-			    </listitem>
-			</varlistentry>
-
-			<varlistentry>
 			    <term><replaceable>pattern</replaceable></term>
 			    <listitem>
 				<para>
@@ -5392,38 +5382,20 @@
 			</varlistentry>
 
 			<varlistentry>
+			    <term><replaceable>project file</replaceable></term>
+			    <listitem>
+				<para>
+				    The name of the K3b project file, which will also be used
+				    as the base name for the exported file names.
+				</para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
 			    <term><replaceable>export location</replaceable></term>
 			    <listitem>
 				<para>
-				    Determines where the blocks should be saved.
-				    <informaltable frame='all'>
-					<tgroup cols='2'>
-					    <thead>
-						<row>
-						    <entry align='left'>value</entry>
-						    <entry align='left'>description</entry>
-						</row>
-					    </thead>
-					    <tbody>
-						<row>
-						    <entry>&no-i18n-tag;<command>0</command></entry>
-						    <entry>
-							Save to the same directory as the
-							K3b project file.
-						    </entry>
-						</row>
-						<row>
-						    <entry>&no-i18n-tag;<command>1</command></entry>
-						    <entry>
-							Save into a subdirectory of the directory of the
-							K3b project file, using the K3b project file
-							name as base and appending
-							<quote><command><literal>.dir</literal></command></quote>.
-						    </entry>
-						</row>
-					    </tbody>
-					</tgroup>
-				    </informaltable>
+				    The location where the blocks should be saved.
 				</para>
 			    </listitem>
 			</varlistentry>

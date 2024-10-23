@@ -6524,16 +6524,6 @@
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>name</replaceable></term>
-			<listitem>
-			    <para>
-				The name of the original file, will be used as
-				base name for the file names.
-			    </para>
-			</listitem>
-		    </varlistentry>
-
-		    <varlistentry>
 			<term><replaceable>pattern</replaceable></term>
 			<listitem>
 			    <para>
@@ -6651,6 +6641,25 @@
 					</tbody>
 				    </tgroup>
 				</informaltable>
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>extension</replaceable></term>
+			<listitem>
+			    <para>
+				The file name extension to use for the saved blocks.
+				This determines what encoding is used.
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>export location</replaceable></term>
+			<listitem>
+			    <para>
+				The location to export the saved blocks.
 			    </para>
 			</listitem>
 		    </varlistentry>

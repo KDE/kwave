@@ -2159,7 +2159,7 @@ msgstr "原始"
 
 #: libkwave/FileInfo.cpp:226
 msgid "Indicates whether the file is an original or a copy"
-msgstr "区分这个文件是原版还是拷贝"
+msgstr "区分这个文件是原版还是副本"
 
 #: libkwave/FileInfo.cpp:229
 msgid "Performer"

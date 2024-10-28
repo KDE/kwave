@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-10 00:39+0000\n"
-"PO-Revision-Date: 2024-08-07 09:54+0200\n"
+"PO-Revision-Date: 2024-10-26 20:54+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -275,7 +275,7 @@ msgstr "Robert Leslie"
 #: kwave/main.cpp:109
 #, kde-format
 msgid "Author of the 'mad' MP3 decoder library"
-msgstr "Autoria de la biblioteca descodificadora «mad» de MP3"
+msgstr "Autoria de la biblioteca descodificadora «mad» d'MP3"
 
 #: kwave/main.cpp:111
 #, kde-format
@@ -7550,9 +7550,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Silenci"
-
-#~ msgid "Zoom in"
-#~ msgstr "Acosta"
-
-#~ msgid "Zoom out"
-#~ msgstr "Allunya"

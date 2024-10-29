@@ -25,9 +25,8 @@
 # auto detect this language (to make this file re-usable)
 GET_FILENAME_COMPONENT(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
 
-# /usr/share/help/de/kdoctools5-common
-SET(_common_dir ${CMAKE_INSTALL_PREFIX}/share/help/${_lang}/kdoctools5-common)
-SET(_common_en_dir ${CMAKE_INSTALL_PREFIX}/share/help/en/kdoctools5-common)
+SET(_common_dir ${CMAKE_INSTALL_PREFIX}/share/help/${_lang}/kdoctools6-common)
+SET(_common_en_dir ${CMAKE_INSTALL_PREFIX}/share/help/en/kdoctools6-common)
 SET(_html_dir ${CMAKE_BINARY_DIR}/doc/html/${_lang})
 
 #############################################################################
@@ -36,6 +35,7 @@ SET(_html_dir ${CMAKE_BINARY_DIR}/doc/html/${_lang})
 FILE(GLOB _docbook_files "${CMAKE_CURRENT_SOURCE_DIR}/*.docbook")
 FILE(GLOB _png_files "${CMAKE_SOURCE_DIR}/doc/${_lang}/*.png")
 GET_TARGET_PROPERTY(MEINPROC_EXECUTABLE ${KDOCTOOLS_MEINPROC_EXECUTABLE} LOCATION)
+FILE(CHMOD ${CMAKE_SOURCE_DIR}/doc/fix-common PERMISSIONS OWNER_EXECUTE OWNER_READ)
 
 ADD_CUSTOM_TARGET(html_doc_${_lang}
     COMMENT "Generating HTML documentation for ${_lang}"

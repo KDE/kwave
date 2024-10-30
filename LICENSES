@@ -134,7 +134,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         cmake/KwaveALSASupport.cmake                    BSD (3 clause)
         cmake/KwaveDEBSupport.cmake                     BSD (3 clause)
         cmake/KwaveEbuild.cmake                         BSD (3 clause)
-        cmake/KwaveHandbook.cmake                       BSD (3 clause)
         cmake/KwaveL10N.cmake                           BSD (3 clause)
         cmake/KwaveLibaudiofileSupport.cmake            BSD (3 clause)
         cmake/KwaveLibsamplerateSupport.cmake           BSD (3 clause)

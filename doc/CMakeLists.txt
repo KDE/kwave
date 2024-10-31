@@ -108,6 +108,7 @@ FOREACH(_file ${_files})
             COMMAND ${CP_EXECUTABLE} ${_common_dir}/*       ${_html_dir}/common/
             COMMAND ${CP_EXECUTABLE} -n ${_common_en_dir}/* ${_html_dir}/common/
             # fix wrong paths in the HTML pages
+            COMMAND chmod +rx ${CMAKE_SOURCE_DIR}/doc/fix-common
             COMMAND cd ${_html_dir} && ${CMAKE_SOURCE_DIR}/doc/fix-common
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         )
@@ -121,7 +122,6 @@ ENDFOREACH(_file ${_files})
 SET(_common_en_dir /usr/share/help/en/kdoctools6-common)
 SET(_html_dir_devel ${CMAKE_CURRENT_BINARY_DIR}/devel)
 GET_TARGET_PROPERTY(MEINPROC_EXECUTABLE ${KDOCTOOLS_MEINPROC_EXECUTABLE} LOCATION)
-FILE(CHMOD ${CMAKE_SOURCE_DIR}/doc/fix-common PERMISSIONS OWNER_EXECUTE OWNER_READ)
 
 ADD_CUSTOM_TARGET(html_doc_devel
     COMMENT "Generating HTML developer documentation"
@@ -136,6 +136,7 @@ ADD_CUSTOM_TARGET(html_doc_devel
     COMMAND ${CMAKE_COMMAND} -E make_directory      ${_html_dir_devel}/common
     COMMAND ${CP_EXECUTABLE} -n ${_common_en_dir}/* ${_html_dir_devel}/common/
     # fix wrong paths in the HTML pages
+    COMMAND chmod +rx ${CMAKE_SOURCE_DIR}/doc/fix-common
     COMMAND cd ${_html_dir_devel} && ${CMAKE_SOURCE_DIR}/doc/fix-common
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )

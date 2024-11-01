@@ -57,10 +57,18 @@ ADD_CUSTOM_TARGET(update-handbook
 )
 
 #############################################################################
-### handle the various languages                                          ###
+### html documentation for the various languages                          ###
+
+SET(_stylesheet "${KDOCTOOLS_CUSTOMIZATION_DIR}/kde-web.xsl")
+SET(_common_en_dir ${KDE_INSTALL_FULL_DOCBUNDLEDIR}/en/kdoctools6-common)
+SET(_base_html_dir ${CMAKE_BINARY_DIR}/doc/html)
 
 # collects all "html_doc_${_lang}" sub targets
-ADD_CUSTOM_TARGET(html_doc)
+ADD_CUSTOM_TARGET(html_doc
+    # copy the kdoctools common files where the generated html expects them
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${_base_html_dir}/common
+    COMMAND ${CP_EXECUTABLE} -u ${_common_en_dir}/* ${_base_html_dir}/common/
+)
 
 FILE(GLOB _files "${CMAKE_SOURCE_DIR}/po/*/docs/kwave/index.docbook")
 FOREACH(_file ${_files})
@@ -69,9 +77,7 @@ FOREACH(_file ${_files})
     GET_FILENAME_COMPONENT(_subdir  ${_subdir1} DIRECTORY)
     GET_FILENAME_COMPONENT(_lang ${_subdir}     NAME)
 
-    SET(_common_dir    /usr/share/help/${_lang}/kdoctools6-common)
-    SET(_common_en_dir /usr/share/help/en/kdoctools6-common)
-    SET(_html_dir      ${CMAKE_BINARY_DIR}/doc/html/${_lang})
+    SET(_html_dir ${_base_html_dir}/${_lang})
     FILE(GLOB _png_files "${CMAKE_SOURCE_DIR}/po/${_lang}/docs/kwave/*.png")
 
     # take only languages that have been requested
@@ -95,7 +101,7 @@ FOREACH(_file ${_files})
             COMMAND ${CMAKE_COMMAND} -E make_directory ${_html_dir}
 
             # create the HTML pages from docbook
-            COMMAND cd ${_html_dir} && ${MEINPROC_EXECUTABLE} --check ${_file}
+            COMMAND cd ${_html_dir} && ${MEINPROC_EXECUTABLE} --check ${_file} --stylesheet ${_stylesheet}
 
             # copy the screenshots
             COMMAND test -z \"${_png_files}\" || ${CP_EXECUTABLE} ${_png_files} ${_html_dir}/
@@ -104,15 +110,7 @@ FOREACH(_file ${_files})
             # COMMAND ${CP_EXECUTABLE} ${_toolbar_pngs}                           ${_html_dir}/
 
             # take missing images from the English source directory
-            COMMAND ${CP_EXECUTABLE} -n ${CMAKE_SOURCE_DIR}/doc/en/*.png        ${_html_dir}
-
-            COMMAND ${CMAKE_COMMAND} -E make_directory      ${_html_dir}/common
-            COMMAND ${CP_EXECUTABLE} ${_common_dir}/*       ${_html_dir}/common/
-            COMMAND ${CP_EXECUTABLE} -n ${_common_en_dir}/* ${_html_dir}/common/
-            # fix wrong paths in the HTML pages
-            COMMAND chmod +rx ${CMAKE_SOURCE_DIR}/doc/fix-common
-            COMMAND cd ${_html_dir} && ${CMAKE_SOURCE_DIR}/doc/fix-common
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            COMMAND ${CP_EXECUTABLE} -u ${CMAKE_SOURCE_DIR}/doc/en/*.png ${_html_dir}
         )
     ENDIF (_take_it)
 
@@ -121,9 +119,7 @@ ENDFOREACH(_file ${_files})
 #############################################################################
 ### "make html_doc_devel"                                                 ###
 
-SET(_common_en_dir /usr/share/help/en/kdoctools6-common)
-SET(_html_dir_devel ${CMAKE_CURRENT_BINARY_DIR}/devel)
-GET_TARGET_PROPERTY(MEINPROC_EXECUTABLE ${KDOCTOOLS_MEINPROC_EXECUTABLE} LOCATION)
+SET(_html_dir_devel ${_base_html_dir}/devel)
 
 ADD_CUSTOM_TARGET(html_doc_devel
     COMMENT "Generating HTML developer documentation"
@@ -133,14 +129,10 @@ ADD_CUSTOM_TARGET(html_doc_devel
     COMMAND ${CMAKE_COMMAND} -E make_directory   ${_html_dir_devel}
     # create the HTML pages from docbook
     COMMAND cd ${_html_dir_devel} && ${MEINPROC_EXECUTABLE}
-            --check ${CMAKE_CURRENT_SOURCE_DIR}/devel.docbook
-    # copy files for the "common" directory
-    COMMAND ${CMAKE_COMMAND} -E make_directory      ${_html_dir_devel}/common
-    COMMAND ${CP_EXECUTABLE} -n ${_common_en_dir}/* ${_html_dir_devel}/common/
-    # fix wrong paths in the HTML pages
-    COMMAND chmod +rx ${CMAKE_SOURCE_DIR}/doc/fix-common
-    COMMAND cd ${_html_dir_devel} && ${CMAKE_SOURCE_DIR}/doc/fix-common
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            --check ${CMAKE_CURRENT_SOURCE_DIR}/devel.docbook --stylesheet ${_stylesheet}
+    # copy the kdoctools common files where the generated html expects them
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${_base_html_dir}/common
+    COMMAND ${CP_EXECUTABLE} -u ${_common_en_dir}/* ${_base_html_dir}/common/
 )
 
 #############################################################################

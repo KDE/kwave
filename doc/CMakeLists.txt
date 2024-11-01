@@ -62,9 +62,20 @@ ADD_CUSTOM_TARGET(update-handbook
 SET(_stylesheet "${KDOCTOOLS_CUSTOMIZATION_DIR}/kde-web.xsl")
 SET(_common_en_dir ${KDE_INSTALL_FULL_DOCBUNDLEDIR}/en/kdoctools6-common)
 SET(_base_html_dir ${CMAKE_BINARY_DIR}/doc/html)
+SET(_html_dir ${_base_html_dir}/en)
 
 # collects all "html_doc_${_lang}" sub targets
 ADD_CUSTOM_TARGET(html_doc
+    COMMENT "Generating HTML documentation for en"
+    DEPENDS ${CMAKE_SOURCE_DIR}/doc/en/index.docbook
+    # start with an empty output (_html_dir)
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${_html_dir}
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${_html_dir}
+    # create HTML pages from the docbook
+    COMMAND cd ${_html_dir} && ${MEINPROC_EXECUTABLE}
+            --check ${CMAKE_SOURCE_DIR}/doc/en/index.docbook --stylesheet ${_stylesheet}
+    # copy the screenshots
+    COMMAND ${CP_EXECUTABLE} -u ${CMAKE_SOURCE_DIR}/doc/en/*.png ${_html_dir}
     # copy the kdoctools common files where the generated html expects them
     COMMAND ${CMAKE_COMMAND} -E make_directory ${_base_html_dir}/common
     COMMAND ${CP_EXECUTABLE} -u ${_common_en_dir}/* ${_base_html_dir}/common/

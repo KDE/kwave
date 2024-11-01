@@ -41,41 +41,6 @@
   <name xml:lang="zh-CN">Kwave</name>
   <name xml:lang="zh-TW">Kwave</name>
   <summary>Sound editor</summary>
-  <summary xml:lang="ca">El Kwave és un editor de so construït amb els Frameworks 5 del KDE</summary>
-  <summary xml:lang="ca-valencia">Kwave és un editor de so construït amb els Frameworks 5 de KDE</summary>
-  <summary xml:lang="cs">KWave je editor zvuku postavený na KDE Frameworks 5</summary>
-  <summary xml:lang="da">Kwave er et lydredigeringsprogram som er bygget på KDE Frameworks 5</summary>
-  <summary xml:lang="de">Kwave ist ein Sound-Editor für die KDE-Frameworks 5</summary>
-  <summary xml:lang="el">Το Kwave είναι ένας επεξεργαστής ήχου στη βάση του KDE Frameworks 5</summary>
-  <summary xml:lang="en-GB">Kwave is a sound editor built on KDE Frameworks 5</summary>
-  <summary xml:lang="eo">Kwave estas sonredaktilo konstruita sur KDE Frameworks 5</summary>
-  <summary xml:lang="es">Kwave es un editor de sonido construido sobre KDE Frameworks 5</summary>
-  <summary xml:lang="et">Kwave on KDE Frameworks 5 peale ehitatud heliredaktor</summary>
-  <summary xml:lang="eu">Kwave KDE Frameworks 5ekin eraikitako soinu editore bat da</summary>
-  <summary xml:lang="fi">Kwave on KDE Frameworks 5 -alustalle suunniteltu äänimuokkain</summary>
-  <summary xml:lang="fr">KWave est un éditeur de sons développé sous KDE Frameworks 5</summary>
-  <summary xml:lang="gl">Kwave é un editor de son construído coa versión 5 das infraestruturas de KDE.</summary>
-  <summary xml:lang="he">Kwave הוא עורך שמע שנבנה על גבי תשתיות KDE 5</summary>
-  <summary xml:lang="ia">Kwave es un editor e sono construite ur KDE Framework 5</summary>
-  <summary xml:lang="id">Kwave adalah sebuah editor sound yang  dibangun pada KDE Framework 5</summary>
-  <summary xml:lang="it">Kwave è un editor per il suono basato su KDE Frameworks 5</summary>
-  <summary xml:lang="ka">Kwave ხმის რედაქტორია, აგებული KDE Frameworks 5-ის გამოყენებით</summary>
-  <summary xml:lang="ko">Kwave는 KDE 프레임워크 5를 사용하는 소리 편집기입니다</summary>
-  <summary xml:lang="nl">Kwave is een geluidsbewerker gebouwd op KDE Frameworks 5</summary>
-  <summary xml:lang="nn">Kwave er eit lydredigeringsprogram bygd på KDE Frameworks 5.</summary>
-  <summary xml:lang="pl">Kwave jest edytorem dźwięku zbudowanym na Szkieletetach KDE 5</summary>
-  <summary xml:lang="pt">O Kwave é um editor de som baseado nas Plataformas do KDE 5</summary>
-  <summary xml:lang="pt-BR">Kwave é um editor de som construído no KDE Frameworks 5</summary>
-  <summary xml:lang="ro">KWave e un redactor de sunet construit pe KDE Frameworks 5</summary>
-  <summary xml:lang="ru">Kwave — аудиоредактор на основе KDE Frameworks 5</summary>
-  <summary xml:lang="sk">Kwave je editor zvuku navrhnutý pre KDE Frameworks 5</summary>
-  <summary xml:lang="sl">Kwave je urejevalnik zvoka, zgrajen na KDE Frameworks 5</summary>
-  <summary xml:lang="sv">Kwave är en ljudeditor konstruerad med KDE Ramverk 5</summary>
-  <summary xml:lang="tr">K Dalga, KDE Frameworks 5 üzerine kurulu bir ses düzenleyicisidir</summary>
-  <summary xml:lang="uk">Kwave — звуковий редактор, створений на основі KDE Frameworks 5</summary>
-  <summary xml:lang="x-test">xxKwave is a sound editor built on KDE Frameworks 5xx</summary>
-  <summary xml:lang="zh-CN">Kwave 是构建于 KDE Frameworks 5 之上的音频编辑器</summary>
-  <summary xml:lang="zh-TW">Kwave 是一套架構在 KDE Frameworks 5 上的音效編輯器</summary>
   <description>
     <p>
       With Kwave you can record, play back, import and edit many sorts of audio files including multi channel files.

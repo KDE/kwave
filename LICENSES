@@ -141,7 +141,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
         doc/CMakeLists.txt                              BSD (3 clause)
         doc/devel.docbook                               FDL
-        doc/fix-common                                  GPL2+
 
         doc/en/CMakeLists.txt                           BSD (3 clause)
         doc/en/README.translators.txt                   GPL2+

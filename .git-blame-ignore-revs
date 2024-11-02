@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: None
+# SPDX-License-Identifier: CC0-1.0
+
+# converted tabs to spaces in all .h and .cpp files, according to latest KDE coding style
+72c21ded67774a957501d96e5a35aec6cc471656
+
+# tabs to spaces in some other files
+a44a7235cdfb33841c92f5c51394f9cea6b1de4f
+
+# coding style: fixed lines > 80 characters
+cac42c853c5ff9c9c03a9077047778085396a9af

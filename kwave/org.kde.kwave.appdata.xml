@@ -41,6 +41,14 @@
   <name xml:lang="zh-CN">Kwave</name>
   <name xml:lang="zh-TW">Kwave</name>
   <summary>Sound editor</summary>
+  <summary xml:lang="ca">Editor de so</summary>
+  <summary xml:lang="ca-valencia">Editor de so</summary>
+  <summary xml:lang="en-GB">Sound editor</summary>
+  <summary xml:lang="ka">ხმის რედაქტორი</summary>
+  <summary xml:lang="nl">Geluidsbewerker</summary>
+  <summary xml:lang="sl">Urejevalnik zvoka</summary>
+  <summary xml:lang="uk">Звуковий редактор</summary>
+  <summary xml:lang="x-test">xxSound editorxx</summary>
   <description>
     <p>
       With Kwave you can record, play back, import and edit many sorts of audio files including multi channel files.

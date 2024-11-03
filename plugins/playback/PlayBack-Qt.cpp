@@ -175,8 +175,16 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
 
     m_buffer.start(m_buffer_size, 0);
 
+    // QAudioSink::bufferSize returns the platform default buffer size if called before
+    // QAudioSink::start or QAudioSink::setBufferSize is called.
+    // We want to use the default QAudioSink buffer size, unless the requested buffer size
+    // is larger, because a smaller than default QAudioSink buffer will likely underrun
+    if (m_buffer_size > m_output->bufferSize()) {
+        m_output->setBufferSize(m_buffer_size);
+    }
     // open the output device for writing
     m_output->start(&m_buffer);
+    qDebug("    QAudioSink buffer size = %lld", m_output->bufferSize());
 
     // calculate an appropriate timeout, based on the buffer size
     unsigned int bytes_per_frame = m_encoder->rawBytesPerSample() * channels;

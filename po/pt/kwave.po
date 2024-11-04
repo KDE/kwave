@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-10 00:39+0000\n"
+"POT-Creation-Date: 2024-11-04 00:39+0000\n"
 "PO-Revision-Date: 2020-02-13 12:02+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -6217,7 +6217,7 @@ msgstr ""
 msgid "format not supported"
 msgstr "Erro: O codificador não é suportado"
 
-#: plugins/playback/PlayBack-Qt.cpp:193
+#: plugins/playback/PlayBack-Qt.cpp:201
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Não foi possível aceder ao dispositivo do Qt Multimedia '%1'"

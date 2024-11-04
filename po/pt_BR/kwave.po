@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-10 00:39+0000\n"
+"POT-Creation-Date: 2024-11-04 00:39+0000\n"
 "PO-Revision-Date: 2021-10-26 14:42-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -6184,7 +6184,7 @@ msgstr "O dispositivo de áudio '%1' é desconhecido ou não está mais conectad
 msgid "format not supported"
 msgstr "Erro: Codec não suportado"
 
-#: plugins/playback/PlayBack-Qt.cpp:193
+#: plugins/playback/PlayBack-Qt.cpp:201
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Não foi possível abrir o dispositivo Qt Multimedia '%1'"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-10 00:39+0000\n"
-"PO-Revision-Date: 2024-08-07 13:14+0300\n"
+"POT-Creation-Date: 2024-11-04 00:39+0000\n"
+"PO-Revision-Date: 2024-11-02 20:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -61,7 +61,7 @@ msgstr "Başarısız"
 #: kwave/FileContext.cpp:232
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
-msgstr "K Dalga düzgünce kurulmamış. Eklentiler bulunamadı!"
+msgstr "K Dalga düzgünce kurulmamış. Bulunan eklenti yok!"
 
 #: kwave/FileContext.cpp:238
 #, kde-format
@@ -76,7 +76,7 @@ msgstr "Çalma: %1"
 #: kwave/FileContext.cpp:520
 #, kde-format
 msgid "Playback: %1 samples"
-msgstr "Çalma: %1 örnek"
+msgstr "Çalma: %1 örneklem"
 
 #: kwave/FileContext.cpp:862
 #, kde-format
@@ -252,7 +252,7 @@ msgstr "Robert M. Stockmann"
 #: kwave/main.cpp:99
 #, kde-format
 msgid "Packaging for Mandrake / X86_64"
-msgstr "Mandrake / X86_64 için paketleniyor"
+msgstr "Mandrake / X86_64 için paketleme"
 
 #: kwave/main.cpp:103
 #, kde-format
@@ -357,23 +357,23 @@ msgstr "Panagiotis Papadopoulos"
 #: kwave/main.cpp:139
 #, kde-format
 msgid "String and i18n updates"
-msgstr "Metin ve i8n güncellemeleri"
+msgstr "Dizi ve i18n güncellemeleri"
 
 #: kwave/main.cpp:163
 #, kde-format
 msgid "Disable the Splash Screen."
-msgstr "Karşılama ekranını gösterme."
+msgstr "Karşılama ekranını devre dışı bırak"
 
 #: kwave/main.cpp:167
 #, kde-format
 msgid "Start Kwave iconified."
-msgstr "K Dalga’yı simge durumunda başlatın."
+msgstr "K Dalga’yı simge durumunda başlat"
 
 #: kwave/main.cpp:172
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
-msgstr "Her komutu <file> dosyasına kaydet."
+msgstr "Her komutu <dosya> dosyasına kaydet"
 
 #: kwave/main.cpp:173
 #, kde-format
@@ -385,7 +385,7 @@ msgstr "dosya"
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
-msgstr "Kullanıcı arabirimi türü seçin: SDI, MDI ya da SEKME kipi."
+msgstr "Kullanıcı arabirimi türünü seç: SDI, MDI ya da SEKME kipi"
 
 #: kwave/main.cpp:179
 #, kde-format
@@ -500,7 +500,7 @@ msgstr "Kaydet"
 #: kwave/menus.config:36
 msgctxt "menu: /File/Save/As..."
 msgid "As..."
-msgstr "Gibi…"
+msgstr "Şöyle Olarak…"
 
 #: kwave/menus.config:38
 msgctxt "menu: /File/Save/Selection..."
@@ -585,7 +585,7 @@ msgstr "Tümü"
 #: kwave/menus.config:78
 msgctxt "menu: /Edit/Selection/Range"
 msgid "Range"
-msgstr "Aralık"
+msgstr "Erim"
 
 #: kwave/menus.config:79
 msgctxt "menu: /Edit/Selection/Visible Area"
@@ -1330,7 +1330,7 @@ msgstr "Tümünü yakınlaştır"
 #: kwave/ZoomToolBar.cpp:85
 #, kde-format
 msgid "Select zoom factor"
-msgstr "Yakınlaşma oranını seç"
+msgstr "Yakınlaştırma çarpanını seç"
 
 #: kwave/ZoomToolBar.cpp:91 kwave/ZoomToolBar.cpp:92 kwave/ZoomToolBar.cpp:93
 #, kde-format
@@ -1499,9 +1499,9 @@ msgid ""
 "the whole file or by an absolute sample position. However, internally Kwave "
 "always uses the position in samples."
 msgstr ""
-"<b>Etiket konumu:</b><br>\n"
-"Buradan etiketin konumunu zaman göre, tüm dosyanın yüzdeliğine göre ya da "
-"kesin örnek konuma  ayarlayabilirsiniz. Bununla birlikte dahili olarak K "
+"<b>Etiket Konumu:</b><br>\n"
+"Buradan etiketin konumunu zamana göre, tüm dosyanın yüzdeliğine göre veya "
+"kesin örneklem konumuna ayarlayabilirsiniz. Bununla birlikte içsel olarak K "
 "Dalga her zaman örnekler içindeki konumunu kullanacaktır."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
@@ -1523,8 +1523,8 @@ msgid ""
 "<b>label description:</b><br>\n"
 "Here you can enter some short text to describe the label."
 msgstr ""
-"<b>Etiket tanımı:</b><br>\n"
-"Burada etiketi tanımlamak için kısa metin girebilirsiniz."
+"<b>Etiket Tanımı:</b><br>\n"
+"Burada etiketi tanımlamak için kısa bir metin girebilirsiniz."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: libgui/LabelPropertiesWidgetBase.ui:72
@@ -1553,7 +1553,7 @@ msgid ""
 "position. Lower index means 'left', higher index means 'right'. You cannot "
 "change the index itself, but change the label's position."
 msgstr ""
-"<b>etiket indeksi</b><br>\n"
+"<b>Etiket İndeksi</b><br>\n"
 "Yalnızca etiketlerin sayısal indeksidir, 0 ile başlar, konuma göre "
 "sıralanır. Düşük indeks “sol” anlamına, yüksek indeks ise “sağ” anlamına "
 "gelir. İndeksin kendisini değiştiremezsiniz; ancak etiketin konumunu "
@@ -1823,7 +1823,7 @@ msgstr "Ogg Opus"
 #: libkwave/ConfirmCancelProxy.cpp:50
 #, kde-format
 msgid "Do you really want to abort the current action?"
-msgstr "Mevcut eylemi gerçekten iptal etmek istiyor musunuz?"
+msgstr "Geçerli eylemi iptal etmeyi gerçekten istiyor musunuz?"
 
 #: libkwave/FileInfo.cpp:37
 msgid "Album"
@@ -1848,10 +1848,10 @@ msgid ""
 "each sentence with a period. Do not include newline\n"
 "characters!"
 msgstr ""
-"Dosya hakkında ya da dosyanın konusu hakkında genel\n"
+"Dosya hakkında veya dosyanın konusu hakkında genel\n"
 "yorumlar sağlar. Eğer yorum bir kaç tümceden oluşuyorsa\n"
-"her tümceyi aralıkla bitiriniz. Yenisatır karakteri\n"
-"kullanmayınız!"
+"her tümceyi noktayla sonlandırın. Yenisatır karakteri\n"
+"kullanmayın!"
 
 #: libkwave/FileInfo.cpp:50
 msgid "Archival location"
@@ -2268,11 +2268,11 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:250
 msgid "Sample Rate"
-msgstr "Örnekleme Hızı"
+msgstr "Örneklem Hızı"
 
 #: libkwave/FileInfo.cpp:251
 msgid "Number of samples per second"
-msgstr "Saniyedeki örneklemelerin sayısı"
+msgstr "Saniyedeki örneklemlerin sayısı"
 
 #: libkwave/FileInfo.cpp:254
 msgid "Software"
@@ -2350,7 +2350,7 @@ msgstr "Kayıt"
 
 #: libkwave/FileInfo.cpp:285
 msgid "Track of the CD if the source was a CDROM."
-msgstr "Kaynak CDROM ise CD’deki kayıt."
+msgstr "Kaynak CD-ROM ise CD’deki kayıt."
 
 #: libkwave/FileInfo.cpp:288
 msgid "Tracks"
@@ -2358,7 +2358,7 @@ msgstr "Kayıtlar"
 
 #: libkwave/FileInfo.cpp:289
 msgid "Number of tracks of the CD if the source was a CDROM."
-msgstr "Kaynak CDROM ise CD’deki kayıtların sayısı."
+msgstr "Kaynak CD-ROM ise CD’deki kayıtların sayısı."
 
 #: libkwave/FileInfo.cpp:292
 msgid "Channels"
@@ -2386,7 +2386,7 @@ msgid ""
 msgstr ""
 "Tek bir kolleksiyondaki aynı kayıt adına sahip birden\n"
 "çok farklılaştırılmış sürümünü ayırt etmek için kullanılır.\n"
-"(ör: remix bilgisi)"
+"(örneğin, remix bilgisi)"
 
 #: libkwave/FileProgress.cpp:92
 #, kde-format
@@ -2404,7 +2404,7 @@ msgstr "Uzunluk:"
 #, kde-format
 msgctxt "file progress dialog"
 msgid "Sample Rate: "
-msgstr "Örnekleme Hızı: "
+msgstr "Örneklem hızı: "
 
 #: libkwave/FileProgress.cpp:109
 #, kde-format
@@ -2434,7 +2434,7 @@ msgstr "Parçalar:"
 #, kde-format
 msgctxt "number of tracks"
 msgid "1 (mono)"
-msgstr "1 (mono)"
+msgstr "1 (tek kanallı)"
 
 #: libkwave/FileProgress.cpp:128
 #, kde-format
@@ -2446,12 +2446,12 @@ msgstr "2 (stereo)"
 #, kde-format
 msgctxt "number of tracks"
 msgid "4 (quadro)"
-msgstr "4 (quadro)"
+msgstr "4 (dört kanallı)"
 
 #: libkwave/FileProgress.cpp:207
 #, kde-format
 msgid "Do you really want to abort the operation?"
-msgstr "Gerçekten bu işlemi iptal etmek istiyor musunuz?"
+msgstr "Bu işlemi iptal etmeyi gerçekten istiyor musunuz?"
 
 #: libkwave/FileProgress.cpp:280
 #, kde-format
@@ -2501,7 +2501,7 @@ msgstr "Üçgen"
 
 #: libkwave/Functions.cpp:99
 msgid "Square Sinus"
-msgstr "Kare sinüs"
+msgstr "Kare Sinüs"
 
 #: libkwave/Functions.cpp:100
 msgid "Cubic Sinus"
@@ -2605,7 +2605,7 @@ msgstr "Pranks"
 
 #: libkwave/GenreType.cpp:126
 msgid "Soundtrack"
-msgstr "Film müziği"
+msgstr "Film Müziği"
 
 #: libkwave/GenreType.cpp:127
 msgid "Euro-Techno"
@@ -2625,7 +2625,7 @@ msgstr "Vokal"
 
 #: libkwave/GenreType.cpp:131
 msgid "Jazz & Funk"
-msgstr "Caz & Funk"
+msgstr "Caz ve Funk"
 
 #: libkwave/GenreType.cpp:132
 msgid "Fusion"
@@ -2693,11 +2693,11 @@ msgstr "Meditative"
 
 #: libkwave/GenreType.cpp:148
 msgid "Instrumental Pop"
-msgstr "Enstrumantal Pop"
+msgstr "Enstrümantal Pop"
 
 #: libkwave/GenreType.cpp:149
 msgid "Instrumental Rock"
-msgstr "Enstrumantal Rock"
+msgstr "Enstrümantal Rock"
 
 #: libkwave/GenreType.cpp:150
 msgid "Ethnic"
@@ -2733,7 +2733,7 @@ msgstr "Dream"
 
 #: libkwave/GenreType.cpp:158
 msgid "Southern Rock"
-msgstr "Güney Rock"
+msgstr "Güney Rock’ı"
 
 #: libkwave/GenreType.cpp:159
 msgid "Comedy"
@@ -2753,7 +2753,7 @@ msgstr "Top 40"
 
 #: libkwave/GenreType.cpp:163
 msgid "Christian Rap"
-msgstr "Christian Rap"
+msgstr "Hristiyan Rap"
 
 #: libkwave/GenreType.cpp:164
 msgid "Pop/Funk"
@@ -2777,7 +2777,7 @@ msgstr "Yeni Akım"
 
 #: libkwave/GenreType.cpp:169
 msgid "Psychedelic"
-msgstr "Psikedelik"
+msgstr "Saykodelik"
 
 #: libkwave/GenreType.cpp:170
 msgid "Rave"
@@ -2925,7 +2925,7 @@ msgstr "Opera"
 
 #: libkwave/GenreType.cpp:208
 msgid "Chamber Music"
-msgstr "Oda müziği"
+msgstr "Oda Müziği"
 
 #: libkwave/GenreType.cpp:209
 msgid "Sonata"
@@ -2985,7 +2985,7 @@ msgstr "Ritmik Soul"
 
 #: libkwave/GenreType.cpp:223
 msgid "Freestyle"
-msgstr "Serbest tarz"
+msgstr "Serbest Tarz"
 
 #: libkwave/GenreType.cpp:224
 msgid "Duet"
@@ -3001,7 +3001,7 @@ msgstr "Davul Solo"
 
 #: libkwave/GenreType.cpp:227
 msgid "A Cappella"
-msgstr "Eşliksiz koro"
+msgstr "Eşliksiz Koro"
 
 #: libkwave/GenreType.cpp:228
 msgid "Euro-House"
@@ -3037,7 +3037,7 @@ msgstr "Indie"
 
 #: libkwave/GenreType.cpp:236
 msgid "BritPop"
-msgstr "BritPop"
+msgstr "Britanya Pop’u"
 
 #: libkwave/GenreType.cpp:237
 msgid "Negerpunk"
@@ -3053,7 +3053,7 @@ msgstr "Beat"
 
 #: libkwave/GenreType.cpp:240
 msgid "Christian Gangsta Rap"
-msgstr "Hristiyan Gangster Rap"
+msgstr "Hristiyan Gangster Rap’i"
 
 #: libkwave/GenreType.cpp:241
 msgid "Heavy Metal"
@@ -3073,7 +3073,7 @@ msgstr "Çağdaş Hristiyan"
 
 #: libkwave/GenreType.cpp:245
 msgid "Christian Rock"
-msgstr "Hristiyan rock"
+msgstr "Hristiyan Rock’ı"
 
 #: libkwave/GenreType.cpp:248
 msgid "Merengue"
@@ -3193,7 +3193,7 @@ msgstr "Leftfield"
 
 #: libkwave/GenreType.cpp:279
 msgid "Lounge"
-msgstr "Lounge"
+msgstr "Salon"
 
 #: libkwave/GenreType.cpp:280
 msgid "Math Rock"
@@ -3612,7 +3612,7 @@ msgstr "%1 %2 nesnelerini düzenle"
 #: libkwave/undo/UndoModifyMetaDataAction.cpp:81
 #, kde-format
 msgid "Modify Meta Data"
-msgstr "Meta Veriyi Düzenle"
+msgstr "Üst Veriyi Düzenle"
 
 #: libkwave/Utils.cpp:121
 #, kde-format
@@ -3827,7 +3827,7 @@ msgstr " Hz"
 #: plugins/pitch_shift/PitchShiftDlg.ui:57
 #, kde-format
 msgid "start/stop pre-listening"
-msgstr "önden dinlemeyi başlat/durdur"
+msgstr "Önden dinlemeyi başlat/durdur"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btListen)
 #: plugins/band_pass/BandPassDlg.ui:158 plugins/lowpass/LowPassDlg.ui:151
@@ -3908,7 +3908,7 @@ msgstr "Yaratıcı Ses"
 #: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:444
 #, kde-format
 msgid "Format or function is not implemented"
-msgstr "Biçim ya da foksiyon gerçeklenmemiştir"
+msgstr "Biçim ya da işlev gerçeklenmemiştir"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:128
 #: plugins/codec_wav/WavEncoder.cpp:451
@@ -3963,7 +3963,7 @@ msgstr "FLAC bit akışını açılması başarısız oldu."
 #: plugins/codec_flac/FlacDecoder.cpp:292
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
-msgstr "FLAC meta verisi ayrıştırılırken hata oluştu. (%s)"
+msgstr "FLAC üst verisi ayrıştırılırken hata oluştu (%s)."
 
 #: plugins/codec_flac/FlacEncoder.cpp:225
 #, kde-format
@@ -3973,7 +3973,7 @@ msgstr "FLAC kodlayıcısı açılamadı."
 #: plugins/codec_mp3/MP3CodecPlugin.cpp:52
 msgctxt "menu: /Settings/MP3 Encoder Setup"
 msgid "MP3 Encoder Setup"
-msgstr "MP3 Kodlayıcı Ayarları"
+msgstr "MP3 Kodlayıcısı Ayarları"
 
 #: plugins/codec_mp3/MP3CodecPlugin.h:74
 #, kde-format
@@ -4005,8 +4005,8 @@ msgid ""
 "The file contains an invalid channel mode 0x%1\n"
 "Assuming Mono..."
 msgstr ""
-"Dosya geçersiz 0x%1 kanal modu içeriyor\n"
-"Mono olarak kabul ediliyor…"
+"Dosya geçersiz 0x%1 kanal kipi içeriyor\n"
+"Tek kanallı olduğu varsayılıyor…"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:447
 #, kde-format
@@ -4014,8 +4014,8 @@ msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
 "No header information has been found."
 msgstr ""
-"Açılan dosya MPEG dosyası değildir ya da hasarlıdır.\n"
-"Hiç bir üst bilgi bulunamadı."
+"Açılan dosya MPEG dosyası değildir veya hasarlıdır.\n"
+"Bulunan üstbilgi yok."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:518
 #, kde-format
@@ -4044,14 +4044,14 @@ msgid ""
 "'%1',\n"
 "at position %2."
 msgstr ""
-"Dosyanın kodunu çözerken hata ile karşılaşıldı:\n"
+"Dosyanın kodunu çözerken hata oluştu:\n"
 "“%1”,\n"
 "%2 konumunda."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:552
 #, kde-format
 msgid "Do you still want to continue?"
-msgstr "Hâlâ sürdürmek istiyor musunuz?"
+msgstr "Sürdürmeyi hâlâ istiyor musunuz?"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:557
 #, kde-format
@@ -4080,7 +4080,7 @@ msgid ""
 "\n"
 "%2"
 msgstr ""
-"“%1” Harici kodlayıcı çağrılırken hata oluştu:\n"
+"“%1” dış kodlayıcısı çağrılırken hata oluştu:\n"
 "\n"
 "%2"
 
@@ -4095,7 +4095,7 @@ msgid ""
 "sample rate in Hz (use %1 as placeholder)\n"
 "or kHz (use %2 as placeholder)"
 msgstr ""
-"Hz türünden örnekleme hızı (%1 ögesini yer tutucu olarak kullan)\n"
+"Hz türünden örneklem hızı (%1 ögesini yer tutucu olarak kullan)\n"
 "veya kHz (%2 ögesini yer tutucu olarak kullan)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:345
@@ -4137,7 +4137,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:603
 #, kde-format
 msgid "Select MP3 Encoder"
-msgstr "MP3 kodlayıcıyı seçin"
+msgstr "MP3 Kodlayıcısını Seç"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:657
 #, kde-format
@@ -4181,13 +4181,13 @@ msgstr "Öntanımlı kodlayıcı kurulumlarından birini seçin"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:89
 #, kde-format
 msgid "auto-detect the installed encoder"
-msgstr "Kurulmuş kodlayıcıyı otomatik tespit et"
+msgstr "Kurulu kodlayıcıyı kendiliğinden algıla"
 
 #. i18n: ectx: property (text), widget (QPushButton, btDetect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:92
 #, kde-format
 msgid "&Auto Detect..."
-msgstr "Otomatik &Algıla…"
+msgstr "Kendiliğinden &Algıla…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:101
@@ -4261,13 +4261,13 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:233
 #, kde-format
 msgid "Raw Format:"
-msgstr "İşlenmemiş Biçim:"
+msgstr "Ham biçim:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblByteOrder)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:240
 #, kde-format
 msgid "Byte Order:"
-msgstr "Bayt Sıralaması:"
+msgstr "Bayt sıralaması:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edSign)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:259
@@ -4288,13 +4288,13 @@ msgstr "Biçim"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:276
 #, kde-format
 msgid "Sample Rate:"
-msgstr "Örnekleme Hızı:"
+msgstr "Örneklem hızı:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBitsPerSample)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:302
 #, kde-format
 msgid "Bits per Sample:"
-msgstr "Örnek Başına Bit:"
+msgstr "Örneklem başına bit:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
@@ -4308,13 +4308,13 @@ msgstr "Kanallar:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:341
 #, kde-format
 msgid "mono:"
-msgstr "mono:"
+msgstr "tek kanallı:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edMono)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:360
 #, kde-format
 msgid "parameter for single channel files (mono)"
-msgstr "Tek kanallı dosyalar için parametre (mono)"
+msgstr "tek kanallı dosyalar için parametre"
 
 #. i18n: ectx: property (text), widget (QLabel, lblStereo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:376
@@ -4354,7 +4354,7 @@ msgstr "En az"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:503
 #, kde-format
 msgid "Bitrate:"
-msgstr "Bit Hızı:"
+msgstr "Bit hızı:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBitrateAvg)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:516
@@ -4416,7 +4416,7 @@ msgstr "CCIT J17 vurgusu için parametre"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:667
 #, kde-format
 msgid "Noise Shaping:"
-msgstr "Gürültü Şekli:"
+msgstr "Gürültü şekillendirmesi:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edNoiseShaping)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:686
@@ -4458,7 +4458,7 @@ msgstr "Dosyaları telif hakkına göre işaretlemek için parametre"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:786
 #, kde-format
 msgid "Original:"
-msgstr "Orjinal:"
+msgstr "Özgün:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edOriginal)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:805
@@ -4482,7 +4482,7 @@ msgstr "CRC korumasını etkinleştirmek için parametre"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:866
 #, kde-format
 msgid "Prepend:"
-msgstr "Başına Ekle:"
+msgstr "Başına iliştir:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edPrepend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:879
@@ -4494,7 +4494,7 @@ msgstr "kodlayıcının komut satırında başına konulacak ek parametreler"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:889
 #, kde-format
 msgid "Append:"
-msgstr "Ekle:"
+msgstr "İliştir:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edAppend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:902
@@ -4512,7 +4512,7 @@ msgstr "Bilgi"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:932
 #, kde-format
 msgid "Encoder Help:"
-msgstr "Kodlayıcı Yardımı:"
+msgstr "Kodlayıcı yardımı:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:957
@@ -4524,7 +4524,7 @@ msgstr "Kodlayıcının kullanım bilgisini almak için parametre"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:967
 #, kde-format
 msgid "Version Info:"
-msgstr "Sürüm Bilgisi:"
+msgstr "Sürüm bilgisi:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edVersionInfo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1005
@@ -4582,7 +4582,7 @@ msgstr "Paket başlangıç başlığını okuma hatası."
 #: plugins/codec_ogg/OggDecoder.cpp:161
 #, kde-format
 msgid "Error: Codec not supported"
-msgstr "Hata: kodek desteklenmiyor"
+msgstr "Hata: Kod çözücü desteklenmiyor"
 
 #: plugins/codec_ogg/OggDecoder.cpp:220
 #, kde-format
@@ -4595,12 +4595,12 @@ msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
 "etc)"
 msgid "Error: No Codec for '%1' available"
-msgstr "Hata: %1 için kodek bulunamadı"
+msgstr "Hata: %1 için kod çözücü bulunamadı"
 
 #: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:115
 #, kde-format
 msgid "One or more invalid/out of range arguments."
-msgstr "Bir ve ya birden çok geçersiz/aralık dışında olan argumanlar."
+msgstr "Bir veya birden çok geçersiz/erim dışında olan argümanlar."
 
 #: plugins/codec_ogg/OpusCommon.cpp:58
 #, kde-format
@@ -4654,7 +4654,7 @@ msgid ""
 "be mixed down to mono."
 msgstr ""
 "Çevresel ses kanal başına 32 kBit/sn’den daha küçük olması gerekmektedir, bu "
-"dosya tek kanalla düşürülmelidir."
+"dosya tek kanala düşürülmelidir."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:153
 #, kde-format
@@ -4678,8 +4678,8 @@ msgid ""
 "Sample rate %1 samples/sec is out of range,\n"
 "supported are %2 ... %3 samples/sec."
 msgstr ""
-"%1 örnek/sn örnekleme hızı erimin dışındadır,\n"
-"Desteklenen aralık %2 … %3 örnek/sn’dir."
+"%1 örnek/sn örneklem hızı erimin dışındadır,\n"
+"Desteklenen aralık %2 … %3 örneklem/sn’dir."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
 #, kde-format
@@ -4767,7 +4767,7 @@ msgstr "“%1” kayıp parçacık aranıyor…"
 #: plugins/codec_wav/WavDecoder.cpp:143
 #, kde-format
 msgid "Auto Repair"
-msgstr "Otomatik Onar"
+msgstr "Kendiliğinden Onar"
 
 #: plugins/codec_wav/WavDecoder.cpp:149
 #, kde-format
@@ -4786,7 +4786,7 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:177 plugins/codec_wav/WavDecoder.cpp:282
 #, kde-format
 msgid "Kwave Auto Repair"
-msgstr "K Dalga Otomatik Onar"
+msgstr "K Dalga Kendiliğinden Onarım"
 
 #: plugins/codec_wav/WavDecoder.cpp:178
 #, kde-format
@@ -4894,7 +4894,7 @@ msgstr "Pencere Hiyerarşisini dök"
 
 #: plugins/debug/DebugPlugin.cpp:117
 msgid "Dump Meta Data"
-msgstr "Meta veriyi dök"
+msgstr "Üst Veriyi Dök"
 
 #: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:236
 #, kde-format
@@ -4939,7 +4939,7 @@ msgctxt ""
 "default entry of the list of placeholder patterns in the K3b export plugin "
 "(used for detecting title and artist from a label description)"
 msgid "(auto detect)"
-msgstr "(otomatik algıla)"
+msgstr "(kendiliğinden algıla)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:29
@@ -4990,8 +4990,8 @@ msgid ""
 "disabled if nothing is selected or the selection already covers the whole "
 "file.</i>"
 msgstr ""
-"İşaretlenmişse <b>yalnızca üst üste gelmiş bölümleri olan blokları sakla</"
-"b>, diğer türlü tüm dosyayı sakla.<br><i>Eğer hiçbir şey seçilmemiş veya "
+"İşaretlenmişse <b>yalnızca üst üste gelmiş bölümleri olan blokları saklayın</"
+"b>, diğer türlü tüm dosyayı saklayın.<br><i>Eğer hiçbir şey seçilmemiş veya "
 "seçim tüm dosyayı içeriyorsa bu seçenek kapalıdır.</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
@@ -5010,7 +5010,7 @@ msgstr "Çıkış Ayarları"
 #: plugins/export_k3b/K3BExportWidgetBase.ui:108
 #, kde-format
 msgid "Export Location:"
-msgstr "Dışa Aktarma Konumu:"
+msgstr "Dışa aktarma konumu:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbExportLocation)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:124
@@ -5038,7 +5038,7 @@ msgstr "Alt Dizin"
 #: plugins/export_k3b/K3BExportWidgetBase.ui:150
 #, kde-format
 msgid "Overwrite Policy:"
-msgstr "Üzerine Yazma Politikası:"
+msgstr "Üzerine yazma politikası:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:166
@@ -5154,7 +5154,7 @@ msgstr "%1 MB (%2 bayt)"
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
-msgstr "Örnek oran:"
+msgstr "Örneklem hızı:"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:234
 #, kde-format
@@ -5163,8 +5163,8 @@ msgid ""
 "well-known sample rates or you can enter\n"
 "any sample rate on your own."
 msgstr ""
-"Burada iyi bilinen önden tanımlanmış örnekleme\n"
-"hızını seçebilir ya da herhangi bir örnekleme\n"
+"Burada iyi bilinen önden tanımlanmış örneklem\n"
+"hızını seçebilir ya da herhangi bir örneklem\n"
 "hızını kendiniz girebilirsiniz."
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
@@ -5229,7 +5229,7 @@ msgstr "%1 örnekler"
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
-msgstr "(Mono)"
+msgstr "(Tek Kanallı)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:590
 #: plugins/newsignal/NewSignalDialog.cpp:304
@@ -5414,7 +5414,7 @@ msgstr "Saniyedeki örnekler"
 #: plugins/fileinfo/FileInfoDlg.ui:698
 #, kde-format
 msgid "Encoding Mode:"
-msgstr "Kodlama Kipi:"
+msgstr "Kodlama kipi:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_mpeg)
 #: plugins/fileinfo/FileInfoDlg.ui:738
@@ -5565,10 +5565,10 @@ msgid ""
 "to repair a damaged file? Note: changing only the sample rate can cause "
 "\"Mickey Mouse\" effects."
 msgstr ""
-"Örnekleme hızını değiştirdiniz. Tüm dosyayı yeni örnekleme hızına "
-"dönüştürmek mi istersiniz yoksa hasarlı dosyayı onarmak için hız bilgisini "
-"girmek mi istersiniz? Not: Yalnızca örnekleme oranını değiştirmeniz “Miki "
-"Fare” efektine neden olur."
+"Örneklem hızını değiştirdiniz. Tüm dosyayı yeni örneklem hızına dönüştürmek "
+"mi istersiniz yoksa hasarlı dosyayı onarmak için hız bilgisini girmek mi "
+"istersiniz? Not: Yalnızca örnekleme oranını değiştirmeniz “Miki Fare” "
+"efektine neden olur."
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:91
 #, kde-format
@@ -5596,7 +5596,7 @@ msgstr "&Ekle"
 #: plugins/fileinfo/KeywordWidgetBase.ui:62
 #, kde-format
 msgid "auto-generate keywords"
-msgstr "Otomatik oluşturulmuş anahtar sözcükler"
+msgstr "Anahtar sözcükleri kendiliğinden oluştur"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:66
@@ -5606,7 +5606,7 @@ msgid ""
 "Create a list of keywords by going through all present file information and "
 "merge it with the current list of keywords."
 msgstr ""
-"<b>Otomatik Oluşturulmuş Anahtar Sözcükler</b><br>\n"
+"<b>Kendiliğinden Oluşturulmuş Anahtar Sözcükler</b><br>\n"
 "Var olan tüm dosya bilgilerinin üzerinden geçerek hepsini var olan anahtar "
 "sözcükler listesi ile birleştirerek oluşturur."
 
@@ -5666,7 +5666,7 @@ msgid ""
 "Determines the highest audible frequency, higher\n"
 "frequencies will be cut off."
 msgstr ""
-"<b>kesilme frekansı</b>\n"
+"<b>Kesilme Frekansı</b>\n"
 "En yüksek dinlenebilir frekansı bulur, daha\n"
 "yüksek frekanslar kesilir."
 
@@ -5683,14 +5683,14 @@ msgid ""
 "<b>Sample rate</b><br>Here you can select one of the predefined well-known "
 "sample rates or you can enter any sample rate on your own."
 msgstr ""
-"<b>Örnekleme hızı</b><br>Burada önden tanımlanmış iyi bilinen örnekleme hızı "
-"seçebilir ya da kendiniz herhangi bir örnekleme hızı girebilirsiniz."
+"<b>Örneklem Hızı</b><br>Burada önden tanımlanmış iyi bilinen örneklem hızı "
+"seçebilir veya kendiniz herhangi bir örneklem hızı girebilirsiniz."
 
 #. i18n: ectx: property (text), widget (QLabel, lblSamplesPerSecond)
 #: plugins/newsignal/NewSigDlg.ui:168 plugins/record/RecordDlg.ui:670
 #, kde-format
 msgid "Samples per second"
-msgstr "Saniyedeki Örnekleme"
+msgstr "Saniye başına örneklem"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBits)
 #: plugins/newsignal/NewSigDlg.ui:224
@@ -5705,8 +5705,8 @@ msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
-"<b>Kayıt sayısı</b><br>Yeni sinyaldeki kayıt sayısını seçin. Eğer şimdi emin "
-"değilseniz, programdan kayıt ekleyip çıkarabilirsiniz."
+"<b>Kayıt Sayısı</b><br>Yeni sinyaldeki kayıt sayısını seçin. Eğer şimdi emin "
+"değilseniz daha sonra programdan kayıt ekleyip çıkarabilirsiniz."
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbResolution)
 #: plugins/newsignal/NewSigDlg.ui:301
@@ -5801,7 +5801,7 @@ msgid ""
 "level.\n"
 "For example: \"1 %\", \"15%\" or \"100%\""
 msgstr ""
-"En yüksek ses düzeyine oranlayarak yüzde olarak gürültü düzeyi ekleyin.\n"
+"En yüksek ses düzeyine göreceli yüzde olarak gürültü düzeyi ekleyin.\n"
 "Örnek: “%​1”, “%​15” veya “%​100”"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
@@ -5910,7 +5910,7 @@ msgid ""
 "Determines the width of the frequency range that\n"
 "should be removed."
 msgstr ""
-"<b>bant genişliği</b>\n"
+"<b>Bant Genişliği</b>\n"
 "Çıkarılması gereken frekans genişliğini\n"
 "belirler."
 
@@ -5945,9 +5945,9 @@ msgid ""
 "audio data are before they get processed by the pitch shift. If your audio "
 "data sounds interrupted, you might get better result with higher values."
 msgstr ""
-"<b>dilimleme frekansı</b><br>Bu ayar ses dosyasının işlenmeden önce ne kadar "
+"<b>Dilimleme Frekansı</b><br>Bu ayar ses dosyasının işlenmeden önce ne kadar "
 "ufak parçalara ayrılacağını belirler. Eğer ses veriniz kesilmiş gibi "
-"duyuluyorsa, daha büyük değerler ile daha iyi sonuçlar alabilirsiniz."
+"duyuluyorsa daha büyük değerler ile daha iyi sonuçlar alabilirsiniz."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: plugins/pitch_shift/PitchShiftDlg.ui:136
@@ -5998,7 +5998,7 @@ msgid ""
 "Increments or decrements the speed by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
-"Etkene göre hızı artırır veya azaltır.\n"
+"Çarpana göre hızı artırır veya azaltır.\n"
 "Örnek olarak: “×1”, “×2”, “/4”"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbFactor)
@@ -6047,7 +6047,7 @@ msgstr ""
 #: plugins/playback/PlayBack-ALSA.cpp:587
 #, kde-format
 msgid "Opening the device '%1' failed: %2"
-msgstr "“%1” aygıyı açılırken başarısız olundu: %2"
+msgstr "“%1” aygıtı açılamadı: %2"
 
 #: plugins/playback/PlayBack-ALSA.cpp:817
 #: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1059
@@ -6066,7 +6066,7 @@ msgstr "Aygıt %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:821 plugins/record/Record-ALSA.cpp:1063
 #, kde-format
 msgid "Subdevice %1: "
-msgstr "Alt Aygıt %1: "
+msgstr "Alt aygıt %1: "
 
 #: plugins/playback/PlayBack-ALSA.cpp:851
 #, kde-format
@@ -6096,7 +6096,7 @@ msgstr "%1 Hz çalma hızı desteklenmiyor"
 #: plugins/playback/PlayBack-OSS.cpp:210
 #, kde-format
 msgid "Unusable buffer size: %1"
-msgstr "Kullanılamaz tampon boyutu: %1"
+msgstr "Kullanılamaz arabellek boyutu: %1"
 
 #: plugins/playback/PlayBack-OSS.cpp:404
 #, kde-format
@@ -6159,7 +6159,7 @@ msgstr "“%1” ses aygıtı bilinmiyor ya da artık bağlı değil"
 msgid "format not supported"
 msgstr "Biçim desteklenmiyor"
 
-#: plugins/playback/PlayBack-Qt.cpp:193
+#: plugins/playback/PlayBack-Qt.cpp:201
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Qt çoklu ortam aygıtı “%1” açılırken başarısız olundu"
@@ -6177,7 +6177,7 @@ msgstr "%1 kB"
 #: plugins/playback/PlayBackDialog.cpp:619
 #, kde-format
 msgid "(mono)"
-msgstr "(mono)"
+msgstr "(tek kanallı)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
 #: plugins/playback/PlayBackDialog.cpp:620 plugins/playback/PlayBackDlg.ui:350
@@ -6317,7 +6317,7 @@ msgid ""
 "update of the playback position and the real sound output. If you encounter "
 "dropouts you should increase this setting a bit.</p>"
 msgstr ""
-"<b>Arabellek boyutu:</b><p>Çalma için arabellek boyutu seçiniz. Çalmadaki "
+"<b>Arabellek Boyutu:</b><p>Çalma için arabellek boyutu seçiniz. Çalmadaki "
 "gecikmeyi indirgemek için olabildiğince küçük seçmelisiniz. Bu gecikme "
 "çalmayı başlatma/durdurma, çalmanın konumunu güncelleme ve gerçek ses çıkışı "
 "gibi kullanıcı arabirim eylemleri arasındaki oluşan gecikmedir. Yarıda "
@@ -6328,7 +6328,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:220 plugins/record/RecordDlg.ui:990
 #, kde-format
 msgid "Buffer size:"
-msgstr "Tampon boyutu:"
+msgstr "Arabellek boyutu:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: plugins/playback/PlayBackDlg.ui:256
@@ -6352,9 +6352,9 @@ msgid ""
 "resolution (24 bit) to the setting you specify. Higher resolutions mean "
 "better audio quality.</p>"
 msgstr ""
-"<b>Örnekleme başına bit</b><p>Çalma aygıtınızın desteklediği bit "
+"<b>Örneklem Başına Bit</b><p>Çalma aygıtınızın desteklediği bit "
 "çözünürlüklerinden birisini buradan seçebilirsiniz. Bu ses dosyanızdaki "
-"çözünürlükle aynı olmasının önemi yoktur, K Dalga otomatik olarak dahili "
+"çözünürlükle aynı olmasının önemi yoktur, K Dalga kendiliğinden içsel "
 "çözünürlükten (24 bit) belirttiğiniz ayara çevirecektir. Daha yüksek "
 "çözünürlük daha iyi ses kalitesi demektir.</p>"
 
@@ -6485,19 +6485,19 @@ msgstr "Kayıt Aygıtını Seçin"
 #: plugins/record/RecordPlugin.cpp:552
 #, kde-format
 msgid "Mono"
-msgstr "Mono"
+msgstr "Tek Kanallı"
 
 #: plugins/record/RecordDialog.cpp:720 plugins/record/RecordPlugin.cpp:545
 #: plugins/record/RecordPlugin.cpp:553
 #, kde-format
 msgid "Stereo"
-msgstr "Stereo"
+msgstr "Çift Kanallı"
 
 #: plugins/record/RecordDialog.cpp:723 plugins/record/RecordPlugin.cpp:546
 #: plugins/record/RecordPlugin.cpp:554
 #, kde-format
 msgid "Quadro"
-msgstr "Dört kanal"
+msgstr "Dört Kanallı"
 
 #: plugins/record/RecordDialog.cpp:734
 #, kde-format
@@ -6656,8 +6656,8 @@ msgid ""
 "If checked, the <b>Record time</b> is limited and recording will "
 "automatically stop when the selected time is reached."
 msgstr ""
-"Eğer seçilmişse <b>Kayıt Zamanı</b> sınırlandırılmış ve seçilen zamana "
-"ulaşıldığında kayıt otomatik olarak durdurulur."
+"İşaretlenmişse <b>Kayıt Zamanı</b> sınırlandırılmış ve seçilen zamana "
+"ulaşıldığında kayıt kendiliğinden durdurulur."
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:97
@@ -6678,7 +6678,7 @@ msgid ""
 "If the <b>Record trigger</b> is enabled, recording will start as soon as the "
 "volume of the input signal goes over the selected level."
 msgstr ""
-"Eğer <b>Kayıt tetiği</b> etkinse girişin ses düzeyi seçilen değerin üzerine "
+"Eğer <b>Kayıt Tetiği</b> etkinse girişin ses düzeyi seçilen değerin üzerine "
 "çıktığı anda kayıt edilmeye başlanır."
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordTrigger)
@@ -6719,9 +6719,9 @@ msgid ""
 "Please note that if the time is in the past, the recording will be started "
 "immediately or as soon as the defined trigger level is reached (if enabled)."
 msgstr ""
-"Seçildiği zaman, verilmiş tarih ve zamanda kayıt başlayacaktır. Lütfen zaman "
-"geçmişte ise kayıt hemen veya tanımlanmış tetik düzeyine ulaşıldığında "
-"başlayacaktır (eğer etkinleştirildiyse)."
+"İşaretlendiğinde, verilmiş tarih ve zamanda kayıt başlayacaktır. Zaman "
+"geçmişteyse kayıt hemen veya tanımlanmış tetik düzeyine ulaşıldığında "
+"başlayacaktır (etkinleştirildiyse)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordStartTime)
 #: plugins/record/RecordDlg.ui:359
@@ -6779,8 +6779,8 @@ msgid ""
 "<b>Sample rate</b><br>Here you can select one of the predefined well-known "
 "sample rates that your sound card supports."
 msgstr ""
-"<b>Örnekleme hızı</b><br>Burada ses kartınızın desteklediği önden "
-"tanımlanmış iyi bilinen örnekleme hızlarından birini seçebilirsiniz."
+"<b>Örneklem Hızı</b><br>Burada ses kartınızın desteklediği önden tanımlanmış "
+"iyi bilinen örneklem hızlarından birini seçebilirsiniz."
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbFormatTracks)
 #: plugins/record/RecordDlg.ui:718
@@ -6789,7 +6789,7 @@ msgid ""
 "<b>Number of channels</b><br>Select a number of channels, e.g. for mono or "
 "stereo recording."
 msgstr ""
-"<b>Kanal sayısı</b><br>Kanal sayısını seçiniz, örnek olarak tek kanallı, iki "
+"<b>Kanal Sayısı</b><br>Kanal sayısını seçiniz, örnek olarak tek kanallı, iki "
 "kanallı kayıt."
 
 #. i18n: ectx: property (text), widget (QLabel, lblTracksVerbose)
@@ -6811,7 +6811,7 @@ msgid ""
 "<b>Compression</b><br>Here you can select one of the compression types if "
 "your audio hardware supports it."
 msgstr ""
-"<b>Sıkıştırma</b><br>Eğer ses donanımınız destekliyor ise, sıkıştırma "
+"<b>Sıkıştırma</b><br>Eğer ses donanımınız destekliyorsa sıkıştırma "
 "türlerinden birini buradan seçebilirsiniz."
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbFormatSampleFormat)
@@ -6822,14 +6822,14 @@ msgid ""
 "your audio hardware supports. This normally has no big influence on the "
 "result, so you can just leave it as it is."
 msgstr ""
-"<b>Örnekleme biçimi</b><br>Eğer ses donanımınız destekliyor ise, örnekleme "
+"<b>Örneklem Biçimi</b><br>Eğer ses donanımınız destekliyorsa örneklem "
 "biçimlerinden birini buradan seçebilirsiniz."
 
 #. i18n: ectx: property (text), widget (QLabel, lblSampleFormat)
 #: plugins/record/RecordDlg.ui:883
 #, kde-format
 msgid "Sample format:"
-msgstr "Örnek biçimi:"
+msgstr "Örneklem biçimi:"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbFormatResolution)
 #: plugins/record/RecordDlg.ui:893
@@ -6846,7 +6846,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1000
 #, kde-format
 msgid "Buffer count:"
-msgstr "Tampon miktarı:"
+msgstr "Arabellek sayısı:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1022
@@ -6897,8 +6897,8 @@ msgid ""
 "you can enter a device name on your own or search through the filesystem.</p>"
 msgstr ""
 "<b>Aygıt:</b><p>Bu liste seçilen kayıt yöntemi için bilinen uygun kayıt "
-"aygıtlarının seçiminin gösterir. Eğer sizin aygıtınız burada listelenmiyor "
-"ise, aygıt adını kendiniz ekleyebilir ya da dosya sistemi üzerinden "
+"aygıtlarının seçiminin gösterir. Eğer sizin aygıtınız burada listelenmiyorsa "
+"aygıt adını kendiniz ekleyebilir veya dosya sistemi üzerinden "
 "arayabilirsiniz.</p>"
 
 #. i18n: ectx: property (text), widget (QPushButton, btSourceSelect)
@@ -6917,7 +6917,7 @@ msgstr "Aygıt"
 #: plugins/record/RecordDlg.ui:1204
 #, kde-format
 msgid "Buffer:"
-msgstr "Tampon:"
+msgstr "Arabellek:"
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_level_meter)
 #: plugins/record/RecordDlg.ui:1236
@@ -7049,12 +7049,12 @@ msgstr "Ters Çevir"
 #: plugins/samplerate/SampleRatePlugin.cpp:100
 #, kde-format
 msgid "Change sample rate"
-msgstr "Örnekleme hızını değiştir"
+msgstr "Örneklem hızını değiştir"
 
 #: plugins/samplerate/SampleRatePlugin.cpp:161
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
-msgstr "Örnekleme hızını %1kHz: %2 kHz olarak değiştir…"
+msgstr "Örneklem hızı %1 kHz: %2 kHz olarak değiştiriliyor…"
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:174
 #, kde-format
@@ -7066,7 +7066,7 @@ msgstr "…"
 msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr ""
-"Şu dosya(lar)nın üzerine yazılacaktır: %1Bunu gerçekten sürdürmek istiyor "
+"Şu dosyaların üzerine yazılacaktır: %1Bunu sürdürmeyi gerçekten istiyor "
 "musunuz?"
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:289
@@ -7102,7 +7102,7 @@ msgstr ""
 "<b>Dosyaların numaralandırılmasının</b> nasıl yapılacağını belirler:<ul>\n"
 "<li>bulunan <b>en yüksek indek</b> sonrasında var olan dosyalarla "
 "çakışmalardan sakınılır</li>\n"
-"<li>Numaralandırma herzaman <b>birden</b> itibaren başlar, var olan "
+"<li>Numaralandırma her zaman <b>birden</b> itibaren başlar, var olan "
 "dosyalarla çakışması olasıdır</li>\n"
 "</ul>"
 
@@ -7168,7 +7168,7 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:147
 #, kde-format
 msgid "Filename pattern:"
-msgstr "Dosya adı deseni:"
+msgstr "Dosya adı dizgisi:"
 
 #: plugins/selectrange/SelectRangeDialog.cpp:45
 #, kde-format
@@ -7180,17 +7180,17 @@ msgstr "Başlat"
 #: plugins/selectrange/SelectRangePlugin.cpp:121
 #, kde-format
 msgid "Select Range"
-msgstr "Aralık Seçin"
+msgstr "Erim Seç"
 
 #: plugins/sonagram/SonagramDialog.cpp:148
 #, kde-format
 msgid "(resulting window size: %1)"
-msgstr "(Pencere boyutu sonuçlandırılıyor: %1)"
+msgstr "(ortaya çıkan pencere boyutu: %1)"
 
 #: plugins/sonagram/SonagramDialog.cpp:151
 #, kde-format
 msgid "Size of bitmap: %1x%2"
-msgstr "Bit eşlem boyutu: %1 × %2"
+msgstr "Biteşlem boyutu: %1 × %2"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SonagramDlg)
 #: plugins/sonagram/SonagramDlg.ui:20
@@ -7238,7 +7238,7 @@ msgstr "Güncelle"
 #: plugins/sonagram/SonagramDlg.ui:87
 #, kde-format
 msgid "Automatically update the sonagram <br>if the signal data has changed"
-msgstr "Eğer sinyal verisi değiştiyse <br>sonagramı otomatik güncelle"
+msgstr "Sinyal verisi değiştiyse <br>sonagramı kendiliğinden güncelle"
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbTrackChanges)
 #: plugins/sonagram/SonagramDlg.ui:90
@@ -7253,8 +7253,8 @@ msgid ""
 "Automatically update the sonagram if the selection<br>has been enlarged, "
 "reduced or moved"
 msgstr ""
-"Eğer seçim genişletilmiş, indirgenmiş ya da taşınmışsa <br>sonagramı "
-"otomatik güncelle"
+"Seçim genişletilmiş, indirgenmiş veya taşınmışsa<br>sonagramı kendiliğinden "
+"güncelle"
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbFollowSelection)
 #: plugins/sonagram/SonagramDlg.ui:103
@@ -7278,7 +7278,7 @@ msgstr "FFT noktalarının sayısı:"
 #: plugins/sonagram/SonagramDlg.ui:157
 #, kde-format
 msgid "Window function:"
-msgstr "Pencere fonksiyonu:"
+msgstr "Pencere işlevi:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, windowtypebox)
 #. i18n: ectx: property (whatsThis), widget (KComboBox, windowtypebox)
@@ -7301,10 +7301,9 @@ msgid ""
 "if choosing big window sizes.<br>\n"
 "The computation will be much faster!"
 msgstr ""
-"<b>FFT noktalarının sayısı:</b><p></p>büyük pencere boyutları seçildiyse "
-"eğer<br>\n"
-"küçük asal çarpanlar seçmeye çalışın,<br>\n"
-"Hesaplama daha da hızlanacaktır!"
+"<b>FFT Noktalarının Sayısı:</b><p></p>büyük pencere boyutları<br>\n"
+"seçildiyse eğer küçük asal çarpanlar seçmeye çalışın,<br>\n"
+"hesaplama daha da hızlanacaktır!"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, pointbox)
 #: plugins/sonagram/SonagramDlg.ui:235
@@ -7512,21 +7511,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Sessizlik"
-
-#~ msgid "Zoom in"
-#~ msgstr "Yakınlaştır"
-
-#~ msgid "Zoom out"
-#~ msgstr "Uzaklaştır"
-
-#~ msgid "PCM encoding is not supported"
-#~ msgstr "PCM kodlaması desteklenmiyor"
-
-#~ msgid "playback with %1 channels is not supported"
-#~ msgstr "%1 kanallı çalma desteklenmiyor"
-
-#~ msgid "sample rate %1 Hz is not supported"
-#~ msgstr "%1 Hz örnekleme hızı desteklenmiyor"
-
-#~ msgid "integer sample format is not supported"
-#~ msgstr "Tam sayı örnek biçimi desteklenmiyor"

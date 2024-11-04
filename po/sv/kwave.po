@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-10 00:39+0000\n"
+"POT-Creation-Date: 2024-11-04 00:39+0000\n"
 "PO-Revision-Date: 2024-08-07 06:47+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -6158,7 +6158,7 @@ msgstr "Ljudenheten '%1' är okänd eller inte längre ansluten"
 msgid "format not supported"
 msgstr "Formatet stöds inte"
 
-#: plugins/playback/PlayBack-Qt.cpp:193
+#: plugins/playback/PlayBack-Qt.cpp:201
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Misslyckades öppna Qt Multimedia-enheten '%1'"

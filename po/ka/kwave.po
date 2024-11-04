@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-10 00:39+0000\n"
+"POT-Creation-Date: 2024-11-04 00:39+0000\n"
 "PO-Revision-Date: 2024-09-29 08:28+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -6161,7 +6161,7 @@ msgstr "აუდიომოწყობილობა '%1' უცნობი
 msgid "format not supported"
 msgstr "ფორმატი მხარდაჭერილი არაა"
 
-#: plugins/playback/PlayBack-Qt.cpp:193
+#: plugins/playback/PlayBack-Qt.cpp:201
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Qt Multimedia-ის მოწყობილობის '%1' გახსნა ცავარდა"

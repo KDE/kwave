@@ -18,18 +18,18 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef SAVE_BLOCKS_OPTIONS_DIALOG_H
-#define SAVE_BLOCKS_OPTIONS_DIALOG_H
+#ifndef SAVE_BLOCKS_DIALOG_H
+#define SAVE_BLOCKS_DIALOG_H
 
 #include <QDialog>
 
 #include "SaveBlocksPlugin.h"
-#include "ui_SaveBlocksOptionsDialogBase.h"
+#include "ui_SaveBlocksDialogBase.h"
 
 namespace Kwave
 {
-    class SaveBlocksOptionsDialog: public QDialog,
-                            public Ui::SaveBlocksOptionsDialogBase
+    class SaveBlocksDialog: public QDialog,
+                            public Ui::SaveBlocksDialogBase
     {
         Q_OBJECT
     public:
@@ -43,8 +43,8 @@ namespace Kwave
          * @param selection_only if true, save only the selection
          * @param have_selection if true, there is a selection
          */
-        SaveBlocksOptionsDialog(QWidget *widget,
-            QString filename,
+        SaveBlocksDialog(QWidget *widget,
+            QUrl filename,
             QString filename_pattern,
             Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
             bool selection_only,
@@ -52,7 +52,7 @@ namespace Kwave
         );
 
         /** Destructor */
-        ~SaveBlocksOptionsDialog() override;
+        ~SaveBlocksDialog() override;
 
         /** returns the file name pattern */
         QString pattern();
@@ -65,6 +65,9 @@ namespace Kwave
 
         /** returns true if only the selection should be saved */
         bool selectionOnly();
+
+        /** returns the selected directory */
+        QUrl selectedUrl() const;
 
     signals:
 
@@ -83,6 +86,8 @@ namespace Kwave
 
     public slots:
 
+        void accept() override;
+
         /**
          * update the filename preview
          * @param example the example filename
@@ -97,7 +102,7 @@ namespace Kwave
     };
 }
 
-#endif /* SAVE_BLOCKS_OPTIONS_DIALOG_H */
+#endif /* SAVE_BLOCKS_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

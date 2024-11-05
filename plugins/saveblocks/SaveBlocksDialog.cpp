@@ -24,23 +24,27 @@
 #include <QLineEdit>
 
 #include <KComboBox>
+#include <KUrlRequester>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/FileInfo.h"
+#include "libkwave/MessageBox.h"
 #include "libkwave/String.h"
 
-#include "SaveBlocksOptionsDialog.h"
+#include "SaveBlocksDialog.h"
 
 using namespace Qt::StringLiterals;
 
 //***************************************************************************
-Kwave::SaveBlocksOptionsDialog::SaveBlocksOptionsDialog(QWidget *parent,
-        QString filename,
+Kwave::SaveBlocksDialog::SaveBlocksDialog(QWidget *parent,
+        QUrl filename,
         QString filename_pattern,
         Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
         bool selection_only,
         bool have_selection)
-    :QDialog(parent), Ui::SaveBlocksOptionsDialogBase(), m_filename(filename)
+    : QDialog(parent)
+    , Ui::SaveBlocksDialogBase()
+    , m_filename(filename.toLocalFile())
 {
     setupUi(this);
 
@@ -93,33 +97,35 @@ Kwave::SaveBlocksOptionsDialog::SaveBlocksOptionsDialog(QWidget *parent,
         chkSelectionOnly->setChecked(false);
     }
 
+    urlRequester->setStartDir(filename);
+
     // combo box with pattern
     connect(cbPattern, &QComboBox::editTextChanged,
-            this, &SaveBlocksOptionsDialog::emitUpdate);
+            this, &SaveBlocksDialog::emitUpdate);
     connect(cbPattern, &QComboBox::highlighted,
-            this, &SaveBlocksOptionsDialog::emitUpdate);
+            this, &SaveBlocksDialog::emitUpdate);
     connect(cbPattern, &QComboBox::activated,
-            this, &SaveBlocksOptionsDialog::emitUpdate);
+            this, &SaveBlocksDialog::emitUpdate);
 
     // combo box with numbering
     connect(cbNumbering, &QComboBox::editTextChanged,
-            this, &SaveBlocksOptionsDialog::emitUpdate);
+            this, &SaveBlocksDialog::emitUpdate);
     connect(cbNumbering, &QComboBox::highlighted,
-            this, &SaveBlocksOptionsDialog::emitUpdate);
+            this, &SaveBlocksDialog::emitUpdate);
     connect(cbNumbering, &QComboBox::activated,
-            this, &SaveBlocksOptionsDialog::emitUpdate);
+            this, &SaveBlocksDialog::emitUpdate);
 
     // combo box with extension
     connect(cbExtension, &QComboBox::editTextChanged,
-            this, &SaveBlocksOptionsDialog::emitUpdate);
+            this, &SaveBlocksDialog::emitUpdate);
     connect(cbExtension, &QComboBox::highlighted,
-            this, &SaveBlocksOptionsDialog::emitUpdate);
+            this, &SaveBlocksDialog::emitUpdate);
     connect(cbExtension, &QComboBox::activated,
-            this, &SaveBlocksOptionsDialog::emitUpdate);
+            this, &SaveBlocksDialog::emitUpdate);
 
     // selection only checkbox
     connect(chkSelectionOnly, &QCheckBox::checkStateChanged,
-            this, &SaveBlocksOptionsDialog::emitUpdate);
+            this, &SaveBlocksDialog::emitUpdate);
 
 
     connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
@@ -127,12 +133,12 @@ Kwave::SaveBlocksOptionsDialog::SaveBlocksOptionsDialog(QWidget *parent,
 }
 
 //***************************************************************************
-Kwave::SaveBlocksOptionsDialog::~SaveBlocksOptionsDialog()
+Kwave::SaveBlocksDialog::~SaveBlocksDialog()
 {
 }
 
 //***************************************************************************
-QString Kwave::SaveBlocksOptionsDialog::pattern()
+QString Kwave::SaveBlocksDialog::pattern()
 {
     Q_ASSERT(cbPattern);
     return (cbPattern) ? cbPattern->currentText() : _("");
@@ -140,7 +146,7 @@ QString Kwave::SaveBlocksOptionsDialog::pattern()
 
 //***************************************************************************
 Kwave::SaveBlocksPlugin::numbering_mode_t
-    Kwave::SaveBlocksOptionsDialog::numberingMode()
+    Kwave::SaveBlocksDialog::numberingMode()
 {
     Q_ASSERT(cbNumbering);
     return (cbNumbering) ?
@@ -149,27 +155,48 @@ Kwave::SaveBlocksPlugin::numbering_mode_t
 }
 
 //***************************************************************************
-QString Kwave::SaveBlocksOptionsDialog::extension()
+QString Kwave::SaveBlocksDialog::extension()
 {
     Q_ASSERT(cbExtension);
     return (cbExtension) ? cbExtension->currentText() : u".wav"_s;
 }
 
 //***************************************************************************
-bool Kwave::SaveBlocksOptionsDialog::selectionOnly()
+bool Kwave::SaveBlocksDialog::selectionOnly()
 {
     Q_ASSERT(chkSelectionOnly);
     return (chkSelectionOnly) ? chkSelectionOnly->isChecked() : false;
 }
 
 //***************************************************************************
-void Kwave::SaveBlocksOptionsDialog::setNewExample(const QString &example)
+QUrl Kwave::SaveBlocksDialog::selectedUrl() const
+{
+    QUrl url = urlRequester->url();
+    if (url.isValid()) {
+        return url;
+    }
+    return QUrl();
+}
+
+//***************************************************************************
+void Kwave::SaveBlocksDialog::accept()
+{
+    if (selectedUrl().isValid()) {
+        QDialog::accept();
+    } else {
+        MessageBox::error(this, i18n("Please choose where to save the files"));
+    }
+}
+
+
+//***************************************************************************
+void Kwave::SaveBlocksDialog::setNewExample(const QString &example)
 {
     Q_ASSERT(txtExample);
     if (txtExample) txtExample->setText(example);
 }
 
-void Kwave::SaveBlocksOptionsDialog::emitUpdate()
+void Kwave::SaveBlocksDialog::emitUpdate()
 {
     Q_EMIT sigSelectionChanged(m_filename, pattern(), numberingMode(), extension(), selectionOnly());
 }
@@ -177,4 +204,4 @@ void Kwave::SaveBlocksOptionsDialog::emitUpdate()
 //***************************************************************************
 //***************************************************************************
 
-#include "moc_SaveBlocksOptionsDialog.cpp"
+#include "moc_SaveBlocksDialog.cpp"

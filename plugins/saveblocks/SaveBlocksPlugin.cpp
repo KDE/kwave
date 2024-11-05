@@ -31,7 +31,6 @@
 
 #include <KLocalizedString>
 
-#include "libgui/FileDialog.h"
 #include "libkwave/CodecManager.h"
 #include "libkwave/Encoder.h"
 #include "libkwave/FileInfo.h"
@@ -44,7 +43,7 @@
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
-#include "SaveBlocksOptionsDialog.h"
+#include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
 
 using namespace Qt::StringLiterals;
@@ -88,9 +87,9 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 
     QUrl signalname = Kwave::URLfromUserInput(signalName());
 
-    Kwave::SaveBlocksOptionsDialog *dialog = new Kwave::SaveBlocksOptionsDialog(
+    Kwave::SaveBlocksDialog *dialog = new Kwave::SaveBlocksDialog(
             parentWidget(),
-            signalname.toString(),
+            signalname,
             m_pattern,
             m_numbering_mode,
             m_selection_only,
@@ -99,10 +98,10 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
         if (!dialog) return nullptr;
 
     // connect the signals/slots from the plugin and the dialog
-    connect(dialog, &SaveBlocksOptionsDialog::sigSelectionChanged,
+    connect(dialog, &SaveBlocksDialog::sigSelectionChanged,
         this, &SaveBlocksPlugin::updateExample);
     connect(this, &SaveBlocksPlugin::sigNewExample,
-        dialog, &SaveBlocksOptionsDialog::setNewExample);
+        dialog, &SaveBlocksDialog::setNewExample);
 
     dialog->setWindowTitle(description());
     dialog->emitUpdate();
@@ -110,19 +109,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
         return nullptr;
     }
 
-    Kwave::FileDialog *fileDialog = new Kwave::FileDialog(
-        signalname.toLocalFile(),
-        Kwave::FileDialog::SelectDir,
-        u""_s,
-        parentWidget()
-    );
-
-    fileDialog->setWindowTitle(description());
-    if ((fileDialog->exec() != QDialog::Accepted) || !fileDialog) {
-        return nullptr;
-    }
-
-    QUrl url = fileDialog->selectedUrl();
+    QUrl url = dialog->selectedUrl();
     if (url.isEmpty()) {
         return nullptr;
     }

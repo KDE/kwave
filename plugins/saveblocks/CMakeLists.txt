@@ -23,15 +23,15 @@
 #############################################################################
 
 SET(plugin_saveblocks_LIB_SRCS
-    SaveBlocksOptionsDialog.cpp
+    SaveBlocksDialog.cpp
     SaveBlocksPlugin.cpp
 
-    SaveBlocksOptionsDialog.h
+    SaveBlocksDialog.h
     SaveBlocksPlugin.h
 )
 
 SET(plugin_saveblocks_LIB_UI
-    SaveBlocksOptionsDialogBase.ui
+    SaveBlocksDialogBase.ui
 )
 
 KWAVE_PLUGIN(saveblocks)

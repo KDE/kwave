@@ -84,6 +84,7 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
         QIcon::fromTheme(u"media-playback-pause"_s),
         QString(),
         this, &Kwave::PlayerToolBar::toolbarPause);
+    m_action_pause->setCheckable(true);
 
     m_action_stop = addAction(
         QIcon::fromTheme(u"media-playback-stop"_s),
@@ -409,8 +410,10 @@ void Kwave::PlayerToolBar::updateState()
     /* pause button: continue/pause playback */
     if (paused) {
         m_action_pause->setToolTip(i18n("Continue playback"));
+        m_action_pause->setChecked(true);
     } else {
         m_action_pause->setToolTip(i18n("Pause playback"));
+        m_action_pause->setChecked(false);
     }
 
 }

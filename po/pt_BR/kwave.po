@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-04 00:39+0000\n"
+"POT-Creation-Date: 2024-11-06 00:39+0000\n"
 "PO-Revision-Date: 2021-10-26 14:42-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -1037,42 +1037,42 @@ msgstr "Gravar"
 msgid "Start playback"
 msgstr "Iniciar reprodução"
 
-#: kwave/PlayerToolBar.cpp:90
+#: kwave/PlayerToolBar.cpp:91
 #, kde-format
 msgid "Stop playback or loop"
 msgstr "Parar a reprodução ou repetição"
 
-#: kwave/PlayerToolBar.cpp:95
+#: kwave/PlayerToolBar.cpp:96
 #, kde-format
 msgid "Start playback and loop"
 msgstr "Iniciar a reprodução e repetir"
 
-#: kwave/PlayerToolBar.cpp:100
+#: kwave/PlayerToolBar.cpp:101
 #, kde-format
 msgid "Previous"
 msgstr "Anterior"
 
-#: kwave/PlayerToolBar.cpp:105
+#: kwave/PlayerToolBar.cpp:106
 #, kde-format
 msgid "Rewind"
 msgstr "Retornar"
 
-#: kwave/PlayerToolBar.cpp:110
+#: kwave/PlayerToolBar.cpp:111
 #, kde-format
 msgid "Forward"
 msgstr "Avançar"
 
-#: kwave/PlayerToolBar.cpp:115
+#: kwave/PlayerToolBar.cpp:116
 #, kde-format
 msgid "Next"
 msgstr "Próximo"
 
-#: kwave/PlayerToolBar.cpp:411
+#: kwave/PlayerToolBar.cpp:412
 #, kde-format
 msgid "Continue playback"
 msgstr "Continuar a reprodução"
 
-#: kwave/PlayerToolBar.cpp:413
+#: kwave/PlayerToolBar.cpp:415
 #, kde-format
 msgid "Pause playback"
 msgstr "Pausar reprodução"

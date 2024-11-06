@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-04 00:39+0000\n"
+"POT-Creation-Date: 2024-11-06 00:39+0000\n"
 "PO-Revision-Date: 2024-09-20 13:15+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1035,42 +1035,42 @@ msgstr "Εγγραφή"
 msgid "Start playback"
 msgstr "Έναρξη αναπαραγωγής"
 
-#: kwave/PlayerToolBar.cpp:90
+#: kwave/PlayerToolBar.cpp:91
 #, kde-format
 msgid "Stop playback or loop"
 msgstr "Διακοπή αναπαραγωγής ή επανάληψης"
 
-#: kwave/PlayerToolBar.cpp:95
+#: kwave/PlayerToolBar.cpp:96
 #, kde-format
 msgid "Start playback and loop"
 msgstr "Έναρξη αναπαραγωγής και επανάληψη"
 
-#: kwave/PlayerToolBar.cpp:100
+#: kwave/PlayerToolBar.cpp:101
 #, kde-format
 msgid "Previous"
 msgstr "Προηγούμενο"
 
-#: kwave/PlayerToolBar.cpp:105
+#: kwave/PlayerToolBar.cpp:106
 #, kde-format
 msgid "Rewind"
 msgstr "Όπισθεν"
 
-#: kwave/PlayerToolBar.cpp:110
+#: kwave/PlayerToolBar.cpp:111
 #, kde-format
 msgid "Forward"
 msgstr "Προς τα εμπρός"
 
-#: kwave/PlayerToolBar.cpp:115
+#: kwave/PlayerToolBar.cpp:116
 #, kde-format
 msgid "Next"
 msgstr "Επόμενο"
 
-#: kwave/PlayerToolBar.cpp:411
+#: kwave/PlayerToolBar.cpp:412
 #, kde-format
 msgid "Continue playback"
 msgstr "Συνέχιση αναπαραγωγής"
 
-#: kwave/PlayerToolBar.cpp:413
+#: kwave/PlayerToolBar.cpp:415
 #, kde-format
 msgid "Pause playback"
 msgstr "Παύση αναπαραγωγής"

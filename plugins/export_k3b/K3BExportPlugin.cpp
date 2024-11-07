@@ -39,8 +39,6 @@
 #include <KLocalizedString> // for the i18n macro
 #include <KZip>
 
-#include "libgui/FileDialog.h"
-
 #include "libkwave/CodecManager.h"
 #include "libkwave/Encoder.h"
 #include "libkwave/FileInfo.h"
@@ -56,7 +54,7 @@
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
-#include "K3BExportOptionsDialog.h"
+#include "K3BExportDialog.h"
 #include "K3BExportPlugin.h"
 
 using namespace Qt::StringLiterals;
@@ -305,12 +303,13 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
     bool enable_selection_only = selected_something && !selected_all;
 
     // show a dialog to get the export settings
-    Kwave::K3BExportOptionsDialog *dialog = new Kwave::K3BExportOptionsDialog(
+    Kwave::K3BExportDialog *dialog = new Kwave::K3BExportDialog(
         parentWidget(),
         m_pattern,
         m_selection_only,
         enable_selection_only,
-        m_overwrite_policy
+        m_overwrite_policy,
+        Kwave::URLfromUserInput(signalName())
     );
 
     dialog->setWindowTitle(description());
@@ -318,26 +317,7 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
         return nullptr;
     }
 
-    // show a "File / Save As..." dialog for the *.k3b file
-    Kwave::FileDialog *fileDialog = new Kwave::FileDialog(
-            u"kfiledialog:///kwave_export_k3b"_s,
-            Kwave::FileDialog::SaveFile,
-            K3B_FILE_SUFFIX + u"|"_s + i18nc(
-                "file type filter when exporting to K3b",
-                "K3b project file (*.k3b)"
-            ),
-            parentWidget(),
-            Kwave::URLfromUserInput(signalName()),
-            u"*.k3b"_s
-        );
-
-    fileDialog->setWindowTitle(description());
-    if ((fileDialog->exec() != QDialog::Accepted)) {
-        return nullptr;
-    }
-
-    // user has pressed "OK"
-    QUrl url = fileDialog->selectedUrl();
+    QUrl url = dialog->projectFile();
     if (url.isEmpty()) {
         return nullptr;
     }
@@ -349,18 +329,7 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
     if (path.suffix() != K3B_FILE_SUFFIX.mid(2))
         url.setPath(name + K3B_FILE_SUFFIX.mid(1));
 
-    // show a dialog to select the directory to save the tracks in
-    Kwave::FileDialog *dirDialog = new Kwave::FileDialog(
-        name,
-        Kwave::FileDialog::SelectDir,
-        u""_s,
-        parentWidget()
-    );
-    dirDialog->setWindowTitle(i18n("Export Tracks"));
-    if ((dirDialog->exec() != QDialog::Accepted)) {
-        return nullptr;
-    }
-    QUrl dir = dirDialog->selectedUrl();
+    QUrl dir = dialog->exportLocation();
     if (dir.isEmpty()) {
         return nullptr;
     }

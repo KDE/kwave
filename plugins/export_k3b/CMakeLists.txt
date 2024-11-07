@@ -23,15 +23,15 @@
 #############################################################################
 
 SET(plugin_export_k3b_LIB_SRCS
-    K3BExportOptionsDialog.cpp
+    K3BExportDialog.cpp
     K3BExportPlugin.cpp
 
-    K3BExportOptionsDialog.h
+    K3BExportDialog.h
     K3BExportPlugin.h
 )
 
 SET(plugin_export_k3b_LIB_UI
-    K3BExportOptionsDialogBase.ui
+    K3BExportDialogBase.ui
 )
 
 SET(plugin_export_k3b_LIBS

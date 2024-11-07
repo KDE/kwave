@@ -18,17 +18,17 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef K3B_EXPORT_OPTIONS_DIALOG_H
-#define K3B_EXPORT_OPTIONS_DIALOG_H
+#ifndef K3B_EXPORT_DIALOG_H
+#define K3B_EXPORT_DIALOG_H
 
 #include <QDialog>
 
 #include "K3BExportPlugin.h"
-#include "ui_K3BExportOptionsDialogBase.h"
+#include "ui_K3BExportDialogBase.h"
 
 namespace Kwave
 {
-    class K3BExportOptionsDialog: public QDialog, public Ui::K3BExportOptionsDialogBase
+    class K3BExportDialog: public QDialog, public Ui::K3BExportDialogBase
     {
         Q_OBJECT
     public:
@@ -40,17 +40,19 @@ namespace Kwave
          * @param selection_only if true, save only the selection
          * @param have_selection if true, there is a selection
          * @param overwrite_policy overwrite existing files or use a new name
+         * @param url current file url, used to set the path for the file dialogs
          */
-        K3BExportOptionsDialog(
+        K3BExportDialog(
             QWidget *parent,
             QString &pattern,
             bool selection_only,
             bool have_selection,
-            Kwave::K3BExportPlugin::overwrite_policy_t overwrite_policy
+            Kwave::K3BExportPlugin::overwrite_policy_t overwrite_policy,
+            QUrl url
         );
 
         /** Destructor */
-        virtual ~K3BExportOptionsDialog() override;
+        virtual ~K3BExportDialog() override;
 
         /** returns the title/artist detection pattern (as is, not escaped) */
         QString pattern() const;
@@ -61,10 +63,17 @@ namespace Kwave
         /** returns the file overwrite policy */
         Kwave::K3BExportPlugin::overwrite_policy_t overwritePolicy() const;
 
+        /** returns the K3b project file name */
+        QUrl projectFile() const;
+
+        /** returns the audio file export location */
+        QUrl exportLocation() const;
+
+        Q_SLOT void accept() override;
     };
 }
 
-#endif /* K3B_EXPORT_OPTIONS_DIALOG_H */
+#endif /* K3B_EXPORT_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

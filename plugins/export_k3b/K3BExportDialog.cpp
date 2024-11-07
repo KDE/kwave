@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <libkwave/MessageBox.h>
 
 #include <QCheckBox>
 #include <QDialogButtonBox>
@@ -26,17 +27,20 @@
 
 #include <KComboBox>
 
-#include "K3BExportOptionsDialog.h"
+#include "K3BExportDialog.h"
+
+using namespace Qt::StringLiterals;
 
 //***************************************************************************
-Kwave::K3BExportOptionsDialog::K3BExportOptionsDialog(
+Kwave::K3BExportDialog::K3BExportDialog(
     QWidget *parent,
     QString &pattern,
     bool selection_only,
     bool have_selection,
-    Kwave::K3BExportPlugin::overwrite_policy_t overwrite_policy
+    Kwave::K3BExportPlugin::overwrite_policy_t overwrite_policy,
+    QUrl url
 )
-    :QDialog(parent), Ui::K3BExportOptionsDialogBase()
+    :QDialog(parent), Ui::K3BExportDialogBase()
 {
     setupUi(this);
 
@@ -67,6 +71,13 @@ Kwave::K3BExportOptionsDialog::K3BExportOptionsDialog(
         chkSelectionOnly->setChecked(false);
     }
 
+    fileUrlRequester->setStartDir(url);
+    fileUrlRequester->setNameFilter(
+        i18nc("file type filter when exporting to K3b", "K3b project file (*.k3b)")
+    );
+
+    dirUrlRequester->setStartDir(url);
+
     Q_ASSERT(cbOverwritePolicy);
     cbOverwritePolicy->setCurrentIndex(static_cast<int>(overwrite_policy));
 
@@ -75,12 +86,12 @@ Kwave::K3BExportOptionsDialog::K3BExportOptionsDialog(
 }
 
 //***************************************************************************
-Kwave::K3BExportOptionsDialog::~K3BExportOptionsDialog()
+Kwave::K3BExportDialog::~K3BExportDialog()
 {
 }
 
 //***************************************************************************
-QString Kwave::K3BExportOptionsDialog::pattern() const
+QString Kwave::K3BExportDialog::pattern() const
 {
     Q_ASSERT(cbLabelPattern);
     if (!cbLabelPattern) return QString();
@@ -94,7 +105,7 @@ QString Kwave::K3BExportOptionsDialog::pattern() const
 }
 
 //***************************************************************************
-bool Kwave::K3BExportOptionsDialog::selectionOnly() const
+bool Kwave::K3BExportDialog::selectionOnly() const
 {
     Q_ASSERT(chkSelectionOnly);
     return (chkSelectionOnly) ? chkSelectionOnly->isChecked() : false;
@@ -102,7 +113,7 @@ bool Kwave::K3BExportOptionsDialog::selectionOnly() const
 
 //***************************************************************************
 Kwave::K3BExportPlugin::overwrite_policy_t
-    Kwave::K3BExportOptionsDialog::overwritePolicy() const
+    Kwave::K3BExportDialog::overwritePolicy() const
 {
     Q_ASSERT(cbOverwritePolicy);
     return static_cast<Kwave::K3BExportPlugin::overwrite_policy_t>(
@@ -111,7 +122,42 @@ Kwave::K3BExportPlugin::overwrite_policy_t
     );
 }
 
+QUrl Kwave::K3BExportDialog::projectFile() const
+{
+    QUrl url = fileUrlRequester->url();
+    if (url.isValid()) {
+        return url;
+    }
+    return QUrl();
+}
+
+QUrl Kwave::K3BExportDialog::exportLocation() const
+{
+    QUrl url = dirUrlRequester->url();
+    if (url.isValid()) {
+        return url;
+    }
+    return QUrl();
+}
+
+void Kwave::K3BExportDialog::accept()
+{
+    QString msg;
+    if (!projectFile().isValid()) {
+        msg += i18n("Please choose a K3b project file name");
+        msg += "\n"_L1;
+    }
+    if (!exportLocation().isValid()) {
+        msg += i18n("Please choose where to export the audio files");
+    }
+    if (msg.isEmpty()) {
+        QDialog::accept();
+    } else {
+        MessageBox::error(this, msg);
+    }
+}
+
 //***************************************************************************
 //***************************************************************************
 
-#include "moc_K3BExportOptionsDialog.cpp"
+#include "moc_K3BExportDialog.cpp"

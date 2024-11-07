@@ -622,13 +622,13 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/debug/kwaveplugin_debug.json.in         (UNKNOWN)
 
         plugins/export_k3b/CMakeLists.txt               BSD (3 clause)
-        plugins/export_k3b/K3BExportOptionsDialog.cpp   GPL2+
-        plugins/export_k3b/K3BExportOptionsDialog.h     GPL2+
+        plugins/export_k3b/K3BExportDialog.cpp          GPL2+
+        plugins/export_k3b/K3BExportDialog.h            GPL2+
         plugins/export_k3b/K3BExportPlugin.cpp          GPL2+ / Sebastian Trueg <trueg@k3b.org>,
                                                                 Gustavo Pichorim Boiko <gustavo.boiko@kdemail.net>
                                                                 Michal Malek <michalm@jabster.pl>
         plugins/export_k3b/K3BExportPlugin.h            GPL2+
-        plugins/export_k3b/K3BExportOptionsDialogBase.ui     GPL2+
+        plugins/export_k3b/K3BExportDialogBase.ui       GPL2+
         plugins/export_k3b/kwaveplugin_export_k3b.json.in    (UNKNOWN)
 
         plugins/fileinfo/BitrateSpinBox.cpp             GPL2+

@@ -24,12 +24,16 @@
 #include <QLineEdit>
 
 #include <KComboBox>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KSharedConfig>
 #include <KUrlRequester>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "SaveBlocksDialog.h"
 
@@ -47,6 +51,10 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(QWidget *parent,
     , m_filename(filename.toLocalFile())
 {
     setupUi(this);
+
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(m_cfgGroup);
+    QUrl last_url = Kwave::URLfromUserInput(cfg.readEntry("last_url", filename.toDisplayString()));
+    QString last_ext = cfg.readEntry("last_ext", u""_s);
 
     Kwave::FileInfo info;
 
@@ -85,6 +93,9 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(QWidget *parent,
             if (!cbExtension->contains(ext)) cbExtension->addItem(ext);
         }
     }
+    if (!last_ext.isEmpty() && cbExtension->contains(last_ext)) {
+        cbExtension->setCurrentItem(last_ext);
+    }
 
     // the "selection only" checkbox
     if (have_selection) {
@@ -97,7 +108,7 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(QWidget *parent,
         chkSelectionOnly->setChecked(false);
     }
 
-    urlRequester->setStartDir(filename);
+    urlRequester->setUrl(last_url);
 
     // combo box with pattern
     connect(cbPattern, &QComboBox::editTextChanged,
@@ -181,7 +192,12 @@ QUrl Kwave::SaveBlocksDialog::selectedUrl() const
 //***************************************************************************
 void Kwave::SaveBlocksDialog::accept()
 {
-    if (selectedUrl().isValid()) {
+    QUrl dir = selectedUrl();
+    if (dir.isValid()) {
+        KConfigGroup cfg = KSharedConfig::openConfig()->group(m_cfgGroup);
+        cfg.writeEntry("last_url", dir);
+        cfg.writeEntry("last_ext", cbExtension->currentText());
+        cfg.sync();
         QDialog::accept();
     } else {
         MessageBox::error(this, i18n("Please choose where to save the files"));

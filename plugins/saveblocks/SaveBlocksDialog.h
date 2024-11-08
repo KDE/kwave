@@ -26,6 +26,8 @@
 #include "SaveBlocksPlugin.h"
 #include "ui_SaveBlocksDialogBase.h"
 
+using namespace Qt::StringLiterals;
+
 namespace Kwave
 {
     class SaveBlocksDialog: public QDialog,
@@ -99,6 +101,7 @@ namespace Kwave
 
     private:
         QString m_filename;
+        const QString m_cfgGroup = u"KwaveFileDialog-kwave_save_blocks"_s;
     };
 }
 

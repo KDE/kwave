@@ -23,7 +23,7 @@
 #############################################################################
 
 SET(plugin_samplerate_LIB_SRCS SampleRatePlugin.cpp SampleRatePlugin.h)
-SET(plugin_samplerate_LIBS samplerate)
+SET(plugin_samplerate_LIBS ${SAMPLERATE_LINK_LIBRARIES})
 
 KWAVE_PLUGIN(samplerate)
 

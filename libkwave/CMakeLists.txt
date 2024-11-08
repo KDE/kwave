@@ -234,8 +234,8 @@ SET(libkwave_LIB_SRCS
 ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
 
 TARGET_LINK_LIBRARIES(libkwave
-    audiofile
-    ${SAMPLERATE_LIBS}
+    ${LIBAUDIOFILE_LINK_LIBRARIES}
+    ${SAMPLERATE_LINK_LIBRARIES}
     Qt::Core
     Qt::Concurrent
     KF6::ConfigCore

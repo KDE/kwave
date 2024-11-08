@@ -29,7 +29,7 @@ SET(plugin_codec_audiofile_LIB_SRCS
     AudiofileDecoder.h
 )
 
-SET(plugin_codec_audiofile_LIBS audiofile)
+SET(plugin_codec_audiofile_LIBS ${LIBAUDIOFILE_LINK_LIBRARIES})
 
 KWAVE_PLUGIN(codec_audiofile)
 

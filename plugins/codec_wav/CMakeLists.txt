@@ -50,7 +50,7 @@ SET(plugin_codec_wav_LIB_SRCS
     WavPropertyMap.h
 )
 
-SET(plugin_codec_wav_LIBS audiofile)
+SET(plugin_codec_wav_LIBS ${LIBAUDIOFILE_LINK_LIBRARIES})
 
 KWAVE_PLUGIN(codec_wav)
 

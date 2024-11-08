@@ -76,8 +76,8 @@ ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
 TARGET_LINK_LIBRARIES(kwave_core
     libkwavegui
     libkwave
-    audiofile
-    ${SAMPLERATE_LIBS}
+    ${LIBAUDIOFILE_LINK_LIBRARIES}
+    ${SAMPLERATE_LINK_LIBRARIES}
     Qt::Core
     Qt::Widgets
     KF6::Completion

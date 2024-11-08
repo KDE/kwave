@@ -30,14 +30,10 @@ INCLUDE(UsePkgConfig)
 
 PKG_CHECK_MODULES(SAMPLERATE REQUIRED samplerate>=0.1.3)
 
-SET(SAMPLERATE_LIBS samplerate)
 SET(HAVE_LIBSAMPLERATE ON)
 
 MESSAGE(STATUS "Found samplerate library in ${SAMPLERATE_LIBDIR}")
 MESSAGE(STATUS "Found samplerate headers in ${SAMPLERATE_INCLUDEDIR}")
-# MESSAGE(STATUS "    CFLAGS=${SAMPLERATE_CFLAGS}")
-# MESSAGE(STATUS "    LDLAGS=${SAMPLERATE_LDFLAGS}")
-# MESSAGE(STATUS "      LIBS=${SAMPLERATE_LIBS}")
 
 #############################################################################
 #############################################################################

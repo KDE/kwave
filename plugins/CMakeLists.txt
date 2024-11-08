@@ -41,7 +41,7 @@ MACRO(KWAVE_PLUGIN _plugin)
         libkwavegui
         libkwave
         ${plugin_${_plugin}_LIBS}
-        ${SAMPLERATE_LIBS}
+        ${SAMPLERATE_LINK_LIBRARIES}
         Qt::Core
         Qt::Concurrent
         Qt::Widgets

@@ -33,8 +33,6 @@ IF (NOT FFTW_FOUND)
     MESSAGE(FATAL_ERROR "FFTW library not found")
 ENDIF(NOT FFTW_FOUND)
 
-PKG_CHECK_MODULES(FFTW fftw3)
-
 MESSAGE(STATUS "Found FFTW library in ${FFTW_LIBDIR}")
 MESSAGE(STATUS "Found FFTW headers in ${FFTW_INCLUDEDIR}")
 # MESSAGE(STATUS "    CFLAGS=${FFTW_CFLAGS}")
@@ -58,7 +56,7 @@ SET(plugin_sonagram_LIB_UI
 )
 
 SET(plugin_sonagram_LIBS
-    fftw3 m
+    ${FFTW_LINK_LIBRARIES} m
 )
 
 KWAVE_PLUGIN(sonagram)

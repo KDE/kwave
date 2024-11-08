@@ -63,7 +63,6 @@ IF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
             ${OPUS_LIBRARIES}
         )
         SET(HAVE_OGG_OPUS  ON CACHE BOOL "enable Opus codec")
-        SET(OGG_OPUS_LIBS "opus")
         SET(OGG_OPUS_SRCS
             OpusCommon.cpp
             OpusDecoder.cpp
@@ -95,17 +94,7 @@ IF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
             ${VORBISENC_LIBRARIES}
         )
 
-        CHECK_INCLUDE_FILES(
-            "vorbis/codec.h;vorbis/vorbisenc.h"
-            HAVE_OGG_VORBIS_HEADERS
-        )
-        IF (NOT HAVE_OGG_VORBIS_HEADERS)
-            MESSAGE(FATAL_ERROR "ogg vorbis header files are missing")
-        ENDIF (NOT HAVE_OGG_VORBIS_HEADERS)
-
-
         SET(HAVE_OGG_VORBIS ON CACHE BOOL "enable Vorbis codec")
-        SET(OGG_VORBIS_LIBS "vorbisenc" "vorbis")
         SET(OGG_VORBIS_SRCS
             VorbisDecoder.cpp
             VorbisEncoder.cpp
@@ -124,9 +113,10 @@ IF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
     )
 
     SET(plugin_codec_ogg_LIBS
-        ${OGG_OPUS_LIBS}
-        ${OGG_VORBIS_LIBS}
-        ogg
+        ${OGG_LINK_LIBRARIES}
+        ${OPUS_LINK_LIBRARIES}
+        ${VORBIS_LINK_LIBRARIES}
+        ${VORBISENC_LINK_LIBRARIES}
     )
 
     KWAVE_PLUGIN(codec_ogg)

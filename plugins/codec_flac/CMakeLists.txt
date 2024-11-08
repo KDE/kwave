@@ -25,24 +25,11 @@
 OPTION(WITH_FLAC "enable support for FLAC files [default=on]" ON)
 IF (WITH_FLAC)
 
-    INCLUDE(CheckLibraryExists)
-
     PKG_CHECK_MODULES(FLAC REQUIRED flac>=1.2.0)
     MESSAGE(STATUS "Found FLAC version ${FLAC_VERSION}")
 
-#############################################################################
-### check for FLAC header files                                           ###
-
-    SET(CMAKE_REQUIRED_INCLUDES ${FLAC_INCLUDEDIR})
-    CHECK_INCLUDE_FILES(FLAC/format.h HAVE_FLAC_HEADERS)
-    IF (NOT HAVE_FLAC_HEADERS)
-        MESSAGE(FATAL_ERROR "libFLAC not found, please install libflac !")
-    ENDIF (NOT HAVE_FLAC_HEADERS)
-
-#############################################################################
-### check for FLAC++ header files                                         ###
-
-    CHECK_INCLUDE_FILES_CXX("FLAC++/decoder.h;FLAC++/metadata.h")
+    PKG_CHECK_MODULES(FLAC++ REQUIRED flac++>=1.2.0)
+    MESSAGE(STATUS "Found FLAC++ version ${FLAC++_VERSION}")
 
     SET(HAVE_FLAC  ON CACHE BOOL "enable FLAC codec")
     SET(plugin_codec_flac_LIB_SRCS
@@ -55,7 +42,10 @@ IF (WITH_FLAC)
         FlacEncoder.h
     )
 
-    SET(plugin_codec_flac_LIBS FLAC++ FLAC)
+    SET(plugin_codec_flac_LIBS
+        ${FLAC_LINK_LIBRARIES}
+        ${FLAC++_LINK_LIBRARIES}
+    )
 
     KWAVE_PLUGIN(codec_flac)
 

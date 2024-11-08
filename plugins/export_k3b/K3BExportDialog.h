@@ -26,6 +26,8 @@
 #include "K3BExportPlugin.h"
 #include "ui_K3BExportDialogBase.h"
 
+using namespace Qt::StringLiterals;
+
 namespace Kwave
 {
     class K3BExportDialog: public QDialog, public Ui::K3BExportDialogBase
@@ -70,6 +72,9 @@ namespace Kwave
         QUrl exportLocation() const;
 
         Q_SLOT void accept() override;
+
+    private:
+        const QString m_cfgGroup = u"KwaveFileDialog-kwave_export_k3b"_s;
     };
 }
 

@@ -61,6 +61,7 @@ SPDX-FileCopyrightText: none
       Kwave is a sound editor that can record to, play, open, and edit many file formats. Kwave makes it simple to edit audio in many ways.
     </p>
     <p xml:lang="ca">El Kwave és un editor de so que pot gravar, reproduir, obrir i editar molts formats de fitxer. El Kwave fa que sigui senzill editar l'àudio de moltes maneres.</p>
+    <p xml:lang="en-GB">Kwave is a sound editor that can record to, play, open, and edit many file formats. Kwave makes it simple to edit audio in many ways.</p>
     <p xml:lang="fr">Kwave est un éditeur de sons pouvant enregistrer, lire, ouvrir et éditer de nombreux formats de fichiers. Kwave facilite l'édition audio de nombreuses façons.</p>
     <p xml:lang="ka">Kwave ხმის რედაქტორია, რომელსაც შეუძლია ჩაწერა, დაკვრა და ჩასწორება ბევრი ფაილის ფორმატი. Kwave ერთ-ერთი უმარტივესი რედაქტორია ხმისთვის.</p>
     <p xml:lang="nl">Kwave is een geluidsbewerker die vele bestandsformaten kan opnemen, afspelen, openen en bewerken. Kwave maakt het eenvoudig om audio op vele manieren te bewerken.</p>
@@ -70,6 +71,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="x-test">xxKwave is a sound editor that can record to, play, open, and edit many file formats. Kwave makes it simple to edit audio in many ways.xx</p>
     <p>Adjust volume level:</p>
     <p xml:lang="ca">Ajusta el nivell del volum:</p>
+    <p xml:lang="en-GB">Adjust volume level:</p>
     <p xml:lang="fr">Ajuster le niveau de volume :</p>
     <p xml:lang="ia">Adapta nivello de volumine:</p>
     <p xml:lang="ka">ხმის დონის მორგება:</p>
@@ -81,6 +83,7 @@ SPDX-FileCopyrightText: none
     <ul>
       <li>Fade in, fade out, or custom amplitude curve</li>
       <li xml:lang="ca">Esvaïment d'entrada, esvaïment de sortida o corba d'amplitud personalitzada</li>
+      <li xml:lang="en-GB">Fade in, fade out, or custom amplitude curve</li>
       <li xml:lang="fr">Fondu d'entrée, de sortie ou courbe d'amplitude personnalisée</li>
       <li xml:lang="ka">შესავალი, მინავლება ან მორგებული ამპლიტუდის მრუდი</li>
       <li xml:lang="nl">In-, uitvagen of aangepaste amplitude-kromme</li>
@@ -90,6 +93,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxFade in, fade out, or custom amplitude curvexx</li>
       <li>Scale volume by a constant factor</li>
       <li xml:lang="ca">Escala el volum segons un factor constant</li>
+      <li xml:lang="en-GB">Scale volume by a constant factor</li>
       <li xml:lang="fr">Mettre à l'échelle le volume par un facteur constant</li>
       <li xml:lang="ia">Scalavolumine per unfactor constante</li>
       <li xml:lang="ka">ხმის მასშტაბი მუდმივი ფაქტორით</li>
@@ -100,6 +104,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxScale volume by a constant factorxx</li>
       <li>Normalize volume</li>
       <li xml:lang="ca">Normalitza el volum</li>
+      <li xml:lang="en-GB">Normalise volume</li>
       <li xml:lang="fr">Normalisez le volume.</li>
       <li xml:lang="ia">Normaliza volumine</li>
       <li xml:lang="ka">ხმის ნორმალიზაცია</li>
@@ -111,6 +116,7 @@ SPDX-FileCopyrightText: none
     </ul>
     <p>Adjust frequency content:</p>
     <p xml:lang="ca">Ajusta el contingut de la freqüència:</p>
+    <p xml:lang="en-GB">Adjust frequency content:</p>
     <p xml:lang="fr">Ajuster le contenu de fréquences :</p>
     <p xml:lang="ia">Adapta contento de frequentia:</p>
     <p xml:lang="ka">სიხშირის შინაარსის რეგულირება:</p>
@@ -122,6 +128,7 @@ SPDX-FileCopyrightText: none
     <ul>
       <li>Lowpass filter</li>
       <li xml:lang="ca">Filtre passabaix</li>
+      <li xml:lang="en-GB">Lowpass filter</li>
       <li xml:lang="fr">Filtre passe-bas</li>
       <li xml:lang="ia">Filtro passabasso</li>
       <li xml:lang="ka">დაბალი სიხშირის ფილტრი</li>
@@ -132,6 +139,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxLowpass filterxx</li>
       <li>Bandpass filter</li>
       <li xml:lang="ca">Filtre passabanda</li>
+      <li xml:lang="en-GB">Bandpass filter</li>
       <li xml:lang="fr">Filtre passe-bande</li>
       <li xml:lang="ia">Filtro passabanda</li>
       <li xml:lang="ka">Bandpass ფილტრი</li>
@@ -142,6 +150,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxBandpass filterxx</li>
       <li>Notch filter</li>
       <li xml:lang="ca">Filtre de supressió de banda</li>
+      <li xml:lang="en-GB">Notch filter</li>
       <li xml:lang="fr">Filtre coupe-bande</li>
       <li xml:lang="ia">Filtro de sectura</li>
       <li xml:lang="ka">Notch ფილტრი</li>
@@ -152,6 +161,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxNotch filterxx</li>
       <li>Pitch shift</li>
       <li xml:lang="ca">Desplaça el to</li>
+      <li xml:lang="en-GB">Pitch shift</li>
       <li xml:lang="fr">Décalage de hauteur</li>
       <li xml:lang="ia">Cambiamento de tono</li>
       <li xml:lang="ka">ტონის წანაცვლება</li>
@@ -163,6 +173,7 @@ SPDX-FileCopyrightText: none
     </ul>
     <p>Other features:</p>
     <p xml:lang="ca">Altres característiques:</p>
+    <p xml:lang="en-GB">Other features:</p>
     <p xml:lang="fr">Autres fonctionnalités :</p>
     <p xml:lang="ia">Altere Characteristicas:</p>
     <p xml:lang="ka">სხვა ფუნქციები:</p>
@@ -174,6 +185,7 @@ SPDX-FileCopyrightText: none
     <ul>
       <li>Add noise</li>
       <li xml:lang="ca">Afegeix soroll</li>
+      <li xml:lang="en-GB">Add noise</li>
       <li xml:lang="fr">Ajouter du bruit</li>
       <li xml:lang="ia">Adde Ruito</li>
       <li xml:lang="ka">ხმაურის დამატება</li>
@@ -184,6 +196,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxAdd noisexx</li>
       <li>Add silence</li>
       <li xml:lang="ca">Afegeix silenci</li>
+      <li xml:lang="en-GB">Add silence</li>
       <li xml:lang="fr">Ajouter un blanc</li>
       <li xml:lang="ia">Adde silentio</li>
       <li xml:lang="ka">სიჩუმის დამატება</li>
@@ -194,6 +207,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxAdd silencexx</li>
       <li>Convert audio sample rate</li>
       <li xml:lang="ca">Converteix la freqüència de mostreig de l'àudio</li>
+      <li xml:lang="en-GB">Convert audio sample rate</li>
       <li xml:lang="fr">Convertir la fréquence d'échantillonnage audio</li>
       <li xml:lang="ka">აუდიოს ბიტური სიჩქარის გადაყვანა</li>
       <li xml:lang="nl">Audio sample-snelheid converteren</li>
@@ -203,6 +217,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxConvert audio sample ratexx</li>
       <li>Go to position</li>
       <li xml:lang="ca">Va a la posició</li>
+      <li xml:lang="en-GB">Go to position</li>
       <li xml:lang="fr">Aller a la position</li>
       <li xml:lang="ia">Vade a Position</li>
       <li xml:lang="ka">პოზიციაზე გადასვლა</li>
@@ -213,6 +228,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxGo to positionxx</li>
       <li>Insert audio from clipboard</li>
       <li xml:lang="ca">Insereix àudio des del porta-retalls</li>
+      <li xml:lang="en-GB">Insert audio from clipboard</li>
       <li xml:lang="fr">Insérer de l'audio à partir du presse-papier</li>
       <li xml:lang="ka">ხმის ჩასმა ბუფერიდან</li>
       <li xml:lang="nl">Audio uit klembord invoegen</li>
@@ -222,6 +238,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxInsert audio from clipboardxx</li>
       <li>Reverse audio</li>
       <li xml:lang="ca">Inverteix l'àudio</li>
+      <li xml:lang="en-GB">Reverse audio</li>
       <li xml:lang="fr">Audio inversé</li>
       <li xml:lang="ka">აუდიოს რევერსი</li>
       <li xml:lang="nl">Audio omkeren</li>
@@ -231,6 +248,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxReverse audioxx</li>
       <li>Save audio blocks between labels as separate files</li>
       <li xml:lang="ca">Desa els blocs d'àudio entre etiquetes com a fitxers separats</li>
+      <li xml:lang="en-GB">Save audio blocks between labels as separate files</li>
       <li xml:lang="fr">Enregistrer les blocs audio entre les étiquettes en tant que fichiers séparés</li>
       <li xml:lang="ka">ჭდეებს შორის არსებული ხმის ბლოკების შენახვა ცალ-ცალკე ფაილებად</li>
       <li xml:lang="nl">Audioblokken tussen labels opslaan als aparte bestanden</li>
@@ -240,6 +258,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxSave audio blocks between labels as separate filesxx</li>
       <li>Sonagram (spectrogram)</li>
       <li xml:lang="ca">Sonagram (espectrograma)</li>
+      <li xml:lang="en-GB">Sonagram (spectrogram)</li>
       <li xml:lang="fr">Sonagram (Spectrogramme)</li>
       <li xml:lang="ka">სონაგრამა (სპექტროგრამა)</li>
       <li xml:lang="nl">Sonagram (spectrogram)</li>
@@ -250,6 +269,7 @@ SPDX-FileCopyrightText: none
     </ul>
     <p>Supported file formats:</p>
     <p xml:lang="ca">Formats de fitxer admesos:</p>
+    <p xml:lang="en-GB">Supported file formats:</p>
     <p xml:lang="fr">Formats de fichier pris en charge :</p>
     <p xml:lang="ka">მხარდაჭერილ ფაილის ფორმატები:</p>
     <p xml:lang="nl">Ondersteunde bestandsformaten:</p>
@@ -260,6 +280,7 @@ SPDX-FileCopyrightText: none
     <ul>
       <li>WAV (*.wav)</li>
       <li xml:lang="ca">WAV (*.wav)</li>
+      <li xml:lang="en-GB">WAV (*.wav)</li>
       <li xml:lang="fr">WAV (*.wav)</li>
       <li xml:lang="ia">WAV (*.wav)</li>
       <li xml:lang="ka">WAV (*.wav)</li>
@@ -270,6 +291,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxWAV (*.wav)xx</li>
       <li>Ogg/Opus (*.opus)</li>
       <li xml:lang="ca">Ogg/Opus (*.opus)</li>
+      <li xml:lang="en-GB">Ogg/Opus (*.opus)</li>
       <li xml:lang="fr">Ogg / Opus (*.opus)</li>
       <li xml:lang="ia">Ogg/Opus (*.opus)</li>
       <li xml:lang="ka">Ogg/Opus (*.opus)</li>
@@ -280,6 +302,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxOgg/Opus (*.opus)xx</li>
       <li>Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="ca">Ogg/Vorbis (*.ogg)</li>
+      <li xml:lang="en-GB">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="fr">Ogg / Vorbis (*.ogg)</li>
       <li xml:lang="ia">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="ka">Ogg/Vorbis (*.ogg)</li>
@@ -290,6 +313,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxOgg/Vorbis (*.ogg)xx</li>
       <li>MP3 (*.mp3)</li>
       <li xml:lang="ca">MP3 (*.mp3)</li>
+      <li xml:lang="en-GB">MP3 (*.mp3)</li>
       <li xml:lang="fr">MP3 (.mp3)</li>
       <li xml:lang="ia">MP3 (*.mp3)</li>
       <li xml:lang="ka">MP3 (*.mp3)</li>
@@ -300,6 +324,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxMP3 (*.mp3)xx</li>
       <li>FLAC (*.flac)</li>
       <li xml:lang="ca">FLAC (*.flac)</li>
+      <li xml:lang="en-GB">FLAC (*.flac)</li>
       <li xml:lang="fr">FLAC (*.flac)</li>
       <li xml:lang="ia">FLAC (*.flac)</li>
       <li xml:lang="ka">FLAC (*.flac)</li>
@@ -310,6 +335,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxFLAC (*.flac)xx</li>
       <li>ASCII coded audio (*.ascii)</li>
       <li xml:lang="ca">Àudio codificat ASCII (*.ascii)</li>
+      <li xml:lang="en-GB">ASCII coded audio (*.ascii)</li>
       <li xml:lang="fr">Audio codé en ASCII (*.ascii)</li>
       <li xml:lang="ia">ASCII coded audio (audio codificate Ascii)  (*.ascii)</li>
       <li xml:lang="ka">ASCII-ში კოდირებული ხმა (*.ascii)</li>
@@ -320,6 +346,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="x-test">xxASCII coded audio (*.ascii)xx</li>
       <li>all file formats supported by libaudiofile (some formats are import only)</li>
       <li xml:lang="ca">tots els formats de fitxer admesos per la «libaudiofile» (alguns formats només s'importen)</li>
+      <li xml:lang="en-GB">all file formats supported by libaudiofile (some formats are import only)</li>
       <li xml:lang="fr">tous les formats de fichiers pris en charge par la bibliothèque « libaudiofile » (Certains formats sont importés uniquement)</li>
       <li xml:lang="ka">ყველა ფაილის ფორმატი, რომლის მხარდაჭერაც libaudiofile-ს გააჩნია (ზოგიერთი ფორმატი, მხოლოდ, წაკითხვადია)</li>
       <li xml:lang="nl">alle bestandsformaten ondersteund door libaudiofile (enige formaten alleen te importeren)</li>

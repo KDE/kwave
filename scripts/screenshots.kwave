@@ -232,15 +232,6 @@ plugin-noise:
     sync()
 
 #
-# screenshot of the Memory Setup dialog
-#
-plugin-memory:
-    delayed(1000,window:screenshot(Kwave::MemoryDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-memory.png))
-    delayed(100,window:close(Kwave::MemoryDialog))
-    plugin:setup(memory, 1,1024,1,1,512,/var/tmp,512)
-    sync()
-
-#
 # screenshot of the New File dialog
 #
 plugin-newsignal:

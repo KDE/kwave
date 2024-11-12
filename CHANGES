@@ -1,3 +1,8 @@
+24.12.0 [2024-11-09]
+
+ * port to Qt6 and KDE Frameworks 6
+ * use current theme icons
+ * bugfix: make sure a valid method gets selected when PlayBackDialog opens
 
 21.11.70 [2021-07-13]
 

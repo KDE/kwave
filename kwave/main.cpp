@@ -34,6 +34,8 @@
 #include "App.h"
 #include "Splash.h"
 
+using namespace Qt::StringLiterals;
+
 /**
  * add data concerning the developers and
  * contributers to the about data
@@ -77,6 +79,12 @@ static void addDataStrings(KAboutData &aboutdata)
         i18n("PulseAudio record plugin"),
         _("joerg@chaosdorf.de"),
         QString());
+    aboutdata.addAuthor(
+        i18n("Mark Penner"),
+        QString(),
+        u"mrp@markpenner.space"_s,
+        u"https://markpenner.space"_s
+    );
 
     // people who helped
     aboutdata.addCredit(

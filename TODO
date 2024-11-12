@@ -54,8 +54,6 @@ o show sonagram as "signal view" below each track or below the whole signal
 
 o support for multi selection
 
-o support for recording via Qt Multimedia audio
-
 o debug aid: new plugin for adding a new track with test/debug info:
   - stripe number
   - hull curve

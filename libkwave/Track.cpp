@@ -385,9 +385,8 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
         if ((left <= start) && (right >= end)) {
             // case #1: total overlap -> delete whole stripe
 //          qDebug("deleting stripe [%llu ... %llu]", start, end);
-            m_stripes.erase(it_r.base() - 1);
+            m_stripes.erase((++it_r).base());
             if (m_stripes.empty()) break;
-            ++it_r;
             continue;
         } else /* if ((end >= left) && (start <= right)) */ {
             //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

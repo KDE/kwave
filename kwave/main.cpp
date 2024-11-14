@@ -82,9 +82,8 @@ static void addDataStrings(KAboutData &aboutdata)
     aboutdata.addAuthor(
         i18n("Mark Penner"),
         QString(),
-        u"mrp@markpenner.space"_s,
-        u"https://markpenner.space"_s
-    );
+        _("mrp@markpenner.space"),
+        i18n("https://markpenner.space"));
 
     // people who helped
     aboutdata.addCredit(

@@ -25,6 +25,15 @@ Install Directory=/var/tmp/kwave-install/usr
 Runtime=Host-System
 
 [Cppcheck]
+checkConfig=true
+checkInformation=true
+checkMissingInclude=true
+checkPerformance=true
+checkPortability=true
+checkStyle=true
+checkUnusedFunction=true
+forceCheck=true
+inconclusiveAnalysis=true
 useSystemIncludes=true
 
 [CustomDefinesAndIncludes][ProjectPath0]

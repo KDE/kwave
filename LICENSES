@@ -108,7 +108,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         LICENSES                                        GPL2+
         logo.png                                        (should be GPL2+ / Martin Wilz)
         Messages.sh                                     GPL2+
-        README                                          GPL2+
+        README.md                                       GPL2+
         snapcraft.yaml                                  CC0-1.0
         TODO                                            GPL2+
         .gitignore                                      (UNKNOWN / Laurent Montel <montel@kde.org>)

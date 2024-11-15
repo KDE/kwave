@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-14 00:39+0000\n"
+"POT-Creation-Date: 2024-11-15 00:39+0000\n"
 "PO-Revision-Date: 2021-06-11 17:41+0200\n"
 "Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -218,186 +218,191 @@ msgstr "PulseAudio-Aufnahmemodul"
 msgid "Mark Penner"
 msgstr ""
 
-#: kwave/main.cpp:91
+#: kwave/main.cpp:86
+#, kde-format
+msgid "https://markpenner.space"
+msgstr ""
+
+#: kwave/main.cpp:90
 #, kde-format
 msgid "Stefan Westerfeld"
 msgstr "Stefan Westerfeld"
 
-#: kwave/main.cpp:92
+#: kwave/main.cpp:91
 #, kde-format
 msgid "Author of aRts"
 msgstr "Autor von aRts"
 
-#: kwave/main.cpp:96
+#: kwave/main.cpp:95
 #, kde-format
 msgid "Sven-Steffen Arndt"
 msgstr "Sven-Steffen Arndt"
 
-#: kwave/main.cpp:97
+#: kwave/main.cpp:96
 #, kde-format
 msgid "Kwave homepage and German online help"
 msgstr "Kwave-Homepage und deutsche Online-Hilfe"
 
-#: kwave/main.cpp:101
+#: kwave/main.cpp:100
 #, kde-format
 msgid "Aurelien Jarno"
 msgstr "Aurelien Jarno"
 
-#: kwave/main.cpp:102
+#: kwave/main.cpp:101
 #, kde-format
 msgid "Debian packager"
 msgstr "Debian-Pakete"
 
-#: kwave/main.cpp:106
+#: kwave/main.cpp:105
 #, kde-format
 msgid "Robert M. Stockmann"
 msgstr "Robert M. Stockmann"
 
-#: kwave/main.cpp:107
+#: kwave/main.cpp:106
 #, kde-format
 msgid "Packaging for Mandrake / X86_64"
 msgstr "Pakete für Mandrake / X86_64"
 
-#: kwave/main.cpp:111
+#: kwave/main.cpp:110
 #, kde-format
 msgid "Martin Kuball"
 msgstr "Martin Kuball"
 
-#: kwave/main.cpp:112
+#: kwave/main.cpp:111
 #, kde-format
 msgid "Tester"
 msgstr "Tester"
 
-#: kwave/main.cpp:116
+#: kwave/main.cpp:115
 #, kde-format
 msgid "Robert Leslie"
 msgstr "Robert Leslie"
 
-#: kwave/main.cpp:117
+#: kwave/main.cpp:116
 #, kde-format
 msgid "Author of the 'mad' MP3 decoder library"
 msgstr "Autor der „mad“-Bibliothek zur MP3-Decodierung"
 
-#: kwave/main.cpp:119
+#: kwave/main.cpp:118
 #, kde-format
 msgid "http://www.mars.org/home/rob/proj/mpeg"
 msgstr "http://www.mars.org/home/rob/proj/mpeg"
 
-#: kwave/main.cpp:121
+#: kwave/main.cpp:120
 #, kde-format
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr "T.H.F. Klok und Cedric Tefft"
 
-#: kwave/main.cpp:122
+#: kwave/main.cpp:121
 #, kde-format
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Betreuer der „id3lib“-Bibliothek"
 
-#: kwave/main.cpp:124
+#: kwave/main.cpp:123
 #, kde-format
 msgid "http://www.id3lib.org/"
 msgstr "http://www.id3lib.org/"
 
-#: kwave/main.cpp:126
+#: kwave/main.cpp:125
 #, kde-format
 msgid "Michael Pruett"
 msgstr "Michael Pruett"
 
-#: kwave/main.cpp:127
+#: kwave/main.cpp:126
 #, kde-format
 msgid "Author of the 'audiofile' library"
 msgstr "Autor der „audiofile“-Bibliothek"
 
-#: kwave/main.cpp:129
+#: kwave/main.cpp:128
 #, kde-format
 msgid "http://www.68k.org/~michael/audiofile/"
 msgstr "http://www.68k.org/~michael/audiofile/"
 
-#: kwave/main.cpp:131
+#: kwave/main.cpp:130
 #, kde-format
 msgid "Carlos R."
 msgstr "Carlos R."
 
-#: kwave/main.cpp:132
+#: kwave/main.cpp:131
 #, kde-format
 msgid "Spanish translation"
 msgstr "Spanische Übersetzung"
 
-#: kwave/main.cpp:136
+#: kwave/main.cpp:135
 #, kde-format
 msgid "Erik de Castro Lopo"
 msgstr "Erik de Castro Lopo"
 
-#: kwave/main.cpp:137
+#: kwave/main.cpp:136
 #, kde-format
 msgid "Author of the 'sndfile' library"
 msgstr "Autor der „sndfile“-Bibliothek"
 
-#: kwave/main.cpp:139
+#: kwave/main.cpp:138
 #, kde-format
 msgid "http://www.mega-nerd.com/libsndfile/"
 msgstr "http://www.mega-nerd.com/libsndfile/"
 
-#: kwave/main.cpp:141
+#: kwave/main.cpp:140
 #, kde-format
 msgid "Pavel Fric"
 msgstr "Pavel Fric"
 
-#: kwave/main.cpp:142
+#: kwave/main.cpp:141
 #, kde-format
 msgid "Czech translation"
 msgstr "Tschechische Übersetzung"
 
-#: kwave/main.cpp:144
+#: kwave/main.cpp:143
 #, kde-format
 msgid "http://fripohled.blogspot.com"
 msgstr "http://fripohled.blogspot.com"
 
-#: kwave/main.cpp:146
+#: kwave/main.cpp:145
 #, kde-format
 msgid "Panagiotis Papadopoulos"
 msgstr "Panagiotis Papadopoulos"
 
-#: kwave/main.cpp:147
+#: kwave/main.cpp:146
 #, kde-format
 msgid "String and i18n updates"
 msgstr "Texte und i18n-Aktualisierungen"
 
-#: kwave/main.cpp:171
+#: kwave/main.cpp:170
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "Startbildschirm deaktivieren"
 
-#: kwave/main.cpp:175
+#: kwave/main.cpp:174
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "Kwave minimiert starten."
 
-#: kwave/main.cpp:180
+#: kwave/main.cpp:179
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "Alle Befehle in eine Protokolldatei <file> speichern."
 
-#: kwave/main.cpp:181
+#: kwave/main.cpp:180
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "Datei"
 
-#: kwave/main.cpp:186
+#: kwave/main.cpp:185
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
 msgstr "Auswahl eines GUI-Modus: SDI-, MDI- oder Unterfenster-Modus"
 
-#: kwave/main.cpp:187
+#: kwave/main.cpp:186
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "sdi|mdi|tab"
 
-#: kwave/main.cpp:192
+#: kwave/main.cpp:191
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
@@ -406,23 +411,23 @@ msgstr ""
 "Liste von zu öffnenden Audio-Dateien, Kwave-Makrodateien oder Kwave-Adressen "
 "(URLs), optional"
 
-#: kwave/main.cpp:194
+#: kwave/main.cpp:193
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[Dateien ...]"
 
-#: kwave/main.cpp:199
+#: kwave/main.cpp:198
 #, kde-format
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:201
+#: kwave/main.cpp:200
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "Ein Sound-Editor basierend auf KDE Frameworks 5"
 
-#: kwave/main.cpp:203
+#: kwave/main.cpp:202
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "Copyright 2016, Thomas Eschenbacher"

@@ -3,14 +3,14 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Antoni Bella Pérez <antonibella5@yahoo.com>, 2015, 2016, 2017, 2018, 2019, 2020.
 # SPDX-FileCopyrightText: 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
+# Antoni Bella Pérez <antonibella5@yahoo.com>, 2015, 2016, 2017, 2018, 2019, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-14 00:39+0000\n"
-"PO-Revision-Date: 2024-10-26 20:54+0200\n"
+"POT-Creation-Date: 2024-11-15 00:39+0000\n"
+"PO-Revision-Date: 2024-11-14 09:24+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -221,188 +221,193 @@ msgstr "Connector d'enregistrament del PulseAudio"
 #: kwave/main.cpp:83
 #, kde-format
 msgid "Mark Penner"
+msgstr "Mark Penner"
+
+#: kwave/main.cpp:86
+#, kde-format
+msgid "https://markpenner.space"
 msgstr ""
 
-#: kwave/main.cpp:91
+#: kwave/main.cpp:90
 #, kde-format
 msgid "Stefan Westerfeld"
 msgstr "Stefan Westerfeld"
 
-#: kwave/main.cpp:92
+#: kwave/main.cpp:91
 #, kde-format
 msgid "Author of aRts"
 msgstr "Autor de l'aRts"
 
-#: kwave/main.cpp:96
+#: kwave/main.cpp:95
 #, kde-format
 msgid "Sven-Steffen Arndt"
 msgstr "Sven-Steffen Arndt"
 
-#: kwave/main.cpp:97
+#: kwave/main.cpp:96
 #, kde-format
 msgid "Kwave homepage and German online help"
 msgstr "Pàgina inicial del Kwave i ajuda en línia en alemany"
 
-#: kwave/main.cpp:101
+#: kwave/main.cpp:100
 #, kde-format
 msgid "Aurelien Jarno"
 msgstr "Aurelien Jarno"
 
-#: kwave/main.cpp:102
+#: kwave/main.cpp:101
 #, kde-format
 msgid "Debian packager"
 msgstr "Empaquetador de la Debian"
 
-#: kwave/main.cpp:106
+#: kwave/main.cpp:105
 #, kde-format
 msgid "Robert M. Stockmann"
 msgstr "Robert M. Stockmann"
 
-#: kwave/main.cpp:107
+#: kwave/main.cpp:106
 #, kde-format
 msgid "Packaging for Mandrake / X86_64"
 msgstr "Empaquetador de la Mandrake / X86_64"
 
-#: kwave/main.cpp:111
+#: kwave/main.cpp:110
 #, kde-format
 msgid "Martin Kuball"
 msgstr "Martin Kuball"
 
-#: kwave/main.cpp:112
+#: kwave/main.cpp:111
 #, kde-format
 msgid "Tester"
 msgstr "Provador"
 
-#: kwave/main.cpp:116
+#: kwave/main.cpp:115
 #, kde-format
 msgid "Robert Leslie"
 msgstr "Robert Leslie"
 
-#: kwave/main.cpp:117
+#: kwave/main.cpp:116
 #, kde-format
 msgid "Author of the 'mad' MP3 decoder library"
 msgstr "Autor de la biblioteca descodificadora «mad» d'MP3"
 
-#: kwave/main.cpp:119
+#: kwave/main.cpp:118
 #, kde-format
 msgid "http://www.mars.org/home/rob/proj/mpeg"
 msgstr "http://www.mars.org/home/rob/proj/mpeg"
 
-#: kwave/main.cpp:121
+#: kwave/main.cpp:120
 #, kde-format
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr "T.H.F. Klok i Cedric Tefft"
 
-#: kwave/main.cpp:122
+#: kwave/main.cpp:121
 #, kde-format
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Mantenidors de la biblioteca «id3lib»"
 
-#: kwave/main.cpp:124
+#: kwave/main.cpp:123
 #, kde-format
 msgid "http://www.id3lib.org/"
 msgstr "http://www.id3lib.org/"
 
-#: kwave/main.cpp:126
+#: kwave/main.cpp:125
 #, kde-format
 msgid "Michael Pruett"
 msgstr "Michael Pruett"
 
-#: kwave/main.cpp:127
+#: kwave/main.cpp:126
 #, kde-format
 msgid "Author of the 'audiofile' library"
 msgstr "Autor de la biblioteca «audiofile»"
 
-#: kwave/main.cpp:129
+#: kwave/main.cpp:128
 #, kde-format
 msgid "http://www.68k.org/~michael/audiofile/"
 msgstr "http://www.68k.org/~michael/audiofile/"
 
-#: kwave/main.cpp:131
+#: kwave/main.cpp:130
 #, kde-format
 msgid "Carlos R."
 msgstr "Carlos R."
 
-#: kwave/main.cpp:132
+#: kwave/main.cpp:131
 #, kde-format
 msgid "Spanish translation"
 msgstr "Traducció al castellà"
 
-#: kwave/main.cpp:136
+#: kwave/main.cpp:135
 #, kde-format
 msgid "Erik de Castro Lopo"
 msgstr "Erik de Castro Lopo"
 
-#: kwave/main.cpp:137
+#: kwave/main.cpp:136
 #, kde-format
 msgid "Author of the 'sndfile' library"
 msgstr "Autor de la biblioteca «sndfile»"
 
-#: kwave/main.cpp:139
+#: kwave/main.cpp:138
 #, kde-format
 msgid "http://www.mega-nerd.com/libsndfile/"
 msgstr "http://www.mega-nerd.com/libsndfile/"
 
-#: kwave/main.cpp:141
+#: kwave/main.cpp:140
 #, kde-format
 msgid "Pavel Fric"
 msgstr "Pavel Fric"
 
-#: kwave/main.cpp:142
+#: kwave/main.cpp:141
 #, kde-format
 msgid "Czech translation"
 msgstr "Traducció al txec"
 
-#: kwave/main.cpp:144
+#: kwave/main.cpp:143
 #, kde-format
 msgid "http://fripohled.blogspot.com"
 msgstr "http://fripohled.blogspot.com"
 
-#: kwave/main.cpp:146
+#: kwave/main.cpp:145
 #, kde-format
 msgid "Panagiotis Papadopoulos"
 msgstr "Panagiotis Papadopoulos"
 
-#: kwave/main.cpp:147
+#: kwave/main.cpp:146
 #, kde-format
 msgid "String and i18n updates"
 msgstr "Actualitzacions de cadenes i i18n"
 
-#: kwave/main.cpp:171
+#: kwave/main.cpp:170
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "Desactiva la pantalla de presentació."
 
-#: kwave/main.cpp:175
+#: kwave/main.cpp:174
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "Inicia el Kwave en el mode iconificat."
 
-#: kwave/main.cpp:180
+#: kwave/main.cpp:179
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "Enregistra totes les ordres dins d'un fitxer <fitxer>."
 
-#: kwave/main.cpp:181
+#: kwave/main.cpp:180
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "fitxer"
 
-#: kwave/main.cpp:186
+#: kwave/main.cpp:185
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
 msgstr "Selecciona un tipus d'IGU: mode SDI, MDI o en pestanyes."
 
-#: kwave/main.cpp:187
+#: kwave/main.cpp:186
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "sdi|mdi|tab"
 
-#: kwave/main.cpp:192
+#: kwave/main.cpp:191
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
@@ -411,23 +416,23 @@ msgstr ""
 "Llista dels fitxers d'àudio, fitxers de macro o els URL del Kwave a obrir "
 "(opcional)"
 
-#: kwave/main.cpp:194
+#: kwave/main.cpp:193
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[fitxers...]"
 
-#: kwave/main.cpp:199
+#: kwave/main.cpp:198
 #, kde-format
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:201
+#: kwave/main.cpp:200
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "Un editor de so per als Frameworks 5 del KDE"
 
-#: kwave/main.cpp:203
+#: kwave/main.cpp:202
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016, Thomas Eschenbacher"

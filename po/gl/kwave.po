@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-14 02:31+0000\n"
-"PO-Revision-Date: 2024-11-10 13:47+0100\n"
+"PO-Revision-Date: 2024-11-14 22:17+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -217,7 +217,7 @@ msgstr "Complemento de gravación de PulseAudio."
 #: kwave/main.cpp:83
 #, kde-format
 msgid "Mark Penner"
-msgstr ""
+msgstr "Mark Penner"
 
 #: kwave/main.cpp:91
 #, kde-format

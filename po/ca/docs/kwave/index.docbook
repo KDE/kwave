@@ -1662,8 +1662,8 @@
 ><para
 ><emphasis
 >Apropa:</emphasis
-> apropa per a veure més detalls, augmenta en un factor de 3. <itemizedlist
-> <listitem
+> apropa per a veure més detalls, augmenta en un factor de 3. <itemizedlist>
+	    <listitem
 ><para
 >entrada del menú / drecera de teclat: <menuchoice
 > <shortcut
@@ -1679,6 +1679,21 @@
 > </menuchoice
 > </para
 ></listitem>
+	    <listitem
+><para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_zoom_in.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>zoom in</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para
+></listitem>
 	    </itemizedlist>
 	</para
 ></listitem>
@@ -1687,8 +1702,8 @@
 ><para
 ><emphasis
 >Allunya:</emphasis
-> allunya per a veure menys detalls, es redueix en un factor de 3. <itemizedlist
-> <listitem
+> allunya per a veure menys detalls, es redueix en un factor de 3. <itemizedlist>
+	    <listitem
 ><para
 >entrada del menú / drecera del teclat: <menuchoice
 > <shortcut
@@ -1704,6 +1719,21 @@
 > </menuchoice
 > </para
 ></listitem>
+	    <listitem
+><para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_zoom_out.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>zoom out</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para
+></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1712,8 +1742,8 @@
 ><para
 ><emphasis
 >Zoom a la selecció:</emphasis
-> apropa ​​a un factor on la selecció actual és completament visible a la vista actual. <itemizedlist
-> <listitem
+> apropa ​​a un factor on la selecció actual és completament visible a la vista actual. <itemizedlist>
+	    <listitem
 ><para
 >entrada del menú / drecera del teclat: <menuchoice
 > <shortcut
@@ -1727,6 +1757,21 @@
 > </menuchoice
 > </para
 ></listitem>
+	    <listitem
+><para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_viewmag.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>zoom to selection</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para
+></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1735,8 +1780,8 @@
 ><para
 ><emphasis
 >Apropa a tot el senyal:</emphasis
-> selecciona un factor d'apropament el qual farà que tot el senyal sigui visible a la finestra actual. <itemizedlist
-> <listitem
+> selecciona un factor d'apropament el qual farà que tot el senyal sigui visible a la finestra actual. <itemizedlist>
+	    <listitem
 ><para
 >entrada del menú: <menuchoice
 > <guimenu
@@ -1746,6 +1791,21 @@
 > </menuchoice
 > </para
 ></listitem>
+	    <listitem
+><para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
+        </imageobject
+><textobject
+><phrase
+><quote
+>zoom all</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para
+></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1754,8 +1814,8 @@
 ><para
 ><emphasis
 >Zoom al 100%:</emphasis
-> augmenta fins a una escala on la representació de la mostra està representada per un píxel a la pantalla. <itemizedlist
-> <listitem
+> augmenta fins a una escala on la representació de la mostra està representada per un píxel a la pantalla. <itemizedlist>
+	    <listitem
 ><para
 >entrada del menú: <menuchoice
 > <guimenu
@@ -1764,6 +1824,21 @@
 >Zoom al 100%</guimenuitem
 > </menuchoice
 > </para
+></listitem>
+	    <listitem
+><para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>zoom to 100%</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para
 ></listitem>
 	    </itemizedlist>
         </para
@@ -1861,6 +1936,19 @@
 >Pàgina anterior</guimenuitem
 > </menuchoice
 > </para>
+	    <para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>previous page</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para>
         </listitem>
 	<!-- next page -->
        <listitem
@@ -1880,6 +1968,19 @@
 >Pàgina següent</guimenuitem
 > </menuchoice
 > </para>
+	    <para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>next page</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para>
         </listitem>
 	<!-- scroll right -->
         <listitem
@@ -1899,6 +2000,19 @@
 >Desplaça a la dreta</guimenuitem
 > </menuchoice
 > </para>
+	    <para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>scroll right</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para>
         </listitem>
 	<!-- scroll left -->
         <listitem
@@ -1918,6 +2032,19 @@
 >Desplaça a l'esquerra</guimenuitem
 > </menuchoice
 > </para>
+	    <para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>scroll left</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para>
         </listitem>
 	</itemizedlist>
     </para>

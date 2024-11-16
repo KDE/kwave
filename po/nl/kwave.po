@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-15 00:39+0000\n"
-"PO-Revision-Date: 2024-11-14 13:39+0100\n"
+"PO-Revision-Date: 2024-11-15 12:00+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -221,7 +221,7 @@ msgstr "Mark Penner"
 #: kwave/main.cpp:86
 #, kde-format
 msgid "https://markpenner.space"
-msgstr ""
+msgstr "https://markpenner.space"
 
 #: kwave/main.cpp:90
 #, kde-format

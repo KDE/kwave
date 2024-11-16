@@ -6,8 +6,7 @@
   <!ENTITY % Dutch "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "20.07.70">
-  <!ENTITY version_year "2020">
+  <!ENTITY version "24.12.0">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -18,6 +17,7 @@
   <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
   <!ENTITY url_debian "https://www.debian.org">
   <!ENTITY url_flac "https://xiph.org/flac/">
+  <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
@@ -30,7 +30,6 @@
   <!ENTITY url_licenses "&url_prefix_gitweb;LICENSES">
   <!ENTITY url_ogg_vorbis "https://www.xiph.org">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
-  <!ENTITY url_sourceforge "https://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_web_sf "https://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY i18n-cmd_syntax "Syntax: ">
@@ -328,29 +327,33 @@
 ></copyright>
     <copyright
 ><year
->&version_year;</year
+>2020</year
 ><holder
 >Thomas Eschenbacher</holder
+></copyright>
+    <copyright
+><year
+>2024</year
+><holder
+>Mark Penner</holder
 ></copyright>
 
     <legalnotice
 >&FDLNotice;</legalnotice>
 
     <date
->2020-07-06</date>
+>2024-11-09</date>
     <releaseinfo
->20.07.70</releaseinfo>
+>&version;</releaseinfo>
 
     <abstract
 ><para
->&kwave; is een eenvoudige geluidsbewerker gebouwd op &kf5-full;.</para
+>&kwave; is een eenvoudige geluidsbewerker gebouwd op het &kde-frameworks;.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
-	<keyword
->KF5</keyword>
 	<keyword
 >multimedia</keyword>
 	<keyword
@@ -385,7 +388,7 @@
 >Inleiding</title>
 
     <para
->Dit is "&kwave;", een eenvoudige geluidsbewerker gebouwd op &kf5-full;. Zijn functies omvatten: <itemizedlist>
+>Dit is "&kwave;", een eenvoudige geluidsbewerker gebouwd op &kde-frameworks;. Zijn functies omvatten: <itemizedlist>
     	<listitem
 ><para
 >een gebruikersinterface dat omgeschakeld kan worden naar SDI-, MDI- of tabbladmodus </para
@@ -420,11 +423,11 @@
 ></listitem>
     	<listitem
 ><para
->Afspelen via Qt, PulseAudio, ALSA en OSS </para
+>Afspelen via ALSA, PulseAudio, Qt en OSS </para
 ></listitem>
     	<listitem
 ><para
->Opnemen via PulseAudio, ALSA en OSS </para
+>Opnemen via ALSA, PulseAudio, Qt en OSS </para
 ></listitem>
     	<listitem
 ><para
@@ -494,23 +497,21 @@
 ><para
 >Homepagina van het project<anchor id="project-homepage"/></para
 ><para
->Voor informatie over nieuwe bijgewerkte uitgaven of andere informatie over dit project, neem een kijkje op de <ulink url="&url_homepage;"
+>Voor informatie over nieuwe bijgewerkte uitgaven zie de <ulink url="&url_apps_kde;"
+>&kwave; pagina</ulink
+> op apps.kde.org. Voor andere informatie neem een kijkje op de <ulink url="&url_homepage;"
 >&kwave; homepagina</ulink
->. </para
+> . </para
 ></listitem>
 	<listitem
 ><para
->GIT-repository<anchor id="git-repository"/> </para>
+>Git-repository<anchor id="git-repository"/> </para>
 	<para
->Er is ook een nieuwe GIT-repository, gehost op servers van &kde; en een mirror gehost door <ulink url="&url_sourceforge;"
+>De git-repository bevindt zich op het Gitlab exemplaar van &kde; <ulink url="&url_git_web_kde;"
+>hier</ulink
+> en er is ook een mirror repository op <ulink url="&url_git_web_sf;"
 >SourceForge</ulink
-> waar u de broncode van de laatste ontwikkelversie kunt vinden. Voor instructies over hoe toegang te krijgen tot de repository, lees in het hoofdstuk over <ulink url="&url_devel_fetching_from_git;"
->bouwen vanuit GIT</ulink
-> in de documentatie voor de ontwikkelaar. Er is ook een GIT webinterface op <ulink url="&url_git_web_kde;"
->&kde;</ulink
-> en op <ulink url="&url_git_web_sf;"
->SourceForge</ulink
-> die u kunt gebruiken om door de broncode te bladeren. </para
+>. </para
 ></listitem>
     </itemizedlist>
 
@@ -531,7 +532,7 @@
 >Sinds &kwave; v0.8.0 is de log met wijzigingen niet langer in deze handleiding ingevoegd. Dus als u geïnteresseerd bent in een complete lijst met wijzigingen, dan kunt u de volledige geschiedenis hier vinden: <ulink url="&url_changelog;"
 > &url_changelog;</ulink
 > of zelf door de broncode bladeren in het <ulink url="&url_git_web_kde;"
->GIT webinterface</ulink
+>git webinterface</ulink
 >. </para>
 
     <para
@@ -1342,7 +1343,7 @@
 >Opnemen</title>
 
     <para
->&kwave; is in staat geluidsgegevens uit verschillende bronnen op te nemen, met alle samplesnelheden, sampleformaten en andere modi die uw geluidshardware ondersteunt. Op dit moment neem &kwave; op via het oude OSS geluidsinterface en sinds v0.7.4 ook het nieuwere en krachtiger ALSA-interface dat de voorkeur heeft voor linux kernel 2.6. </para>
+>&kwave; is in staat geluidsgegevens uit verschillende bronnen op te nemen, met alle samplesnelheden, sampleformaten en andere modi die uw geluidshardware ondersteunt. &kwave; kan opnemen met de backends ALSA, PulseAudio, Qt en OSS. </para>
     <para
 >Het opnemen kan bereikt worden vanaf het menu onder <menuchoice
 > <guimenu
@@ -1508,7 +1509,15 @@
 ></listitem>
 	<listitem
 ><para
->OSS (Open Sound System): de oudste linux implementatie, met mono en stereo uitvoer. Verouderd sinds linux kernel 2.6, maar nog steeds wijd verspreid. Kan botsen met andere geluidstoepassingen, slechts één toepassing tegelijk kan via OSS afspelen! </para
+>PulseAudio: gemeenschappelijke algemene geluidsserver in Linux. PulseAudio kan misschien niet in staat zijn zo'n lage vertraging te hebben als ALSA. </para
+></listitem>
+	<listitem
+><para
+>Qt Multimedia: Niet ontworpen voor geluid met lage vertraging, maar werkt met grote buffergroottes. </para
+></listitem>
+	<listitem
+><para
+>OSS (Open Sound System): de oudste linux implementatie, met mono en stereo uitvoer. Verouderd sinds linux kernel 2.6. Kan botsen met andere geluidstoepassingen, slechts één toepassing tegelijk kan via OSS afspelen! </para
 ></listitem>
     </itemizedlist
 ></para>
@@ -1531,8 +1540,6 @@
 	</screenshot>
     </para>
 
-    <para
->&kwave; ondersteunt slechts 8 en 16 bits afspelen, met mono of stereo uitvoer via het OSS interface, maar ook veel modi die uw geluidshardware ondersteunt via het ALSA interface. </para>
     <para
 >Als uw geluidsbestand meer of minder kanalen gebruikt dan het afspelen toestaat, zullen alle kanalen door elkaar gemengd worden gedurende het afspelen. Als u bijvoorbeeld een bestand hebt met drie kanalen en u gebruikt stereo afspelen, dan zal het linker kanaal kanaal 0 (bovenste) en de helft van kanaal 1 (midden) afspelen en het rechter kanaal zal de helft van kanaal 1 (midden) ed kanaal 2 (laagste) afspelen. </para>
     <para
@@ -1674,8 +1681,8 @@
 ><para
 ><emphasis
 >zoom in:</emphasis
-> zoomt in om meer details te zien, vergroot met een factor 3. <itemizedlist>
-	    <listitem
+> zoomt in om meer details te zien, vergroot met een factor 3. <itemizedlist
+> <listitem
 ><para
 >menu-item / sneltoets: <menuchoice
 > <shortcut
@@ -1691,21 +1698,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->werkbalkknop: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_in.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->inzoomen</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
 	</para
 ></listitem>
@@ -1714,8 +1706,8 @@
 ><para
 ><emphasis
 >zoom uit:</emphasis
-> zoomt uit om minder details te zien, verkleint met een factor 3. <itemizedlist>
-	    <listitem
+> zoomt uit om minder details te zien, verkleint met een factor 3. <itemizedlist
+> <listitem
 ><para
 >menu-item / sneltoets: <menuchoice
 > <shortcut
@@ -1731,21 +1723,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->werkbalkknop: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_out.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->uitzoomen</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1754,8 +1731,8 @@
 ><para
 ><emphasis
 >zoomselectie:</emphasis
-> zoomt met een factor waarbij de huidige selectie volledig zichtbaar is in de huidige weergave. <itemizedlist>
-	    <listitem
+> zoomt met een factor waarbij de huidige selectie volledig zichtbaar is in de huidige weergave. <itemizedlist
+> <listitem
 ><para
 >menu-item / sneltoets: <menuchoice
 > <shortcut
@@ -1769,21 +1746,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->werkbalkknop: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmag.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->naar selectie inzoomen</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1792,8 +1754,8 @@
 ><para
 ><emphasis
 >zoom naar het gehele signaal:</emphasis
-> selecteert een zoomfactor die het gehele signaal zichtbaar maakt in het huidige venster. <itemizedlist>
-	    <listitem
+> selecteert een zoomfactor die het gehele signaal zichtbaar maakt in het huidige venster. <itemizedlist
+> <listitem
 ><para
 >menu-item: <menuchoice
 > <guimenu
@@ -1803,21 +1765,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->werkbalkknop: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
-        </imageobject
-><textobject
-><phrase
-><quote
->alles zoomen</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1826,8 +1773,8 @@
 ><para
 ><emphasis
 >zoomen tot 100%:</emphasis
-> zoomt in tot een schaal waar één sample gerepresenteerd wordt door één pixel op het scherm. <itemizedlist>
-	    <listitem
+> zoomt in tot een schaal waar één sample gerepresenteerd wordt door één pixel op het scherm. <itemizedlist
+> <listitem
 ><para
 >menu-item: <menuchoice
 > <guimenu
@@ -1836,21 +1783,6 @@
 >Zoom tot 100%</guimenuitem
 > </menuchoice
 > </para
-></listitem>
-	    <listitem
-><para
->werkbalkknop: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->zoomen naar 100%</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
 ></listitem>
 	    </itemizedlist>
         </para
@@ -1950,19 +1882,6 @@
 >vorige pagina</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->werkbalkknop: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->vorige pagina</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- next page -->
        <listitem
@@ -1984,19 +1903,6 @@
 >Volgende pagina</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->werkbalkknop: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->volgende pagina</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll right -->
         <listitem
@@ -2016,19 +1922,6 @@
 >Rechts schuiven</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->werkbalkknop: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->naar rechts schuiven</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll left -->
         <listitem
@@ -2048,19 +1941,6 @@
 >Links schuiven</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->werkbalkknop: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->naar links schuiven</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	</itemizedlist>
     </para>
@@ -11327,7 +11207,7 @@
 	    </question>
     	    <answer>
 	    	<para
->&kwave; heeft geen ondersteuning nodig voor een speciale geluidskaart. De geluidskaart moet alleen ondersteund worden door uw besturingssysteem en &kwave; gebruikt zijn interface naar het geluidsinterface van het besturingssysteem via een OSS of ALSA interface. </para>
+>&kwave; heeft geen ondersteuning nodig voor een speciale geluidskaart. De geluidskaart moet alleen ondersteund worden door uw besturingssysteem en &kwave; gebruikt zijn interface naar het geluidsinterface van het besturingssysteem via een ALSA, Pulsaudio, Qt of OSS interface. </para>
 	    </answer>
 	</qandaentry>
 
@@ -11493,7 +11373,11 @@
 > die de lijst van alle auteurs van en medewerkers aan &kwave; bevat. </para>
 
     <para
->Documentatie copyright (C) &version_year; Thomas Eschenbacher <email
+>Documentatie copyright (C) 2020 Thomas Eschenbacher <email
+>thomas.eschenbacher@gmx.de</email
+> </para>
+    <para
+>Documentatie copyright (C) 2024 Thomas Eschenbacher <email
 >thomas.eschenbacher@gmx.de</email
 > </para>
 &meld.fouten;&vertaling.freek; &underFDL; &underGPL; <sect1 id="main_authors"
@@ -11571,6 +11455,16 @@
 ></para
 ><para
 >i18n, Franse vertalingen, startscherm, beta-tester </para>
+	    </listitem>
+	    <listitem>
+		<para
+><emphasis role="bold"
+>Mark Penner <email
+>mrp@markpenner.space</email
+> </emphasis
+></para
+><para
+>ontwikkeling </para>
 	    </listitem>
 	    <listitem>
 	    	<para

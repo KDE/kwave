@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-15 00:39+0000\n"
-"PO-Revision-Date: 2024-11-14 02:49+0100\n"
+"PO-Revision-Date: 2024-11-15 06:00+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -222,7 +222,7 @@ msgstr "მარკ პენერი"
 #: kwave/main.cpp:86
 #, kde-format
 msgid "https://markpenner.space"
-msgstr ""
+msgstr "https://markpenner.space"
 
 #: kwave/main.cpp:90
 #, kde-format

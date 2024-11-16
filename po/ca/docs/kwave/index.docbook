@@ -6,8 +6,7 @@
   <!ENTITY % Catalan  "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "20.07.70">
-  <!ENTITY version_year "2020">
+  <!ENTITY version "24.12.0">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -18,6 +17,7 @@
   <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
   <!ENTITY url_debian "https://www.debian.org">
   <!ENTITY url_flac "https://xiph.org/flac/">
+  <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
@@ -30,7 +30,6 @@
   <!ENTITY url_licenses "&url_prefix_gitweb;LICENSES">
   <!ENTITY url_ogg_vorbis "https://www.xiph.org">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
-  <!ENTITY url_sourceforge "https://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_web_sf "https://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY i18n-cmd_syntax "Sintaxi: ">
@@ -328,29 +327,33 @@
 ></copyright>
     <copyright
 ><year
->&version_year;</year
+>2020</year
 ><holder
 >Thomas Eschenbacher</holder
+></copyright>
+    <copyright
+><year
+>2024</year
+><holder
+>Mark Penner</holder
 ></copyright>
 
     <legalnotice
 >&FDLNotice;</legalnotice>
 
     <date
->7 de juliol de 2020</date>
+>9 de novembre de 2024</date>
     <releaseinfo
->20.07.70</releaseinfo>
+>&version;</releaseinfo>
 
     <abstract
 ><para
->El &kwave; és un editor de so senzill construït amb els &kf5-full;.</para
+>El &kwave; és un editor de so senzill construït amb els &kde-frameworks;.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
-	<keyword
->KF5</keyword>
 	<keyword
 >multimèdia</keyword>
 	<keyword
@@ -385,7 +388,7 @@
 >Introducció</title>
 
     <para
->Aquest és el &kwave;, un editor de so senzill construït amb els &kf5-full;. Les seves característiques inclouen: <itemizedlist>
+>Aquest és el &kwave;, un editor de so senzill construït amb els &kde-frameworks;. Les seves característiques inclouen: <itemizedlist>
     	<listitem
 ><para
 >una interfície d'usuari que es pot canviar als modes SDI -finestres separades-, MDI -la mateixa finestra- o Tab -pestanyes- </para
@@ -420,11 +423,11 @@
 ></listitem>
     	<listitem
 ><para
->reproducció mitjançant Qt, PulseAudio, ALSA i OSS </para
+>Reproducció mitjançant ALSA, PulseAudio, Qt i OSS </para
 ></listitem>
     	<listitem
 ><para
->enregistrament mitjançant PulseAudio, ALSA i OSS </para
+>Enregistrament mitjançant ALSA, PulseAudio, Qt i OSS </para
 ></listitem>
     	<listitem
 ><para
@@ -494,7 +497,9 @@
 ><para
 >Pàgina web del projecte<anchor id="project-homepage"/></para
 ><para
->Per a obtenir informació sobre llançaments nous o sobre qualsevulla altra informació sobre aquest projecte, doneu un cop d'ull a la <ulink url="&url_homepage;"
+>Per a informació sobre llançaments nous d'actualització, vegeu la <ulink url="&url_apps_kde;"
+>pàgina del &kwave;</ulink
+> a apps.kde.org. Per a altres informacions, doneu un cop d'ull a la <ulink url="&url_homepage;"
 >pàgina web del &kwave;</ulink
 >. </para
 ></listitem>
@@ -502,15 +507,11 @@
 ><para
 >Repositori Git<anchor id="git-repository"/> </para>
 	<para
->També hi ha un repositori de GIT nou allotjat als servidors del &kde;, i una rèplica del repositori allotjada per <ulink url="&url_sourceforge;"
+>El repositori Git està allotjat a la instància del Gitlab de &kde; <ulink url="&url_git_web_kde;"
+>aquí</ulink
+>, i també hi ha un repositori mirall a <ulink url="&url_git_web_sf;"
 >SourceForge</ulink
->, on podreu obtenir les fonts de la versió en desenvolupament més recent. Per a obtenir les instruccions sobre com obtenir accés al repositori, llegiu al capítol sobre <ulink url="&url_devel_fetching_from_git;"
->construir des de GIT</ulink
-> que hi ha a la documentació del desenvolupador. També hi ha una interfície web de GIT al <ulink url="&url_git_web_kde;"
->&kde;</ulink
-> i a <ulink url="&url_git_web_sf;"
->SourceForge</ulink
->, la qual podreu utilitzar per a navegar a través de les fonts. </para
+>. </para
 ></listitem>
     </itemizedlist>
 
@@ -531,7 +532,7 @@
 >Des del &kwave; versió 0.8.0, el registre de canvis ja no s'inclou en aquest manual. Per tant, si esteu interessat en una llista completa dels canvis, trobareu tot l'historial aquí: <ulink url="&url_changelog;"
 > &url_changelog;</ulink
 > o navegueu pel codi font emprant la <ulink url="&url_git_web_kde;"
->interfície web de GIT</ulink
+>interfície web del Git</ulink
 >. </para>
 
     <para
@@ -1330,7 +1331,7 @@
 >Enregistrament</title>
 
     <para
->El &kwave; és capaç d'enregistrar dades d'àudio des de diverses fonts, amb totes les freqüències de mostreig, formats de la mostra i altres modes que admeti el maquinari de so. Actualment, el &kwave; enregistra a través de l'antiga interfície de so OSS, i des de la versió 0.7.4 també la interfície ALSA, més nova i potent, la qual és l'opció preferida per al nucli Linux 2.6. </para>
+>El &kwave; és capaç d'enregistrar dades d'àudio des de diverses fonts, amb totes les freqüències de mostreig, formats de la mostra i altres modes que admeti el maquinari de so. El &kwave; pot enregistrar amb els dorsals d'ALSA, PulseAudio, Qt i OSS. </para>
     <para
 >Es pot accedir a l'enregistrament des del menú sota <menuchoice
 > <guimenu
@@ -1487,7 +1488,7 @@
 >Reproducció</title>
 
     <para
->Segons les opcions de compilació, el &kwave; pot reproduir sons a través d'un dels mètodes de reproducció següents: </para>
+>Segons les opcions de compilació, el &kwave; pot reproduir sons mitjançant d'un dels mètodes de reproducció següents: </para>
     <para
 ><itemizedlist>
 	<listitem
@@ -1496,7 +1497,15 @@
 ></listitem>
 	<listitem
 ><para
->OSS (sistema de so obert): La implementació de Linux més antiga, capaç de sortides mono i estèreo. Obsolet des del nucli Linux 2.6, però encara està molt estès. Pot interferir amb altres aplicacions de so, la reproducció amb OSS només pot utilitzar una aplicació a la vegada! </para
+>PulseAudio: Servidor de so de propòsit general habitual al Linux. El PulseAudio podria no ser capaç d'una latència tan baixa com l'ALSA. </para
+></listitem>
+	<listitem
+><para
+>Qt Multimèdia: No està dissenyat per a àudio de baixa latència, però funciona amb mides grans de memòria intermèdia. </para
+></listitem>
+	<listitem
+><para
+>OSS (sistema de so obert): La implementació de Linux més antiga, capaç de sortides mono i estèreo. Obsolet des del nucli Linux 2.6. Pot interferir amb altres aplicacions de so, la reproducció amb OSS només pot utilitzar una aplicació a la vegada! </para
 ></listitem>
     </itemizedlist
 ></para>
@@ -1519,8 +1528,6 @@
 	</screenshot>
     </para>
 
-    <para
->Actualment, el &kwave; només admet reproducció en 8 i 16 bits, amb sortida mono o estèreo a través de la interfície OSS, però també molts dels modes que admeti el vostre maquinari de so a través de la interfície ALSA. </para>
     <para
 >Si el vostre fitxer de so utilitza més o menys canals que els permesos per la reproducció, durant la reproducció es barrejaran tots els canals. Per exemple, si teniu un fitxer amb tres canals i utilitzeu la reproducció estèreo, el canal esquerre reproduirà el canal 0 (superior) i la meitat del canal 1 (mig), el canal dret reproduirà la meitat del canal 1 (mig) i el canal 2 (inferior). </para>
     <para
@@ -11092,7 +11099,7 @@
 	    </question>
     	    <answer>
 	    	<para
->El &kwave; no necessita admetre cap targeta de so en particular. La targeta de so només haurà d'estar admesa pel vostre sistema operatiu i el &kwave; l'utilitzarà a través de la interfície del sistema de so del sistema operatiu, sigui aquesta la interfície OSS o ALSA. </para>
+>El &kwave; no necessita admetre cap targeta de so en particular. La targeta de so només haurà d'estar admesa pel vostre sistema operatiu i el &kwave; l'utilitzarà la seva interfície al controlador de so del sistema operatiu mitjançant una interfície ALSA, PulseAudio, Qt o OSS. </para>
 	    </answer>
 	</qandaentry>
 
@@ -11258,8 +11265,12 @@
 >, el qual llista tots els autors i col·laboradors del &kwave;. </para>
 
     <para
->Copyright de la documentació (C) &version_year; Thomas Eschenbacher <email
+>Copyright de la documentació (C) 2020 Thomas Eschenbacher <email
 >thomas.eschenbacher@gmx.de</email
+> </para>
+    <para
+>Copyright de la documentació (C) 2024 Mark Penner <email
+>mrp@markpenner.space</email
 > </para>
 <para
 >Traductor de la documentació: &credits.Antoni.Bella;</para
@@ -11338,6 +11349,16 @@
 ></para
 ><para
 >i18n, traducció al francès, pantalla de presentació, provador de les versions beta </para>
+	    </listitem>
+	    <listitem>
+		<para
+><emphasis role="bold"
+>Mark Penner <email
+>mrp@markpenner.space</email
+> </emphasis
+></para
+><para
+>desenvolupament </para>
 	    </listitem>
 	    <listitem>
 	    	<para

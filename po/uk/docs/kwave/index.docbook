@@ -6,8 +6,7 @@
   <!ENTITY % Ukrainian "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "20.07.70">
-  <!ENTITY version_year "2020">
+  <!ENTITY version "24.12.0">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -18,6 +17,7 @@
   <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
   <!ENTITY url_debian "https://www.debian.org">
   <!ENTITY url_flac "https://xiph.org/flac/">
+  <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
@@ -30,7 +30,6 @@
   <!ENTITY url_licenses "&url_prefix_gitweb;LICENSES">
   <!ENTITY url_ogg_vorbis "https://www.xiph.org">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
-  <!ENTITY url_sourceforge "https://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_web_sf "https://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY i18n-cmd_syntax "Синтаксис: ">
@@ -342,29 +341,33 @@
 ></copyright>
     <copyright
 ><year
->&version_year;</year
+>2020</year
 ><holder
 >Thomas Eschenbacher</holder
+></copyright>
+    <copyright
+><year
+>2024</year
+><holder
+>Mark Penner</holder
 ></copyright>
 
     <legalnotice
 >&FDLNotice;</legalnotice>
 
     <date
->6 липня 2020 року</date>
+>9 листопада 2024 року</date>
     <releaseinfo
->20.07.70</releaseinfo>
+>&version;</releaseinfo>
 
     <abstract
 ><para
->&kwave; — проста програма для редагування звукових даних на основі KDE Frameworks 5.</para
+>&kwave; — проста програма для редагування звукових даних на основі KDE Frameworks.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
-	<keyword
->KF5</keyword>
 	<keyword
 >звук і відео</keyword>
 	<keyword
@@ -399,7 +402,7 @@
 >Вступ</title>
 
     <para
->Це «&kwave;», проста програма для редагування звукових даних на основі KDE Frameworks 5. Серед можливостей програми: <itemizedlist>
+>Це «&kwave;», проста програма для редагування звукових даних на основі KDE Frameworks. Серед можливостей програми: <itemizedlist>
     	<listitem
 ><para
 >інтерфейс користувача, який може працювати у режимах одного вікна, декількох вікон або вкладок; </para
@@ -434,11 +437,11 @@
 ></listitem>
     	<listitem
 ><para
->відтворення звуку за допомогою Qt, PulseAudio, ALSA та OSS; </para
+>відтворення звуку за допомогою ALSA, PulseAudio, Qt і OSS </para
 ></listitem>
     	<listitem
 ><para
->запис звуку за допомогою PulseAudio, ALSA і OSS </para
+>запис звуку за допомогою ALSA, PulseAudio, Qt і OSS </para
 ></listitem>
     	<listitem
 ><para
@@ -508,23 +511,19 @@
 ><para
 >Домашня сторінка проєкту<anchor id="project-homepage"/></para
 ><para
->Щоб дізнатися більше про нові випуски або проєкт загалом, зверніться до <ulink url="&url_homepage;"
->домашньої сторінки &kwave;</ulink
->. </para
+>Щоб дізнатися більше про нові випуски або проєкт загалом, зверніться до <ulink url="&url_apps_kde;"
+>сторінки &kwave;</ulink
+> на apps.kde.org </para
 ></listitem>
 	<listitem
 ><para
->Сховище GIT<anchor id="git-repository"/> </para>
+>Сховище git<anchor id="git-repository"/> </para>
 	<para
->Крім того, у програми є нове сховище GIT на серверах &kde; та сховище-дзеркало у системі <ulink url="&url_sourceforge;"
->KDE</ulink
->, за допомогою якого ви можете отримати початкові коди найсвіжішої версії, що перебуває у розробці. Інструкції щодо отримання доступу до сховища можна знайти у главі щодо <ulink url="&url_devel_fetching_from_git;"
->збирання з GIT</ulink
-> у документації для розробників. Крім того, є інтерфейси <ulink url="&url_git_web_kde;"
->&kde;</ulink
-> та <ulink url="&url_git_web_sf;"
+>Сховище git зберігається у межах екземпляра Gitlab &kde; <ulink url="&url_git_web_kde;"
+>тут</ulink
+>, а також маємо дзеркальне сховище на <ulink url="&url_git_web_sf;"
 >SourceForge</ulink
->, якими ви можете скористатися для навігації кодом проєкту. </para
+>. </para
 ></listitem>
     </itemizedlist>
 
@@ -545,7 +544,7 @@
 >З версії &kwave; 0.8.0 до цього підручника більше не включається журнал змін у програмі. Отже, якщо вам потрібен повний список внесених змін, ви можете знайти його тут: <ulink url="&url_changelog;"
 > &url_changelog;</ulink
 >, або можете просто ознайомитися із списком внесків за допомогою <ulink url="&url_git_web_kde;"
->інтернет-інтерфейсу GIT</ulink
+>інтернет-інтерфейсу git</ulink
 >. </para>
 
     <para
@@ -1352,7 +1351,7 @@
 >Запис</title>
 
     <para
->&kwave; може записувати звукові дані з різноманітних джерел з усіма частотами дискретизації та іншими режимами, підтримку яких передбачено обладнанням вашого комп’ютера. У поточній версії програма &kwave; здатна записувати дані за допомогою застарілого звукового інтерфейсу OSS і, з версії 0.7.4, новішого і потужнішого інтерфейсу ALSA, який є бажаним вибором для ядер linux, починаючи з версії 2.6. </para>
+>&kwave; може записувати звукові дані з різноманітних джерел з усіма частотами дискретизації та іншими режимами, підтримку яких передбачено обладнанням вашого комп’ютера. &kwave; може записувати дані за допомогою модулів обробки ALSA, PulseAudio, Qt і OSS. </para>
     <para
 >Запис можна здійснити за допомогою пункту меню <menuchoice
 > <guimenu
@@ -1518,7 +1517,15 @@
 ></listitem>
 	<listitem
 ><para
->OSS (Open Sound System): найстаріша реалізація для linux, може виводити дані у режимах моно і стерео. Вважається застарілою з часу появи версії ядра linux 2.6, але усе ще використовується. Може конфліктувати з іншими програмами для роботи зі звуковими даними. У OSS відтворювати звук одночасно може лише одна програма! </para
+>PulseAudio: типовий звуковий сервер загального призначення у Linux. PulseAudio може не забезпечувати такої самої низької затримки обробки як ALSA. </para
+></listitem>
+	<listitem
+><para
+>Qt Multimedia: не призначено для звукової обробки з низькою затримкою, але працює з великими розмірами буфера. </para
+></listitem>
+	<listitem
+><para
+>OSS (Open Sound System): найстаріша реалізація для linux, може виводити дані у режимах моно і стерео. Вважається застарілою з часу появи версії ядра linux 2.6. Може конфліктувати з іншими програмами для роботи зі звуковими даними. У OSS відтворювати звук одночасно може лише одна програма! </para
 ></listitem>
     </itemizedlist
 ></para>
@@ -1541,8 +1548,6 @@
 	</screenshot>
     </para>
 
-    <para
->У поточній версії &kwave; для інтерфейсу OSS передбачено підтримку відтворення лише 8-бітового та 16-бітового звуку з виведенням у режимі моно або стерео. Набагато ширшу підтримку режимів відтворення та обладнання можна отримати скориставшись інтерфейсом ALSA. </para>
     <para
 >Якщо у вашому файлі звукових даних зберігається більше або менше каналів, ніж це передбачено режимом відтворення, під час відтворення усі канали буде змішано. Наприклад, якщо у файлі зберігається три звукових доріжки, а ви використовуєте режим стерео для відтворення, на лівому каналі відтворюватиметься доріжка 0 (верхня) і половина доріжки 1 (середня). На правому каналі відтворюватиметься половина доріжки 1 (середня) і доріжка 2 (нижня). </para>
     <para
@@ -1688,8 +1693,8 @@
 ><para
 ><emphasis
 >збільшити:</emphasis
-> збільшити масштаб так, щоб можна було бачити більше деталей, крок збільшення — 3 рази. <itemizedlist>
-	    <listitem
+> збільшити масштаб так, щоб можна було бачити більше деталей, крок збільшення — 3 рази. <itemizedlist
+> <listitem
 ><para
 >пункт меню / клавіатурне скорочення: <menuchoice
 > <shortcut
@@ -1705,21 +1710,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->кнопка панелі інструментів: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_in.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->збільшення</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
 	</para
 ></listitem>
@@ -1728,8 +1718,8 @@
 ><para
 ><emphasis
 >зменшити:</emphasis
-> зменшити масштаб так, щоб бачити менше деталей, крок зменшення — 3 рази. <itemizedlist>
-	    <listitem
+> зменшити масштаб так, щоб бачити менше деталей, крок зменшення — 3 рази. <itemizedlist
+> <listitem
 ><para
 >пункт меню / клавіатурне скорочення: <menuchoice
 > <shortcut
@@ -1745,21 +1735,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->кнопка панелі інструментів: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_out.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->зменшення</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1768,8 +1743,8 @@
 ><para
 ><emphasis
 >збільшити позначену область:</emphasis
-> збільшує так, що поточна позначена область заповнює усю поточну панель перегляду. <itemizedlist>
-	    <listitem
+> збільшує так, що поточна позначена область заповнює усю поточну панель перегляду. <itemizedlist
+> <listitem
 ><para
 >пункт меню / клавіатурне скорочення: <menuchoice
 > <shortcut
@@ -1785,21 +1760,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->кнопка панелі інструментів: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmag.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->масштабування за позначеним</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1808,8 +1768,8 @@
 ><para
 ><emphasis
 >збільшити до усього сигналу:</emphasis
-> вибрати масштаб так, щоб у поточному вікні було видно увесь сигнал. <itemizedlist>
-	    <listitem
+> вибрати масштаб так, щоб у поточному вікні було видно увесь сигнал. <itemizedlist
+> <listitem
 ><para
 >пункт меню: <menuchoice
 > <guimenu
@@ -1819,21 +1779,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->кнопка панелі інструментів: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
-        </imageobject
-><textobject
-><phrase
-><quote
->збільшення до повного розміру</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1842,8 +1787,8 @@
 ><para
 ><emphasis
 >масштаб у 100%:</emphasis
-> збільшити до масштабу, коли один семпл буде показано на екрані одним пікселем. <itemizedlist>
-	    <listitem
+> збільшити до масштабу, коли один семпл буде показано на екрані одним пікселем. <itemizedlist
+> <listitem
 ><para
 >пункт меню: <menuchoice
 > <guimenu
@@ -1852,21 +1797,6 @@
 >Масштаб у 100%</guimenuitem
 > </menuchoice
 > </para
-></listitem>
-	    <listitem
-><para
->кнопка панелі інструментів: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->масштаб у 100%</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
 ></listitem>
 	    </itemizedlist>
         </para
@@ -1966,19 +1896,6 @@
 >Попередня сторінка</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->кнопка панелі інструментів: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->попередня сторінка</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- next page -->
        <listitem
@@ -1998,19 +1915,6 @@
 >Наступна сторінка</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->кнопка панелі інструментів: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->наступна сторінка</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll right -->
         <listitem
@@ -2032,19 +1936,6 @@
 >Гортати праворуч</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->кнопка панелі інструментів: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->гортати праворуч</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll left -->
         <listitem
@@ -2066,19 +1957,6 @@
 >Гортати ліворуч</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->кнопка панелі інструментів: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->гортати ліворуч</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	</itemizedlist>
     </para>
@@ -2155,8 +2033,8 @@
 > <phrase
 >зелена лампочка</phrase
 > </textobject>
-    </inlinemediaobject>
-зелена лампочка означає «увімкнено», а </para>
+    </inlinemediaobject
+>зелена лампочка означає «увімкнено», а </para>
     <para>
     <inlinemediaobject>
 	<imageobject>
@@ -2166,8 +2044,8 @@
 > <phrase
 >червона лампочка</phrase
 > </textobject>
-    </inlinemediaobject>
-червона лампочка означає «вимкнено». </para>
+    </inlinemediaobject
+>червона лампочка означає «вимкнено». </para>
 
     <note
 ><para
@@ -2625,8 +2503,8 @@
 >список команд</emphasis
 > можна за допомогою роздільника «;». </para
 ></listitem>
-	</itemizedlist>
-Приклад: <screen
+	</itemizedlist
+>Приклад: <screen
 ><command
 >fileinfo(<parameter
 >Comments</parameter
@@ -3097,8 +2975,8 @@
 >Довідка щодо команд</title>
 	<index
 ><title
->Покажчик за абеткою</title>
-&no-i18n-tag; <indexdiv
+>Покажчик за абеткою</title
+>&no-i18n-tag; <indexdiv
 ><title
 >a</title
 > <indexentry
@@ -6893,8 +6771,8 @@
 >Довідник з додатків</title>
     <index
 ><title
->Покажчик за абеткою</title>
-&no-i18n-tag; <indexdiv
+>Покажчик за абеткою</title
+>&no-i18n-tag; <indexdiv
 ><title
 >a</title
 > <indexentry
@@ -11285,7 +11163,7 @@
 	    </question>
     	    <answer>
 	    	<para
->Для роботи &kwave; не потрібна ніяка спеціальна звукова картка. Достатньо підтримки звукової картки з боку операційної системи. &kwave; лише використовує інтерфейс до драйвера звукової підсистеми за допомогою OSS або ALSA. </para>
+>Для роботи &kwave; не потрібна ніяка спеціальна звукова картка. Достатньо підтримки звукової картки з боку операційної системи. &kwave; лише використовує інтерфейс до драйвера звукової підсистеми за допомогою ALSA, PulseAudio, Qt або OSS. </para>
 	    </answer>
 	</qandaentry>
 
@@ -11453,13 +11331,16 @@
     <para
 >Авторські права на документацію належать Thomas Eschenbacher <email
 >thomas.eschenbacher@gmx.de</email
->, &version_year; </para>
+>, 2020 </para>
+    <para
+>Авторські права на документацію належать Mark Penner <email
+>mrp@markpenner.space</email
+>, 2024 </para>
 <para
 >Переклад українською: Юрій Чорноіван <email
 >yurchor@ukr.net</email
 ></para
-> 
-&underFDL; &underGPL; <sect1 id="main_authors"
+> &underFDL; &underGPL; <sect1 id="main_authors"
 ><title
 >Основні автори</title>
     <para>
@@ -11534,6 +11415,16 @@
 ></para
 ><para
 >інтернаціоналізація, переклад французькою, вікно вітання, тестування </para>
+	    </listitem>
+	    <listitem>
+		<para
+><emphasis role="bold"
+>Mark Penner <email
+>mrp@markpenner.space</email
+> </emphasis
+></para
+><para
+>розробка </para>
 	    </listitem>
 	    <listitem>
 	    	<para

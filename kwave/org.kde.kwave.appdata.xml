@@ -70,6 +70,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="eu">«Kwave» fitxategi formatu askotan grabatu, ireki, eta editatu dezakeen soinu editore bat da. «Kwave»k audioa editatzea era askotara errazten du.</p>
     <p xml:lang="fr">Kwave est un éditeur de sons pouvant enregistrer, lire, ouvrir et éditer de nombreux formats de fichiers. Kwave facilite l'édition audio de nombreuses façons.</p>
     <p xml:lang="gl">Kwave é un editor de sons que pode gravar, reproducir, abrir e editar moitos formatos de ficheiro. Kwave simplifica a edición de son de moitos xeitos.</p>
+    <p xml:lang="ia">Kwave es un editorde sono que pote registrar a, sonar, aperir e editar multe formatos de file. Kwave lo face  semplice a editar audio in multe modos. </p>
     <p xml:lang="ka">Kwave ხმის რედაქტორია, რომელსაც შეუძლია ჩაწერა, დაკვრა და ჩასწორება ბევრი ფაილის ფორმატი. Kwave ერთ-ერთი უმარტივესი რედაქტორია ხმისთვის.</p>
     <p xml:lang="nl">Kwave is een geluidsbewerker die vele bestandsformaten kan opnemen, afspelen, openen en bewerken. Kwave maakt het eenvoudig om audio op vele manieren te bewerken.</p>
     <p xml:lang="pl">Kwave jest edytorem dźwięku, który może nagrywać, odtwarzać, otwierać oraz edytować wiele formatów plików. Kwave czyni prostym edytowanie plików dźwiękowych na wiele sposobów.</p>
@@ -100,6 +101,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="eu">Irekitzeko itzaltzea, ixteko itzaltzea edo neurriko anplitude kurba</li>
       <li xml:lang="fr">Fondu d'entrée, de sortie ou courbe d'amplitude personnalisée</li>
       <li xml:lang="gl">Aumento, diminución, ou unha curva de amplitude personalizada.</li>
+      <li xml:lang="ia">Refortiar e dissolver (fade in and fade out), o curva de amplitude personalisate</li>
       <li xml:lang="ka">შესავალი, მინავლება ან მორგებული ამპლიტუდის მრუდი</li>
       <li xml:lang="nl">In-, uitvagen of aangepaste amplitude-kromme</li>
       <li xml:lang="pl">Wyłoń dźwięk, Wycisz dźwięk lub własna krzywa amplitudy</li>
@@ -268,6 +270,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="eu">Audio lagin-emaria bihurtzea</li>
       <li xml:lang="fr">Convertir la fréquence d'échantillonnage audio</li>
       <li xml:lang="gl">Converter a taxa de mostraxe do son.</li>
+      <li xml:lang="ia">Converte frequentia de exemplo audio</li>
       <li xml:lang="ka">აუდიოს ბიტური სიჩქარის გადაყვანა</li>
       <li xml:lang="nl">Audio sample-snelheid converteren</li>
       <li xml:lang="pl">Przekształć częstotliwość próbkowania dźwięku</li>
@@ -297,6 +300,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="eu">Sartu arbeleko audioa</li>
       <li xml:lang="fr">Insérer de l'audio à partir du presse-papier</li>
       <li xml:lang="gl">Inserir son do portapapeis.</li>
+      <li xml:lang="ia">Inserta audio ex area de transferentia</li>
       <li xml:lang="ka">ხმის ჩასმა ბუფერიდან</li>
       <li xml:lang="nl">Audio uit klembord invoegen</li>
       <li xml:lang="pl">Wstaw dźwięk ze schowka</li>
@@ -311,6 +315,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="eu">Alderantzizko audioa</li>
       <li xml:lang="fr">Audio inversé</li>
       <li xml:lang="gl">Inverter o son.</li>
+      <li xml:lang="ia">Reverte audio</li>
       <li xml:lang="ka">აუდიოს რევერსი</li>
       <li xml:lang="nl">Audio omkeren</li>
       <li xml:lang="pl">Odwróć dźwięk</li>
@@ -325,6 +330,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="eu">Etiketa arteko audio blokeak fitxategi bereizi gisa gordetzea</li>
       <li xml:lang="fr">Enregistrer les blocs audio entre les étiquettes en tant que fichiers séparés</li>
       <li xml:lang="gl">Gardar bloques de son entre etiquetas como ficheiros independentes.</li>
+      <li xml:lang="ia">Salveguarda blocos de audio inter etiquettas como files separate</li>
       <li xml:lang="ka">ჭდეებს შორის არსებული ხმის ბლოკების შენახვა ცალ-ცალკე ფაილებად</li>
       <li xml:lang="nl">Audioblokken tussen labels opslaan als aparte bestanden</li>
       <li xml:lang="pl">Zapisz bloki dźwięku pomiędzy etykietami jako osobne pliki</li>
@@ -339,6 +345,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="eu">Sonagram (espektrograma)</li>
       <li xml:lang="fr">Sonagram (Spectrogramme)</li>
       <li xml:lang="gl">Espectrograma.</li>
+      <li xml:lang="ia">Sonagram (graphico de sono)(spectrograma)</li>
       <li xml:lang="ka">სონაგრამა (სპექტროგრამა)</li>
       <li xml:lang="nl">Sonagram (spectrogram)</li>
       <li xml:lang="pl">Sonagram (spektrogram)</li>
@@ -354,6 +361,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="eu">Onartutako fitxategi-formatuak:</p>
     <p xml:lang="fr">Formats de fichier pris en charge :</p>
     <p xml:lang="gl">Formatos de ficheiro compatíbeis:</p>
+    <p xml:lang="ia">Formatos de file supportate:</p>
     <p xml:lang="ka">მხარდაჭერილ ფაილის ფორმატები:</p>
     <p xml:lang="nl">Ondersteunde bestandsformaten:</p>
     <p xml:lang="pl">Obsługiwane formaty plików:</p>
@@ -459,6 +467,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="eu">«libaudiofile»k onartutako audio formatu guztiak (formatu batzuk inportatzeko bakarrik)</li>
       <li xml:lang="fr">tous les formats de fichiers pris en charge par la bibliothèque « libaudiofile » (Certains formats sont importés uniquement)</li>
       <li xml:lang="gl">Todos os formatos de ficheiros que permite libaudiofile (algún formatos só poden importarse).</li>
+      <li xml:lang="ia">omne formatos de file suppportate per libaudiofile (alcun formatos es solmente importate)</li>
       <li xml:lang="ka">ყველა ფაილის ფორმატი, რომლის მხარდაჭერაც libaudiofile-ს გააჩნია (ზოგიერთი ფორმატი, მხოლოდ, წაკითხვადია)</li>
       <li xml:lang="nl">alle bestandsformaten ondersteund door libaudiofile (enige formaten alleen te importeren)</li>
       <li xml:lang="pl">wszystkie formaty plików obsługiwane przez libaudiofile (niektóre formaty są tylko do importu)</li>

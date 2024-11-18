@@ -6,8 +6,7 @@
   <!ENTITY % Spanish "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "20.07.70">
-  <!ENTITY version_year "2020">
+  <!ENTITY version "24.12.0">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -18,6 +17,7 @@
   <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
   <!ENTITY url_debian "https://www.debian.org">
   <!ENTITY url_flac "https://xiph.org/flac/">
+  <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
@@ -30,7 +30,6 @@
   <!ENTITY url_licenses "&url_prefix_gitweb;LICENSES">
   <!ENTITY url_ogg_vorbis "https://www.xiph.org">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
-  <!ENTITY url_sourceforge "https://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_web_sf "https://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY i18n-cmd_syntax "Sintaxis: ">
@@ -356,29 +355,33 @@
 ></copyright>
     <copyright
 ><year
->&version_year;</year
+>2020</year
 ><holder
 >Thomas Eschenbacher</holder
+></copyright>
+    <copyright
+><year
+>2024</year
+><holder
+>Mark Penner</holder
 ></copyright>
 
     <legalnotice
 >&FDLNotice;</legalnotice>
 
     <date
->2020-07-06</date>
+>2024-11-09</date>
     <releaseinfo
->20.07.70</releaseinfo>
+>&version;</releaseinfo>
 
     <abstract
 ><para
->&kwave; es un editor sencillo de sonido construido sobre &kf5-full;.</para
+>&kwave; es un editor sencillo de sonido construido sobre &kde-frameworks;.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
-	<keyword
->KF5</keyword>
 	<keyword
 >multimedia</keyword>
 	<keyword
@@ -413,7 +416,7 @@
 >Introducción</title>
 
     <para
->Esto es «&kwave;», un editor sencillo de sonido construido sobre &kf5-full;. Sus características incluyen: <itemizedlist>
+>Esto es «&kwave;», un editor sencillo de sonido construido sobre &kde-frameworks;. Sus características incluyen: <itemizedlist>
     	<listitem
 ><para
 >una interfaz de usuario que puede ser cambiada a modo SDI, MDI o pestañas. </para
@@ -448,11 +451,11 @@
 ></listitem>
     	<listitem
 ><para
->Reproducción vía Qt, PulseAudio, ALSA u OSS </para
+>Reproducción vía ALSA, PulseAudio, Qt y OSS </para
 ></listitem>
     	<listitem
 ><para
->Grabación vía PulseAudio, ALSA u OSS </para
+>Grabación vía ALSA, PulseAudio, Qt y OSS </para
 ></listitem>
     	<listitem
 ><para
@@ -522,23 +525,21 @@
 ><para
 >Página del proyecto<anchor id="project-homepage"/></para
 ><para
->Para información sobre últimas versiones u otra información sobre este proyecto, eche un vistazo a  <ulink url="&url_homepage;"
->la página de &kwave;</ulink
->. </para
+>Para información sobre últimas versiones u otra información sobre este proyecto vea la <ulink url="&url_apps_kde;"
+>&kwave; página</ulink
+> en apps.kde.org. Para otra información eche un ojo a la <ulink url="&url_homepage;"
+>&kwave; página de inicio</ulink
+> . </para
 ></listitem>
 	<listitem
 ><para
->Repositorio GIT<anchor id="git-repository"/> </para>
+>Repositorio Git<anchor id="git-repository"/> </para>
 	<para
->También existe un nuevo repositorio GIT hospedado en los servidores &kde; y un repositorio espejo hospedado en <ulink url="&url_sourceforge;"
+>Este repositorio git se encuentra en la instancia Gitlab de &kde; <ulink url="&url_git_web_kde;"
+>aquí</ulink
+>, y hay también un repositorio copia en <ulink url="&url_git_web_sf;"
 >SourceForge</ulink
-> donde puede acceder al código fuente de la última versión en desarrollo. Para instrucciones de cómo obtener acceso al repositorio lea el capítulo sobre <ulink url="&url_devel_fetching_from_git;"
->compilando desde GIT</ulink
-> en la documentación del desarrollador. Existe también un interfaz web GIT en <ulink url="&url_git_web_kde;"
->&kde;</ulink
-> y en <ulink url="&url_git_web_sf;"
->SourceForge</ulink
-> donde puede navegar a través del código fuente. </para
+>. </para
 ></listitem>
     </itemizedlist>
 
@@ -559,7 +560,7 @@
 >Desde &kwave; 0.8.0 el histórico de versiones no se incluye en este manual. Si está interesado en la lista completa de cambios, puede encontrarla aquí: <ulink url="&url_changelog;"
 > &url_changelog;</ulink
 > o buscar a través del código fuente por su cuenta a través de la <ulink url="&url_git_web_kde;"
->interfaz web GIT</ulink
+>interfaz web git</ulink
 >. </para>
 
     <para
@@ -1368,7 +1369,7 @@
 >Grabación</title>
 
     <para
->&kwave; es capaz de grabar audio desde varias fuentes con todas las frecuencias de muestreo, todos los formatos y otros modos que soporte su dispositivo de audio. Actualmente &kwave; graba a través de la antigua interfaz OSS y desde la versión 0.7.4 también desde la más nueva y potente interfaz ALSA que es la elección preferida por linux desde el kernel 2.6. </para>
+>&kwave; es capaz de grabar audio desde varias fuentes con todas las frecuencias de muestreo, todos los formatos y otros modos que soporte su dispositivo de audio. Actualmente &kwave; puede grabar con ALSA, PulseAudio, Qt y OSS. </para>
     <para
 >La ventana de grabación puede abrirse desde el menú <menuchoice
 > <guimenu
@@ -1534,7 +1535,15 @@
 ></listitem>
 	<listitem
 ><para
->OSS (Open Sound System): La antigua implementación para linux, capaz de salida estéreo y mono. Reemplazada desde el kernel 2.6 pero todavía ampliamente usada. Puede colisionar con otras aplicaciones de sonido, además sólo una aplicación al mismo tiempo puede utilizar la reproducción OSS. </para
+>PulseAudio: servidor de sonido de propósito general para Linux. PulseAudio puede que no sea capaz de funcionar con latencia tan baja como ALSA. </para
+></listitem>
+	<listitem
+><para
+>Qt Multimedia: No diseñado para audio de baja latencia, pero que funciona con almacenamiento temporal de tamaños grandes. </para
+></listitem>
+	<listitem
+><para
+>OSS (Open Sound System): La antigua implementación para linux, capaz de salida estéreo y mono. Reemplazada desde el kernel 2.6. Puede colisionar con otras aplicaciones de sonido, además sólo una aplicación al mismo tiempo puede utilizar la reproducción OSS. </para
 ></listitem>
     </itemizedlist
 ></para>
@@ -1557,8 +1566,6 @@
 	</screenshot>
     </para>
 
-    <para
->Actualmente &kwave; soporta solo reproducción de 8 y 16 bits con salida mono o estéreo a través de la interfaz OSS, pero muchos más modos pueden ser soportados por su hardware a través del interfaz ALSA. </para>
     <para
 >Si su archivo de sonido usa más o menos canales que los que la reproducción permitetodos los canales serán mezclados durante la reproducción. Por ejemplo, si tiene un archivo con tres canales y usa una reproducción estéreo, el canal izquierdo reproducirá el canal 0 (superior) y la mitad del canal 1 (medio), el canal derecho reproducirá la mitad del canal 1 (medio) y el canal 2 (inferior). </para>
     <para
@@ -1700,8 +1707,8 @@
 ><para
 ><emphasis
 >acercar:</emphasis
-> acerca para ver más detalles. Aumenta por un factor de 3. <itemizedlist>
-	    <listitem
+> acerca para ver más detalles. Aumenta por un factor de 3. <itemizedlist
+> <listitem
 ><para
 >entrada de menú / atajo de teclado: <menuchoice
 > <shortcut
@@ -1719,21 +1726,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->botón de la barra de herramientas: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_in.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->acercar</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
 	</para
 ></listitem>
@@ -1742,8 +1734,8 @@
 ><para
 ><emphasis
 >alejar:</emphasis
-> aleja para ver menos detalles. Disminuye por un factor de 3. <itemizedlist>
-	    <listitem
+> aleja para ver menos detalles. Disminuye por un factor de 3. <itemizedlist
+> <listitem
 ><para
 >entrada de menú / atajo de teclado: <menuchoice
 > <shortcut
@@ -1761,21 +1753,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->botón de la barra de herramientas: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_out.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->alejar</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1784,8 +1761,8 @@
 ><para
 ><emphasis
 >zum a la selección:</emphasis
-> aplica un factor de zum para el cual la selección actual es completamente visible en la vista actual. <itemizedlist>
-	    <listitem
+> aplica un factor de zum para el cual la selección actual es completamente visible en la vista actual. <itemizedlist
+> <listitem
 ><para
 >entrada de menú / atajo de teclado:<menuchoice
 > <shortcut
@@ -1799,21 +1776,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->botón de la barra de herramientas: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmag.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->zum a la selección</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1822,8 +1784,8 @@
 ><para
 ><emphasis
 >Zum a toda la señal:</emphasis
-> selecciona un factor de zum que hace toda la señal visible en la ventana actual. <itemizedlist>
-	    <listitem
+> selecciona un factor de zum que hace toda la señal visible en la ventana actual. <itemizedlist
+> <listitem
 ><para
 >entrada de menú: <menuchoice
 > <guimenu
@@ -1833,21 +1795,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->botón de la barra de herramientas: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
-        </imageobject
-><textobject
-><phrase
-><quote
->zum a todo</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1856,8 +1803,8 @@
 ><para
 ><emphasis
 >zum al 100%:</emphasis
-> acerca hasta una escala en donde una muestra es representada por un pixel en la pantalla. <itemizedlist>
-	    <listitem
+> acerca hasta una escala en donde una muestra es representada por un pixel en la pantalla. <itemizedlist
+> <listitem
 ><para
 >entrada de menú: <menuchoice
 > <guimenu
@@ -1866,21 +1813,6 @@
 >Zum al 100%</guimenuitem
 > </menuchoice
 > </para
-></listitem>
-	    <listitem
-><para
->botón de la barra de herramientas: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->zum al 100%</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
 ></listitem>
 	    </itemizedlist>
         </para
@@ -1978,19 +1910,6 @@
 >Página anterior</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->botón de la barra de herramientas: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->página anterior</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- next page -->
        <listitem
@@ -2010,19 +1929,6 @@
 >Página siguiente</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->botón de la barra de herramientas: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->página siguiente</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll right -->
         <listitem
@@ -2042,19 +1948,6 @@
 >Avanzar</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->botón de la barra de herramientas: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->avanzar</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll left -->
         <listitem
@@ -2074,19 +1967,6 @@
 >Rebobinar</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->botón de la barra de herramientas: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->rebobinar</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	</itemizedlist>
     </para>
@@ -11353,7 +11233,7 @@
 	    </question>
     	    <answer>
 	    	<para
->&kwave; no necesita soportar ninguna tarjeta de sonido en particular. La tarjeta de sonido solo tiene que ser soportada por su sistema operativo para que &kwave; pueda utilizarla a través del interfaz del sistema de sonido del sistema operativo, sea este el interfaz OSS o ALSA. </para>
+>&kwave; no necesita soportar ninguna tarjeta de sonido en particular. La tarjeta de sonido solo tiene que ser soportada por su sistema operativo para que &kwave; pueda utilizarla a través del interfaz del sistema de sonido del sistema operativo, sea este el interfaz ALSA, PulseAudio, Qt u OSS. </para>
 	    </answer>
 	</qandaentry>
 
@@ -11519,8 +11399,12 @@
 > que lista a todos los autores y colaboradores de &kwave; </para>
 
     <para
->Documentation copyright (C) &version_year; Thomas Eschenbacher <email
+>Documentation copyright (C) 2020 Thomas Eschenbacher <email
 >thomas.eschenbacher@gmx.de</email
+> </para>
+    <para
+>Documentación copyright (C) 2024 Mark Penner <email
+>mrp@markpenner.space</email
 > </para>
 <para
 >Traducido por Víctor Rodrigo <email
@@ -11603,6 +11487,16 @@
 ></para
 ><para
 >i18n, traducciones al francés, pantalla de inicio, beta tester </para>
+	    </listitem>
+	    <listitem>
+		<para
+><emphasis role="bold"
+>Mark Penner <email
+>mrp@markpenner.space</email
+> </emphasis
+></para
+><para
+>desarrollo </para>
 	    </listitem>
 	    <listitem>
 	    	<para

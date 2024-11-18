@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-15 00:39+0000\n"
-"PO-Revision-Date: 2024-09-01 12:15+0100\n"
+"PO-Revision-Date: 2024-11-16 19:43+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -219,12 +219,12 @@ msgstr "Complemento de grabación para PulseAudio"
 #: kwave/main.cpp:83
 #, kde-format
 msgid "Mark Penner"
-msgstr ""
+msgstr "Mark Penner"
 
 #: kwave/main.cpp:86
 #, kde-format
 msgid "https://markpenner.space"
-msgstr ""
+msgstr "https://markpenner.space"
 
 #: kwave/main.cpp:90
 #, kde-format
@@ -7554,21 +7554,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Silencio"
-
-#~ msgid "Zoom in"
-#~ msgstr "Acercar"
-
-#~ msgid "Zoom out"
-#~ msgstr "Alejar"
-
-#~ msgid "PCM encoding is not supported"
-#~ msgstr "La codificación PCM no está permitida"
-
-#~ msgid "playback with %1 channels is not supported"
-#~ msgstr "No se permite la reproducción con %1 canales"
-
-#~ msgid "sample rate %1 Hz is not supported"
-#~ msgstr "No se permite la frecuencia de muestreo de %1 Hz"
-
-#~ msgid "integer sample format is not supported"
-#~ msgstr "El formato de muestreo entero no está permitido"

@@ -58,6 +58,7 @@ SPDX-FileCopyrightText: none
   <summary xml:lang="nl">Geluidsbewerker</summary>
   <summary xml:lang="pl">Edytor dźwięku</summary>
   <summary xml:lang="sl">Urejevalnik zvoka</summary>
+  <summary xml:lang="sv">Ljudeditor</summary>
   <summary xml:lang="tr">Ses Düzenleyicisi</summary>
   <summary xml:lang="uk">Звуковий редактор</summary>
   <summary xml:lang="x-test">xxSound editorxx</summary>
@@ -78,6 +79,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="nl">Kwave is een geluidsbewerker die vele bestandsformaten kan opnemen, afspelen, openen en bewerken. Kwave maakt het eenvoudig om audio op vele manieren te bewerken.</p>
     <p xml:lang="pl">Kwave jest edytorem dźwięku, który może nagrywać, odtwarzać, otwierać oraz edytować wiele formatów plików. Kwave czyni prostym edytowanie plików dźwiękowych na wiele sposobów.</p>
     <p xml:lang="sl">Kwave je urejevalnik zvoka, ki lahko snema, predvaja, odpira in ureja številne oblike datotek. Kwave poenostavi urejanje zvoka na številne načine.</p>
+    <p xml:lang="sv">Kwave är en ljudeditor som kan spela in, spela upp, öppna och redigera många filformat. Kwave gör det enkelt att redigera ljud på många sätt.</p>
     <p xml:lang="tr">K Dalga, birçok dosya biçimini kaydedebilen, çalabilen, açabilen ve düzenleyebilen bir ses düzenleyicisidir. K Dalga, sesi birçok şekilde düzenlemeyi kolaylaştırır.</p>
     <p xml:lang="uk">Kwave — звуковий редактор, який може записувати, відтворювати, відкривати і редагувати файли у багатьох форматах. Kwave спрощує редагування звукових даних.</p>
     <p xml:lang="x-test">xxKwave is a sound editor that can record to, play, open, and edit many file formats. Kwave makes it simple to edit audio in many ways.xx</p>
@@ -95,6 +97,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="nl">Volumeniveau aanpassen</p>
     <p xml:lang="pl">Dostosuj poziom głośności:</p>
     <p xml:lang="sl">Prilagodi glasnost:</p>
+    <p xml:lang="sv">Justera volymnivå:</p>
     <p xml:lang="tr">Ses düzeyini ayarla:</p>
     <p xml:lang="uk">Скоригуйте рівень гучності:</p>
     <p xml:lang="x-test">xxAdjust volume level:xx</p>
@@ -113,6 +116,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">In-, uitvagen of aangepaste amplitude-kromme</li>
       <li xml:lang="pl">Wyłoń dźwięk, Wycisz dźwięk lub własna krzywa amplitudy</li>
       <li xml:lang="sl">Ojačanje, utišanje ali krivulja amplitude po meri</li>
+      <li xml:lang="sv">Intoning, borttoning, eller egen amplitudkurva</li>
       <li xml:lang="tr">Solma, kaybolma veya özel genlik eğrisi</li>
       <li xml:lang="uk">Наростання гучності, спадання гучності або нетипова крива амплітуди</li>
       <li xml:lang="x-test">xxFade in, fade out, or custom amplitude curvexx</li>
@@ -130,6 +134,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Volume schalen met een constante factor</li>
       <li xml:lang="pl">Przeskaluj głośność o stały współczynnik</li>
       <li xml:lang="sl">Prilagodi z lestvico glasnosti s konstantnim faktorjem</li>
+      <li xml:lang="sv">Skala volym med en konstant faktor</li>
       <li xml:lang="tr">Ses düzeyini sabit bir çarpanla ölçeklendir</li>
       <li xml:lang="uk">Масштабуйте гучність за сталим множником</li>
       <li xml:lang="x-test">xxScale volume by a constant factorxx</li>
@@ -147,6 +152,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Volume normaliseren</li>
       <li xml:lang="pl">Znormalizuj głośność</li>
       <li xml:lang="sl">Normalizira glasnost</li>
+      <li xml:lang="sv">Normalisera volym</li>
       <li xml:lang="tr">Ses düzeyini normalleştir</li>
       <li xml:lang="uk">Нормалізуйте гучність</li>
       <li xml:lang="x-test">xxNormalize volumexx</li>
@@ -165,6 +171,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="nl">Frequentie-inhoud aanpassen:</p>
     <p xml:lang="pl">Dostosuj zawartość częstotliwościową:</p>
     <p xml:lang="sl">Prilagodi vsebino frekvence:</p>
+    <p xml:lang="sv">Justera frekvensinnehåll:</p>
     <p xml:lang="tr">Frekans içeriğini ayarla</p>
     <p xml:lang="uk">Коригування даних частоти:</p>
     <p xml:lang="x-test">xxAdjust frequency content:xx</p>
@@ -183,6 +190,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Laagdoorlaatfilter</li>
       <li xml:lang="pl">Filtr dolnoprzepustowy</li>
       <li xml:lang="sl">Nizkoprepustni filter</li>
+      <li xml:lang="sv">Lågpassfilter</li>
       <li xml:lang="tr">Düşük geçiş süzgeci</li>
       <li xml:lang="uk">Фільтр нижніх частот</li>
       <li xml:lang="x-test">xxLowpass filterxx</li>
@@ -200,6 +208,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Banddoorlaatfilter</li>
       <li xml:lang="pl">Filtr pasmowy</li>
       <li xml:lang="sl">Pasovni filter</li>
+      <li xml:lang="sv">Bandpassfilter</li>
       <li xml:lang="tr">Bant geçişi süzgeci</li>
       <li xml:lang="uk">Фільтр смуги пропускання</li>
       <li xml:lang="x-test">xxBandpass filterxx</li>
@@ -217,6 +226,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Notch-filter</li>
       <li xml:lang="pl">Filtr prążka</li>
       <li xml:lang="sl">Zarezni filter</li>
+      <li xml:lang="sv">Bandspärrfilter</li>
       <li xml:lang="tr">Çentik süzgeci</li>
       <li xml:lang="uk">Фільтр розривів</li>
       <li xml:lang="x-test">xxNotch filterxx</li>
@@ -234,6 +244,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Toonverschuiving</li>
       <li xml:lang="pl">Przesunięcie tonu</li>
       <li xml:lang="sl">Premik višine tonov</li>
+      <li xml:lang="sv">Tonhöjdsändring</li>
       <li xml:lang="tr">Perde kayması</li>
       <li xml:lang="uk">Зсув тону</li>
       <li xml:lang="x-test">xxPitch shiftxx</li>
@@ -252,6 +263,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="nl">Andere mogelijkheden:</p>
     <p xml:lang="pl">Inne możliwości:</p>
     <p xml:lang="sl">Druge zmožnosti:</p>
+    <p xml:lang="sv">Övriga funktioner:</p>
     <p xml:lang="tr">Diğer özellikler:</p>
     <p xml:lang="uk">Інші можливості</p>
     <p xml:lang="x-test">xxOther features:xx</p>
@@ -270,6 +282,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Ruis toevoegen</li>
       <li xml:lang="pl">Dodaj szum</li>
       <li xml:lang="sl">Doda šum</li>
+      <li xml:lang="sv">Lägg till brus</li>
       <li xml:lang="tr">Gürültü ekle</li>
       <li xml:lang="uk">Додайте шум</li>
       <li xml:lang="x-test">xxAdd noisexx</li>
@@ -287,6 +300,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Stilte toevoegen</li>
       <li xml:lang="pl">Dodaj ciszę</li>
       <li xml:lang="sl">Doda tišino</li>
+      <li xml:lang="sv">Lägg till tystnad</li>
       <li xml:lang="tr">Sessizlik ekle</li>
       <li xml:lang="uk">Додайте тишу</li>
       <li xml:lang="x-test">xxAdd silencexx</li>
@@ -304,6 +318,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Audio sample-snelheid converteren</li>
       <li xml:lang="pl">Przekształć częstotliwość próbkowania dźwięku</li>
       <li xml:lang="sl">Pretvori hitrost vzorčenja zvoka</li>
+      <li xml:lang="sv">Konvertera ljudets samplingsfrekvens</li>
       <li xml:lang="tr">Ses örneklem hızını dönüştür</li>
       <li xml:lang="uk">Перетворюйте частоту дискретизації звуку</li>
       <li xml:lang="x-test">xxConvert audio sample ratexx</li>
@@ -321,6 +336,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Naar positie springen</li>
       <li xml:lang="pl">Przejdź do położenia</li>
       <li xml:lang="sl">Pojdi na pozicijo</li>
+      <li xml:lang="sv">Gå till position</li>
       <li xml:lang="tr">Konuma git</li>
       <li xml:lang="uk">Перейти до позиції</li>
       <li xml:lang="x-test">xxGo to positionxx</li>
@@ -338,6 +354,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Audio uit klembord invoegen</li>
       <li xml:lang="pl">Wstaw dźwięk ze schowka</li>
       <li xml:lang="sl">Vstavi zvok iz odložišča</li>
+      <li xml:lang="sv">Infoga ljud från klippbordet</li>
       <li xml:lang="tr">Panodan ses ekle</li>
       <li xml:lang="uk">Вставляйте звукові дані з буфера обміну даними</li>
       <li xml:lang="x-test">xxInsert audio from clipboardxx</li>
@@ -355,6 +372,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Audio omkeren</li>
       <li xml:lang="pl">Odwróć dźwięk</li>
       <li xml:lang="sl">Obrni zvok</li>
+      <li xml:lang="sv">Vänd ljud</li>
       <li xml:lang="tr">Sesi tersine çevir</li>
       <li xml:lang="uk">Інвертуйте звукові дані</li>
       <li xml:lang="x-test">xxReverse audioxx</li>
@@ -372,6 +390,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Audioblokken tussen labels opslaan als aparte bestanden</li>
       <li xml:lang="pl">Zapisz bloki dźwięku pomiędzy etykietami jako osobne pliki</li>
       <li xml:lang="sl">Shrani bloke zvoka med oznakami kot ločene datoteke</li>
+      <li xml:lang="sv">Spara ljudblock mellan beteckningar som separata filer</li>
       <li xml:lang="tr">Etiketler arasındaki ses bloklarını ayrı dosyalar olarak kaydet</li>
       <li xml:lang="uk">Зберігайте звукові блоки між мітками як окремі файли</li>
       <li xml:lang="x-test">xxSave audio blocks between labels as separate filesxx</li>
@@ -389,6 +408,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Sonagram (spectrogram)</li>
       <li xml:lang="pl">Sonagram (spektrogram)</li>
       <li xml:lang="sl">Sonagram (spektrogram)</li>
+      <li xml:lang="sv">Sonagram (spektrogram)</li>
       <li xml:lang="tr">Sonagram (Spektogram)</li>
       <li xml:lang="uk">Сонаграма (спектограма)</li>
       <li xml:lang="x-test">xxSonagram (spectrogram)xx</li>
@@ -407,6 +427,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="nl">Ondersteunde bestandsformaten:</p>
     <p xml:lang="pl">Obsługiwane formaty plików:</p>
     <p xml:lang="sl">Podprti formati datotek:</p>
+    <p xml:lang="sv">Filformat som stöds:</p>
     <p xml:lang="tr">Desteklenen dosya biçimleri:</p>
     <p xml:lang="uk">Підтримувані формати файлів:</p>
     <p xml:lang="x-test">xxSupported file formats:xx</p>
@@ -425,6 +446,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">WAV (*.wav)</li>
       <li xml:lang="pl">WAV (*.wav)</li>
       <li xml:lang="sl">WAV (*.wav)</li>
+      <li xml:lang="sv">WAV (*.wav)</li>
       <li xml:lang="tr">WAV (*.wav)</li>
       <li xml:lang="uk">WAV (*.wav)</li>
       <li xml:lang="x-test">xxWAV (*.wav)xx</li>
@@ -442,6 +464,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Ogg/Opus (*.opus)</li>
       <li xml:lang="pl">Ogg/Opus (*.opus)</li>
       <li xml:lang="sl">Ogg/Opus (*.opus)</li>
+      <li xml:lang="sv">Ogg/Opus (*.opus)</li>
       <li xml:lang="tr">Ogg/Opus (*.opus)</li>
       <li xml:lang="uk">Ogg/Opus (*.opus)</li>
       <li xml:lang="x-test">xxOgg/Opus (*.opus)xx</li>
@@ -459,6 +482,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="pl">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="sl">Ogg/Vorbis (*.ogg)</li>
+      <li xml:lang="sv">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="tr">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="uk">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="x-test">xxOgg/Vorbis (*.ogg)xx</li>
@@ -476,6 +500,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">MP3 (*.mp3)</li>
       <li xml:lang="pl">MP3 (*.mp3)</li>
       <li xml:lang="sl">MP3 (*.mp3)</li>
+      <li xml:lang="sv">MP3 (*.mp3)</li>
       <li xml:lang="tr">MP3 (*.mp3)</li>
       <li xml:lang="uk">MP3 (*.mp3)</li>
       <li xml:lang="x-test">xxMP3 (*.mp3)xx</li>
@@ -493,6 +518,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">FLAC (*.flac)</li>
       <li xml:lang="pl">FLAC (*.flac)</li>
       <li xml:lang="sl">FLAC (*.flac)</li>
+      <li xml:lang="sv">FLAC (*.flac)</li>
       <li xml:lang="tr">FLAC (*.flac)</li>
       <li xml:lang="uk">FLAC (*.flac)</li>
       <li xml:lang="x-test">xxFLAC (*.flac)xx</li>
@@ -510,6 +536,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">ASCII gecodeerde audio (*.ascii)</li>
       <li xml:lang="pl">Dźwięk zakodowany w ASCII (*.ascii)</li>
       <li xml:lang="sl">ASCII kodiran zvok (*.ascii)</li>
+      <li xml:lang="sv">ASCII-kodat ljud (*.ascii)</li>
       <li xml:lang="tr">ASCII kodlu ses (*.ascii)</li>
       <li xml:lang="uk">Закодовані в ASCII звукові дані (*.ascii)</li>
       <li xml:lang="x-test">xxASCII coded audio (*.ascii)xx</li>
@@ -527,6 +554,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="nl">alle bestandsformaten ondersteund door libaudiofile (enige formaten alleen te importeren)</li>
       <li xml:lang="pl">wszystkie formaty plików obsługiwane przez libaudiofile (niektóre formaty są tylko do importu)</li>
       <li xml:lang="sl">vsi formati datotek, ki jih podpira libaudiofile (nekateri formati so samo za uvoz)</li>
+      <li xml:lang="sv">alla filformat som stöds av libaudiofile (vissa format är bara för import)</li>
       <li xml:lang="tr">libaudiofile tarafından desteklenen tüm dosya biçimleri (bazı biçimler yalnızca içe aktarılabilir)</li>
       <li xml:lang="uk">усі формати файлів, підтримку яких передбачено у libaudiofile (для деяких форматів передбачено лише імпортування)</li>
       <li xml:lang="x-test">xxall file formats supported by libaudiofile (some formats are import only)xx</li>

@@ -25,7 +25,7 @@
 # KDE Application Version, managed by release script
 set (RELEASE_SERVICE_VERSION_MAJOR "24")
 set (RELEASE_SERVICE_VERSION_MINOR "11")
-set (RELEASE_SERVICE_VERSION_MICRO "80")
+set (RELEASE_SERVICE_VERSION_MICRO "90")
 
 #############################################################################
 ### build options:                                                        ###

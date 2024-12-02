@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Tommi Nieminen <translator@legisign.org>, 2015, 2016, 2017, 2018, 2020.
+# SPDX-FileCopyrightText: 2015, 2016, 2017, 2018, 2020, 2024 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2015, 2016.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-15 00:39+0000\n"
-"PO-Revision-Date: 2020-06-23 11:48+0300\n"
+"PO-Revision-Date: 2024-11-21 07:10+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -184,11 +184,10 @@ msgstr "http://caulier.gilles.free.fr"
 msgid "Dave Flogeras"
 msgstr "Dave Flogeras"
 
-# Käännetään notch kun on sen aika :)
 #: kwave/main.cpp:69
 #, kde-format
 msgid "Notch filter plugin"
-msgstr "Notch-suodatusliitännäinen"
+msgstr "Kaistanpäästösuodatusliitännäinen"
 
 #: kwave/main.cpp:73
 #, kde-format
@@ -892,10 +891,11 @@ msgctxt "menu: /Fx/Low Pass"
 msgid "Low Pass"
 msgstr "Matalapäästö"
 
+# notch filter = band-stop filter = kaistanpäästösuodatin
 #: kwave/menus.config:181
 msgctxt "menu: /Fx/Notch Filter"
 msgid "Notch Filter"
-msgstr "Notch-suodatin"
+msgstr "Kaistanpäästösuodatin"
 
 #: kwave/menus.config:182
 msgctxt "menu: /Fx/Band Pass"
@@ -6177,10 +6177,9 @@ msgid "The audio device '%1' is unknown or no longer connected"
 msgstr "Äänilaite ”%1” on tuntematon tai ei enää kytketty"
 
 #: plugins/playback/PlayBack-Qt.cpp:154
-#, fuzzy, kde-format
-#| msgid "Error: Codec not supported"
+#, kde-format
 msgid "format not supported"
-msgstr "Virhe: Koodekkia ei tueta"
+msgstr "tiedostomuotoa ei tueta"
 
 #: plugins/playback/PlayBack-Qt.cpp:201
 #, kde-format

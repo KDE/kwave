@@ -6,8 +6,7 @@
   <!ENTITY % Italian "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "20.07.70">
-  <!ENTITY version_year "2020">
+  <!ENTITY version "24.12.0">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -18,6 +17,7 @@
   <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
   <!ENTITY url_debian "https://www.debian.org">
   <!ENTITY url_flac "https://xiph.org/flac/">
+  <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
@@ -30,7 +30,6 @@
   <!ENTITY url_licenses "&url_prefix_gitweb;LICENSES">
   <!ENTITY url_ogg_vorbis "https://www.xiph.org">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
-  <!ENTITY url_sourceforge "https://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_web_sf "https://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY i18n-cmd_syntax "Sintassi: ">
@@ -342,29 +341,33 @@
 ></copyright>
     <copyright
 ><year
->&version_year;</year
+>2020</year
 ><holder
 >Thomas Eschenbacher</holder
+></copyright>
+    <copyright
+><year
+>2024</year
+><holder
+>Mark Penner</holder
 ></copyright>
 
     <legalnotice
 >&FDLNotice;</legalnotice>
 
     <date
->2020-07-06</date>
+>2024-11-09</date>
     <releaseinfo
->20.07.70</releaseinfo>
+>&version;</releaseinfo>
 
     <abstract
 ><para
->&kwave; è un semplice editor dei suoni che si basa su &kf5-full;.</para
+>&kwave; è un semplice editor dei suoni che si basa su &kde-frameworks;.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
-	<keyword
->KF5</keyword>
 	<keyword
 >multimedia</keyword>
 	<keyword
@@ -399,7 +402,7 @@
 >Introduzione</title>
 
     <para
->Questo è «&kwave;», un semplice editor dei suoni che si basa su &kf5-full;. Le sue caratteristiche comprendono: <itemizedlist>
+>Questo è «&kwave;», un semplice editor dei suoni che si basa su &kde-frameworks;. Le sue caratteristiche comprendono: <itemizedlist>
     	<listitem
 ><para
 >un'interfaccia utente che può essere utilizzata in modalità scheda, interfaccia a documento singolo o a documenti multipli </para
@@ -434,11 +437,11 @@
 ></listitem>
     	<listitem
 ><para
->Riproduzione tramite Qt, PulseAudio, ALSA e OSS </para
+>Riproduzione tramite ALSA, PulseAudio, Qt e OSS </para
 ></listitem>
     	<listitem
 ><para
->Registrazione tramite PulseAudio, ALSA e OSS </para
+>Registrazione tramite ALSA, PulseAudio, Qt e OSS </para
 ></listitem>
     	<listitem
 ><para
@@ -508,23 +511,21 @@
 ><para
 >Pagina web del progetto<anchor id="project-homepage"/></para
 ><para
->Per informazioni sui rilasci aggiornati o altre informazioni su questo progetto, dai uno sguardo alla <ulink url="&url_homepage;"
+>Per informazioni sui rilasci aggiornati consulta la <ulink url="&url_apps_kde;"
+>pagina di &kwave;</ulink
+> su apps.kde.org. Per altre informazioni dai uno sguardo alla <ulink url="&url_homepage;"
 >pagina web di &kwave;</ulink
 >. </para
 ></listitem>
 	<listitem
 ><para
->Repository GIT<anchor id="git-repository"/> </para>
+>Repository Git<anchor id="git-repository"/> </para>
 	<para
->È presente anche un nuovo repository GIT ospitato sui server &kde;, e una copia del repository su <ulink url="&url_sourceforge;"
+>Il repository git è ospitato nella istanza Gitlab di &kde; <ulink url="&url_git_web_kde;"
+>qui</ulink
+>, ed esiste anche una copia del repository su <ulink url="&url_git_web_sf;"
 >SourceForge</ulink
->, dove puoi ottenere i sorgenti dell'ultima versione di sviluppo. Per sapere come ottenere l'accesso al repository, leggi il capitolo sulla <ulink url="&url_devel_fetching_from_git;"
->compilazione da GIT</ulink
-> nella documentazione per gli sviluppatori. Esiste anche un'interfaccia web GIT in <ulink url="&url_git_web_kde;"
->&kde;</ulink
-> e in <ulink url="&url_git_web_sf;"
->SourceForge</ulink
-> da usare per sfogliare i sorgenti. </para
+>. </para
 ></listitem>
     </itemizedlist>
 
@@ -545,7 +546,7 @@
 >Da &kwave; v0.8.0 il changelog non viene più incluso in questo manuale. Se sei interessato alla cronologia completa delle modifiche, puoi trovarla qui: <ulink url="&url_changelog;"
 >&url_changelog;</ulink
 > o puoi sfogliare per conto tuo i sorgenti attraverso l'<ulink url="&url_git_web_kde;"
->interfaccia web di GIT</ulink
+>interfaccia web di git</ulink
 >. </para>
 
     <para
@@ -1356,7 +1357,7 @@
 >Registrazione</title>
 
     <para
->&kwave; è in grado di registrare dati audio da diverse fonti, con tutte le frequenze, i formati e gli altri modi supportati dalla tua scheda audio. Attualmente &kwave; registra tramite la vecchia interfaccia sonora OSS, e dalla versione 0.7.4 anche tramite la più recente e potente interfaccia ALSA, scelta preferita per il kernel linux 2.6. </para>
+>&kwave; è in grado di registrare dati audio da diverse fonti, con tutte le frequenze, i formati e gli altri modi supportati dalla tua scheda audio. &kwave; è in grado di registrare con i motori ALSA, PulseAudio, Qt e OSS. </para>
     <para
 >Si accede alla registrazione dal menu <menuchoice
 > <guimenu
@@ -1522,7 +1523,15 @@
 ></listitem>
 	<listitem
 ><para
->OSS (Open Sound System): l'implementazione Linux più vecchia, capace di uscita mono e stereo. Dal Linux kernel 2.6 è sconsigliata ma è ancora molto diffusa. Può entrare in conflitto con altre applicazioni audio, e al momento solo un'applicazione può utilizzare la riproduzione OSS. </para
+>PulseAudio: server audio di uso generale comune in Linux. PulseAudio potrebbe non essere in grado di riprodurre a bassa latenza come ALSA. </para
+></listitem>
+	<listitem
+><para
+>Qt Multimedia: non progettato per audio a bassa latenza, ma funziona con buffer di dimensioni grandi. </para
+></listitem>
+	<listitem
+><para
+>OSS (Open Sound System): l'implementazione Linux più vecchia, capace di uscita mono e stereo. Dal Linux kernel 2.6 è sconsigliata. Può entrare in conflitto con altre applicazioni audio, e al momento solo un'applicazione può utilizzare la riproduzione OSS. </para
 ></listitem>
     </itemizedlist
 ></para>
@@ -1545,8 +1554,6 @@
 	</screenshot>
     </para>
 
-    <para
->&kwave; supporta attualmente solo la riproduzione a 8 e 16 bit, con uscita mono o stereo tramite l'interfaccia OSS, ma anche tutte le altre modalità che la tua scheda audio può supportare tramite l'interfaccia ALSA. </para>
     <para
 >Se il tuo file audio usa più o meno canali di quelli consentiti dalla riproduzione, tutti i canali saranno miscelati assieme durante la riproduzione. Per esempio, se hai un file con tre canali e usi la riproduzione stereo, il canale sinistro riprodurrà il canale 0 (superiore) e metà del canale 1 (mediano), il canale destro riprodurrà metà del canale 1 (mediano) e il canale 2 (inferiore). </para>
     <para
@@ -11210,7 +11217,7 @@
 	    </question>
     	    <answer>
 	    	<para
->&kwave; non ha bisogno di supportare alcuna scheda audio. La scheda audio deve essere supportata dal tuo sistema operativo e &kwave; usa la sua interfaccia al driver audio del sistema operativo tramite un'interfaccia OSS o ALSA. </para>
+>&kwave; non ha bisogno di supportare alcuna scheda audio. La scheda audio deve essere supportata dal tuo sistema operativo e &kwave; usa la sua interfaccia al driver audio del sistema operativo tramite un'interfaccia ALSA, PulseAudio, Qt o OSS. </para>
 	    </answer>
 	</qandaentry>
 
@@ -11376,8 +11383,12 @@
 > che elenca tutti gli autori e i contributori di &kwave;. </para>
 
     <para
->Copyright (C) della documentazione &version_year; Thomas Eschenbacher <email
+>Copyright (C) della documentazione 2020 Thomas Eschenbacher <email
 >thomas.eschenbacher@gmx.de</email
+> </para>
+    <para
+>Copyright (C) della documentazione (C) 2024 Mark Penner <email
+>mrp@markpenner.space</email
 > </para>
 <para
 >Valter Mura <email
@@ -11458,6 +11469,16 @@
 ></para
 ><para
 >i18n, traduzioni in francese, schermate, beta tester </para>
+	    </listitem>
+	    <listitem>
+		<para
+><emphasis role="bold"
+>Mark Penner <email
+>mrp@markpenner.space</email
+> </emphasis
+></para
+><para
+>sviluppo </para>
 	    </listitem>
 	    <listitem>
 	    	<para

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-15 00:39+0000\n"
-"PO-Revision-Date: 2024-08-20 00:22+0200\n"
+"PO-Revision-Date: 2024-12-10 01:12+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -216,12 +216,12 @@ msgstr "PulseAudio 녹음 플러그인"
 #: kwave/main.cpp:83
 #, kde-format
 msgid "Mark Penner"
-msgstr ""
+msgstr "Mark Penner"
 
 #: kwave/main.cpp:86
 #, kde-format
 msgid "https://markpenner.space"
-msgstr ""
+msgstr "https://markpenner.space"
 
 #: kwave/main.cpp:90
 #, kde-format

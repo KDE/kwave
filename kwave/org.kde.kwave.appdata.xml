@@ -56,6 +56,7 @@ SPDX-FileCopyrightText: none
   <summary xml:lang="ia">Editor (redactor) de sono</summary>
   <summary xml:lang="it">Editor del suono</summary>
   <summary xml:lang="ka">ხმის რედაქტორი</summary>
+  <summary xml:lang="ko">소리 편집기</summary>
   <summary xml:lang="nl">Geluidsbewerker</summary>
   <summary xml:lang="pl">Edytor dźwięku</summary>
   <summary xml:lang="sl">Urejevalnik zvoka</summary>
@@ -233,6 +234,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="ia">Filtro de sectura</li>
       <li xml:lang="it">Filtro elimina banda</li>
       <li xml:lang="ka">Notch ფილტრი</li>
+      <li xml:lang="ko">노치 필터</li>
       <li xml:lang="nl">Notch-filter</li>
       <li xml:lang="pl">Filtr prążka</li>
       <li xml:lang="sl">Zarezni filter</li>
@@ -252,6 +254,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="ia">Cambiamento de tono</li>
       <li xml:lang="it">Spostamento di tono</li>
       <li xml:lang="ka">ტონის წანაცვლება</li>
+      <li xml:lang="ko">음높이 조절</li>
       <li xml:lang="nl">Toonverschuiving</li>
       <li xml:lang="pl">Przesunięcie tonu</li>
       <li xml:lang="sl">Premik višine tonov</li>
@@ -272,6 +275,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="ia">Altere Characteristicas:</p>
     <p xml:lang="it">Altre funzionalità:</p>
     <p xml:lang="ka">სხვა ფუნქციები:</p>
+    <p xml:lang="ko">기타 기능</p>
     <p xml:lang="nl">Andere mogelijkheden:</p>
     <p xml:lang="pl">Inne możliwości:</p>
     <p xml:lang="sl">Druge zmožnosti:</p>
@@ -292,6 +296,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="ia">Adde Ruito</li>
       <li xml:lang="it">Aggiungi rumore</li>
       <li xml:lang="ka">ხმაურის დამატება</li>
+      <li xml:lang="ko">잡음 추가</li>
       <li xml:lang="nl">Ruis toevoegen</li>
       <li xml:lang="pl">Dodaj szum</li>
       <li xml:lang="sl">Doda šum</li>
@@ -311,6 +316,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="ia">Adde silentio</li>
       <li xml:lang="it">Aggiungi silenzio</li>
       <li xml:lang="ka">სიჩუმის დამატება</li>
+      <li xml:lang="ko">무음 추가</li>
       <li xml:lang="nl">Stilte toevoegen</li>
       <li xml:lang="pl">Dodaj ciszę</li>
       <li xml:lang="sl">Doda tišino</li>
@@ -349,6 +355,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="ia">Vade a Position</li>
       <li xml:lang="it">Vai alla posizione</li>
       <li xml:lang="ka">პოზიციაზე გადასვლა</li>
+      <li xml:lang="ko">위치로 이동</li>
       <li xml:lang="nl">Naar positie springen</li>
       <li xml:lang="pl">Przejdź do położenia</li>
       <li xml:lang="sl">Pojdi na pozicijo</li>
@@ -368,6 +375,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="ia">Inserta audio ex area de transferentia</li>
       <li xml:lang="it">Inserisci audio dagli appunti</li>
       <li xml:lang="ka">ხმის ჩასმა ბუფერიდან</li>
+      <li xml:lang="ko">클립보드에서 오디오 삽입</li>
       <li xml:lang="nl">Audio uit klembord invoegen</li>
       <li xml:lang="pl">Wstaw dźwięk ze schowka</li>
       <li xml:lang="sl">Vstavi zvok iz odložišča</li>

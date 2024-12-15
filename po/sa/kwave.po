@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-15 00:39+0000\n"
-"PO-Revision-Date: 2024-12-13 20:22+0530\n"
+"PO-Revision-Date: 2024-12-14 13:32+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "भवतः नामानि"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "भवतः ईमेलपत्राणि"
 
 #: kwave/App.cpp:150
 #, kde-format
@@ -85,13 +85,13 @@ msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
 "multiple times"
 msgid "%1 <%2>"
-msgstr ""
+msgstr "%1 <%2>"
 
 #: kwave/FileContext.cpp:868
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
-msgstr ""
+msgstr "* %1 (संशोधितम्) २."
 
 #: kwave/FileContext.cpp:903
 #, kde-format
@@ -384,25 +384,25 @@ msgstr "आरम्भः अस्य प्रतिरूपणं कृत
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
-msgstr ""
+msgstr "सर्वाणि आदेशानि <file> सञ्चिकायां लॉग् कुर्वन्तु ।"
 
 #: kwave/main.cpp:180
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
-msgstr ""
+msgstr "संचिका"
 
 #: kwave/main.cpp:185
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
-msgstr ""
+msgstr "एकं GUI प्रकारं चिनोतु: SDI, MDI अथवा TAB मोड् ।"
 
 #: kwave/main.cpp:186
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
-msgstr ""
+msgstr "स्दि|मदि|तब"
 
 #: kwave/main.cpp:191
 #, kde-format
@@ -410,12 +410,14 @@ msgctxt "description of command line parameter"
 msgid ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
 msgstr ""
+"उद्घाटयितुं श्रव्यसञ्चिकानां, Kwave मैक्रो सञ्चिकानां वा Kwave URLs इत्यस्य सूची "
+"(वैकल्पिकरूपेण)"
 
 #: kwave/main.cpp:193
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
-msgstr ""
+msgstr "[सञ्चिकाः...]"
 
 #: kwave/main.cpp:198
 #, kde-format
@@ -474,7 +476,7 @@ msgstr "संचिका"
 #: kwave/menus.config:18
 msgctxt "menu: /File/New..."
 msgid "New..."
-msgstr ""
+msgstr "नूतनम्‌..."
 
 #: kwave/menus.config:19
 msgctxt "menu: /File/Open"
@@ -484,12 +486,12 @@ msgstr "उद्घाटित"
 #: kwave/menus.config:22
 msgctxt "menu: /File/Open Recent"
 msgid "Open Recent"
-msgstr ""
+msgstr "Recent इति उद्घाटयतु"
 
 #: kwave/menus.config:26
 msgctxt "menu: /File/Open Recent/Clear List"
 msgid "Clear List"
-msgstr ""
+msgstr "स्पष्ट सूची"
 
 #: kwave/menus.config:29
 msgctxt "menu: /File/Record"
@@ -499,52 +501,52 @@ msgstr "अभिलेख"
 #: kwave/menus.config:33
 msgctxt "menu: /File/&Save"
 msgid "&Save"
-msgstr ""
+msgstr "&रक्ष्"
 
 #: kwave/menus.config:35
 msgctxt "menu: /File/Save"
 msgid "Save"
-msgstr ""
+msgstr "रक्ष्"
 
 #: kwave/menus.config:36
 msgctxt "menu: /File/Save/As..."
 msgid "As..."
-msgstr ""
+msgstr "यथा..."
 
 #: kwave/menus.config:38
 msgctxt "menu: /File/Save/Selection..."
 msgid "Selection..."
-msgstr ""
+msgstr "चयन..."
 
 #: kwave/menus.config:39
 msgctxt "menu: /File/Save/Blocks..."
 msgid "Blocks..."
-msgstr ""
+msgstr "अवरोधाः..."
 
 #: kwave/menus.config:41
 msgctxt "menu: /File/Close"
 msgid "Close"
-msgstr ""
+msgstr "पिधानं करोतु"
 
 #: kwave/menus.config:45
 msgctxt "menu: /File/New Window"
 msgid "New Window"
-msgstr ""
+msgstr "नवीन विण्डो"
 
 #: kwave/menus.config:48
 msgctxt "menu: /File/Revert"
 msgid "Revert"
-msgstr ""
+msgstr "प्रत्यावर्तयतु"
 
 #: kwave/menus.config:52
 msgctxt "menu: /File/Quit"
 msgid "Quit"
-msgstr ""
+msgstr "परिजहातु"
 
 #: kwave/menus.config:55
 msgctxt "menu: /Edit"
 msgid "Edit"
-msgstr ""
+msgstr "सम्पादन"
 
 #: kwave/menus.config:56
 msgctxt "menu: /Edit/Undo"
@@ -589,17 +591,17 @@ msgstr "चयनम्"
 #: kwave/menus.config:77
 msgctxt "menu: /Edit/Selection/All"
 msgid "All"
-msgstr ""
+msgstr "सर्वे"
 
 #: kwave/menus.config:78
 msgctxt "menu: /Edit/Selection/Range"
 msgid "Range"
-msgstr ""
+msgstr "पङ्क्तिः"
 
 #: kwave/menus.config:79
 msgctxt "menu: /Edit/Selection/Visible Area"
 msgid "Visible Area"
-msgstr ""
+msgstr "दृश्यमानक्षेत्रम्"
 
 #: kwave/menus.config:80
 msgctxt "menu: /Edit/Selection/Next"
@@ -614,22 +616,22 @@ msgstr "पूर्वतनम्‌"
 #: kwave/menus.config:82
 msgctxt "menu: /Edit/Selection/Nothing"
 msgid "Nothing"
-msgstr ""
+msgstr "किमपि न"
 
 #: kwave/menus.config:83
 msgctxt "menu: /Edit/Selection/To Start"
 msgid "To Start"
-msgstr ""
+msgstr "आरम्भं कर्तुं"
 
 #: kwave/menus.config:84
 msgctxt "menu: /Edit/Selection/To End"
 msgid "To End"
-msgstr ""
+msgstr "To End इति"
 
 #: kwave/menus.config:85
 msgctxt "menu: /Edit/Selection/Expand to Labels"
 msgid "Expand to Labels"
-msgstr ""
+msgstr "Labels इत्यत्र विस्तारं कुर्वन्तु"
 
 #: kwave/menus.config:86
 msgctxt "menu: /Edit/Selection/To Next Labels"
@@ -644,7 +646,7 @@ msgstr "पूर्वलेबल् प्रति"
 #: kwave/menus.config:90
 msgctxt "menu: /Edit/Track/Add"
 msgid "Add"
-msgstr ""
+msgstr "संयोजयति"
 
 #: kwave/menus.config:90
 msgctxt "menu: /Edit/Track"
@@ -659,22 +661,22 @@ msgstr "लुप्"
 #: kwave/menus.config:97
 msgctxt "menu: /Edit/Track/Select all"
 msgid "Select all"
-msgstr ""
+msgstr "सर्वाणि चिनोतु"
 
 #: kwave/menus.config:98
 msgctxt "menu: /Edit/Track/Invert Selection"
 msgid "Invert Selection"
-msgstr ""
+msgstr "चयनं विपर्यययतु"
 
 #: kwave/menus.config:101
 msgctxt "menu: /Edit/Clipboard"
 msgid "Clipboard"
-msgstr ""
+msgstr "क्लिपबोर्ड"
 
 #: kwave/menus.config:102
 msgctxt "menu: /Edit/Clipboard/Flush"
 msgid "Flush"
-msgstr ""
+msgstr "फ्लश"
 
 #: kwave/menus.config:105
 msgctxt "menu: /Edit/Clipboard/Insert At..."
@@ -684,67 +686,67 @@ msgstr "Insert At..."
 #: kwave/menus.config:112
 msgctxt "menu: /Edit/File Properties..."
 msgid "File Properties..."
-msgstr ""
+msgstr "सञ्चिकागुणाः..."
 
 #: kwave/menus.config:115
 msgctxt "menu: /View"
 msgid "View"
-msgstr ""
+msgstr "दृश्यं"
 
 #: kwave/menus.config:116
 msgctxt "menu: /View/Go to Position..."
 msgid "Go to Position..."
-msgstr ""
+msgstr "पदं प्रति गच्छन्तु..."
 
 #: kwave/menus.config:117
 msgctxt "menu: /View/Begin"
 msgid "Begin"
-msgstr ""
+msgstr "आरम्भ"
 
 #: kwave/menus.config:118
 msgctxt "menu: /View/End"
 msgid "End"
-msgstr ""
+msgstr "अंत"
 
 #: kwave/menus.config:119
 msgctxt "menu: /View/Previous Page"
 msgid "Previous Page"
-msgstr ""
+msgstr "पूर्व पृष्ठ"
 
 #: kwave/menus.config:120
 msgctxt "menu: /View/Next Page"
 msgid "Next Page"
-msgstr ""
+msgstr "अग्रिमः पृष्ठः"
 
 #: kwave/menus.config:121
 msgctxt "menu: /View/Scroll Right"
 msgid "Scroll Right"
-msgstr ""
+msgstr "स्क्रॉल राइट्"
 
 #: kwave/menus.config:122
 msgctxt "menu: /View/Scroll Left"
 msgid "Scroll Left"
-msgstr ""
+msgstr "Scroll Left इति"
 
 #: kwave/menus.config:124
 msgctxt "menu: /View/Zoom In"
 msgid "Zoom In"
-msgstr ""
+msgstr "Zoom In इति"
 
 #: kwave/menus.config:125
 msgctxt "menu: /View/Zoom Out"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Zoom Out इति"
 
 #: kwave/menus.config:126
 msgctxt "menu: /View/Zoom to Selection"
 msgid "Zoom to Selection"
-msgstr ""
+msgstr "चयनं प्रति जूम कुर्वन्तु"
 
 #: kwave/menus.config:128
 msgctxt "menu: /View/Zoom to Whole Signal"
 msgid "Zoom to Whole Signal"
-msgstr ""
+msgstr "सम्पूर्ण संकेतं यावत् जूम कुर्वन्तु"
 
 #: kwave/menus.config:129
 msgctxt "menu: /View/Zoom to 100%"
@@ -754,7 +756,7 @@ msgstr "100% यावत् जूम कुर्वन्तु"
 #: kwave/menus.config:131
 msgctxt "menu: /Play"
 msgid "Play"
-msgstr ""
+msgstr "क्रीडतु"
 
 #: kwave/menus.config:132
 msgctxt "menu: /Play/Previous"
@@ -774,22 +776,22 @@ msgstr "प्रारंभः"
 #: kwave/menus.config:135
 msgctxt "menu: /Play/Loop"
 msgid "Loop"
-msgstr ""
+msgstr "परिक्रम"
 
 #: kwave/menus.config:136
 msgctxt "menu: /Play/Pause"
 msgid "Pause"
-msgstr ""
+msgstr "विराम"
 
 #: kwave/menus.config:137
 msgctxt "menu: /Play/Continue"
 msgid "Continue"
-msgstr ""
+msgstr "अनुवर्तते"
 
 #: kwave/menus.config:138
 msgctxt "menu: /Play/Stop"
 msgid "Stop"
-msgstr ""
+msgstr "विरमतु"
 
 #: kwave/menus.config:139
 msgctxt "menu: /Play/Forward"
@@ -809,12 +811,12 @@ msgstr "अभिलेख"
 #: kwave/menus.config:143
 msgctxt "menu: /Record/Prepare..."
 msgid "Prepare..."
-msgstr ""
+msgstr "सज्जी करोतु..."
 
 #: kwave/menus.config:144
 msgctxt "menu: /Record/Start Now!"
 msgid "Start Now!"
-msgstr ""
+msgstr "अधुना आरभ्यताम् !"
 
 #: kwave/menus.config:146
 msgctxt "menu: /Labels"
@@ -824,7 +826,7 @@ msgstr "लेबल्स्"
 #: kwave/menus.config:147
 msgctxt "menu: /Labels/Add..."
 msgid "Add..."
-msgstr ""
+msgstr "संयोजयति..."
 
 #: kwave/menus.config:148
 msgctxt "menu: /Labels/Delete"
@@ -834,17 +836,17 @@ msgstr "लुप्"
 #: kwave/menus.config:153
 msgctxt "menu: /Labels/Load..."
 msgid "Load..."
-msgstr ""
+msgstr "भार..."
 
 #: kwave/menus.config:154
 msgctxt "menu: /Labels/Save..."
 msgid "Save..."
-msgstr ""
+msgstr "रक्ष्..."
 
 #: kwave/menus.config:161
 msgctxt "menu: /Fx"
 msgid "Fx"
-msgstr ""
+msgstr "Fx"
 
 #: kwave/menus.config:163
 msgctxt "menu: /Fx/Volume"
@@ -909,7 +911,7 @@ msgstr "विपरीत"
 #: kwave/menus.config:203
 msgctxt "menu: /Calculate"
 msgid "Calculate"
-msgstr ""
+msgstr "गणयतु"
 
 #: kwave/menus.config:204
 msgctxt "menu: /Calculate/Silence"
@@ -929,32 +931,32 @@ msgstr "सोनाग्राम"
 #: kwave/menus.config:227
 msgctxt "menu: /Window"
 msgid "Window"
-msgstr ""
+msgstr "कोष्ठ"
 
 #: kwave/menus.config:228
 msgctxt "menu: /Window/Next Window"
 msgid "Next Window"
-msgstr ""
+msgstr "अग्रिमः विण्डो"
 
 #: kwave/menus.config:229
 msgctxt "menu: /Window/Previous Window"
 msgid "Previous Window"
-msgstr ""
+msgstr "पूर्वविण्डो"
 
 #: kwave/menus.config:230
 msgctxt "menu: /Window/Cascade Sub Windows"
 msgid "Cascade Sub Windows"
-msgstr ""
+msgstr "कैस्केड उप विण्डोज"
 
 #: kwave/menus.config:231
 msgctxt "menu: /Window/Tile Sub Windows"
 msgid "Tile Sub Windows"
-msgstr ""
+msgstr "टाइल उप विण्डोज"
 
 #: kwave/menus.config:232
 msgctxt "menu: /Window/Arrange Sub Windows Vertically"
 msgid "Arrange Sub Windows Vertically"
-msgstr ""
+msgstr "Sub Windows Vertically व्यवस्थापयन्तु"
 
 #: kwave/menus.config:237
 msgctxt "menu: /Settings"
@@ -964,22 +966,22 @@ msgstr "सेटिंग्स्"
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in.../Separate Windows (SDI)"
 msgid "Separate Windows (SDI)"
-msgstr ""
+msgstr "पृथक् विण्डोज (SDI) ९."
 
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in..."
 msgid "Show Files in..."
-msgstr ""
+msgstr "इत्यस्मिन् सञ्चिकाः दर्शयतु..."
 
 #: kwave/menus.config:239
 msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
 msgid "Same Window (MDI)"
-msgstr ""
+msgstr "समानविण्डो (MDI) २."
 
 #: kwave/menus.config:240
 msgctxt "menu: /Settings/Show Files in.../Tabs"
 msgid "Tabs"
-msgstr ""
+msgstr "टब्स्"
 
 #: kwave/menus.config:242
 msgctxt "menu: /Settings/Playback"
@@ -1004,22 +1006,22 @@ msgstr "स्रोतः"
 #: kwave/menus.config:248
 msgctxt "menu: /Settings/Reset Toolbar"
 msgid "Reset Toolbar"
-msgstr ""
+msgstr "Toolbar पुनः सेट् कुर्वन्तु"
 
 #: kwave/menus.config:249
 msgctxt "menu: /Settings/Re-enable all \"Do not ask again\" messages"
 msgid "Re-enable all \"Do not ask again\" messages"
-msgstr ""
+msgstr "सर्वान् \"पुनः मा पृच्छतु\" इति सन्देशान् पुनः सक्षमं कुर्वन्तु"
 
 #: kwave/menus.config:252
 msgctxt "menu: /Help/Contents"
 msgid "Contents"
-msgstr ""
+msgstr "विषयवस्तु"
 
 #: kwave/menus.config:252
 msgctxt "menu: /Help"
 msgid "Help"
-msgstr ""
+msgstr "साहाय्यम्‌"
 
 #: kwave/menus.config:253
 msgctxt "menu: /Help/About Kwave"
@@ -1029,7 +1031,7 @@ msgstr "क्वावे इत्यस्य विषये"
 #: kwave/menus.config:254
 msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
-msgstr ""
+msgstr "KDE विषये"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
@@ -1088,7 +1090,7 @@ msgstr "प्लेबैकं विरामयतु"
 #, kde-format
 msgctxt "%1=Version number"
 msgid "v%1"
-msgstr ""
+msgstr "in%1"
 
 #: kwave/TopWidget.cpp:254
 #, kde-format
@@ -1216,7 +1218,7 @@ msgstr "'%1' उद्घाटयितुं असमर्थः।"
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
-msgstr ""
+msgstr "अमान्यः अथवा अज्ञातः सञ्चिकाप्रकारः: '%1'."
 
 #: kwave/TopWidget.cpp:1088
 #, kde-format
@@ -1227,7 +1229,7 @@ msgstr "उद्घाटित"
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
-msgstr ""
+msgstr "लम्बता: %1 (%2 नमूनानि) ."
 
 #: kwave/TopWidget.cpp:1152
 #, kde-format
@@ -1240,7 +1242,7 @@ msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
 "2000...3000 (1000 samples)'"
 msgid "Selected: %1...%2 (%3 samples)"
-msgstr ""
+msgstr "चयनितम् : %1...%2 (%3 नमूनानि)"
 
 #: kwave/TopWidget.cpp:1210
 #, kde-format
@@ -1248,7 +1250,7 @@ msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
 "(3 min)'"
 msgid "Selected: %1...%2 (%3)"
-msgstr ""
+msgstr "चयनितम् : %1...%2 (%3)"
 
 #: kwave/TopWidget.cpp:1229
 #, kde-format
@@ -1259,7 +1261,7 @@ msgstr "स्थितिः %1"
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
-msgstr ""
+msgstr "पूर्ववत (%1) ."
 
 #: kwave/TopWidget.cpp:1257
 #, kde-format
@@ -1271,7 +1273,7 @@ msgstr "पूर्ववत"
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
-msgstr ""
+msgstr "पुनः करो (%1) २."
 
 #: kwave/TopWidget.cpp:1268
 #, kde-format
@@ -1283,7 +1285,7 @@ msgstr "पुनः करो"
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
-msgstr ""
+msgstr "पूर्ववत (%1) ."
 
 #: kwave/TopWidget.cpp:1279
 #, kde-format
@@ -1295,7 +1297,7 @@ msgstr "पूर्ववत"
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
-msgstr ""
+msgstr "पुनः करोतु (%1) ."
 
 #: kwave/TopWidget.cpp:1286
 #, kde-format
@@ -1307,19 +1309,19 @@ msgstr "पुनः करो"
 #, kde-format
 msgctxt "special entry in the list of labels to delete all"
 msgid "(All)"
-msgstr ""
+msgstr "(सर्वे)"
 
 #: kwave/TopWidget.cpp:1411
 #, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
-msgstr ""
+msgstr "#%1 (%2) २."
 
 #: kwave/TopWidget.cpp:1414
 #, kde-format
 msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"
-msgstr ""
+msgstr "#%1"
 
 #: kwave/ZoomToolBar.cpp:63 kwave/ZoomToolBar.cpp:64
 #, kde-format
@@ -1423,7 +1425,7 @@ msgstr "प्रत्येकं द्वितीयं बिन्दु�
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
-msgstr ""
+msgstr "क्वावे वक्र पूर्वनिर्धारित (*.curve)"
 
 #: libgui/CurveWidget.cpp:202
 #, kde-format
@@ -1460,13 +1462,13 @@ msgstr " सेक"
 #, kde-format
 msgctxt "tooltip of a label, %1=index, %2=description/name"
 msgid "Label #%1 (%2)"
-msgstr ""
+msgstr "लेबल #%1 (%2) ."
 
 #: libgui/LabelItem.cpp:76
 #, kde-format
 msgctxt "tooltip of a label, without description, %1=index"
 msgid "Label #%1"
-msgstr ""
+msgstr "लेबल #%1"
 
 #: libgui/LabelItem.cpp:93 libgui/TrackView.cpp:272
 #, kde-format
@@ -2397,61 +2399,61 @@ msgstr ""
 #, kde-format
 msgctxt "file progress dialog"
 msgid "File: "
-msgstr ""
+msgstr "संचिका: "
 
 #: libkwave/FileProgress.cpp:99
 #, kde-format
 msgctxt "file progress dialog"
 msgid "Length: "
-msgstr ""
+msgstr "दैर्घ्यम्‌: "
 
 #: libkwave/FileProgress.cpp:107
 #, kde-format
 msgctxt "file progress dialog"
 msgid "Sample Rate: "
-msgstr ""
+msgstr "नमूना दरः : १. "
 
 #: libkwave/FileProgress.cpp:109
 #, kde-format
 msgctxt "file progress dialog, %1=number of samples per second"
 msgid "%1 Samples per second"
-msgstr ""
+msgstr "%1 प्रति सेकण्ड् नमूनानि"
 
 #: libkwave/FileProgress.cpp:114
 #, kde-format
 msgctxt "file progress dialog"
 msgid "Resolution: "
-msgstr ""
+msgstr "प्रस्ताव: "
 
 #: libkwave/FileProgress.cpp:117
 #, kde-format
 msgctxt "file progress dialog, %1=number of bits per sample (8, 16, 24...)"
 msgid "%1 Bits per sample"
-msgstr ""
+msgstr "%1 प्रति नमूना बिट्"
 
 #: libkwave/FileProgress.cpp:122
 #, kde-format
 msgctxt "file progress dialog"
 msgid "Tracks: "
-msgstr ""
+msgstr "पङ्क्तयः : १. "
 
 #: libkwave/FileProgress.cpp:125
 #, kde-format
 msgctxt "number of tracks"
 msgid "1 (mono)"
-msgstr ""
+msgstr "१ (एकः) २."
 
 #: libkwave/FileProgress.cpp:128
 #, kde-format
 msgctxt "number of tracks"
 msgid "2 (stereo)"
-msgstr ""
+msgstr "२ (स्टीरियो) २."
 
 #: libkwave/FileProgress.cpp:131
 #, kde-format
 msgctxt "number of tracks"
 msgid "4 (quadro)"
-msgstr ""
+msgstr "४ (फ्रेम्) २."
 
 #: libkwave/FileProgress.cpp:207
 #, kde-format
@@ -2462,7 +2464,7 @@ msgstr "किं भवन्तः वास्तवमेव शल्यक
 #, kde-format
 msgctxt "file progress dialog, %1=transfer rate, %2=remaining duration"
 msgid "%1 kB/s (%2 remaining)"
-msgstr ""
+msgstr "%1 kB/s (%2 अवशिष्टम्)"
 
 #: libkwave/FileProgress.cpp:289
 #, kde-format
@@ -2470,13 +2472,13 @@ msgctxt ""
 "file progress dialog, %1=number of loaded/saved megabytes, %2=number of "
 "total megabytes to load or save"
 msgid "%1 MB of %2 MB done"
-msgstr ""
+msgstr "%2 MB इत्यस्य %1 MB कृतम्"
 
 #: libkwave/FileProgress.cpp:335
 #, kde-format
 msgctxt "%1=Progress in percentage, %2=path to file"
 msgid "(%1%) %2"
-msgstr ""
+msgstr "(%1%) %2"
 
 #: libkwave/FileProgress.cpp:368
 #, kde-format
@@ -3560,7 +3562,7 @@ msgstr "नवीन सञ्चिका"
 #, kde-format
 msgctxt "name of the undo action for inserting a meta data object"
 msgid "Insert %1"
-msgstr ""
+msgstr "%1 सम्मिलितं कुर्वन्तु"
 
 #: libkwave/undo/UndoAddMetaDataAction.cpp:115
 #, kde-format
@@ -3568,7 +3570,7 @@ msgctxt ""
 "name of the undo action for inserting multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Insert %1 %2 objects"
-msgstr ""
+msgstr "%1 %2 वस्तुनि सम्मिलितं कुर्वन्तु"
 
 #: libkwave/undo/UndoAddMetaDataAction.cpp:120
 #, kde-format
@@ -3579,7 +3581,7 @@ msgstr "मेटा डाटा सम्मिलित करें"
 #, kde-format
 msgctxt "name of the undo action for deleting a meta data object"
 msgid "Delete %1"
-msgstr ""
+msgstr "%1 विलोपयन्तु"
 
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:79
 #, kde-format
@@ -3587,7 +3589,7 @@ msgctxt ""
 "name of the undo action for deleting multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Delete %1 %2 objects"
-msgstr ""
+msgstr "%1 %2 वस्तुनि विलोपयन्तु"
 
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:83
 #, kde-format
@@ -3603,7 +3605,7 @@ msgstr "नमूनानि परिवर्तयन्तु"
 #, kde-format
 msgctxt "name of the undo action for modifying a meta data object"
 msgid "Modify %1"
-msgstr ""
+msgstr "%1 परिवर्तनं कुर्वन्तु"
 
 #: libkwave/undo/UndoModifyMetaDataAction.cpp:76
 #, kde-format
@@ -3611,7 +3613,7 @@ msgctxt ""
 "name of the undo action for modifying multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Modify %1 %2 objects"
-msgstr ""
+msgstr "%1 %2 वस्तुनि परिवर्तयन्तु"
 
 #: libkwave/undo/UndoModifyMetaDataAction.cpp:81
 #, kde-format
@@ -3622,7 +3624,7 @@ msgstr "मेटा डाटा परिवर्तनं कुर्वन
 #, kde-format
 msgctxt "time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds"
 msgid "%1:%2:%3.%4"
-msgstr ""
+msgstr "%1:%2:%3.%4"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
 #: libkwave/WindowFunction.cpp:32 plugins/fileinfo/FileInfoDlg.ui:987
@@ -3975,7 +3977,7 @@ msgstr "FLAC एन्कोडरं उद्घाटयितुं अस�
 #: plugins/codec_mp3/MP3CodecPlugin.cpp:52
 msgctxt "menu: /Settings/MP3 Encoder Setup"
 msgid "MP3 Encoder Setup"
-msgstr ""
+msgstr "MP3 एन्कोडर सेटअप"
 
 #: plugins/codec_mp3/MP3CodecPlugin.h:74
 #, kde-format
@@ -4082,6 +4084,9 @@ msgid ""
 "\n"
 "%2"
 msgstr ""
+"बाह्य-एन्कोडरं '%1' आह्वयन् त्रुटिः अभवत्:\n"
+"\n"
+"%2"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:54
 #, kde-format
@@ -4592,7 +4597,7 @@ msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
 "etc)"
 msgid "Error: No Codec for '%1' available"
-msgstr ""
+msgstr "त्रुटिः : '%1' कृते कोडेकः उपलब्धः नास्ति"
 
 #: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:115
 #, kde-format
@@ -4666,7 +4671,7 @@ msgstr ""
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
-msgstr ""
+msgstr "बिट्रेट् %1 kBit/sec परिधितः बहिः अस्ति, %2 kBit/sec यावत् सीमितम् अस्ति"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:275
 #, kde-format
@@ -4675,6 +4680,8 @@ msgid ""
 "Sample rate %1 samples/sec is out of range,\n"
 "supported are %2 ... %3 samples/sec."
 msgstr ""
+"नमूनादरः %1 नमूनानि/सेकण्ड् परिधितः बहिः अस्ति,\n"
+"समर्थिताः %2 ... %3 नमूनाः/सेकण्ड् सन्ति ।"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
 #, kde-format
@@ -4896,13 +4903,13 @@ msgstr "त्रुटिनिवारण (%1) ."
 #: plugins/export_k3b/K3BExportPlugin.cpp:280
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
-msgstr ""
+msgstr "K3b परियोजनायां निर्यातं कुर्वन्तु..."
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:311
 #, kde-format
 msgctxt "file type filter when exporting to K3b"
 msgid "K3b project file (*.k3b)"
-msgstr ""
+msgstr "K3b परियोजना सञ्चिका (*.k3b)"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:617
 #, kde-format
@@ -4930,7 +4937,7 @@ msgctxt ""
 "default entry of the list of placeholder patterns in the K3b export plugin "
 "(used for detecting title and artist from a label description)"
 msgid "(auto detect)"
-msgstr ""
+msgstr "(स्वयम् अन्वेषणम्) २."
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:29
@@ -6531,42 +6538,42 @@ msgstr "कृतम्‌"
 #, kde-format
 msgid "one day "
 msgid_plural "%1 days "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 एकस्मिन् दिने "
+msgstr[1] "%1 दिवसाः "
 
 #: plugins/record/RecordDialog.cpp:1191
 #, kde-format
 msgid "one hour "
 msgid_plural "%1 hours "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "एकं घण्टा "
+msgstr[1] "%1 घण्टा "
 
 #: plugins/record/RecordDialog.cpp:1193
 #, kde-format
 msgid "one minute "
 msgid_plural "%1 minutes "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "एकं निमेषं "
+msgstr[1] "%1 निमेषाः "
 
 #: plugins/record/RecordDialog.cpp:1196
 #, kde-format
 msgid "and %1 second"
 msgid_plural "and %1 seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "तथा %1 सेकण्ड्"
+msgstr[1] "तथा %1 सेकण्ड्"
 
 #: plugins/record/RecordDialog.cpp:1197
 #, kde-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 द्वितीयम्"
+msgstr[1] "%1 सेकण्ड्"
 
 #: plugins/record/RecordDialog.cpp:1201
 #, kde-format
 msgctxt "%1=days; %2=hours; %3=minutes; %4=seconds"
 msgid "Waiting for start in %1%2%3%4..."
-msgstr ""
+msgstr "%1%2%3%4 इत्यत्र आरम्भस्य प्रतीक्षा अस्ति..."
 
 #: plugins/record/RecordDialog.cpp:1220
 #, kde-format
@@ -6922,7 +6929,7 @@ msgstr ""
 #, kde-format
 msgctxt "%1 = a device name"
 msgid "Unable to open the recording device (%1)"
-msgstr ""
+msgstr "अभिलेखनयन्त्रं उद्घाटयितुं असमर्थः (%1)"
 
 #: plugins/record/RecordPlugin.cpp:548 plugins/record/RecordPlugin.cpp:556
 #, kde-format
@@ -7409,7 +7416,7 @@ msgstr "कृपया अत्र पाठ आदेशं प्रवि�
 #: plugins/stringenter/StringEnterPlugin.cpp:58
 msgctxt "menu: /Settings/Enter Command"
 msgid "Enter Command"
-msgstr ""
+msgstr "Command इति प्रविष्टं कुर्वन्तु"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:64

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-15 00:39+0000\n"
-"PO-Revision-Date: 2024-12-16 01:11+0100\n"
+"PO-Revision-Date: 2024-12-17 22:53+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -2393,6 +2393,7 @@ msgstr "Calidade base"
 msgid "Base quality of the compression in VBR mode"
 msgstr "Calidade base da compresión en modo VBR."
 
+# skip-rule: trasno-provide_reverse
 #: libkwave/FileInfo.cpp:301
 msgid ""
 "May be used to differentiate multiple versions\n"
@@ -3328,7 +3329,7 @@ msgstr "Mostra e espera"
 #: libkwave/Logger.cpp:79
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
-msgstr "A apertura do ficheiro de historial «%1» para escritura fallou."
+msgstr "A apertura do ficheiro de rexistro «%1» para escritura fallou."
 
 #: libkwave/PlaybackController.cpp:670
 #, kde-format
@@ -4118,8 +4119,8 @@ msgid ""
 "sample rate in Hz (use %1 as placeholder)\n"
 "or kHz (use %2 as placeholder)"
 msgstr ""
-"Taxa de mostraxe en Hz (use %1 como elemento de substitución)\n"
-"ou kHz (use %2 como elemento de substitución)."
+"Taxa de mostraxe en Hz (use %1 como marcador de posición)\n"
+"ou kHz (use %2 como marcador de posición)."
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:345
 #, kde-format
@@ -4128,7 +4129,7 @@ msgid ""
 "use %1 as placeholder"
 msgstr ""
 "Bits por mostra,\n"
-"use %1 como elemento de substitución."
+"use %1 como marcador de posición."
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:349
 #, kde-format
@@ -4137,7 +4138,7 @@ msgid ""
 "(use %1 as placeholder)"
 msgstr ""
 "Parámetro para a taxa de bits mínima en bit/s\n"
-"(use %1 como elemento de substitución)."
+"(use %1 como marcador de posición)."
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:353
 #, kde-format
@@ -4146,7 +4147,7 @@ msgid ""
 "(use %1 as placeholder)"
 msgstr ""
 "Parámetro para a taxa de bits máxima en bit/s\n"
-"(use %1 como elemento de substitución)."
+"(use %1 como marcador de posición)."
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:357
 #, kde-format
@@ -4155,7 +4156,7 @@ msgid ""
 "(use %1 as placeholder)"
 msgstr ""
 "Parámetro para a taxa de bits media en bit/s\n"
-"(use %1 como elemento de substitución)."
+"(use %1 como marcador de posición)."
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:603
 #, kde-format

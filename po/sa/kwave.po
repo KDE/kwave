@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-15 00:39+0000\n"
-"PO-Revision-Date: 2024-12-19 21:41+0530\n"
+"PO-Revision-Date: 2024-12-20 22:01+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -91,7 +91,7 @@ msgstr "%1 <%2>"
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
-msgstr "* %1 (संशोधितम्) २."
+msgstr "* %1 (संशोधितम्)"
 
 #: kwave/FileContext.cpp:903
 #, kde-format
@@ -966,7 +966,7 @@ msgstr "सेटिंग्स्"
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in.../Separate Windows (SDI)"
 msgid "Separate Windows (SDI)"
-msgstr "पृथक् विण्डोज (SDI) ९."
+msgstr "पृथक् विण्डोज (SDI)"
 
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in..."
@@ -976,7 +976,7 @@ msgstr "इत्यस्मिन् सञ्चिकाः दर्शय�
 #: kwave/menus.config:239
 msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
 msgid "Same Window (MDI)"
-msgstr "समानविण्डो (MDI) २."
+msgstr "समानविण्डो (MDI)"
 
 #: kwave/menus.config:240
 msgctxt "menu: /Settings/Show Files in.../Tabs"
@@ -1273,7 +1273,7 @@ msgstr "पूर्ववत"
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
-msgstr "पुनः करो (%1) २."
+msgstr "पुनः करो (%1)"
 
 #: kwave/TopWidget.cpp:1268
 #, kde-format
@@ -1315,7 +1315,7 @@ msgstr "(सर्वे)"
 #, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
-msgstr "#%1 (%2) २."
+msgstr "#%1 (%2)"
 
 #: kwave/TopWidget.cpp:1414
 #, kde-format
@@ -1545,7 +1545,7 @@ msgstr "स्थितिः:"
 #: libgui/LabelPropertiesWidgetBase.ui:82
 #, kde-format
 msgid "Index:"
-msgstr "अनुक्रमणिका : १."
+msgstr "अनुक्रमणिका :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lblIndex)
 #: libgui/LabelPropertiesWidgetBase.ui:95
@@ -1661,21 +1661,21 @@ msgstr "घण्टानः"
 #: libgui/SelectTimeWidgetBase.ui:314 plugins/newsignal/NewSigDlg.ui:601
 #, no-c-format, kde-format
 msgid "0%"
-msgstr "०% २."
+msgstr "०%"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel3_2)
 #. i18n: ectx: property (text), widget (QLabel, TextLabel3)
 #: libgui/SelectTimeWidgetBase.ui:340 plugins/newsignal/NewSigDlg.ui:627
 #, no-c-format, kde-format
 msgid "50%"
-msgstr "५०% २."
+msgstr "५०%"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2_2)
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2)
 #: libgui/SelectTimeWidgetBase.ui:366 plugins/newsignal/NewSigDlg.ui:653
 #, no-c-format, kde-format
 msgid "100%"
-msgstr "१००% २."
+msgstr "१००%"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slidePercents)
 #: libgui/SelectTimeWidgetBase.ui:387
@@ -2215,7 +2215,7 @@ msgid ""
 "(i.e. the 'record label')"
 msgstr ""
 "पटलस्य निर्माणं कुर्वतः संस्थायाः नाम\n"
-"(अर्थात् 'अभिलेखलेबल') २."
+"(अर्थात् 'अभिलेखलेबल')"
 
 #: libkwave/FileInfo.cpp:225
 msgid "Original"
@@ -2441,19 +2441,19 @@ msgstr "पङ्क्तयः : "
 #, kde-format
 msgctxt "number of tracks"
 msgid "1 (mono)"
-msgstr "१ (एकः) २."
+msgstr "१ (एकः)"
 
 #: libkwave/FileProgress.cpp:128
 #, kde-format
 msgctxt "number of tracks"
 msgid "2 (stereo)"
-msgstr "२ (स्टीरियो) २."
+msgstr "२ (स्टीरियो)"
 
 #: libkwave/FileProgress.cpp:131
 #, kde-format
 msgctxt "number of tracks"
 msgid "4 (quadro)"
-msgstr "४ (फ्रेम्) २."
+msgstr "४ (फ्रेम्)"
 
 #: libkwave/FileProgress.cpp:207
 #, kde-format
@@ -3326,11 +3326,11 @@ msgstr "'%1' उद्घाटयितुं असमर्थः।"
 
 #: libkwave/PlayBackTypesMap.cpp:34 plugins/record/RecordTypesMap.cpp:47
 msgid "ALSA (Advanced Linux Sound Architecture)"
-msgstr "ALSA (उन्नत लिनक्स ध्वनि वास्तुकला) २."
+msgstr "ALSA (उन्नत लिनक्स ध्वनि वास्तुकला)"
 
 #: libkwave/PlayBackTypesMap.cpp:39 plugins/record/RecordTypesMap.cpp:53
 msgid "OSS (Open Sound System)"
-msgstr "OSS (Open Sound System) ९."
+msgstr "OSS (Open Sound System)"
 
 #: libkwave/PlayBackTypesMap.cpp:44 plugins/record/RecordTypesMap.cpp:41
 msgid "Pulse Audio"
@@ -3967,7 +3967,7 @@ msgstr "FLAC बिटस्ट्रीम उद्घाटनं विफ�
 #: plugins/codec_flac/FlacDecoder.cpp:292
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
-msgstr "FLAC मेटाडाटा इत्यस्य विश्लेषणं कुर्वन् त्रुटिः । (%स) २."
+msgstr "FLAC मेटाडाटा इत्यस्य विश्लेषणं कुर्वन् त्रुटिः । (%स)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:225
 #, kde-format
@@ -4091,7 +4091,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:54
 #, kde-format
 msgid "(user defined)"
-msgstr "(उपयोक्तृ परिभाषितम्) २."
+msgstr "(उपयोक्तृ परिभाषितम्)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:341
 #, kde-format
@@ -4263,13 +4263,13 @@ msgstr "एन्कोडरं कच्चा दत्तांशस्य 
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:233
 #, kde-format
 msgid "Raw Format:"
-msgstr "कच्चा प्रारूपः : १."
+msgstr "कच्चा प्रारूपः :"
 
 #. i18n: ectx: property (text), widget (QLabel, lblByteOrder)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:240
 #, kde-format
 msgid "Byte Order:"
-msgstr "बाइट् क्रमः : १."
+msgstr "बाइट् क्रमः :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edSign)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:259
@@ -4290,13 +4290,13 @@ msgstr "प्रारूप"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:276
 #, kde-format
 msgid "Sample Rate:"
-msgstr "नमूना दरः : १."
+msgstr "नमूना दरः :"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBitsPerSample)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:302
 #, kde-format
 msgid "Bits per Sample:"
-msgstr "प्रति नमूना बिट्स् : १."
+msgstr "प्रति नमूना बिट्स् :"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
@@ -4304,13 +4304,13 @@ msgstr "प्रति नमूना बिट्स् : १."
 #: plugins/playback/PlayBackDlg.ui:246
 #, kde-format
 msgid "Channels:"
-msgstr "चैनल्स् : १."
+msgstr "चैनल्स् :"
 
 #. i18n: ectx: property (text), widget (QLabel, lblMono)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:341
 #, kde-format
 msgid "mono:"
-msgstr "एक: एक: १."
+msgstr "एक: एक:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edMono)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:360
@@ -4322,7 +4322,7 @@ msgstr "एकचैनलसञ्चिकानां कृते पैर�
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:376
 #, kde-format
 msgid "stereo:"
-msgstr "स्टीरियो : १."
+msgstr "स्टीरियो :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edStereo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:396
@@ -4356,7 +4356,7 @@ msgstr "मि"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:503
 #, kde-format
 msgid "Bitrate:"
-msgstr "बिट्रेट् : १."
+msgstr "बिट्रेट् :"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBitrateAvg)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:516
@@ -4418,7 +4418,7 @@ msgstr "CCIT J17 बोधस्य कृते पैरामीटर्"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:667
 #, kde-format
 msgid "Noise Shaping:"
-msgstr "शोर आकारः : १."
+msgstr "शोर आकारः :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edNoiseShaping)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:686
@@ -4430,7 +4430,7 @@ msgstr "शोर-आकारस्य विन्यासार्थं म
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:696
 #, kde-format
 msgid "Compatibility:"
-msgstr "संगतता : १."
+msgstr "संगतता :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edCompatibility)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:715
@@ -4448,7 +4448,7 @@ msgstr "ध्वजाः"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:751
 #, kde-format
 msgid "Copyright:"
-msgstr "प्रतिलिपिधर्मः : १."
+msgstr "प्रतिलिपिधर्मः :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edCopyright)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:770
@@ -4484,7 +4484,7 @@ msgstr "CRC संरक्षणं सक्षमं कर्तुं प�
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:866
 #, kde-format
 msgid "Prepend:"
-msgstr "उपसर्गः : १."
+msgstr "उपसर्गः :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edPrepend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:879
@@ -4496,7 +4496,7 @@ msgstr "एन्कोडर आदेशपङ्क्तौ आरम्भ�
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:889
 #, kde-format
 msgid "Append:"
-msgstr "परिशिष्टम् : १."
+msgstr "परिशिष्टम् :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edAppend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:902
@@ -4514,7 +4514,7 @@ msgstr "Info"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:932
 #, kde-format
 msgid "Encoder Help:"
-msgstr "एन्कोडर सहायता : १."
+msgstr "एन्कोडर सहायता :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:957
@@ -4526,7 +4526,7 @@ msgstr "एन्कोडरस्य उपयोगसूचना प्र�
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:967
 #, kde-format
 msgid "Version Info:"
-msgstr "संस्करणसूचना : १."
+msgstr "संस्करणसूचना :"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edVersionInfo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1005
@@ -4937,7 +4937,7 @@ msgctxt ""
 "default entry of the list of placeholder patterns in the K3b export plugin "
 "(used for detecting title and artist from a label description)"
 msgid "(auto detect)"
-msgstr "(स्वयम् अन्वेषणम्) २."
+msgstr "(स्वयम् अन्वेषणम्)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:29
@@ -4949,7 +4949,7 @@ msgstr "इनपुट सेटिंग्स्"
 #: plugins/export_k3b/K3BExportWidgetBase.ui:40
 #, kde-format
 msgid "Format of Labels:"
-msgstr "लेबलस्य प्रारूपः : १."
+msgstr "लेबलस्य प्रारूपः :"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbLabelPattern)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:56
@@ -5008,7 +5008,7 @@ msgstr "आउटपुट सेटिंग्स्"
 #: plugins/export_k3b/K3BExportWidgetBase.ui:108
 #, kde-format
 msgid "Export Location:"
-msgstr "निर्यातस्थानं : १."
+msgstr "निर्यातस्थानं :"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbExportLocation)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:124
@@ -5036,7 +5036,7 @@ msgstr "उपनिर्देशिका"
 #: plugins/export_k3b/K3BExportWidgetBase.ui:150
 #, kde-format
 msgid "Overwrite Policy:"
-msgstr "अधिलेखन नीतिः : १."
+msgstr "अधिलेखन नीतिः :"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:166
@@ -5080,7 +5080,7 @@ msgstr ""
 #: plugins/fileinfo/CompressionWidgetBase.ui:58
 #, kde-format
 msgid "ABR:"
-msgstr "एबीआर : १."
+msgstr "एबीआर :"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLowestBitrate)
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, sbBaseQuality)
@@ -5136,19 +5136,19 @@ msgstr "%1 बाइट्"
 #: plugins/fileinfo/FileInfoDialog.cpp:215
 #, kde-format
 msgid "%1 kB (%2 byte)"
-msgstr "%1 केबी (%2 बाइट्) २."
+msgstr "%1 केबी (%2 बाइट्)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:218
 #, kde-format
 msgid "%1 MB (%2 byte)"
-msgstr "%1 MB (%2 बाइट्) २."
+msgstr "%1 MB (%2 बाइट्)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
 #: plugins/fileinfo/FileInfoDialog.cpp:231 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
-msgstr "नमूना दरः : १."
+msgstr "नमूना दरः :"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:234
 #, kde-format
@@ -5182,7 +5182,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
-msgstr "पङ्क्तयः : १."
+msgstr "पङ्क्तयः :"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:251
 #, kde-format
@@ -5210,7 +5210,7 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDialog.cpp:270
 #, kde-format
 msgid "%1 (%2 samples)"
-msgstr "%1 (%2 नमूनानि) २."
+msgstr "%1 (%2 नमूनानि)"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/fileinfo/FileInfoDialog.cpp:274 plugins/record/RecordDialog.cpp:602
@@ -5223,13 +5223,13 @@ msgstr "%1 नमूनानि"
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
-msgstr "(मोनो) ९."
+msgstr "(मोनो)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:590
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
-msgstr "(स्टीरियो) २."
+msgstr "(स्टीरियो)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:593
 #: plugins/newsignal/NewSignalDialog.cpp:307
@@ -5408,7 +5408,7 @@ msgstr "प्रति सेकण्ड् नमूनानि"
 #: plugins/fileinfo/FileInfoDlg.ui:698
 #, kde-format
 msgid "Encoding Mode:"
-msgstr "एन्कोडिंग् मोड् : १."
+msgstr "एन्कोडिंग् मोड् :"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_mpeg)
 #: plugins/fileinfo/FileInfoDlg.ui:738
@@ -5469,7 +5469,7 @@ msgstr "सीसीआईटी जे.17"
 #: plugins/fileinfo/FileInfoDlg.ui:1006
 #, kde-format
 msgid "MPEG Version 1 (ISO/IEC 11172-3)"
-msgstr "MPEG संस्करणम् १ (ISO/IEC 11172-3) २."
+msgstr "MPEG संस्करणम् १ (ISO/IEC 11172-3)"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegVersion)
 #: plugins/fileinfo/FileInfoDlg.ui:1011
@@ -5481,7 +5481,7 @@ msgstr "MPEG संस्करणम् २ (ISO/IEC 13818-3)"
 #: plugins/fileinfo/FileInfoDlg.ui:1016
 #, kde-format
 msgid "MPEG Version 2.5 (unofficial)"
-msgstr "MPEG संस्करणम् २.५ (अनधिकृतम्) २."
+msgstr "MPEG संस्करणम् २.५ (अनधिकृतम्)"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegLayer)
 #: plugins/fileinfo/FileInfoDlg.ui:1035
@@ -5745,7 +5745,7 @@ msgstr "न्यूनतम"
 #: plugins/newsignal/NewSigDlg.ui:521
 #, kde-format
 msgid "(File Size)"
-msgstr "(सञ्चिकायाः आकारः) २."
+msgstr "(सञ्चिकायाः आकारः)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblMaximumSize_3)
 #: plugins/newsignal/NewSigDlg.ui:550
@@ -6162,13 +6162,13 @@ msgstr "%1 केबी"
 #: plugins/playback/PlayBackDialog.cpp:619
 #, kde-format
 msgid "(mono)"
-msgstr "(मोनो) ९."
+msgstr "(मोनो)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
 #: plugins/playback/PlayBackDialog.cpp:620 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
-msgstr "(स्टीरियो) २."
+msgstr "(स्टीरियो)"
 
 #: plugins/playback/PlayBackDialog.cpp:621
 #, kde-format
@@ -6268,7 +6268,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:137
 #, kde-format
 msgid "Playback method:"
-msgstr "प्लेबैकविधिः : १."
+msgstr "प्लेबैकविधिः :"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
@@ -6310,13 +6310,13 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:220 plugins/record/RecordDlg.ui:990
 #, kde-format
 msgid "Buffer size:"
-msgstr "बफर आकारः : १."
+msgstr "बफर आकारः :"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: plugins/playback/PlayBackDlg.ui:256
 #, kde-format
 msgid "Bits per sample:"
-msgstr "प्रति नमूना बिट् : १."
+msgstr "प्रति नमूना बिट् :"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbBitsPerSample)
 #: plugins/playback/PlayBackDlg.ui:280
@@ -6424,7 +6424,7 @@ msgstr "DSNOOP प्लगइन"
 #: plugins/record/Record-OSS.cpp:306
 #, kde-format
 msgid "OSS recording device (audio*)"
-msgstr "OSS अभिलेखनयन्त्रम् (श्रव्य*) २."
+msgstr "OSS अभिलेखनयन्त्रम् (श्रव्य*)"
 
 #: plugins/record/Record-OSS.cpp:309
 #, kde-format
@@ -6583,7 +6583,7 @@ msgstr "लम्बता : %1"
 #: plugins/record/RecordDialog.cpp:1221
 #, kde-format
 msgid "(%1 samples)"
-msgstr "(%1 नमूनानि) २."
+msgstr "(%1 नमूनानि)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_record)
 #: plugins/record/RecordDlg.ui:54
@@ -6621,7 +6621,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:78
 #, kde-format
 msgid "Pre-record:"
-msgstr "पूर्व-अभिलेखः : १."
+msgstr "पूर्व-अभिलेखः :"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:91
@@ -6643,7 +6643,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:97
 #, kde-format
 msgid "Record &time:"
-msgstr "अभिलेखः &समयः : १."
+msgstr "अभिलेखः &समयः :"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordTrigger)
 #: plugins/record/RecordDlg.ui:110
@@ -6665,7 +6665,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:116
 #, kde-format
 msgid "Record trigger:"
-msgstr "अभिलेख उत्प्रेरकः : १."
+msgstr "अभिलेख उत्प्रेरकः :"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btStop)
 #: plugins/record/RecordDlg.ui:172
@@ -6720,13 +6720,13 @@ msgstr "स्तर"
 #: plugins/record/RecordDlg.ui:420
 #, kde-format
 msgid "AGC:"
-msgstr "एजीसी : १."
+msgstr "एजीसी :"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLevelAmplify)
 #: plugins/record/RecordDlg.ui:433
 #, kde-format
 msgid "Amplify:"
-msgstr "प्रवर्धयतु : १."
+msgstr "प्रवर्धयतु :"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelAmplify)
 #: plugins/record/RecordDlg.ui:452
@@ -6781,7 +6781,7 @@ msgstr "?"
 #: plugins/record/RecordDlg.ui:783
 #, kde-format
 msgid "Compression:"
-msgstr "संपीडनम् : १."
+msgstr "संपीडनम् :"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbFormatCompression)
 #: plugins/record/RecordDlg.ui:799
@@ -6809,7 +6809,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:883
 #, kde-format
 msgid "Sample format:"
-msgstr "नमूना प्रारूपः : १."
+msgstr "नमूना प्रारूपः :"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbFormatResolution)
 #: plugins/record/RecordDlg.ui:893
@@ -6825,7 +6825,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1000
 #, kde-format
 msgid "Buffer count:"
-msgstr "बफरगणना : १."
+msgstr "बफरगणना :"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1022
@@ -6857,7 +6857,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1035
 #, kde-format
 msgid "Recording method:"
-msgstr "अभिलेखनविधिः : १."
+msgstr "अभिलेखनविधिः :"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1053
@@ -6893,7 +6893,7 @@ msgstr "उपकरणम्‌"
 #: plugins/record/RecordDlg.ui:1204
 #, kde-format
 msgid "Buffer:"
-msgstr "बफरः : १."
+msgstr "बफरः :"
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_level_meter)
 #: plugins/record/RecordDlg.ui:1236
@@ -7058,7 +7058,7 @@ msgstr "केवलं चयनं रक्षतु"
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:45
 #, kde-format
 msgid "Numbering:"
-msgstr "संख्याकरणम् : १."
+msgstr "संख्याकरणम् :"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:64
@@ -7135,7 +7135,7 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:147
 #, kde-format
 msgid "Filename pattern:"
-msgstr "सञ्चिकानाम प्रतिरूपः : १."
+msgstr "सञ्चिकानाम प्रतिरूपः :"
 
 #: plugins/selectrange/SelectRangeDialog.cpp:45
 #, kde-format
@@ -7238,13 +7238,13 @@ msgstr "FFT सेटिंग्स्"
 #: plugins/sonagram/SonagramDlg.ui:127
 #, kde-format
 msgid "Number of FFT points:"
-msgstr "एफएफटी-बिन्दुनाम् संख्या : १."
+msgstr "एफएफटी-बिन्दुनाम् संख्या :"
 
 #. i18n: ectx: property (text), widget (QLabel, Label2)
 #: plugins/sonagram/SonagramDlg.ui:157
 #, kde-format
 msgid "Window function:"
-msgstr "विण्डो कार्य : १."
+msgstr "विण्डो कार्य :"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, windowtypebox)
 #. i18n: ectx: property (whatsThis), widget (KComboBox, windowtypebox)

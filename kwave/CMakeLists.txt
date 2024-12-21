@@ -111,7 +111,7 @@ INSTALL(
 
 # application icon
 ECM_INSTALL_ICONS(
-    ICONS ${CMAKE_CURRENT_SOURCE_DIR}/pics/sc-apps-kwave.svgz
+    ICONS ${CMAKE_CURRENT_SOURCE_DIR}/pics/sc-apps-kwave.svg
     DESTINATION ${KDE_INSTALL_ICONDIR}
 )
 

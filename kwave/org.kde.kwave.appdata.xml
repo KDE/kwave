@@ -107,7 +107,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="ka">ხმის დონის მორგება:</p>
     <p xml:lang="nl">Volumeniveau aanpassen</p>
     <p xml:lang="pl">Dostosuj poziom głośności:</p>
-    <p xml:lang="sa">मात्रास्तरं समायोजयन्तु : १.</p>
+    <p xml:lang="sa">मात्रास्तरं समायोजयन्तु :</p>
     <p xml:lang="sl">Prilagodi glasnost:</p>
     <p xml:lang="sv">Justera volymnivå:</p>
     <p xml:lang="tr">Ses düzeyini ayarla:</p>
@@ -193,7 +193,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="ka">სიხშირის შინაარსის რეგულირება:</p>
     <p xml:lang="nl">Frequentie-inhoud aanpassen:</p>
     <p xml:lang="pl">Dostosuj zawartość częstotliwościową:</p>
-    <p xml:lang="sa">आवृत्तिसामग्री समायोजयन्तु : १.</p>
+    <p xml:lang="sa">आवृत्तिसामग्री समायोजयन्तु :</p>
     <p xml:lang="sl">Prilagodi vsebino frekvence:</p>
     <p xml:lang="sv">Justera frekvensinnehåll:</p>
     <p xml:lang="tr">Frekans içeriğini ayarla</p>
@@ -303,7 +303,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="ko">기타 기능</p>
     <p xml:lang="nl">Andere mogelijkheden:</p>
     <p xml:lang="pl">Inne możliwości:</p>
-    <p xml:lang="sa">अन्ये विशेषताः : १.</p>
+    <p xml:lang="sa">अन्ये विशेषताः :</p>
     <p xml:lang="sl">Druge zmožnosti:</p>
     <p xml:lang="sv">Övriga funktioner:</p>
     <p xml:lang="tr">Diğer özellikler:</p>
@@ -476,7 +476,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="ka">სონაგრამა (სპექტროგრამა)</li>
       <li xml:lang="nl">Sonagram (spectrogram)</li>
       <li xml:lang="pl">Sonagram (spektrogram)</li>
-      <li xml:lang="sa">सोनाग्राम (स्पेक्ट्रोग्राम) ९.</li>
+      <li xml:lang="sa">सोनाग्राम (स्पेक्ट्रोग्राम)</li>
       <li xml:lang="sl">Sonagram (spektrogram)</li>
       <li xml:lang="sv">Sonagram (spektrogram)</li>
       <li xml:lang="tr">Sonagram (Spektogram)</li>
@@ -498,7 +498,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="ka">მხარდაჭერილ ფაილის ფორმატები:</p>
     <p xml:lang="nl">Ondersteunde bestandsformaten:</p>
     <p xml:lang="pl">Obsługiwane formaty plików:</p>
-    <p xml:lang="sa">समर्थिताः सञ्चिकास्वरूपाः : १.</p>
+    <p xml:lang="sa">समर्थिताः सञ्चिकास्वरूपाः :</p>
     <p xml:lang="sl">Podprti formati datotek:</p>
     <p xml:lang="sv">Filformat som stöds:</p>
     <p xml:lang="tr">Desteklenen dosya biçimleri:</p>
@@ -520,7 +520,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="ka">WAV (*.wav)</li>
       <li xml:lang="nl">WAV (*.wav)</li>
       <li xml:lang="pl">WAV (*.wav)</li>
-      <li xml:lang="sa">वाव (*.wav) ९.</li>
+      <li xml:lang="sa">वाव (*.wav)</li>
       <li xml:lang="sl">WAV (*.wav)</li>
       <li xml:lang="sv">WAV (*.wav)</li>
       <li xml:lang="tr">WAV (*.wav)</li>
@@ -541,7 +541,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="ka">Ogg/Opus (*.opus)</li>
       <li xml:lang="nl">Ogg/Opus (*.opus)</li>
       <li xml:lang="pl">Ogg/Opus (*.opus)</li>
-      <li xml:lang="sa">ओग्ग्/कार्य (*.कार्य) ९.</li>
+      <li xml:lang="sa">ओग्ग्/कार्य (*.कार्य)</li>
       <li xml:lang="sl">Ogg/Opus (*.opus)</li>
       <li xml:lang="sv">Ogg/Opus (*.opus)</li>
       <li xml:lang="tr">Ogg/Opus (*.opus)</li>
@@ -562,7 +562,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="ka">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="nl">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="pl">Ogg/Vorbis (*.ogg)</li>
-      <li xml:lang="sa">ओग्ग्/वोर्बिस् (*.ओग्ग्) २.</li>
+      <li xml:lang="sa">ओग्ग्/वोर्बिस् (*.ओग्ग्)</li>
       <li xml:lang="sl">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="sv">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="tr">Ogg/Vorbis (*.ogg)</li>
@@ -604,7 +604,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="ka">FLAC (*.flac)</li>
       <li xml:lang="nl">FLAC (*.flac)</li>
       <li xml:lang="pl">FLAC (*.flac)</li>
-      <li xml:lang="sa">FLAC (*.flac) ९.</li>
+      <li xml:lang="sa">FLAC (*.flac)</li>
       <li xml:lang="sl">FLAC (*.flac)</li>
       <li xml:lang="sv">FLAC (*.flac)</li>
       <li xml:lang="tr">FLAC (*.flac)</li>

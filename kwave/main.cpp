@@ -214,6 +214,8 @@ int main(int argc, char **argv)
 
     KCrash::initialize();
 
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("kwave")));
+
     /* show some version info */
     qDebug("\nThis is %s v%s (compiled with KDE Frameworks %s)\n",
         about.productName().toLatin1().data(),

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-15 00:39+0000\n"
-"PO-Revision-Date: 2024-12-24 20:39+0530\n"
+"PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -390,7 +390,7 @@ msgstr "सर्वाणि आदेशानि <file> सञ्चिका
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
-msgstr "संचिका"
+msgstr "सञ्चिका"
 
 #: kwave/main.cpp:185
 #, kde-format
@@ -471,7 +471,7 @@ msgstr "लेबल परिवर्तयतु"
 #: kwave/menus.config:18
 msgctxt "menu: /File"
 msgid "File"
-msgstr "संचिका"
+msgstr "सञ्चिका"
 
 #: kwave/menus.config:18
 msgctxt "menu: /File/New..."
@@ -5259,7 +5259,7 @@ msgstr "सञ्चिका सूचना"
 #: plugins/fileinfo/FileInfoDlg.ui:45
 #, kde-format
 msgid "File"
-msgstr "संचिका"
+msgstr "सञ्चिका"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFileName)
 #. i18n: ectx: property (text), widget (QLabel, lblLength)

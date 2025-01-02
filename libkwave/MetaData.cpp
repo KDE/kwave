@@ -21,6 +21,7 @@
 
 #include <QApplication>
 #include <QDateTime>
+#include <QMetaType>
 #include <QMutexLocker>
 #include <QUuid>
 
@@ -191,6 +192,15 @@ sample_index_t Kwave::MetaData::lastSample() const
 }
 
 //***************************************************************************
+static inline QString shortened(const QString &str)
+{
+    if (str.length() < 1024)
+        return _("'") + str + _("'");
+    else
+        return _("'") + str.left(1024) + _("'...");
+}
+
+//***************************************************************************
 void Kwave::MetaData::dump() const
 {
     QString scope_list;
@@ -203,13 +213,21 @@ void Kwave::MetaData::dump() const
     const QStringList props = keys();
     foreach (const QString &p, props) {
         QVariant prop = property(p);
-        const QList<QVariant> v_vals = prop.toList();
         QString value;
+        QList<QVariant> v_vals;
+        if (!prop.canConvert(QMetaType(QMetaType::QString)))
+            v_vals = prop.toList();
         if (!v_vals.isEmpty()) {
-            foreach (QVariant v, v_vals)
-                value += _("{") + v.toString() + _("'} ");
+            int limit = 256; // limit a bit, show only the first 256 entries
+            foreach (QVariant v, v_vals) {
+                value += _("{") + shortened(v.toString()) + _("} ");
+                if (limit-- <= 0) {
+                    value += _("...");
+                    break;
+                }
+            }
         } else {
-            value += _("'") + prop.toString() + _("'");
+            value += shortened(prop.toString());
         }
 
         qDebug("    '%s' = %s", DBG(p), DBG(value));

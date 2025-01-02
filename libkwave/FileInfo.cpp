@@ -456,6 +456,15 @@ void Kwave::FileInfo::setTracks(unsigned int tracks)
     set(Kwave::INF_CHANNELS, tracks);
 }
 
+//***************************************************************************
+static inline QString shortened(const QString &str)
+{
+    if (str.length() < 1024)
+        return _("'") + str + _("'");
+    else
+        return _("'") + str.left(1024) + _("'...");
+}
+
 /***************************************************************************/
 void Kwave::FileInfo::dump() const
 {
@@ -479,7 +488,7 @@ void Kwave::FileInfo::dump() const
         if (!contains(key)) continue;
         QVariant val = get(key);
         QString name = m_property_map.name(key);
-        qDebug("   '%s' = '%s'", DBG(name), DBG(val.toString()));
+        qDebug("   '%s' = '%s'", DBG(name), DBG(shortened(val.toString())));
 
 //      for updating the list of properties in the appendix of the handbook:
 //      QString name  = m_property_map.name(key);

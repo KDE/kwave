@@ -594,6 +594,9 @@ enum mad_flow Kwave::MP3Decoder::fillInput(struct mad_stream *stream)
     // buffer is filled -> process it
     mad_stream_buffer(stream, m_buffer, size);
 
+    // signal the current position
+    emit sourceProcessed(m_source->pos());
+
     return MAD_FLOW_CONTINUE;
 }
 

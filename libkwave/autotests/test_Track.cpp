@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Track.h"
-#include <QtTest>
+#include <QTest>
 
 class TestTrack : public QObject
 {

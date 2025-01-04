@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-15 00:39+0000\n"
+"POT-Creation-Date: 2025-01-04 00:40+0000\n"
 "PO-Revision-Date: 2024-11-15 12:55+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -4930,40 +4930,7 @@ msgstr "Bolca les metadades"
 msgid "Debug (%1)"
 msgstr "Depuració (%1)"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:280
-msgctxt "menu: /File/Save/Export to K3b Project..."
-msgid "Export to K3b Project..."
-msgstr "Exporta cap a un projecte de K3b…"
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:311
-#, kde-format
-msgctxt "file type filter when exporting to K3b"
-msgid "K3b project file (*.k3b)"
-msgstr "Fitxer del projecte K3b (*.k3b)"
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:617
-#, kde-format
-msgid ""
-"Only mono and stereo files can be used for an audio CD. You can either "
-"deselect some channels or export the file in a different file format that "
-"supports mono and stereo only (for example FLAC) and then try again."
-msgstr ""
-"Només es poden utilitzar els fitxers mono i estèreo per a un CD d'àudio. "
-"Podeu desseleccionar alguns canals o exportar el fitxer en un format de "
-"fitxer diferent que siga compatible amb mono i estèreo (per exemple FLAC) i "
-"torneu-ho a provar."
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:680
-#, kde-format
-msgid ""
-"A K3b project file has been created and audio files have been exported.\n"
-"Should I start K3b and open the audio CD project now?"
-msgstr ""
-"S'ha creat un fitxer de projecte de K3b i s'han exportat els fitxers "
-"d'àudio.\n"
-"Voleu iniciar K3b i obrir el projecte del CD d'àudio?"
-
-#: plugins/export_k3b/K3BExportWidget.cpp:46
+#: plugins/export_k3b/K3BExportDialog.cpp:55
 #, kde-format
 msgctxt ""
 "default entry of the list of placeholder patterns in the K3b export plugin "
@@ -4971,20 +4938,36 @@ msgctxt ""
 msgid "(auto detect)"
 msgstr "(detecta automàticament)"
 
+#: plugins/export_k3b/K3BExportDialog.cpp:89
+#, kde-format
+msgctxt "file type filter when exporting to K3b"
+msgid "K3b project file (*.k3b)"
+msgstr "Fitxer del projecte K3b (*.k3b)"
+
+#: plugins/export_k3b/K3BExportDialog.cpp:161
+#, kde-format
+msgid "Please choose a K3b project file name"
+msgstr ""
+
+#: plugins/export_k3b/K3BExportDialog.cpp:165
+#, kde-format
+msgid "Please choose where to export the audio files"
+msgstr ""
+
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:29
+#: plugins/export_k3b/K3BExportDialogBase.ui:35
 #, kde-format
 msgid "Input Settings"
 msgstr "Configureu l'entrada"
 
 #. i18n: ectx: property (text), widget (QLabel, lblLabelFormat)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:40
+#: plugins/export_k3b/K3BExportDialogBase.ui:46
 #, kde-format
 msgid "Format of Labels:"
 msgstr "Format de les etiquetes:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbLabelPattern)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:56
+#: plugins/export_k3b/K3BExportDialogBase.ui:62
 #, no-c-format, kde-format
 msgid ""
 "<html><head/><body><p>Select a pattern for detecting title and artist from "
@@ -5012,8 +4995,8 @@ msgstr ""
 "l'artista</li></ul></body></html>"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkSelectionOnly)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:77
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:32
+#: plugins/export_k3b/K3BExportDialogBase.ui:83
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:186
 #, kde-format
 msgid ""
 "If checked, <b>save only the blocks that overlap with the current selection</"
@@ -5027,53 +5010,25 @@ msgstr ""
 "res o si la selecció compren tot el fitxer.</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:80
+#: plugins/export_k3b/K3BExportDialogBase.ui:86
 #, kde-format
 msgid "Use Selection only"
 msgstr "Utilitza només la selecció"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpOutputSettings)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:93
+#: plugins/export_k3b/K3BExportDialogBase.ui:99
 #, kde-format
 msgid "Output Settings"
 msgstr "Configureu l'eixida"
 
-#. i18n: ectx: property (text), widget (QLabel, lblExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:108
-#, kde-format
-msgid "Export Location:"
-msgstr "Exporta la ubicació:"
-
-#. i18n: ectx: property (whatsThis), widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:124
-#, kde-format
-msgid ""
-"Specify where to place the exported sound files which are used for the "
-"tracks of the audio CD."
-msgstr ""
-"Especifiqueu a on s'han de col·locar els fitxers de so exportats que "
-"s'empren per a les pistes del CD d'àudio."
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:131
-#, kde-format
-msgid "Same Directory as K3b File"
-msgstr "Al mateix directori que el fitxer K3b"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:136
-#, kde-format
-msgid "Sub Directory"
-msgstr "Subdirectori"
-
 #. i18n: ectx: property (text), widget (QLabel, lblOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:150
+#: plugins/export_k3b/K3BExportDialogBase.ui:111
 #, kde-format
 msgid "Overwrite Policy:"
 msgstr "Política de sobreescriptura:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:166
+#: plugins/export_k3b/K3BExportDialogBase.ui:127
 #, kde-format
 msgid ""
 "Select whether existing files are overwritten or new file names are used "
@@ -5083,16 +5038,85 @@ msgstr ""
 "fitxer nous per a exportar-los com a pistes del CD d'àudio."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:173
+#: plugins/export_k3b/K3BExportDialogBase.ui:134
 #, kde-format
 msgid "Overwrite Existing Files"
 msgstr "Sobreescriu els fitxers existents"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:178
+#: plugins/export_k3b/K3BExportDialogBase.ui:139
 #, kde-format
 msgid "Use new File Names"
 msgstr "Utilitza noms de fitxer nous"
+
+#. i18n: ectx: property (text), widget (QLabel, lblDirectory)
+#. i18n: ectx: property (text), widget (QLabel, lblLocation)
+#: plugins/export_k3b/K3BExportDialogBase.ui:147
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:147
+#, kde-format
+msgid "Export Location:"
+msgstr "Exporta la ubicació:"
+
+#. i18n: ectx: property (text), widget (QLabel, lblFilename)
+#: plugins/export_k3b/K3BExportDialogBase.ui:154
+#, fuzzy, kde-format
+#| msgctxt "file type filter when exporting to K3b"
+#| msgid "K3b project file (*.k3b)"
+msgid "K3b Project File:"
+msgstr "Fitxer del projecte K3b (*.k3b)"
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, fileUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:161
+#, kde-format
+msgid "Location to save the K3b project file"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, fileUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:173
+#, fuzzy, kde-format
+#| msgid "New File"
+msgid "Project File"
+msgstr "Fitxer nou"
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, dirUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:180
+#, kde-format
+msgid "Location to export the audio files to"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, dirUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:189
+#, fuzzy, kde-format
+#| msgid "Export Location:"
+msgid "Export Location"
+msgstr "Exporta la ubicació:"
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:280
+msgctxt "menu: /File/Save/Export to K3b Project..."
+msgid "Export to K3b Project..."
+msgstr "Exporta cap a un projecte de K3b…"
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:599
+#, kde-format
+msgid ""
+"Only mono and stereo files can be used for an audio CD. You can either "
+"deselect some channels or export the file in a different file format that "
+"supports mono and stereo only (for example FLAC) and then try again."
+msgstr ""
+"Només es poden utilitzar els fitxers mono i estèreo per a un CD d'àudio. "
+"Podeu desseleccionar alguns canals o exportar el fitxer en un format de "
+"fitxer diferent que siga compatible amb mono i estèreo (per exemple FLAC) i "
+"torneu-ho a provar."
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:662
+#, kde-format
+msgid ""
+"A K3b project file has been created and audio files have been exported.\n"
+"Should I start K3b and open the audio CD project now?"
+msgstr ""
+"S'ha creat un fitxer de projecte de K3b i s'han exportat els fitxers "
+"d'àudio.\n"
+"Voleu iniciar K3b i obrir el projecte del CD d'àudio?"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:50
@@ -7102,84 +7126,13 @@ msgstr "Canvia la freqüència de mostreig"
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "S'està canviant la freqüència de mostreig de %1 kHz a %2 kHz…"
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:174
+#: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
-msgid "..."
-msgstr "…"
-
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:276
-#, kde-format
-msgid ""
-"This would overwrite the following file(s): %1Do you really want to continue?"
-msgstr "Sobreescriurà els fitxers següents: %1 Voleu continuar?"
-
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:289
-#, kde-format
-msgid ""
-"The following directories do not exist: %1Do you want to create them and "
-"continue?"
-msgstr "Els següents directoris no existixen: %1 Voleu crear-los i continuar?"
-
-#. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:35
-#, kde-format
-msgid "Save selection only"
-msgstr "Guarda només la selecció"
-
-#. i18n: ectx: property (text), widget (QLabel, lblNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:45
-#, kde-format
-msgid "Numbering:"
-msgstr "Numeració:"
-
-#. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:64
-#, kde-format
-msgid ""
-"Determines how the <b>numbering of the files</b> should happen:<ul>\n"
-"<li>Continue after the <b>highest index</b> that can be found, avoiding "
-"collisions with existing files</li>\n"
-"<li>Always start numbering from <b>one</b>, possibly colliding with already "
-"existing files</li>\n"
-"</ul>"
+msgid "Please choose where to save the files"
 msgstr ""
-"Determina com es du la <b>numeració dels fitxers</b>:<ul>\n"
-"<li>Continua a partir de l'<b>índex més alt</b> que es trobe, evitant "
-"interferències amb els fitxers existents</li>\n"
-"<li>Comença sempre amb el número <b>u</b>, possiblement interferint amb els "
-"fitxers ja existents.</li>\n"
-"</ul>"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:74
-#, kde-format
-msgid "Continue after highest index"
-msgstr "Continua després de l'índex més alt"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:79
-#, kde-format
-msgid "Always start with 1, overwrite if necessary"
-msgstr "Comença sempre amb 1, sobreescriure si és necessari"
-
-#. i18n: ectx: property (whatsThis), widget (QLineEdit, txtExample)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:96
-#, kde-format
-msgid ""
-"Example of the first file name that will be saved, using the file name "
-"pattern above and the numbering below"
-msgstr ""
-"Exemple del primer nom de fitxer que es guardarà, utilitzant el patró del "
-"nom de fitxer damunt i la numeració davall"
-
-#. i18n: ectx: property (text), widget (QLabel, lblExample)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:112
-#, kde-format
-msgid "Example:"
-msgstr "Exemple:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:134
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:37
 #, no-c-format, kde-format
 msgid ""
 "<p>Select the pattern that is used to create the filename of each saved "
@@ -7211,10 +7164,122 @@ msgstr ""
 "</ul>"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPattern)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:147
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:50
 #, kde-format
 msgid "Filename pattern:"
 msgstr "Patró del nom de fitxer:"
+
+#. i18n: ectx: property (text), widget (QLabel, lblNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:60
+#, kde-format
+msgid "Numbering:"
+msgstr "Numeració:"
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:79
+#, kde-format
+msgid ""
+"Determines how the <b>numbering of the files</b> should happen:<ul>\n"
+"<li>Continue after the <b>highest index</b> that can be found, avoiding "
+"collisions with existing files</li>\n"
+"<li>Always start numbering from <b>one</b>, possibly colliding with already "
+"existing files</li>\n"
+"</ul>"
+msgstr ""
+"Determina com es du la <b>numeració dels fitxers</b>:<ul>\n"
+"<li>Continua a partir de l'<b>índex més alt</b> que es trobe, evitant "
+"interferències amb els fitxers existents</li>\n"
+"<li>Comença sempre amb el número <b>u</b>, possiblement interferint amb els "
+"fitxers ja existents.</li>\n"
+"</ul>"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:89
+#, kde-format
+msgid "Continue after highest index"
+msgstr "Continua després de l'índex més alt"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:94
+#, kde-format
+msgid "Always start with 1, overwrite if necessary"
+msgstr "Comença sempre amb 1, sobreescriure si és necessari"
+
+#. i18n: ectx: property (text), widget (QLabel, lblExtension)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:102
+#, fuzzy, kde-format
+#| msgid "Mode Extension"
+msgid "Extension:"
+msgstr "Extensió del mode"
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, cbExtension)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:118
+#, kde-format
+msgid "Choose what encoding to save the blocks with."
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:131
+#, kde-format
+msgid "Location to save the files"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, urlRequester)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:140
+#, kde-format
+msgid "Choose where to save the files"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:154
+#, fuzzy, kde-format
+#| msgid ""
+#| "Example of the first file name that will be saved, using the file name "
+#| "pattern above and the numbering below"
+msgid ""
+"Example of the first file name that will be saved, using the file name "
+"pattern, extension, and numbering"
+msgstr ""
+"Exemple del primer nom de fitxer que es guardarà, utilitzant el patró del "
+"nom de fitxer damunt i la numeració davall"
+
+#. i18n: ectx: property (text), widget (QLabel, txtExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:157
+#, fuzzy, kde-format
+#| msgid "To Next Labels"
+msgid "TextLabel"
+msgstr "A les etiquetes següents"
+
+#. i18n: ectx: property (text), widget (QLabel, lblExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:170
+#, fuzzy, kde-format
+#| msgid "Example:"
+msgid "Example file name:"
+msgstr "Exemple:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:189
+#, kde-format
+msgid "Save selection only"
+msgstr "Guarda només la selecció"
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:169
+#, kde-format
+msgid "..."
+msgstr "…"
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:271
+#, kde-format
+msgid ""
+"This would overwrite the following file(s): %1Do you really want to continue?"
+msgstr "Sobreescriurà els fitxers següents: %1 Voleu continuar?"
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:284
+#, kde-format
+msgid ""
+"The following directories do not exist: %1Do you want to create them and "
+"continue?"
+msgstr "Els següents directoris no existixen: %1 Voleu crear-los i continuar?"
 
 #: plugins/selectrange/SelectRangeDialog.cpp:45
 #, kde-format
@@ -7560,3 +7625,16 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Silenci"
+
+#~ msgid ""
+#~ "Specify where to place the exported sound files which are used for the "
+#~ "tracks of the audio CD."
+#~ msgstr ""
+#~ "Especifiqueu a on s'han de col·locar els fitxers de so exportats que "
+#~ "s'empren per a les pistes del CD d'àudio."
+
+#~ msgid "Same Directory as K3b File"
+#~ msgstr "Al mateix directori que el fitxer K3b"
+
+#~ msgid "Sub Directory"
+#~ msgstr "Subdirectori"

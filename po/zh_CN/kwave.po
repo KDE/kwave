@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-15 00:39+0000\n"
+"POT-Creation-Date: 2025-01-04 00:40+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -4796,37 +4796,7 @@ msgstr "转储元数据"
 msgid "Debug (%1)"
 msgstr "调试 (%1)"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:280
-msgctxt "menu: /File/Save/Export to K3b Project..."
-msgid "Export to K3b Project..."
-msgstr "导出为 K3b 项目..."
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:311
-#, kde-format
-msgctxt "file type filter when exporting to K3b"
-msgid "K3b project file (*.k3b)"
-msgstr "K3b 项目文件 (*.k3b)"
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:617
-#, kde-format
-msgid ""
-"Only mono and stereo files can be used for an audio CD. You can either "
-"deselect some channels or export the file in a different file format that "
-"supports mono and stereo only (for example FLAC) and then try again."
-msgstr ""
-"仅单声道和立体声文件能被用于音频 CD。您可以或者取消选择一些声道，或者将文件导"
-"出为一个不同的仅支持单声道和立体声的文件格式 (例如 FLAC)，随后重试。"
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:680
-#, kde-format
-msgid ""
-"A K3b project file has been created and audio files have been exported.\n"
-"Should I start K3b and open the audio CD project now?"
-msgstr ""
-"创建了一个 K3b 工程文件，音频文件已被导出。\n"
-"需要我为您启动 K3b 并且打开音乐 CD 项目吗？"
-
-#: plugins/export_k3b/K3BExportWidget.cpp:46
+#: plugins/export_k3b/K3BExportDialog.cpp:55
 #, kde-format
 msgctxt ""
 "default entry of the list of placeholder patterns in the K3b export plugin "
@@ -4834,20 +4804,36 @@ msgctxt ""
 msgid "(auto detect)"
 msgstr "(自动检测)"
 
+#: plugins/export_k3b/K3BExportDialog.cpp:89
+#, kde-format
+msgctxt "file type filter when exporting to K3b"
+msgid "K3b project file (*.k3b)"
+msgstr "K3b 项目文件 (*.k3b)"
+
+#: plugins/export_k3b/K3BExportDialog.cpp:161
+#, kde-format
+msgid "Please choose a K3b project file name"
+msgstr ""
+
+#: plugins/export_k3b/K3BExportDialog.cpp:165
+#, kde-format
+msgid "Please choose where to export the audio files"
+msgstr ""
+
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:29
+#: plugins/export_k3b/K3BExportDialogBase.ui:35
 #, kde-format
 msgid "Input Settings"
 msgstr "输入设置"
 
 #. i18n: ectx: property (text), widget (QLabel, lblLabelFormat)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:40
+#: plugins/export_k3b/K3BExportDialogBase.ui:46
 #, kde-format
 msgid "Format of Labels:"
 msgstr "标签格式："
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbLabelPattern)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:56
+#: plugins/export_k3b/K3BExportDialogBase.ui:62
 #, no-c-format, kde-format
 msgid ""
 "<html><head/><body><p>Select a pattern for detecting title and artist from "
@@ -4874,8 +4860,8 @@ msgstr ""
 "html>"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkSelectionOnly)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:77
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:32
+#: plugins/export_k3b/K3BExportDialogBase.ui:83
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:186
 #, kde-format
 msgid ""
 "If checked, <b>save only the blocks that overlap with the current selection</"
@@ -4885,51 +4871,25 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:80
+#: plugins/export_k3b/K3BExportDialogBase.ui:86
 #, kde-format
 msgid "Use Selection only"
 msgstr "只使用选区"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpOutputSettings)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:93
+#: plugins/export_k3b/K3BExportDialogBase.ui:99
 #, kde-format
 msgid "Output Settings"
 msgstr "输出设置"
 
-#. i18n: ectx: property (text), widget (QLabel, lblExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:108
-#, kde-format
-msgid "Export Location:"
-msgstr "导出位置："
-
-#. i18n: ectx: property (whatsThis), widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:124
-#, kde-format
-msgid ""
-"Specify where to place the exported sound files which are used for the "
-"tracks of the audio CD."
-msgstr "指定音频 CD 音轨所用的音乐文件的导出位置。"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:131
-#, kde-format
-msgid "Same Directory as K3b File"
-msgstr "与 K3b 文件相同的目录"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:136
-#, kde-format
-msgid "Sub Directory"
-msgstr "子目录"
-
 #. i18n: ectx: property (text), widget (QLabel, lblOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:150
+#: plugins/export_k3b/K3BExportDialogBase.ui:111
 #, kde-format
 msgid "Overwrite Policy:"
 msgstr "覆盖策略："
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:166
+#: plugins/export_k3b/K3BExportDialogBase.ui:127
 #, kde-format
 msgid ""
 "Select whether existing files are overwritten or new file names are used "
@@ -4937,16 +4897,82 @@ msgid ""
 msgstr "选择导出文件时是否覆盖现有文件或使用新文件名作为音频CD的曲目。"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:173
+#: plugins/export_k3b/K3BExportDialogBase.ui:134
 #, kde-format
 msgid "Overwrite Existing Files"
 msgstr "覆盖现有文件"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:178
+#: plugins/export_k3b/K3BExportDialogBase.ui:139
 #, kde-format
 msgid "Use new File Names"
 msgstr "使用新文件名"
+
+#. i18n: ectx: property (text), widget (QLabel, lblDirectory)
+#. i18n: ectx: property (text), widget (QLabel, lblLocation)
+#: plugins/export_k3b/K3BExportDialogBase.ui:147
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:147
+#, kde-format
+msgid "Export Location:"
+msgstr "导出位置："
+
+#. i18n: ectx: property (text), widget (QLabel, lblFilename)
+#: plugins/export_k3b/K3BExportDialogBase.ui:154
+#, fuzzy, kde-format
+#| msgctxt "file type filter when exporting to K3b"
+#| msgid "K3b project file (*.k3b)"
+msgid "K3b Project File:"
+msgstr "K3b 项目文件 (*.k3b)"
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, fileUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:161
+#, kde-format
+msgid "Location to save the K3b project file"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, fileUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:173
+#, fuzzy, kde-format
+#| msgid "New File"
+msgid "Project File"
+msgstr "新建文件"
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, dirUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:180
+#, kde-format
+msgid "Location to export the audio files to"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, dirUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:189
+#, fuzzy, kde-format
+#| msgid "Export Location:"
+msgid "Export Location"
+msgstr "导出位置："
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:280
+msgctxt "menu: /File/Save/Export to K3b Project..."
+msgid "Export to K3b Project..."
+msgstr "导出为 K3b 项目..."
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:599
+#, kde-format
+msgid ""
+"Only mono and stereo files can be used for an audio CD. You can either "
+"deselect some channels or export the file in a different file format that "
+"supports mono and stereo only (for example FLAC) and then try again."
+msgstr ""
+"仅单声道和立体声文件能被用于音频 CD。您可以或者取消选择一些声道，或者将文件导"
+"出为一个不同的仅支持单声道和立体声的文件格式 (例如 FLAC)，随后重试。"
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:662
+#, kde-format
+msgid ""
+"A K3b project file has been created and audio files have been exported.\n"
+"Should I start K3b and open the audio CD project now?"
+msgstr ""
+"创建了一个 K3b 工程文件，音频文件已被导出。\n"
+"需要我为您启动 K3b 并且打开音乐 CD 项目吗？"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:50
@@ -6805,76 +6831,13 @@ msgstr "更改采样率"
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "正在将采样率从 %1 kHz 改为 %2 kHz..."
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:174
+#: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
-msgid "..."
-msgstr "..."
-
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:276
-#, kde-format
-msgid ""
-"This would overwrite the following file(s): %1Do you really want to continue?"
-msgstr "这会覆盖下列文件：%1 请问您是否要继续？"
-
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:289
-#, kde-format
-msgid ""
-"The following directories do not exist: %1Do you want to create them and "
-"continue?"
-msgstr "以下目录不存在：%1 请问您是否要创建它们并继续？"
-
-#. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:35
-#, kde-format
-msgid "Save selection only"
-msgstr "只保存选区"
-
-#. i18n: ectx: property (text), widget (QLabel, lblNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:45
-#, kde-format
-msgid "Numbering:"
-msgstr "编号："
-
-#. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:64
-#, kde-format
-msgid ""
-"Determines how the <b>numbering of the files</b> should happen:<ul>\n"
-"<li>Continue after the <b>highest index</b> that can be found, avoiding "
-"collisions with existing files</li>\n"
-"<li>Always start numbering from <b>one</b>, possibly colliding with already "
-"existing files</li>\n"
-"</ul>"
+msgid "Please choose where to save the files"
 msgstr ""
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:74
-#, kde-format
-msgid "Continue after highest index"
-msgstr "在最高指数后继续"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:79
-#, kde-format
-msgid "Always start with 1, overwrite if necessary"
-msgstr ""
-
-#. i18n: ectx: property (whatsThis), widget (QLineEdit, txtExample)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:96
-#, kde-format
-msgid ""
-"Example of the first file name that will be saved, using the file name "
-"pattern above and the numbering below"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, lblExample)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:112
-#, kde-format
-msgid "Example:"
-msgstr "示例："
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:134
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:37
 #, no-c-format, kde-format
 msgid ""
 "<p>Select the pattern that is used to create the filename of each saved "
@@ -6892,10 +6855,111 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lblPattern)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:147
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:50
 #, kde-format
 msgid "Filename pattern:"
 msgstr "文件名样式："
+
+#. i18n: ectx: property (text), widget (QLabel, lblNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:60
+#, kde-format
+msgid "Numbering:"
+msgstr "编号："
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:79
+#, kde-format
+msgid ""
+"Determines how the <b>numbering of the files</b> should happen:<ul>\n"
+"<li>Continue after the <b>highest index</b> that can be found, avoiding "
+"collisions with existing files</li>\n"
+"<li>Always start numbering from <b>one</b>, possibly colliding with already "
+"existing files</li>\n"
+"</ul>"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:89
+#, kde-format
+msgid "Continue after highest index"
+msgstr "在最高指数后继续"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:94
+#, kde-format
+msgid "Always start with 1, overwrite if necessary"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, lblExtension)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:102
+#, fuzzy, kde-format
+#| msgid "Mode Extension"
+msgid "Extension:"
+msgstr "模式扩展"
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, cbExtension)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:118
+#, kde-format
+msgid "Choose what encoding to save the blocks with."
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:131
+#, kde-format
+msgid "Location to save the files"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, urlRequester)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:140
+#, kde-format
+msgid "Choose where to save the files"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:154
+#, kde-format
+msgid ""
+"Example of the first file name that will be saved, using the file name "
+"pattern, extension, and numbering"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, txtExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:157
+#, fuzzy, kde-format
+#| msgid "To Next Labels"
+msgid "TextLabel"
+msgstr "到下一个标签"
+
+#. i18n: ectx: property (text), widget (QLabel, lblExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:170
+#, fuzzy, kde-format
+#| msgid "Example:"
+msgid "Example file name:"
+msgstr "示例："
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:189
+#, kde-format
+msgid "Save selection only"
+msgstr "只保存选区"
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:169
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:271
+#, kde-format
+msgid ""
+"This would overwrite the following file(s): %1Do you really want to continue?"
+msgstr "这会覆盖下列文件：%1 请问您是否要继续？"
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:284
+#, kde-format
+msgid ""
+"The following directories do not exist: %1Do you want to create them and "
+"continue?"
+msgstr "以下目录不存在：%1 请问您是否要创建它们并继续？"
 
 #: plugins/selectrange/SelectRangeDialog.cpp:45
 #, kde-format
@@ -7231,3 +7295,14 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "无声"
+
+#~ msgid ""
+#~ "Specify where to place the exported sound files which are used for the "
+#~ "tracks of the audio CD."
+#~ msgstr "指定音频 CD 音轨所用的音乐文件的导出位置。"
+
+#~ msgid "Same Directory as K3b File"
+#~ msgstr "与 K3b 文件相同的目录"
+
+#~ msgid "Sub Directory"
+#~ msgstr "子目录"

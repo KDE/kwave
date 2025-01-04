@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-15 00:39+0000\n"
+"POT-Creation-Date: 2025-01-04 00:40+0000\n"
 "PO-Revision-Date: 2024-12-10 01:12+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -4894,38 +4894,7 @@ msgstr "메타데이터 덤프"
 msgid "Debug (%1)"
 msgstr "디버그(%1)"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:280
-msgctxt "menu: /File/Save/Export to K3b Project..."
-msgid "Export to K3b Project..."
-msgstr "K3b 프로젝트로 내보내기..."
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:311
-#, kde-format
-msgctxt "file type filter when exporting to K3b"
-msgid "K3b project file (*.k3b)"
-msgstr "K3b 프로젝트 파일 (*.k3b)"
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:617
-#, kde-format
-msgid ""
-"Only mono and stereo files can be used for an audio CD. You can either "
-"deselect some channels or export the file in a different file format that "
-"supports mono and stereo only (for example FLAC) and then try again."
-msgstr ""
-"오디오 CD에는 모노와 스테레오 파일만 사용할 수 있습니다. 일부 채널 선택을 해"
-"제하거나 모노와 스테레오만 지원하는 다른 파일 형식(FLAC 등)선택으로 내보낸 다"
-"음 다시 시도하십시오."
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:680
-#, kde-format
-msgid ""
-"A K3b project file has been created and audio files have been exported.\n"
-"Should I start K3b and open the audio CD project now?"
-msgstr ""
-"K3b 프로젝트 파일을 만들었고 오디오 파일을 내보냈습니다.\n"
-"K3b를 시작하고 오디오 CD 프로젝트를 여시겠습니까?"
-
-#: plugins/export_k3b/K3BExportWidget.cpp:46
+#: plugins/export_k3b/K3BExportDialog.cpp:55
 #, kde-format
 msgctxt ""
 "default entry of the list of placeholder patterns in the K3b export plugin "
@@ -4933,20 +4902,36 @@ msgctxt ""
 msgid "(auto detect)"
 msgstr "(자동 감지)"
 
+#: plugins/export_k3b/K3BExportDialog.cpp:89
+#, kde-format
+msgctxt "file type filter when exporting to K3b"
+msgid "K3b project file (*.k3b)"
+msgstr "K3b 프로젝트 파일 (*.k3b)"
+
+#: plugins/export_k3b/K3BExportDialog.cpp:161
+#, kde-format
+msgid "Please choose a K3b project file name"
+msgstr ""
+
+#: plugins/export_k3b/K3BExportDialog.cpp:165
+#, kde-format
+msgid "Please choose where to export the audio files"
+msgstr ""
+
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:29
+#: plugins/export_k3b/K3BExportDialogBase.ui:35
 #, kde-format
 msgid "Input Settings"
 msgstr "입력 설정"
 
 #. i18n: ectx: property (text), widget (QLabel, lblLabelFormat)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:40
+#: plugins/export_k3b/K3BExportDialogBase.ui:46
 #, kde-format
 msgid "Format of Labels:"
 msgstr "이름표 형식:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbLabelPattern)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:56
+#: plugins/export_k3b/K3BExportDialogBase.ui:62
 #, no-c-format, kde-format
 msgid ""
 "<html><head/><body><p>Select a pattern for detecting title and artist from "
@@ -4973,8 +4958,8 @@ msgstr ""
 "span>아티스트 이름</li></ul></body></html>"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkSelectionOnly)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:77
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:32
+#: plugins/export_k3b/K3BExportDialogBase.ui:83
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:186
 #, kde-format
 msgid ""
 "If checked, <b>save only the blocks that overlap with the current selection</"
@@ -4987,51 +4972,25 @@ msgstr ""
 "면 이 옵션이 비활성화됩니다.</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:80
+#: plugins/export_k3b/K3BExportDialogBase.ui:86
 #, kde-format
 msgid "Use Selection only"
 msgstr "선택만 사용"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpOutputSettings)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:93
+#: plugins/export_k3b/K3BExportDialogBase.ui:99
 #, kde-format
 msgid "Output Settings"
 msgstr "출력 설정"
 
-#. i18n: ectx: property (text), widget (QLabel, lblExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:108
-#, kde-format
-msgid "Export Location:"
-msgstr "내보낼 위치:"
-
-#. i18n: ectx: property (whatsThis), widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:124
-#, kde-format
-msgid ""
-"Specify where to place the exported sound files which are used for the "
-"tracks of the audio CD."
-msgstr "오디오 CD 트랙에 사용할 소리 파일을 내보낼 위치를 지정하십시오."
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:131
-#, kde-format
-msgid "Same Directory as K3b File"
-msgstr "K3b 파일과 같은 디렉터리"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:136
-#, kde-format
-msgid "Sub Directory"
-msgstr "하위 디렉터리"
-
 #. i18n: ectx: property (text), widget (QLabel, lblOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:150
+#: plugins/export_k3b/K3BExportDialogBase.ui:111
 #, kde-format
 msgid "Overwrite Policy:"
 msgstr "덮어쓰기 정책:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:166
+#: plugins/export_k3b/K3BExportDialogBase.ui:127
 #, kde-format
 msgid ""
 "Select whether existing files are overwritten or new file names are used "
@@ -5041,16 +5000,83 @@ msgstr ""
 "할지 선택하십시오."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:173
+#: plugins/export_k3b/K3BExportDialogBase.ui:134
 #, kde-format
 msgid "Overwrite Existing Files"
 msgstr "기존 파일 덮어쓰기"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:178
+#: plugins/export_k3b/K3BExportDialogBase.ui:139
 #, kde-format
 msgid "Use new File Names"
 msgstr "새 파일 이름 사용"
+
+#. i18n: ectx: property (text), widget (QLabel, lblDirectory)
+#. i18n: ectx: property (text), widget (QLabel, lblLocation)
+#: plugins/export_k3b/K3BExportDialogBase.ui:147
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:147
+#, kde-format
+msgid "Export Location:"
+msgstr "내보낼 위치:"
+
+#. i18n: ectx: property (text), widget (QLabel, lblFilename)
+#: plugins/export_k3b/K3BExportDialogBase.ui:154
+#, fuzzy, kde-format
+#| msgctxt "file type filter when exporting to K3b"
+#| msgid "K3b project file (*.k3b)"
+msgid "K3b Project File:"
+msgstr "K3b 프로젝트 파일 (*.k3b)"
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, fileUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:161
+#, kde-format
+msgid "Location to save the K3b project file"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, fileUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:173
+#, fuzzy, kde-format
+#| msgid "New File"
+msgid "Project File"
+msgstr "새 파일"
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, dirUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:180
+#, kde-format
+msgid "Location to export the audio files to"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, dirUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:189
+#, fuzzy, kde-format
+#| msgid "Export Location:"
+msgid "Export Location"
+msgstr "내보낼 위치:"
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:280
+msgctxt "menu: /File/Save/Export to K3b Project..."
+msgid "Export to K3b Project..."
+msgstr "K3b 프로젝트로 내보내기..."
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:599
+#, kde-format
+msgid ""
+"Only mono and stereo files can be used for an audio CD. You can either "
+"deselect some channels or export the file in a different file format that "
+"supports mono and stereo only (for example FLAC) and then try again."
+msgstr ""
+"오디오 CD에는 모노와 스테레오 파일만 사용할 수 있습니다. 일부 채널 선택을 해"
+"제하거나 모노와 스테레오만 지원하는 다른 파일 형식(FLAC 등)선택으로 내보낸 다"
+"음 다시 시도하십시오."
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:662
+#, kde-format
+msgid ""
+"A K3b project file has been created and audio files have been exported.\n"
+"Should I start K3b and open the audio CD project now?"
+msgstr ""
+"K3b 프로젝트 파일을 만들었고 오디오 파일을 내보냈습니다.\n"
+"K3b를 시작하고 오디오 CD 프로젝트를 여시겠습니까?"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:50
@@ -7022,83 +7048,13 @@ msgstr "샘플링 레이트 변경"
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "%1 kHz에서 %2 kHz로 샘플링 레이트 변경 중..."
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:174
+#: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
-msgid "..."
-msgstr "..."
-
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:276
-#, kde-format
-msgid ""
-"This would overwrite the following file(s): %1Do you really want to continue?"
-msgstr "다음 파일을 덮어씁니다: %1 계속 진행하시겠습니까?"
-
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:289
-#, kde-format
-msgid ""
-"The following directories do not exist: %1Do you want to create them and "
-"continue?"
-msgstr "다음 디렉터리가 없습니다: %1 만들고 계속 진행하시겠습니까?"
-
-#. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:35
-#, kde-format
-msgid "Save selection only"
-msgstr "선택 영역만 저장"
-
-#. i18n: ectx: property (text), widget (QLabel, lblNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:45
-#, kde-format
-msgid "Numbering:"
-msgstr "번호 매기기:"
-
-#. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:64
-#, kde-format
-msgid ""
-"Determines how the <b>numbering of the files</b> should happen:<ul>\n"
-"<li>Continue after the <b>highest index</b> that can be found, avoiding "
-"collisions with existing files</li>\n"
-"<li>Always start numbering from <b>one</b>, possibly colliding with already "
-"existing files</li>\n"
-"</ul>"
+msgid "Please choose where to save the files"
 msgstr ""
-"<b>파일에 번호를 매기는 방법</b>을 정의합니다.<ul>\n"
-"<li><b>최대 인덱스</b> 이후 계속 진행: 찾을 수 있는 가장 큰 번호를 찾고 기존 "
-"파일과 충돌을 방지합니다</li>\n"
-"<li>항상 <b>1부터</b> 시작: 필요한 경우 기존 파일을 덮어쓸 수 있습니다</li>\n"
-"</ul>"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:74
-#, kde-format
-msgid "Continue after highest index"
-msgstr "최대 인덱스 이후 계속 진행"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:79
-#, kde-format
-msgid "Always start with 1, overwrite if necessary"
-msgstr "항상 1부터 시작, 필요한 경우 덮어쓰기"
-
-#. i18n: ectx: property (whatsThis), widget (QLineEdit, txtExample)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:96
-#, kde-format
-msgid ""
-"Example of the first file name that will be saved, using the file name "
-"pattern above and the numbering below"
-msgstr ""
-"위쪽의 파일 이름 패턴과 아래쪽의 번호 체계를 사용하여 저장할 첫 번째 파일 이"
-"름의 예제"
-
-#. i18n: ectx: property (text), widget (QLabel, lblExample)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:112
-#, kde-format
-msgid "Example:"
-msgstr "예제:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:134
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:37
 #, no-c-format, kde-format
 msgid ""
 "<p>Select the pattern that is used to create the filename of each saved "
@@ -7127,10 +7083,121 @@ msgstr ""
 "</ul>"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPattern)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:147
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:50
 #, kde-format
 msgid "Filename pattern:"
 msgstr "파일 이름 패턴:"
+
+#. i18n: ectx: property (text), widget (QLabel, lblNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:60
+#, kde-format
+msgid "Numbering:"
+msgstr "번호 매기기:"
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:79
+#, kde-format
+msgid ""
+"Determines how the <b>numbering of the files</b> should happen:<ul>\n"
+"<li>Continue after the <b>highest index</b> that can be found, avoiding "
+"collisions with existing files</li>\n"
+"<li>Always start numbering from <b>one</b>, possibly colliding with already "
+"existing files</li>\n"
+"</ul>"
+msgstr ""
+"<b>파일에 번호를 매기는 방법</b>을 정의합니다.<ul>\n"
+"<li><b>최대 인덱스</b> 이후 계속 진행: 찾을 수 있는 가장 큰 번호를 찾고 기존 "
+"파일과 충돌을 방지합니다</li>\n"
+"<li>항상 <b>1부터</b> 시작: 필요한 경우 기존 파일을 덮어쓸 수 있습니다</li>\n"
+"</ul>"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:89
+#, kde-format
+msgid "Continue after highest index"
+msgstr "최대 인덱스 이후 계속 진행"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:94
+#, kde-format
+msgid "Always start with 1, overwrite if necessary"
+msgstr "항상 1부터 시작, 필요한 경우 덮어쓰기"
+
+#. i18n: ectx: property (text), widget (QLabel, lblExtension)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:102
+#, fuzzy, kde-format
+#| msgid "Mode Extension"
+msgid "Extension:"
+msgstr "모드 확장"
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, cbExtension)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:118
+#, kde-format
+msgid "Choose what encoding to save the blocks with."
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:131
+#, kde-format
+msgid "Location to save the files"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, urlRequester)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:140
+#, kde-format
+msgid "Choose where to save the files"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:154
+#, fuzzy, kde-format
+#| msgid ""
+#| "Example of the first file name that will be saved, using the file name "
+#| "pattern above and the numbering below"
+msgid ""
+"Example of the first file name that will be saved, using the file name "
+"pattern, extension, and numbering"
+msgstr ""
+"위쪽의 파일 이름 패턴과 아래쪽의 번호 체계를 사용하여 저장할 첫 번째 파일 이"
+"름의 예제"
+
+#. i18n: ectx: property (text), widget (QLabel, txtExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:157
+#, fuzzy, kde-format
+#| msgid "To Next Labels"
+msgid "TextLabel"
+msgstr "다음 이름표까지"
+
+#. i18n: ectx: property (text), widget (QLabel, lblExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:170
+#, fuzzy, kde-format
+#| msgid "Example:"
+msgid "Example file name:"
+msgstr "예제:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:189
+#, kde-format
+msgid "Save selection only"
+msgstr "선택 영역만 저장"
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:169
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:271
+#, kde-format
+msgid ""
+"This would overwrite the following file(s): %1Do you really want to continue?"
+msgstr "다음 파일을 덮어씁니다: %1 계속 진행하시겠습니까?"
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:284
+#, kde-format
+msgid ""
+"The following directories do not exist: %1Do you want to create them and "
+"continue?"
+msgstr "다음 디렉터리가 없습니다: %1 만들고 계속 진행하시겠습니까?"
 
 #: plugins/selectrange/SelectRangeDialog.cpp:45
 #, kde-format
@@ -7472,6 +7539,17 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "무음"
+
+#~ msgid ""
+#~ "Specify where to place the exported sound files which are used for the "
+#~ "tracks of the audio CD."
+#~ msgstr "오디오 CD 트랙에 사용할 소리 파일을 내보낼 위치를 지정하십시오."
+
+#~ msgid "Same Directory as K3b File"
+#~ msgstr "K3b 파일과 같은 디렉터리"
+
+#~ msgid "Sub Directory"
+#~ msgstr "하위 디렉터리"
 
 #~ msgid "Zoom in"
 #~ msgstr "확대"

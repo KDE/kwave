@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-15 00:39+0000\n"
+"POT-Creation-Date: 2025-01-04 00:40+0000\n"
 "PO-Revision-Date: 2024-12-01 14:52+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -4920,39 +4920,7 @@ msgstr "Vedosta metatiedot"
 msgid "Debug (%1)"
 msgstr "Virheenpaikannus (%1)"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:280
-msgctxt "menu: /File/Save/Export to K3b Project..."
-msgid "Export to K3b Project..."
-msgstr "Vie K3b-projektiksi…"
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:311
-#, kde-format
-msgctxt "file type filter when exporting to K3b"
-msgid "K3b project file (*.k3b)"
-msgstr "K3b-projektitiedosto (*.k3b)"
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:617
-#, kde-format
-msgid ""
-"Only mono and stereo files can be used for an audio CD. You can either "
-"deselect some channels or export the file in a different file format that "
-"supports mono and stereo only (for example FLAC) and then try again."
-msgstr ""
-"Ääni-CD:lle voi käyttää vain mono- ja stereotiedostoja. Voit joko poistaa "
-"valinnan joiltakin kanavilta tai viedä tiedoston sellaiseen tiedostomuotoon, "
-"joka tukee vain mono- ja stereoääntä (esim. FLACiksi), ja yrittää sitten "
-"uudelleen."
-
-#: plugins/export_k3b/K3BExportPlugin.cpp:680
-#, kde-format
-msgid ""
-"A K3b project file has been created and audio files have been exported.\n"
-"Should I start K3b and open the audio CD project now?"
-msgstr ""
-"K3b-projektitiedosto on luotu ja äänitiedostot viety.\n"
-"Käynnistetäänkö nyt K3b ja avataan ääni-CD-projekti?"
-
-#: plugins/export_k3b/K3BExportWidget.cpp:46
+#: plugins/export_k3b/K3BExportDialog.cpp:55
 #, kde-format
 msgctxt ""
 "default entry of the list of placeholder patterns in the K3b export plugin "
@@ -4960,20 +4928,36 @@ msgctxt ""
 msgid "(auto detect)"
 msgstr "(automaattitunnistus)"
 
+#: plugins/export_k3b/K3BExportDialog.cpp:89
+#, kde-format
+msgctxt "file type filter when exporting to K3b"
+msgid "K3b project file (*.k3b)"
+msgstr "K3b-projektitiedosto (*.k3b)"
+
+#: plugins/export_k3b/K3BExportDialog.cpp:161
+#, kde-format
+msgid "Please choose a K3b project file name"
+msgstr ""
+
+#: plugins/export_k3b/K3BExportDialog.cpp:165
+#, kde-format
+msgid "Please choose where to export the audio files"
+msgstr ""
+
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:29
+#: plugins/export_k3b/K3BExportDialogBase.ui:35
 #, kde-format
 msgid "Input Settings"
 msgstr "Sisääntuloasetukset"
 
 #. i18n: ectx: property (text), widget (QLabel, lblLabelFormat)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:40
+#: plugins/export_k3b/K3BExportDialogBase.ui:46
 #, kde-format
 msgid "Format of Labels:"
 msgstr "Paikkamerkkien muoto:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbLabelPattern)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:56
+#: plugins/export_k3b/K3BExportDialogBase.ui:62
 #, no-c-format, kde-format
 msgid ""
 "<html><head/><body><p>Select a pattern for detecting title and artist from "
@@ -5001,8 +4985,8 @@ msgstr ""
 "body></html>"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkSelectionOnly)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:77
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:32
+#: plugins/export_k3b/K3BExportDialogBase.ui:83
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:186
 #, kde-format
 msgid ""
 "If checked, <b>save only the blocks that overlap with the current selection</"
@@ -5015,51 +4999,25 @@ msgstr ""
 "jos mitään ei ole valittu tai jos valinta käsittää jo koko tiedoston.</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:80
+#: plugins/export_k3b/K3BExportDialogBase.ui:86
 #, kde-format
 msgid "Use Selection only"
 msgstr "Käytä vain valintaa"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpOutputSettings)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:93
+#: plugins/export_k3b/K3BExportDialogBase.ui:99
 #, kde-format
 msgid "Output Settings"
 msgstr "Ulostuloasetukset"
 
-#. i18n: ectx: property (text), widget (QLabel, lblExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:108
-#, kde-format
-msgid "Export Location:"
-msgstr "Vientisijainti:"
-
-#. i18n: ectx: property (whatsThis), widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:124
-#, kde-format
-msgid ""
-"Specify where to place the exported sound files which are used for the "
-"tracks of the audio CD."
-msgstr "Määritä, minne ääni-CD:n raidoiksi viedyt äänitiedostot viedään."
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:131
-#, kde-format
-msgid "Same Directory as K3b File"
-msgstr "Sama kansio kuin K3b-tiedostolla"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:136
-#, kde-format
-msgid "Sub Directory"
-msgstr "Alikansio"
-
 #. i18n: ectx: property (text), widget (QLabel, lblOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:150
+#: plugins/export_k3b/K3BExportDialogBase.ui:111
 #, kde-format
 msgid "Overwrite Policy:"
 msgstr "Korvauskäytäntö:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:166
+#: plugins/export_k3b/K3BExportDialogBase.ui:127
 #, kde-format
 msgid ""
 "Select whether existing files are overwritten or new file names are used "
@@ -5069,16 +5027,85 @@ msgstr ""
 "olemassa olevat tiedostot vai käytetäänkö uusia tiedostonimiä."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:173
+#: plugins/export_k3b/K3BExportDialogBase.ui:134
 #, kde-format
 msgid "Overwrite Existing Files"
 msgstr "Korvaa olemassa olevat tiedostot"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
-#: plugins/export_k3b/K3BExportWidgetBase.ui:178
+#: plugins/export_k3b/K3BExportDialogBase.ui:139
 #, kde-format
 msgid "Use new File Names"
 msgstr "Käytä uusia tiedostonimiä"
+
+#. i18n: ectx: property (text), widget (QLabel, lblDirectory)
+#. i18n: ectx: property (text), widget (QLabel, lblLocation)
+#: plugins/export_k3b/K3BExportDialogBase.ui:147
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:147
+#, kde-format
+msgid "Export Location:"
+msgstr "Vientisijainti:"
+
+#. i18n: ectx: property (text), widget (QLabel, lblFilename)
+#: plugins/export_k3b/K3BExportDialogBase.ui:154
+#, fuzzy, kde-format
+#| msgctxt "file type filter when exporting to K3b"
+#| msgid "K3b project file (*.k3b)"
+msgid "K3b Project File:"
+msgstr "K3b-projektitiedosto (*.k3b)"
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, fileUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:161
+#, kde-format
+msgid "Location to save the K3b project file"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, fileUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:173
+#, fuzzy, kde-format
+#| msgid "New File"
+msgid "Project File"
+msgstr "Uusi tiedosto"
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, dirUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:180
+#, fuzzy, kde-format
+#| msgid "List of audio files"
+msgid "Location to export the audio files to"
+msgstr "Äänitiedostoluettelo"
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, dirUrlRequester)
+#: plugins/export_k3b/K3BExportDialogBase.ui:189
+#, fuzzy, kde-format
+#| msgid "Export Location:"
+msgid "Export Location"
+msgstr "Vientisijainti:"
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:280
+msgctxt "menu: /File/Save/Export to K3b Project..."
+msgid "Export to K3b Project..."
+msgstr "Vie K3b-projektiksi…"
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:599
+#, kde-format
+msgid ""
+"Only mono and stereo files can be used for an audio CD. You can either "
+"deselect some channels or export the file in a different file format that "
+"supports mono and stereo only (for example FLAC) and then try again."
+msgstr ""
+"Ääni-CD:lle voi käyttää vain mono- ja stereotiedostoja. Voit joko poistaa "
+"valinnan joiltakin kanavilta tai viedä tiedoston sellaiseen tiedostomuotoon, "
+"joka tukee vain mono- ja stereoääntä (esim. FLACiksi), ja yrittää sitten "
+"uudelleen."
+
+#: plugins/export_k3b/K3BExportPlugin.cpp:662
+#, kde-format
+msgid ""
+"A K3b project file has been created and audio files have been exported.\n"
+"Should I start K3b and open the audio CD project now?"
+msgstr ""
+"K3b-projektitiedosto on luotu ja äänitiedostot viety.\n"
+"Käynnistetäänkö nyt K3b ja avataan ääni-CD-projekti?"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:50
@@ -7070,84 +7097,13 @@ msgstr "Muuta näytteenottotaajuutta"
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "Muuta näytteenottotaajuus %1 kHz:stä %2 kHz:iin…"
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:174
+#: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
-msgid "..."
-msgstr "…"
-
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:276
-#, kde-format
-msgid ""
-"This would overwrite the following file(s): %1Do you really want to continue?"
-msgstr "Tämä korvaisi seuraavat tiedostot: %1 Haluatko varmasti jatkaa?"
-
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:289
-#, kde-format
-msgid ""
-"The following directories do not exist: %1Do you want to create them and "
-"continue?"
-msgstr "Seuraavia kansioita ei ole olemassa: %1 Haluatko luoda ne ja jatkaa?"
-
-#. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:35
-#, kde-format
-msgid "Save selection only"
-msgstr "Tallenna vain valinta"
-
-#. i18n: ectx: property (text), widget (QLabel, lblNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:45
-#, kde-format
-msgid "Numbering:"
-msgstr "Numerointi:"
-
-#. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:64
-#, kde-format
-msgid ""
-"Determines how the <b>numbering of the files</b> should happen:<ul>\n"
-"<li>Continue after the <b>highest index</b> that can be found, avoiding "
-"collisions with existing files</li>\n"
-"<li>Always start numbering from <b>one</b>, possibly colliding with already "
-"existing files</li>\n"
-"</ul>"
+msgid "Please choose where to save the files"
 msgstr ""
-"Määrittää, miten <b>tiedostojen numerointi</b> tapahtuu:<ul>\n"
-"<li>Jatka <b>suurimmasta löytyvästä juoksevasta numerosta</b> välttäen "
-"yhteentörmäystä olemassa oleviin tiedostonimiin</li>\n"
-"<li>Aloista numerointi aina <b>yhdestä</b>, jolloin yhteentörmäykset "
-"olemassa oleviin tiedostonimiin ovat mahdollisia</li>\n"
-"</ul>"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:74
-#, kde-format
-msgid "Continue after highest index"
-msgstr "Jatka korkeimmasta juoksevasta numerosta"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:79
-#, kde-format
-msgid "Always start with 1, overwrite if necessary"
-msgstr "Aloita aina 1:stä, korvaa jos tarpeen"
-
-#. i18n: ectx: property (whatsThis), widget (QLineEdit, txtExample)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:96
-#, kde-format
-msgid ""
-"Example of the first file name that will be saved, using the file name "
-"pattern above and the numbering below"
-msgstr ""
-"Esimerkki ensimmäisestä tallennettavasta tiedostonimestä, käyttäen yllä "
-"olevaa hahmoa ja alla olevaa numerointia"
-
-#. i18n: ectx: property (text), widget (QLabel, lblExample)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:112
-#, kde-format
-msgid "Example:"
-msgstr "Esimerkki:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:134
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:37
 #, no-c-format, kde-format
 msgid ""
 "<p>Select the pattern that is used to create the filename of each saved "
@@ -7177,10 +7133,122 @@ msgstr ""
 "</ul>"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPattern)
-#: plugins/saveblocks/SaveBlocksWidgetBase.ui:147
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:50
 #, kde-format
 msgid "Filename pattern:"
 msgstr "Tiedostonimihahmo:"
+
+#. i18n: ectx: property (text), widget (QLabel, lblNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:60
+#, kde-format
+msgid "Numbering:"
+msgstr "Numerointi:"
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:79
+#, kde-format
+msgid ""
+"Determines how the <b>numbering of the files</b> should happen:<ul>\n"
+"<li>Continue after the <b>highest index</b> that can be found, avoiding "
+"collisions with existing files</li>\n"
+"<li>Always start numbering from <b>one</b>, possibly colliding with already "
+"existing files</li>\n"
+"</ul>"
+msgstr ""
+"Määrittää, miten <b>tiedostojen numerointi</b> tapahtuu:<ul>\n"
+"<li>Jatka <b>suurimmasta löytyvästä juoksevasta numerosta</b> välttäen "
+"yhteentörmäystä olemassa oleviin tiedostonimiin</li>\n"
+"<li>Aloista numerointi aina <b>yhdestä</b>, jolloin yhteentörmäykset "
+"olemassa oleviin tiedostonimiin ovat mahdollisia</li>\n"
+"</ul>"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:89
+#, kde-format
+msgid "Continue after highest index"
+msgstr "Jatka korkeimmasta juoksevasta numerosta"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:94
+#, kde-format
+msgid "Always start with 1, overwrite if necessary"
+msgstr "Aloita aina 1:stä, korvaa jos tarpeen"
+
+#. i18n: ectx: property (text), widget (QLabel, lblExtension)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:102
+#, fuzzy, kde-format
+#| msgid "Mode Extension"
+msgid "Extension:"
+msgstr "Tilan laajennus"
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, cbExtension)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:118
+#, kde-format
+msgid "Choose what encoding to save the blocks with."
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:131
+#, kde-format
+msgid "Location to save the files"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, urlRequester)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:140
+#, kde-format
+msgid "Choose where to save the files"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:154
+#, fuzzy, kde-format
+#| msgid ""
+#| "Example of the first file name that will be saved, using the file name "
+#| "pattern above and the numbering below"
+msgid ""
+"Example of the first file name that will be saved, using the file name "
+"pattern, extension, and numbering"
+msgstr ""
+"Esimerkki ensimmäisestä tallennettavasta tiedostonimestä, käyttäen yllä "
+"olevaa hahmoa ja alla olevaa numerointia"
+
+#. i18n: ectx: property (text), widget (QLabel, txtExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:157
+#, fuzzy, kde-format
+#| msgid "To Next Labels"
+msgid "TextLabel"
+msgstr "Seuraaviin paikkamerkkeihin"
+
+#. i18n: ectx: property (text), widget (QLabel, lblExample)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:170
+#, fuzzy, kde-format
+#| msgid "Example:"
+msgid "Example file name:"
+msgstr "Esimerkki:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
+#: plugins/saveblocks/SaveBlocksDialogBase.ui:189
+#, kde-format
+msgid "Save selection only"
+msgstr "Tallenna vain valinta"
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:169
+#, kde-format
+msgid "..."
+msgstr "…"
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:271
+#, kde-format
+msgid ""
+"This would overwrite the following file(s): %1Do you really want to continue?"
+msgstr "Tämä korvaisi seuraavat tiedostot: %1 Haluatko varmasti jatkaa?"
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:284
+#, kde-format
+msgid ""
+"The following directories do not exist: %1Do you want to create them and "
+"continue?"
+msgstr "Seuraavia kansioita ei ole olemassa: %1 Haluatko luoda ne ja jatkaa?"
 
 #: plugins/selectrange/SelectRangeDialog.cpp:45
 #, kde-format
@@ -7526,6 +7594,17 @@ msgstr ""
 msgid "Silence"
 msgstr "Hiljaisuus"
 
+#~ msgid ""
+#~ "Specify where to place the exported sound files which are used for the "
+#~ "tracks of the audio CD."
+#~ msgstr "Määritä, minne ääni-CD:n raidoiksi viedyt äänitiedostot viedään."
+
+#~ msgid "Same Directory as K3b File"
+#~ msgstr "Sama kansio kuin K3b-tiedostolla"
+
+#~ msgid "Sub Directory"
+#~ msgstr "Alikansio"
+
 #~ msgid "Zoom in"
 #~ msgstr "Lähennä"
 
@@ -7739,6 +7818,3 @@ msgstr "Hiljaisuus"
 
 #~ msgid "&New"
 #~ msgstr "&Uusi"
-
-#~ msgid "List of audio files"
-#~ msgstr "Äänitiedostoluettelo"

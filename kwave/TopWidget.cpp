@@ -718,7 +718,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     if (false) {
     CASE_COMMAND("about_kde")
         // Help / About KDE
-        KHelpMenu *dlg = new(std::nothrow) KHelpMenu(this, _("Kwave"));
+        KHelpMenu *dlg = new(std::nothrow) KHelpMenu(this);
         if (dlg) dlg->aboutKDE();
         result = 0;
     CASE_COMMAND("menu")

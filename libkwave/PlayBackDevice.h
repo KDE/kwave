@@ -38,7 +38,7 @@ namespace Kwave
      *
      * @note this class is not threadsafe on its own, it relies on the
      *       threadsafe implementation of the PlayBack plugin.
-     * @note there aren no checks for avoiding close without open,
+     * @note there are no checks for avoiding close without open,
      *       opening twice or similar
      * @note there are no precautions to prevent duplicate instances
      *

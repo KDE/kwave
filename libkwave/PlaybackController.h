@@ -39,10 +39,10 @@ namespace Kwave
     class SignalManager;
 
     /**
-     * Provides a generic interface for classes that can contol playback
+     * Provides a generic interface for classes that can control playback
      * with start, stop, pause and continue. This class is intended to be used
      * or derived in a class that is able to control a playback device by
-     * simply startig or stopping playback and can be easily used by some
+     * simply starting or stopping playback and can be easily used by some
      * other part of the program that has nothing to do directly with
      * playback. The playback control functions all start with "playback"
      * and are slots that are intended to be connected to some simple

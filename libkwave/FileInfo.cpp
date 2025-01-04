@@ -151,6 +151,10 @@ void Kwave::FileInfo::PropertyTypesMap::fill()
         _(kli18n("Genre").untranslatedText()),
         kli18n("Describes the genre or style of the original work.\n"
             "Examples: 'classic', 'pop'"));
+    append(Kwave::INF_ID3,
+           FP_INTERNAL | FP_NO_LOAD_SAVE,
+           _(kli18n("ID3 Tags").untranslatedText()),
+           kli18n("List of ID3 Tags"));
     append(Kwave::INF_ISRC,
         FP_READONLY,
         _(kli18n("ISRC").untranslatedText()),

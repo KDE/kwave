@@ -70,6 +70,7 @@ namespace Kwave
         INF_FILENAME,            /**< name of the file */
         INF_FILESIZE,            /**< size of the file in bytes */
         INF_GENRE,               /**< genre */
+        INF_ID3,                 /**< list of ID3 frames */
         INF_ISRC,                /**< International Standard Recording Code */
         INF_KEYWORDS,            /**< keywords */
         INF_LABELS,              /**< labels/markers */
@@ -149,7 +150,7 @@ namespace Kwave
         explicit FileInfo(const Kwave::MetaDataList &meta_data_list);
 
         /** Destructor */
-        ~FileInfo() override;
+        virtual ~FileInfo() override;
 
         /** returns the identifier of the "type" of this meta data object */
         static QString metaDataType() {

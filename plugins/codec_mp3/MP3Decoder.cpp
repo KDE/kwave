@@ -27,6 +27,7 @@
 #include <id3/misc_support.h>
 #include <id3/tag.h>
 
+#include <QBuffer>
 #include <QDate>
 #include <QDateTime>
 #include <QIODevice>
@@ -44,6 +45,7 @@
 #include "libkwave/Writer.h"
 
 #include "ID3_QIODeviceReader.h"
+#include "ID3_QIODeviceWriter.h"
 #include "MP3CodecPlugin.h"
 #include "MP3Decoder.h"
 
@@ -222,9 +224,10 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
     ID3_Tag::Iterator *it = tag.CreateIterator();
     ID3_Frame *frame = nullptr;
     Kwave::FileInfo info(metaData());
+    QVariantList custom_frames;
     while (it && (frame = it->GetNext())) {
-        const ID3_FrameID id = frame->GetID();
-        const Kwave::FileProperty property = m_property_map.property(id);
+        const ID3_FrameID               id       = frame->GetID();
+        Kwave::FileProperty             property = m_property_map.property(id);
         const ID3_PropertyMap::Encoding encoding = m_property_map.encoding(id);
         switch (encoding) {
             case ID3_PropertyMap::ENC_TEXT_PARTINSET:
@@ -361,13 +364,25 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
             case ID3_PropertyMap::ENC_NONE: /* FALLTHROUGH */
             default:
             {
-                QString s = parseId3Frame2String(frame);
-                qWarning("unsupported ID3 tag: %d, descr: '%s', text: '%s'",
-                         id, frame->GetDescription(), DBG(s));
+                qWarning("unsupported ID3 frame: %d, descr: '%s'",
+                         id, frame->GetDescription());
+
+                QBuffer buffer;
+                buffer.open(QIODevice::ReadWrite);
+                Kwave::ID3_QIODeviceWriter writer(buffer);
+                frame->Render(writer);
+
+                qDebug("-> storing, buffer size = %lli bytes", buffer.size());
+                custom_frames.append(QVariant(
+                    QString::fromLocal8Bit(buffer.data().toBase64())));
                 break;
             }
         }
     }
+
+    /* add custom (unsupported) ID3 frames 1:1 (just store internally) */
+    if (!custom_frames.isEmpty())
+        info.set(Kwave::INF_ID3, QVariant(custom_frames));
 
     /*
      * try to build a valid creation date/time

@@ -24,6 +24,7 @@
 #include <id3/misc_support.h>
 #include <id3/tag.h>
 
+#include <QBuffer>
 #include <QByteArray>
 #include <QDate>
 #include <QDateTime>
@@ -44,6 +45,7 @@
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
+#include "ID3_QIODeviceReader.h"
 #include "ID3_QIODeviceWriter.h"
 #include "MP3CodecPlugin.h"
 #include "MP3Encoder.h"
@@ -97,7 +99,8 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
         const QVariant            &value    = it.value();
 
         ID3_FrameID id = m_property_map.findProperty(property);
-        if (id == ID3FID_NOFRAME) continue;
+        if ((property != Kwave::FileProperty::INF_ID3) &&
+            (id == ID3FID_NOFRAME)) continue;
 
         if (info.contains(Kwave::INF_CD) && (property == Kwave::INF_CDS))
             continue; /* INF_CDS has already been handled by INF_CD */
@@ -118,12 +121,13 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
         // encode in UCS16
         frame->SetID(id);
         ID3_Field *field = frame->GetField(ID3FN_TEXT);
-        if (!field) {
+        if ((property != Kwave::FileProperty::INF_ID3) && !field) {
             qWarning("no field, frame id=%d", static_cast<int>(id));
             delete frame;
             continue;
         }
 
+        bool ok = true;
         ID3_PropertyMap::Encoding encoding = m_property_map.encoding(id);
         switch (encoding) {
             case ID3_PropertyMap::ENC_TEXT_PARTINSET:
@@ -192,10 +196,8 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 
                     field->SetEncoding(ID3TE_UTF16);
                     field->Set(static_cast<const unicode_t *>(str_val.utf16()));
-                } else {
-                    delete frame;
-                    frame = nullptr;
-                }
+                } else
+                    ok = false;
                 break;
             }
             case ID3_PropertyMap::ENC_TEXT_TIMESTAMP:
@@ -214,6 +216,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
                         if (!field) {
                             qWarning("no field, frame id=%d",
                                      static_cast<int>(id));
+                            ok = false;
                             break;
                         }
                         s = _("%1").arg(year, 4, 10, QLatin1Char('0'));
@@ -227,8 +230,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
                     // date is invalid, unknown format
                     qWarning("MP3Encoder::encodeID3Tags(): invalid date: '%s'",
                              DBG(str_val));
-                    delete frame;
-                    frame = nullptr;
+                    ok = false;
                 }
                 break;
             }
@@ -238,15 +240,48 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
                 field->SetEncoding(ID3TE_UTF16);
                 field->Set(static_cast<const unicode_t *>(str_val.utf16()));
                 break;
+            case ID3_PropertyMap::ENC_BINARY:
+            {
+                QStringList frames = value.toStringList();
+                foreach (const QString &f, frames) {
+                    delete frame;
+                    frame = new(std::nothrow) ID3_Frame;
+                    Q_ASSERT(frame != nullptr);
+                    if (frame == nullptr) continue;
+
+                    QByteArray raw = QByteArray::fromBase64(f.toLocal8Bit());
+                    QBuffer buffer(&raw);
+                    buffer.open(QIODevice::ReadOnly);
+                    Kwave::ID3_QIODeviceReader reader(buffer);
+                    if (!frame->Parse(reader)) {
+                        qWarning("MP3Encoder::encodeID3Tags(): "
+                        "parsing ENC_BINARY failed");
+                        ok = false;
+                        continue;
+                    }
+                    qDebug("attaching custom ID3 frame '%s'",
+                           frame->GetDescription());
+                    if (tag.AttachFrame(frame)) {
+                        frame = nullptr;
+                        ok = true;
+                    } else {
+                        qWarning("MP3Encoder::encodeID3Tags(): "
+                        "attaching ENC_BINARY frame failed");
+                        ok = false;
+                        continue;
+                    }
+                }
+                break;
+            }
             case ID3_PropertyMap::ENC_NONE: /* FALLTHROUGH */
             default:
-                // ignore
-                delete frame;
-                frame = nullptr;
-                break;
+                ok = false;
+                break; // ignore
         }
 
-        if (frame) tag.AttachFrame(frame);
+        if (frame && ok) tag.AttachFrame(frame);
+        if (!ok) delete frame;
+        frame = nullptr;
     }
 
     tag.Strip();

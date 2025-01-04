@@ -143,6 +143,9 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     insert(Kwave::INF_GENRE,         ID3FID_CONTENTTYPE,
            ENC_GENRE_TYPE);
     // ISRC
+    // ID3 tags (custom/binary)
+    insert(Kwave::INF_ID3,           ID3FID_NOFRAME,
+           ENC_BINARY);
     insert(Kwave::INF_ISRC,          ID3FID_ISRC,
            ENC_TEXT);
     //     Kwave::INF_KEYWORDS

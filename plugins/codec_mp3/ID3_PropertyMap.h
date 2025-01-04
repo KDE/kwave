@@ -47,7 +47,8 @@ namespace Kwave
             ENC_TEXT_URL,       /**< URL                               */
             ENC_TEXT_PARTINSET, /**< part in set (x/y)                 */
             ENC_TEXT_TIMESTAMP, /**< ISO 8601 timestamp                */
-            ENC_TRACK_NUM       /**< track/tracks (x/y)                */
+            ENC_TRACK_NUM,      /**< track/tracks (x/y)                */
+            ENC_BINARY          /**< binary/custom data                */
         } Encoding;
 
         /** Default constructor, with initializing */

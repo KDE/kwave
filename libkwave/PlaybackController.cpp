@@ -37,7 +37,7 @@
 #include "libkwave/Utils.h"
 
 /** Sets the number of screen refreshes per second when in playback mode */
-#define SCREEN_REFRESHES_PER_SECOND 10
+#define SCREEN_REFRESHES_PER_SECOND 25
 
 //***************************************************************************
 Kwave::PlaybackController::PlaybackController(

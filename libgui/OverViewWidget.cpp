@@ -37,13 +37,13 @@
  * interval for limiting the number of repaints per second [ms]
  * (in normal mode, no playback running)
  */
-#define REPAINT_INTERVAL 250
+#define REPAINT_INTERVAL 100
 
 /**
  * interval for limiting the number of repaints per second [ms]
  * (when playback is running)
  */
-#define REPAINT_INTERVAL_FAST 50
+#define REPAINT_INTERVAL_FAST 20
 
 #define BAR_BACKGROUND    palette().mid().color()
 #define BAR_FOREGROUND    palette().light().color()

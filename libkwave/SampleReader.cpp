@@ -26,7 +26,7 @@
 #include "libkwave/memcpy.h"
 
 /** minimum time between emitting the "progress()" signal [ms] */
-#define MIN_PROGRESS_INTERVAL 500
+#define MIN_PROGRESS_INTERVAL 100
 
 //***************************************************************************
 Kwave::SampleReader::SampleReader(Kwave::ReaderMode mode,

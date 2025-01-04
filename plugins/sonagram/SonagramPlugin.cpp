@@ -57,7 +57,7 @@ KWAVE_PLUGIN(sonagram, SonagramPlugin)
 /**
  * interval for limiting the number of repaints per second [ms]
  */
-#define REPAINT_INTERVAL 500
+#define REPAINT_INTERVAL 250
 
 //***************************************************************************
 Kwave::SonagramPlugin::SonagramPlugin(QObject *parent,

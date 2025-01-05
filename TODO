@@ -138,9 +138,6 @@ o support for KDE's session management
 
 o macro recorder
 
-o change coding style / tabs -> spaces
-  -> should be done in context of migration to next KDE framework
-
 o user selectable color scheme
   (feature requested by John David Thompson, 2006-12-20)
 

@@ -8519,17 +8519,6 @@
 			<varlistentry>
 			    <term
 ><replaceable
->nom_de_fitxer</replaceable
-></term>
-			    <listitem>
-				<para
->El nom del fitxer del projecte K3b, s'utilitzarà com a nom base per als noms dels fitxers exportats. </para>
-			    </listitem>
-			</varlistentry>
-
-			<varlistentry>
-			    <term
-><replaceable
 >patró</replaceable
 ></term>
 			    <listitem>
@@ -8634,45 +8623,22 @@
 			<varlistentry>
 			    <term
 ><replaceable
+>fitxer del projecte</replaceable
+></term>
+			    <listitem>
+				<para
+>El nom del fitxer del projecte K3b, el qual també s'utilitzarà com el nom base per als noms dels fitxers exportats. </para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
+			    <term
+><replaceable
 >exporta la ubicació</replaceable
 ></term>
 			    <listitem>
 				<para
->Determina a on s'hauran de desar els blocs. <informaltable frame='all'
-> <tgroup cols='2'>
-					    <thead>
-						<row>
-						    <entry align='left'
->&nbsp;Valor&nbsp;</entry>
-						    <entry align='left'
->&nbsp;Descripció</entry>
-						</row>
-					    </thead>
-					    <tbody>
-						<row>
-						    <entry
->&nbsp;&no-i18n-tag;<command
->0</command
-></entry>
-						    <entry
->Desa en el mateix directori que el fitxer de projecte del K3b. </entry>
-						</row>
-						<row>
-						    <entry
->&nbsp;&no-i18n-tag;<command
->1</command
-></entry>
-						    <entry
->Desa a dins d'un subdirectori del directori del fitxer de projecte del K3b, utilitzant el nom del fitxer de projecte del K3b com a base i annexant «<command
-><literal
->.dir</literal
-></command
->». </entry>
-						</row>
-					    </tbody>
-					</tgroup>
-				    </informaltable>
-				</para>
+>La ubicació a on s'hauran de desar els blocs. </para>
 			    </listitem>
 			</varlistentry>
 
@@ -10204,17 +10170,6 @@
 		    <varlistentry>
 			<term
 ><replaceable
->nom</replaceable
-></term>
-			<listitem>
-			    <para
->El nom del fitxer original, utilitzarà com a base per al nom dels fitxers. </para>
-			</listitem>
-		    </varlistentry>
-
-		    <varlistentry>
-			<term
-><replaceable
 >patró</replaceable
 ></term>
 			<listitem>
@@ -10343,6 +10298,28 @@
 				    </tgroup>
 				</informaltable>
 			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>extensió</replaceable
+></term>
+			<listitem>
+			    <para
+>L'extensió del nom de fitxer a usar per als blocs desats. Això determina quina codificació s'utilitza. </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>exporta la ubicació</replaceable
+></term>
+			<listitem>
+			    <para
+>La ubicació a on exportar els blocs desats. </para>
 			</listitem>
 		    </varlistentry>
 

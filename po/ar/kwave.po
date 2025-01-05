@@ -6312,14 +6312,22 @@ msgstr[1] ""
 msgid "one hour "
 msgid_plural "%1 hours "
 msgstr[0] ""
-msgstr[1] ""
+msgstr[1] "ساعة واحدة "
+msgstr[2] "ساعتان "
+msgstr[3] "%1 ساعات "
+msgstr[4] "%1 ساعة "
+msgstr[5] "%1 ساعة "
 
 #: plugins/record/RecordDialog.cpp:1193
 #, kde-format
 msgid "one minute "
 msgid_plural "%1 minutes "
 msgstr[0] ""
-msgstr[1] ""
+msgstr[1] "دقيقة واحدة "
+msgstr[2] "دقيقتان "
+msgstr[3] "%1 دقائق "
+msgstr[4] "%1 دقيقة "
+msgstr[5] "%1 دقيقة "
 
 #: plugins/record/RecordDialog.cpp:1196
 #, kde-format

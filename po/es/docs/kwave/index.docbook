@@ -8641,17 +8641,6 @@
 			<varlistentry>
 			    <term
 ><replaceable
->nombre de archivo</replaceable
-></term>
-			    <listitem>
-				<para
->El nombre del archivo del proyecto K3b, se usará como nombre base para los nombres de archivos exportados. </para>
-			    </listitem>
-			</varlistentry>
-
-			<varlistentry>
-			    <term
-><replaceable
 >patrón</replaceable
 ></term>
 			    <listitem>
@@ -8764,47 +8753,22 @@
 			<varlistentry>
 			    <term
 ><replaceable
+>archivo de proyecto</replaceable
+></term>
+			    <listitem>
+				<para
+>El nombre del archivo del proyecto K3b, que también se usará como el nombre base para los nombres de archivos exportados. </para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
+			    <term
+><replaceable
 >exportar ubicación</replaceable
 ></term>
 			    <listitem>
 				<para
->Determina donde se deben guardar los bloques. <informaltable frame='all'
-> <tgroup cols='2'>
-					    <thead>
-						<row>
-						    <entry align='left'
->valor</entry>
-						    <entry align='left'
->descripción</entry>
-						</row>
-					    </thead>
-					    <tbody>
-						<row>
-						    <entry
->&no-i18n-tag;<command
->0</command
-></entry>
-						    <entry
->Guarda en el mismo directorio que el archivo de proyecto K3b. </entry>
-						</row>
-						<row>
-						    <entry
->&no-i18n-tag;<command
->1</command
-></entry>
-						    <entry
->Guarda en un sub-directorio dentro del directorio en el que se encuentra el archivo del proyecto K3b, usando el nombre del archivo K3b como base y añadiendo <quote
-><command
-><literal
->.dir</literal
-></command
-></quote
->. </entry>
-						</row>
-					    </tbody>
-					</tgroup>
-				    </informaltable>
-				</para>
+>La localización donde se guardarán los bloques. </para>
 			    </listitem>
 			</varlistentry>
 
@@ -10336,17 +10300,6 @@
 		    <varlistentry>
 			<term
 ><replaceable
->nombre</replaceable
-></term>
-			<listitem>
-			    <para
->El nombre del archivo original se usará como base para el nombre de los archivos. </para>
-			</listitem>
-		    </varlistentry>
-
-		    <varlistentry>
-			<term
-><replaceable
 >patrón</replaceable
 ></term>
 			<listitem>
@@ -10477,6 +10430,28 @@
 				    </tgroup>
 				</informaltable>
 			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>extensión</replaceable
+></term>
+			<listitem>
+			    <para
+>La extensión del archivo a usar al guardar bloques. Ésta determina la codificación usada. </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>exportar ubicación</replaceable
+></term>
+			<listitem>
+			    <para
+>La localización donde exportar los bloques guardados. </para>
 			</listitem>
 		    </varlistentry>
 

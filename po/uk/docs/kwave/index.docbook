@@ -8563,17 +8563,6 @@
 			<varlistentry>
 			    <term
 ><replaceable
->назва_файла</replaceable
-></term>
-			    <listitem>
-				<para
->Назва файла проєкту K3b, буде використано як основу назв експортованих файлів. </para>
-			    </listitem>
-			</varlistentry>
-
-			<varlistentry>
-			    <term
-><replaceable
 >взірець</replaceable
 ></term>
 			    <listitem>
@@ -8686,47 +8675,22 @@
 			<varlistentry>
 			    <term
 ><replaceable
+>файл проєкту</replaceable
+></term>
+			    <listitem>
+				<para
+>Назва файла проєкту K3b, яку також буде використано як основу назв експортованих файлів. </para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
+			    <term
+><replaceable
 >місце для експортування</replaceable
 ></term>
 			    <listitem>
 				<para
->Визначає, де має бути збережено блоки. <informaltable frame='all'
-> <tgroup cols='2'>
-					    <thead>
-						<row>
-						    <entry align='left'
->значення</entry>
-						    <entry align='left'
->опис</entry>
-						</row>
-					    </thead>
-					    <tbody>
-						<row>
-						    <entry
->&no-i18n-tag;<command
->0</command
-></entry>
-						    <entry
->Зберегти до того самого каталогу, що і файл проєкту K3b. </entry>
-						</row>
-						<row>
-						    <entry
->&no-i18n-tag;<command
->1</command
-></entry>
-						    <entry
->Зберегти до підкаталогу каталогу файла проєкту K3b, використовуючи назву файла проєкту K3b як основу і дописуючи до неї <quote
-><command
-><literal
->.dir</literal
-></command
-></quote
->. </entry>
-						</row>
-					    </tbody>
-					</tgroup>
-				    </informaltable>
-				</para>
+>Місце, де має бути збережено блоки. </para>
 			    </listitem>
 			</varlistentry>
 
@@ -10266,17 +10230,6 @@
 		    <varlistentry>
 			<term
 ><replaceable
->назва</replaceable
-></term>
-			<listitem>
-			    <para
->Назва початкового файла, буде використано як основу назв файлів. </para>
-			</listitem>
-		    </varlistentry>
-
-		    <varlistentry>
-			<term
-><replaceable
 >взірець</replaceable
 ></term>
 			<listitem>
@@ -10407,6 +10360,28 @@
 				    </tgroup>
 				</informaltable>
 			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>суфікс назви</replaceable
+></term>
+			<listitem>
+			    <para
+>Суфікс назви файла, яким слід скористатися для збережених блоків. Визначає, яке кодування буде використано. </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>місце для експортування</replaceable
+></term>
+			<listitem>
+			    <para
+>Місце для експортування збережених блоків. </para>
 			</listitem>
 		    </varlistentry>
 

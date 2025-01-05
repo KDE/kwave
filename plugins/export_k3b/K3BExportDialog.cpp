@@ -33,7 +33,7 @@
 
 #include "K3BExportDialog.h"
 
-using namespace Qt::StringLiterals;
+#define CFG_GROUP _("KwaveFileDialog-kwave_export_k3b")
 
 //***************************************************************************
 Kwave::K3BExportDialog::K3BExportDialog(
@@ -77,12 +77,12 @@ Kwave::K3BExportDialog::K3BExportDialog(
 
     // get the last project directory
     QString path = url.adjusted(QUrl::RemoveFilename).toDisplayString();
-    KConfigGroup cfg = KSharedConfig::openConfig()->group(m_cfgGroup);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(CFG_GROUP);
     QUrl last_url = Kwave::URLfromUserInput(cfg.readEntry("last_url", path));
 
     // construct the project file name
     QFileInfo fi(url.path());
-    last_url.setPath(last_url.path() + fi.baseName() + ".k3b"_L1);
+    last_url.setPath(last_url.path() + fi.baseName() + _(".k3b"));
 
     fileUrlRequester->setUrl(last_url);
     fileUrlRequester->setNameFilter(
@@ -159,13 +159,13 @@ void Kwave::K3BExportDialog::accept()
     QString msg;
     if (!url.isValid()) {
         msg += i18n("Please choose a K3b project file name");
-        msg += "\n"_L1;
+        msg += _("\n");
     }
     if (!exportLocation().isValid()) {
         msg += i18n("Please choose where to export the audio files");
     }
     if (msg.isEmpty()) {
-        KConfigGroup cfg = KSharedConfig::openConfig()->group(m_cfgGroup);
+        KConfigGroup cfg = KSharedConfig::openConfig()->group(CFG_GROUP);
         cfg.writeEntry("last_url", url.adjusted(QUrl::RemoveFilename));
         cfg.sync();
         QDialog::accept();

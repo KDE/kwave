@@ -37,7 +37,7 @@
 
 #include "SaveBlocksDialog.h"
 
-using namespace Qt::StringLiterals;
+#define CFG_GROUP _("KwaveFileDialog-kwave_save_blocks")
 
 //***************************************************************************
 Kwave::SaveBlocksDialog::SaveBlocksDialog(QWidget *parent,
@@ -46,15 +46,15 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(QWidget *parent,
         Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
         bool selection_only,
         bool have_selection)
-    : QDialog(parent)
-    , Ui::SaveBlocksDialogBase()
-    , m_filename(filename.toLocalFile())
+    :QDialog(parent),
+     Ui::SaveBlocksDialogBase(),
+     m_filename(filename.toLocalFile())
 {
     setupUi(this);
 
-    KConfigGroup cfg = KSharedConfig::openConfig()->group(m_cfgGroup);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(CFG_GROUP);
     QUrl last_url = Kwave::URLfromUserInput(cfg.readEntry("last_url", filename.toDisplayString()));
-    QString last_ext = cfg.readEntry("last_ext", u""_s);
+    QString last_ext = cfg.readEntry("last_ext", _(""));
 
     Kwave::FileInfo info;
 
@@ -81,12 +81,12 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(QWidget *parent,
     cbNumbering->setCurrentIndex(static_cast<int>(numbering_mode));
 
     // populate the extension combo box
-    const QStringList encodings = Kwave::CodecManager::encodingFilter().split("\n"_L1);
+    const QStringList encodings = Kwave::CodecManager::encodingFilter().split(_("\n"));
     for (auto e : encodings) {
         QStringList pattern;
         if (e.contains(_("|"))) {
-            qsizetype i = e.indexOf("|"_L1);
-            pattern = e.left(i).split(" "_L1);
+            qsizetype i = e.indexOf(_("|"));
+            pattern = e.left(i).split(_(" "));
         }
         for (auto p : pattern) {
             QString ext = p.mid(1);
@@ -169,7 +169,7 @@ Kwave::SaveBlocksPlugin::numbering_mode_t
 QString Kwave::SaveBlocksDialog::extension()
 {
     Q_ASSERT(cbExtension);
-    return (cbExtension) ? cbExtension->currentText() : u".wav"_s;
+    return (cbExtension) ? cbExtension->currentText() : _(".wav");
 }
 
 //***************************************************************************
@@ -194,7 +194,7 @@ void Kwave::SaveBlocksDialog::accept()
 {
     QUrl dir = selectedUrl();
     if (dir.isValid()) {
-        KConfigGroup cfg = KSharedConfig::openConfig()->group(m_cfgGroup);
+        KConfigGroup cfg = KSharedConfig::openConfig()->group(CFG_GROUP);
         cfg.writeEntry("last_url", dir);
         cfg.writeEntry("last_ext", cbExtension->currentText());
         cfg.sync();

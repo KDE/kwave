@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Volkan Gezer <volkangezer@gmail.com>, 2017.
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-14 02:31+0000\n"
-"PO-Revision-Date: 2024-11-15 22:45+0300\n"
+"PO-Revision-Date: 2025-01-04 15:52+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -4875,15 +4875,15 @@ msgstr "%​100 DC düzeyi oluştur"
 
 #: plugins/debug/DebugPlugin.cpp:93
 msgid "MinMax Pattern"
-msgstr "En az en çok Deseni"
+msgstr "En Az/Çok Deseni"
 
 #: plugins/debug/DebugPlugin.cpp:95
 msgid "Generate Sawtooth Pattern"
-msgstr "Sawtooth deseni oluştur"
+msgstr "Sawtooth Deseni Oluştur"
 
 #: plugins/debug/DebugPlugin.cpp:97
 msgid "Verify Sawtooth Pattern"
-msgstr "Sawtooth desenini onayla"
+msgstr "Sawtooth Desenini Onayla"
 
 #: plugins/debug/DebugPlugin.cpp:99
 msgid "FM Sweep"
@@ -4975,7 +4975,7 @@ msgid ""
 "body></html>"
 msgstr ""
 "<html><head/><body><p>Etiketin metninden başlığı ve sanatçıyı algılamak için "
-"desen seçin.<br/>Şu anda anlaşılan yer tutucular:</p><ul style=\"margin-top: "
+"dizgi seçin.<br/>Şu anda anlaşılan yer tutucular:</p><ul style=\"margin-top: "
 "0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-"
 "indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-"
 "left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
@@ -7085,7 +7085,7 @@ msgstr "Şu dizinler yok: %1Dizinleri oluşturup sürdürülsün mü?"
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:35
 #, kde-format
 msgid "Save selection only"
-msgstr "Yalnızca seçim kaydet"
+msgstr "Yalnızca seçimi kaydet"
 
 #. i18n: ectx: property (text), widget (QLabel, lblNumbering)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:45

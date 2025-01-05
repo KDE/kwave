@@ -1008,18 +1008,25 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
         delete dlg;
     }
 
-    // check if the file exists and ask before overwriting it
-    // if it is not the old filename
     name = url.path();
-    if ((url.toDisplayString() != QUrl(signalName()).toDisplayString()) &&
-        QFileInfo::exists(name))
-    {
-        if (Kwave::MessageBox::warningYesNo(m_top_widget,
-            i18n("The file '%1' already exists.\n"
-                 "Do you really want to overwrite it?", name)) !=
-                 KMessageBox::PrimaryAction)
+
+    // NOTE: When we get here from the context of a script we already
+    //       have a file name and must check overwrites on our own.
+    //       If we used the standard file dialog above, this check has
+    //       already been done there!
+    if (filename.length()) {
+        // check if the file exists and ask before overwriting it
+        // if it is not the old filename
+        if ((url.toDisplayString() != QUrl(signalName()).toDisplayString()) &&
+            QFileInfo::exists(name))
         {
-            return -1;
+            if (Kwave::MessageBox::warningYesNo(m_top_widget,
+                i18n("The file '%1' already exists.\n"
+                    "Do you really want to overwrite it?", name)) !=
+                    KMessageBox::PrimaryAction)
+            {
+                return -1;
+            }
         }
     }
 

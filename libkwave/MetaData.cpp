@@ -211,26 +211,24 @@ void Kwave::MetaData::dump() const
 
     qDebug("    scope =%s", DBG(scope_list));
     const QStringList props = keys();
-    foreach (const QString &p, props) {
-        QVariant prop = property(p);
-        QString value;
-        QList<QVariant> v_vals;
-        if (!prop.canConvert(QMetaType(QMetaType::QString)))
-            v_vals = prop.toList();
-        if (!v_vals.isEmpty()) {
-            int limit = 256; // limit a bit, show only the first 256 entries
-            foreach (QVariant v, v_vals) {
-                value += _("{") + shortened(v.toString()) + _("} ");
-                if (limit-- <= 0) {
-                    value += _("...");
+    foreach (const QString &name, props) {
+        QVariant    val  = property(name);
+        QStringList list = val.toStringList();
+        if (list.size() > 1)
+        {
+            int index = 0;
+            foreach (const QString &s, list)
+            {
+                if (index > 32) {
+                    qDebug("    ..."); // emergency break
                     break;
                 }
+                qDebug("   '%s[%2d]' = %s", DBG(name), index++,
+                       DBG(shortened(s)));
             }
-        } else {
-            value += shortened(prop.toString());
         }
-
-        qDebug("    '%s' = %s", DBG(p), DBG(value));
+        else
+            qDebug("   '%s' = %s", DBG(name), DBG(shortened(val.toString())));
     }
 }
 

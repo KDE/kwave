@@ -21,7 +21,6 @@
 #include "config.h"
 
 #include <QList>
-#include <QPair>
 
 #include <id3/globals.h>
 

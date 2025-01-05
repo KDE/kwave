@@ -158,18 +158,35 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
                 /* FALLTHROUGH */
             case ID3_PropertyMap::ENC_COMMENT:
             {
-                // detect language at the start "[xxx] "
-                if (str_val.startsWith(QLatin1Char('[')) &&
-                    (str_val.at(4) == QLatin1Char(']'))) {
-                    QString lang = str_val.mid(1,3);
-                    str_val      = str_val.mid(5);
-                    frame->GetField(ID3FN_DESCRIPTION)->Set("");
-                    frame->GetField(ID3FN_LANGUAGE)->Set(
-                        static_cast<const char *>(lang.toLatin1().data()));
+                ok = false;
+                QStringList list = info.get(property).toStringList();
+                foreach (QString str_val, list)
+                {
+                    delete frame;
+                    frame = new(std::nothrow) ID3_Frame;
+                    Q_ASSERT(frame != nullptr);
+                    if (frame == nullptr) continue;
+                    frame->SetID(id);
+
+                    // detect language at the start "[xxx] "
+                    if ( (str_val.length() > 5) &&
+                         (str_val.at(0) == QLatin1Char('[')) &&
+                         (str_val.at(4) == QLatin1Char(']')) ) {
+                        QString lang = str_val.mid(1,3);
+                        str_val      = str_val.mid(5).trimmed();
+                        frame->GetField(ID3FN_LANGUAGE)->Set(
+                            static_cast<const char *>(lang.toLatin1().data()));
+                    }
+                    /* frame->GetField(ID3FN_DESCRIPTION)->Set("..."); */
+                    field = frame->GetField(ID3FN_TEXT);
+                    field->SetEncoding(ID3TE_UTF16);
+                    field->Set(static_cast<const unicode_t *>(str_val.utf16()));
+
+                    if (tag.AttachFrame(frame)) {
+                        frame = nullptr;
+                        ok = true;
+                    }
                 }
-                /* frame->GetField(ID3FN_DESCRIPTION)->Set(""); */
-                field->SetEncoding(ID3TE_UTF16);
-                field->Set(static_cast<const unicode_t *>(str_val.utf16()));
                 break;
             }
             case ID3_PropertyMap::ENC_GENRE_TYPE:

@@ -267,6 +267,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
                 /* FALLTHROUGH */
             case ID3_PropertyMap::ENC_COMMENT:
             {
+                // list of strings
                 QString s = parseId3Frame2String(frame);
 
                 // optionally prepend language
@@ -276,10 +277,11 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
                     ID3_FreeString(lang);
                 }
 
-                // append to already existing tag, separated by a slash
+                QStringList list;
                 if (info.contains(property))
-                    s = info.get(property).toString() + _(" / ") + s;
-                info.set(property, QVariant(s));
+                    list = info.get(property).toStringList();
+                list.append(s);
+                info.set(property, QVariant(list));
                 break;
             }
             case ID3_PropertyMap::ENC_GENRE_TYPE:

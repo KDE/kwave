@@ -487,12 +487,26 @@ void Kwave::FileInfo::dump() const
 //     }
 
     qDebug("other properties:");
-    QMap<Kwave::FileProperty, QVariant>::Iterator it;
     foreach (Kwave::FileProperty key, m_property_map.keys()) {
         if (!contains(key)) continue;
-        QVariant val = get(key);
-        QString name = m_property_map.name(key);
-        qDebug("   '%s' = '%s'", DBG(name), DBG(shortened(val.toString())));
+        QString     name = m_property_map.name(key);
+        QVariant    val  = get(key);
+        QStringList list = val.toStringList();
+        if (list.size() > 1)
+        {
+            int index = 0;
+            foreach (const QString &s, list)
+            {
+                if (index > 32) {
+                    qDebug("    ..."); // emergency break
+                    break;
+                }
+                qDebug("   '%s[%2d]' = %s", DBG(name), index++,
+                       DBG(shortened(s)));
+            }
+        }
+        else
+            qDebug("   '%s' = %s", DBG(name), DBG(shortened(val.toString())));
 
 //      for updating the list of properties in the appendix of the handbook:
 //      QString name  = m_property_map.name(key);

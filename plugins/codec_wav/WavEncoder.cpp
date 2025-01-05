@@ -135,12 +135,23 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
         if (!m_property_map.containsProperty(property)) continue;
 
         QByteArray chunk_id = m_property_map.findProperty(property);
-        if (info_chunks.contains(chunk_id)) continue; // already encoded
 
-        QByteArray value = QVariant(properties[property]).toString().toUtf8();
-        info_chunks.insert(chunk_id, value);
-        info_size += 4 + 4 + value.length();
-        if (value.length() & 0x01) info_size++;
+        QStringList list = properties[property].toStringList();
+        foreach (QString s, list)
+        {
+            QByteArray raw = s.toUtf8();
+            info_size += raw.length();
+            if (!info_chunks.contains(chunk_id)) {
+                info_size += 4 + 4; // chunk id and size
+            } else {
+                raw.prepend('\n');
+                raw.prepend('\r');
+                raw.prepend(info_chunks[chunk_id]);
+                info_size += 2; // for the separator (CR/LF)
+            }
+            info_chunks[chunk_id] = raw;
+        }
+        if (info_size & 0x01) info_size++;
     }
 
     // if there are properties to save, create a LIST chunk

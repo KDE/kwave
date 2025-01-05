@@ -457,9 +457,14 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
             src.seek(ofs);
             src.read(buffer.data(), len);
             buffer[len] = 0;
-            QString value;
-            value = QString::fromUtf8(buffer);
-            info.set(prop, value);
+            QString value = QString::fromUtf8(buffer);
+            if (value.contains(_("\r\n"))) {
+                QStringList list = value.split(_("\r\n"),
+                    Qt::SkipEmptyParts, Qt::CaseSensitive);
+                info.set(prop, list);
+            } else {
+                info.set(prop, value);
+            }
         }
     }
 

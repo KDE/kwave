@@ -362,7 +362,7 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     // translate verbose name to internal ALSA name
     QString alsa_device = alsaDeviceName(device);
     qDebug("PlayBackALSA::openDevice() - opening ALSA device '%s', "
-           "%dHz %d channels, %u bit",
+           "%uHz %u channels, %u bit",
            DBG(alsa_device.split(_("|")).at(0)), rate, channels, bits);
 
     // workaround for bug in ALSA
@@ -443,7 +443,7 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     if (static_cast<float>(rate) * 1.05f < static_cast<float>(rrate) ||
         static_cast<float>(rate) * 0.95f > static_cast<float>(rrate))
     {
-        qWarning("rate is not accurate (requested = %iHz, got = %iHz)",
+        qWarning("rate is not accurate (requested = %uHz, got = %uHz)",
                   rate, rrate);
         qWarning("         please, try the plug plugin (-Dplug:%s)",
                  snd_pcm_name(m_handle));

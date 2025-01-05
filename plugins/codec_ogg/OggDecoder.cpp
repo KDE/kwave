@@ -155,7 +155,7 @@ int Kwave::OggDecoder::parseHeader(QWidget *widget)
     if (!m_sub_decoder) {
         qDebug("--- dump of the first 8 bytes of the packet: ---");
         for (unsigned int i = 0; i < 8; i++)
-            qDebug("%2d: 0x%02X - '%c'", i, m_op.packet[i], m_op.packet[i]);
+            qDebug("%2u: 0x%02X - '%c'", i, m_op.packet[i], m_op.packet[i]);
 
         Kwave::MessageBox::error(widget, i18n(
             "Error: Codec not supported"));

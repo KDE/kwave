@@ -668,7 +668,7 @@ int Kwave::PlayBackPulseAudio::flush()
                 break;
             }
             if (!m_mainloop_signal.wait(&m_mainloop_lock, timeout)) {
-                qWarning("PlayBackPulseAudio::flush(): timed out after %u ms",
+                qWarning("PlayBackPulseAudio::flush(): timed out after %d ms",
                          timeout);
                 result = -1;
                 break;
@@ -761,7 +761,7 @@ int Kwave::PlayBackPulseAudio::close()
                 break;
             }
             if (!m_mainloop_signal.wait(&m_mainloop_lock, timeout)) {
-                qWarning("PlayBackPulseAudio::flush(): timed out after %u ms",
+                qWarning("PlayBackPulseAudio::flush(): timed out after %d ms",
                          timeout);
                 break;
             }

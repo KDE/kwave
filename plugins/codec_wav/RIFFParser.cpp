@@ -582,8 +582,8 @@ Kwave::RIFFChunk *Kwave::RIFFParser::findMissingChunk(const QByteArray &name)
     // not found in garbage? search over the rest of the file"
     if (!found_something && !m_cancel) {
         qDebug("brute-force search from 0x%08X to 0x%08X",
-            0, m_root.physEnd());
-        QList<quint32> offsets = scanForName(name, 0, m_root.physLength());
+            0U, m_root.physEnd());
+        QList<quint32> offsets = scanForName(name, 0U, m_root.physLength());
 
         // process the results -> convert them into chunks
         quint32 end = m_root.physEnd();

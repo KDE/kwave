@@ -74,7 +74,7 @@ namespace Kwave {
                     sink,   input,  track)) return false;
             }
         } else {
-            qWarning("invalid source/sink combination, %d:%d tracks",
+            qWarning("invalid source/sink combination, %u:%u tracks",
                 src_tracks, dst_tracks);
             return false;
         }

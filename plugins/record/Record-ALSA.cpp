@@ -376,7 +376,7 @@ int Kwave::RecordALSA::initialize()
         Kwave::SampleFormat::Map sf;
 
         qWarning("RecordkALSA::setFormat(): no matching format for "\
-                 "compression '%s', %d bits/sample, format '%s'",
+                 "compression '%s', %u bits/sample, format '%s'",
                  DBG(sf.description(sf.findFromData(m_sample_format), true)),
                  m_bits_per_sample,
                  DBG(Kwave::Compression(m_compression).name()));
@@ -392,7 +392,7 @@ int Kwave::RecordALSA::initialize()
 
     err = snd_pcm_hw_params_test_format(m_handle, m_hw_params, alsa_format);
     if (err) {
-        qWarning("RecordkALSA::setFormat(): format %u is not supported",
+        qWarning("RecordkALSA::setFormat(): format %d is not supported",
             static_cast<int>(alsa_format));
         snd_output_close(output);
         return -EINVAL;

@@ -145,10 +145,10 @@ void Kwave::FlacDecoder::parseStreamInfo(
     const FLAC::Metadata::StreamInfo &stream_info)
 {
     qDebug("FLAC stream info");
-    qDebug("\tmin_blocksize   = %d", stream_info.get_min_blocksize());
-    qDebug("\tmax_blocksize   = %d", stream_info.get_max_blocksize());
-    qDebug("\tmin_framesize   = %d", stream_info.get_min_framesize());
-    qDebug("\tmax_framesize   = %d", stream_info.get_max_framesize());
+    qDebug("\tmin_blocksize   = %u", stream_info.get_min_blocksize());
+    qDebug("\tmax_blocksize   = %u", stream_info.get_max_blocksize());
+    qDebug("\tmin_framesize   = %u", stream_info.get_min_framesize());
+    qDebug("\tmax_framesize   = %u", stream_info.get_max_framesize());
 
     Kwave::FileInfo info(metaData());
     info.setRate(stream_info.get_sample_rate());

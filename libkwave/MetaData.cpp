@@ -217,14 +217,14 @@ void Kwave::MetaData::dump() const
         if (list.size() > 1)
         {
             int index = 0;
-            foreach (const QString &s, list)
+            foreach (const QString &v, list)
             {
                 if (index > 32) {
                     qDebug("    ..."); // emergency break
                     break;
                 }
                 qDebug("   '%s[%2d]' = %s", DBG(name), index++,
-                       DBG(shortened(s)));
+                       DBG(shortened(v)));
             }
         }
         else

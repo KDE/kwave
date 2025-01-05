@@ -726,7 +726,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
         if (label.length()) {
             if (labels.contains(label)) {
                 labels[label].hits++;
-                qDebug(">>> GOTO '%s' @ offset %llu (pass #%d)", DBG(label),
+                qDebug(">>> GOTO '%s' @ offset %lld (pass #%u)", DBG(label),
                        labels[label].pos,
                        labels[label].hits
                     );

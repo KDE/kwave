@@ -200,7 +200,9 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
         Qt::KeyboardModifiers key_modifiers(QKeySequence::fromString(key_name)[0].keyboardModifiers());
 
         qDebug("send key '%s' [0x%08X:0x%08X] to '%s' [%p]",
-               DBG(key_name), static_cast<int>(key_modifiers), key_code,
+               DBG(key_name),
+               static_cast<unsigned int>(key_modifiers),
+               static_cast<unsigned int>(key_code),
                DBG(class_name), static_cast<void *>(widget));
         if (!widget) return nullptr;
 

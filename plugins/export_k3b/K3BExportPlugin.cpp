@@ -594,7 +594,7 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
 
     // check: only mono or stereo files are supported
     if ((tracks.count() != 1) && (tracks.count() != 2)) {
-        qWarning("sorry, K3b can not handle %llu tracks", tracks.count());
+        qWarning("sorry, K3b can not handle %lld tracks", tracks.count());
         Kwave::MessageBox::sorry(parentWidget(), i18n(
             "Only mono and stereo files can be used for an audio CD. "
             "You can either deselect some channels or export the file "
@@ -639,7 +639,7 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
             QStringList matches = files.filter(rx);
             if (matches.count() > 0) first = i + 1;
         }
-        qDebug("found first usable index -> %d", first);
+        qDebug("found first usable index -> %u", first);
     } else {
         // overwrite mode, always start at 1
     }

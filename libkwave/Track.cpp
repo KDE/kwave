@@ -801,7 +801,7 @@ void Kwave::Track::dump()
             static_cast<unsigned long int>(start - 1),
             static_cast<unsigned long int>(start - last_end -
                 ((index) ? 1 : 0)));
-        qDebug("#%6d: %p - [%10lu - %10lu] (%10lu)",
+        qDebug("#%6u: %p - [%10lu - %10lu] (%10lu)",
                index++, static_cast<const void *>(&s),
                static_cast<unsigned long int>(s.start()),
                static_cast<unsigned long int>(s.end()),

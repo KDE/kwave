@@ -29,7 +29,7 @@
 static void decode_NULL(const quint8 *src, sample_t *dst, unsigned int count)
 {
     while (count--) {
-        qWarning("%02X ", Kwave::toInt(*src));
+        qWarning("%02X ", Kwave::toUint(*src));
         *(dst++) = count % (1 << (SAMPLE_BITS-1));
     }
 }

@@ -610,7 +610,7 @@ void Kwave::PlayBackDialog::setChannels(int channels)
         channels = sbChannels->value();
     }
 
-    qDebug("PlayBackDialog::setChannels(): %d -> %d",
+    qDebug("PlayBackDialog::setChannels(): %u -> %d",
            m_playback_params.channels, channels);
     m_playback_params.channels = channels;
 

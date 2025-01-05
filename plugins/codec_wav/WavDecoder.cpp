@@ -459,9 +459,9 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
             buffer[len] = 0;
             QString value = QString::fromUtf8(buffer);
             if (value.contains(_("\r\n"))) {
-                QStringList list = value.split(_("\r\n"),
+                QStringList v = value.split(_("\r\n"),
                     Qt::SkipEmptyParts, Qt::CaseSensitive);
-                info.set(prop, list);
+                info.set(prop, v);
             } else {
                 info.set(prop, value);
             }
@@ -506,7 +506,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
             src.read(reinterpret_cast<char *>(&data), 4);
             /* we currently support only 'data' */
             if (qstrncmp(reinterpret_cast<const char *>(&data), "data", 4)) {
-                qWarning("cue list entry %d refers to '%s', "
+                qWarning("cue list entry %u refers to '%s', "
                          "which is not supported -> skipped",
                          index, QByteArray(
                          reinterpret_cast<const char *>(&data), 4).data());
@@ -515,14 +515,14 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
             src.read(reinterpret_cast<char *>(&data), 4);
             /* dwChunkStart (must be 0) */
             if (data != 0) {
-                qWarning("cue list entry %d has dwChunkStart != 0 -> skipped",
+                qWarning("cue list entry %u has dwChunkStart != 0 -> skipped",
                          index);
                 continue;
             }
             src.read(reinterpret_cast<char *>(&data), 4);
             /* dwBlockStart (must be 0) */
             if (data != 0) {
-                qWarning("cue list entry %d has dwBlockStart != 0 -> skipped",
+                qWarning("cue list entry %u has dwBlockStart != 0 -> skipped",
                          index);
                 continue;
             }

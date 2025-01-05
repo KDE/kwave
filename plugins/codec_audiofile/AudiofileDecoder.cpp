@@ -208,9 +208,9 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("-------------------------");
     qDebug("info:");
     qDebug("compression = %d", af_compression);
-    qDebug("channels    = %d", info.tracks());
+    qDebug("channels    = %u", info.tracks());
     qDebug("rate        = %0.0f", info.rate());
-    qDebug("bits/sample = %d", info.bits());
+    qDebug("bits/sample = %u", info.bits());
     qDebug("length      = %lu samples",
            static_cast<unsigned long int>(info.length()));
     qDebug("format      = %d (%s)", af_sample_format,

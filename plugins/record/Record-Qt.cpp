@@ -465,7 +465,8 @@ int Kwave::RecordQt::initialize(unsigned int buffer_size)
             }
             break;
         default:
-            qWarning("%d bits per sample are not supported", m_bits_per_sample);
+            qWarning("%u bits per sample are not supported",
+                     m_bits_per_sample);
             return -EIO;
     }
     format.setChannelCount(Kwave::toInt(m_tracks));

@@ -251,7 +251,7 @@ void Kwave::RecordPulseAudio::detectSupportedFormats(const QString &device)
 
         Kwave::Compression t(compression_of(fmt));
         Kwave::SampleFormat::Map sf;
-        qDebug("#%2u, %2u bit [%u byte], %s, '%s', '%s'",
+        qDebug("#%2u, %2d bit [%d byte], %s, '%s', '%s'",
             i,
             bits_of(fmt),
             (bits_of(fmt) + 7) >> 3,
@@ -729,7 +729,7 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
         Kwave::SampleFormat::Map sf;
 
         qWarning("format: no matching format for compression '%s', "
-            "%d bits/sample, format '%s'",
+            "%u bits/sample, format '%s'",
             DBG(sf.description(sf.findFromData(m_sample_format), true)),
             m_bits_per_sample,
             DBG(Kwave::Compression(m_compression).name())

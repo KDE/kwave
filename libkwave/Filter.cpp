@@ -184,7 +184,7 @@ void Kwave::Filter::load(const QString &filename)
     unsigned int order = line.remove(0,4).toUInt(&ok);
     resize(0);
     resize(order);
-    qDebug("Filter::load(): order = %d", order);
+    qDebug("Filter::load(): order = %u", order);
 
     // read delays and coefficients
     i = 0;
@@ -205,7 +205,7 @@ void Kwave::Filter::load(const QString &filename)
         if (ok) {
             i++;
         } else {
-            qDebug("Filter::load(%s): syntax error in line %d",
+            qDebug("Filter::load(%s): syntax error in line %u",
                    DBG(filename), linenr);
         }
     }

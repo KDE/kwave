@@ -86,7 +86,7 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
     Kwave::FileInfo info(metaData());
 
     /* first of all check CRC, it might be senseless if the file is broken */
-    qDebug("crc = 0x%08X", header.crc);
+    qDebug("crc = 0x%08X", static_cast<unsigned int>(header.crc));
     if ((header.crc == MP3CRC_MISMATCH) || (header.crc == MP3CRC_ERROR_SIZE)) {
 
         if (header.layer == MPEGLAYER_II) {

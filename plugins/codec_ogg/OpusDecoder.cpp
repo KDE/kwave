@@ -320,13 +320,13 @@ int Kwave::OpusDecoder::parseOpusHead(QWidget *widget, Kwave::FileInfo &info)
             for (i = 0; i < m_opus_header.channels; i++) {
                 quint8 c = h->map[i];
                 if (c > (m_opus_header.coupled + m_opus_header.streams)) {
-                    qWarning("OpusDecoder::parseHeader(): mapping[%d]"
+                    qWarning("OpusDecoder::parseHeader(): mapping[%u]"
                              "out of range: %d (> %d)", i, c,
                              m_opus_header.coupled + m_opus_header.streams);
                     break; // mapping out of range
                 }
                 if (m_opus_header.map[i] != 0xFF) {
-                    qWarning("OpusDecoder::parseHeader(): mapping[%d]"
+                    qWarning("OpusDecoder::parseHeader(): mapping[%u]"
                              "already occupied: %d", i,
                              m_opus_header.map[i]);
                     break; // mapping already occupied
@@ -387,7 +387,7 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     }
 
     int err = OPUS_BAD_ARG;
-    qDebug("    sample rate = %d", m_opus_header.sample_rate);
+    qDebug("    sample rate = %u", m_opus_header.sample_rate);
     m_opus_decoder = opus_multistream_decoder_create(
         Kwave::opus_next_sample_rate(m_opus_header.sample_rate),
         m_opus_header.channels,

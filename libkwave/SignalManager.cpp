@@ -337,7 +337,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
 
     QString mimetype_name;
     mimetype_name = Kwave::CodecManager::mimeTypeOf(url);
-    qDebug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
+    qDebug("SignalManager::save(%s) - [%s] (%u bit, selection=%d)",
         DBG(url.toDisplayString()), DBG(mimetype_name), bits, selection);
 
     Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype_name);

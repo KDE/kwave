@@ -375,9 +375,8 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
 
     std::vector<Stripe>::reverse_iterator it_r(m_stripes.rbegin());
     while (it_r != m_stripes.rend()) {
-        Stripe        &s      = *it_r;
-        sample_index_t start  = s.start();
-        sample_index_t end    = s.end();
+        sample_index_t start  = it_r->start();
+        sample_index_t end    = it_r->end();
 
         if (end   < left)  break;                // done, stripe is at left
         if (start > right) { ++it_r; continue; } // skip, stripe is at right
@@ -393,18 +392,19 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
             //        already checked above
             // partial stripe overlap
             sample_index_t ofs = (start < left) ? left : start;
-            if (end > right) end = right;
 //          qDebug("deleting [%llu ... %llu] (start=%llu, ofs-start=%llu, len=%llu)",
 //              ofs, end, start, ofs-start, end - ofs + 1);
 
             if (!make_gap ||
-                ((left <= s.start()) && (right  < s.end())) ||
-                ((left  > s.start()) && (right >= s.end())))
+                ((left <= start) && (right  < end)) ||
+                ((left  > start) && (right >= end)))
             {
                 // case #2: delete without creating a gap
                 // case #3: delete from the left only
                 // case #4: delete from the right only
 //              qDebug("    deleting within the stripe");
+                if (end > right) end = right;
+                Stripe &s = *it_r;
                 s.deleteRange(
                     Kwave::toUint(ofs - start),
                     Kwave::toUint(end - ofs + 1)
@@ -421,24 +421,20 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
             } else {
                 // case #5: delete from the middle and produce a gap
                 //          by splitting off a new stripe
-//              qDebug("    splitting off to new stripe @ %llu (ofs=%llu)",
-//                  right + 1, right + 1 - start);
-                Stripe new_stripe = splitStripe(s,
+                qDebug("    splitting off to new stripe @ %llu (ofs=%llu)",
+                       right + 1, right + 1 - start);
+                Stripe new_stripe = splitStripe(*it_r,
                     Kwave::toUint(right + 1 - start));
                 if (!new_stripe.length()) break; // OOM ?
-                m_stripes.insert(it_r.base(), new_stripe);
+                it_r = std::reverse_iterator<std::vector<Stripe>::iterator>(
+                    m_stripes.insert(it_r.base(), new_stripe));
 
                 // erase to the end (reduce size)
-                const unsigned int todel = Kwave::toUint(s.end() - ofs + 1);
-//              qDebug("ofs-start=%llu, s->end()-ofs+1=%u [%llu...%llu] (%u)",
-//                  ofs-start, todel, s.start(), s.end(), s.length());
+                Stripe &s = *it_r;
+                unsigned int todel = Kwave::toUint(s.end() - ofs + 1);
                 s.deleteRange(Kwave::toUint(ofs - start), todel);
-//              qDebug("length now: %u [%llu ... %llu]", s.length(),
-//                  s.start(), s.end());
-//              Q_ASSERT(s.length());
             }
             ++it_r;
-//          Q_ASSERT(s.length());
         }
     }
 

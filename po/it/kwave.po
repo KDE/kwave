@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the kwave package.
-# SPDX-FileCopyrightText: 2016, 2017, 2018, 2020, 2024 Valter Mura <valtermura@gmail.com>
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2020, 2024, 2025 Valter Mura <valtermura@gmail.com>
 # SPDX-FileCopyrightText: 2020, 2024 Vincenzo Reale <smart2128vr@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-04 00:40+0000\n"
-"PO-Revision-Date: 2024-11-15 17:59+0100\n"
+"POT-Creation-Date: 2025-01-06 00:41+0000\n"
+"PO-Revision-Date: 2025-01-05 11:49+0100\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Save As"
 msgstr "Salva come"
 
-#: kwave/FileContext.cpp:1018 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1024 kwave/MainWidget.cpp:995
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -117,7 +117,7 @@ msgstr ""
 "Il file «%1» esiste già.\n"
 "Vuoi davvero sovrascriverlo?"
 
-#: kwave/FileContext.cpp:1086
+#: kwave/FileContext.cpp:1093
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -1197,10 +1197,10 @@ msgstr "Caricamento del file «%1»..."
 #: kwave/TopWidget.cpp:1042 plugins/codec_audiofile/AudiofileDecoder.cpp:125
 #: plugins/codec_flac/FlacEncoder.cpp:248
 #: plugins/codec_flac/FlacEncoder.cpp:266
-#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:515
+#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:448
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:159 plugins/playback/PlayBack-Qt.cpp:164
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -1594,7 +1594,7 @@ msgstr "frmLunghezza"
 
 #. i18n: ectx: property (title), widget (QGroupBox, SelectTimeWidgetBase)
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox1)
-#: libgui/SelectTimeWidgetBase.ui:23 libkwave/FileInfo.cpp:171
+#: libgui/SelectTimeWidgetBase.ui:23 libkwave/FileInfo.cpp:175
 #: plugins/newsignal/NewSigDlg.ui:323
 #, kde-format
 msgid "Length"
@@ -2074,10 +2074,18 @@ msgstr ""
 "Esempio: «classica», «pop»"
 
 #: libkwave/FileInfo.cpp:156
+msgid "ID3 Tags"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:157
+msgid "List of ID3 Tags"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:160
 msgid "ISRC"
 msgstr "ISRC"
 
-#: libkwave/FileInfo.cpp:157
+#: libkwave/FileInfo.cpp:161
 msgid ""
 "ISRC number for the track; see the ISRC intro page\n"
 "for more information on ISRC numbers.\n"
@@ -2088,12 +2096,12 @@ msgstr ""
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KeywordWidgetBase)
-#: libkwave/FileInfo.cpp:162 plugins/fileinfo/KeywordWidgetBase.ui:14
+#: libkwave/FileInfo.cpp:166 plugins/fileinfo/KeywordWidgetBase.ui:14
 #, kde-format
 msgid "Keywords"
 msgstr "Parole chiave"
 
-#: libkwave/FileInfo.cpp:163
+#: libkwave/FileInfo.cpp:167
 msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
@@ -2101,23 +2109,23 @@ msgstr ""
 "Fornisce un elenco di parole chiave che si riferiscono\n"
 "al file o all'oggetto del file."
 
-#: libkwave/FileInfo.cpp:167
+#: libkwave/FileInfo.cpp:171
 msgid "Labels"
 msgstr "Etichette"
 
-#: libkwave/FileInfo.cpp:168
+#: libkwave/FileInfo.cpp:172
 msgid "The list of labels/markers."
 msgstr "L'elenco di etichette/contrassegni."
 
-#: libkwave/FileInfo.cpp:172
+#: libkwave/FileInfo.cpp:176
 msgid "Length of the file in samples."
 msgstr "Lunghezza del file nei campioni."
 
-#: libkwave/FileInfo.cpp:175
+#: libkwave/FileInfo.cpp:179
 msgid "License"
 msgstr "Licenza"
 
-#: libkwave/FileInfo.cpp:176
+#: libkwave/FileInfo.cpp:180
 msgid ""
 "License information, e.g., 'All Rights Reserved',\n"
 "'Any Use Permitted', an URL to a license or the\n"
@@ -2133,11 +2141,11 @@ msgstr ""
 "Vedi http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
 "per i dettagli»), ecc."
 
-#: libkwave/FileInfo.cpp:184
+#: libkwave/FileInfo.cpp:188
 msgid "Medium"
 msgstr "Mezzo"
 
-#: libkwave/FileInfo.cpp:185
+#: libkwave/FileInfo.cpp:189
 msgid ""
 "Describes the original subject of the file,\n"
 "where it was first recorded.\n"
@@ -2147,51 +2155,51 @@ msgstr ""
 "dove è stato originariamente registrato.\n"
 "Esempio: «orchestra»"
 
-#: libkwave/FileInfo.cpp:190
+#: libkwave/FileInfo.cpp:194
 msgid "Mime Type"
 msgstr "Tipo MIME"
 
-#: libkwave/FileInfo.cpp:191
+#: libkwave/FileInfo.cpp:195
 msgid "Mime type of the file format"
 msgstr "Tipo MIME del formato del file"
 
-#: libkwave/FileInfo.cpp:194
+#: libkwave/FileInfo.cpp:198
 msgid "Emphasis"
 msgstr "Enfasi"
 
-#: libkwave/FileInfo.cpp:195
+#: libkwave/FileInfo.cpp:199
 msgid "Audio emphasis mode"
 msgstr "Modalità di enfasi audio"
 
-#: libkwave/FileInfo.cpp:198
+#: libkwave/FileInfo.cpp:202
 msgid "Layer"
 msgstr "Layer"
 
-#: libkwave/FileInfo.cpp:199
+#: libkwave/FileInfo.cpp:203
 msgid "MPEG Layer, I, II or III"
 msgstr "MPEG Layer, I, II o III"
 
-#: libkwave/FileInfo.cpp:202
+#: libkwave/FileInfo.cpp:206
 msgid "Mode Extension"
 msgstr "Estensione modalità"
 
-#: libkwave/FileInfo.cpp:203
+#: libkwave/FileInfo.cpp:207
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "Estensione della modalità MPEG (solo se Joint Stereo)"
 
-#: libkwave/FileInfo.cpp:206 libkwave/FileInfo.cpp:300
+#: libkwave/FileInfo.cpp:210 libkwave/FileInfo.cpp:304
 msgid "Version"
 msgstr "Versione"
 
-#: libkwave/FileInfo.cpp:207
+#: libkwave/FileInfo.cpp:211
 msgid "MPEG Version, 1, 2 or 2.5"
 msgstr "Versione MPEG, 1, 2 o 2.5"
 
-#: libkwave/FileInfo.cpp:210
+#: libkwave/FileInfo.cpp:214
 msgid "Name"
 msgstr "Nome"
 
-#: libkwave/FileInfo.cpp:211
+#: libkwave/FileInfo.cpp:215
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: \"Symphony No.6, Op.68 'Pastoral'\""
@@ -2199,22 +2207,22 @@ msgstr ""
 "Memorizza il titolo dell'oggetto del file.\n"
 "Esempio: «Sinfonia n.6, op.68 'Pastorale'»"
 
-#: libkwave/FileInfo.cpp:215
+#: libkwave/FileInfo.cpp:219
 msgid "Opus Frame Length"
 msgstr "Lunghezza frame Opus"
 
-#: libkwave/FileInfo.cpp:216
+#: libkwave/FileInfo.cpp:220
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
 msgstr ""
 "Lunghezza frame Opus in ms (i valori supportati sono 2,5, 5, 10, 20, 40, o "
 "60 ms)"
 
-#: libkwave/FileInfo.cpp:220
+#: libkwave/FileInfo.cpp:224
 msgid "Organization"
 msgstr "Organizzazione"
 
-#: libkwave/FileInfo.cpp:221
+#: libkwave/FileInfo.cpp:225
 msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
@@ -2222,19 +2230,19 @@ msgstr ""
 "Nome dell'organizzazione che produce la traccia\n"
 "(ossia la «etichetta di registrazione»)"
 
-#: libkwave/FileInfo.cpp:225
+#: libkwave/FileInfo.cpp:229
 msgid "Original"
 msgstr "Originale"
 
-#: libkwave/FileInfo.cpp:226
+#: libkwave/FileInfo.cpp:230
 msgid "Indicates whether the file is an original or a copy"
 msgstr "Indica se il file è un originale o una copia"
 
-#: libkwave/FileInfo.cpp:229
+#: libkwave/FileInfo.cpp:233
 msgid "Performer"
 msgstr "Esecutore"
 
-#: libkwave/FileInfo.cpp:230
+#: libkwave/FileInfo.cpp:234
 msgid ""
 "The artist(s) who performed the work. In classical\n"
 "music this would be the conductor, orchestra, soloists.\n"
@@ -2244,19 +2252,19 @@ msgstr ""
 "classica dovrebbe essere il direttore, l'orchestra, i solisti.\n"
 "In un audio-libro dovrebbe essere l'attore che ha eseguito la lettura."
 
-#: libkwave/FileInfo.cpp:235
+#: libkwave/FileInfo.cpp:239
 msgid "Private"
 msgstr "Privata"
 
-#: libkwave/FileInfo.cpp:236
+#: libkwave/FileInfo.cpp:240
 msgid "Indicates whether the subject is private"
 msgstr "Indica se l'oggetto è privato"
 
-#: libkwave/FileInfo.cpp:239
+#: libkwave/FileInfo.cpp:243
 msgid "Product"
 msgstr "Prodotto"
 
-#: libkwave/FileInfo.cpp:240
+#: libkwave/FileInfo.cpp:244
 msgid ""
 "Specifies the name or the title the\n"
 "file was originally intended for.\n"
@@ -2266,11 +2274,11 @@ msgstr ""
 "il file era originariamente destinato.\n"
 "Esempio: «Raccolta audio Linux»"
 
-#: libkwave/FileInfo.cpp:245
+#: libkwave/FileInfo.cpp:249
 msgid "Sample Format"
 msgstr "Formato di campionamento"
 
-#: libkwave/FileInfo.cpp:246
+#: libkwave/FileInfo.cpp:250
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
@@ -2278,19 +2286,19 @@ msgstr ""
 "Formato utilizzato per memorizzare i campioni audio digitalizzati.\n"
 "Esempio: «32-bit IEEE a virgola mobile»"
 
-#: libkwave/FileInfo.cpp:250
+#: libkwave/FileInfo.cpp:254
 msgid "Sample Rate"
 msgstr "Frequenza di campionamento"
 
-#: libkwave/FileInfo.cpp:251
+#: libkwave/FileInfo.cpp:255
 msgid "Number of samples per second"
 msgstr "Numero di campioni per secondo"
 
-#: libkwave/FileInfo.cpp:254
+#: libkwave/FileInfo.cpp:258
 msgid "Software"
 msgstr "Software"
 
-#: libkwave/FileInfo.cpp:255
+#: libkwave/FileInfo.cpp:259
 msgid ""
 "Identifies the name of the software package\n"
 "used to create the file.\n"
@@ -2302,13 +2310,13 @@ msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_source)
 #. i18n: ectx: property (title), widget (QGroupBox, grpSource)
-#: libkwave/FileInfo.cpp:260 plugins/fileinfo/FileInfoDlg.ui:1346
+#: libkwave/FileInfo.cpp:264 plugins/fileinfo/FileInfoDlg.ui:1346
 #: plugins/record/RecordDlg.ui:978 plugins/record/RecordDlg.ui:984
 #, kde-format
 msgid "Source"
 msgstr "Sorgente"
 
-#: libkwave/FileInfo.cpp:261
+#: libkwave/FileInfo.cpp:265
 msgid ""
 "Identifies the name of the person or organization\n"
 "who supplied the original subject of the file.\n"
@@ -2318,11 +2326,11 @@ msgstr ""
 "che ha fornito l'oggetto originale del file.\n"
 "Esempio: «Chaotic Sound Research»"
 
-#: libkwave/FileInfo.cpp:266
+#: libkwave/FileInfo.cpp:270
 msgid "Source form"
 msgstr "Forma originale"
 
-#: libkwave/FileInfo.cpp:267
+#: libkwave/FileInfo.cpp:271
 msgid ""
 "Identifies the original form of\n"
 "the material that was digitized.\n"
@@ -2332,11 +2340,11 @@ msgstr ""
 "materiale digitalizzato.\n"
 "Esempi: «Registrazione/Vinile/90RPM», «Audio DAT», «nastro/CrO2/60min»"
 
-#: libkwave/FileInfo.cpp:273
+#: libkwave/FileInfo.cpp:277
 msgid "Subject"
 msgstr "Oggetto"
 
-#: libkwave/FileInfo.cpp:274
+#: libkwave/FileInfo.cpp:278
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
@@ -2344,11 +2352,11 @@ msgstr ""
 "Descrive l'oggetto del file.\n"
 "Esempio: «Canti di uccelli all'alba»"
 
-#: libkwave/FileInfo.cpp:278
+#: libkwave/FileInfo.cpp:282
 msgid "Technician"
 msgstr "Tecnico"
 
-#: libkwave/FileInfo.cpp:280
+#: libkwave/FileInfo.cpp:284
 msgid ""
 "Identifies the technician who digitized the subject file.\n"
 "Example: 'Torvalds, Linus'"
@@ -2356,41 +2364,41 @@ msgstr ""
 "Identifica il tecnico che ha digitalizzato l'oggetto.\n"
 "Esempio: «Torvalds, Linus»"
 
-#: libkwave/FileInfo.cpp:284
+#: libkwave/FileInfo.cpp:288
 msgid "Track"
 msgstr "Traccia"
 
-#: libkwave/FileInfo.cpp:285
+#: libkwave/FileInfo.cpp:289
 msgid "Track of the CD if the source was a CDROM."
 msgstr "Traccia del CD se la sorgente è un CDROM."
 
-#: libkwave/FileInfo.cpp:288
+#: libkwave/FileInfo.cpp:292
 msgid "Tracks"
 msgstr "Tracce"
 
-#: libkwave/FileInfo.cpp:289
+#: libkwave/FileInfo.cpp:293
 msgid "Number of tracks of the CD if the source was a CDROM."
 msgstr "Numero di tracce del CD se la sorgente è un CDROM."
 
-#: libkwave/FileInfo.cpp:292
+#: libkwave/FileInfo.cpp:296
 msgid "Channels"
 msgstr "Canali"
 
-#: libkwave/FileInfo.cpp:293
+#: libkwave/FileInfo.cpp:297
 msgid "Specifies the number of channels of the signal."
 msgstr "Specifica il numero di canali del segnale."
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompressionBaseQuality)
-#: libkwave/FileInfo.cpp:296 plugins/fileinfo/CompressionWidgetBase.ui:236
+#: libkwave/FileInfo.cpp:300 plugins/fileinfo/CompressionWidgetBase.ui:236
 #, kde-format
 msgid "Base Quality"
 msgstr "Qualità di base"
 
-#: libkwave/FileInfo.cpp:297
+#: libkwave/FileInfo.cpp:301
 msgid "Base quality of the compression in VBR mode"
 msgstr "Qualità di base della compressione in modalità VBR"
 
-#: libkwave/FileInfo.cpp:301
+#: libkwave/FileInfo.cpp:305
 msgid ""
 "May be used to differentiate multiple versions\n"
 "of the same track title in a single collection.\n"
@@ -3917,43 +3925,43 @@ msgid "Creative Voice"
 msgstr "Voce creativa"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:444
+#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:455
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Formato o funzione non implementata"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:128
-#: plugins/codec_wav/WavEncoder.cpp:451
+#: plugins/codec_wav/WavEncoder.cpp:462
 #, kde-format
 msgid "File header is damaged"
 msgstr "L'intestazione del file è danneggiata"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:454
+#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:465
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Tipo di codifica non valido"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:134
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:458
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid "Opening the file failed"
 msgstr "Apertura del file non riuscita"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:461
+#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:472
 #, kde-format
 msgid "Read access failed"
 msgstr "Accesso in lettura non riuscito"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:140
-#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:464
+#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:475
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Formato di campionamento non valido"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:146
-#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:470
+#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:481
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4002,7 +4010,7 @@ msgstr "Audio MPEG layer II"
 msgid "MPEG layer I audio"
 msgstr "Audio MPEG layer I"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:95
+#: plugins/codec_mp3/MP3Decoder.cpp:97
 #, kde-format
 msgid ""
 "The file has an invalid checksum.\n"
@@ -4011,7 +4019,7 @@ msgstr ""
 "Il file ha un codice di controllo non valido.\n"
 "Vuoi continuare?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:164
+#: plugins/codec_mp3/MP3Decoder.cpp:166
 #, kde-format
 msgid ""
 "The file contains an invalid channel mode 0x%1\n"
@@ -4020,7 +4028,7 @@ msgstr ""
 "Il file contiene una modalità di canale 0x%1 non valida\n"
 "Si presume mono..."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:447
+#: plugins/codec_mp3/MP3Decoder.cpp:464
 #, kde-format
 msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
@@ -4029,27 +4037,27 @@ msgstr ""
 "Il file aperto non è un file MPEG o è danneggiato.\n"
 "Non è stata trovata alcuna informazione di intestazione."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:518
+#: plugins/codec_mp3/MP3Decoder.cpp:535
 #, kde-format
 msgid "Checksum error"
 msgstr "Errore codice di controllo"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:521
+#: plugins/codec_mp3/MP3Decoder.cpp:538
 #, kde-format
 msgid "Synchronization lost"
 msgstr "Sincronizzazione persa"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:538
+#: plugins/codec_mp3/MP3Decoder.cpp:555
 #, kde-format
 msgid "File contains invalid data"
 msgstr "Il file contiene dati non validi"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:543
+#: plugins/codec_mp3/MP3Decoder.cpp:560
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "Errore 0x%1 sconosciuto. File danneggiato?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:547
+#: plugins/codec_mp3/MP3Decoder.cpp:564
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4060,17 +4068,17 @@ msgstr ""
 "«%1»,\n"
 "alla posizione %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:552
+#: plugins/codec_mp3/MP3Decoder.cpp:569
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "Vuoi continuare?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:557
+#: plugins/codec_mp3/MP3Decoder.cpp:574
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Vuoi continuare e ignorare tutti gli errori seguenti?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:292
+#: plugins/codec_mp3/MP3Encoder.cpp:344
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4079,12 +4087,12 @@ msgstr ""
 "Il formato di file scelto supporta solo mono o stereo. Questo file sarà "
 "mixato in stereo al salvataggio."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:397
+#: plugins/codec_mp3/MP3Encoder.cpp:357 plugins/codec_wav/WavEncoder.cpp:408
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Impossibile aprire il file per il salvataggio."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:552
+#: plugins/codec_mp3/MP3Encoder.cpp:604
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4847,7 +4855,7 @@ msgstr "l'intestazione del file è danneggiata"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "errore libaudiofile interno #%1: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:350
+#: plugins/codec_wav/WavEncoder.cpp:361
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4856,17 +4864,17 @@ msgstr ""
 "Il tipo di compressione attualmente selezionato non può essere usato per "
 "salvare. Vuoi usare invece la compressione G711 ULAW?"
 
-#: plugins/codec_wav/WavEncoder.cpp:353
+#: plugins/codec_wav/WavEncoder.cpp:364
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "&Sì, usa G711"
 
-#: plugins/codec_wav/WavEncoder.cpp:354
+#: plugins/codec_wav/WavEncoder.cpp:365
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&No, salva senza compressione"
 
-#: plugins/codec_wav/WavEncoder.cpp:403 plugins/sonagram/SonagramPlugin.cpp:204
+#: plugins/codec_wav/WavEncoder.cpp:414 plugins/sonagram/SonagramPlugin.cpp:204
 #, kde-format
 msgid "File or selection too large"
 msgstr "File o selezione troppo grande"
@@ -4912,7 +4920,7 @@ msgstr "Estrai gerarchia finestra"
 msgid "Dump Meta Data"
 msgstr "Estrai metadati"
 
-#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:236
+#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:238
 #, kde-format
 msgid "Debug (%1)"
 msgstr "Debug (%1)"
@@ -4934,12 +4942,12 @@ msgstr "File progetto K3b (*.k3b)"
 #: plugins/export_k3b/K3BExportDialog.cpp:161
 #, kde-format
 msgid "Please choose a K3b project file name"
-msgstr ""
+msgstr "Scegli il nome file di un progetto K3b"
 
 #: plugins/export_k3b/K3BExportDialog.cpp:165
 #, kde-format
 msgid "Please choose where to export the audio files"
-msgstr ""
+msgstr "Scegli dove esportare i file audio"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportDialogBase.ui:35
@@ -5047,37 +5055,33 @@ msgstr "Posizione esportazione:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFilename)
 #: plugins/export_k3b/K3BExportDialogBase.ui:154
-#, fuzzy, kde-format
-#| msgctxt "file type filter when exporting to K3b"
-#| msgid "K3b project file (*.k3b)"
+#, kde-format
 msgid "K3b Project File:"
-msgstr "File progetto K3b (*.k3b)"
+msgstr "File progetto K3b:"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:161
 #, kde-format
 msgid "Location to save the K3b project file"
-msgstr ""
+msgstr "Posizione in cui salvare il file progetto K3b"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:173
-#, fuzzy, kde-format
-#| msgid "New File"
+#, kde-format
 msgid "Project File"
-msgstr "Nuovo file"
+msgstr "File progetto"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:180
 #, kde-format
 msgid "Location to export the audio files to"
-msgstr ""
+msgstr "Posizione in cui esportare i file audio"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:189
-#, fuzzy, kde-format
-#| msgid "Export Location:"
+#, kde-format
 msgid "Export Location"
-msgstr "Posizione esportazione:"
+msgstr "Posizione di esportazione"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:280
 msgctxt "menu: /File/Save/Export to K3b Project..."
@@ -7119,7 +7123,7 @@ msgstr "Cambio della frequenza da %1 kHz a %2 kHz..."
 #: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
 msgid "Please choose where to save the files"
-msgstr ""
+msgstr "Scegli dove salvare i file"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:37
@@ -7195,55 +7199,49 @@ msgstr "Inizia sempre con 1, sovrascrivi se necessario"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:102
-#, fuzzy, kde-format
-#| msgid "Mode Extension"
+#, kde-format
 msgid "Extension:"
-msgstr "Estensione modalità"
+msgstr "Estensione:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:118
 #, kde-format
 msgid "Choose what encoding to save the blocks with."
-msgstr ""
+msgstr "Scegli con quale codifica salvare i blocchi."
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:131
 #, kde-format
 msgid "Location to save the files"
-msgstr ""
+msgstr "Posizione dove salvare i file"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:140
 #, kde-format
 msgid "Choose where to save the files"
-msgstr ""
+msgstr "Scegli dove salvare i file"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:154
-#, fuzzy, kde-format
-#| msgid ""
-#| "Example of the first file name that will be saved, using the file name "
-#| "pattern above and the numbering below"
+#, kde-format
 msgid ""
 "Example of the first file name that will be saved, using the file name "
 "pattern, extension, and numbering"
 msgstr ""
 "Esempio del nome del primo file che sarà salvato, utilizzando lo schema del "
-"nome file sopra e la numerazione sotto"
+"nome file, estensione e la numerazione"
 
 #. i18n: ectx: property (text), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:157
-#, fuzzy, kde-format
-#| msgid "To Next Labels"
+#, kde-format
 msgid "TextLabel"
-msgstr "Alle etichette successive"
+msgstr "EtichettaDiTesto"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:170
-#, fuzzy, kde-format
-#| msgid "Example:"
+#, kde-format
 msgid "Example file name:"
-msgstr "Esempio:"
+msgstr "Esempio nome file:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:189

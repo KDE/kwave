@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-04 00:40+0000\n"
+"POT-Creation-Date: 2025-01-06 00:41+0000\n"
 "PO-Revision-Date: 2024-12-10 01:12+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -105,7 +105,7 @@ msgstr ""
 msgid "Save As"
 msgstr "다른 이름으로 저장"
 
-#: kwave/FileContext.cpp:1018 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1024 kwave/MainWidget.cpp:995
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -114,7 +114,7 @@ msgstr ""
 "파일 '%1'이(가) 이미 존재합니다.\n"
 "덮어쓰시겠습니까?"
 
-#: kwave/FileContext.cpp:1086
+#: kwave/FileContext.cpp:1093
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -1191,10 +1191,10 @@ msgstr "파일 '%1' 불러오는 중..."
 #: kwave/TopWidget.cpp:1042 plugins/codec_audiofile/AudiofileDecoder.cpp:125
 #: plugins/codec_flac/FlacEncoder.cpp:248
 #: plugins/codec_flac/FlacEncoder.cpp:266
-#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:515
+#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:448
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:159 plugins/playback/PlayBack-Qt.cpp:164
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -1586,7 +1586,7 @@ msgstr "frmLength"
 
 #. i18n: ectx: property (title), widget (QGroupBox, SelectTimeWidgetBase)
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox1)
-#: libgui/SelectTimeWidgetBase.ui:23 libkwave/FileInfo.cpp:171
+#: libgui/SelectTimeWidgetBase.ui:23 libkwave/FileInfo.cpp:175
 #: plugins/newsignal/NewSigDlg.ui:323
 #, kde-format
 msgid "Length"
@@ -2066,10 +2066,18 @@ msgstr ""
 "예: '클래식', '팝'"
 
 #: libkwave/FileInfo.cpp:156
+msgid "ID3 Tags"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:157
+msgid "List of ID3 Tags"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:160
 msgid "ISRC"
 msgstr "ISRC"
 
-#: libkwave/FileInfo.cpp:157
+#: libkwave/FileInfo.cpp:161
 msgid ""
 "ISRC number for the track; see the ISRC intro page\n"
 "for more information on ISRC numbers.\n"
@@ -2080,12 +2088,12 @@ msgstr ""
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KeywordWidgetBase)
-#: libkwave/FileInfo.cpp:162 plugins/fileinfo/KeywordWidgetBase.ui:14
+#: libkwave/FileInfo.cpp:166 plugins/fileinfo/KeywordWidgetBase.ui:14
 #, kde-format
 msgid "Keywords"
 msgstr "키워드"
 
-#: libkwave/FileInfo.cpp:163
+#: libkwave/FileInfo.cpp:167
 msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
@@ -2093,23 +2101,23 @@ msgstr ""
 "파일이나 파일의 주제에 대한 키워드\n"
 "목록입니다."
 
-#: libkwave/FileInfo.cpp:167
+#: libkwave/FileInfo.cpp:171
 msgid "Labels"
 msgstr "이름표"
 
-#: libkwave/FileInfo.cpp:168
+#: libkwave/FileInfo.cpp:172
 msgid "The list of labels/markers."
 msgstr "이름표/마커 목록입니다."
 
-#: libkwave/FileInfo.cpp:172
+#: libkwave/FileInfo.cpp:176
 msgid "Length of the file in samples."
 msgstr "샘플 단위의 파일 길이입니다."
 
-#: libkwave/FileInfo.cpp:175
+#: libkwave/FileInfo.cpp:179
 msgid "License"
 msgstr "라이선스"
 
-#: libkwave/FileInfo.cpp:176
+#: libkwave/FileInfo.cpp:180
 msgid ""
 "License information, e.g., 'All Rights Reserved',\n"
 "'Any Use Permitted', an URL to a license or the\n"
@@ -2125,11 +2133,11 @@ msgstr ""
 "http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
 "사이트를 참조하십시오') 등."
 
-#: libkwave/FileInfo.cpp:184
+#: libkwave/FileInfo.cpp:188
 msgid "Medium"
 msgstr "매체"
 
-#: libkwave/FileInfo.cpp:185
+#: libkwave/FileInfo.cpp:189
 msgid ""
 "Describes the original subject of the file,\n"
 "where it was first recorded.\n"
@@ -2139,51 +2147,51 @@ msgstr ""
 "녹음한 원본입니다.\n"
 "예: '오케스트라'"
 
-#: libkwave/FileInfo.cpp:190
+#: libkwave/FileInfo.cpp:194
 msgid "Mime Type"
 msgstr "MIME 형식"
 
-#: libkwave/FileInfo.cpp:191
+#: libkwave/FileInfo.cpp:195
 msgid "Mime type of the file format"
 msgstr "파일 형식의 MIME 형식"
 
-#: libkwave/FileInfo.cpp:194
+#: libkwave/FileInfo.cpp:198
 msgid "Emphasis"
 msgstr "강조"
 
-#: libkwave/FileInfo.cpp:195
+#: libkwave/FileInfo.cpp:199
 msgid "Audio emphasis mode"
 msgstr "오디오 강조 모드"
 
-#: libkwave/FileInfo.cpp:198
+#: libkwave/FileInfo.cpp:202
 msgid "Layer"
 msgstr "레이어"
 
-#: libkwave/FileInfo.cpp:199
+#: libkwave/FileInfo.cpp:203
 msgid "MPEG Layer, I, II or III"
 msgstr "MPEG 레이어, I, II, III"
 
-#: libkwave/FileInfo.cpp:202
+#: libkwave/FileInfo.cpp:206
 msgid "Mode Extension"
 msgstr "모드 확장"
 
-#: libkwave/FileInfo.cpp:203
+#: libkwave/FileInfo.cpp:207
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "MPEG 모드 확장(조인트 스테레오일 때에만)"
 
-#: libkwave/FileInfo.cpp:206 libkwave/FileInfo.cpp:300
+#: libkwave/FileInfo.cpp:210 libkwave/FileInfo.cpp:304
 msgid "Version"
 msgstr "버전"
 
-#: libkwave/FileInfo.cpp:207
+#: libkwave/FileInfo.cpp:211
 msgid "MPEG Version, 1, 2 or 2.5"
 msgstr "MPEG 버전, 1, 2, 2.5"
 
-#: libkwave/FileInfo.cpp:210
+#: libkwave/FileInfo.cpp:214
 msgid "Name"
 msgstr "이름"
 
-#: libkwave/FileInfo.cpp:211
+#: libkwave/FileInfo.cpp:215
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: \"Symphony No.6, Op.68 'Pastoral'\""
@@ -2191,20 +2199,20 @@ msgstr ""
 "파일 주제 제목을 저장합니다.\n"
 "예: \"교향곡 제6번, 작품 번호 68 '전원'\""
 
-#: libkwave/FileInfo.cpp:215
+#: libkwave/FileInfo.cpp:219
 msgid "Opus Frame Length"
 msgstr "Opus 프레임 길이"
 
-#: libkwave/FileInfo.cpp:216
+#: libkwave/FileInfo.cpp:220
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
 msgstr "밀리초 단위의 Opus 프레임 길이(지원하는 값: 2.5, 5, 10, 20, 40, 60 ms)"
 
-#: libkwave/FileInfo.cpp:220
+#: libkwave/FileInfo.cpp:224
 msgid "Organization"
 msgstr "조직"
 
-#: libkwave/FileInfo.cpp:221
+#: libkwave/FileInfo.cpp:225
 msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
@@ -2212,19 +2220,19 @@ msgstr ""
 "트랙을 만든 조직 이름입니다\n"
 "(또는 음반 회사)"
 
-#: libkwave/FileInfo.cpp:225
+#: libkwave/FileInfo.cpp:229
 msgid "Original"
 msgstr "원본"
 
-#: libkwave/FileInfo.cpp:226
+#: libkwave/FileInfo.cpp:230
 msgid "Indicates whether the file is an original or a copy"
 msgstr "파일이 원본인지 복사본인지 여부"
 
-#: libkwave/FileInfo.cpp:229
+#: libkwave/FileInfo.cpp:233
 msgid "Performer"
 msgstr "연주가"
 
-#: libkwave/FileInfo.cpp:230
+#: libkwave/FileInfo.cpp:234
 msgid ""
 "The artist(s) who performed the work. In classical\n"
 "music this would be the conductor, orchestra, soloists.\n"
@@ -2234,19 +2242,19 @@ msgstr ""
 "오케스트라, 솔리스트입니다. 오디오북의 경우 책을 읽은\n"
 "성우입니다."
 
-#: libkwave/FileInfo.cpp:235
+#: libkwave/FileInfo.cpp:239
 msgid "Private"
 msgstr "비밀"
 
-#: libkwave/FileInfo.cpp:236
+#: libkwave/FileInfo.cpp:240
 msgid "Indicates whether the subject is private"
 msgstr "주제가 비밀인지 여부"
 
-#: libkwave/FileInfo.cpp:239
+#: libkwave/FileInfo.cpp:243
 msgid "Product"
 msgstr "제품"
 
-#: libkwave/FileInfo.cpp:240
+#: libkwave/FileInfo.cpp:244
 msgid ""
 "Specifies the name or the title the\n"
 "file was originally intended for.\n"
@@ -2256,11 +2264,11 @@ msgstr ""
 "제목을 지정합니다.\n"
 "예: '리눅스 오디오 모음'"
 
-#: libkwave/FileInfo.cpp:245
+#: libkwave/FileInfo.cpp:249
 msgid "Sample Format"
 msgstr "샘플 형식"
 
-#: libkwave/FileInfo.cpp:246
+#: libkwave/FileInfo.cpp:250
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
@@ -2268,19 +2276,19 @@ msgstr ""
 "양자화된 오디오 샘플 저장 형식입니다.\n"
 "예: '32비트 IEEE 부동소수점'"
 
-#: libkwave/FileInfo.cpp:250
+#: libkwave/FileInfo.cpp:254
 msgid "Sample Rate"
 msgstr "샘플링 레이트"
 
-#: libkwave/FileInfo.cpp:251
+#: libkwave/FileInfo.cpp:255
 msgid "Number of samples per second"
 msgstr "초당 샘플 개수"
 
-#: libkwave/FileInfo.cpp:254
+#: libkwave/FileInfo.cpp:258
 msgid "Software"
 msgstr "소프트웨어"
 
-#: libkwave/FileInfo.cpp:255
+#: libkwave/FileInfo.cpp:259
 msgid ""
 "Identifies the name of the software package\n"
 "used to create the file.\n"
@@ -2292,13 +2300,13 @@ msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_source)
 #. i18n: ectx: property (title), widget (QGroupBox, grpSource)
-#: libkwave/FileInfo.cpp:260 plugins/fileinfo/FileInfoDlg.ui:1346
+#: libkwave/FileInfo.cpp:264 plugins/fileinfo/FileInfoDlg.ui:1346
 #: plugins/record/RecordDlg.ui:978 plugins/record/RecordDlg.ui:984
 #, kde-format
 msgid "Source"
 msgstr "원본"
 
-#: libkwave/FileInfo.cpp:261
+#: libkwave/FileInfo.cpp:265
 msgid ""
 "Identifies the name of the person or organization\n"
 "who supplied the original subject of the file.\n"
@@ -2308,11 +2316,11 @@ msgstr ""
 "조직의 이름입니다.\n"
 "예: 'Chaotic Sound Research'"
 
-#: libkwave/FileInfo.cpp:266
+#: libkwave/FileInfo.cpp:270
 msgid "Source form"
 msgstr "원본 형태"
 
-#: libkwave/FileInfo.cpp:267
+#: libkwave/FileInfo.cpp:271
 msgid ""
 "Identifies the original form of\n"
 "the material that was digitized.\n"
@@ -2322,11 +2330,11 @@ msgstr ""
 "형태입니다.\n"
 "예: '레코드/비닐/90RPM', '오디오 DAT', '테이프/CrO2/60min'"
 
-#: libkwave/FileInfo.cpp:273
+#: libkwave/FileInfo.cpp:277
 msgid "Subject"
 msgstr "주제"
 
-#: libkwave/FileInfo.cpp:274
+#: libkwave/FileInfo.cpp:278
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
@@ -2334,11 +2342,11 @@ msgstr ""
 "파일의 주제입니다.\n"
 "예: '이른 아침의 새소리'"
 
-#: libkwave/FileInfo.cpp:278
+#: libkwave/FileInfo.cpp:282
 msgid "Technician"
 msgstr "기술자"
 
-#: libkwave/FileInfo.cpp:280
+#: libkwave/FileInfo.cpp:284
 msgid ""
 "Identifies the technician who digitized the subject file.\n"
 "Example: 'Torvalds, Linus'"
@@ -2346,41 +2354,41 @@ msgstr ""
 "주제 파일을 디지털화한 기술자 이름입니다.\n"
 "예: '리누스 토르발스'"
 
-#: libkwave/FileInfo.cpp:284
+#: libkwave/FileInfo.cpp:288
 msgid "Track"
 msgstr "트랙"
 
-#: libkwave/FileInfo.cpp:285
+#: libkwave/FileInfo.cpp:289
 msgid "Track of the CD if the source was a CDROM."
 msgstr "원본이 CD-ROM인 경우 CD의 트랙 번호입니다."
 
-#: libkwave/FileInfo.cpp:288
+#: libkwave/FileInfo.cpp:292
 msgid "Tracks"
 msgstr "총 트랙 수"
 
-#: libkwave/FileInfo.cpp:289
+#: libkwave/FileInfo.cpp:293
 msgid "Number of tracks of the CD if the source was a CDROM."
 msgstr "원본이 CD-ROM인 경우 CD의 총 트랙 개수입니다."
 
-#: libkwave/FileInfo.cpp:292
+#: libkwave/FileInfo.cpp:296
 msgid "Channels"
 msgstr "채널"
 
-#: libkwave/FileInfo.cpp:293
+#: libkwave/FileInfo.cpp:297
 msgid "Specifies the number of channels of the signal."
 msgstr "신호의 채널 개수입니다."
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompressionBaseQuality)
-#: libkwave/FileInfo.cpp:296 plugins/fileinfo/CompressionWidgetBase.ui:236
+#: libkwave/FileInfo.cpp:300 plugins/fileinfo/CompressionWidgetBase.ui:236
 #, kde-format
 msgid "Base Quality"
 msgstr "기반 품질"
 
-#: libkwave/FileInfo.cpp:297
+#: libkwave/FileInfo.cpp:301
 msgid "Base quality of the compression in VBR mode"
 msgstr "VBR 모드에서의 압축 기반 품질"
 
-#: libkwave/FileInfo.cpp:301
+#: libkwave/FileInfo.cpp:305
 msgid ""
 "May be used to differentiate multiple versions\n"
 "of the same track title in a single collection.\n"
@@ -3904,43 +3912,43 @@ msgid "Creative Voice"
 msgstr "Creative 보이스"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:444
+#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:455
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "형식이나 기능이 구현되지 않음"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:128
-#: plugins/codec_wav/WavEncoder.cpp:451
+#: plugins/codec_wav/WavEncoder.cpp:462
 #, kde-format
 msgid "File header is damaged"
 msgstr "파일 헤더가 손상됨"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:454
+#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:465
 #, kde-format
 msgid "Invalid codec type"
 msgstr "잘못된 코덱 형식"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:134
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:458
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid "Opening the file failed"
 msgstr "파일을 열 수 없음"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:461
+#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:472
 #, kde-format
 msgid "Read access failed"
 msgstr "읽기 접근 실패"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:140
-#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:464
+#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:475
 #, kde-format
 msgid "Invalid sample format"
 msgstr "잘못된 샘플 형식"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:146
-#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:470
+#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:481
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -3989,7 +3997,7 @@ msgstr "MPEG 레이어 II 오디오"
 msgid "MPEG layer I audio"
 msgstr "MPEG 레이어 I 오디오"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:95
+#: plugins/codec_mp3/MP3Decoder.cpp:97
 #, kde-format
 msgid ""
 "The file has an invalid checksum.\n"
@@ -3998,7 +4006,7 @@ msgstr ""
 "파일 체크섬이 잘못되었습니다.\n"
 "계속 진행하시겠습니까?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:164
+#: plugins/codec_mp3/MP3Decoder.cpp:166
 #, kde-format
 msgid ""
 "The file contains an invalid channel mode 0x%1\n"
@@ -4007,7 +4015,7 @@ msgstr ""
 "파일의 채널 모드 0x%1이(가) 잘못되었습니다\n"
 "모노로 간주합니다..."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:447
+#: plugins/codec_mp3/MP3Decoder.cpp:464
 #, kde-format
 msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
@@ -4016,27 +4024,27 @@ msgstr ""
 "연 파일이 MPEG 파일이 아니거나 손상되었습니다.\n"
 "헤더 정보를 찾을 수 없습니다."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:518
+#: plugins/codec_mp3/MP3Decoder.cpp:535
 #, kde-format
 msgid "Checksum error"
 msgstr "체크섬 오류"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:521
+#: plugins/codec_mp3/MP3Decoder.cpp:538
 #, kde-format
 msgid "Synchronization lost"
 msgstr "동기화 손실"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:538
+#: plugins/codec_mp3/MP3Decoder.cpp:555
 #, kde-format
 msgid "File contains invalid data"
 msgstr "파일에 잘못된 데이터가 있음"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:543
+#: plugins/codec_mp3/MP3Decoder.cpp:560
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "알 수 없는 오류 0x%1. 파일이 손상되었습니까?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:547
+#: plugins/codec_mp3/MP3Decoder.cpp:564
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4047,17 +4055,17 @@ msgstr ""
 "'%1',\n"
 "위치: %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:552
+#: plugins/codec_mp3/MP3Decoder.cpp:569
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "계속 진행하시겠습니까?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:557
+#: plugins/codec_mp3/MP3Decoder.cpp:574
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "계속 진행하고 모든 오류를 무시하시겠습니까?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:292
+#: plugins/codec_mp3/MP3Encoder.cpp:344
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4066,12 +4074,12 @@ msgstr ""
 "선택한 파일 형식이 모노나 스테레오만 지원합니다. 파일을 저장할 때 스테레오로 "
 "다운믹스됩니다."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:397
+#: plugins/codec_mp3/MP3Encoder.cpp:357 plugins/codec_wav/WavEncoder.cpp:408
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "파일에 저장하려고 열 수 없습니다!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:552
+#: plugins/codec_mp3/MP3Encoder.cpp:604
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4824,7 +4832,7 @@ msgstr "파일 헤더가 손상됨"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "libaudiofile 내부 오류 #%1: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:350
+#: plugins/codec_wav/WavEncoder.cpp:361
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4833,17 +4841,17 @@ msgstr ""
 "죄송합니다. 현재 선택한 압축 형식으로 저장할 수 없습니다. G.711 u-Law 압축을 "
 "사용하시겠습니까?"
 
-#: plugins/codec_wav/WavEncoder.cpp:353
+#: plugins/codec_wav/WavEncoder.cpp:364
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "예, G.711을 사용합니다(&Y)"
 
-#: plugins/codec_wav/WavEncoder.cpp:354
+#: plugins/codec_wav/WavEncoder.cpp:365
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "아니요, 무압축 저장합니다(&N)"
 
-#: plugins/codec_wav/WavEncoder.cpp:403 plugins/sonagram/SonagramPlugin.cpp:204
+#: plugins/codec_wav/WavEncoder.cpp:414 plugins/sonagram/SonagramPlugin.cpp:204
 #, kde-format
 msgid "File or selection too large"
 msgstr "파일이나 선택 영역이 너무 큼"
@@ -4889,7 +4897,7 @@ msgstr "창 계층 구조 덤프"
 msgid "Dump Meta Data"
 msgstr "메타데이터 덤프"
 
-#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:236
+#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:238
 #, kde-format
 msgid "Debug (%1)"
 msgstr "디버그(%1)"

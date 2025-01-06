@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-04 00:40+0000\n"
+"POT-Creation-Date: 2025-01-06 00:41+0000\n"
 "PO-Revision-Date: 2024-09-03 08:50+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -107,7 +107,7 @@ msgstr ""
 msgid "Save As"
 msgstr "Uložit jako"
 
-#: kwave/FileContext.cpp:1018 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1024 kwave/MainWidget.cpp:995
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -116,7 +116,7 @@ msgstr ""
 "Soubor '%1' již existuje.\n"
 "Opravdu si jej přejete přepsat?"
 
-#: kwave/FileContext.cpp:1086
+#: kwave/FileContext.cpp:1093
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -1198,10 +1198,10 @@ msgstr "Načítám soubor '%1'..."
 #: kwave/TopWidget.cpp:1042 plugins/codec_audiofile/AudiofileDecoder.cpp:125
 #: plugins/codec_flac/FlacEncoder.cpp:248
 #: plugins/codec_flac/FlacEncoder.cpp:266
-#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:515
+#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:448
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:159 plugins/playback/PlayBack-Qt.cpp:164
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -1594,7 +1594,7 @@ msgstr "Délka pevné frekvence... (\"frm\")"
 
 #. i18n: ectx: property (title), widget (QGroupBox, SelectTimeWidgetBase)
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox1)
-#: libgui/SelectTimeWidgetBase.ui:23 libkwave/FileInfo.cpp:171
+#: libgui/SelectTimeWidgetBase.ui:23 libkwave/FileInfo.cpp:175
 #: plugins/newsignal/NewSigDlg.ui:323
 #, kde-format
 msgid "Length"
@@ -2070,10 +2070,18 @@ msgstr ""
 "Příklady: 'klasika', 'pop'"
 
 #: libkwave/FileInfo.cpp:156
+msgid "ID3 Tags"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:157
+msgid "List of ID3 Tags"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:160
 msgid "ISRC"
 msgstr "ISRC"
 
-#: libkwave/FileInfo.cpp:157
+#: libkwave/FileInfo.cpp:161
 msgid ""
 "ISRC number for the track; see the ISRC intro page\n"
 "for more information on ISRC numbers.\n"
@@ -2084,12 +2092,12 @@ msgstr ""
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KeywordWidgetBase)
-#: libkwave/FileInfo.cpp:162 plugins/fileinfo/KeywordWidgetBase.ui:14
+#: libkwave/FileInfo.cpp:166 plugins/fileinfo/KeywordWidgetBase.ui:14
 #, kde-format
 msgid "Keywords"
 msgstr "Klíčová slova"
 
-#: libkwave/FileInfo.cpp:163
+#: libkwave/FileInfo.cpp:167
 msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
@@ -2097,23 +2105,23 @@ msgstr ""
 "Poskytuje seznam klíčových slov, jež se vztahují\n"
 "k souboru nebo předloze souboru."
 
-#: libkwave/FileInfo.cpp:167
+#: libkwave/FileInfo.cpp:171
 msgid "Labels"
 msgstr "Popisky"
 
-#: libkwave/FileInfo.cpp:168
+#: libkwave/FileInfo.cpp:172
 msgid "The list of labels/markers."
 msgstr "Seznam popisků/značek."
 
-#: libkwave/FileInfo.cpp:172
+#: libkwave/FileInfo.cpp:176
 msgid "Length of the file in samples."
 msgstr "Velikost souboru ve vzorcích."
 
-#: libkwave/FileInfo.cpp:175
+#: libkwave/FileInfo.cpp:179
 msgid "License"
 msgstr "Licence"
 
-#: libkwave/FileInfo.cpp:176
+#: libkwave/FileInfo.cpp:180
 msgid ""
 "License information, e.g., 'All Rights Reserved',\n"
 "'Any Use Permitted', an URL to a license or the\n"
@@ -2130,11 +2138,11 @@ msgstr ""
 "Podrobnosti naleznete na\n"
 "http://www.eff.org/IP/Open_licenses/eff_oal.html'), atd."
 
-#: libkwave/FileInfo.cpp:184
+#: libkwave/FileInfo.cpp:188
 msgid "Medium"
 msgstr "Střední"
 
-#: libkwave/FileInfo.cpp:185
+#: libkwave/FileInfo.cpp:189
 msgid ""
 "Describes the original subject of the file,\n"
 "where it was first recorded.\n"
@@ -2144,51 +2152,51 @@ msgstr ""
 "kde byl poprvé nahrán.\n"
 "Příklad: 'orchestr'"
 
-#: libkwave/FileInfo.cpp:190
+#: libkwave/FileInfo.cpp:194
 msgid "Mime Type"
 msgstr "Typ MIME"
 
-#: libkwave/FileInfo.cpp:191
+#: libkwave/FileInfo.cpp:195
 msgid "Mime type of the file format"
 msgstr "Typ MIME souborového formátu"
 
-#: libkwave/FileInfo.cpp:194
+#: libkwave/FileInfo.cpp:198
 msgid "Emphasis"
 msgstr "Důraz"
 
-#: libkwave/FileInfo.cpp:195
+#: libkwave/FileInfo.cpp:199
 msgid "Audio emphasis mode"
 msgstr "Režim zdůraznění zvuku"
 
-#: libkwave/FileInfo.cpp:198
+#: libkwave/FileInfo.cpp:202
 msgid "Layer"
 msgstr "Vrstva"
 
-#: libkwave/FileInfo.cpp:199
+#: libkwave/FileInfo.cpp:203
 msgid "MPEG Layer, I, II or III"
 msgstr "MPEG vrstva I, II nebo III"
 
-#: libkwave/FileInfo.cpp:202
+#: libkwave/FileInfo.cpp:206
 msgid "Mode Extension"
 msgstr "Rozšíření režimu"
 
-#: libkwave/FileInfo.cpp:203
+#: libkwave/FileInfo.cpp:207
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "Rozšíření režimu MPEG (jen při Joint Stereo)"
 
-#: libkwave/FileInfo.cpp:206 libkwave/FileInfo.cpp:300
+#: libkwave/FileInfo.cpp:210 libkwave/FileInfo.cpp:304
 msgid "Version"
 msgstr "Verze"
 
-#: libkwave/FileInfo.cpp:207
+#: libkwave/FileInfo.cpp:211
 msgid "MPEG Version, 1, 2 or 2.5"
 msgstr "MPEG Verze, 1, 2 nebo 2.5"
 
-#: libkwave/FileInfo.cpp:210
+#: libkwave/FileInfo.cpp:214
 msgid "Name"
 msgstr "Název"
 
-#: libkwave/FileInfo.cpp:211
+#: libkwave/FileInfo.cpp:215
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: \"Symphony No.6, Op.68 'Pastoral'\""
@@ -2196,22 +2204,22 @@ msgstr ""
 "Uchovává název předlohy k souboru.\n"
 "Příklad: 'Symfonie No.6, Op.68 \"Pastorela\"'"
 
-#: libkwave/FileInfo.cpp:215
+#: libkwave/FileInfo.cpp:219
 msgid "Opus Frame Length"
 msgstr "Délka snímku Opus"
 
-#: libkwave/FileInfo.cpp:216
+#: libkwave/FileInfo.cpp:220
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
 msgstr ""
 "Délka snímku Opus v ms (podporovanými hodnotami jsou 2.5, 5, 10, 20, 40, "
 "nebo 60 ms)"
 
-#: libkwave/FileInfo.cpp:220
+#: libkwave/FileInfo.cpp:224
 msgid "Organization"
 msgstr "Organizace"
 
-#: libkwave/FileInfo.cpp:221
+#: libkwave/FileInfo.cpp:225
 msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
@@ -2219,19 +2227,19 @@ msgstr ""
 "Název organizace, která skladbu vydává\n"
 "(tj. hudební vydavatelství)"
 
-#: libkwave/FileInfo.cpp:225
+#: libkwave/FileInfo.cpp:229
 msgid "Original"
 msgstr "Originál"
 
-#: libkwave/FileInfo.cpp:226
+#: libkwave/FileInfo.cpp:230
 msgid "Indicates whether the file is an original or a copy"
 msgstr "Ukazuje, zda je soubor originálem nebo kopií."
 
-#: libkwave/FileInfo.cpp:229
+#: libkwave/FileInfo.cpp:233
 msgid "Performer"
 msgstr "Umělec"
 
-#: libkwave/FileInfo.cpp:230
+#: libkwave/FileInfo.cpp:234
 msgid ""
 "The artist(s) who performed the work. In classical\n"
 "music this would be the conductor, orchestra, soloists.\n"
@@ -2241,19 +2249,19 @@ msgstr ""
 "hudbě by to byl dirigent, orchestr, sólisté.\n"
 "U audio-knihy by to byl účinkující, který předčítal."
 
-#: libkwave/FileInfo.cpp:235
+#: libkwave/FileInfo.cpp:239
 msgid "Private"
 msgstr "Soukromý"
 
-#: libkwave/FileInfo.cpp:236
+#: libkwave/FileInfo.cpp:240
 msgid "Indicates whether the subject is private"
 msgstr "Ukazuje, zda je předloha soukromá."
 
-#: libkwave/FileInfo.cpp:239
+#: libkwave/FileInfo.cpp:243
 msgid "Product"
 msgstr "Produkt"
 
-#: libkwave/FileInfo.cpp:240
+#: libkwave/FileInfo.cpp:244
 msgid ""
 "Specifies the name or the title the\n"
 "file was originally intended for.\n"
@@ -2263,11 +2271,11 @@ msgstr ""
 "původně určen.\n"
 "Příklad: 'Sbírka zvuku v Linuxu'"
 
-#: libkwave/FileInfo.cpp:245
+#: libkwave/FileInfo.cpp:249
 msgid "Sample Format"
 msgstr "Formát vzorku"
 
-#: libkwave/FileInfo.cpp:246
+#: libkwave/FileInfo.cpp:250
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
@@ -2275,19 +2283,19 @@ msgstr ""
 "Formát používaný pro uchovávání digitalizovaných zvukových vzorků.\n"
 "Příklad: '32-bitový IEEE s pohyblivou desetinnou čárkou'"
 
-#: libkwave/FileInfo.cpp:250
+#: libkwave/FileInfo.cpp:254
 msgid "Sample Rate"
 msgstr "Vzorkovací frekvence"
 
-#: libkwave/FileInfo.cpp:251
+#: libkwave/FileInfo.cpp:255
 msgid "Number of samples per second"
 msgstr "Počet vzorků za sekundu"
 
-#: libkwave/FileInfo.cpp:254
+#: libkwave/FileInfo.cpp:258
 msgid "Software"
 msgstr "Software"
 
-#: libkwave/FileInfo.cpp:255
+#: libkwave/FileInfo.cpp:259
 msgid ""
 "Identifies the name of the software package\n"
 "used to create the file.\n"
@@ -2299,13 +2307,13 @@ msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_source)
 #. i18n: ectx: property (title), widget (QGroupBox, grpSource)
-#: libkwave/FileInfo.cpp:260 plugins/fileinfo/FileInfoDlg.ui:1346
+#: libkwave/FileInfo.cpp:264 plugins/fileinfo/FileInfoDlg.ui:1346
 #: plugins/record/RecordDlg.ui:978 plugins/record/RecordDlg.ui:984
 #, kde-format
 msgid "Source"
 msgstr "Zdroj"
 
-#: libkwave/FileInfo.cpp:261
+#: libkwave/FileInfo.cpp:265
 msgid ""
 "Identifies the name of the person or organization\n"
 "who supplied the original subject of the file.\n"
@@ -2315,11 +2323,11 @@ msgstr ""
 "která poskytla původní předlohu k souboru.\n"
 "Příklad: 'Chaotic Sound Research'"
 
-#: libkwave/FileInfo.cpp:266
+#: libkwave/FileInfo.cpp:270
 msgid "Source form"
 msgstr "Druh zdroje"
 
-#: libkwave/FileInfo.cpp:267
+#: libkwave/FileInfo.cpp:271
 msgid ""
 "Identifies the original form of\n"
 "the material that was digitized.\n"
@@ -2329,11 +2337,11 @@ msgstr ""
 "který byl převeden do číslicové podoby.\n"
 "Příklady: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
 
-#: libkwave/FileInfo.cpp:273
+#: libkwave/FileInfo.cpp:277
 msgid "Subject"
 msgstr "Předmět"
 
-#: libkwave/FileInfo.cpp:274
+#: libkwave/FileInfo.cpp:278
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
@@ -2341,11 +2349,11 @@ msgstr ""
 "Popisuje ústřední motiv souboru,\n"
 "Příklad: 'hlasy ptáků časně zrána'"
 
-#: libkwave/FileInfo.cpp:278
+#: libkwave/FileInfo.cpp:282
 msgid "Technician"
 msgstr "Technik"
 
-#: libkwave/FileInfo.cpp:280
+#: libkwave/FileInfo.cpp:284
 msgid ""
 "Identifies the technician who digitized the subject file.\n"
 "Example: 'Torvalds, Linus'"
@@ -2353,41 +2361,41 @@ msgstr ""
 "Zjišťuje osobu technika, který převedl předlohu do digitální podoby.\n"
 "Příklad: 'Torvalds, Linus':"
 
-#: libkwave/FileInfo.cpp:284
+#: libkwave/FileInfo.cpp:288
 msgid "Track"
 msgstr "Stopa"
 
-#: libkwave/FileInfo.cpp:285
+#: libkwave/FileInfo.cpp:289
 msgid "Track of the CD if the source was a CDROM."
 msgstr "Skladba na CD v případě, že zdrojem byl malý disk (CD)."
 
-#: libkwave/FileInfo.cpp:288
+#: libkwave/FileInfo.cpp:292
 msgid "Tracks"
 msgstr "Stopy"
 
-#: libkwave/FileInfo.cpp:289
+#: libkwave/FileInfo.cpp:293
 msgid "Number of tracks of the CD if the source was a CDROM."
 msgstr "Počet skladeb na CD v případě, že zdrojem byl CDROM."
 
-#: libkwave/FileInfo.cpp:292
+#: libkwave/FileInfo.cpp:296
 msgid "Channels"
 msgstr "Kanály"
 
-#: libkwave/FileInfo.cpp:293
+#: libkwave/FileInfo.cpp:297
 msgid "Specifies the number of channels of the signal."
 msgstr "Stanovuje počet kanálů signálu."
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompressionBaseQuality)
-#: libkwave/FileInfo.cpp:296 plugins/fileinfo/CompressionWidgetBase.ui:236
+#: libkwave/FileInfo.cpp:300 plugins/fileinfo/CompressionWidgetBase.ui:236
 #, kde-format
 msgid "Base Quality"
 msgstr "Základní kvalita"
 
-#: libkwave/FileInfo.cpp:297
+#: libkwave/FileInfo.cpp:301
 msgid "Base quality of the compression in VBR mode"
 msgstr "Základní kvalita komprese v režimu VBR"
 
-#: libkwave/FileInfo.cpp:301
+#: libkwave/FileInfo.cpp:305
 msgid ""
 "May be used to differentiate multiple versions\n"
 "of the same track title in a single collection.\n"
@@ -3913,43 +3921,43 @@ msgid "Creative Voice"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:444
+#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:455
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Formát nebo funkce není provedena"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:128
-#: plugins/codec_wav/WavEncoder.cpp:451
+#: plugins/codec_wav/WavEncoder.cpp:462
 #, kde-format
 msgid "File header is damaged"
 msgstr "Hlavička souboru je poškozená"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:454
+#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:465
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Neplatný typ kodeku"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:134
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:458
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid "Opening the file failed"
 msgstr "Otevření souboru selhalo."
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:461
+#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:472
 #, kde-format
 msgid "Read access failed"
 msgstr "Přístup ke čtení selhal"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:140
-#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:464
+#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:475
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Neplatný formát vzorku"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:146
-#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:470
+#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:481
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -3998,7 +4006,7 @@ msgstr "Zvuk MPEG úroveň II"
 msgid "MPEG layer I audio"
 msgstr "Zvuk MPEG úroveň I"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:95
+#: plugins/codec_mp3/MP3Decoder.cpp:97
 #, kde-format
 msgid ""
 "The file has an invalid checksum.\n"
@@ -4007,7 +4015,7 @@ msgstr ""
 "Soubor má neplatný kontrolní součet.\n"
 "Stále ještě chcete pokračovat?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:164
+#: plugins/codec_mp3/MP3Decoder.cpp:166
 #, kde-format
 msgid ""
 "The file contains an invalid channel mode 0x%1\n"
@@ -4016,7 +4024,7 @@ msgstr ""
 "Soubor obsahuje neplatný kanálový režim 0x%1\n"
 "v případě monofonního zvuku..."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:447
+#: plugins/codec_mp3/MP3Decoder.cpp:464
 #, kde-format
 msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
@@ -4025,27 +4033,27 @@ msgstr ""
 "Otevřený soubor není souborem MPEG, nebo je poškozen.\n"
 "Nebyla nalezena žádná informace v hlavičce souboru."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:518
+#: plugins/codec_mp3/MP3Decoder.cpp:535
 #, kde-format
 msgid "Checksum error"
 msgstr "Chyba v kontrolním součtu"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:521
+#: plugins/codec_mp3/MP3Decoder.cpp:538
 #, kde-format
 msgid "Synchronization lost"
 msgstr "Ztracena synchronizace."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:538
+#: plugins/codec_mp3/MP3Decoder.cpp:555
 #, kde-format
 msgid "File contains invalid data"
 msgstr "Soubor obsahuje neplatná data"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:543
+#: plugins/codec_mp3/MP3Decoder.cpp:560
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "Neznámá chyba 0x%1. Není soubor poškozen?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:547
+#: plugins/codec_mp3/MP3Decoder.cpp:564
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4056,17 +4064,17 @@ msgstr ""
 "'%1',\n"
 "se vyskytla chyba na pozici %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:552
+#: plugins/codec_mp3/MP3Decoder.cpp:569
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "Stále ještě chcete pokračovat?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:557
+#: plugins/codec_mp3/MP3Decoder.cpp:574
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Chcete pokračovat a nevšímat si všech následujících chyb?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:292
+#: plugins/codec_mp3/MP3Encoder.cpp:344
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4075,12 +4083,12 @@ msgstr ""
 "Formát souboru, který jste zvolili, podporuje pouze mono nebo stereo. Tento "
 "soubor bude při uložení smíchán do sterea."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:397
+#: plugins/codec_mp3/MP3Encoder.cpp:357 plugins/codec_wav/WavEncoder.cpp:408
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Nelze otevřít soubor pro ukládáním"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:552
+#: plugins/codec_mp3/MP3Encoder.cpp:604
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4836,7 +4844,7 @@ msgstr "Hlavička souboru je poškozená"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "vnitřní chyba libaudiofile #%1: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:350
+#: plugins/codec_wav/WavEncoder.cpp:361
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4845,17 +4853,17 @@ msgstr ""
 "Bohužel, vybraný druh komprese nelze použít pro ukládání. Chcete místo něj "
 "použít kompresi G711 ULAW?"
 
-#: plugins/codec_wav/WavEncoder.cpp:353
+#: plugins/codec_wav/WavEncoder.cpp:364
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "&Ano, použít G711"
 
-#: plugins/codec_wav/WavEncoder.cpp:354
+#: plugins/codec_wav/WavEncoder.cpp:365
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&Ne, uložit nezkomprimováno"
 
-#: plugins/codec_wav/WavEncoder.cpp:403 plugins/sonagram/SonagramPlugin.cpp:204
+#: plugins/codec_wav/WavEncoder.cpp:414 plugins/sonagram/SonagramPlugin.cpp:204
 #, kde-format
 msgid "File or selection too large"
 msgstr "Soubor nebo výběr je příliš velký"
@@ -4901,7 +4909,7 @@ msgstr "Vypsat hierarchii oken"
 msgid "Dump Meta Data"
 msgstr "Vypsat metadata"
 
-#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:236
+#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:238
 #, kde-format
 msgid "Debug (%1)"
 msgstr "Ladění (%1)"

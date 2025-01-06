@@ -95,7 +95,7 @@ QString Kwave::RecordOSS::open(const QString &dev)
     if (!dev.length()) return QString::number(EINVAL); // no device name
 
     // first of all: try to open the device itself
-    int fd = ::open(dev.toLocal8Bit(), O_RDONLY | O_NONBLOCK);
+    int fd = ::open(qPrintable(dev), O_RDONLY | O_NONBLOCK);
     if (fd < 0) {
         qWarning("open failed, fd=%d, errno=%d (%s)",
                  fd, errno, strerror(errno));

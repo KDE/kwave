@@ -676,7 +676,7 @@ void Kwave::PluginManager::searchPluginModules()
         PluginModule info;
         info.m_name        = name;
         info.m_author      = author;
-        info.m_description = i18n(description.toUtf8());
+        info.m_description = description;
         info.m_version     = settings;
         info.m_factory     = result.plugin;
         info.m_use_count   = 1;

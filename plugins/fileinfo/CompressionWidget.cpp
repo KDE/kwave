@@ -101,9 +101,9 @@ void Kwave::CompressionWidget::initInfo(QLabel *label, QWidget *widget,
                                         Kwave::FileInfo &info)
 {
     Q_ASSERT(widget);
-    if (label) label->setText(i18n(info.name(property).toLatin1()) + _(":"));
-    describeWidget(widget, i18n(info.name(property).toLatin1()),
-                   i18n(info.description(property).toLatin1()));
+    if (label) label->setText(i18n(info.name(property).toLatin1().constData()) + _(":"));
+    describeWidget(widget, i18n(info.name(property).toLatin1().constData()),
+                   i18n(info.description(property).toLatin1().constData()));
 }
 
 //***************************************************************************

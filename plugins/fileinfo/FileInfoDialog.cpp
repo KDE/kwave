@@ -547,11 +547,12 @@ void Kwave::FileInfoDialog::setupMiscellaneousTab()
     initInfoText(lblCommissioned, edCommissioned, Kwave::INF_COMMISSIONED);
 
     /* list of keywords */
-    lblKeywords->setText(i18n(m_info.name(Kwave::INF_KEYWORDS).toLatin1()));
+    lblKeywords->setText(
+        i18n(m_info.name(Kwave::INF_KEYWORDS).toLatin1().constData()));
     lstKeywords->setWhatsThis(_("<b>") +
-        i18n(m_info.name(Kwave::INF_KEYWORDS).toLatin1()) +
+        i18n(m_info.name(Kwave::INF_KEYWORDS).toLatin1().constData()) +
         _("</b><br>") +
-        i18n(m_info.description(Kwave::INF_KEYWORDS).toLatin1()));
+        i18n(m_info.description(Kwave::INF_KEYWORDS).toLatin1().constData()));
     if (m_info.contains(Kwave::INF_KEYWORDS)) {
         QString keywords =
             QVariant(m_info.get(Kwave::INF_KEYWORDS)).toString();

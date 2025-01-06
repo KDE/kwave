@@ -90,7 +90,7 @@ bool Kwave::RIFFParser::isValidName(const char *name)
 //***************************************************************************
 Kwave::RIFFChunk::ChunkType Kwave::RIFFParser::guessType(const QByteArray &name)
 {
-    if (!isValidName(name)) return Kwave::RIFFChunk::Garbage;
+    if (!isValidName(name.constData())) return Kwave::RIFFChunk::Garbage;
     return (m_main_chunk_names.contains(QLatin1String(name))) ?
         Kwave::RIFFChunk::Main : Kwave::RIFFChunk::Sub;
 }
@@ -348,7 +348,7 @@ bool Kwave::RIFFParser::parse(Kwave::RIFFChunk *parent,
         QByteArray name = read4ByteString(m_dev.pos());
 
         // check if the name really contains only ASCII characters
-        if (!isValidName(name)) {
+        if (!isValidName(name.constData())) {
             qWarning("invalid chunk name at offset 0x%08X", offset);
             // unreadable name -> make it a "garbage" chunk
             qDebug("addGarbageChunk(offset=0x%08X, length=0x%08X)",

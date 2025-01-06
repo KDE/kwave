@@ -182,7 +182,7 @@ int Kwave::MenuManager::executeCommand(const QString &command)
         }
 
         // default case: direct specification of a key sequence
-        shortcut = QKeySequence::fromString(i18n(param.toLatin1()));
+        shortcut = QKeySequence::fromString(param);
     }
 
     // --- 4rth parameter: parse the string id of the node (optional) ---

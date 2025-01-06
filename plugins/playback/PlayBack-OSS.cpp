@@ -129,7 +129,7 @@ QString Kwave::PlayBackOSS::open(const QString &device, double rate,
 
     // prepeare for playback by opening the sound device
     // and initializing with the proper settings
-    m_handle = ::open(m_device_name.toLocal8Bit(), O_WRONLY | O_NONBLOCK);
+    m_handle = ::open(qPrintable(m_device_name), O_WRONLY | O_NONBLOCK);
     if (m_handle == -1) {
         QString reason;
         switch (errno) {
@@ -501,7 +501,7 @@ int Kwave::PlayBackOSS::openDevice(const QString &device)
 
     if (fd <= 0) {
         // open the device in case it's not already open
-        fd = ::open(device.toLocal8Bit(), O_WRONLY | O_NONBLOCK);
+        fd = ::open(qPrintable(device), O_WRONLY | O_NONBLOCK);
         if (fd <= 0) {
             qWarning("PlayBackOSS::openDevice('%s') - failed, errno=%d (%s)",
                  DBG(device),

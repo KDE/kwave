@@ -8625,17 +8625,6 @@
 			<varlistentry>
 			    <term
 ><replaceable
->nomefile</replaceable
-></term>
-			    <listitem>
-				<para
->Il nome del file del progetto K3b originale, che sarà usato come base per i nomi dei file esportati. </para>
-			    </listitem>
-			</varlistentry>
-
-			<varlistentry>
-			    <term
-><replaceable
 >modello</replaceable
 ></term>
 			    <listitem>
@@ -8748,47 +8737,22 @@
 			<varlistentry>
 			    <term
 ><replaceable
+>file progetto</replaceable
+></term>
+			    <listitem>
+				<para
+>Il nome del file del progetto K3b originale, che sarà usato anche come base per i nomi dei file esportati. </para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
+			    <term
+><replaceable
 >posizione esportazione</replaceable
 ></term>
 			    <listitem>
 				<para
->Determina dove devono essere salvati i blocchi. <informaltable frame='all'
-> <tgroup cols='2'>
-					    <thead>
-						<row>
-						    <entry align='left'
->valore</entry>
-						    <entry align='left'
->descrizione</entry>
-						</row>
-					    </thead>
-					    <tbody>
-						<row>
-						    <entry
->&no-i18n-tag;<command
->0</command
-></entry>
-						    <entry
->Salva nella stessa cartella del file del progetto K3b. </entry>
-						</row>
-						<row>
-						    <entry
->&no-i18n-tag;<command
->1</command
-></entry>
-						    <entry
->Salva in una sotto-cartella della cartella del file del progetto K3b, utilizzando come base il nome del file del progetto K3b e aggiungendo <quote
-><command
-><literal
->.dir</literal
-></command
-></quote
->. </entry>
-						</row>
-					    </tbody>
-					</tgroup>
-				    </informaltable>
-				</para>
+>La posizione dove devono essere salvati i blocchi. </para>
 			    </listitem>
 			</varlistentry>
 
@@ -10320,17 +10284,6 @@
 		    <varlistentry>
 			<term
 ><replaceable
->nome</replaceable
-></term>
-			<listitem>
-			    <para
->Il nome del file originale, che sarà usato come base per i nomi dei file. </para>
-			</listitem>
-		    </varlistentry>
-
-		    <varlistentry>
-			<term
-><replaceable
 >modello</replaceable
 ></term>
 			<listitem>
@@ -10461,6 +10414,28 @@
 				    </tgroup>
 				</informaltable>
 			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>estensione</replaceable
+></term>
+			<listitem>
+			    <para
+>L'estensione del nome file da utilizzare per i blocchi salvati. Determina quale estensione verrà utilizzata. </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>posizione esportazione</replaceable
+></term>
+			<listitem>
+			    <para
+>La posizione in cui esportare i blocchi salvati. </para>
 			</listitem>
 		    </varlistentry>
 

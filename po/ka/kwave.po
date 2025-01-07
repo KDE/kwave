@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-06 00:41+0000\n"
-"PO-Revision-Date: 2025-01-04 05:09+0100\n"
+"PO-Revision-Date: 2025-01-06 04:29+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2072,11 +2072,11 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:156
 msgid "ID3 Tags"
-msgstr ""
+msgstr "ID3 ჭდეები"
 
 #: libkwave/FileInfo.cpp:157
 msgid "List of ID3 Tags"
-msgstr ""
+msgstr "ID3 ჭდეების სია"
 
 #: libkwave/FileInfo.cpp:160
 msgid "ISRC"
@@ -7180,7 +7180,7 @@ msgstr "გაფართოება:"
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:118
 #, kde-format
 msgid "Choose what encoding to save the blocks with."
-msgstr "აირჩიეთ, რა კოდირებით მოხდება ბლოკების შენახვა"
+msgstr "აირჩიეთ, რა კოდირებით მოხდება ბლოკების შენახვა."
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:131

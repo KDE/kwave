@@ -1,15 +1,15 @@
 # translation of kwave.pot to esperanto
 # Copyright (C) 2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the kwave package.
-# Oliver Kellogg <okellogg@users.sourceforge.net, 2023.
+# Oliver Kellogg <olivermkellogg@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-06 00:41+0000\n"
-"PO-Revision-Date: 2024-12-28 17:41+0100\n"
-"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
+"PO-Revision-Date: 2025-01-06 18:58+0100\n"
+"Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Oliver Kellogg"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "okellogg@users.sourceforge.net"
+msgstr "olivermkellogg@gmail.com"
 
 #: kwave/App.cpp:150
 #, kde-format
@@ -2072,11 +2072,11 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:156
 msgid "ID3 Tags"
-msgstr ""
+msgstr "ID3-Etikedoj"
 
 #: libkwave/FileInfo.cpp:157
 msgid "List of ID3 Tags"
-msgstr ""
+msgstr "Listo de ID3-Etikedoj"
 
 #: libkwave/FileInfo.cpp:160
 msgid "ISRC"
@@ -4932,12 +4932,12 @@ msgstr "K3b-projektdosiero (*.k3b)"
 #: plugins/export_k3b/K3BExportDialog.cpp:161
 #, kde-format
 msgid "Please choose a K3b project file name"
-msgstr ""
+msgstr "Bonvolu elekti K3b-projektan dosiernomon"
 
 #: plugins/export_k3b/K3BExportDialog.cpp:165
 #, kde-format
 msgid "Please choose where to export the audio files"
-msgstr ""
+msgstr "Bonvolu elekti kien elporti la sondosierojn"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportDialogBase.ui:35
@@ -5044,37 +5044,33 @@ msgstr "Eksporta Loko:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFilename)
 #: plugins/export_k3b/K3BExportDialogBase.ui:154
-#, fuzzy, kde-format
-#| msgctxt "file type filter when exporting to K3b"
-#| msgid "K3b project file (*.k3b)"
+#, kde-format
 msgid "K3b Project File:"
-msgstr "K3b-projektdosiero (*.k3b)"
+msgstr "K3b-Projektdosiero:"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:161
 #, kde-format
 msgid "Location to save the K3b project file"
-msgstr ""
+msgstr "Loko al kiu konservi la K3b-projektdosieron"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:173
-#, fuzzy, kde-format
-#| msgid "New File"
+#, kde-format
 msgid "Project File"
-msgstr "Nova Dosiero"
+msgstr "Projekta Dosiero"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:180
 #, kde-format
 msgid "Location to export the audio files to"
-msgstr ""
+msgstr "Loko al kiu elporti la sondosieroj"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:189
-#, fuzzy, kde-format
-#| msgid "Export Location:"
+#, kde-format
 msgid "Export Location"
-msgstr "Eksporta Loko:"
+msgstr "Elporta Loko:"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:280
 msgctxt "menu: /File/Save/Export to K3b Project..."
@@ -7104,7 +7100,7 @@ msgstr "Ŝanĝante sample-frekvencon de %1 kHz al %2 kHz..."
 #: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
 msgid "Please choose where to save the files"
-msgstr ""
+msgstr "Bonvolu elekti kien elporti la dosierojn"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:37
@@ -7180,55 +7176,49 @@ msgstr "Ĉiam komenci per 1, superskribi se necese"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:102
-#, fuzzy, kde-format
-#| msgid "Mode Extension"
+#, kde-format
 msgid "Extension:"
-msgstr "Mode Etendo"
+msgstr "Etendo:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:118
 #, kde-format
 msgid "Choose what encoding to save the blocks with."
-msgstr ""
+msgstr "Elektu la kodigon per kiu konservi la blokojn."
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:131
 #, kde-format
 msgid "Location to save the files"
-msgstr ""
+msgstr "Loko por konservi la dosierojn"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:140
 #, kde-format
 msgid "Choose where to save the files"
-msgstr ""
+msgstr "Elektu ĉu konservi la dosierojn"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:154
-#, fuzzy, kde-format
-#| msgid ""
-#| "Example of the first file name that will be saved, using the file name "
-#| "pattern above and the numbering below"
+#, kde-format
 msgid ""
 "Example of the first file name that will be saved, using the file name "
 "pattern, extension, and numbering"
 msgstr ""
 "Ekzemplo de la unua dosiernomo kiu estos konservita, uzante la dosiernoman "
-"ŝablonon supre kaj la numeradon sube"
+"ŝablonon, finaĵon kaj numeradon"
 
 #. i18n: ectx: property (text), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:157
-#, fuzzy, kde-format
-#| msgid "To Next Labels"
+#, kde-format
 msgid "TextLabel"
-msgstr "Al Sekvaj Etikedoj"
+msgstr "TekstEtikedo"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:170
-#, fuzzy, kde-format
-#| msgid "Example:"
+#, kde-format
 msgid "Example file name:"
-msgstr "Ekzemplo:"
+msgstr "Ekzempla dosiernomo:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:189
@@ -7596,16 +7586,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Silento"
-
-#~ msgid ""
-#~ "Specify where to place the exported sound files which are used for the "
-#~ "tracks of the audio CD."
-#~ msgstr ""
-#~ "Specifi kien meti la eksportitajn sondosierojn, kiuj estas uzataj por la "
-#~ "trakoj de la son-KD."
-
-#~ msgid "Same Directory as K3b File"
-#~ msgstr "Sama Dosierujo kiel K3b Dosiero"
-
-#~ msgid "Sub Directory"
-#~ msgstr "Suba Dosierujo"

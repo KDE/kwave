@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kwave package.
-# SPDX-FileCopyrightText: 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-14 02:31+0000\n"
-"PO-Revision-Date: 2024-12-28 22:46+0400\n"
+"PO-Revision-Date: 2025-01-07 20:20+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -2066,7 +2066,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:184
 msgid "Medium"
-msgstr ""
+msgstr "متوسط"
 
 #: libkwave/FileInfo.cpp:185
 msgid ""
@@ -3346,12 +3346,12 @@ msgstr ""
 #: libkwave/SignalManager.cpp:841
 #, kde-format
 msgid "Select All Tracks"
-msgstr ""
+msgstr "حدد كافة المسارات"
 
 #: libkwave/SignalManager.cpp:845
 #, kde-format
 msgid "Deselect all tracks"
-msgstr ""
+msgstr "ألغ تحديد كافة المسارات"
 
 #: libkwave/SignalManager.cpp:849
 #, kde-format
@@ -3820,7 +3820,7 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:458
 #, kde-format
 msgid "Opening the file failed"
-msgstr ""
+msgstr "فشل فتح الملف"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
 #: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:461
@@ -4868,7 +4868,7 @@ msgstr ""
 #: plugins/export_k3b/K3BExportWidgetBase.ui:173
 #, kde-format
 msgid "Overwrite Existing Files"
-msgstr ""
+msgstr "اكتب فوق الملفات الموجودة"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:178
@@ -5269,7 +5269,7 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDlg.ui:997
 #, kde-format
 msgid "CCIT J.17"
-msgstr ""
+msgstr "CCIT J.17"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegVersion)
 #: plugins/fileinfo/FileInfoDlg.ui:1006
@@ -5419,13 +5419,13 @@ msgstr ""
 #: plugins/fileinfo/SelectDateDlg.ui:20
 #, kde-format
 msgid "Select Date"
-msgstr ""
+msgstr "حدّد التاريخ"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, GotoDlg)
 #: plugins/goto/GotoDlg.ui:15
 #, kde-format
 msgid "Go to Position"
-msgstr ""
+msgstr "انتقل إلى موقع"
 
 #: plugins/goto/GotoPlugin.cpp:50
 #, kde-format
@@ -5435,7 +5435,7 @@ msgstr "انتقل إلى..."
 #: plugins/goto/InsertAtPlugin.cpp:50
 #, kde-format
 msgid "Insert At..."
-msgstr ""
+msgstr "أدرج عند..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LowPassDlg)
 #: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:111
@@ -5963,7 +5963,7 @@ msgstr "تشغيل"
 #: plugins/playback/PlayBackDlg.ui:38
 #, kde-format
 msgid "Playback Settings"
-msgstr ""
+msgstr "إعدادات التشغيل"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbDevice)
 #: plugins/playback/PlayBackDlg.ui:64
@@ -6062,7 +6062,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:220 plugins/record/RecordDlg.ui:990
 #, kde-format
 msgid "Buffer size:"
-msgstr ""
+msgstr "حجم الصّوان:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: plugins/playback/PlayBackDlg.ui:256
@@ -6507,7 +6507,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:755
 #, kde-format
 msgid "?"
-msgstr ""
+msgstr "؟"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFormatCompression)
 #: plugins/record/RecordDlg.ui:783

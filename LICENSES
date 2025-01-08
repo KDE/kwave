@@ -853,4 +853,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         scripts/create-testfile.kwave                   GPL2+
         scripts/screenshots.kwave                       GPL2+
 
+        .flatpak-patches/*                              GPL2+
+
 ### EOF ###

@@ -13,6 +13,14 @@
         "--socket=wayland",
         "--system-talk-name=org.freedesktop.UDisks2"
     ],
+    "cleanup": [
+        "/include",
+        "/lib/cmake",
+        "/lib/pkgconfig",
+        "/share/man",
+        "*.la",
+        "*.a"
+    ],
     "modules": [
         {
             "name": "libaudiofile",
@@ -25,14 +33,7 @@
                     "commit": "b62c902dd258125cac86cd2df21fc898035a43d3"
                 }
             ],
-            "cleanup": [
-                "/bin",
-                "/include",
-                "/lib/pkgconfig",
-                "/share/man",
-                "*.la",
-                "*.a"
-            ]
+            "cleanup": ["/bin"]
         },
         {
             "name": "id3lib",
@@ -47,27 +48,17 @@
             "post-install": [
                 "cp -r include/* /app/include/"
             ],
-            "cleanup": [
-                "/bin",
-                "/include",
-                "/lib/debug/bin",
-                "*.la"
-            ]
+            "cleanup": ["/bin"]
         },
         {
             "name" : "libmad",
             "buildsystem": "cmake-ninja",
             "sources": [
                 {
-                "type" : "archive",
-                "url" : "https://codeberg.org/tenacityteam/libmad/releases/download/0.16.4/libmad-0.16.4.tar.gz",
-                "sha256" : "0f6bfb36c554075494b5fc2c646d08de7364819540f23bab30ae73fa1b5cfe65"
+                    "type" : "archive",
+                    "url" : "https://codeberg.org/tenacityteam/libmad/releases/download/0.16.4/libmad-0.16.4.tar.gz",
+                    "sha256" : "0f6bfb36c554075494b5fc2c646d08de7364819540f23bab30ae73fa1b5cfe65"
                 }
-            ],
-            "cleanup": [
-                "/include",
-                "/lib/cmake",
-                "/lib/pkgconfig"
             ]
         },
         {

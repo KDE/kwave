@@ -5054,10 +5054,9 @@ msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:173
-#, fuzzy, kde-format
-#| msgid "New File"
+#, kde-format
 msgid "Project File"
-msgstr "Nový soubor"
+msgstr "Soubor projektu"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:180
@@ -7177,10 +7176,9 @@ msgstr "Vždy začít s 1. Přepsat v případě nutnosti"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:102
-#, fuzzy, kde-format
-#| msgid "Mode Extension"
+#, kde-format
 msgid "Extension:"
-msgstr "Rozšíření režimu"
+msgstr "Přípona:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:118
@@ -7215,10 +7213,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:157
-#, fuzzy, kde-format
-#| msgid "To Next Labels"
+#, kde-format
 msgid "TextLabel"
-msgstr "K následujícím popiskům"
+msgstr "Textový popisek"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:170

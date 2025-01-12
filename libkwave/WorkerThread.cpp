@@ -84,12 +84,6 @@ Kwave::WorkerThread::~WorkerThread()
 }
 
 //***************************************************************************
-void Kwave::WorkerThread::start()
-{
-    QThread::start();
-}
-
-//***************************************************************************
 void Kwave::WorkerThread::cancel()
 {
     requestInterruption();

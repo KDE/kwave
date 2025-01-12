@@ -29,7 +29,6 @@
 #include <QMap>
 #include <QMutex>
 #include <QObject>
-#include <QQueue>
 #include <QRecursiveMutex>
 #include <QSemaphore>
 #include <QString>
@@ -54,7 +53,7 @@ namespace Kwave
         PlayBackQt();
 
         /** Destructor */
-        ~PlayBackQt() override;
+        virtual ~PlayBackQt() override;
 
         /**
          * Opens the device for playback.
@@ -137,6 +136,13 @@ namespace Kwave
 
     private:
 
+        /**
+         * Internal buffer operating as a QIODevice for satisfying
+         * the Qt playback engine. Uses a QByteArray as FIFO, with a write
+         * pointer and a read pointer. No extra locking is needed for the
+         * FIFO, we have two semaphores: one with the number of bytes
+         * free and one with the number of bytes written.
+         */
         class Buffer : public QIODevice
         {
         public:
@@ -144,7 +150,7 @@ namespace Kwave
             Buffer();
 
             /** destructor */
-            ~Buffer() override;
+            virtual ~Buffer() override;
 
             /**
              * start filling the buffer
@@ -152,13 +158,6 @@ namespace Kwave
              * @param timeout read/write timeout [ms]
              */
             void start(unsigned int buf_size, int timeout);
-
-            /**
-             * set a new read/write timeout
-             * @note does not influence currently waiting reads/writes
-             * @param timeout a new read/write timeout [ms]
-             */
-            void setTimeout(int timeout);
 
             /**
              * drain the sink, at the end of playback:
@@ -177,7 +176,7 @@ namespace Kwave
              * @param len number of bytes to read
              * @return number of bytes that have been read
              */
-            qint64 readData(char *data, qint64 len) override;
+            virtual qint64 readData(char *data, qint64 len) override;
 
             /**
              * write data into the buffer, called from our own worker thread
@@ -189,7 +188,7 @@ namespace Kwave
                 override;
 
             /** returns the number of bytes available for reading */
-            qint64 bytesAvailable() const override;
+            virtual qint64 bytesAvailable() const override;
 
         private:
 
@@ -203,7 +202,13 @@ namespace Kwave
             QSemaphore m_sem_filled;
 
             /** raw buffer with audio data */
-            QQueue<char> m_raw_buffer;
+            QByteArray m_raw_buffer;
+
+            /** read pointer within the raw buffer */
+            qsizetype m_rp;
+
+            /** write pointer within the raw buffer */
+            qsizetype m_wp;
 
             /** read timeout [ms] */
             int m_timeout;
@@ -239,7 +244,11 @@ namespace Kwave
         /** encoder for converting from samples to raw format */
         Kwave::SampleEncoder *m_encoder;
 
+        /** buffer object to use as interface to the qt playback thread */
         Kwave::PlayBackQt::Buffer m_buffer;
+
+        /** internal buffer for encoding one frame */
+        QByteArray m_one_frame;
     };
 }
 

@@ -52,7 +52,6 @@ Kwave::PlaybackController::PlaybackController(
      m_playback_end(0), m_old_first(0), m_old_last(0),
      m_playback_factories()
 {
-
     connect(this, SIGNAL(sigDevicePlaybackDone()),
             this, SLOT(playbackDone()));
     connect(this, SIGNAL(sigDevicePlaybackDone()),
@@ -60,7 +59,6 @@ Kwave::PlaybackController::PlaybackController(
             Qt::QueuedConnection);
     connect(&m_signal_manager, SIGNAL(sigTrackSelectionChanged(bool)),
             this,              SLOT(trackSelectionChanged()));
-
 }
 
 //***************************************************************************
@@ -373,9 +371,9 @@ void Kwave::PlaybackController::startDevicePlayBack()
     }
 
     m_old_first = first;
-    m_old_last = last;
+    m_old_last  = last;
 
-    m_thread.start();
+    m_thread.start(QThread::HighPriority);
 }
 
 //***************************************************************************
@@ -440,7 +438,6 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
     unsigned int pos_countdown = 0;
 
     do {
-
         // if current position is after start -> skip the passed
         // samples (this happens when resuming after a pause)
         if (pos > first) input.skip(pos - first);

@@ -51,7 +51,9 @@ Kwave::PlayBackQt::PlayBackQt()
      m_available_devices(),
      m_output(nullptr),
      m_buffer_size(0),
-     m_encoder(nullptr)
+     m_encoder(nullptr),
+     m_buffer(),
+     m_one_frame()
 {
 }
 
@@ -168,33 +170,39 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
             this,     SLOT(stateChanged(QAudio::State)));
 
     // calculate the buffer size in bytes
-    if (bufbase < 8)
-        bufbase = 8;
+    if (bufbase < 8) bufbase = 8;
     m_buffer_size = (1U << bufbase);
-    qDebug("    buffer size = %u", m_buffer_size);
+    qDebug("    buffer size (user selection) = %u", m_buffer_size);
 
-    m_buffer.start(m_buffer_size, 0);
-
-    // QAudioSink::bufferSize returns the platform default buffer size if called before
-    // QAudioSink::start or QAudioSink::setBufferSize is called.
-    // We want to use the default QAudioSink buffer size, unless the requested buffer size
-    // is larger, because a smaller than default QAudioSink buffer will likely underrun
-    if (m_buffer_size > m_output->bufferSize()) {
+    // QAudioSink::bufferSize returns the platform default buffer size if
+    // called before QAudioSink::start or QAudioSink::setBufferSize is called.
+    // We want to use the default QAudioSink buffer size, unless the requested
+    // buffer size is larger, because a smaller than default QAudioSink buffer
+    // will likely underrun
+    qsizetype min_buffer_size = m_output->bufferSize();
+    if (m_buffer_size > min_buffer_size) {
+        qDebug ("    increase QAudioSink buffer size to %u bytes",
+                m_buffer_size);
         m_output->setBufferSize(m_buffer_size);
+    } else {
+        m_buffer_size = Kwave::toUint(min_buffer_size);
+        qDebug ("    increased buffer size to %u bytes as used in QAudioSink",
+                m_buffer_size);
     }
-    // open the output device for writing
-    m_output->start(&m_buffer);
-    qDebug("    QAudioSink buffer size = %lld", m_output->bufferSize());
 
     // calculate an appropriate timeout, based on the buffer size
     unsigned int bytes_per_frame = m_encoder->rawBytesPerSample() * channels;
     unsigned int buffer_size = qMax<unsigned int>(m_buffer_size,
         static_cast<unsigned int>(m_output->bufferSize()));
     unsigned int buffer_frames =
-        ((buffer_size * 2) + (bytes_per_frame - 1)) / bytes_per_frame;
-    int timeout = qMax(Kwave::toInt((1000 * buffer_frames) / rate), 100);
+        (buffer_size + (bytes_per_frame - 1)) / bytes_per_frame;
+    int timeout = qMax(Kwave::toInt((1000 * buffer_frames) / rate), 500);
     qDebug("    timeout = %d ms", timeout);
-    m_buffer.setTimeout(timeout);
+
+    // open the output device for writing
+    m_buffer.start(m_buffer_size, timeout);
+    m_output->start(&m_buffer);
+    qDebug("    QAudioSink buffer size = %lld", m_output->bufferSize());
 
     if (m_output->error() != QAudio::NoError) {
         qDebug("error no: %d", int(m_output->error()));
@@ -207,7 +215,6 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
 //***************************************************************************
 int Kwave::PlayBackQt::write(const Kwave::SampleArray &samples)
 {
-    QByteArray frame;
     {
         QMutexLocker _lock(&m_lock); // context: worker thread
 
@@ -216,13 +223,14 @@ int Kwave::PlayBackQt::write(const Kwave::SampleArray &samples)
         int bytes_per_sample = m_encoder->rawBytesPerSample();
         int bytes_raw        = samples.size() * bytes_per_sample;
 
-        frame.resize(bytes_raw);
-        frame.fill(char(0));
-        m_encoder->encode(samples, samples.size(), frame);
+        m_one_frame.resize(bytes_raw);
+        m_one_frame.fill(char(0));
+        m_encoder->encode(samples, samples.size(), m_one_frame);
     }
 
-    qint64 written = m_buffer.writeData(frame.constData(), frame.size());
-    return (written == frame.size()) ? 0 : -EAGAIN;
+    qint64 written = m_buffer.writeData(
+        m_one_frame.constData(), m_one_frame.size());
+    return (written == m_one_frame.size()) ? 0 : -EAGAIN;
 }
 
 //***************************************************************************
@@ -291,14 +299,16 @@ int Kwave::PlayBackQt::close()
     QMutexLocker _lock(&m_lock); // context: main thread
 
     if (m_output && m_encoder) {
-        unsigned int pad_bytes_cnt =
-            static_cast<unsigned int>(m_output->bufferSize());
+        // create padding data for exactly one frame, as we do not know
+        // the relationship between the buffer size used in our internal
+        // buffer object (which has been set up early) and the buffer used
+        // in Qt (which might have been adjusted after opening).
         int bytes_per_frame = m_output->format().bytesPerFrame();
-        if ((pad_bytes_cnt > 0) && (bytes_per_frame > 0)) {
-            unsigned int pad_samples_cnt = pad_bytes_cnt / bytes_per_frame;
-            Kwave::SampleArray pad_samples(pad_samples_cnt);
-            QByteArray pad_bytes(pad_bytes_cnt, char(0));
-            m_encoder->encode(pad_samples, pad_samples_cnt, pad_bytes);
+        if (bytes_per_frame > 0) {
+            Kwave::SampleArray pad_samples(1);
+            pad_samples.fill(0);
+            QByteArray pad_bytes(bytes_per_frame, char(0));
+            m_encoder->encode(pad_samples, 1, pad_bytes);
             m_buffer.drain(pad_bytes);
         }
         m_output->stop();
@@ -453,6 +463,8 @@ Kwave::PlayBackQt::Buffer::Buffer()
      m_sem_free(0),
      m_sem_filled(0),
      m_raw_buffer(),
+     m_rp(0),
+     m_wp(0),
      m_timeout(1000),
      m_pad_data(),
      m_pad_ofs(0)
@@ -467,7 +479,10 @@ Kwave::PlayBackQt::Buffer::~Buffer()
 //***************************************************************************
 void Kwave::PlayBackQt::Buffer::start(unsigned int buf_size, int timeout)
 {
-    m_raw_buffer.clear();
+    QMutexLocker _lock(&m_lock); // context: main thread
+    m_raw_buffer.resize(buf_size);
+    m_rp = 0;
+    m_wp = 0;
     m_sem_filled.acquire(m_sem_filled.available());
     m_sem_free.acquire(m_sem_free.available());
     m_sem_free.release(buf_size);
@@ -476,14 +491,6 @@ void Kwave::PlayBackQt::Buffer::start(unsigned int buf_size, int timeout)
     m_pad_ofs = 0;
 
     open(QIODevice::ReadOnly);
-}
-
-//***************************************************************************
-void Kwave::PlayBackQt::Buffer::setTimeout(int timeout)
-{
-    QMutexLocker _lock(&m_lock); // context: main thread
-    m_timeout = timeout;
-    qDebug("Kwave::PlayBackQt::Buffer::setTimeout(%d)", timeout);
 }
 
 //***************************************************************************
@@ -502,62 +509,65 @@ void Kwave::PlayBackQt::Buffer::stop()
 //***************************************************************************
 qint64 Kwave::PlayBackQt::Buffer::readData(char *data, qint64 len)
 {
-    qint64 read_bytes = -1;
-    qint64 requested  = len;
-
-//     qDebug("Kwave::PlayBackQt::Buffer::readData(..., len=%lld", requested);
+    // qDebug("Kwave::PlayBackQt::Buffer::readData(..., len=%lld", len);
     if (len == 0) return  0;
     if (len  < 0) return -1;
 
-    while (len > 0) {
-        int count = qMin<int>(
-            qMax(m_sem_filled.available(), 1),
-            Kwave::toInt(len)
-        );
-        if (Q_LIKELY(m_sem_filled.tryAcquire(count, m_timeout))) {
-            QMutexLocker _lock(&m_lock); // context: qt streaming engine
-
-            m_sem_free.release(count);
-            if (read_bytes < 0) read_bytes = 0;
-            read_bytes += count;
-            len        -= count;
-            while (count--)
-                *(data++) = m_raw_buffer.dequeue();
-        } else break;
+    const qsizetype maxlen = m_raw_buffer.size();
+    qint64 remaining = len;
+    while (remaining) {
+        if (Q_LIKELY(m_sem_filled.tryAcquire(1, m_timeout))) {
+            *(data++) = m_raw_buffer[m_rp];
+            if (Q_UNLIKELY(++m_rp >= maxlen)) m_rp = 0;
+            m_sem_free.release(1);
+            remaining--;
+        } else {
+            qDebug("PlayBackQt::Buffer::readData() - TIMEOUT");
+            break;
+        }
     }
 
     // if we are at the end of the stream: do some padding to satisfy Qt
-    while ( (read_bytes < requested) &&
-            !m_pad_data.isEmpty() && (m_pad_ofs < m_pad_data.size()) )
-    {
-        *(data++) = 0;
-        read_bytes++;
-        m_pad_ofs++;
+    const qsizetype padlen = m_pad_data.size();
+    if (remaining) {
+        if (padlen)
+            qDebug("Kwave::PlayBackQt::Buffer::readData(...) -> "
+                "read=%lld/%lld, padding %lld",
+                len - remaining, len, remaining);
+        else
+            qDebug("Kwave::PlayBackQt::Buffer::readData(...) -> "
+                "read=%lld/%lld, UNDERRUN", len - remaining, len);
+
+        do {
+            *(data++) = 0;
+            if (Q_UNLIKELY(++m_rp >= maxlen)) m_rp = 0;
+        } while (--remaining);
     }
 
-    if (read_bytes != requested)
+    if (remaining)
         qDebug("Kwave::PlayBackQt::Buffer::readData(...) -> read=%lld/%lld",
-               read_bytes, requested);
+               len - remaining, len);
 
-    return read_bytes;
+    QThread::yieldCurrentThread();
+    return len - remaining;
 }
 
 //***************************************************************************
 qint64 Kwave::PlayBackQt::Buffer::writeData(const char *data, qint64 len)
 {
-
-    qint64 written_bytes = 0;
-
-    int count = Kwave::toInt(len);
-    if (Q_LIKELY(m_sem_free.tryAcquire(count, m_timeout))) {
-        QMutexLocker _lock(&m_lock); // context: kwave worker thread
-        m_sem_filled.release(count);
-        written_bytes += count;
-        while (count--)
-            m_raw_buffer.enqueue(*(data++));
+    const qsizetype maxlen = m_raw_buffer.size();
+    for (qint64 remaining = len; remaining; remaining--) {
+        if (Q_LIKELY(m_sem_free.tryAcquire(1, m_timeout))) {
+            m_raw_buffer[m_wp] = *(data++);
+            if (Q_UNLIKELY(++m_wp >= maxlen)) m_wp = 0;
+            m_sem_filled.release(1);
+        } else {
+            qDebug("PlayBackQt::Buffer::writeData() - TIMEOUT");
+            return 0;
+        }
     }
-
-    return written_bytes;
+    QThread::yieldCurrentThread();
+    return len;
 }
 
 //***************************************************************************

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-06 00:41+0000\n"
+"POT-Creation-Date: 2025-01-13 00:40+0000\n"
 "PO-Revision-Date: 2025-01-11 15:42+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -1201,7 +1201,7 @@ msgstr "Läser in filen '%1'..."
 #: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
 #: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
-#: plugins/playback/PlayBack-Qt.cpp:159 plugins/playback/PlayBack-Qt.cpp:164
+#: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
 #: plugins/record/RecordPlugin.cpp:1050
 #, kde-format
@@ -3330,7 +3330,7 @@ msgstr "Sampla och håll"
 msgid "Failed opening the log file '%1' for writing"
 msgstr "Misslyckades öppna loggfilen '%1' för skrivning"
 
-#: libkwave/PlaybackController.cpp:670
+#: libkwave/PlaybackController.cpp:667
 #, kde-format
 msgid "Unable to open '%1'"
 msgstr "Kan inte öppna '%1'"
@@ -4614,7 +4614,7 @@ msgctxt ""
 msgid "Error: No Codec for '%1' available"
 msgstr "Fel: Inga tillgängliga kodare för '%1'"
 
-#: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:115
+#: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:117
 #, kde-format
 msgid "One or more invalid/out of range arguments."
 msgstr "Ett eller flera argument som är ogiltiga eller utanför intervall."
@@ -6115,7 +6115,7 @@ msgstr "DMIX-insticksmodul"
 msgid "The device '%1' cannot be opened in the correct mode."
 msgstr "Enheten '%1' kan inte öppnas med rätt läge."
 
-#: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:148
+#: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:150
 #, kde-format
 msgid "%1 bits per sample are not supported"
 msgstr "%1 bitar per sampling stöds inte"
@@ -6186,17 +6186,17 @@ msgstr "Misslyckades öppna en PulseAudio-ström för uppspelning (%1)."
 msgid "(Use server default)"
 msgstr "(Använd serverns förval)"
 
-#: plugins/playback/PlayBack-Qt.cpp:127
+#: plugins/playback/PlayBack-Qt.cpp:129
 #, kde-format
 msgid "The audio device '%1' is unknown or no longer connected"
 msgstr "Ljudenheten '%1' är okänd eller inte längre ansluten"
 
-#: plugins/playback/PlayBack-Qt.cpp:154
+#: plugins/playback/PlayBack-Qt.cpp:156
 #, kde-format
 msgid "format not supported"
 msgstr "Formatet stöds inte"
 
-#: plugins/playback/PlayBack-Qt.cpp:201
+#: plugins/playback/PlayBack-Qt.cpp:209
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Misslyckades öppna Qt Multimedia-enheten '%1'"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-06 00:41+0000\n"
+"POT-Creation-Date: 2025-01-13 00:40+0000\n"
 "PO-Revision-Date: 2020-10-01 21:36+0200\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -1200,7 +1200,7 @@ msgstr "Načítavam súbor '%1'..."
 #: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
 #: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
-#: plugins/playback/PlayBack-Qt.cpp:159 plugins/playback/PlayBack-Qt.cpp:164
+#: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
 #: plugins/record/RecordPlugin.cpp:1050
 #, kde-format
@@ -3327,7 +3327,7 @@ msgstr "Vzorkovať a podržať"
 msgid "Failed opening the log file '%1' for writing"
 msgstr "Nepodarilo sa otvoriť súbor záznamu '%1' na zápis"
 
-#: libkwave/PlaybackController.cpp:670
+#: libkwave/PlaybackController.cpp:667
 #, kde-format
 msgid "Unable to open '%1'"
 msgstr "Nepodarilo sa otvoriť '%1'"
@@ -4613,7 +4613,7 @@ msgctxt ""
 msgid "Error: No Codec for '%1' available"
 msgstr "Chyba: Nie je k dispozícii žiadny kodek pre '%1'"
 
-#: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:115
+#: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:117
 #, kde-format
 msgid "One or more invalid/out of range arguments."
 msgstr "Jeden alebo viac argumentov neplatných/mimo rozsahu."
@@ -6118,7 +6118,7 @@ msgstr "Zásuvný modul DMIX"
 msgid "The device '%1' cannot be opened in the correct mode."
 msgstr "Zariadenie '%1' sa nedá otvoriť v správnom režime."
 
-#: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:148
+#: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:150
 #, kde-format
 msgid "%1 bits per sample are not supported"
 msgstr "%1 bitov na vzorku nie je podporovaných"
@@ -6189,18 +6189,18 @@ msgstr "Nepodarilo sa otvoriť prúd PulseAudio pre prehrávanie (%1)."
 msgid "(Use server default)"
 msgstr "(Použiť predvolené nastavenie servera)"
 
-#: plugins/playback/PlayBack-Qt.cpp:127
+#: plugins/playback/PlayBack-Qt.cpp:129
 #, kde-format
 msgid "The audio device '%1' is unknown or no longer connected"
 msgstr "Zvukové zariadenie '%1' je neznáme alebo už nie je pripojené"
 
-#: plugins/playback/PlayBack-Qt.cpp:154
+#: plugins/playback/PlayBack-Qt.cpp:156
 #, fuzzy, kde-format
 #| msgid "Error: Codec not supported"
 msgid "format not supported"
 msgstr "Chyba: Kodek nie je podporovaný"
 
-#: plugins/playback/PlayBack-Qt.cpp:201
+#: plugins/playback/PlayBack-Qt.cpp:209
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Otvorenie Qt multimediálneho zariadenia '%1' zlyhalo"

@@ -60,7 +60,14 @@ ADD_CUSTOM_TARGET(update-handbook
 ### html documentation for the various languages                          ###
 
 SET(_stylesheet "${KDOCTOOLS_CUSTOMIZATION_DIR}/kde-web.xsl")
+
 SET(_common_en_dir ${KDE_INSTALL_FULL_DOCBUNDLEDIR}/en/kdoctools6-common)
+# some distros (Gentoo at least) customize where KDocTools gets installed
+SET(_alternate_dir /usr/share/help/en/kdoctools6-common)
+IF(NOT IS_DIRECTORY ${_common_en_dir} AND IS_DIRECTORY ${_alternate_dir})
+    SET(_common_en_dir ${_alternate_dir})
+ENDIF()
+
 SET(_base_html_dir ${CMAKE_BINARY_DIR}/doc/html)
 SET(_html_dir ${_base_html_dir}/en)
 

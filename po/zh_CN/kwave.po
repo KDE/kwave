@@ -214,7 +214,7 @@ msgstr "PulseAudio 录音插件"
 #: kwave/main.cpp:83
 #, kde-format
 msgid "Mark Penner"
-msgstr ""
+msgstr "标记倒计时"
 
 #: kwave/main.cpp:91
 #, kde-format

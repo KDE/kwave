@@ -129,8 +129,9 @@ namespace Kwave
          * Execute a Kwave text command
          * @param command a text command
          * @retval 0 if succeeded
-         * @retval negative error code if failed
          * @retval ENOSYS if the command is unknown in this component
+         * @retval EBUSY if the command closes the widget (quit)
+         * @retval negative error code if failed
          */
         int executeCommand(const QString &command);
 

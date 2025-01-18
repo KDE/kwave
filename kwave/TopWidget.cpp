@@ -742,7 +742,8 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("openrecent")
         result = openRecent(command);
     CASE_COMMAND("quit")
-        result = (close()) ? 0 : -1;
+        qApp->setQuitOnLastWindowClosed(false);
+        result = (close()) ? EBUSY : -1;
     CASE_COMMAND("reset_toolbars")
         if ((result = (Kwave::MessageBox::questionYesNo(this,
             i18n("Reset the toolbar to default settings?"))
@@ -873,9 +874,16 @@ int Kwave::TopWidget::forwardCommand(const QString &command)
     // execute the command in the current context
     int retval = context->executeCommand(command);
 
+    // special handling for application shutdown, e.g. "quit()"
+    if (retval == EBUSY)
+        return -1; // do not continue and do a "sync"
+
     // synchronize after the command
-    Kwave::PluginManager *plugin_manager = context->pluginManager();
-    if (plugin_manager) plugin_manager->sync();
+    context = currentContext();
+    if (context != nullptr) {
+        Kwave::PluginManager *plugin_manager = context->pluginManager();
+        if (plugin_manager != nullptr) plugin_manager->sync();
+    }
 
     return retval;
 }

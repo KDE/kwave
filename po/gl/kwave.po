@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-19 00:40+0000\n"
-"PO-Revision-Date: 2025-01-06 12:20+0100\n"
+"PO-Revision-Date: 2025-01-19 12:38+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -4991,7 +4991,7 @@ msgid ""
 "body></html>"
 msgstr ""
 "<html><head/><body><p>Seleccionar un padrón para detectar o título e mailo "
-"intérprete a partir do texto dunha etiqueta.<br/>Actualmente admite as "
+"intérprete a partir do texto dunha etiqueta.<br/>Actualmente permite as "
 "seguintes marcas de substitución:</p><ul style=\"margin-top: 0px; margin-"
 "bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li "
 "style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-"
@@ -7401,6 +7401,7 @@ msgstr "Número de puntos de FFT:"
 msgid "Window function:"
 msgstr "Función da xanela:"
 
+# skip-rule: trasno-undo_reverse
 #. i18n: ectx: property (toolTip), widget (KComboBox, windowtypebox)
 #. i18n: ectx: property (whatsThis), widget (KComboBox, windowtypebox)
 #: plugins/sonagram/SonagramDlg.ui:198 plugins/sonagram/SonagramDlg.ui:202

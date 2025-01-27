@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-19 00:40+0000\n"
-"PO-Revision-Date: 2025-01-19 12:38+0100\n"
+"PO-Revision-Date: 2025-01-26 21:07+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -676,7 +676,7 @@ msgstr "Portapapeis"
 #: kwave/menus.config:102
 msgctxt "menu: /Edit/Clipboard/Flush"
 msgid "Flush"
-msgstr "Descargar"
+msgstr "Envorcar"
 
 #: kwave/menus.config:105
 msgctxt "menu: /Edit/Clipboard/Insert At..."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-19 00:40+0000\n"
+"POT-Creation-Date: 2025-02-09 00:40+0000\n"
 "PO-Revision-Date: 2025-01-06 08:59+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -5285,32 +5285,32 @@ msgstr "%1 (%2 фрагментів)"
 msgid "%1 samples"
 msgstr "%1 фрагментів"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:587
+#: plugins/fileinfo/FileInfoDialog.cpp:588
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Моно)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:590
+#: plugins/fileinfo/FileInfoDialog.cpp:591
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Стерео)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:593
+#: plugins/fileinfo/FileInfoDialog.cpp:594
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(Квадро)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:818
-#: plugins/fileinfo/FileInfoDialog.cpp:824
+#: plugins/fileinfo/FileInfoDialog.cpp:819
+#: plugins/fileinfo/FileInfoDialog.cpp:825
 #, kde-format
 msgid "Yes"
 msgstr "Так"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:818
-#: plugins/fileinfo/FileInfoDialog.cpp:824
+#: plugins/fileinfo/FileInfoDialog.cpp:819
+#: plugins/fileinfo/FileInfoDialog.cpp:825
 #, kde-format
 msgid "No"
 msgstr "Ні"

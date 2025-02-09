@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-19 00:40+0000\n"
+"POT-Creation-Date: 2025-02-09 00:40+0000\n"
 "PO-Revision-Date: 2021-10-26 14:42-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -5282,32 +5282,32 @@ msgstr "%1 (%2 amostras)"
 msgid "%1 samples"
 msgstr "%1 amostras"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:587
+#: plugins/fileinfo/FileInfoDialog.cpp:588
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:590
+#: plugins/fileinfo/FileInfoDialog.cpp:591
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Estéreo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:593
+#: plugins/fileinfo/FileInfoDialog.cpp:594
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(Quadro)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:818
-#: plugins/fileinfo/FileInfoDialog.cpp:824
+#: plugins/fileinfo/FileInfoDialog.cpp:819
+#: plugins/fileinfo/FileInfoDialog.cpp:825
 #, kde-format
 msgid "Yes"
 msgstr "Sim"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:818
-#: plugins/fileinfo/FileInfoDialog.cpp:824
+#: plugins/fileinfo/FileInfoDialog.cpp:819
+#: plugins/fileinfo/FileInfoDialog.cpp:825
 #, kde-format
 msgid "No"
 msgstr "Não"

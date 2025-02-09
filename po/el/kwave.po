@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-19 00:40+0000\n"
+"POT-Creation-Date: 2025-02-09 00:40+0000\n"
 "PO-Revision-Date: 2024-09-20 13:15+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -5277,32 +5277,32 @@ msgstr "%1 (%2 δείγματα)"
 msgid "%1 samples"
 msgstr "%1 δείγματα"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:587
+#: plugins/fileinfo/FileInfoDialog.cpp:588
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Μονοφωνικό)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:590
+#: plugins/fileinfo/FileInfoDialog.cpp:591
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Στερεοφωνικό)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:593
+#: plugins/fileinfo/FileInfoDialog.cpp:594
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(Τετραφωνικό)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:818
-#: plugins/fileinfo/FileInfoDialog.cpp:824
+#: plugins/fileinfo/FileInfoDialog.cpp:819
+#: plugins/fileinfo/FileInfoDialog.cpp:825
 #, kde-format
 msgid "Yes"
 msgstr "Ναι"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:818
-#: plugins/fileinfo/FileInfoDialog.cpp:824
+#: plugins/fileinfo/FileInfoDialog.cpp:819
+#: plugins/fileinfo/FileInfoDialog.cpp:825
 #, kde-format
 msgid "No"
 msgstr "Όχι"

@@ -2020,7 +2020,6 @@ PREDEFINED             = DEBUG \
                          HAVE_FLAC \
                          HAVE_LIBSAMPLERATE \
                          HAVE_MP3 \
-                         HAVE_OPTIMIZED_MEMCPY \
                          HAVE_PULSEAUDIO_SUPPORT \
                          HAVE_OSS_SUPPORT \
                          HAVE_OGG_OPUS \

@@ -38,7 +38,6 @@ set (RELEASE_SERVICE_VERSION_MICRO "70")
 # OPTION(WITH_OGG_OPUS   "enable support for ogg/opus files [default=on]" ON)
 # OPTION(WITH_OGG_VORBIS "enable support for ogg/vorbis files [default=on]" ON)
 # OPTION(WITH_OSS        "enable playback/recording via OSS [default=on]" ON)
-# OPTION(WITH_OPTIMIZED_MEMCPY "enable optimized memcpy [default=on]" ON)
 # OPTION(WITH_PULSEAUDIO "enable playback/recording via PulseAudio [default=on]" ON)
 # OPTION(WITH_QT_AUDIO   "enable playback via Qt Multimedia [default=on]" ON)
 
@@ -92,45 +91,6 @@ EXECUTE_PROCESS(
 )
 GET_FILENAME_COMPONENT(COMPILER_SHORT "${CMAKE_C_COMPILER}" NAME_WE CACHE)
 MESSAGE(STATUS "Building with ${COMPILER_SHORT} version ${COMPILER_VERSION}")
-
-#############################################################################
-### check for the CPU we build for                                        ###
-
-EXECUTE_PROCESS(
-    COMMAND ${CMAKE_C_COMPILER} -dumpmachine
-    OUTPUT_VARIABLE MACHINE
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-MESSAGE(STATUS "Building for target ${MACHINE}")
-
-OPTION(WITH_OPTIMIZED_MEMCPY "enable optimized memcpy [default=on]" ON)
-IF (WITH_OPTIMIZED_MEMCPY)
-
-    STRING(REGEX MATCH "(i.86-*)|(athlon-*)|(pentium-*)" _mach_x86 ${MACHINE})
-    IF (_mach_x86)
-        MESSAGE(STATUS "Found target optimized memcpy() for X86 (from xine)")
-        SET(ARCH_X86 1)
-    ENDIF (_mach_x86)
-
-    STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _mach_x86_64 ${MACHINE})
-    IF (_mach_x86_64)
-        MESSAGE(STATUS "Found target optimized memcpy() for X86_64 (from xine)")
-        SET(ARCH_X86_64 1)
-    ENDIF (_mach_x86_64)
-
-    STRING(REGEX MATCH "(ppc-*)|(powerpc-*)" _mach_ppc ${MACHINE})
-    IF (_mach_ppc)
-        MESSAGE(STATUS "Found target optimized memcpy() for PPC (from xine)")
-        SET(ARCH_PPC 1)
-    ENDIF (_mach_ppc)
-
-    IF (NOT ARCH_X86 AND NOT ARCH_X86_64 AND NOT ARCH_PPC)
-        MESSAGE(STATUS "No platform specific memcpy available")
-    ENDIF (NOT ARCH_X86 AND NOT ARCH_X86_64 AND NOT ARCH_PPC)
-
-ELSE (WITH_OPTIMIZED_MEMCPY)
-    MESSAGE(STATUS "Platform specific memcpy is disabled")
-ENDIF (WITH_OPTIMIZED_MEMCPY)
 
 #############################################################################
 ### path to additional cmake modules and includes                         ###

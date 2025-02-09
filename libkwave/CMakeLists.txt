@@ -24,42 +24,6 @@
 
 #############################################################################
 
-IF (WITH_OPTIMIZED_MEMCPY)
-
-    # use "default" visibility for memcpy.c (which is our one and only C file)
-    SET(CMAKE_C_VISIBILITY_PRESET default)
-
-    CHECK_INCLUDE_FILES(sys/times.h HAVE_SYS_TIMES_H)
-
-    SET(_inc_c stdint.h stdio.h)
-    CHECK_INCLUDE_FILES("${_inc_c}" HAVE_REQUIRED_STD_C_HEADERS)
-    IF (NOT HAVE_REQUIRED_STD_C_HEADERS)
-        MESSAGE(FATAL_ERROR "
-            unable to find one or more of the following C header files:
-            ${_inc_c}")
-    ENDIF (NOT HAVE_REQUIRED_STD_C_HEADERS)
-
-    SET(libkwave_LIB_SRCS_memcpy cpu_accel.cpp memcpy.c)
-
-    SET(_try_src_dir "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp")
-    SET(_try_avx_assembler "${_try_src_dir}/cmake_try_avx_assembler.c")
-    WRITE_FILE("${_try_avx_assembler}" "
-        int main()
-        {
-            __asm __volatile(\"vmovaps %ymm1, %ymm0\");
-            return 0;
-        }
-    ")
-    MESSAGE(STATUS "Detecting compiler support for AVX inline assembler")
-    TRY_COMPILE(HAVE_AVX ${CMAKE_BINARY_DIR} ${_try_avx_assembler} OUTPUT_VARIABLE _out)
-    IF (HAVE_AVX)
-        MESSAGE(STATUS "Detecting compiler support for AVX inline assembler - Success")
-    ELSE (HAVE_AVX)
-        MESSAGE(STATUS "Detecting compiler support for AVX inline assembler - not available")
-    ENDIF (HAVE_AVX)
-
-ENDIF (WITH_OPTIMIZED_MEMCPY)
-
 SET(libkwave_LIB_SRCS
     ClipBoard.cpp
     CodecBase.cpp
@@ -226,7 +190,6 @@ SET(libkwave_LIB_SRCS
     undo/UndoTransactionGuard.h
 
     ${libkwave_LIB_SRCS_samplerate}
-    ${libkwave_LIB_SRCS_memcpy}
 )
 
 #############################################################################

@@ -148,11 +148,6 @@ static void addDataStrings(KAboutData &aboutdata)
         QString());
 }
 
-#ifdef WITH_OPTIMIZED_MEMCPY
-/* forward declaration to libkwave/memcpy.c */
-extern "C" void probe_fast_memcpy(void);
-#endif /* WITH_OPTIMIZED_MEMCPY */
-
 //***************************************************************************
 int main(int argc, char **argv)
 {
@@ -232,12 +227,6 @@ int main(int argc, char **argv)
 
     /* let Kwave be a "unique" application, only one instance */
     KDBusService service(KDBusService::Unique);
-
-     /* check for an optimized version of memcpy() */
-#ifdef WITH_OPTIMIZED_MEMCPY
-    probe_fast_memcpy();
-    qDebug("\n");
-#endif /* WITH_OPTIMIZED_MEMCPY */
 
     // check whether to start up without splash screen or in iconic mode
     // which implicitly also disables the splash screen

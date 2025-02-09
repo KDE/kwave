@@ -412,13 +412,6 @@
 		    default=<literal>on</literal>]
 		</para></listitem>
 		<listitem><para>
-		    <literal>WITH_OPTIMIZED_MEMCPY</literal>
-		    use an optimized version of memcpy, available for
-		    X86, X86_64 and PPC platforms
-		    [<literal>on</literal>/<literal>off</literal>,
-		    default=<literal>on</literal>]
-		</para></listitem>
-		<listitem><para>
 		    <literal>WITH_OSS</literal>
 		    enable playback/recording via OSS
 		    [<literal>on</literal>/<literal>off</literal>,

@@ -67,9 +67,6 @@ Gustavo Pichorim Boiko <gustavo.boiko@kdemail.net>
 Michal Malek <michalm@jabster.pl>
         * parts of plugins/export_k3b/K3BExportPlugin.cpp
 
-Aaron Holtzman <aholtzma@ess.engr.uvic.ca>
-        * libkwave/cpu_accel.cpp
-
 Bertrand Songis <bsongis@gmail.com>
         * french translation fixes
         * substitutes for patented libaudiofile code, debian bug 419124 [historic]
@@ -115,9 +112,6 @@ Martin Hinsch <vidas@sourceforge.net>
 
 Matthias Kretz, <kretz@kde.org>
         * cmake/FindAlsa.cmake
-
-Miguel Freitas
-        * parts of libkwave/memcpy.c
 
 Richard Laerkaeng, <richard@goteborg.utfors.se>
         * cmake/FindOggVorbis.cmake

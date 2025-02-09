@@ -311,8 +311,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libkwave/ConfirmCancelProxy.h                   GPL2+
         libkwave/Connect.cpp                            GPL2+
         libkwave/Connect.h                              GPL2+
-        libkwave/cpu_accel.cpp                          GPL2+ / Aaron Holtzman <aholtzma@ess.engr.uvic.ca>
-        libkwave/cputest.h                              GPL2+
         libkwave/Curve.cpp                              GPL2+
         libkwave/Curve.h                                GPL2+
         libkwave/Decoder.cpp                            GPL2+
@@ -345,7 +343,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libkwave/Logger.cpp                             GPL2+
         libkwave/Logger.h                               GPL2+
         libkwave/Matrix.h                               GPL2+ (Martin Hinsch)
-        libkwave/memcpy.c                               GPL2+ / xine
         libkwave/memcpy.h                               GPL2+
         libkwave/MessageBox.cpp                         GPL2+
         libkwave/MessageBox.h                           GPL2+

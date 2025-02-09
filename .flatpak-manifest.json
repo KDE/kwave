@@ -75,10 +75,7 @@
         {
             "name": "kwave",
             "buildsystem": "cmake-ninja",
-            "config-opts": [
-                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
-                "-DWITH_OPTIMIZED_MEMCPY=OFF"
-                ],
+            "config-opts": ["-DCMAKE_BUILD_TYPE=RelWithDebInfo"],
             "builddir": true,
             "sources": [
                 {

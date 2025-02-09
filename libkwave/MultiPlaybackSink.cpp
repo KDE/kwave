@@ -26,7 +26,6 @@
 #include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/PlaybackSink.h"
-#include "libkwave/memcpy.h"
 
 //***************************************************************************
 Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-09 00:40+0000\n"
+"POT-Creation-Date: 2025-02-11 00:41+0000\n"
 "PO-Revision-Date: 2024-08-09 03:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -369,29 +369,29 @@ msgstr "Panagiotis Papadopoulos"
 msgid "String and i18n updates"
 msgstr "字串與 i18n 更新"
 
-#: kwave/main.cpp:170
+#: kwave/main.cpp:165
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "停用啟動畫面。"
 
-#: kwave/main.cpp:174
+#: kwave/main.cpp:169
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "以最小化模式啟動 Kwave。"
 
-#: kwave/main.cpp:179
+#: kwave/main.cpp:174
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "將所有的指令記錄到檔案 <file> 中。"
 
-#: kwave/main.cpp:180
+#: kwave/main.cpp:175
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "檔案"
 
-#: kwave/main.cpp:185
+#: kwave/main.cpp:180
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
@@ -399,36 +399,36 @@ msgstr ""
 "選擇圖形介面類型：sdi（一個視窗一個檔案）、mdi（一個視窗多個檔案）或 tab（一"
 "個視窗多個檔案在分頁內）模式。"
 
-#: kwave/main.cpp:186
+#: kwave/main.cpp:181
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "sdi|mdi|tab"
 
-#: kwave/main.cpp:191
+#: kwave/main.cpp:186
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
 msgstr "要開啟的音訊檔案、Kwave 巨集檔案或是 Kwave 網址的列表（可選）"
 
-#: kwave/main.cpp:193
+#: kwave/main.cpp:188
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[檔案...]"
 
-#: kwave/main.cpp:198
+#: kwave/main.cpp:193
 #, kde-format
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:200
+#: kwave/main.cpp:195
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "一個建構於 KDE Frameworks 5 之上的音訊編輯器。"
 
-#: kwave/main.cpp:202
+#: kwave/main.cpp:197
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016, Thomas Eschenbacher"

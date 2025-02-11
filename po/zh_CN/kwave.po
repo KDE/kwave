@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-09 00:40+0000\n"
+"POT-Creation-Date: 2025-02-11 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -366,65 +366,65 @@ msgstr "Panagiotis Papadopoulos"
 msgid "String and i18n updates"
 msgstr "字串与国际化更新"
 
-#: kwave/main.cpp:170
+#: kwave/main.cpp:165
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "停用 Splash 画面。"
 
-#: kwave/main.cpp:174
+#: kwave/main.cpp:169
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "以最小化模式启动 Kwave。"
 
-#: kwave/main.cpp:179
+#: kwave/main.cpp:174
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "将所有的命令记录到文件 <文件>。"
 
-#: kwave/main.cpp:180
+#: kwave/main.cpp:175
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "文件"
 
-#: kwave/main.cpp:185
+#: kwave/main.cpp:180
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
 msgstr ""
 "选择图形界面类型：单文件界面 (SDI)，多文件界面 (MDI) 或标签页 (TAB) 模式。"
 
-#: kwave/main.cpp:186
+#: kwave/main.cpp:181
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "sdi|mdi|tab"
 
-#: kwave/main.cpp:191
+#: kwave/main.cpp:186
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
 msgstr "要打开的音频文件、Kwave 宏文件或 Kwave URL 列表 (可选)"
 
-#: kwave/main.cpp:193
+#: kwave/main.cpp:188
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[文件...]"
 
-#: kwave/main.cpp:198
+#: kwave/main.cpp:193
 #, kde-format
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:200
+#: kwave/main.cpp:195
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "构建于 KDE Frameworks 5 之上的音频编辑器"
 
-#: kwave/main.cpp:202
+#: kwave/main.cpp:197
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016, Thomas Eschenbacher"

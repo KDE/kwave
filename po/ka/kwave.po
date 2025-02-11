@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-09 00:40+0000\n"
+"POT-Creation-Date: 2025-02-11 00:41+0000\n"
 "PO-Revision-Date: 2025-01-06 04:29+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -369,41 +369,41 @@ msgstr "Panagiotis Papadopoulos"
 msgid "String and i18n updates"
 msgstr "სტრიქონები და i18-ის განახლებები"
 
-#: kwave/main.cpp:170
+#: kwave/main.cpp:165
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "საწყისი ეკრანის გათიშვა."
 
-#: kwave/main.cpp:174
+#: kwave/main.cpp:169
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "KWave-ის ჩაკეცილად გაშვება."
 
-#: kwave/main.cpp:179
+#: kwave/main.cpp:174
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "ყველა ბრძანების ჩაწერა ჟურნალის ფაილში <file>."
 
-#: kwave/main.cpp:180
+#: kwave/main.cpp:175
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "ფაილი"
 
-#: kwave/main.cpp:185
+#: kwave/main.cpp:180
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
 msgstr "აირჩიეთ GUI-ის ტიპი: SDI, MDI თუ ჩანართების რეჟიმი."
 
-#: kwave/main.cpp:186
+#: kwave/main.cpp:181
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "sdi|mdi|tab"
 
-#: kwave/main.cpp:191
+#: kwave/main.cpp:186
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
@@ -412,23 +412,23 @@ msgstr ""
 "გასახსნელი აუდიოფაილების, Kwave-ის მაკრო ფაილების ან Kwave-ის URL-ების სია "
 "(არასავალდებულო)"
 
-#: kwave/main.cpp:193
+#: kwave/main.cpp:188
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[ფაილები...]"
 
-#: kwave/main.cpp:198
+#: kwave/main.cpp:193
 #, kde-format
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:200
+#: kwave/main.cpp:195
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "Kwave ხმის რედაქტორია, აგებული KDE Frameworks 5-ის გამოყენებით"
 
-#: kwave/main.cpp:202
+#: kwave/main.cpp:197
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016, Thomas Eschenbacher"

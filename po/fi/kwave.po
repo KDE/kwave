@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2015, 2016, 2017, 2018, 2020, 2024 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2015, 2016, 2017, 2018, 2020, 2024, 2025 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2015, 2016.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-11 00:41+0000\n"
-"PO-Revision-Date: 2024-12-01 14:52+0200\n"
+"PO-Revision-Date: 2025-01-12 17:20+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -2076,11 +2076,11 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:156
 msgid "ID3 Tags"
-msgstr ""
+msgstr "ID3-luokitukset"
 
 #: libkwave/FileInfo.cpp:157
 msgid "List of ID3 Tags"
-msgstr ""
+msgstr "ID3-luokitusten luettelo"
 
 #: libkwave/FileInfo.cpp:160
 msgid "ISRC"
@@ -4945,12 +4945,12 @@ msgstr "K3b-projektitiedosto (*.k3b)"
 #: plugins/export_k3b/K3BExportDialog.cpp:161
 #, kde-format
 msgid "Please choose a K3b project file name"
-msgstr ""
+msgstr "Valitse K3b-projektitiedoston nimi"
 
 #: plugins/export_k3b/K3BExportDialog.cpp:165
 #, kde-format
 msgid "Please choose where to export the audio files"
-msgstr ""
+msgstr "Valitse, minne äänitiedostot viedään"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportDialogBase.ui:35
@@ -5056,38 +5056,33 @@ msgstr "Vientisijainti:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFilename)
 #: plugins/export_k3b/K3BExportDialogBase.ui:154
-#, fuzzy, kde-format
-#| msgctxt "file type filter when exporting to K3b"
-#| msgid "K3b project file (*.k3b)"
+#, kde-format
 msgid "K3b Project File:"
-msgstr "K3b-projektitiedosto (*.k3b)"
+msgstr "K3b-projektitiedosto:"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:161
 #, kde-format
 msgid "Location to save the K3b project file"
-msgstr ""
+msgstr "K3b-projektitiedoston tallennuspaikka"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:173
-#, fuzzy, kde-format
-#| msgid "New File"
+#, kde-format
 msgid "Project File"
-msgstr "Uusi tiedosto"
+msgstr "Projektitiedosto"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:180
-#, fuzzy, kde-format
-#| msgid "List of audio files"
+#, kde-format
 msgid "Location to export the audio files to"
-msgstr "Äänitiedostoluettelo"
+msgstr "Äänitiedoston vientipaikka"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:189
-#, fuzzy, kde-format
-#| msgid "Export Location:"
+#, kde-format
 msgid "Export Location"
-msgstr "Vientisijainti:"
+msgstr "Vientisijainti"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:280
 msgctxt "menu: /File/Save/Export to K3b Project..."
@@ -7108,7 +7103,7 @@ msgstr "Muuta näytteenottotaajuus %1 kHz:stä %2 kHz:iin…"
 #: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
 msgid "Please choose where to save the files"
-msgstr ""
+msgstr "Valitse, minne tiedostot tallennetaan"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:37
@@ -7184,55 +7179,49 @@ msgstr "Aloita aina 1:stä, korvaa jos tarpeen"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:102
-#, fuzzy, kde-format
-#| msgid "Mode Extension"
+#, kde-format
 msgid "Extension:"
-msgstr "Tilan laajennus"
+msgstr "Pääte:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:118
 #, kde-format
 msgid "Choose what encoding to save the blocks with."
-msgstr ""
+msgstr "Valitse, millä koodauksella lohkot tallennetaan."
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:131
 #, kde-format
 msgid "Location to save the files"
-msgstr ""
+msgstr "Tiedostojen tallennuspaikka"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:140
 #, kde-format
 msgid "Choose where to save the files"
-msgstr ""
+msgstr "Valitse, minne tiedostot tallennetaan"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:154
-#, fuzzy, kde-format
-#| msgid ""
-#| "Example of the first file name that will be saved, using the file name "
-#| "pattern above and the numbering below"
+#, kde-format
 msgid ""
 "Example of the first file name that will be saved, using the file name "
 "pattern, extension, and numbering"
 msgstr ""
-"Esimerkki ensimmäisestä tallennettavasta tiedostonimestä, käyttäen yllä "
-"olevaa hahmoa ja alla olevaa numerointia"
+"Esimerkki ensimmäisestä tallennettavasta tiedostonimestä käyttäen annettua "
+"hahmoa, päätettä ja numerointia"
 
 #. i18n: ectx: property (text), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:157
-#, fuzzy, kde-format
-#| msgid "To Next Labels"
+#, kde-format
 msgid "TextLabel"
-msgstr "Seuraaviin paikkamerkkeihin"
+msgstr "Tekstiselite"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:170
-#, fuzzy, kde-format
-#| msgid "Example:"
+#, kde-format
 msgid "Example file name:"
-msgstr "Esimerkki:"
+msgstr "Esimerkkitiedostonimi:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:189

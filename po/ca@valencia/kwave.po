@@ -3372,7 +3372,7 @@ msgstr "El connector «%1» és desconegut o no vàlid."
 #: libkwave/PluginManager.cpp:192
 #, kde-format
 msgid "Error On Loading Plugin"
-msgstr "Error mentre es carregava el connector"
+msgstr "S'ha produït un error mentre es carregava el connector"
 
 #: libkwave/PluginManager.cpp:673
 #, kde-format

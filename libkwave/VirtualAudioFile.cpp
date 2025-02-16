@@ -130,7 +130,7 @@ static AFfileoffset af_file_tell(AFvirtualfile *vfile)
  */
 static AFvirtualfile *__af_virtual_file_new(void)
 {
-    return static_cast<AFvirtualfile *>(calloc(sizeof(AFvirtualfile), 1));
+    return static_cast<AFvirtualfile *>(calloc(1, sizeof(AFvirtualfile)));
 }
 
 //***************************************************************************

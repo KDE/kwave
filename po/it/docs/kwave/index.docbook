@@ -11497,16 +11497,6 @@
 	    <listitem>
 	    	<para
 ><emphasis role="bold"
->Aaron Holtzman <email
->aholtzma@ess.engr.uvic.ca</email
-> </emphasis
-></para
-><para
->libkwave/cpu_accel.cpp </para>
-	    </listitem>
-	    <listitem>
-	    	<para
-><emphasis role="bold"
 > Bertrand Songis <email
 >bsongis@gmail.com</email
 > </emphasis
@@ -11643,14 +11633,6 @@
 ></para
 ><para
 >cmake/FindAlsa.cmake </para>
-	    </listitem>
-	    <listitem>
-	    	<para
-><emphasis role="bold"
->Miguel Freitas </emphasis
-></para
-><para
->parti di libkwave/memcpy.c </para>
 	    </listitem>
 	    <listitem>
 	    	<para

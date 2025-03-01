@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-11 00:41+0000\n"
-"PO-Revision-Date: 2025-01-06 15:07+0300\n"
+"PO-Revision-Date: 2025-02-27 21:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3712,7 +3712,7 @@ msgstr ""
 "çok çeşit ses dosyasını düzenleyebilirsiniz. Her parçanın kendisini "
 "değiştirip yeniden çalabilirsiniz.<br/>K Dalga birçok eklenti ile ses "
 "dosyasını çeşitli yollarla değiştirebilir ve grafiksel görünüm ile birlikte "
-"tam bir yakınlaşma ve sarma kapasitesine sahiptir.</p></body></html>"
+"tam bir yakınlaşma ve sarma yeteneğine sahiptir.</p></body></html>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, authors_tab)
 #: plugins/about/AboutDialogBase.ui:182

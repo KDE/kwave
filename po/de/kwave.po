@@ -19,12 +19,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Thomas Eschenbacher"
+msgstr "Deutsches KDE-Übersetzungsteam"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "Thomas.Eschenbacher@gmx.de"
+msgstr "kde-i18n-de@kde.org"
 
 #: kwave/App.cpp:150
 #, kde-format

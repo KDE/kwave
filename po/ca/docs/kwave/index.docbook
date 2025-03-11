@@ -6,7 +6,8 @@
   <!ENTITY % Catalan  "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "24.12.0">
+  <!ENTITY version "20.07.70">
+  <!ENTITY version_year "2020">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -17,7 +18,6 @@
   <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
   <!ENTITY url_debian "https://www.debian.org">
   <!ENTITY url_flac "https://xiph.org/flac/">
-  <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
@@ -30,6 +30,7 @@
   <!ENTITY url_licenses "&url_prefix_gitweb;LICENSES">
   <!ENTITY url_ogg_vorbis "https://www.xiph.org">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
+  <!ENTITY url_sourceforge "https://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_web_sf "https://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY i18n-cmd_syntax "Sintaxi: ">
@@ -327,33 +328,29 @@
 ></copyright>
     <copyright
 ><year
->2020</year
+>&version_year;</year
 ><holder
 >Thomas Eschenbacher</holder
-></copyright>
-    <copyright
-><year
->2024</year
-><holder
->Mark Penner</holder
 ></copyright>
 
     <legalnotice
 >&FDLNotice;</legalnotice>
 
     <date
->9 de novembre de 2024</date>
+>2020-07-06</date>
     <releaseinfo
->&version;</releaseinfo>
+>20.07.70</releaseinfo>
 
     <abstract
 ><para
->El &kwave; és un editor de so senzill construït amb els &kde-frameworks;.</para
+>&kwave; is a simple sound editor built on &kf5-full;.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
+	<keyword
+>KF5</keyword>
 	<keyword
 >multimèdia</keyword>
 	<keyword
@@ -388,7 +385,7 @@
 >Introducció</title>
 
     <para
->Aquest és el &kwave;, un editor de so senzill construït amb els &kde-frameworks;. Les seves característiques inclouen: <itemizedlist>
+>This is "&kwave;", a simple sound editor built on &kf5-full;. Its features include: <itemizedlist>
     	<listitem
 ><para
 >una interfície d'usuari que es pot canviar als modes SDI -finestres separades-, MDI -la mateixa finestra- o Tab -pestanyes- </para
@@ -423,11 +420,11 @@
 ></listitem>
     	<listitem
 ><para
->Reproducció mitjançant ALSA, PulseAudio, Qt i OSS </para
+>Playback via Qt, PulseAudio, ALSA and OSS </para
 ></listitem>
     	<listitem
 ><para
->Enregistrament mitjançant ALSA, PulseAudio, Qt i OSS </para
+>Recording via PulseAudio, ALSA and OSS </para
 ></listitem>
     	<listitem
 ><para
@@ -497,21 +494,23 @@
 ><para
 >Pàgina web del projecte<anchor id="project-homepage"/></para
 ><para
->Per a informació sobre llançaments nous d'actualització, vegeu la <ulink url="&url_apps_kde;"
->pàgina del &kwave;</ulink
-> a apps.kde.org. Per a altres informacions, doneu un cop d'ull a la <ulink url="&url_homepage;"
->pàgina web del &kwave;</ulink
+>For information about new up-to-date releases or some other information about this project, take a look at the <ulink url="&url_homepage;"
+>&kwave; homepage</ulink
 >. </para
 ></listitem>
 	<listitem
 ><para
->Repositori Git<anchor id="git-repository"/> </para>
+>GIT Repository<anchor id="git-repository"/> </para>
 	<para
->El repositori Git està allotjat a la instància del Gitlab de &kde; <ulink url="&url_git_web_kde;"
->aquí</ulink
->, i també hi ha un repositori mirall a <ulink url="&url_git_web_sf;"
+>There also is a new GIT repository hosted on &kde; servers, and a mirror repository hosted by <ulink url="&url_sourceforge;"
 >SourceForge</ulink
->. </para
+> where you can get the sources of the latest development version. For instructions on how to get access to the repository, read in the chapter about <ulink url="&url_devel_fetching_from_git;"
+>building from GIT</ulink
+> in the developer documentation. There also is a GIT web interface on <ulink url="&url_git_web_kde;"
+>&kde;</ulink
+> and on <ulink url="&url_git_web_sf;"
+>SourceForge</ulink
+> that you can use to browse through the sources. </para
 ></listitem>
     </itemizedlist>
 
@@ -529,10 +528,10 @@
 >Aquest projecte el va iniciar en Martin Wilz a l'estiu de 1998 i ha estat desenvolupat i millorat per ell i per altres persones. El novembre de 1999, en Thomas Eschenbacher va començar a esmenar alguns petits errors aquí i allà, i es va submergir en el codi font del programa més i més. Fins avui, que ha ampliat, reescrit o revisat gairebé tots els components del programa i ha dedicat molt de temps a millorar-lo. </para>
 
     <para
->Des del &kwave; versió 0.8.0, el registre de canvis ja no s'inclou en aquest manual. Per tant, si esteu interessat en una llista completa dels canvis, trobareu tot l'historial aquí: <ulink url="&url_changelog;"
+>Since &kwave; v0.8.0 the changelog is no longer included in this manual. So if you are interested in a complete list of changes, you can find the full history here: <ulink url="&url_changelog;"
 > &url_changelog;</ulink
-> o navegueu pel codi font emprant la <ulink url="&url_git_web_kde;"
->interfície web del Git</ulink
+> or browse through the sources on your own through the <ulink url="&url_git_web_kde;"
+>GIT web interface</ulink
 >. </para>
 
     <para
@@ -1331,7 +1330,7 @@
 >Enregistrament</title>
 
     <para
->El &kwave; és capaç d'enregistrar dades d'àudio des de diverses fonts, amb totes les freqüències de mostreig, formats de la mostra i altres modes que admeti el maquinari de so. El &kwave; pot enregistrar amb els dorsals d'ALSA, PulseAudio, Qt i OSS. </para>
+>&kwave; is able to record audio data from various sources, with all sample rates, sample formats and other modes that your sound hardware supports. Currently &kwave; records through the old OSS sound interface, and since v0.7.4 also the newer and more powerful ALSA interface that is the preferred choice for linux kernel 2.6. </para>
     <para
 >Es pot accedir a l'enregistrament des del menú sota <menuchoice
 > <guimenu
@@ -1488,7 +1487,7 @@
 >Reproducció</title>
 
     <para
->Segons les opcions de compilació, el &kwave; pot reproduir sons mitjançant d'un dels mètodes de reproducció següents: </para>
+>Depending on the compilation options &kwave; is able to play sounds trough one of the following playback methods: </para>
     <para
 ><itemizedlist>
 	<listitem
@@ -1497,15 +1496,7 @@
 ></listitem>
 	<listitem
 ><para
->PulseAudio: Servidor de so de propòsit general habitual al Linux. El PulseAudio podria no ser capaç d'una latència tan baixa com l'ALSA. </para
-></listitem>
-	<listitem
-><para
->Qt Multimèdia: No està dissenyat per a àudio de baixa latència, però funciona amb mides grans de memòria intermèdia. </para
-></listitem>
-	<listitem
-><para
->OSS (sistema de so obert): La implementació de Linux més antiga, capaç de sortides mono i estèreo. Obsolet des del nucli Linux 2.6. Pot interferir amb altres aplicacions de so, la reproducció amb OSS només pot utilitzar una aplicació a la vegada! </para
+>OSS (Open Sound System): The oldest linux implementation, capable of mono and stereo output. Deprecated since linux kernel 2.6, but still wide spread. Might collide with other sound applications, only one application at a time can use OSS playback ! </para
 ></listitem>
     </itemizedlist
 ></para>
@@ -1528,6 +1519,8 @@
 	</screenshot>
     </para>
 
+    <para
+>Currently &kwave; supports only 8 and 16 bit playback, with mono or stereo output through the OSS interface, but many also all modes your sound hardware supports through the ALSA interface. </para>
     <para
 >Si el vostre fitxer de so utilitza més o menys canals que els permesos per la reproducció, durant la reproducció es barrejaran tots els canals. Per exemple, si teniu un fitxer amb tres canals i utilitzeu la reproducció estèreo, el canal esquerre reproduirà el canal 0 (superior) i la meitat del canal 1 (mig), el canal dret reproduirà la meitat del canal 1 (mig) i el canal 2 (inferior). </para>
     <para
@@ -1669,8 +1662,8 @@
 ><para
 ><emphasis
 >Apropa:</emphasis
-> apropa per a veure més detalls, augmenta en un factor de 3. <itemizedlist
-> <listitem
+> apropa per a veure més detalls, augmenta en un factor de 3. <itemizedlist>
+	    <listitem
 ><para
 >entrada del menú / drecera de teclat: <menuchoice
 > <shortcut
@@ -1686,6 +1679,21 @@
 > </menuchoice
 > </para
 ></listitem>
+	    <listitem
+><para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_zoom_in.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>zoom in</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para
+></listitem>
 	    </itemizedlist>
 	</para
 ></listitem>
@@ -1694,8 +1702,8 @@
 ><para
 ><emphasis
 >Allunya:</emphasis
-> allunya per a veure menys detalls, es redueix en un factor de 3. <itemizedlist
-> <listitem
+> allunya per a veure menys detalls, es redueix en un factor de 3. <itemizedlist>
+	    <listitem
 ><para
 >entrada del menú / drecera del teclat: <menuchoice
 > <shortcut
@@ -1711,6 +1719,21 @@
 > </menuchoice
 > </para
 ></listitem>
+	    <listitem
+><para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_zoom_out.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>zoom out</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para
+></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1719,8 +1742,8 @@
 ><para
 ><emphasis
 >Zoom a la selecció:</emphasis
-> apropa ​​a un factor on la selecció actual és completament visible a la vista actual. <itemizedlist
-> <listitem
+> apropa ​​a un factor on la selecció actual és completament visible a la vista actual. <itemizedlist>
+	    <listitem
 ><para
 >entrada del menú / drecera del teclat: <menuchoice
 > <shortcut
@@ -1734,6 +1757,21 @@
 > </menuchoice
 > </para
 ></listitem>
+	    <listitem
+><para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_viewmag.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>zoom to selection</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para
+></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1742,8 +1780,8 @@
 ><para
 ><emphasis
 >Apropa a tot el senyal:</emphasis
-> selecciona un factor d'apropament el qual farà que tot el senyal sigui visible a la finestra actual. <itemizedlist
-> <listitem
+> selecciona un factor d'apropament el qual farà que tot el senyal sigui visible a la finestra actual. <itemizedlist>
+	    <listitem
 ><para
 >entrada del menú: <menuchoice
 > <guimenu
@@ -1753,6 +1791,21 @@
 > </menuchoice
 > </para
 ></listitem>
+	    <listitem
+><para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
+        </imageobject
+><textobject
+><phrase
+><quote
+>zoom all</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para
+></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1761,8 +1814,8 @@
 ><para
 ><emphasis
 >Zoom al 100%:</emphasis
-> augmenta fins a una escala on la representació de la mostra està representada per un píxel a la pantalla. <itemizedlist
-> <listitem
+> augmenta fins a una escala on la representació de la mostra està representada per un píxel a la pantalla. <itemizedlist>
+	    <listitem
 ><para
 >entrada del menú: <menuchoice
 > <guimenu
@@ -1771,6 +1824,21 @@
 >Zoom al 100%</guimenuitem
 > </menuchoice
 > </para
+></listitem>
+	    <listitem
+><para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>zoom to 100%</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para
 ></listitem>
 	    </itemizedlist>
         </para
@@ -1868,6 +1936,19 @@
 >Pàgina anterior</guimenuitem
 > </menuchoice
 > </para>
+	    <para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>previous page</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para>
         </listitem>
 	<!-- next page -->
        <listitem
@@ -1887,6 +1968,19 @@
 >Pàgina següent</guimenuitem
 > </menuchoice
 > </para>
+	    <para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>next page</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para>
         </listitem>
 	<!-- scroll right -->
         <listitem
@@ -1906,6 +2000,19 @@
 >Desplaça a la dreta</guimenuitem
 > </menuchoice
 > </para>
+	    <para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>scroll right</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para>
         </listitem>
 	<!-- scroll left -->
         <listitem
@@ -1925,6 +2032,19 @@
 >Desplaça a l'esquerra</guimenuitem
 > </menuchoice
 > </para>
+	    <para
+>toolbar button: <inlinemediaobject
+><imageobject>
+		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
+		</imageobject
+><textobject
+><phrase
+><quote
+>scroll left</quote
+></phrase
+></textobject>
+		</inlinemediaobject>
+	    </para>
         </listitem>
 	</itemizedlist>
     </para>
@@ -8519,6 +8639,17 @@
 			<varlistentry>
 			    <term
 ><replaceable
+>filename</replaceable
+></term>
+			    <listitem>
+				<para
+>The name of the K3b project file, will be used as base name for the exported file names. </para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
+			    <term
+><replaceable
 >patró</replaceable
 ></term>
 			    <listitem>
@@ -8623,22 +8754,47 @@
 			<varlistentry>
 			    <term
 ><replaceable
->fitxer del projecte</replaceable
-></term>
-			    <listitem>
-				<para
->El nom del fitxer del projecte K3b, el qual també s'utilitzarà com el nom base per als noms dels fitxers exportats. </para>
-			    </listitem>
-			</varlistentry>
-
-			<varlistentry>
-			    <term
-><replaceable
 >exporta la ubicació</replaceable
 ></term>
 			    <listitem>
 				<para
->La ubicació a on s'hauran de desar els blocs. </para>
+>Determines where the blocks should be saved. <informaltable frame='all'
+> <tgroup cols='2'>
+					    <thead>
+						<row>
+						    <entry align='left'
+>&nbsp;Valor&nbsp;</entry>
+						    <entry align='left'
+>&nbsp;Descripció</entry>
+						</row>
+					    </thead>
+					    <tbody>
+						<row>
+						    <entry
+>&nbsp;&no-i18n-tag;<command
+>0</command
+></entry>
+						    <entry
+>Save to the same directory as the K3b project file. </entry>
+						</row>
+						<row>
+						    <entry
+>&nbsp;&no-i18n-tag;<command
+>1</command
+></entry>
+						    <entry
+>Save into a subdirectory of the directory of the K3b project file, using the K3b project file name as base and appending <quote
+><command
+><literal
+>.dir</literal
+></command
+></quote
+>. </entry>
+						</row>
+					    </tbody>
+					</tgroup>
+				    </informaltable>
+				</para>
 			    </listitem>
 			</varlistentry>
 
@@ -10170,6 +10326,17 @@
 		    <varlistentry>
 			<term
 ><replaceable
+>name</replaceable
+></term>
+			<listitem>
+			    <para
+>The name of the original file, will be used as base name for the file names. </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
 >patró</replaceable
 ></term>
 			<listitem>
@@ -10298,28 +10465,6 @@
 				    </tgroup>
 				</informaltable>
 			    </para>
-			</listitem>
-		    </varlistentry>
-
-		    <varlistentry>
-			<term
-><replaceable
->extensió</replaceable
-></term>
-			<listitem>
-			    <para
->L'extensió del nom de fitxer a usar per als blocs desats. Això determina quina codificació s'utilitza. </para>
-			</listitem>
-		    </varlistentry>
-
-		    <varlistentry>
-			<term
-><replaceable
->exporta la ubicació</replaceable
-></term>
-			<listitem>
-			    <para
->La ubicació a on exportar els blocs desats. </para>
 			</listitem>
 		    </varlistentry>
 
@@ -11076,7 +11221,7 @@
 	    </question>
     	    <answer>
 	    	<para
->El &kwave; no necessita admetre cap targeta de so en particular. La targeta de so només haurà d'estar admesa pel vostre sistema operatiu i el &kwave; l'utilitzarà la seva interfície al controlador de so del sistema operatiu mitjançant una interfície ALSA, PulseAudio, Qt o OSS. </para>
+>&kwave; does not need support for any special sound card. The sound card only has to be supported by your operating system and &kwave; uses its interface to the operating system's sound driver through a OSS or ALSA interface. </para>
 	    </answer>
 	</qandaentry>
 
@@ -11242,12 +11387,8 @@
 >, el qual llista tots els autors i col·laboradors del &kwave;. </para>
 
     <para
->Copyright de la documentació (C) 2020 Thomas Eschenbacher <email
+>Documentation copyright (C) &version_year; Thomas Eschenbacher <email
 >thomas.eschenbacher@gmx.de</email
-> </para>
-    <para
->Copyright de la documentació (C) 2024 Mark Penner <email
->mrp@markpenner.space</email
 > </para>
 <para
 >Traductor de la documentació: &credits.Antoni.Bella;</para
@@ -11326,16 +11467,6 @@
 ></para
 ><para
 >i18n, traducció al francès, pantalla de presentació, provador de les versions beta </para>
-	    </listitem>
-	    <listitem>
-		<para
-><emphasis role="bold"
->Mark Penner <email
->mrp@markpenner.space</email
-> </emphasis
-></para
-><para
->desenvolupament </para>
 	    </listitem>
 	    <listitem>
 	    	<para
@@ -11532,7 +11663,7 @@
 >Miguel Freitas </emphasis
 ></para
 ><para
->Parts de libkwave/memcpy.c </para>
+>parts of libkwave/memcpy.c </para>
 	    </listitem>
 	    <listitem>
 	    	<para

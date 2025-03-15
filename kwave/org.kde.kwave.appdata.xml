@@ -55,6 +55,7 @@ SPDX-FileCopyrightText: none
   <summary xml:lang="fi">Äänimuokkain</summary>
   <summary xml:lang="fr">Éditeur de sons</summary>
   <summary xml:lang="gl">Editor de sons</summary>
+  <summary xml:lang="he">עורך שמע</summary>
   <summary xml:lang="hi">ध्वनि संपादक</summary>
   <summary xml:lang="ia">Editor (redactor) de sono</summary>
   <summary xml:lang="it">Editor del suono</summary>
@@ -80,6 +81,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="fi">KWave on äänimuokkain, jolla voi nauhoittaa, toistaa, avata ja muokata eri tiedostomuotoja. KWavella ääntä on helppo muokata monin tavoin.</p>
     <p xml:lang="fr">Kwave est un éditeur de sons pouvant enregistrer, lire, ouvrir et éditer de nombreux formats de fichiers. Kwave facilite l'édition audio de nombreuses façons.</p>
     <p xml:lang="gl">Kwave é un editor de sons que pode gravar, reproducir, abrir e editar moitos formatos de ficheiro. Kwave simplifica a edición de son de moitos xeitos.</p>
+    <p xml:lang="he">Kwave הוא עורך שמע שיכול להקליט, לנגן, לפתוח ולערוך מגוון רחב של סוגי קבצים. Kwae מקל על עריכת שמע במגוון דרכים.</p>
     <p xml:lang="hi">Kwave एक साउंड एडिटर है जो कई फ़ाइल फ़ॉर्मेट को रिकॉर्ड, प्ले, ओपन और एडिट कर सकता है। Kwave कई तरीकों से ऑडियो को एडिट करना आसान बनाता है।</p>
     <p xml:lang="ia">Kwave es un editorde sono que pote registrar a, sonar, aperir e editar multe formatos de file. Kwave lo face  semplice a editar audio in multe modos. </p>
     <p xml:lang="it">Kwave è un editor del suono che può registrare, riprodurre, aprire e modificare molti formati di file. Kwave rende semplice la modifica di un audio in molti modi.</p>
@@ -102,6 +104,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="fi">Säädä äänenvoimakkuutta:</p>
     <p xml:lang="fr">Ajuster le niveau de volume :</p>
     <p xml:lang="gl">Axustar o nivel de volume:</p>
+    <p xml:lang="he">התאמת עוצמת שמע:</p>
     <p xml:lang="hi">वॉल्यूम स्तर समायोजित करें:</p>
     <p xml:lang="ia">Adapta nivello de volumine:</p>
     <p xml:lang="it">Regola il livello del volume:</p>
@@ -125,6 +128,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Häivytys sisään tai ulos tai mukautettu amplitudikäyrä</li>
       <li xml:lang="fr">Fondu d'entrée, de sortie ou courbe d'amplitude personnalisée</li>
       <li xml:lang="gl">Aumento, diminución, ou unha curva de amplitude personalizada.</li>
+      <li xml:lang="he">עמעום פנימה, עמעום החוצה או עקומת משרעת מותאמת אישית</li>
       <li xml:lang="hi">फ़ेड इन, फ़ेड आउट, या कस्टम आयाम वक्र</li>
       <li xml:lang="ia">Refortiar e dissolver (fade in and fade out), o curva de amplitude personalisate</li>
       <li xml:lang="it">Dissolvenza in entrata, in uscita, o curva di amplificazione personalizzata</li>
@@ -147,6 +151,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Skaalaa äänenvoimakkuutta vakiokertoimella</li>
       <li xml:lang="fr">Mettre à l'échelle le volume par un facteur constant</li>
       <li xml:lang="gl">Escalar o volume cun factor constante.</li>
+      <li xml:lang="he">התאמת עוצמת השמע לפי מקדם קבוע</li>
       <li xml:lang="hi">एक स्थिर कारक द्वारा वॉल्यूम स्केल करें</li>
       <li xml:lang="ia">Scalavolumine per unfactor constante</li>
       <li xml:lang="it">Scala il volume di un fattore costante</li>
@@ -169,6 +174,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Normalisoi äänenvoimakkuus</li>
       <li xml:lang="fr">Normalisez le volume.</li>
       <li xml:lang="gl">Normalizar o volume.</li>
+      <li xml:lang="he">איזון עוצמות קול</li>
       <li xml:lang="hi">वॉल्यूम सामान्य करें</li>
       <li xml:lang="ia">Normaliza volumine</li>
       <li xml:lang="it">Normalizza il volume</li>
@@ -192,6 +198,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="fi">Säädä taajuussisältöä:</p>
     <p xml:lang="fr">Ajuster le contenu de fréquences :</p>
     <p xml:lang="gl">Axustar o contido de frecuencia:</p>
+    <p xml:lang="he">התאמת תוכן תדירות:</p>
     <p xml:lang="hi">आवृत्ति सामग्री समायोजित करें:</p>
     <p xml:lang="ia">Adapta contento de frequentia:</p>
     <p xml:lang="it">Regola il contenuto della frequenza:</p>
@@ -215,6 +222,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Matalapäästösuodatin</li>
       <li xml:lang="fr">Filtre passe-bas</li>
       <li xml:lang="gl">Filtro de pase baixo.</li>
+      <li xml:lang="he">מסנן סף עליון</li>
       <li xml:lang="hi">लो पास फिल्टर</li>
       <li xml:lang="ia">Filtro passabasso</li>
       <li xml:lang="it">Filtro passa basso</li>
@@ -237,6 +245,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Kaistanpäästösuodatin</li>
       <li xml:lang="fr">Filtre passe-bande</li>
       <li xml:lang="gl">Filtro de paso de banda.</li>
+      <li xml:lang="he">מסנן עובי רצועה</li>
       <li xml:lang="hi">बैंडपास फ़िल्टर</li>
       <li xml:lang="ia">Filtro passabanda</li>
       <li xml:lang="it">Filtro passa banda</li>
@@ -259,6 +268,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Kaistanpäästösuodatin</li>
       <li xml:lang="fr">Filtre coupe-bande</li>
       <li xml:lang="gl">Filtro de supresión de banda.</li>
+      <li xml:lang="he">מסנן חוסם פס</li>
       <li xml:lang="hi">नोच फिल्टर</li>
       <li xml:lang="ia">Filtro de sectura</li>
       <li xml:lang="it">Filtro elimina banda</li>
@@ -281,6 +291,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Äänenkorkeuden siirto</li>
       <li xml:lang="fr">Décalage de hauteur</li>
       <li xml:lang="gl">Cambio de ton.</li>
+      <li xml:lang="he">הזחת גובה צליל</li>
       <li xml:lang="hi">पिच पारी</li>
       <li xml:lang="ia">Cambiamento de tono</li>
       <li xml:lang="it">Spostamento di tono</li>
@@ -304,6 +315,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="fi">Muut ominaisuudet:</p>
     <p xml:lang="fr">Autres fonctionnalités :</p>
     <p xml:lang="gl">Outras funcionalidades:</p>
+    <p xml:lang="he">יכולות אחרות:</p>
     <p xml:lang="hi">अन्य सुविधाओं:</p>
     <p xml:lang="ia">Altere Characteristicas:</p>
     <p xml:lang="it">Altre funzionalità:</p>
@@ -327,6 +339,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Lisää kohinaa</li>
       <li xml:lang="fr">Ajouter du bruit</li>
       <li xml:lang="gl">Engadir ruído.</li>
+      <li xml:lang="he">הוספת רעש</li>
       <li xml:lang="hi">शोर जोड़ना</li>
       <li xml:lang="ia">Adde Ruito</li>
       <li xml:lang="it">Aggiungi rumore</li>
@@ -349,6 +362,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Lisää hiljaisuutta</li>
       <li xml:lang="fr">Ajouter un blanc</li>
       <li xml:lang="gl">Engadir silencio.</li>
+      <li xml:lang="he">הוספת דממה</li>
       <li xml:lang="hi">मौन जोड़ें</li>
       <li xml:lang="ia">Adde silentio</li>
       <li xml:lang="it">Aggiungi silenzio</li>
@@ -371,6 +385,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Muuta näytteenottotaajuutta</li>
       <li xml:lang="fr">Convertir la fréquence d'échantillonnage audio</li>
       <li xml:lang="gl">Converter a taxa de mostraxe do son.</li>
+      <li xml:lang="he">המרת קצב דגימת שמע</li>
       <li xml:lang="hi">ऑडियो नमूना दर परिवर्तित करें</li>
       <li xml:lang="ia">Converte frequentia de exemplo audio</li>
       <li xml:lang="it">Converti la frequenza di campionamento audio</li>
@@ -393,6 +408,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Siirry sijaintiin</li>
       <li xml:lang="fr">Aller a la position</li>
       <li xml:lang="gl">Ir a unha posición.</li>
+      <li xml:lang="he">מעבר לנקודה</li>
       <li xml:lang="hi">स्थिति पर जाएँ</li>
       <li xml:lang="ia">Vade a Position</li>
       <li xml:lang="it">Vai alla posizione</li>
@@ -415,6 +431,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Lisää ääntä leikepöydältä</li>
       <li xml:lang="fr">Insérer de l'audio à partir du presse-papier</li>
       <li xml:lang="gl">Inserir son do portapapeis.</li>
+      <li xml:lang="he">הוספת שמע מלוח הגזירים</li>
       <li xml:lang="hi">क्लिपबोर्ड से ऑडियो डालें</li>
       <li xml:lang="ia">Inserta audio ex area de transferentia</li>
       <li xml:lang="it">Inserisci audio dagli appunti</li>
@@ -437,6 +454,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Käännä ääni</li>
       <li xml:lang="fr">Audio inversé</li>
       <li xml:lang="gl">Inverter o son.</li>
+      <li xml:lang="he">היפוך שמע</li>
       <li xml:lang="hi">रिवर्स ऑडियो</li>
       <li xml:lang="ia">Reverte audio</li>
       <li xml:lang="it">Inverti audio</li>
@@ -459,6 +477,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Tallenna paikkamerkkien väliset äänilohkot eri tiedostoiksi</li>
       <li xml:lang="fr">Enregistrer les blocs audio entre les étiquettes en tant que fichiers séparés</li>
       <li xml:lang="gl">Gardar bloques de son entre etiquetas como ficheiros independentes.</li>
+      <li xml:lang="he">שמירת מקטעי שמע בין תוויות כקבצים נפרדים</li>
       <li xml:lang="hi">लेबल के बीच ऑडियो ब्लॉक को अलग-अलग फ़ाइलों के रूप में सहेजें</li>
       <li xml:lang="ia">Salveguarda blocos de audio inter etiquettas como files separate</li>
       <li xml:lang="it">Salva i blocchi audio yta le etichette come file separati</li>
@@ -481,6 +500,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Spektrogrammi</li>
       <li xml:lang="fr">Sonagram (Spectrogramme)</li>
       <li xml:lang="gl">Espectrograma.</li>
+      <li xml:lang="he">Sonagram (spectrogram)</li>
       <li xml:lang="hi">सोनाग्राम (स्पेक्ट्रोग्राम)</li>
       <li xml:lang="ia">Sonagram (graphico de sono)(spectrograma)</li>
       <li xml:lang="it">Sonogramma (spettrogramma)</li>
@@ -505,6 +525,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="fi">Tuetut tiedostomuodot:</p>
     <p xml:lang="fr">Formats de fichier pris en charge :</p>
     <p xml:lang="gl">Formatos de ficheiro compatíbeis:</p>
+    <p xml:lang="he">סוגי הקבצים הנתמכים:</p>
     <p xml:lang="hi">समर्थित फ़ाइल स्वरूप:</p>
     <p xml:lang="ia">Formatos de file supportate:</p>
     <p xml:lang="it">Formati di file supportati:</p>
@@ -528,6 +549,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">WAV (*.wav)</li>
       <li xml:lang="fr">WAV (*.wav)</li>
       <li xml:lang="gl">WAV (*.wav).</li>
+      <li xml:lang="he">WAV (*.wav)</li>
       <li xml:lang="hi">डब्लू ए वी (*.wav)</li>
       <li xml:lang="ia">WAV (*.wav)</li>
       <li xml:lang="it">WAV (*.wav)</li>
@@ -550,6 +572,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Ogg/Opus (*.opus)</li>
       <li xml:lang="fr">Ogg / Opus (*.opus)</li>
       <li xml:lang="gl">Ogg/Opus (*.opus).</li>
+      <li xml:lang="he">Ogg/Opus (*.opus)</li>
       <li xml:lang="hi">ऑग/कार्य (*.कार्य)</li>
       <li xml:lang="ia">Ogg/Opus (*.opus)</li>
       <li xml:lang="it">Ogg/Opus (*.opus)</li>
@@ -572,6 +595,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="fr">Ogg / Vorbis (*.ogg)</li>
       <li xml:lang="gl">Ogg/Vorbis (*.ogg).</li>
+      <li xml:lang="he">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="hi">ऑग/वोर्बिस (*.ogg)</li>
       <li xml:lang="ia">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="it">Ogg/Vorbis (*.ogg)</li>
@@ -594,6 +618,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">MP3 (*.mp3)</li>
       <li xml:lang="fr">MP3 (.mp3)</li>
       <li xml:lang="gl">MP3 (*.mp3).</li>
+      <li xml:lang="he">MP3 (*.mp3)</li>
       <li xml:lang="hi">एमपी3 (*.mp3)</li>
       <li xml:lang="ia">MP3 (*.mp3)</li>
       <li xml:lang="it">MP3 (*.mp3)</li>
@@ -616,6 +641,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">FLAC (*.flac)</li>
       <li xml:lang="fr">FLAC (*.flac)</li>
       <li xml:lang="gl">FLAC (*.flac).</li>
+      <li xml:lang="he">FLAC (*.flac)</li>
       <li xml:lang="hi">एफ़एलएसी (*.flac)</li>
       <li xml:lang="ia">FLAC (*.flac)</li>
       <li xml:lang="it">FLAC (*.flac)</li>
@@ -638,6 +664,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">ASCII-koodattu ääni (*.ascii)</li>
       <li xml:lang="fr">Audio codé en ASCII (*.ascii)</li>
       <li xml:lang="gl">Son codificado en ASCII (*.ascii).</li>
+      <li xml:lang="he">שמע בקידוד ASCII‏ (‎*.ascii)</li>
       <li xml:lang="hi">ASCII कोडित ऑडियो (*.ascii)</li>
       <li xml:lang="ia">ASCII coded audio (audio codificate Ascii)  (*.ascii)</li>
       <li xml:lang="it">Audio con codifica ASCII (*.ascii)</li>
@@ -660,6 +687,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="fi">kaikki libaudiofilen tukemat tiedostomuodot (joista joitakin voi vain tuoda)</li>
       <li xml:lang="fr">tous les formats de fichiers pris en charge par la bibliothèque « libaudiofile » (Certains formats sont importés uniquement)</li>
       <li xml:lang="gl">Todos os formatos de ficheiros que permite libaudiofile (algún formatos só poden importarse).</li>
+      <li xml:lang="he">כל סוגי הקבצים שנתמכים על ידי libaudiofile (חלק מהסוגים הם לייבוא בלבד)</li>
       <li xml:lang="hi">libaudiofile द्वारा समर्थित सभी फ़ाइल प्रारूप (कुछ प्रारूप केवल आयात किए जा सकते हैं)</li>
       <li xml:lang="ia">omne formatos de file suppportate per libaudiofile (alcun formatos es solmente importate)</li>
       <li xml:lang="it">tutti i formati di file supportati da libaudiofile (alcuni solo per l'importazione)</li>

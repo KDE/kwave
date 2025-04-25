@@ -80,7 +80,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="es">KWave es un editor de sonido que puede grabar, reproducir, abrir y editar muchos formatos de archivos. Kwave simplifica la edición de audio de muchas maneras.</p>
     <p xml:lang="eu">«Kwave» fitxategi formatu askotan grabatu, ireki, eta editatu dezakeen soinu editore bat da. «Kwave»k audioa editatzea era askotara errazten du.</p>
     <p xml:lang="fi">KWave on äänimuokkain, jolla voi nauhoittaa, toistaa, avata ja muokata eri tiedostomuotoja. KWavella ääntä on helppo muokata monin tavoin.</p>
-    <p xml:lang="fr">Kwave est un éditeur de sons pouvant enregistrer, lire, ouvrir et éditer de nombreux formats de fichiers. Kwave facilite l'édition audio de nombreuses façons.</p>
+    <p xml:lang="fr">KWave est un éditeur de sons pouvant enregistrer, lire, ouvrir et éditer de nombreux formats de fichiers. KWave facilite l'édition audio de nombreuses façons.</p>
     <p xml:lang="gl">Kwave é un editor de sons que pode gravar, reproducir, abrir e editar moitos formatos de ficheiro. Kwave simplifica a edición de son de moitos xeitos.</p>
     <p xml:lang="he">Kwave הוא עורך שמע שיכול להקליט, לנגן, לפתוח ולערוך מגוון רחב של סוגי קבצים. Kwae מקל על עריכת שמע במגוון דרכים.</p>
     <p xml:lang="hi">Kwave एक साउंड एडिटर है जो कई फ़ाइल फ़ॉर्मेट को रिकॉर्ड, प्ले, ओपन और एडिट कर सकता है। Kwave कई तरीकों से ऑडियो को एडिट करना आसान बनाता है।</p>
@@ -517,7 +517,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="es">Sonograma (espectrograma)</li>
       <li xml:lang="eu">Sonagram (espektrograma)</li>
       <li xml:lang="fi">Spektrogrammi</li>
-      <li xml:lang="fr">Sonagram (Spectrogramme)</li>
+      <li xml:lang="fr">Sonagramme (Spectrogramme)</li>
       <li xml:lang="gl">Espectrograma.</li>
       <li xml:lang="he">Sonagram (spectrogram)</li>
       <li xml:lang="hi">सोनाग्राम (स्पेक्ट्रोग्राम)</li>

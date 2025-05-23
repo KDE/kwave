@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-11 00:41+0000\n"
-"PO-Revision-Date: 2025-01-07 08:58+0100\n"
+"PO-Revision-Date: 2025-05-21 15:45+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 25.04.1\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -239,7 +239,7 @@ msgstr "Stefan Westerfeld"
 #: kwave/main.cpp:91
 #, kde-format
 msgid "Author of aRts"
-msgstr "Auteur du logiciel aRTs"
+msgstr "Auteur du logiciel aRts"
 
 #: kwave/main.cpp:95
 #, kde-format
@@ -2147,8 +2147,9 @@ msgstr ""
 "Information sur la licence, p.ex., « All Rights Reserved », \n"
 "« Any Use Permitted », l'URL d'une licence ou la licence\n"
 "EFF Open Audio License (« distributed under the terms of the\n"
-"Open Audio License . See http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
-"for details »), etc."
+"Open Audio License . Veuillez consulter la page « http://www.eff.org/IP/"
+"Open_licenses/eff_oal.html »\n"
+"pour plus de détails), etc."
 
 #: libkwave/FileInfo.cpp:188
 msgid "Medium"
@@ -4873,7 +4874,7 @@ msgid ""
 "you want to use G711 ULAW compression instead?"
 msgstr ""
 "Désolé, vous ne pouvez pas enregistrer avec ce type de compression. Voulez-"
-"vous utiliser la compression « G711 ULaw » plutôt ?"
+"vous utiliser la compression « G711 uLaw » plutôt ?"
 
 #: plugins/codec_wav/WavEncoder.cpp:364
 #, kde-format

@@ -1,4 +1,5 @@
-# Translation of kwave to Spanish
+# Spanish translations for kwave.po package.
+# Copyright (C) 2013-2025 This file is copyright:
 # This file is distributed under the same license as the kwave package.
 #
 # SPDX-FileCopyrightText: 2013, 2014 Carlos <pureacetone@gmail.com>
@@ -9,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-11 00:41+0000\n"
-"PO-Revision-Date: 2025-01-11 19:29+0100\n"
+"PO-Revision-Date: 2025-06-09 02:15+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -32,12 +33,12 @@ msgstr "vrcordoba@gmail.com,ecuadra@eloihr.net"
 #: kwave/App.cpp:150
 #, kde-format
 msgid "Reading configuration..."
-msgstr "Leyendo configuración..."
+msgstr "Leyendo configuración…"
 
 #: kwave/App.cpp:230
 #, kde-format
 msgid "Opening main window..."
-msgstr "Abriendo ventana principal..."
+msgstr "Abriendo ventana principal…"
 
 #: kwave/App.cpp:277
 #, kde-format
@@ -47,12 +48,12 @@ msgstr "Arranque terminado"
 #: kwave/FileContext.cpp:202
 #, kde-format
 msgid "Scanning plugins..."
-msgstr "Explorando complementos..."
+msgstr "Explorando complementos…"
 
 #: kwave/FileContext.cpp:226 kwave/FileContext.cpp:227
 #, kde-format
 msgid "Loading plugins..."
-msgstr "Cargando complementos..."
+msgstr "Cargando complementos…"
 
 #: kwave/FileContext.cpp:229
 #, kde-format
@@ -418,7 +419,7 @@ msgstr ""
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
-msgstr "[archivos...]"
+msgstr "[archivos…]"
 
 #: kwave/main.cpp:193
 #, kde-format
@@ -477,7 +478,7 @@ msgstr "Archivo"
 #: kwave/menus.config:18
 msgctxt "menu: /File/New..."
 msgid "New..."
-msgstr "Nuevo..."
+msgstr "Nuevo…"
 
 #: kwave/menus.config:19
 msgctxt "menu: /File/Open"
@@ -512,17 +513,17 @@ msgstr "Guardar"
 #: kwave/menus.config:36
 msgctxt "menu: /File/Save/As..."
 msgid "As..."
-msgstr "Como..."
+msgstr "Como…"
 
 #: kwave/menus.config:38
 msgctxt "menu: /File/Save/Selection..."
 msgid "Selection..."
-msgstr "Selección..."
+msgstr "Selección…"
 
 #: kwave/menus.config:39
 msgctxt "menu: /File/Save/Blocks..."
 msgid "Blocks..."
-msgstr "Bloques..."
+msgstr "Bloques…"
 
 #: kwave/menus.config:41
 msgctxt "menu: /File/Close"
@@ -682,12 +683,12 @@ msgstr "Vaciar"
 #: kwave/menus.config:105
 msgctxt "menu: /Edit/Clipboard/Insert At..."
 msgid "Insert At..."
-msgstr "Insertar en..."
+msgstr "Insertar en…"
 
 #: kwave/menus.config:112
 msgctxt "menu: /Edit/File Properties..."
 msgid "File Properties..."
-msgstr "Propiedades del archivo..."
+msgstr "Propiedades del archivo…"
 
 #: kwave/menus.config:115
 msgctxt "menu: /View"
@@ -697,7 +698,7 @@ msgstr "Ver"
 #: kwave/menus.config:116
 msgctxt "menu: /View/Go to Position..."
 msgid "Go to Position..."
-msgstr "Ir a la posición..."
+msgstr "Ir a la posición…"
 
 #: kwave/menus.config:117
 msgctxt "menu: /View/Begin"
@@ -812,7 +813,7 @@ msgstr "Grabar"
 #: kwave/menus.config:143
 msgctxt "menu: /Record/Prepare..."
 msgid "Prepare..."
-msgstr "Preparar..."
+msgstr "Preparar…"
 
 #: kwave/menus.config:144
 msgctxt "menu: /Record/Start Now!"
@@ -827,7 +828,7 @@ msgstr "Etiquetas"
 #: kwave/menus.config:147
 msgctxt "menu: /Labels/Add..."
 msgid "Add..."
-msgstr "Añadir..."
+msgstr "Añadir…"
 
 #: kwave/menus.config:148
 msgctxt "menu: /Labels/Delete"
@@ -837,12 +838,12 @@ msgstr "Borrar"
 #: kwave/menus.config:153
 msgctxt "menu: /Labels/Load..."
 msgid "Load..."
-msgstr "Cargar..."
+msgstr "Cargar…"
 
 #: kwave/menus.config:154
 msgctxt "menu: /Labels/Save..."
 msgid "Save..."
-msgstr "Guardar..."
+msgstr "Guardar…"
 
 #: kwave/menus.config:161
 msgctxt "menu: /Fx"
@@ -972,7 +973,7 @@ msgstr "Ventanas separadas (SDI)"
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in..."
 msgid "Show Files in..."
-msgstr "Mostrar archivos en..."
+msgstr "Mostrar archivos en…"
 
 #: kwave/menus.config:239
 msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
@@ -1096,12 +1097,12 @@ msgstr "v%1"
 #: kwave/TopWidget.cpp:254
 #, kde-format
 msgid "Loading main menu..."
-msgstr "Cargando el menú principal..."
+msgstr "Cargando el menú principal…"
 
 #: kwave/TopWidget.cpp:328
 #, kde-format
 msgid "Initializing toolbar..."
-msgstr "Inicializando la barra de herramientas..."
+msgstr "Inicializando la barra de herramientas…"
 
 #: kwave/TopWidget.cpp:337
 #, kde-format
@@ -1121,7 +1122,7 @@ msgstr "Guardar el archivo actual"
 #: kwave/TopWidget.cpp:352
 #, kde-format
 msgid "Save the current file under a different name or file format..."
-msgstr "Guardar el archivo actual con un nombre o formato distinto..."
+msgstr "Guardar el archivo actual con un nombre o formato distinto…"
 
 #: kwave/TopWidget.cpp:357
 #, kde-format
@@ -1182,17 +1183,17 @@ msgstr ""
 #: kwave/TopWidget.cpp:1008
 #, kde-format
 msgid "Executing command '%1'..."
-msgstr "Ejecutando la orden «%1»..."
+msgstr "Ejecutando la orden «%1»…"
 
 #: kwave/TopWidget.cpp:1028
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
-msgstr "Ejecutando el archivo de guion de Kwave «%1»..."
+msgstr "Ejecutando el archivo de guion de Kwave «%1»…"
 
 #: kwave/TopWidget.cpp:1038
 #, kde-format
 msgid "Loading file '%1'..."
-msgstr "Cargando el archivo «%1»..."
+msgstr "Cargando el archivo «%1»…"
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:125
 #: plugins/codec_flac/FlacEncoder.cpp:248
@@ -1243,7 +1244,7 @@ msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
 "2000...3000 (1000 samples)'"
 msgid "Selected: %1...%2 (%3 samples)"
-msgstr "Seleccionado: %1...%2 (%3 muestras)"
+msgstr "Seleccionado: %1…%2 (%3 muestras)"
 
 #: kwave/TopWidget.cpp:1218
 #, kde-format
@@ -1251,7 +1252,7 @@ msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
 "(3 min)'"
 msgid "Selected: %1...%2 (%3)"
-msgstr "Seleccionado: %1...%2 (%3)"
+msgstr "Seleccionado: %1…%2 (%3)"
 
 #: kwave/TopWidget.cpp:1237
 #, kde-format
@@ -1436,7 +1437,7 @@ msgstr "Guardar preajuste de curva"
 #: libgui/FilterPlugin.cpp:240
 #, kde-format
 msgid "Applying '%1'..."
-msgstr "Aplicando «%1»..."
+msgstr "Aplicando «%1»…"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbHours)
 #: libgui/HMSTimeWidgetBase.ui:23
@@ -1489,7 +1490,7 @@ msgstr "&Borrar"
 #: libgui/LabelItem.cpp:118
 #, kde-format
 msgid "&Properties..."
-msgstr "&Propiedades..."
+msgstr "&Propiedades…"
 
 #: libgui/LabelItem.cpp:158
 #, kde-format
@@ -1500,7 +1501,7 @@ msgstr "Mover etiquetas"
 #: libgui/LabelPropertiesWidgetBase.ui:20
 #, kde-format
 msgid "Label Properties..."
-msgstr "Propiedades de la etiqueta..."
+msgstr "Propiedades de la etiqueta…"
 
 #. i18n: ectx: property (whatsThis), widget (Kwave::SelectTimeWidget, time)
 #: libgui/LabelPropertiesWidgetBase.ui:44
@@ -1720,7 +1721,7 @@ msgstr "Selección"
 #: libgui/SignalWidget.cpp:258
 #, kde-format
 msgid "&Save..."
-msgstr "&Guardar..."
+msgstr "&Guardar…"
 
 #: libgui/SignalWidget.cpp:265
 #, kde-format
@@ -3356,7 +3357,7 @@ msgstr "Qt Multimedia Audio"
 #: libkwave/Plugin.cpp:215
 #, kde-format
 msgid "Running plugin '%1'..."
-msgstr "Ejecutando el complemento «%1»..."
+msgstr "Ejecutando el complemento «%1»…"
 
 #: libkwave/PluginManager.cpp:191
 #, kde-format
@@ -3371,7 +3372,7 @@ msgstr "Error al cargar el complemento"
 #: libkwave/PluginManager.cpp:673
 #, kde-format
 msgid "Loading plugin %1..."
-msgstr "Cargando complemento %1..."
+msgstr "Cargando complemento %1…"
 
 #: libkwave/SampleFormat.cpp:37
 msgid "Linear Two's Complement"
@@ -4027,7 +4028,7 @@ msgid ""
 "Assuming Mono..."
 msgstr ""
 "El archivo contiene un modo de canal no válido 0x%1\n"
-"Se asume que es en mono..."
+"Se asume que es en mono…"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:464
 #, kde-format
@@ -4190,7 +4191,7 @@ msgstr "buscar manualmente el codificador"
 #: plugins/fileinfo/FileInfoDlg.ui:1273 plugins/playback/PlayBackDlg.ui:98
 #, kde-format
 msgid "&Select..."
-msgstr "&Seleccionar..."
+msgstr "&Seleccionar…"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbProgram)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:66
@@ -4209,7 +4210,7 @@ msgstr "detectar automáticamente el codificador instalado"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:92
 #, kde-format
 msgid "&Auto Detect..."
-msgstr "&Detectar automáticamente..."
+msgstr "&Detectar automáticamente…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:101
@@ -4569,7 +4570,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1050
 #, kde-format
 msgid "Test..."
-msgstr "Prueba..."
+msgstr "Prueba…"
 
 #: plugins/codec_ogg/OggCodecPlugin.h:60
 #, kde-format
@@ -4783,17 +4784,17 @@ msgstr ""
 #: plugins/codec_wav/RIFFParser.cpp:121
 #, kde-format
 msgid "Detecting endianness (standard search)..."
-msgstr "Detectando orden de bytes (búsqueda estándar)..."
+msgstr "Detectando orden de bytes (búsqueda estándar)…"
 
 #: plugins/codec_wav/RIFFParser.cpp:150
 #, kde-format
 msgid "Detecting endianness (statistic search)..."
-msgstr "Detectando orden de bytes (búsqueda de estadísticas)..."
+msgstr "Detectando orden de bytes (búsqueda de estadísticas)…"
 
 #: plugins/codec_wav/RIFFParser.cpp:546
 #, kde-format
 msgid "Searching for missing chunk '%1'..."
-msgstr "Buscando el fragmento perdido «%1»..."
+msgstr "Buscando el fragmento perdido «%1»…"
 
 #: plugins/codec_wav/WavDecoder.cpp:143
 #, kde-format
@@ -4803,7 +4804,7 @@ msgstr "Reparación automática"
 #: plugins/codec_wav/WavDecoder.cpp:149
 #, kde-format
 msgid "Reading..."
-msgstr "Leyendo..."
+msgstr "Leyendo…"
 
 #: plugins/codec_wav/WavDecoder.cpp:174
 #, kde-format
@@ -5093,7 +5094,7 @@ msgstr "Exportar ubicación"
 #: plugins/export_k3b/K3BExportPlugin.cpp:280
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
-msgstr "Exportar a proyecto de K3b..."
+msgstr "Exportar a proyecto de K3b…"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:599
 #, kde-format
@@ -5692,12 +5693,12 @@ msgstr "Ir a la posición"
 #: plugins/goto/GotoPlugin.cpp:50
 #, kde-format
 msgid "Goto..."
-msgstr "Ir a..."
+msgstr "Ir a…"
 
 #: plugins/goto/InsertAtPlugin.cpp:50
 #, kde-format
 msgid "Insert At..."
-msgstr "Insertar en..."
+msgstr "Insertar en…"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LowPassDlg)
 #: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:111
@@ -5915,12 +5916,12 @@ msgstr "Normalizar"
 #: plugins/normalize/NormalizePlugin.cpp:92
 #, kde-format
 msgid "Analyzing volume level..."
-msgstr "Analizando el nivel de volumen..."
+msgstr "Analizando el nivel de volumen…"
 
 #: plugins/normalize/NormalizePlugin.cpp:129
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
-msgstr "Normalizando (%1 dB)..."
+msgstr "Normalizando (%1 dB)…"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NotchFilterDlg)
 #: plugins/notch_filter/NotchFilterDlg.ui:14
@@ -6192,7 +6193,7 @@ msgstr "El dispositivo PulseAudio «%1» es desconocido o ya no está conectado"
 #: plugins/playback/PlayBack-PulseAudio.cpp:522
 #, kde-format
 msgid "playback..."
-msgstr "reproducir..."
+msgstr "reproducir…"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:538
 #, kde-format
@@ -6303,8 +6304,8 @@ msgid ""
 "<b>Select...</b><p>Choose a device name on the harddisk, if your device is "
 "not already listed in the list of devices.</p>"
 msgstr ""
-"<b>Seleccionar...</b><p>Elija un nombre de dispositivo en el disco duro si "
-"su dispositivo no aparece en la lista de dispositivos.</p>"
+"<b>Seleccionar…</b><p>Elija un nombre de dispositivo en el disco duro si su "
+"dispositivo no aparece en la lista de dispositivos.</p>"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:121
@@ -6426,7 +6427,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:325
 #, kde-format
 msgid "Number of channels: mono, stereo..."
-msgstr "Número de canales: mono, estéreo..."
+msgstr "Número de canales: mono, estéreo…"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbChannels)
 #: plugins/playback/PlayBackDlg.ui:328
@@ -6474,7 +6475,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:464
 #, kde-format
 msgid "&Test..."
-msgstr "&Prueba..."
+msgstr "&Prueba…"
 
 #: plugins/playback/PlayBackPlugin.cpp:401
 #, kde-format
@@ -6581,7 +6582,7 @@ msgstr "%1 bits"
 #: plugins/record/RecordDialog.cpp:1004
 #, kde-format
 msgid "Please check the source device settings..."
-msgstr "Por favor, compruebe las preferencias del dispositivo de origen..."
+msgstr "Por favor, compruebe las preferencias del dispositivo de origen…"
 
 #: plugins/record/RecordDialog.cpp:1016
 #, kde-format
@@ -6591,22 +6592,22 @@ msgstr "(vacío)"
 #: plugins/record/RecordDialog.cpp:1027
 #, kde-format
 msgid "Buffering..."
-msgstr "Llenando el buffer..."
+msgstr "Llenando el buffer…"
 
 #: plugins/record/RecordDialog.cpp:1038
 #, kde-format
 msgid "Prerecording..."
-msgstr "Pregrabando..."
+msgstr "Pregrabando…"
 
 #: plugins/record/RecordDialog.cpp:1049 plugins/record/RecordDialog.cpp:1205
 #, kde-format
 msgid "Waiting for trigger..."
-msgstr "Esperando disparador..."
+msgstr "Esperando disparador…"
 
 #: plugins/record/RecordDialog.cpp:1060
 #, kde-format
 msgid "Recording..."
-msgstr "Grabando..."
+msgstr "Grabando…"
 
 #: plugins/record/RecordDialog.cpp:1078
 #, kde-format
@@ -6657,7 +6658,7 @@ msgstr[1] "%1 segundos"
 #, kde-format
 msgctxt "%1=days; %2=hours; %3=minutes; %4=seconds"
 msgid "Waiting for start in %1%2%3%4..."
-msgstr "Esperando para comenzar en %1%2%3%4..."
+msgstr "Esperando para comenzar en %1%2%3%4…"
 
 #: plugins/record/RecordDialog.cpp:1220
 #, kde-format
@@ -6970,7 +6971,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1078
 #, kde-format
 msgid "Selec&t..."
-msgstr "Sele&ccionar..."
+msgstr "Sele&ccionar…"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
@@ -7005,7 +7006,7 @@ msgid ""
 "The audio device seems to be occupied by another application. Retrying..."
 msgstr ""
 "Parece que el dispositivo de sonido está siendo usado por otra aplicación. "
-"Volviendo a probar..."
+"Volviendo a probar…"
 
 #: plugins/record/RecordPlugin.cpp:467
 #, kde-format
@@ -7120,7 +7121,7 @@ msgstr "Cambiar frecuencia de muestreo"
 #: plugins/samplerate/SampleRatePlugin.cpp:161
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
-msgstr "Cambiando frecuencia de muestreo de %1 kHz a %2 kHz..."
+msgstr "Cambiando frecuencia de muestreo de %1 kHz a %2 kHz…"
 
 #: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
@@ -7255,7 +7256,7 @@ msgstr "Guardar únicamente la selección"
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:169
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:271
 #, kde-format
@@ -7474,7 +7475,7 @@ msgstr "&Sonograma"
 #: plugins/sonagram/SonagramWindow.cpp:128
 #, kde-format
 msgid "&Export to Bitmap..."
-msgstr "&Exportar a mapa de bits..."
+msgstr "&Exportar a mapa de bits…"
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7540,7 +7541,7 @@ msgstr "Amplitud: %1%"
 #: plugins/stringenter/StringEnterDlg.ui:21
 #, kde-format
 msgid "Enter Command..."
-msgstr "Introduzca orden..."
+msgstr "Introduzca orden…"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCommand)
 #: plugins/stringenter/StringEnterDlg.ui:36
@@ -7552,7 +7553,7 @@ msgstr "Introduzca orden:"
 #: plugins/stringenter/StringEnterDlg.ui:68
 #, kde-format
 msgid "please enter a text command here..."
-msgstr "Por favor, introduzca aquí una orden de texto..."
+msgstr "Por favor, introduzca aquí una orden de texto…"
 
 #: plugins/stringenter/StringEnterPlugin.cpp:58
 msgctxt "menu: /Settings/Enter Command"

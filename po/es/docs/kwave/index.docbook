@@ -832,7 +832,7 @@
 > <guimenu
 >Opciones</guimenu
 ><guimenuitem
->Mostrar archivos en...</guimenuitem
+>Mostrar archivos en…</guimenuitem
 > </menuchoice
 >. </para>
 
@@ -1054,7 +1054,7 @@
 > <guimenu
 >Archivo</guimenu
 ><guimenuitem
->Nuevo...</guimenuitem
+>Nuevo…</guimenuitem
 > </menuchoice
 > ) y cargar un archivo mediante <link linkend="drag_and_drop"
 >arrastrar y soltar</link
@@ -1116,7 +1116,7 @@
 ><guimenuitem
 >Guardar</guimenuitem
 ><guimenuitem
->Como...</guimenuitem
+>Como…</guimenuitem
 > </menuchoice
 > </para
 ></listitem>
@@ -1128,7 +1128,7 @@
 ><guimenuitem
 >Guardar</guimenuitem
 ><guimenuitem
->Bloques...</guimenuitem
+>Bloques…</guimenuitem
 > </menuchoice
 > </para
 ></listitem>
@@ -1140,7 +1140,7 @@
 ><guimenuitem
 >Guardar</guimenuitem
 ><guimenuitem
->Selección...</guimenuitem
+>Selección…</guimenuitem
 > </menuchoice
 > </para
 ></listitem>
@@ -1336,7 +1336,7 @@
 > <guimenu
 >Archivo</guimenu
 ><guimenuitem
->Nuevo...</guimenuitem
+>Nuevo…</guimenuitem
 > </menuchoice
 >. </para>
     <para>
@@ -1666,7 +1666,7 @@
 > <guimenu
 >Editar</guimenu
 ><guimenuitem
->Propiedades del archivo... </guimenuitem
+>Propiedades del archivo… </guimenuitem
 > </menuchoice
 >. Ahí puede también cambiar aspectos como el formato de muestreo, resolución o compresión. </para>
     <para>
@@ -1850,7 +1850,7 @@
 > <guimenu
 >Vista</guimenu
 ><guimenuitem
->Ir a la posición...</guimenuitem
+>Ir a la posición…</guimenuitem
 > </menuchoice
 > </para>
         </listitem>
@@ -2564,7 +2564,7 @@
 >parámetro</replaceable
 >[,<replaceable
 >parámetro</replaceable
-> ...] ]</literal>
+> …] ]</literal>
     </para>
 
     <para
@@ -2988,7 +2988,7 @@
 ><literal
 >  # &lt;= esto es una etiqueta</literal>
             <literal
->        # Hacer algo...</literal>
+>        # Hacer algo…</literal>
             <literal
 >        </literal
 ><command
@@ -4485,7 +4485,7 @@
 >tecla</emphasis
 > puede ser un dígito, una letra en mayúsculas, una tecla de función (<quote
 >F1</quote
-> ... <quote
+> … <quote
 >F12</quote
 >) o cualquier otro nombre de tecla comprendido por la clase de Qt <quote
 ><literal
@@ -5072,7 +5072,7 @@
 >nombre</replaceable
 >, [<replaceable
 >parámetro</replaceable
-> ...])</title>
+> …])</title>
 	    <para
 >Ejecuta un complemento, con una lista opcional de parámetros. Si no se especifica ninguna lista de parámetros, entonces la función de configuración del complemento se invoca usando los parámetros usados en la invocación previa o los parámetros por defecto como entrada (normalmente muestra un diálogo de configuración, dependiendo del complemento). Por favor, vea el capítulo sobre <link linkend="plugins"
 >complementos</link
@@ -5132,7 +5132,7 @@
 >nombre</replaceable
 >, [<replaceable
 >parámetro</replaceable
-> ...])</title>
+> …])</title>
 	    <para
 >Similar a la orden <command
 >&no-i18n-cmd_plugin;</command
@@ -5178,7 +5178,7 @@
 >nombre</replaceable
 >, [<replaceable
 >parámetro</replaceable
-> ...])</title>
+> …])</title>
 	    <para
 >Invoca la función de <emphasis
 >configuración</emphasis
@@ -5755,7 +5755,7 @@
 >&no-i18n-tag;&no-i18n-cmd_selectnext;</command
 >()</title>
 	    <para
->Selecciona una gama de muestras que comienza justo después de la selección actual, usando la longitud de la selección actual. La selección se copia automáticamente al final de la señal. Por ejemplo: si ha seleccionado las muestras 1000 ... 1019, entonces el resultado será la selección desde las muestras 1020 ... 1039. </para>
+>Selecciona una gama de muestras que comienza justo después de la selección actual, usando la longitud de la selección actual. La selección se copia automáticamente al final de la señal. Por ejemplo: si ha seleccionado las muestras 1000 … 1019, entonces el resultado será la selección desde las muestras 1020 … 1039. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -5817,7 +5817,7 @@
 >&no-i18n-tag;&no-i18n-cmd_selectprev;</command
 >()</title>
 	    <para
->Selecciona una gama de muestras que comienza a la izquierda de la selección actual, usando la misma longitud que la selección actual. La selección se copia automáticamente al inicio de la señal. Por ejemplo, si ha seleccionado las muestras 1000 ... 1019, entonces el resultado será la selección entre las muestras 980 ... 999. </para>
+>Selecciona una gama de muestras que comienza a la izquierda de la selección actual, usando la misma longitud que la selección actual. La selección se copia automáticamente al inicio de la señal. Por ejemplo, si ha seleccionado las muestras 1000 … 1019, entonces el resultado será la selección entre las muestras 980 … 999. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -11219,7 +11219,7 @@
 	    </question>
     	    <answer>
 	    	<para
->La razón para esto es que &kwave; internamente almacena todas las muestras en enteros de 32 bits. Esto fue más fácil de programar, hizo la aplicación más rápida y un poco más fiable. Asi que si carga un archivo de 8 bits de un mega consumirá sobre 4 megabytes. Quizá cambiemos esto en algún momento en el futuro... </para>
+>La razón para esto es que &kwave; internamente almacena todas las muestras en enteros de 32 bits. Esto fue más fácil de programar, hizo la aplicación más rápida y un poco más fiable. Asi que si carga un archivo de 8 bits de un mega consumirá sobre 4 megabytes. Quizá cambiemos esto en algún momento en el futuro… </para>
 	    </answer>
 	</qandaentry>
 
@@ -11515,16 +11515,6 @@
 	    <listitem>
 	    	<para
 ><emphasis role="bold"
->Aaron Holtzman <email
->aholtzma@ess.engr.uvic.ca</email
-> </emphasis
-></para
-><para
->libkwave/cpu_accel.cpp </para>
-	    </listitem>
-	    <listitem>
-	    	<para
-><emphasis role="bold"
 > Bertrand Songis <email
 >bsongis@gmail.com</email
 > </emphasis
@@ -11661,14 +11651,6 @@
 ></para
 ><para
 >cmake/FindAlsa.cmake </para>
-	    </listitem>
-	    <listitem>
-	    	<para
-><emphasis role="bold"
->Miguel Freitas </emphasis
-></para
-><para
->partes de libkwave/memcpy.c </para>
 	    </listitem>
 	    <listitem>
 	    	<para

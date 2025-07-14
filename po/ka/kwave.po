@@ -6051,7 +6051,7 @@ msgstr "მოცემული რაოდენობით"
 #: plugins/record/Record-Qt.cpp:49
 #, kde-format
 msgid "Default device"
-msgstr "ნაგულისხმებ მოწყობილობა"
+msgstr "ნაგულისხმევ მოწყობილობა"
 
 #: plugins/playback/PlayBack-ALSA.cpp:54
 #, kde-format

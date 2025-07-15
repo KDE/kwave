@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <cstdio>
 #include <math.h>
 #include <stdlib.h>
 
@@ -283,7 +284,7 @@ bool Kwave::RIFFParser::addGarbageChunk(Kwave::RIFFChunk *parent,
 
     // create the new chunk first
     QByteArray name(16, 0);
-    qsnprintf(name.data(), name.size(), "[0x%08X]", offset);
+    std::snprintf(name.data(), name.size(), "[0x%08X]", offset);
     Kwave::RIFFChunk *chunk = addChunk(parent, name, "", length, offset,
                                 length, Kwave::RIFFChunk::Garbage);
     return (chunk);

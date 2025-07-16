@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kde4.14\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-11 00:41+0000\n"
+"POT-Creation-Date: 2025-07-16 00:42+0000\n"
 "PO-Revision-Date: 2015-02-26 22:01+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian\n"
@@ -4722,17 +4722,17 @@ msgid ""
 "settings and try again."
 msgstr ""
 
-#: plugins/codec_wav/RIFFParser.cpp:121
+#: plugins/codec_wav/RIFFParser.cpp:122
 #, kde-format
 msgid "Detecting endianness (standard search)..."
 msgstr ""
 
-#: plugins/codec_wav/RIFFParser.cpp:150
+#: plugins/codec_wav/RIFFParser.cpp:151
 #, kde-format
 msgid "Detecting endianness (statistic search)..."
 msgstr ""
 
-#: plugins/codec_wav/RIFFParser.cpp:546
+#: plugins/codec_wav/RIFFParser.cpp:547
 #, kde-format
 msgid "Searching for missing chunk '%1'..."
 msgstr ""

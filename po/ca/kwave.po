@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-11 00:41+0000\n"
+"POT-Creation-Date: 2025-07-16 00:42+0000\n"
 "PO-Revision-Date: 2025-01-06 10:26+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -4785,17 +4785,17 @@ msgstr ""
 "Un o més paràmetres de codificació no estan permesos. Si us plau, canvieu la "
 "configuració i intenteu-ho de nou."
 
-#: plugins/codec_wav/RIFFParser.cpp:121
+#: plugins/codec_wav/RIFFParser.cpp:122
 #, kde-format
 msgid "Detecting endianness (standard search)..."
 msgstr "S'està detectant l'ordre dels bytes (cerca estàndard)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:150
+#: plugins/codec_wav/RIFFParser.cpp:151
 #, kde-format
 msgid "Detecting endianness (statistic search)..."
 msgstr "S'està detectant l'ordre dels bytes (cerca estadística)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:546
+#: plugins/codec_wav/RIFFParser.cpp:547
 #, kde-format
 msgid "Searching for missing chunk '%1'..."
 msgstr "S'està cercant el fragment perdut «%1»..."

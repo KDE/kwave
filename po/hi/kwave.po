@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-11 00:41+0000\n"
+"POT-Creation-Date: 2025-07-16 00:42+0000\n"
 "PO-Revision-Date: 2024-12-15 19:37+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -4714,17 +4714,17 @@ msgid ""
 msgstr ""
 "एक या अधिक एन्कोडिंग पैरामीटर समर्थित नहीं हैं। कृपया सेटिंग बदलें और पुनः प्रयास करें।"
 
-#: plugins/codec_wav/RIFFParser.cpp:121
+#: plugins/codec_wav/RIFFParser.cpp:122
 #, kde-format
 msgid "Detecting endianness (standard search)..."
 msgstr "एंडियननेस का पता लगाना (मानक खोज)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:150
+#: plugins/codec_wav/RIFFParser.cpp:151
 #, kde-format
 msgid "Detecting endianness (statistic search)..."
 msgstr "एंडियननेस का पता लगाना (सांख्यिकी खोज)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:546
+#: plugins/codec_wav/RIFFParser.cpp:547
 #, kde-format
 msgid "Searching for missing chunk '%1'..."
 msgstr "लुप्त खंड '%1' की खोज की जा रही है..."

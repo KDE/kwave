@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-11 00:41+0000\n"
+"POT-Creation-Date: 2025-07-16 00:42+0000\n"
 "PO-Revision-Date: 2024-09-20 13:15+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -4774,19 +4774,19 @@ msgstr ""
 "Μία ή περισσότερες παράμετροι κωδικοποίησης δεν υποστηρίζονται. Αλλάξτε τις "
 "ρυθμίσεις και ξαναπροσπαθήστε."
 
-#: plugins/codec_wav/RIFFParser.cpp:121
+#: plugins/codec_wav/RIFFParser.cpp:122
 #, kde-format
 msgid "Detecting endianness (standard search)..."
 msgstr ""
 "Εντοπισμός κατεύθυνσης ακολουθίας δυαδικών ψηφίων (τυπική αναζήτηση)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:150
+#: plugins/codec_wav/RIFFParser.cpp:151
 #, kde-format
 msgid "Detecting endianness (statistic search)..."
 msgstr ""
 "Εντοπισμός κατεύθυνσης ακολουθίας δυαδικών ψηφίων (στατιστική αναζήτηση)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:546
+#: plugins/codec_wav/RIFFParser.cpp:547
 #, kde-format
 msgid "Searching for missing chunk '%1'..."
 msgstr "Αναζήτηση του απολεσθέντος τμήματος '%1'..."

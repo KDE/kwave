@@ -5,20 +5,21 @@
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2015, 2016, 2017, 2018, 2019, 2020, 2021.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2015, 2016.
 # Bianca Oliveira <kbiancasol@gmail.com>, 2019.
+# SPDX-FileCopyrightText: 2025 Marcus Gama <marcus.gama@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-11 00:41+0000\n"
-"PO-Revision-Date: 2021-10-26 14:42-0300\n"
-"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
-"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"PO-Revision-Date: 2025-08-13 14:19-0300\n"
+"Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -219,12 +220,12 @@ msgstr "Plugin de gravação do PulseAudio"
 #: kwave/main.cpp:83
 #, kde-format
 msgid "Mark Penner"
-msgstr ""
+msgstr "Mark Penner"
 
 #: kwave/main.cpp:86
 #, kde-format
 msgid "https://markpenner.space"
-msgstr ""
+msgstr "https://markpenner.space"
 
 #: kwave/main.cpp:90
 #, kde-format
@@ -2074,11 +2075,11 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:156
 msgid "ID3 Tags"
-msgstr ""
+msgstr "Etiquetas ID3"
 
 #: libkwave/FileInfo.cpp:157
 msgid "List of ID3 Tags"
-msgstr ""
+msgstr "Lista de etiquetas ID3"
 
 #: libkwave/FileInfo.cpp:160
 msgid "ISRC"
@@ -4946,12 +4947,12 @@ msgstr "Arquivo de projeto K3b (*.k3b)"
 #: plugins/export_k3b/K3BExportDialog.cpp:161
 #, kde-format
 msgid "Please choose a K3b project file name"
-msgstr ""
+msgstr "Escolha um nome de arquivo de projeto K3b"
 
 #: plugins/export_k3b/K3BExportDialog.cpp:165
 #, kde-format
 msgid "Please choose where to export the audio files"
-msgstr ""
+msgstr "Escolha para onde exportar os arquivos de áudio"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportDialogBase.ui:35
@@ -5059,37 +5060,33 @@ msgstr "Exportar localização:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFilename)
 #: plugins/export_k3b/K3BExportDialogBase.ui:154
-#, fuzzy, kde-format
-#| msgctxt "file type filter when exporting to K3b"
-#| msgid "K3b project file (*.k3b)"
+#, kde-format
 msgid "K3b Project File:"
-msgstr "Arquivo de projeto K3b (*.k3b)"
+msgstr "Arquivo de projeto K3b:"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:161
 #, kde-format
 msgid "Location to save the K3b project file"
-msgstr ""
+msgstr "Local para salvar o arquivo do projeto K3b"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:173
-#, fuzzy, kde-format
-#| msgid "New File"
+#, kde-format
 msgid "Project File"
-msgstr "Novo arquivo"
+msgstr "Arquivo do projeto"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:180
 #, kde-format
 msgid "Location to export the audio files to"
-msgstr ""
+msgstr "Local para exportar os arquivos de áudio"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:189
-#, fuzzy, kde-format
-#| msgid "Export Location:"
+#, kde-format
 msgid "Export Location"
-msgstr "Exportar localização:"
+msgstr "Localização para exportação"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:280
 msgctxt "menu: /File/Save/Export to K3b Project..."
@@ -6221,10 +6218,9 @@ msgid "The audio device '%1' is unknown or no longer connected"
 msgstr "O dispositivo de áudio '%1' é desconhecido ou não está mais conectado"
 
 #: plugins/playback/PlayBack-Qt.cpp:156
-#, fuzzy, kde-format
-#| msgid "Error: Codec not supported"
+#, kde-format
 msgid "format not supported"
-msgstr "Erro: Codec não suportado"
+msgstr "formato não suportado"
 
 #: plugins/playback/PlayBack-Qt.cpp:209
 #, kde-format
@@ -7132,7 +7128,7 @@ msgstr "Alterando a taxa de amostragem de %1 kHz para %2 kHz..."
 #: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
 msgid "Please choose where to save the files"
-msgstr ""
+msgstr "Escolha para onde salvar os arquivos"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:37
@@ -7208,55 +7204,49 @@ msgstr "Começar sempre em 1, sobrescrevendo se necessário"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:102
-#, fuzzy, kde-format
-#| msgid "Mode Extension"
+#, kde-format
 msgid "Extension:"
-msgstr "Extensão do modo"
+msgstr "Extensão:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:118
 #, kde-format
 msgid "Choose what encoding to save the blocks with."
-msgstr ""
+msgstr "Escolha a codificação para salvamento dos blocos."
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:131
 #, kde-format
 msgid "Location to save the files"
-msgstr ""
+msgstr "Localização para os arquivos salvos"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:140
 #, kde-format
 msgid "Choose where to save the files"
-msgstr ""
+msgstr "Escolha para onde salvar os arquivos"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:154
-#, fuzzy, kde-format
-#| msgid ""
-#| "Example of the first file name that will be saved, using the file name "
-#| "pattern above and the numbering below"
+#, kde-format
 msgid ""
 "Example of the first file name that will be saved, using the file name "
 "pattern, extension, and numbering"
 msgstr ""
 "Exemplo do primeiro nome de arquivo que será salvo, usando o padrão de nomes "
-"de arquivos acima e a numeração abaixo"
+"de arquivos, extensão e a numeração"
 
 #. i18n: ectx: property (text), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:157
-#, fuzzy, kde-format
-#| msgid "To Next Labels"
+#, kde-format
 msgid "TextLabel"
-msgstr "Até os próximos rótulos"
+msgstr "RótuloTexto"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:170
-#, fuzzy, kde-format
-#| msgid "Example:"
+#, kde-format
 msgid "Example file name:"
-msgstr "Exemplo:"
+msgstr "Exemplo de nome de arquivo:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:189

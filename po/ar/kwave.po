@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-11 00:41+0000\n"
-"PO-Revision-Date: 2025-08-21 10:28+0400\n"
+"PO-Revision-Date: 2025-08-23 18:34+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -41,17 +41,17 @@ msgstr ""
 #: kwave/App.cpp:277
 #, kde-format
 msgid "Startup done"
-msgstr ""
+msgstr "انتهى التشغيل"
 
 #: kwave/FileContext.cpp:202
 #, kde-format
 msgid "Scanning plugins..."
-msgstr ""
+msgstr "يكتشف الملحقات…"
 
 #: kwave/FileContext.cpp:226 kwave/FileContext.cpp:227
 #, kde-format
 msgid "Loading plugins..."
-msgstr ""
+msgstr "يحمل الملحقات…"
 
 #: kwave/FileContext.cpp:229
 #, kde-format
@@ -76,7 +76,7 @@ msgstr "تشغيل: %1"
 #: kwave/FileContext.cpp:520
 #, kde-format
 msgid "Playback: %1 samples"
-msgstr ""
+msgstr "التشغيل: %1 عينة"
 
 #: kwave/FileContext.cpp:862
 #, kde-format
@@ -84,7 +84,7 @@ msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
 "multiple times"
 msgid "%1 <%2>"
-msgstr ""
+msgstr "%1 <%2>"
 
 #: kwave/FileContext.cpp:868
 #, kde-format
@@ -131,7 +131,7 @@ msgstr ""
 #: kwave/main.cpp:50
 #, kde-format
 msgid "http://kwave.sourceforge.net"
-msgstr ""
+msgstr "http://kwave.sourceforge.net"
 
 #: kwave/main.cpp:53
 #, kde-format
@@ -146,7 +146,7 @@ msgstr ""
 #: kwave/main.cpp:56
 #, kde-format
 msgid "http://www.wilz.de"
-msgstr ""
+msgstr "http://www.wilz.de"
 
 #: kwave/main.cpp:58
 #, kde-format
@@ -171,7 +171,7 @@ msgstr ""
 #: kwave/main.cpp:66
 #, kde-format
 msgid "http://caulier.gilles.free.fr"
-msgstr ""
+msgstr "http://caulier.gilles.free.fr"
 
 #: kwave/main.cpp:68
 #, kde-format
@@ -196,7 +196,7 @@ msgstr ""
 #: kwave/main.cpp:76
 #, kde-format
 msgid "http://rikkus.info/esoundlevelmeter.html"
-msgstr ""
+msgstr "http://rikkus.info/esoundlevelmeter.html"
 
 #: kwave/main.cpp:78
 #, kde-format
@@ -216,7 +216,7 @@ msgstr ""
 #: kwave/main.cpp:86
 #, kde-format
 msgid "https://markpenner.space"
-msgstr ""
+msgstr "https://markpenner.space"
 
 #: kwave/main.cpp:90
 #, kde-format
@@ -281,7 +281,7 @@ msgstr ""
 #: kwave/main.cpp:118
 #, kde-format
 msgid "http://www.mars.org/home/rob/proj/mpeg"
-msgstr ""
+msgstr "http://www.mars.org/home/rob/proj/mpeg"
 
 #: kwave/main.cpp:120
 #, kde-format
@@ -296,7 +296,7 @@ msgstr ""
 #: kwave/main.cpp:123
 #, kde-format
 msgid "http://www.id3lib.org/"
-msgstr ""
+msgstr "http://www.id3lib.org/"
 
 #: kwave/main.cpp:125
 #, kde-format
@@ -311,7 +311,7 @@ msgstr ""
 #: kwave/main.cpp:128
 #, kde-format
 msgid "http://www.68k.org/~michael/audiofile/"
-msgstr ""
+msgstr "http://www.68k.org/~michael/audiofile/"
 
 #: kwave/main.cpp:130
 #, kde-format
@@ -336,7 +336,7 @@ msgstr ""
 #: kwave/main.cpp:138
 #, kde-format
 msgid "http://www.mega-nerd.com/libsndfile/"
-msgstr ""
+msgstr "http://www.mega-nerd.com/libsndfile/"
 
 #: kwave/main.cpp:140
 #, kde-format
@@ -351,7 +351,7 @@ msgstr ""
 #: kwave/main.cpp:143
 #, kde-format
 msgid "http://fripohled.blogspot.com"
-msgstr ""
+msgstr "http://fripohled.blogspot.com"
 
 #: kwave/main.cpp:145
 #, kde-format
@@ -413,22 +413,22 @@ msgstr "[ملفات...]"
 #: kwave/main.cpp:193
 #, kde-format
 msgid "Kwave"
-msgstr ""
+msgstr "موجة"
 
 #: kwave/main.cpp:195
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
-msgstr ""
+msgstr "محرر صوتي مبني على إطار كِيدِي 5"
 
 #: kwave/main.cpp:197
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
-msgstr ""
+msgstr "(ج) 2016، توماس إيشينباشر"
 
 #: kwave/MainWidget.cpp:93
 #, kde-format
 msgid "Kwave label list"
-msgstr ""
+msgstr "قائمة تسميات موجة"
 
 #: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1858
 #, kde-format
@@ -451,6 +451,8 @@ msgid ""
 "There already is a label at the position you have chosen.\n"
 "Do you want to replace it?"
 msgstr ""
+"يوجد تسمية فعلاً في الموضع الذي اخترته.\n"
+"هل تريد استبدالها؟"
 
 #: kwave/MainWidget.cpp:1105
 #, kde-format
@@ -610,27 +612,27 @@ msgstr "لا شيء"
 #: kwave/menus.config:83
 msgctxt "menu: /Edit/Selection/To Start"
 msgid "To Start"
-msgstr ""
+msgstr "إلى البداية"
 
 #: kwave/menus.config:84
 msgctxt "menu: /Edit/Selection/To End"
 msgid "To End"
-msgstr ""
+msgstr "إلى النهاية"
 
 #: kwave/menus.config:85
 msgctxt "menu: /Edit/Selection/Expand to Labels"
 msgid "Expand to Labels"
-msgstr ""
+msgstr "وسع التسمية"
 
 #: kwave/menus.config:86
 msgctxt "menu: /Edit/Selection/To Next Labels"
 msgid "To Next Labels"
-msgstr ""
+msgstr "إلى التسمية التالية"
 
 #: kwave/menus.config:87
 msgctxt "menu: /Edit/Selection/To Previous Labels"
 msgid "To Previous Labels"
-msgstr ""
+msgstr "إلى التسمية السابقة"
 
 #: kwave/menus.config:90
 msgctxt "menu: /Edit/Track/Add"
@@ -730,12 +732,12 @@ msgstr "بعّد"
 #: kwave/menus.config:126
 msgctxt "menu: /View/Zoom to Selection"
 msgid "Zoom to Selection"
-msgstr "كبر للتحديد"
+msgstr "كبّر للتحديد"
 
 #: kwave/menus.config:128
 msgctxt "menu: /View/Zoom to Whole Signal"
 msgid "Zoom to Whole Signal"
-msgstr ""
+msgstr "كبّر لكامل الإشارة"
 
 #: kwave/menus.config:129
 msgctxt "menu: /View/Zoom to 100%"
@@ -850,12 +852,12 @@ msgstr "المساواة"
 #: kwave/menus.config:165
 msgctxt "menu: /Fx/Fade In"
 msgid "Fade In"
-msgstr "ظهور تدريجي"
+msgstr "تلاشي للداخل"
 
 #: kwave/menus.config:168
 msgctxt "menu: /Fx/Fade Out"
 msgid "Fade Out"
-msgstr "اختفاء"
+msgstr "تلاشي للخارج"
 
 #: kwave/menus.config:171
 msgctxt "menu: /Fx/Amplify Free"
@@ -880,17 +882,17 @@ msgstr "منخفض التردد"
 #: kwave/menus.config:181
 msgctxt "menu: /Fx/Notch Filter"
 msgid "Notch Filter"
-msgstr ""
+msgstr "مرشح الشق"
 
 #: kwave/menus.config:182
 msgctxt "menu: /Fx/Band Pass"
 msgid "Band Pass"
-msgstr ""
+msgstr "مرشح تمرير النطاق"
 
 #: kwave/menus.config:187
 msgctxt "menu: /Fx/Pitch Shift"
 msgid "Pitch Shift"
-msgstr ""
+msgstr "تغيير درجة الصوت"
 
 #: kwave/menus.config:189
 msgctxt "menu: /Fx/Reverse"
@@ -905,17 +907,17 @@ msgstr "احسب"
 #: kwave/menus.config:204
 msgctxt "menu: /Calculate/Silence"
 msgid "Silence"
-msgstr "صمت"
+msgstr "الصمت"
 
 #: kwave/menus.config:206
 msgctxt "menu: /Calculate/Noise"
 msgid "Noise"
-msgstr "ضجيج"
+msgstr "الضجيج"
 
 #: kwave/menus.config:217
 msgctxt "menu: /Calculate/Sonagram"
 msgid "Sonagram"
-msgstr ""
+msgstr "السونوغرام"
 
 #: kwave/menus.config:227
 msgctxt "menu: /Window"
@@ -930,22 +932,22 @@ msgstr "النافذة التالية"
 #: kwave/menus.config:229
 msgctxt "menu: /Window/Previous Window"
 msgid "Previous Window"
-msgstr ""
+msgstr "النافذة السابقة"
 
 #: kwave/menus.config:230
 msgctxt "menu: /Window/Cascade Sub Windows"
 msgid "Cascade Sub Windows"
-msgstr ""
+msgstr "رتب النوافذ الفرعية بشكل متتالي"
 
 #: kwave/menus.config:231
 msgctxt "menu: /Window/Tile Sub Windows"
 msgid "Tile Sub Windows"
-msgstr ""
+msgstr "رتب النوافذ الفرعية على شكل قطع"
 
 #: kwave/menus.config:232
 msgctxt "menu: /Window/Arrange Sub Windows Vertically"
 msgid "Arrange Sub Windows Vertically"
-msgstr ""
+msgstr "رتب النوافذ الفرعية رأسيًا"
 
 #: kwave/menus.config:237
 msgctxt "menu: /Settings"
@@ -955,17 +957,17 @@ msgstr "إعدادات"
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in.../Separate Windows (SDI)"
 msgid "Separate Windows (SDI)"
-msgstr ""
+msgstr "نوافذ منفصلة (SDI)"
 
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in..."
 msgid "Show Files in..."
-msgstr ""
+msgstr "اعرض الملفات في…"
 
 #: kwave/menus.config:239
 msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
 msgid "Same Window (MDI)"
-msgstr ""
+msgstr "نفس النافذة (MDI)"
 
 #: kwave/menus.config:240
 msgctxt "menu: /Settings/Show Files in.../Tabs"
@@ -1000,7 +1002,7 @@ msgstr "صفّر شريط الأدوات"
 #: kwave/menus.config:249
 msgctxt "menu: /Settings/Re-enable all \"Do not ask again\" messages"
 msgid "Re-enable all \"Do not ask again\" messages"
-msgstr ""
+msgstr "أعد تمكين كل رسائل \"لا تسأل مجددًا\""
 
 #: kwave/menus.config:252
 msgctxt "menu: /Help/Contents"
@@ -1015,7 +1017,7 @@ msgstr "مساعدة"
 #: kwave/menus.config:253
 msgctxt "menu: /Help/About Kwave"
 msgid "About Kwave"
-msgstr ""
+msgstr "عن موجة"
 
 #: kwave/menus.config:254
 msgctxt "menu: /Help/About KDE"
@@ -1327,7 +1329,7 @@ msgstr "كبر للكل"
 #: kwave/ZoomToolBar.cpp:85
 #, kde-format
 msgid "Select zoom factor"
-msgstr ""
+msgstr "حدد معامل التكبير"
 
 #: kwave/ZoomToolBar.cpp:91 kwave/ZoomToolBar.cpp:92 kwave/ZoomToolBar.cpp:93
 #, kde-format
@@ -1699,22 +1701,22 @@ msgstr "ا&حفظ..."
 #: libgui/SignalWidget.cpp:265
 #, kde-format
 msgid "&Expand to Labels"
-msgstr ""
+msgstr "&وسع التسمية"
 
 #: libgui/SignalWidget.cpp:275
 #, kde-format
 msgid "To Next Labels"
-msgstr ""
+msgstr "إلى التسمية التالية"
 
 #: libgui/SignalWidget.cpp:285
 #, kde-format
 msgid "To Previous Labels"
-msgstr ""
+msgstr "إلى التسمية السابقة"
 
 #: libkwave/CodecManager.cpp:200
 #, kde-format
 msgid "Kwave Macro Files"
-msgstr ""
+msgstr "ملفات ماكرو لبرنامج موجة"
 
 #: libkwave/CodecManager.cpp:204
 #, kde-format
@@ -1809,7 +1811,7 @@ msgstr "Ogg Opus"
 #: libkwave/ConfirmCancelProxy.cpp:50
 #, kde-format
 msgid "Do you really want to abort the current action?"
-msgstr ""
+msgstr "أتريد حقًا إلغاء الإجراء الحالي؟"
 
 #: libkwave/FileInfo.cpp:37
 msgid "Album"
@@ -2022,11 +2024,11 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:156
 msgid "ID3 Tags"
-msgstr ""
+msgstr "وسوم ID3"
 
 #: libkwave/FileInfo.cpp:157
 msgid "List of ID3 Tags"
-msgstr ""
+msgstr "قائمة وسوم ID3"
 
 #: libkwave/FileInfo.cpp:160
 msgid "ISRC"
@@ -2114,7 +2116,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:206
 msgid "Mode Extension"
-msgstr ""
+msgstr "نمط الامتداد"
 
 #: libkwave/FileInfo.cpp:207
 msgid "MPEG Mode Extension (only if Joint Stereo)"
@@ -2298,7 +2300,7 @@ msgstr ""
 #: libkwave/FileInfo.cpp:300 plugins/fileinfo/CompressionWidgetBase.ui:236
 #, kde-format
 msgid "Base Quality"
-msgstr ""
+msgstr "الجودة الأساسية"
 
 #: libkwave/FileInfo.cpp:301
 msgid "Base quality of the compression in VBR mode"
@@ -2532,7 +2534,7 @@ msgstr "موسيقى تصويرية"
 
 #: libkwave/GenreType.cpp:127
 msgid "Euro-Techno"
-msgstr ""
+msgstr "تيكنو-اوروبي"
 
 #: libkwave/GenreType.cpp:128
 msgid "Ambient"
@@ -2540,11 +2542,11 @@ msgstr "امبيانت"
 
 #: libkwave/GenreType.cpp:129
 msgid "Trip-Hop"
-msgstr ""
+msgstr "تريب-هوب"
 
 #: libkwave/GenreType.cpp:130
 msgid "Vocal"
-msgstr ""
+msgstr "فوكال"
 
 #: libkwave/GenreType.cpp:131
 msgid "Jazz & Funk"
@@ -2564,7 +2566,7 @@ msgstr "كلاسيكي"
 
 #: libkwave/GenreType.cpp:135
 msgid "Instrumental"
-msgstr ""
+msgstr "انسترمنتل"
 
 #: libkwave/GenreType.cpp:136
 msgid "Acid"
@@ -2580,7 +2582,7 @@ msgstr "لعبة"
 
 #: libkwave/GenreType.cpp:139
 msgid "Sound Clip"
-msgstr ""
+msgstr "كليب غنائي"
 
 #: libkwave/GenreType.cpp:140
 msgid "Gospel"
@@ -2616,11 +2618,11 @@ msgstr "تأملي"
 
 #: libkwave/GenreType.cpp:148
 msgid "Instrumental Pop"
-msgstr ""
+msgstr "انسترومنتال بوب"
 
 #: libkwave/GenreType.cpp:149
 msgid "Instrumental Rock"
-msgstr ""
+msgstr "انسترومنتال روك"
 
 #: libkwave/GenreType.cpp:150
 msgid "Ethnic"
@@ -2632,19 +2634,19 @@ msgstr "القوطية"
 
 #: libkwave/GenreType.cpp:152
 msgid "Darkwave"
-msgstr ""
+msgstr "دارك وايف"
 
 #: libkwave/GenreType.cpp:153
 msgid "Techno-Industrial"
-msgstr ""
+msgstr "تيكنو-اندستريال"
 
 #: libkwave/GenreType.cpp:154
 msgid "Electronic"
-msgstr ""
+msgstr "إلكتروني"
 
 #: libkwave/GenreType.cpp:155
 msgid "Pop-Folk"
-msgstr ""
+msgstr "بوب ​​​​شعبي"
 
 #: libkwave/GenreType.cpp:156
 msgid "Eurodance"
@@ -2656,7 +2658,7 @@ msgstr "حلم"
 
 #: libkwave/GenreType.cpp:158
 msgid "Southern Rock"
-msgstr ""
+msgstr "روك جنوبي"
 
 #: libkwave/GenreType.cpp:159
 msgid "Comedy"
@@ -2676,11 +2678,11 @@ msgstr "أعلى 40"
 
 #: libkwave/GenreType.cpp:163
 msgid "Christian Rap"
-msgstr ""
+msgstr "راب مسيحي"
 
 #: libkwave/GenreType.cpp:164
 msgid "Pop/Funk"
-msgstr ""
+msgstr "بوب/فونك"
 
 #: libkwave/GenreType.cpp:165
 msgid "Jungle"
@@ -2688,7 +2690,7 @@ msgstr "أجمة"
 
 #: libkwave/GenreType.cpp:166
 msgid "Native American"
-msgstr ""
+msgstr "امريكي أصلي"
 
 #: libkwave/GenreType.cpp:167
 msgid "Cabaret"
@@ -2696,19 +2698,19 @@ msgstr "كباريه"
 
 #: libkwave/GenreType.cpp:168
 msgid "New Wave"
-msgstr ""
+msgstr "نيو ويف"
 
 #: libkwave/GenreType.cpp:169
 msgid "Psychedelic"
-msgstr ""
+msgstr "بسيكُدلِك"
 
 #: libkwave/GenreType.cpp:170
 msgid "Rave"
-msgstr ""
+msgstr "رايف"
 
 #: libkwave/GenreType.cpp:171
 msgid "Showtunes"
-msgstr ""
+msgstr "شاوتونز"
 
 #: libkwave/GenreType.cpp:172
 msgid "Trailer"
@@ -2716,19 +2718,19 @@ msgstr "العرض الدعائي"
 
 #: libkwave/GenreType.cpp:173
 msgid "Lo-Fi"
-msgstr ""
+msgstr "لو-في"
 
 #: libkwave/GenreType.cpp:174
 msgid "Tribal"
-msgstr ""
+msgstr "قبلي"
 
 #: libkwave/GenreType.cpp:175
 msgid "Acid Punk"
-msgstr ""
+msgstr "اسِد بانك"
 
 #: libkwave/GenreType.cpp:176
 msgid "Acid Jazz"
-msgstr ""
+msgstr "اسِد جاز"
 
 #: libkwave/GenreType.cpp:177
 msgid "Polka"
@@ -2736,7 +2738,7 @@ msgstr "بولكا"
 
 #: libkwave/GenreType.cpp:178
 msgid "Retro"
-msgstr ""
+msgstr "عتيق"
 
 #: libkwave/GenreType.cpp:179
 msgid "Musical"
@@ -2744,7 +2746,7 @@ msgstr "موسيقي"
 
 #: libkwave/GenreType.cpp:180
 msgid "Rock 'n' Roll"
-msgstr ""
+msgstr "روك آند رول"
 
 #: libkwave/GenreType.cpp:181
 msgid "Hard Rock"
@@ -2760,7 +2762,7 @@ msgstr "فولك روك"
 
 #: libkwave/GenreType.cpp:186
 msgid "National Folk"
-msgstr ""
+msgstr "فولك محلي"
 
 #: libkwave/GenreType.cpp:187
 msgid "Swing"
@@ -2768,7 +2770,7 @@ msgstr "أرجوحة"
 
 #: libkwave/GenreType.cpp:188
 msgid "Fast Fusion"
-msgstr ""
+msgstr "فيوجن سريع"
 
 #: libkwave/GenreType.cpp:189
 msgid "Bebop"
@@ -2788,11 +2790,11 @@ msgstr "سلتيك"
 
 #: libkwave/GenreType.cpp:193
 msgid "Bluegrass"
-msgstr ""
+msgstr "بلوكراس"
 
 #: libkwave/GenreType.cpp:194
 msgid "Avantgarde"
-msgstr ""
+msgstr "ريادي"
 
 #: libkwave/GenreType.cpp:195
 msgid "Gothic Rock"
@@ -2808,11 +2810,11 @@ msgstr "روك سايكدلي"
 
 #: libkwave/GenreType.cpp:198
 msgid "Symphonic Rock"
-msgstr ""
+msgstr "روك سيمفوني"
 
 #: libkwave/GenreType.cpp:199
 msgid "Slow Rock"
-msgstr ""
+msgstr "روك بطيء"
 
 #: libkwave/GenreType.cpp:200
 msgid "Big Band"
@@ -2820,7 +2822,7 @@ msgstr "بيغ باند"
 
 #: libkwave/GenreType.cpp:201
 msgid "Chorus"
-msgstr ""
+msgstr "جوقة"
 
 #: libkwave/GenreType.cpp:202
 msgid "Easy Listening"
@@ -2828,7 +2830,7 @@ msgstr "إيزي ليسينينج"
 
 #: libkwave/GenreType.cpp:203
 msgid "Acoustic"
-msgstr ""
+msgstr "سمعي"
 
 #: libkwave/GenreType.cpp:204
 msgid "Humour"
@@ -2840,7 +2842,7 @@ msgstr "حديث"
 
 #: libkwave/GenreType.cpp:206
 msgid "Chanson"
-msgstr ""
+msgstr "أغنية"
 
 #: libkwave/GenreType.cpp:207
 msgid "Opera"
@@ -2860,15 +2862,15 @@ msgstr "سيمفونية"
 
 #: libkwave/GenreType.cpp:211
 msgid "Booty Bass"
-msgstr ""
+msgstr "بوتي باس"
 
 #: libkwave/GenreType.cpp:212
 msgid "Primus"
-msgstr ""
+msgstr "بريموس"
 
 #: libkwave/GenreType.cpp:213
 msgid "Porn Groove"
-msgstr ""
+msgstr "بورن جروف"
 
 #: libkwave/GenreType.cpp:214
 msgid "Satire"
@@ -2876,11 +2878,11 @@ msgstr "هجاء"
 
 #: libkwave/GenreType.cpp:215
 msgid "Slow Jam"
-msgstr ""
+msgstr "جام بطيء"
 
 #: libkwave/GenreType.cpp:216
 msgid "Club"
-msgstr ""
+msgstr "نادي"
 
 #: libkwave/GenreType.cpp:217
 msgid "Tango"
@@ -2900,15 +2902,15 @@ msgstr "بالاد"
 
 #: libkwave/GenreType.cpp:221
 msgid "Power Ballad"
-msgstr ""
+msgstr "شعبية قوية"
 
 #: libkwave/GenreType.cpp:222
 msgid "Rhythmic Soul"
-msgstr ""
+msgstr "صول ايقاعي"
 
 #: libkwave/GenreType.cpp:223
 msgid "Freestyle"
-msgstr ""
+msgstr "أسلوب حر"
 
 #: libkwave/GenreType.cpp:224
 msgid "Duet"
@@ -2920,7 +2922,7 @@ msgstr "بانك روك"
 
 #: libkwave/GenreType.cpp:226
 msgid "Drum Solo"
-msgstr ""
+msgstr "سولو الطبل"
 
 #: libkwave/GenreType.cpp:227
 msgid "A Cappella"
@@ -2928,11 +2930,11 @@ msgstr "أكابيلا"
 
 #: libkwave/GenreType.cpp:228
 msgid "Euro-House"
-msgstr ""
+msgstr "أوروبي-هاوس"
 
 #: libkwave/GenreType.cpp:229
 msgid "Dance Hall"
-msgstr ""
+msgstr "قاعة الرقص"
 
 #: libkwave/GenreType.cpp:230
 msgid "Goa"
@@ -2940,15 +2942,15 @@ msgstr "غوا"
 
 #: libkwave/GenreType.cpp:231
 msgid "Drum & Bass"
-msgstr ""
+msgstr "طبل و جهير"
 
 #: libkwave/GenreType.cpp:232
 msgid "Club-House"
-msgstr ""
+msgstr "نادي-منزل"
 
 #: libkwave/GenreType.cpp:233
 msgid "Hardcore Techno"
-msgstr ""
+msgstr "تكنو هاردكور"
 
 #: libkwave/GenreType.cpp:234
 msgid "Terror"
@@ -2956,7 +2958,7 @@ msgstr "ترهيب"
 
 #: libkwave/GenreType.cpp:235
 msgid "Indie"
-msgstr ""
+msgstr "مستقل"
 
 #: libkwave/GenreType.cpp:236
 msgid "BritPop"
@@ -2964,11 +2966,11 @@ msgstr "بريت بوب"
 
 #: libkwave/GenreType.cpp:237
 msgid "Negerpunk"
-msgstr ""
+msgstr "بانك الغنج"
 
 #: libkwave/GenreType.cpp:238
 msgid "Polsk Punk"
-msgstr ""
+msgstr "بانك بولوني"
 
 #: libkwave/GenreType.cpp:239
 msgid "Beat"
@@ -2976,7 +2978,7 @@ msgstr "نبضة"
 
 #: libkwave/GenreType.cpp:240
 msgid "Christian Gangsta Rap"
-msgstr ""
+msgstr "راب غانجستا مسيحي"
 
 #: libkwave/GenreType.cpp:241
 msgid "Heavy Metal"
@@ -2992,7 +2994,7 @@ msgstr "خط تحويل"
 
 #: libkwave/GenreType.cpp:244
 msgid "Contemporary Christian"
-msgstr ""
+msgstr "مسيحي معاصر"
 
 #: libkwave/GenreType.cpp:245
 msgid "Christian Rock"
@@ -3000,7 +3002,7 @@ msgstr "روك مسيحي"
 
 #: libkwave/GenreType.cpp:248
 msgid "Merengue"
-msgstr ""
+msgstr "ميرينجو"
 
 #: libkwave/GenreType.cpp:249
 msgid "Salsa"
@@ -3020,7 +3022,7 @@ msgstr "جِبوب"
 
 #: libkwave/GenreType.cpp:253
 msgid "SynthPop"
-msgstr ""
+msgstr "سينثبوب"
 
 #: libkwave/GenreType.cpp:256
 msgid "Abstract"
@@ -3028,7 +3030,7 @@ msgstr "تخيل"
 
 #: libkwave/GenreType.cpp:257
 msgid "Art Rock"
-msgstr ""
+msgstr "آرت روك"
 
 #: libkwave/GenreType.cpp:258
 msgid "Baroque"
@@ -3040,31 +3042,31 @@ msgstr "بانغرا"
 
 #: libkwave/GenreType.cpp:260
 msgid "Big Beat"
-msgstr ""
+msgstr "إيقاع قوي"
 
 #: libkwave/GenreType.cpp:261
 msgid "Breakbeat"
-msgstr ""
+msgstr "إيقاع كسر"
 
 #: libkwave/GenreType.cpp:262
 msgid "Chillout"
-msgstr ""
+msgstr "استرخاء"
 
 #: libkwave/GenreType.cpp:263
 msgid "Downtempo"
-msgstr ""
+msgstr "داونتمبو"
 
 #: libkwave/GenreType.cpp:264
 msgid "Dub"
-msgstr ""
+msgstr "داب"
 
 #: libkwave/GenreType.cpp:265
 msgid "EBM"
-msgstr ""
+msgstr "EBM"
 
 #: libkwave/GenreType.cpp:266
 msgid "Eclectic"
-msgstr ""
+msgstr "إيكليكتيك"
 
 #: libkwave/GenreType.cpp:267
 msgid "Electro"
@@ -3072,7 +3074,7 @@ msgstr "إليكترو"
 
 #: libkwave/GenreType.cpp:268
 msgid "Electroclash"
-msgstr ""
+msgstr "إلكتروكلاش"
 
 #: libkwave/GenreType.cpp:269
 msgid "Emo"
@@ -3092,19 +3094,19 @@ msgstr "عام"
 
 #: libkwave/GenreType.cpp:273
 msgid "IDM"
-msgstr ""
+msgstr "IDM"
 
 #: libkwave/GenreType.cpp:274
 msgid "Illbient"
-msgstr ""
+msgstr "إيلبيانت"
 
 #: libkwave/GenreType.cpp:275
 msgid "Industro-Goth"
-msgstr ""
+msgstr "صناعي-قوطي"
 
 #: libkwave/GenreType.cpp:276
 msgid "Jam Band"
-msgstr ""
+msgstr "فرقة موسيقى الجام"
 
 #: libkwave/GenreType.cpp:277
 msgid "Krautrock"
@@ -3112,15 +3114,15 @@ msgstr "كراوتروك"
 
 #: libkwave/GenreType.cpp:278
 msgid "Leftfield"
-msgstr ""
+msgstr "ليفتفيلد"
 
 #: libkwave/GenreType.cpp:279
 msgid "Lounge"
-msgstr ""
+msgstr "صالة"
 
 #: libkwave/GenreType.cpp:280
 msgid "Math Rock"
-msgstr ""
+msgstr "روك رياضي"
 
 #: libkwave/GenreType.cpp:281
 msgid "New Romantic"
@@ -3128,31 +3130,31 @@ msgstr "نيو رومانتيك"
 
 #: libkwave/GenreType.cpp:282
 msgid "Nu-Breakz"
-msgstr ""
+msgstr "نو-بريكز"
 
 #: libkwave/GenreType.cpp:283
 msgid "Post-Punk"
-msgstr "بوست بانك"
+msgstr "ما بعد بانك"
 
 #: libkwave/GenreType.cpp:284
 msgid "Post-Rock"
-msgstr ""
+msgstr "ما بعد الروك"
 
 #: libkwave/GenreType.cpp:285
 msgid "Psytrance"
-msgstr ""
+msgstr "سيترانس"
 
 #: libkwave/GenreType.cpp:286
 msgid "Shoegaze"
-msgstr ""
+msgstr "شوجيز"
 
 #: libkwave/GenreType.cpp:287
 msgid "Space Rock"
-msgstr ""
+msgstr "روك الفضاء"
 
 #: libkwave/GenreType.cpp:288
 msgid "Trop Rock"
-msgstr ""
+msgstr "تروب روك"
 
 #: libkwave/GenreType.cpp:289
 msgid "World Music"
@@ -3160,7 +3162,7 @@ msgstr "موسيقى العالم"
 
 #: libkwave/GenreType.cpp:290
 msgid "Neoclassical"
-msgstr ""
+msgstr "كلاسيكي حديث"
 
 #: libkwave/GenreType.cpp:291
 msgid "Audiobook"
@@ -3168,11 +3170,11 @@ msgstr "كتاب مسموع"
 
 #: libkwave/GenreType.cpp:292
 msgid "Audio Theatre"
-msgstr ""
+msgstr "مسرح صوتي"
 
 #: libkwave/GenreType.cpp:293
 msgid "Neue Deutsche Welle"
-msgstr ""
+msgstr "الموجة الألمانية الجديدة"
 
 #: libkwave/GenreType.cpp:294
 msgid "Podcast"
@@ -3192,11 +3194,11 @@ msgstr "دبستيب"
 
 #: libkwave/GenreType.cpp:298
 msgid "Garage Rock"
-msgstr ""
+msgstr "روك الجراج"
 
 #: libkwave/GenreType.cpp:299
 msgid "Psybient"
-msgstr ""
+msgstr "سايبينت"
 
 #: libkwave/GenreType.cpp:305
 msgid "Unknown"
@@ -3250,11 +3252,11 @@ msgstr ""
 
 #: libkwave/PlayBackTypesMap.cpp:44 plugins/record/RecordTypesMap.cpp:41
 msgid "Pulse Audio"
-msgstr ""
+msgstr "بولس أوديو"
 
 #: libkwave/PlayBackTypesMap.cpp:49 plugins/record/RecordTypesMap.cpp:35
 msgid "Qt Multimedia Audio"
-msgstr ""
+msgstr "كيو تي ملتيميديا ​​أوديو"
 
 #: libkwave/Plugin.cpp:215
 #, kde-format
@@ -3374,22 +3376,22 @@ msgstr ""
 #: libkwave/SignalManager.cpp:855
 #, kde-format
 msgid "Select Track"
-msgstr ""
+msgstr "حدد المسار"
 
 #: libkwave/SignalManager.cpp:860
 #, kde-format
 msgid "Deselect Track"
-msgstr ""
+msgstr "ألغ تحديد المسار"
 
 #: libkwave/SignalManager.cpp:865
 #, kde-format
 msgid "Toggle Track Selection"
-msgstr ""
+msgstr "بدل تحديد المسار"
 
 #: libkwave/SignalManager.cpp:907
 #, kde-format
 msgid "Append Track"
-msgstr ""
+msgstr "ألحق مسار"
 
 #: libkwave/SignalManager.cpp:914 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
@@ -3409,12 +3411,12 @@ msgstr "أدرج فرغ"
 #: libkwave/SignalManager.cpp:1362
 #, kde-format
 msgid "Not enough memory for saving undo information."
-msgstr ""
+msgstr "لا توجد ذاكرة كافية لحفظ معلومات التراجع."
 
 #: libkwave/SignalManager.cpp:1364
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
-msgstr ""
+msgstr "هل تريد الاستمرار دون إمكانية التراجع؟"
 
 #: libkwave/SignalManager.cpp:1366
 #, kde-format
@@ -3422,6 +3424,7 @@ msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
 "under '%1'/'%2'."
 msgstr ""
+"<b>تلميح</b>: يمكنك تكوين مقدار الذاكرة <br>المتاحة للتراجع ضمن '%1'/'%2'."
 
 #: libkwave/SignalManager.cpp:1368
 #, kde-format
@@ -3436,27 +3439,27 @@ msgstr "الذاكرة"
 #: libkwave/SignalManager.cpp:1513 libkwave/SignalManager.cpp:1520
 #, kde-format
 msgid "Last Action"
-msgstr ""
+msgstr "أخر إجراء"
 
 #: libkwave/SignalManager.cpp:1810
 #, kde-format
 msgid "Modify File Info"
-msgstr ""
+msgstr "عدّل معلومات الملف"
 
 #: libkwave/SignalManager.cpp:1885
 #, kde-format
 msgid "Delete All Labels"
-msgstr ""
+msgstr "احذف كل التسميات"
 
 #: libkwave/SignalManager.cpp:1904
 #, kde-format
 msgid "Delete Label"
-msgstr ""
+msgstr "احذف التسمية"
 
 #: libkwave/SignalManager.cpp:2002
 #, kde-format
 msgid "Manual Track Selection"
-msgstr ""
+msgstr "تحديد يدوي للمسار"
 
 #: libkwave/SignalManager.cpp:2005
 #, kde-format
@@ -3481,12 +3484,12 @@ msgctxt ""
 "name of the undo action for inserting multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Insert %1 %2 objects"
-msgstr ""
+msgstr "أدرج %1 %2 كائن"
 
 #: libkwave/undo/UndoAddMetaDataAction.cpp:120
 #, kde-format
 msgid "Insert Meta Data"
-msgstr ""
+msgstr "أدرج البيانات الوصفية"
 
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:60
 #, kde-format
@@ -3500,17 +3503,17 @@ msgctxt ""
 "name of the undo action for deleting multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Delete %1 %2 objects"
-msgstr ""
+msgstr "احذف %1 %2 كائن"
 
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:83
 #, kde-format
 msgid "Delete Meta Data"
-msgstr ""
+msgstr "احذف البيانات الوصفية"
 
 #: libkwave/undo/UndoModifyAction.cpp:45
 #, kde-format
 msgid "Modify Samples"
-msgstr ""
+msgstr "عدّل العينات"
 
 #: libkwave/undo/UndoModifyMetaDataAction.cpp:57
 #, kde-format
@@ -3524,18 +3527,18 @@ msgctxt ""
 "name of the undo action for modifying multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Modify %1 %2 objects"
-msgstr ""
+msgstr "عدّل %1 %2 كائن"
 
 #: libkwave/undo/UndoModifyMetaDataAction.cpp:81
 #, kde-format
 msgid "Modify Meta Data"
-msgstr ""
+msgstr "عدّل البيانات الوصفيّة"
 
 #: libkwave/Utils.cpp:121
 #, kde-format
 msgctxt "time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds"
 msgid "%1:%2:%3.%4"
-msgstr ""
+msgstr "%1:%2:%3.%4"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
 #: libkwave/WindowFunction.cpp:32 plugins/fileinfo/FileInfoDlg.ui:987
@@ -3545,15 +3548,15 @@ msgstr "لا شيء"
 
 #: libkwave/WindowFunction.cpp:34
 msgid "Hamming"
-msgstr ""
+msgstr "هامينغ"
 
 #: libkwave/WindowFunction.cpp:36
 msgid "Hanning"
-msgstr ""
+msgstr "هاننج"
 
 #: libkwave/WindowFunction.cpp:38
 msgid "Blackman"
-msgstr ""
+msgstr "بلاكمان"
 
 #: plugins/about/AboutDialog.cpp:129
 #, kde-format
@@ -3573,19 +3576,19 @@ msgstr "مؤلفين"
 #: plugins/about/AboutDialog.cpp:153
 #, kde-format
 msgid "Plugins found: %1"
-msgstr ""
+msgstr "الملحقات الموجودة: %1"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, AboutDialogBase)
 #: plugins/about/AboutDialogBase.ui:20
 #, kde-format
 msgid "About Kwave"
-msgstr ""
+msgstr "عن موجة"
 
 #. i18n: ectx: property (text), widget (QLabel, header)
 #: plugins/about/AboutDialogBase.ui:53
 #, kde-format
 msgid "<h1>Kwave - a sound editor by KDE</h1>"
-msgstr ""
+msgstr "<h1>موجدة محرر صوت من كيدي</h1>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, about_tab)
 #: plugins/about/AboutDialogBase.ui:67
@@ -3622,7 +3625,7 @@ msgstr "الشكر إلى"
 #: plugins/about/AboutDialogBase.ui:216
 #, kde-format
 msgid "Plugins info"
-msgstr ""
+msgstr "معلومات الملحقات"
 
 #. i18n: ectx: attribute (title), widget (QWidget, translations_tab)
 #: plugins/about/AboutDialogBase.ui:243
@@ -4140,7 +4143,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:233
 #, kde-format
 msgid "Raw Format:"
-msgstr ""
+msgstr "التنسيق الخام:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblByteOrder)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:240
@@ -4389,7 +4392,7 @@ msgstr "معلومات"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:932
 #, kde-format
 msgid "Encoder Help:"
-msgstr ""
+msgstr "مساعد المرمز:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:957
@@ -4401,7 +4404,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:967
 #, kde-format
 msgid "Version Info:"
-msgstr ""
+msgstr "معلومات الإصدارة:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edVersionInfo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1005
@@ -4630,7 +4633,7 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:143
 #, kde-format
 msgid "Auto Repair"
-msgstr ""
+msgstr "الإصلاح الآلي"
 
 #: plugins/codec_wav/WavDecoder.cpp:149
 #, kde-format
@@ -4958,7 +4961,7 @@ msgstr ""
 #: plugins/fileinfo/CompressionWidgetBase.ui:95
 #, kde-format
 msgid "VBR:"
-msgstr ""
+msgstr "معدل بت متغير:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighestBitrate)
 #: plugins/fileinfo/CompressionWidgetBase.ui:105
@@ -4976,7 +4979,7 @@ msgstr ""
 #: plugins/fileinfo/CompressionWidgetBase.ui:184
 #, no-c-format, kde-format
 msgid " %"
-msgstr ""
+msgstr " %"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:213
 #, kde-format
@@ -5243,13 +5246,13 @@ msgstr "96000"
 #: plugins/fileinfo/FileInfoDlg.ui:388
 #, kde-format
 msgid "samples per second"
-msgstr ""
+msgstr "عينات لكل ثانية"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompression_2)
 #: plugins/fileinfo/FileInfoDlg.ui:698
 #, kde-format
 msgid "Encoding Mode:"
-msgstr ""
+msgstr "نمط الترميز:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_mpeg)
 #: plugins/fileinfo/FileInfoDlg.ui:738
@@ -5261,13 +5264,13 @@ msgstr "إم بي إي جي"
 #: plugins/fileinfo/FileInfoDlg.ui:790
 #, kde-format
 msgid "Intensity Stereo"
-msgstr ""
+msgstr "مجسم شديد"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegMSStereo)
 #: plugins/fileinfo/FileInfoDlg.ui:797
 #, kde-format
 msgid "MS Stereo"
-msgstr ""
+msgstr "مجسم وسط-جانبي"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegOriginal)
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegCopyrighted)
@@ -5280,25 +5283,25 @@ msgstr "نعم"
 #: plugins/fileinfo/FileInfoDlg.ui:853
 #, kde-format
 msgid "Bands 4 to 31"
-msgstr ""
+msgstr "النطاقات من 4 إلى 31"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:858
 #, kde-format
 msgid "Bands 8 to 31"
-msgstr ""
+msgstr "النطاقات من 8 إلى 31"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:863
 #, kde-format
 msgid "Bands 12 to 31"
-msgstr ""
+msgstr "النطاقات من 12 إلى 31"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:868
 #, kde-format
 msgid "Bands 16 to 31"
-msgstr ""
+msgstr "النطاقات من 16 إلى 31"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
 #: plugins/fileinfo/FileInfoDlg.ui:997
@@ -5310,37 +5313,37 @@ msgstr "CCIT J.17"
 #: plugins/fileinfo/FileInfoDlg.ui:1006
 #, kde-format
 msgid "MPEG Version 1 (ISO/IEC 11172-3)"
-msgstr ""
+msgstr "MPEG الإصدار 1 (ISO/IEC 11172-3)"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegVersion)
 #: plugins/fileinfo/FileInfoDlg.ui:1011
 #, kde-format
 msgid "MPEG Version 2 (ISO/IEC 13818-3)"
-msgstr ""
+msgstr "MPEG الإصدار 2 (ISO/IEC 13818-3)"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegVersion)
 #: plugins/fileinfo/FileInfoDlg.ui:1016
 #, kde-format
 msgid "MPEG Version 2.5 (unofficial)"
-msgstr ""
+msgstr "MPEG الإصدار 2.5 (غير رسمية)"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegLayer)
 #: plugins/fileinfo/FileInfoDlg.ui:1035
 #, kde-format
 msgid "Layer I"
-msgstr ""
+msgstr "الطبقة I"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegLayer)
 #: plugins/fileinfo/FileInfoDlg.ui:1040
 #, kde-format
 msgid "Layer II"
-msgstr ""
+msgstr "الطبقة II"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegLayer)
 #: plugins/fileinfo/FileInfoDlg.ui:1045
 #, kde-format
 msgid "Layer III"
-msgstr ""
+msgstr "الطبقة III"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_content)
 #: plugins/fileinfo/FileInfoDlg.ui:1080
@@ -5812,7 +5815,7 @@ msgstr ""
 #: plugins/record/Record-Qt.cpp:49
 #, kde-format
 msgid "Default device"
-msgstr ""
+msgstr "الجهاز المبدئي"
 
 #: plugins/playback/PlayBack-ALSA.cpp:54
 #, kde-format
@@ -5864,7 +5867,7 @@ msgstr ""
 #: plugins/playback/PlayBack-ALSA.cpp:851
 #, kde-format
 msgid "DMIX plugin"
-msgstr ""
+msgstr "الملحقة DMIX"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -5992,7 +5995,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:20
 #, kde-format
 msgid "Playback"
-msgstr "تشغيل"
+msgstr "التشغيل"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
 #: plugins/playback/PlayBackDlg.ui:38
@@ -6145,7 +6148,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:388
 #, kde-format
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btTest)
 #: plugins/playback/PlayBackDlg.ui:458
@@ -6175,7 +6178,7 @@ msgstr ""
 #: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format
 msgid "Playback Test"
-msgstr ""
+msgstr "اختبار التشغيل"
 
 #: plugins/playback/PlayBackPlugin.cpp:436
 #, kde-format
@@ -6192,7 +6195,7 @@ msgstr "%1 دسب"
 #: plugins/record/Record-ALSA.cpp:36
 #, kde-format
 msgid "DSNOOP plugin"
-msgstr ""
+msgstr "ملحقة DSNOOP"
 
 #: plugins/record/Record-OSS.cpp:306
 #, kde-format
@@ -6212,7 +6215,7 @@ msgstr ""
 #: plugins/record/Record-PulseAudio.cpp:216
 #, kde-format
 msgid "Kwave record"
-msgstr ""
+msgstr "تسجيل موجة"
 
 #: plugins/record/RecordDialog.cpp:309
 #, kde-format
@@ -6496,7 +6499,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:433
 #, kde-format
 msgid "Amplify:"
-msgstr ""
+msgstr "التضخيم:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelAmplify)
 #: plugins/record/RecordDlg.ui:452
@@ -6768,7 +6771,7 @@ msgstr "اعكس"
 #: plugins/samplerate/SampleRatePlugin.cpp:100
 #, kde-format
 msgid "Change sample rate"
-msgstr ""
+msgstr "غيّر معدّل الاعتيان"
 
 #: plugins/samplerate/SampleRatePlugin.cpp:161
 #, kde-format
@@ -6883,7 +6886,7 @@ msgstr "مثال:"
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:189
 #, kde-format
 msgid "Save selection only"
-msgstr ""
+msgstr "احفظ التحديد فقط"
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:169
 #, kde-format
@@ -7084,17 +7087,17 @@ msgstr "?:"
 #: plugins/sonagram/SonagramWindow.cpp:529
 #, kde-format
 msgid "Sonagram"
-msgstr ""
+msgstr "السونوغرام"
 
 #: plugins/sonagram/SonagramWindow.cpp:119
 #, kde-format
 msgid "&Sonagram"
-msgstr ""
+msgstr "ال&سونوغرام"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
 #, kde-format
 msgid "&Export to Bitmap..."
-msgstr ""
+msgstr "&صدّر إلى صورة نقطية…"
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7104,12 +7107,12 @@ msgstr "أ&غلق"
 #: plugins/sonagram/SonagramWindow.cpp:146
 #, kde-format
 msgid "Time: ------ ms"
-msgstr ""
+msgstr "الوقت: ------ ملي ثانية"
 
 #: plugins/sonagram/SonagramWindow.cpp:148
 #, kde-format
 msgid "Frequency: ------ Hz"
-msgstr ""
+msgstr "التّردّد: ------ هرتز"
 
 #: plugins/sonagram/SonagramWindow.cpp:150
 #, kde-format
@@ -7119,12 +7122,12 @@ msgstr "السعه: --- ٪"
 #: plugins/sonagram/SonagramWindow.cpp:199
 #, kde-format
 msgid "Time: 0 ms"
-msgstr ""
+msgstr "الوقت: 0 ملي ثانية"
 
 #: plugins/sonagram/SonagramWindow.cpp:200
 #, kde-format
 msgid "Frequency: 0 Hz"
-msgstr ""
+msgstr "التّردّد: 0 هرتز"
 
 #: plugins/sonagram/SonagramWindow.cpp:201
 #, kde-format
@@ -7134,12 +7137,12 @@ msgstr "السعه: --- ٪"
 #: plugins/sonagram/SonagramWindow.cpp:230
 #, kde-format
 msgid "Save Sonagram"
-msgstr ""
+msgstr "احفظ السونوغرام"
 
 #: plugins/sonagram/SonagramWindow.cpp:528
 #, kde-format
 msgid "Sonagram of %1"
-msgstr ""
+msgstr "سونوغرام %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:552
 #, kde-format
@@ -7149,7 +7152,7 @@ msgstr "الوقت: %1"
 #: plugins/sonagram/SonagramWindow.cpp:556
 #, kde-format
 msgid "Frequency: %1 Hz"
-msgstr ""
+msgstr "التّردّد: %1 هرتز"
 
 #: plugins/sonagram/SonagramWindow.cpp:565
 #, kde-format
@@ -7160,30 +7163,30 @@ msgstr "مجال: %1٪"
 #: plugins/stringenter/StringEnterDlg.ui:21
 #, kde-format
 msgid "Enter Command..."
-msgstr ""
+msgstr "أدخِل أمرًا..."
 
 #. i18n: ectx: property (text), widget (QLabel, lblCommand)
 #: plugins/stringenter/StringEnterDlg.ui:36
 #, kde-format
 msgid "Enter Command:"
-msgstr ""
+msgstr "أدخِل أمرًا:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edCommand)
 #: plugins/stringenter/StringEnterDlg.ui:68
 #, kde-format
 msgid "please enter a text command here..."
-msgstr ""
+msgstr "الرجاء إدخال أمر نصي هنا…"
 
 #: plugins/stringenter/StringEnterPlugin.cpp:58
 msgctxt "menu: /Settings/Enter Command"
 msgid "Enter Command"
-msgstr ""
+msgstr "أدخِل أمرًا"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:64
 #, kde-format
 msgid "change volume by factor"
-msgstr ""
+msgstr "غيِّر مستوى الصوت بمعامل"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:68
@@ -7192,6 +7195,8 @@ msgid ""
 "Increments or decrements the volume by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
+"يزيد أو ينقص مستوى الصوت بمقدار عامل حسابي.\n"
+"على سبيل المثال: \"x1\"، \"x2\"، \"/ 4\""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:71
@@ -7203,7 +7208,7 @@ msgstr "ال&عامل"
 #: plugins/volume/VolumeDlg.ui:84
 #, kde-format
 msgid "change volume by percentage"
-msgstr ""
+msgstr "غيِّر مستوى الصوت بالنسبة المئوية"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/volume/VolumeDlg.ui:88
@@ -7212,12 +7217,14 @@ msgid ""
 "Sets the volume to a relative percentage of the original level.\n"
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
+"يضبط مستوى الصوت على نسبة مئوية نسبية من المستوى الأصلي.\n"
+"على سبيل المثال: \"50%\"، \"75%\"، أو \"125%\"."
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:104
 #, kde-format
 msgid "change volume in dB"
-msgstr ""
+msgstr "غيِّر مستوى الصوت بالديسيبل"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:108
@@ -7226,8 +7233,10 @@ msgid ""
 "Increments or decrements the volume in logarithmic scale (decibel).\n"
 "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 msgstr ""
+"يزيد أو ينقص مستوى الصوت بالديسيبل.\n"
+"على سبيل المثال: \"+3 ديسيبل\"، \"+6 ديسيبل\"، \"-3 ديسيبل\"."
 
 #: plugins/zero/ZeroPlugin.cpp:61
 #, kde-format
 msgid "Silence"
-msgstr "صمت"
+msgstr "الصمت"

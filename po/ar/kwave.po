@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-16 00:42+0000\n"
-"PO-Revision-Date: 2025-08-23 18:34+0400\n"
+"PO-Revision-Date: 2025-08-24 22:08+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -31,12 +31,12 @@ msgstr "zayed.alsaidi@gmail.com"
 #: kwave/App.cpp:150
 #, kde-format
 msgid "Reading configuration..."
-msgstr ""
+msgstr "يقرأ الإعدادات…"
 
 #: kwave/App.cpp:230
 #, kde-format
 msgid "Opening main window..."
-msgstr ""
+msgstr "يفتح النافذة الرئيسة…"
 
 #: kwave/App.cpp:277
 #, kde-format
@@ -61,7 +61,7 @@ msgstr "فشل"
 #: kwave/FileContext.cpp:232
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
-msgstr ""
+msgstr "لم يُثبّت موجّة بشكل صحيح. لم يُعثر على أيّ ملحقة!"
 
 #: kwave/FileContext.cpp:238
 #, kde-format
@@ -98,6 +98,8 @@ msgid ""
 "This file has been modified, changes will be lost.\n"
 "Do you want to continue?"
 msgstr ""
+"لقد عُدّل هذا الملف، ستضيع التغييرات.\n"
+"أتريد المتابعة؟"
 
 #: kwave/FileContext.cpp:983
 #, kde-format
@@ -110,6 +112,8 @@ msgid ""
 "The file '%1' already exists.\n"
 "Do you really want to overwrite it?"
 msgstr ""
+"الملف '%1' موجود مسبقًا.\n"
+"أتريد حقًا الاستبدال؟"
 
 #: kwave/FileContext.cpp:1093
 #, kde-format
@@ -117,16 +121,18 @@ msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"عُدل هذا الملف.\n"
+"أتريد حفظه؟"
 
 #: kwave/main.cpp:47
 #, kde-format
 msgid "Thomas Eschenbacher"
-msgstr ""
+msgstr "توماس إيشينباخر"
 
 #: kwave/main.cpp:48
 #, kde-format
 msgid "Project leader since 2000, core development"
-msgstr ""
+msgstr "قائد المشروع منذ 2000، التطوير الأساسي"
 
 #: kwave/main.cpp:50
 #, kde-format
@@ -136,12 +142,12 @@ msgstr "http://kwave.sourceforge.net"
 #: kwave/main.cpp:53
 #, kde-format
 msgid "Martin Wilz"
-msgstr ""
+msgstr "مارتن ويلز"
 
 #: kwave/main.cpp:54
 #, kde-format
 msgid "Creator of the project, development 1998-2000"
-msgstr ""
+msgstr "مُنشئ المشروع، التطوير 1998-2000"
 
 #: kwave/main.cpp:56
 #, kde-format
@@ -151,12 +157,12 @@ msgstr "http://www.wilz.de"
 #: kwave/main.cpp:58
 #, kde-format
 msgid "Ralf Waspe"
-msgstr ""
+msgstr "رالف فاسبيه"
 
 #: kwave/main.cpp:59
 #, kde-format
 msgid "Creator of the Help/About dialog"
-msgstr ""
+msgstr "مُنشئ حوار المساعدة/عن"
 
 #: kwave/main.cpp:63
 #, kde-format
@@ -166,7 +172,7 @@ msgstr "كولير جيل"
 #: kwave/main.cpp:64
 #, kde-format
 msgid "splashscreen, tests and bugfixes"
-msgstr ""
+msgstr "شاشة البداية، الاختبارات وإصلاح الأخطاء"
 
 #: kwave/main.cpp:66
 #, kde-format
@@ -176,12 +182,12 @@ msgstr "http://caulier.gilles.free.fr"
 #: kwave/main.cpp:68
 #, kde-format
 msgid "Dave Flogeras"
-msgstr ""
+msgstr "ديف فلوجيراس"
 
 #: kwave/main.cpp:69
 #, kde-format
 msgid "Notch filter plugin"
-msgstr ""
+msgstr "ملحقة مرشح الشق"
 
 #: kwave/main.cpp:73
 #, kde-format
@@ -191,7 +197,7 @@ msgstr "ريك هيمسلي"
 #: kwave/main.cpp:74
 #, kde-format
 msgid "Level meter"
-msgstr ""
+msgstr "مستوى الصوت"
 
 #: kwave/main.cpp:76
 #, kde-format
@@ -201,17 +207,17 @@ msgstr "http://rikkus.info/esoundlevelmeter.html"
 #: kwave/main.cpp:78
 #, kde-format
 msgid "Joerg-Christian Boehme"
-msgstr ""
+msgstr "يورغ-كريستيان بومه"
 
 #: kwave/main.cpp:79
 #, kde-format
 msgid "PulseAudio record plugin"
-msgstr ""
+msgstr "ملحقة تسجيل PulseAudio"
 
 #: kwave/main.cpp:83
 #, kde-format
 msgid "Mark Penner"
-msgstr ""
+msgstr "مارك بينر"
 
 #: kwave/main.cpp:86
 #, kde-format
@@ -221,62 +227,62 @@ msgstr "https://markpenner.space"
 #: kwave/main.cpp:90
 #, kde-format
 msgid "Stefan Westerfeld"
-msgstr ""
+msgstr "ستيفان ويسترفيلد"
 
 #: kwave/main.cpp:91
 #, kde-format
 msgid "Author of aRts"
-msgstr ""
+msgstr "مؤلف aRts"
 
 #: kwave/main.cpp:95
 #, kde-format
 msgid "Sven-Steffen Arndt"
-msgstr ""
+msgstr "سفين-ستيفن أرندت"
 
 #: kwave/main.cpp:96
 #, kde-format
 msgid "Kwave homepage and German online help"
-msgstr ""
+msgstr "الصفحة الرئيسة لموجة والمساعدة الألمانية على الإنترنت"
 
 #: kwave/main.cpp:100
 #, kde-format
 msgid "Aurelien Jarno"
-msgstr ""
+msgstr "أورليان جارنو"
 
 #: kwave/main.cpp:101
 #, kde-format
 msgid "Debian packager"
-msgstr ""
+msgstr "حزمة دبيان"
 
 #: kwave/main.cpp:105
 #, kde-format
 msgid "Robert M. Stockmann"
-msgstr ""
+msgstr "روبرت م. ستوكمان"
 
 #: kwave/main.cpp:106
 #, kde-format
 msgid "Packaging for Mandrake / X86_64"
-msgstr ""
+msgstr "التحزيم لـ Mandrake / X86_64"
 
 #: kwave/main.cpp:110
 #, kde-format
 msgid "Martin Kuball"
-msgstr ""
+msgstr "مارتن كوبال"
 
 #: kwave/main.cpp:111
 #, kde-format
 msgid "Tester"
-msgstr ""
+msgstr "مختبر"
 
 #: kwave/main.cpp:115
 #, kde-format
 msgid "Robert Leslie"
-msgstr ""
+msgstr "روبرت ليزلي"
 
 #: kwave/main.cpp:116
 #, kde-format
 msgid "Author of the 'mad' MP3 decoder library"
-msgstr ""
+msgstr "مؤلف مكتبة فك ترميز MP3 'mad'"
 
 #: kwave/main.cpp:118
 #, kde-format
@@ -286,12 +292,12 @@ msgstr "http://www.mars.org/home/rob/proj/mpeg"
 #: kwave/main.cpp:120
 #, kde-format
 msgid "T.H.F. Klok and Cedric Tefft"
-msgstr ""
+msgstr "T.H.F. Klok and Cedric Tefft"
 
 #: kwave/main.cpp:121
 #, kde-format
 msgid "Maintainers of the 'id3lib' library"
-msgstr ""
+msgstr "القائمون على مكتبة 'id3lib'"
 
 #: kwave/main.cpp:123
 #, kde-format
@@ -301,12 +307,12 @@ msgstr "http://www.id3lib.org/"
 #: kwave/main.cpp:125
 #, kde-format
 msgid "Michael Pruett"
-msgstr ""
+msgstr "مايكل برويت"
 
 #: kwave/main.cpp:126
 #, kde-format
 msgid "Author of the 'audiofile' library"
-msgstr ""
+msgstr "مؤلف مكتبة 'audiofile'"
 
 #: kwave/main.cpp:128
 #, kde-format
@@ -316,22 +322,22 @@ msgstr "http://www.68k.org/~michael/audiofile/"
 #: kwave/main.cpp:130
 #, kde-format
 msgid "Carlos R."
-msgstr ""
+msgstr "كارلوس ر."
 
 #: kwave/main.cpp:131
 #, kde-format
 msgid "Spanish translation"
-msgstr ""
+msgstr "الترجمة الأسبانية"
 
 #: kwave/main.cpp:135
 #, kde-format
 msgid "Erik de Castro Lopo"
-msgstr ""
+msgstr "إيريك دي كاسترو لوبو"
 
 #: kwave/main.cpp:136
 #, kde-format
 msgid "Author of the 'sndfile' library"
-msgstr ""
+msgstr "مؤلف مكتبة 'sndfile'"
 
 #: kwave/main.cpp:138
 #, kde-format
@@ -341,12 +347,12 @@ msgstr "http://www.mega-nerd.com/libsndfile/"
 #: kwave/main.cpp:140
 #, kde-format
 msgid "Pavel Fric"
-msgstr ""
+msgstr "بافيل فريك"
 
 #: kwave/main.cpp:141
 #, kde-format
 msgid "Czech translation"
-msgstr ""
+msgstr "الترجمة التشيكية"
 
 #: kwave/main.cpp:143
 #, kde-format
@@ -356,28 +362,28 @@ msgstr "http://fripohled.blogspot.com"
 #: kwave/main.cpp:145
 #, kde-format
 msgid "Panagiotis Papadopoulos"
-msgstr ""
+msgstr "باناجيوتيس بابادوبولوس"
 
 #: kwave/main.cpp:146
 #, kde-format
 msgid "String and i18n updates"
-msgstr ""
+msgstr "تحديثات النصوص والتوطين (i18n)"
 
 #: kwave/main.cpp:165
 #, kde-format
 msgid "Disable the Splash Screen."
-msgstr ""
+msgstr "عطّل شاشة البداية."
 
 #: kwave/main.cpp:169
 #, kde-format
 msgid "Start Kwave iconified."
-msgstr ""
+msgstr "ابدأ موجة مصغّرًا."
 
 #: kwave/main.cpp:174
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
-msgstr ""
+msgstr "سجّل كل الأوامر في ملف <file>."
 
 #: kwave/main.cpp:175
 #, kde-format
@@ -389,13 +395,13 @@ msgstr "ملف"
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
-msgstr ""
+msgstr "اختر نوع واجهة المستخدم: وضع SDI أو MDI أو TAB."
 
 #: kwave/main.cpp:181
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
-msgstr ""
+msgstr "sdi|mdi|tab"
 
 #: kwave/main.cpp:186
 #, kde-format
@@ -403,6 +409,7 @@ msgctxt "description of command line parameter"
 msgid ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
 msgstr ""
+"قائمة ملفات الصوت، أو ملفات ماكرو موجة، أو عناوين URL لموجة لفتحها (اختياري)"
 
 #: kwave/main.cpp:188
 #, kde-format
@@ -512,7 +519,7 @@ msgstr "التحديد..."
 #: kwave/menus.config:39
 msgctxt "menu: /File/Save/Blocks..."
 msgid "Blocks..."
-msgstr "القطع..."
+msgstr "الكتل..."
 
 #: kwave/menus.config:41
 msgctxt "menu: /File/Close"
@@ -642,7 +649,7 @@ msgstr "أضف"
 #: kwave/menus.config:90
 msgctxt "menu: /Edit/Track"
 msgid "Track"
-msgstr "المقطوعة"
+msgstr "مسار"
 
 #: kwave/menus.config:92
 msgctxt "menu: /Edit/Track/Delete"
@@ -712,12 +719,12 @@ msgstr "الصفحة التالية"
 #: kwave/menus.config:121
 msgctxt "menu: /View/Scroll Right"
 msgid "Scroll Right"
-msgstr "إنزلاق لليمين"
+msgstr "مرر لليمين"
 
 #: kwave/menus.config:122
 msgctxt "menu: /View/Scroll Left"
 msgid "Scroll Left"
-msgstr "إنزلاق لليسار"
+msgstr "مرر لليسار"
 
 #: kwave/menus.config:124
 msgctxt "menu: /View/Zoom In"
@@ -812,7 +819,7 @@ msgstr "ابدأ الآن!"
 #: kwave/menus.config:146
 msgctxt "menu: /Labels"
 msgid "Labels"
-msgstr "اللصائق"
+msgstr "التسميات"
 
 #: kwave/menus.config:147
 msgctxt "menu: /Labels/Add..."
@@ -862,17 +869,17 @@ msgstr "تلاشي للخارج"
 #: kwave/menus.config:171
 msgctxt "menu: /Fx/Amplify Free"
 msgid "Amplify Free"
-msgstr ""
+msgstr "تضخيم حر"
 
 #: kwave/menus.config:176
 msgctxt "menu: /Fx/Fade Intro"
 msgid "Fade Intro"
-msgstr ""
+msgstr "تتلاشى المقدمة"
 
 #: kwave/menus.config:177
 msgctxt "menu: /Fx/Fade Leadout"
 msgid "Fade Leadout"
-msgstr ""
+msgstr "تتلاشى الخاتمة"
 
 #: kwave/menus.config:180
 msgctxt "menu: /Fx/Low Pass"
@@ -1040,12 +1047,12 @@ msgstr "ابدأ التشغيل"
 #: kwave/PlayerToolBar.cpp:91
 #, kde-format
 msgid "Stop playback or loop"
-msgstr ""
+msgstr "أوقف التشغيل أو الحلقة"
 
 #: kwave/PlayerToolBar.cpp:96
 #, kde-format
 msgid "Start playback and loop"
-msgstr ""
+msgstr "ابدأ التشغيل أو الحلقة"
 
 #: kwave/PlayerToolBar.cpp:101
 #, kde-format
@@ -1086,37 +1093,37 @@ msgstr "v%1"
 #: kwave/TopWidget.cpp:254
 #, kde-format
 msgid "Loading main menu..."
-msgstr ""
+msgstr "يحمل القائمة الرئيسة…"
 
 #: kwave/TopWidget.cpp:328
 #, kde-format
 msgid "Initializing toolbar..."
-msgstr ""
+msgstr "يجهّز شريط الأدوات…"
 
 #: kwave/TopWidget.cpp:337
 #, kde-format
 msgid "Create a new empty file"
-msgstr ""
+msgstr "أنشئ ملفًا جديدًا فارغًا"
 
 #: kwave/TopWidget.cpp:342
 #, kde-format
 msgid "Open an existing file"
-msgstr ""
+msgstr "افتح ملفًا موجودًا"
 
 #: kwave/TopWidget.cpp:347
 #, kde-format
 msgid "Save the current file"
-msgstr ""
+msgstr "احفظ الملف الحالي"
 
 #: kwave/TopWidget.cpp:352
 #, kde-format
 msgid "Save the current file under a different name or file format..."
-msgstr ""
+msgstr "احفظ الملف الحالي باسم مختلف أو بصيغة ملف مختلفة…"
 
 #: kwave/TopWidget.cpp:357
 #, kde-format
 msgid "Close the current file"
-msgstr ""
+msgstr "أغلق الملف الحالي"
 
 #: kwave/TopWidget.cpp:368
 #, kde-format
@@ -1146,7 +1153,7 @@ msgstr "أدرج"
 #: kwave/TopWidget.cpp:396
 #, kde-format
 msgid "Mute selection"
-msgstr ""
+msgstr "اكتم التحديد"
 
 #: kwave/TopWidget.cpp:401
 #, kde-format
@@ -1156,7 +1163,7 @@ msgstr "امحُ المحدد"
 #: kwave/TopWidget.cpp:749
 #, kde-format
 msgid "Reset the toolbar to default settings?"
-msgstr ""
+msgstr "أتعيد تصفير ضبط شريط الأدوات إلى الإعدادات المبدئية؟"
 
 #: kwave/TopWidget.cpp:774
 #, kde-format
@@ -1165,21 +1172,24 @@ msgid ""
 "All messages that you previously turned off by activating the \"Do not ask "
 "again\" checkbox will then be enabled again."
 msgstr ""
+"أتعيد تمكين كل الإشعارات المعطّلة؟\n"
+"ستُفعّل مجددًا كل الرسائل التي عطّلتها سابقًا بتفعيل خانة الاختيار \"لا تسأل مجددًا"
+"\"."
 
 #: kwave/TopWidget.cpp:1008
 #, kde-format
 msgid "Executing command '%1'..."
-msgstr ""
+msgstr "ينفّذ الأمر '%1'…"
 
 #: kwave/TopWidget.cpp:1028
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
-msgstr ""
+msgstr "ينفّذ ملف سكربت موجة '%1'…"
 
 #: kwave/TopWidget.cpp:1038
 #, kde-format
 msgid "Loading file '%1'..."
-msgstr ""
+msgstr "يحمل الملف '%1'…"
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:125
 #: plugins/codec_flac/FlacEncoder.cpp:248
@@ -1206,7 +1216,7 @@ msgstr "تعذّر فتح الملفّ '%1'"
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
-msgstr ""
+msgstr "نوع ملف غير صالح أو غير معروف: '%1'"
 
 #: kwave/TopWidget.cpp:1096
 #, kde-format
@@ -1217,12 +1227,12 @@ msgstr "افتح"
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
-msgstr ""
+msgstr "الطول: %1 (%2 عينة)"
 
 #: kwave/TopWidget.cpp:1160
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
-msgstr ""
+msgstr "الوضع: %1 كيلوهرتز @ %2 بت"
 
 #: kwave/TopWidget.cpp:1206
 #, kde-format
@@ -1230,7 +1240,7 @@ msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
 "2000...3000 (1000 samples)'"
 msgid "Selected: %1...%2 (%3 samples)"
-msgstr ""
+msgstr "المحدّد: %1...%2 (%3 عينة)"
 
 #: kwave/TopWidget.cpp:1218
 #, kde-format
@@ -1356,27 +1366,27 @@ msgstr "استيفاء"
 #: libgui/CurveWidget.cpp:84
 #, kde-format
 msgid "Transform"
-msgstr "التّحويل"
+msgstr "حوّل"
 
 #: libgui/CurveWidget.cpp:87
 #, kde-format
 msgid "Flip horizontal"
-msgstr "قلب أفقي"
+msgstr "اقلب أفقي"
 
 #: libgui/CurveWidget.cpp:89
 #, kde-format
 msgid "Flip vertical"
-msgstr "قلب عمودي"
+msgstr "اقلب عمودي"
 
 #: libgui/CurveWidget.cpp:92
 #, kde-format
 msgid "Into first half"
-msgstr ""
+msgstr "إلى النصف الأول"
 
 #: libgui/CurveWidget.cpp:94
 #, kde-format
 msgid "Into second half"
-msgstr ""
+msgstr "إلى النصف الثاني"
 
 #: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:703
 #: libkwave/undo/UndoDeleteAction.cpp:58
@@ -1402,23 +1412,23 @@ msgstr "احفظ إعداد مسبق"
 #: libgui/CurveWidget.cpp:119
 #, kde-format
 msgid "Currently Selected Point"
-msgstr ""
+msgstr "النقطة المحددة حاليًا"
 
 #: libgui/CurveWidget.cpp:123
 #, kde-format
 msgid "Every Second Point"
-msgstr ""
+msgstr "كل ثاني نقطة"
 
 #: libgui/CurveWidget.cpp:199
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
-msgstr ""
+msgstr "إعداد مسبق لمنحى موجة (*.curve)"
 
 #: libgui/CurveWidget.cpp:202
 #, kde-format
 msgid "Save Curve Preset"
-msgstr ""
+msgstr "احفظ الإعداد المسبق للمنحى"
 
 #: libgui/FilterPlugin.cpp:240
 #, kde-format
@@ -1450,18 +1460,18 @@ msgstr " ث"
 #, kde-format
 msgctxt "tooltip of a label, %1=index, %2=description/name"
 msgid "Label #%1 (%2)"
-msgstr "اللصيقة #%1 (%2)"
+msgstr "التسمية #%1 (%2)"
 
 #: libgui/LabelItem.cpp:76
 #, kde-format
 msgctxt "tooltip of a label, without description, %1=index"
 msgid "Label #%1"
-msgstr "اللصيقة #%1"
+msgstr "التسمية #%1"
 
 #: libgui/LabelItem.cpp:93 libgui/TrackView.cpp:272
 #, kde-format
 msgid "Label"
-msgstr "اللصيقة"
+msgstr "التسمية"
 
 #: libgui/LabelItem.cpp:104 libgui/TrackView.cpp:279
 #, kde-format
@@ -1481,13 +1491,13 @@ msgstr "&خصائص..."
 #: libgui/LabelItem.cpp:158
 #, kde-format
 msgid "Move Label"
-msgstr ""
+msgstr "انقل التسمية"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LabelPropertiesWidgetBase)
 #: libgui/LabelPropertiesWidgetBase.ui:20
 #, kde-format
 msgid "Label Properties..."
-msgstr ""
+msgstr "خصائص التسمية..."
 
 #. i18n: ectx: property (whatsThis), widget (Kwave::SelectTimeWidget, time)
 #: libgui/LabelPropertiesWidgetBase.ui:44
@@ -1498,6 +1508,9 @@ msgid ""
 "the whole file or by an absolute sample position. However, internally Kwave "
 "always uses the position in samples."
 msgstr ""
+"<b>موضع التسمية:</b><br>\n"
+"هنا يمكنك ضبط موضع التسمية، إما حسب الوقت، أو بالنسبة المئوية للملف بأكمله، "
+"أو بوضع عينة مطلق. ومع ذلك، يستخدم برنامج موجة داخليًا الموضع بالعينات دائمًا."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
 #: libgui/LabelPropertiesWidgetBase.ui:51
@@ -1509,7 +1522,7 @@ msgstr "الوصف:"
 #: libgui/LabelPropertiesWidgetBase.ui:61
 #, kde-format
 msgid "some description of the label (optional)"
-msgstr ""
+msgstr "اكتب وصف للتسمية (اختياري)"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edDescription)
 #: libgui/LabelPropertiesWidgetBase.ui:65
@@ -1518,6 +1531,8 @@ msgid ""
 "<b>label description:</b><br>\n"
 "Here you can enter some short text to describe the label."
 msgstr ""
+"<b>وصف التسمية:</b><br>\n"
+"هنا يمكنك إدخال بعض النصوص القصيرة لوصف التسمية."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: libgui/LabelPropertiesWidgetBase.ui:72
@@ -1535,7 +1550,7 @@ msgstr "المؤشر:"
 #: libgui/LabelPropertiesWidgetBase.ui:95
 #, kde-format
 msgid "index of the label"
-msgstr ""
+msgstr "فهرس التسمية"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, lblIndex)
 #: libgui/LabelPropertiesWidgetBase.ui:99
@@ -1546,16 +1561,20 @@ msgid ""
 "position. Lower index means 'left', higher index means 'right'. You cannot "
 "change the index itself, but change the label's position."
 msgstr ""
+"<b>فهرس التسمية</b><br>\n"
+"هذا مجرد فهرس رقمي للتسمية، يبدأ من الصفر، ومرتب حسب الموضع. الفهرس الأقل "
+"يعني 'يسار'، والفهرس الأعلى يعني 'يمين'. لا يمكنك تغيير الفهرس نفسه، ولكن "
+"يمكنك تغيير موضع التسمية."
 
 #: libgui/SelectionBorderItem.cpp:65
 #, kde-format
 msgid "Selection, left border"
-msgstr ""
+msgstr "التحديد، الحد الأيسر"
 
 #: libgui/SelectionBorderItem.cpp:68
 #, kde-format
 msgid "Selection, right border"
-msgstr ""
+msgstr "التحديد، الحد الأيمن"
 
 #: libgui/SelectionItem.cpp:87 libgui/SignalView.cpp:587
 #, kde-format
@@ -1566,7 +1585,7 @@ msgstr "سحب وإفلات"
 #: libgui/SelectTimeWidgetBase.ui:20
 #, kde-format
 msgid "frmLength"
-msgstr ""
+msgstr "الطول"
 
 #. i18n: ectx: property (title), widget (QGroupBox, SelectTimeWidgetBase)
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox1)
@@ -1580,7 +1599,7 @@ msgstr "الطول"
 #: libgui/SelectTimeWidgetBase.ui:38
 #, kde-format
 msgid "select by number of samples"
-msgstr ""
+msgstr "حدد بعدد العينات"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbSamples)
 #: libgui/SelectTimeWidgetBase.ui:41
@@ -1592,7 +1611,7 @@ msgstr "&عينات"
 #: libgui/SelectTimeWidgetBase.ui:54
 #, kde-format
 msgid "select by time"
-msgstr ""
+msgstr "حدد بالوقت"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbTime)
 #: libgui/SelectTimeWidgetBase.ui:57
@@ -1604,7 +1623,7 @@ msgstr "الو&قت"
 #: libgui/SelectTimeWidgetBase.ui:99
 #, kde-format
 msgid "select by percentage of the signal's length"
-msgstr ""
+msgstr "حدد بالنسبة المئوية لطول الإشارة"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercents)
 #: libgui/SelectTimeWidgetBase.ui:102
@@ -1661,7 +1680,7 @@ msgstr "100%"
 #: libgui/SelectTimeWidgetBase.ui:387
 #, kde-format
 msgid "sets the selection by the percentage of the whole signal"
-msgstr ""
+msgstr "يضبط التحديد بالنسبة المئوية للإشارة بأكملها"
 
 #: libgui/SignalWidget.cpp:196
 #, kde-format
@@ -1754,19 +1773,19 @@ msgstr "G722"
 
 #: libkwave/Compression.cpp:133
 msgid "Apple ACE2"
-msgstr "Apple ACE2"
+msgstr "أبل ACE2"
 
 #: libkwave/Compression.cpp:137
 msgid "Apple ACE8"
-msgstr "Apple ACE8"
+msgstr "أبل ACE8"
 
 #: libkwave/Compression.cpp:141
 msgid "Apple MAC3"
-msgstr "Apple MAC3"
+msgstr "أبل MAC3"
 
 #: libkwave/Compression.cpp:145
 msgid "Apple MAC6"
-msgstr "Apple MAC6"
+msgstr "أبل MAC6"
 
 #: libkwave/Compression.cpp:149
 msgid "G726"
@@ -1774,7 +1793,7 @@ msgstr "G726"
 
 #: libkwave/Compression.cpp:153
 msgid "DVI Audio / IMA"
-msgstr "DVI Audio / IMA"
+msgstr "DVI صوتي / IMA"
 
 #: libkwave/Compression.cpp:157
 msgid "FS1016"
@@ -1786,15 +1805,15 @@ msgstr "DV"
 
 #: libkwave/Compression.cpp:168
 msgid "MPEG Layer I"
-msgstr "MPEG Layer I"
+msgstr "إم بي إي جي الطبقة I"
 
 #: libkwave/Compression.cpp:172
 msgid "MPEG Layer II"
-msgstr "MPEG Layer II"
+msgstr "إم بي إي جي الطبقة II"
 
 #: libkwave/Compression.cpp:176
 msgid "MPEG Layer III"
-msgstr "MPEG Layer III"
+msgstr "إم بي إي جي الطبقة III"
 
 #: libkwave/Compression.cpp:184
 msgid "FLAC"
@@ -1822,6 +1841,8 @@ msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more medias."
 msgstr ""
+"اسم الألبوم إذا كان المصدر ألبومًا\n"
+"يتكون من وسائط متعددة."
 
 #: libkwave/FileInfo.cpp:42
 msgid "Annotation"
@@ -1834,14 +1855,18 @@ msgid ""
 "each sentence with a period. Do not include newline\n"
 "characters!"
 msgstr ""
+"يقدم تعليقات عامة حول الملف أو موضوع\n"
+"الملف. إذا كان التعليق يتكون من عدة جمل، فانهِ\n"
+"كل جملة بنقطة. لا تدرج أحرفَ \n"
+"سطر جديد!"
 
 #: libkwave/FileInfo.cpp:50
 msgid "Archival location"
-msgstr ""
+msgstr "موقع الأرشيف"
 
 #: libkwave/FileInfo.cpp:51
 msgid "Indicates where the subject of the file is archived."
-msgstr ""
+msgstr "يشير إلى مكان أرشفة موضوع الملف."
 
 #: libkwave/FileInfo.cpp:54
 msgid "Author"
@@ -1853,22 +1878,25 @@ msgid ""
 "subject of the file.\n"
 "Example: 'van Beethoven, Ludwig'"
 msgstr ""
+"يحدد اسم مؤلف الموضوع الأصلي\n"
+"للملف.\n"
+"مثال: 'فان بيتهوفن، لودفيغ'"
 
 #: libkwave/FileInfo.cpp:60
 msgid "Lower Bitrate"
-msgstr ""
+msgstr "معدل البت الأدنى"
 
 #: libkwave/FileInfo.cpp:61
 msgid "Specifies the lower limit in a VBR bitstream."
-msgstr ""
+msgstr "يحدد الحد الأدنى في دفق البت VBR."
 
 #: libkwave/FileInfo.cpp:64
 msgid "Bitrate Mode"
-msgstr ""
+msgstr "وضع معدل البت"
 
 #: libkwave/FileInfo.cpp:65
 msgid "Bitrate Mode (ABR, VBR, CBR, etc...)"
-msgstr ""
+msgstr "وضع معدل البت (ABR, VBR, CBR، إلخ...)"
 
 #: libkwave/FileInfo.cpp:68
 msgid "Bitrate"
@@ -1876,15 +1904,15 @@ msgstr "معدّل بِتّ"
 
 #: libkwave/FileInfo.cpp:70
 msgid "Nominal bitrate of the audio stream in bits per second"
-msgstr ""
+msgstr "معدل البت الاسمي لدفق الصوت بالبت في الثانية"
 
 #: libkwave/FileInfo.cpp:73
 msgid "Upper Bitrate"
-msgstr ""
+msgstr "معدل البت الأعلى"
 
 #: libkwave/FileInfo.cpp:74
 msgid "Specifies the upper limit in a VBR bitstream."
-msgstr ""
+msgstr "يحدد الحد الأعلى في دفق البت VBR."
 
 #: libkwave/FileInfo.cpp:77
 msgid "Bits per Sample"
@@ -1892,7 +1920,7 @@ msgstr "عدد البت في العينة"
 
 #: libkwave/FileInfo.cpp:78
 msgid "Specifies the number of bits per sample."
-msgstr ""
+msgstr "يحدد عدد البتات لكل عينة."
 
 #: libkwave/FileInfo.cpp:81
 msgid "CD"
@@ -1900,25 +1928,27 @@ msgstr "القرص المدمج"
 
 #: libkwave/FileInfo.cpp:83
 msgid "Number of the CD, if the source is an album of more CDROMs"
-msgstr ""
+msgstr "رقم القرص المضغوط، إذا كان المصدر ألبومًا من أقراص مضغوطة متعددة"
 
 #: libkwave/FileInfo.cpp:86
 msgid "CDS"
-msgstr ""
+msgstr "أقراص مدمجة"
 
 #: libkwave/FileInfo.cpp:88
 msgid "Number of CDs, if the source is an album of more CDROMs"
-msgstr ""
+msgstr "عدد الأقراص المضغوطة، إذا كان المصدر ألبومًا من أقراص مضغوطة متعددة"
 
 #: libkwave/FileInfo.cpp:91
 msgid "Commissioned"
-msgstr ""
+msgstr "المتعهد"
 
 #: libkwave/FileInfo.cpp:92
 msgid ""
 "Lists the name of the person or organization\n"
 "that commissioned the subject of the file."
 msgstr ""
+"يسرد اسم الشخص أو المنظمة\n"
+"التي تعهدت بموضوع الملف."
 
 #: libkwave/FileInfo.cpp:96
 msgid "Comments"
@@ -1935,6 +1965,8 @@ msgid ""
 "Sets a mode for compressing the audio\n"
 "data to reduce disk space."
 msgstr ""
+"يضبط وضعًا لضغط بيانات\n"
+"الصوت لتقليل مساحة القرص."
 
 #: libkwave/FileInfo.cpp:109
 msgid "Contact"
@@ -1946,6 +1978,9 @@ msgid ""
 "the track. This could be a URL, an email address, the\n"
 "physical address of the producing label."
 msgstr ""
+"معلومات الاتصال لمنشئي المسار أو موزعيها.\n"
+"يمكن أن يكون هذا عنوان URL، أو عنوان بريد إلكتروني، أو\n"
+"العنوان الفعلي لشركة الإنتاج."
 
 #: libkwave/FileInfo.cpp:115
 msgid "Copyright"
@@ -1958,6 +1993,10 @@ msgid ""
 "by a space.\n"
 "Example: 'Copyright Linux community 2002'"
 msgstr ""
+"يسجل معلومات حقوق النشر للملف. إذا كانت هناك\n"
+"حقوق نشر متعددة، ففصلها بفاصلة منقوطة يليها\n"
+"مسافة.\n"
+"مثال: 'حقوق النشر مجتمع لينكس 2002'"
 
 #: libkwave/FileInfo.cpp:123
 msgid "Copyrighted"
@@ -1965,7 +2004,7 @@ msgstr "محفوظ الحقوق"
 
 #: libkwave/FileInfo.cpp:124
 msgid "Indicates whether the file is protected by copyright or not."
-msgstr ""
+msgstr "يشير إلى ما إذا كان الملف محميًا بحقوق النشر أم لا."
 
 #: libkwave/FileInfo.cpp:128
 msgid "Date"
@@ -1976,6 +2015,8 @@ msgid ""
 "Specifies the date the subject of the file was created.\n"
 "Example: '2001-12-24'"
 msgstr ""
+"يحدد تاريخ إنشاء موضوع الملف.\n"
+"مثال: '2001-12-24'"
 
 #: libkwave/FileInfo.cpp:133
 msgid "Engineer"
@@ -1987,14 +2028,17 @@ msgid ""
 "If there are multiple engineers, separate the names by\n"
 "a semicolon and a blank."
 msgstr ""
+"يعرض اسم المهندس الذي عمل على الملف.\n"
+"إذا كان هناك عدة مهندسين، فافصل الأسماء\n"
+"بفاصلة منقوطة ومسافة."
 
 #: libkwave/FileInfo.cpp:139
 msgid "Estimated Length"
-msgstr ""
+msgstr "الطول التقريبي"
 
 #: libkwave/FileInfo.cpp:140
 msgid "Estimated length of the file in samples"
-msgstr ""
+msgstr "الطول التقريبي للملف بالعينات"
 
 #: libkwave/FileInfo.cpp:143
 msgid "Filename"
@@ -2002,7 +2046,7 @@ msgstr "اسم الملفّ"
 
 #: libkwave/FileInfo.cpp:144
 msgid "Name of the opened file"
-msgstr ""
+msgstr "اسم الملف المفتوح"
 
 #: libkwave/FileInfo.cpp:147
 msgid "File Size"
@@ -2010,7 +2054,7 @@ msgstr "حجم الملفّ"
 
 #: libkwave/FileInfo.cpp:148
 msgid "Size of the file in bytes"
-msgstr ""
+msgstr "حجم الملف بالبايت"
 
 #: libkwave/FileInfo.cpp:151
 msgid "Genre"
@@ -2021,6 +2065,8 @@ msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
 msgstr ""
+"يصف نوع أو أسلوب العمل الأصلي.\n"
+"أمثلة: 'كلاسيكي'، 'بوب'"
 
 #: libkwave/FileInfo.cpp:156
 msgid "ID3 Tags"
@@ -2040,6 +2086,9 @@ msgid ""
 "for more information on ISRC numbers.\n"
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 msgstr ""
+"رقم ISRC للمسار؛ انظر صفحة مقدمة ISRC\n"
+"لمزيد من المعلومات حول أرقام ISRC.\n"
+"http://www.ifpi.org/site-content/online/isrc_intro.html"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KeywordWidgetBase)
 #: libkwave/FileInfo.cpp:166 plugins/fileinfo/KeywordWidgetBase.ui:14
@@ -2052,18 +2101,20 @@ msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
 msgstr ""
+"يوفر قائمة بالكلمات المفتاحية التي تشير إلى\n"
+"الملف أو موضوع الملف."
 
 #: libkwave/FileInfo.cpp:171
 msgid "Labels"
-msgstr "اللصائق"
+msgstr "التسميات"
 
 #: libkwave/FileInfo.cpp:172
 msgid "The list of labels/markers."
-msgstr ""
+msgstr "قائمة التسميات/العلامات."
 
 #: libkwave/FileInfo.cpp:176
 msgid "Length of the file in samples."
-msgstr ""
+msgstr "طول الملف بالعينات."
 
 #: libkwave/FileInfo.cpp:179
 msgid "License"
@@ -2078,6 +2129,12 @@ msgid ""
 "See http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
 "for details'), etc."
 msgstr ""
+"معلومات الترخيص، على سبيل المثال، 'جميع الحقوق محفوظة'،\n"
+"'أي استخدام مسموح به'، عنوان URL لترخيص أو\n"
+"ترخيص EFF للصوت المفتوح ('يوزع تحت\n"
+"شروط ترخيص الصوت المفتوح.\n"
+"انظر http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
+"للتفاصيل'), إلخ."
 
 #: libkwave/FileInfo.cpp:188
 msgid "Medium"
@@ -2096,7 +2153,7 @@ msgstr "نوع تنسيق الملف"
 
 #: libkwave/FileInfo.cpp:195
 msgid "Mime type of the file format"
-msgstr ""
+msgstr "نوع Mime لتنسيق الملف"
 
 #: libkwave/FileInfo.cpp:198
 msgid "Emphasis"
@@ -2104,7 +2161,7 @@ msgstr "تشديد"
 
 #: libkwave/FileInfo.cpp:199
 msgid "Audio emphasis mode"
-msgstr ""
+msgstr "وضع تشديد الصوت"
 
 #: libkwave/FileInfo.cpp:202
 msgid "Layer"
@@ -2112,7 +2169,7 @@ msgstr "الطبقة"
 
 #: libkwave/FileInfo.cpp:203
 msgid "MPEG Layer, I, II or III"
-msgstr ""
+msgstr "طبقة إم بي إي جي، I، II أو III"
 
 #: libkwave/FileInfo.cpp:206
 msgid "Mode Extension"
@@ -2120,7 +2177,7 @@ msgstr "نمط الامتداد"
 
 #: libkwave/FileInfo.cpp:207
 msgid "MPEG Mode Extension (only if Joint Stereo)"
-msgstr ""
+msgstr "امتداد وضع إم بي إي جي (فقط إذا كان مجسم مشترك)"
 
 #: libkwave/FileInfo.cpp:210 libkwave/FileInfo.cpp:304
 msgid "Version"
@@ -2128,7 +2185,7 @@ msgstr "الإصدارة"
 
 #: libkwave/FileInfo.cpp:211
 msgid "MPEG Version, 1, 2 or 2.5"
-msgstr ""
+msgstr "إصدار إم بي إي جي، 1، 2 أو 2.5"
 
 #: libkwave/FileInfo.cpp:214
 msgid "Name"
@@ -2139,15 +2196,19 @@ msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: \"Symphony No.6, Op.68 'Pastoral'\""
 msgstr ""
+"يخزن عنوان موضوع الملف.\n"
+"مثال: \"السمفونية رقم 6، Op.68 'الرعوية'\""
 
 #: libkwave/FileInfo.cpp:219
 msgid "Opus Frame Length"
-msgstr ""
+msgstr "طول إطار Opus"
 
 #: libkwave/FileInfo.cpp:220
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
 msgstr ""
+"طول إطار Opus بالمللي ثانية (القيم المدعومة هي 2.5، 5، 10، 20، 40، أو 60 "
+"مللي ثانية)"
 
 #: libkwave/FileInfo.cpp:224
 msgid "Organization"
@@ -2158,6 +2219,8 @@ msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
 msgstr ""
+"اسم المنظمة المنتجة للمسار\n"
+"(أي 'شركة الإنتاج')"
 
 #: libkwave/FileInfo.cpp:229
 msgid "Original"
@@ -2165,7 +2228,7 @@ msgstr "أصلي"
 
 #: libkwave/FileInfo.cpp:230
 msgid "Indicates whether the file is an original or a copy"
-msgstr ""
+msgstr "يشير إلى ما إذا كان الملف أصليًا أم نسخة"
 
 #: libkwave/FileInfo.cpp:233
 msgid "Performer"
@@ -2177,6 +2240,9 @@ msgid ""
 "music this would be the conductor, orchestra, soloists.\n"
 "In an audio book it would be the actor who did the reading."
 msgstr ""
+"الفنان(ون) الذين أدوا العمل. في الموسيقى\n"
+"الكلاسيكية، سيكون هذا قائد الأوركسترا، والأوركسترا، والعازفين المنفردين.\n"
+"في الكتاب الصوتي، سيكون الممثل الذي قام بالقراءة."
 
 #: libkwave/FileInfo.cpp:239
 msgid "Private"
@@ -2184,7 +2250,7 @@ msgstr "خاص"
 
 #: libkwave/FileInfo.cpp:240
 msgid "Indicates whether the subject is private"
-msgstr ""
+msgstr "يشير إلى ما إذا كان الموضوع خاصًا"
 
 #: libkwave/FileInfo.cpp:243
 msgid "Product"
@@ -2196,16 +2262,21 @@ msgid ""
 "file was originally intended for.\n"
 "Example: 'Linux audio collection'"
 msgstr ""
+"يحدد الاسم أو العنوان الذي\n"
+"أُعد الملف له أصلاً.\n"
+"مثال: 'مجموعة لينكس الصوتية'"
 
 #: libkwave/FileInfo.cpp:249
 msgid "Sample Format"
-msgstr ""
+msgstr "تنسيق العينة"
 
 #: libkwave/FileInfo.cpp:250
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
 msgstr ""
+"التنسيق المستخدم لتخزين عينات الصوت الرقمية.\n"
+"مثال: 'نقطة عائمة 32-بت IEEE'"
 
 #: libkwave/FileInfo.cpp:254
 msgid "Sample Rate"
@@ -2213,7 +2284,7 @@ msgstr "معدّل الإعتيان"
 
 #: libkwave/FileInfo.cpp:255
 msgid "Number of samples per second"
-msgstr ""
+msgstr "عدد العينات في الثانية"
 
 #: libkwave/FileInfo.cpp:258
 msgid "Software"
@@ -2225,6 +2296,9 @@ msgid ""
 "used to create the file.\n"
 "Example: 'Kwave v0.6.4-1'"
 msgstr ""
+"يحدد اسم حزمة البرامج\n"
+"المستخدمة لإنشاء الملف.\n"
+"مثال: 'Kwave v0.6.4-1'"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_source)
 #. i18n: ectx: property (title), widget (QGroupBox, grpSource)
@@ -2240,10 +2314,13 @@ msgid ""
 "who supplied the original subject of the file.\n"
 "Example: 'Chaotic Sound Research'"
 msgstr ""
+"يحدد اسم الشخص أو المنظمة\n"
+"التي زودت بالموضوع الأصلي للملف.\n"
+"مثال: 'أبحاث الصوت الفوضوي'"
 
 #: libkwave/FileInfo.cpp:270
 msgid "Source form"
-msgstr ""
+msgstr "شكل المصدر"
 
 #: libkwave/FileInfo.cpp:271
 msgid ""
@@ -2251,6 +2328,9 @@ msgid ""
 "the material that was digitized.\n"
 "Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
 msgstr ""
+"يحدد الشكل الأصلي\n"
+"للمادة المرقومة.\n"
+"أمثلة: 'تسجيل/فينيل/90 دورة في الدقيقة'، 'Audio DAT'، 'شريط/CrO2/60 دقيقة'"
 
 #: libkwave/FileInfo.cpp:277
 msgid "Subject"
@@ -2261,6 +2341,8 @@ msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
 msgstr ""
+"يصف موضوع الملف.\n"
+"مثال: 'Bird voices at early morning'"
 
 #: libkwave/FileInfo.cpp:282
 msgid "Technician"
@@ -2271,22 +2353,24 @@ msgid ""
 "Identifies the technician who digitized the subject file.\n"
 "Example: 'Torvalds, Linus'"
 msgstr ""
+"يحدد الفني الذي رقمن ملف الموضوع.\n"
+"مثال: 'أبو سارة الغزاوي'"
 
 #: libkwave/FileInfo.cpp:288
 msgid "Track"
-msgstr "المقطوعة"
+msgstr "المسار"
 
 #: libkwave/FileInfo.cpp:289
 msgid "Track of the CD if the source was a CDROM."
-msgstr ""
+msgstr "مسار القرص المضغوط إذا كان المصدر قرصًا مضغوطًا."
 
 #: libkwave/FileInfo.cpp:292
 msgid "Tracks"
-msgstr "المقطوعات"
+msgstr "المسارات"
 
 #: libkwave/FileInfo.cpp:293
 msgid "Number of tracks of the CD if the source was a CDROM."
-msgstr ""
+msgstr "عدد مسارات القرص المضغوط إذا كان المصدر قرصًا مضغوطًا."
 
 #: libkwave/FileInfo.cpp:296
 msgid "Channels"
@@ -2294,7 +2378,7 @@ msgstr "القنوات"
 
 #: libkwave/FileInfo.cpp:297
 msgid "Specifies the number of channels of the signal."
-msgstr ""
+msgstr "يحدد عدد قنوات الإشارة."
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompressionBaseQuality)
 #: libkwave/FileInfo.cpp:300 plugins/fileinfo/CompressionWidgetBase.ui:236
@@ -2304,7 +2388,7 @@ msgstr "الجودة الأساسية"
 
 #: libkwave/FileInfo.cpp:301
 msgid "Base quality of the compression in VBR mode"
-msgstr ""
+msgstr "الجودة الأساسية للضغط في وضع VBR"
 
 #: libkwave/FileInfo.cpp:305
 msgid ""
@@ -2312,6 +2396,9 @@ msgid ""
 "of the same track title in a single collection.\n"
 "(e.g. remix info)"
 msgstr ""
+"يمكن استخدامه للتمييز بين إصدارات متعددة\n"
+"لنفس عنوان المقطوعة في مجموعة واحدة.\n"
+"(مثل معلومات remix)"
 
 #: libkwave/FileProgress.cpp:92
 #, kde-format
@@ -2335,7 +2422,7 @@ msgstr "معدّل الإعتيان: "
 #, kde-format
 msgctxt "file progress dialog, %1=number of samples per second"
 msgid "%1 Samples per second"
-msgstr ""
+msgstr "%1 عينة في الثانية"
 
 #: libkwave/FileProgress.cpp:114
 #, kde-format
@@ -2371,18 +2458,18 @@ msgstr "2 (مجسمي)"
 #, kde-format
 msgctxt "number of tracks"
 msgid "4 (quadro)"
-msgstr "4 (كوادرو)"
+msgstr "4 (رباعي)"
 
 #: libkwave/FileProgress.cpp:207
 #, kde-format
 msgid "Do you really want to abort the operation?"
-msgstr ""
+msgstr "أتريد حقًا إلغاء العملية؟"
 
 #: libkwave/FileProgress.cpp:280
 #, kde-format
 msgctxt "file progress dialog, %1=transfer rate, %2=remaining duration"
 msgid "%1 kB/s (%2 remaining)"
-msgstr ""
+msgstr "%1 كيلوبايت/ثانية (%2 متبقي)"
 
 #: libkwave/FileProgress.cpp:289
 #, kde-format
@@ -2390,7 +2477,7 @@ msgctxt ""
 "file progress dialog, %1=number of loaded/saved megabytes, %2=number of "
 "total megabytes to load or save"
 msgid "%1 MB of %2 MB done"
-msgstr ""
+msgstr "%1 م.بايت من %2 م.بايت تمّت"
 
 #: libkwave/FileProgress.cpp:335
 #, kde-format
@@ -2418,19 +2505,19 @@ msgstr "أسنان المنشار"
 
 #: libkwave/Functions.cpp:97
 msgid "Inverse Sawtooth"
-msgstr ""
+msgstr "منشار عكسي"
 
 #: libkwave/Functions.cpp:98 libkwave/WindowFunction.cpp:40
 msgid "Triangular"
-msgstr ""
+msgstr "مثلث"
 
 #: libkwave/Functions.cpp:99
 msgid "Square Sinus"
-msgstr ""
+msgstr "جيب تربيعي"
 
 #: libkwave/Functions.cpp:100
 msgid "Cubic Sinus"
-msgstr ""
+msgstr "جيب تكعيبي"
 
 #: libkwave/GenreType.cpp:102
 msgid "Blues"
@@ -2438,7 +2525,7 @@ msgstr "درجات الأزرق"
 
 #: libkwave/GenreType.cpp:103
 msgid "Classic Rock"
-msgstr ""
+msgstr "روك كلاسيكي"
 
 #: libkwave/GenreType.cpp:104
 msgid "Country"
@@ -2478,7 +2565,7 @@ msgstr "العصر الجديد"
 
 #: libkwave/GenreType.cpp:113
 msgid "Oldies"
-msgstr ""
+msgstr "الأغاني القديمة"
 
 #: libkwave/GenreType.cpp:114
 msgid "Other"
@@ -3214,19 +3301,19 @@ msgstr "خط تكعيبي"
 
 #: libkwave/Interpolation.cpp:36
 msgid "Polynom, nth Degree"
-msgstr ""
+msgstr "متعدد الحدود، من الدرجة ن"
 
 #: libkwave/Interpolation.cpp:37
 msgid "Polynom, 3rd Degree"
-msgstr ""
+msgstr "متعدد الحدود، من الدرجة الثالثة"
 
 #: libkwave/Interpolation.cpp:38
 msgid "Polynom, 5th Degree"
-msgstr ""
+msgstr "متعدد الحدود، من الدرجة الخامسة"
 
 #: libkwave/Interpolation.cpp:39
 msgid "Polynom, 7th Degree"
-msgstr ""
+msgstr "متعدد الحدود، من الدرجة السابعة"
 
 #: libkwave/Interpolation.cpp:40
 msgid "Sample and Hold"
@@ -3235,7 +3322,7 @@ msgstr "الاعتيان والقبض"
 #: libkwave/Logger.cpp:79
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
-msgstr ""
+msgstr "فشل فتح ملف السجل '%1' للكتابة"
 
 #: libkwave/PlaybackController.cpp:667
 #, kde-format
@@ -3244,11 +3331,11 @@ msgstr "تعذّر فتح الملفّ '%1'"
 
 #: libkwave/PlayBackTypesMap.cpp:34 plugins/record/RecordTypesMap.cpp:47
 msgid "ALSA (Advanced Linux Sound Architecture)"
-msgstr ""
+msgstr "ALSA (هندسة الصوت المتقدمة للينكس)"
 
 #: libkwave/PlayBackTypesMap.cpp:39 plugins/record/RecordTypesMap.cpp:53
 msgid "OSS (Open Sound System)"
-msgstr ""
+msgstr "OSS (نظام الصوت المفتوح)"
 
 #: libkwave/PlayBackTypesMap.cpp:44 plugins/record/RecordTypesMap.cpp:41
 msgid "Pulse Audio"
@@ -3261,43 +3348,43 @@ msgstr "كيو تي ملتيميديا ​​أوديو"
 #: libkwave/Plugin.cpp:215
 #, kde-format
 msgid "Running plugin '%1'..."
-msgstr ""
+msgstr "يشغّل الملحقة '%1'…"
 
 #: libkwave/PluginManager.cpp:191
 #, kde-format
 msgid "The plugin '%1' is unknown or invalid."
-msgstr ""
+msgstr "الملحقة '%1' غير معروفة أو غير صالحة."
 
 #: libkwave/PluginManager.cpp:192
 #, kde-format
 msgid "Error On Loading Plugin"
-msgstr ""
+msgstr "خطأ في تحميل الملحقة"
 
 #: libkwave/PluginManager.cpp:673
 #, kde-format
 msgid "Loading plugin %1..."
-msgstr ""
+msgstr "يحمل الملحقة %1…"
 
 #: libkwave/SampleFormat.cpp:37
 msgid "Linear Two's Complement"
-msgstr ""
+msgstr "مكمل ثنائي خطي"
 
 #: libkwave/SampleFormat.cpp:39
 msgid "Unsigned Integer"
-msgstr ""
+msgstr "عدد صحيح غير موقّع"
 
 #: libkwave/SampleFormat.cpp:41
 msgid "32-bit IEEE Floating-Point"
-msgstr ""
+msgstr "نقطة عائمة 32-بت IEEE"
 
 #: libkwave/SampleFormat.cpp:43
 msgid "64-bit IEEE Double Precision Floating-Point"
-msgstr ""
+msgstr "نقطة عائمة مزدوجة الدقة 64-بت IEEE"
 
 #: libkwave/SignalManager.cpp:334
 #, kde-format
 msgid "Signal is empty, nothing to save."
-msgstr ""
+msgstr "الإشارة فارغة، لا شيء لحفظه."
 
 #: libkwave/SignalManager.cpp:363
 #, kde-format
@@ -3306,32 +3393,35 @@ msgid ""
 "%1\n"
 "Do you still want to continue?"
 msgstr ""
+"سيؤدي الحفظ بهذا التنسيق إلى فقدان سمة(سمات) الملف الإضافية التالية:\n"
+"%1\n"
+"هل ما زلت تريد المتابعة؟"
 
 #: libkwave/SignalManager.cpp:400 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
-msgstr ""
+msgstr "(مبني بإطار عمل كِيدِي %1)"
 
 #: libkwave/SignalManager.cpp:457
 #, kde-format
 msgid "An error occurred while saving the file."
-msgstr ""
+msgstr "حدث خطأ أثناء حفظ الملف."
 
 #: libkwave/SignalManager.cpp:469
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
-msgstr ""
+msgstr "اقُتطع الملف وقد يكون تالفًا."
 
 #: libkwave/SignalManager.cpp:478
 #, kde-format
 msgid "Sorry, the file type is not supported."
-msgstr ""
+msgstr "عذرًا، نوع الملف غير متاح."
 
 #: libkwave/SignalManager.cpp:652
 #, kde-format
 msgid "Insert Clipboard at position"
-msgstr ""
+msgstr "أدرج الحافظة في الموضع"
 
 #: libkwave/SignalManager.cpp:662
 #, kde-format
@@ -3346,17 +3436,17 @@ msgstr "اقتصّ"
 #: libkwave/SignalManager.cpp:735
 #, kde-format
 msgid "Expand Selection to Label"
-msgstr ""
+msgstr "وسّع التحديد إلى التسمية"
 
 #: libkwave/SignalManager.cpp:764
 #, kde-format
 msgid "Select Next Labels"
-msgstr ""
+msgstr "حدد التسميات التالية"
 
 #: libkwave/SignalManager.cpp:802
 #, kde-format
 msgid "Select Previous Labels"
-msgstr ""
+msgstr "حدد التسميات السابقة"
 
 #: libkwave/SignalManager.cpp:841
 #, kde-format
@@ -3371,7 +3461,7 @@ msgstr "ألغ تحديد كافة المسارات"
 #: libkwave/SignalManager.cpp:849
 #, kde-format
 msgid "Invert Track Selection"
-msgstr ""
+msgstr "اعكس تحديد المسار"
 
 #: libkwave/SignalManager.cpp:855
 #, kde-format
@@ -3401,7 +3491,7 @@ msgstr "أدرج مساراً"
 #: libkwave/SignalManager.cpp:937 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
-msgstr "احذف المقطع"
+msgstr "احذف المسار"
 
 #: libkwave/SignalManager.cpp:1090
 #, kde-format
@@ -3588,7 +3678,7 @@ msgstr "عن موجة"
 #: plugins/about/AboutDialogBase.ui:53
 #, kde-format
 msgid "<h1>Kwave - a sound editor by KDE</h1>"
-msgstr "<h1>موجدة محرر صوت من كيدي</h1>"
+msgstr "<h1>موجة محرر صوت من كيدي</h1>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, about_tab)
 #: plugins/about/AboutDialogBase.ui:67
@@ -3608,6 +3698,12 @@ msgid ""
 "presents a graphical view with a complete zoom and scroll capability.</p></"
 "body></html>"
 msgstr ""
+"<html><head/><body><p><span style=\" font-size:x-large; font-weight:600;"
+"\">موجدة هو محرر صوت مبني على أطر عمل كيدي. </span></p><p><br/>مع موجة يمكنك "
+"تحرير العديد من أنواع ملفات الصوت بما في ذلك الملفات متعددة المسارات. يمكنك "
+"تعديل وتشغيل كل مسار على حدة.<br/>يتضمن موجة أيضًا العديد من الملحقات لتحويل "
+"بيانات الصوت بطرق متعددة ويقدم عرضًا رسوميًا مع إمكانية تكبير وتصغير كاملة "
+"وقدرة على التمرير.</p></body></html>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, authors_tab)
 #: plugins/about/AboutDialogBase.ui:182
@@ -3656,7 +3752,7 @@ msgstr "٪"
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:72
 #, kde-format
 msgid "Amplify Free"
-msgstr ""
+msgstr "تضخيم حر"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLevelFadeIn)
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:49 plugins/record/RecordDlg.ui:530
@@ -3673,12 +3769,12 @@ msgstr "اختفاء"
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:51
 #, kde-format
 msgid "Fade Intro"
-msgstr ""
+msgstr "تتلاشى المقدمة"
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:52
 #, kde-format
 msgid "Fade Leadout"
-msgstr ""
+msgstr "تتلاشى الخاتمة"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinbox_2)
 #: plugins/band_pass/BandPassDialog.cpp:63 plugins/band_pass/BandPassDlg.ui:117
@@ -3715,13 +3811,13 @@ msgstr "أو&قِف"
 #: plugins/pitch_shift/PitchShiftDlg.ui:63
 #, kde-format
 msgid "&Listen"
-msgstr ""
+msgstr "ا&ستمع"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, BandPassDlg)
 #: plugins/band_pass/BandPassDlg.ui:14 plugins/band_pass/BandPassPlugin.cpp:127
 #, kde-format
 msgid "Band Pass"
-msgstr ""
+msgstr "مرشح نطاقي"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinbox)
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinbox_2)
@@ -3740,7 +3836,7 @@ msgstr " هرتز"
 #: plugins/pitch_shift/PitchShiftDlg.ui:57
 #, kde-format
 msgid "start/stop pre-listening"
-msgstr ""
+msgstr "بدء/إيقاف الاستماع المسبق"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btListen)
 #: plugins/band_pass/BandPassDlg.ui:158 plugins/lowpass/LowPassDlg.ui:151
@@ -3752,85 +3848,87 @@ msgid ""
 "enabled, you will nearly immediately hear any change in the selected "
 "parameters."
 msgstr ""
+"ابدأ أو أوقف الاستماع المسبق للإعدادات الحالية. إذا مُكن الاستماع المسبق، "
+"فستسمع أي تغيير في المعلمات المحددة على الفور تقريبًا."
 
 #: plugins/codec_ascii/AsciiCodecPlugin.h:58
 #, kde-format
 msgid "ASCII encoded audio"
-msgstr ""
+msgstr "صوت مُرمَّز بـ ASCII"
 
 #: plugins/codec_ascii/AsciiEncoder.cpp:92
 #: plugins/codec_flac/FlacEncoder.cpp:215 plugins/codec_ogg/OggEncoder.cpp:123
 #, kde-format
 msgid "Unable to open the file for saving."
-msgstr ""
+msgstr "تعذر فتح الملف للحفظ."
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:48
 #, kde-format
 msgid "NeXT, Sun Audio"
-msgstr ""
+msgstr "NeXT، Sun Audio"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:53
 #, kde-format
 msgid "Amiga IFF/8SVX Sound File Format"
-msgstr ""
+msgstr "تنسيق ملف الصوت Amiga IFF/8SVX"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:56
 #, kde-format
 msgid "Compressed Audio Interchange Format"
-msgstr ""
+msgstr "تنسيق تبادل الصوت المضغوط"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:59
 #, kde-format
 msgid "Audio Interchange Format"
-msgstr ""
+msgstr "تنسيق تبادل الصوت"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:62
 #, kde-format
 msgid "Audio Visual Research File Format"
-msgstr ""
+msgstr "تنسيق ملف Audio Visual Research"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:65
 #, kde-format
 msgid "Core Audio File Format"
-msgstr ""
+msgstr "تنسيق ملف Core Audio"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:68
 #, kde-format
 msgid "Berkeley, IRCAM, Carl Sound Format"
-msgstr ""
+msgstr "تنسيق صوت Berkeley، IRCAM، Carl"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:71
 #, kde-format
 msgid "NIST SPHERE Audio File Format"
-msgstr ""
+msgstr "تنسيق ملف الصوت NIST SPHERE"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:74
 #, kde-format
 msgid "Sample Vision Format"
-msgstr ""
+msgstr "تنسيق Sample Vision"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:77
 #, kde-format
 msgid "Creative Voice"
-msgstr ""
+msgstr "Creative Voice"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
 #: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:455
 #, kde-format
 msgid "Format or function is not implemented"
-msgstr ""
+msgstr "التنسيق أو الوظيفة غير مطبقة"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:128
 #: plugins/codec_wav/WavEncoder.cpp:462
 #, kde-format
 msgid "File header is damaged"
-msgstr ""
+msgstr "رأس الملف تالف"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:131
 #: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:465
 #, kde-format
 msgid "Invalid codec type"
-msgstr ""
+msgstr "نوع الترميز غير صالح"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:134
 #: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:469
@@ -3842,13 +3940,13 @@ msgstr "فشل فتح الملف"
 #: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:472
 #, kde-format
 msgid "Read access failed"
-msgstr ""
+msgstr "فشل الوصول للقراءة"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:140
 #: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:475
 #, kde-format
 msgid "Invalid sample format"
-msgstr ""
+msgstr "تنسيق العينة غير صالح"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:146
 #: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:481
@@ -3857,6 +3955,8 @@ msgid ""
 "An error occurred while opening the file:\n"
 "'%1'"
 msgstr ""
+"حدث خطأ أثناء فتح الملف:\n"
+"'%1'"
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
@@ -3866,37 +3966,37 @@ msgstr "صوت FLAC"
 #: plugins/codec_flac/FlacDecoder.cpp:282
 #, kde-format
 msgid "Opening the FLAC bitstream failed."
-msgstr ""
+msgstr "فشل فتح دفق بتات FLAC."
 
 #: plugins/codec_flac/FlacDecoder.cpp:292
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
-msgstr ""
+msgstr "خطأ أثناء تحليل البيانات الوصفية لـ FLAC. (%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:225
 #, kde-format
 msgid "Unable to open the FLAC encoder."
-msgstr ""
+msgstr "تعذر فتح مرمز FLAC."
 
 #: plugins/codec_mp3/MP3CodecPlugin.cpp:52
 msgctxt "menu: /Settings/MP3 Encoder Setup"
 msgid "MP3 Encoder Setup"
-msgstr ""
+msgstr "إعدادات مرمز MP3"
 
 #: plugins/codec_mp3/MP3CodecPlugin.h:74
 #, kde-format
 msgid "MPEG layer III audio"
-msgstr ""
+msgstr "صوت إم بي إي جي الطبقة III"
 
 #: plugins/codec_mp3/MP3CodecPlugin.h:80
 #, kde-format
 msgid "MPEG layer II audio"
-msgstr ""
+msgstr "صوت إم بي إي جي الطبقة II"
 
 #: plugins/codec_mp3/MP3CodecPlugin.h:86
 #, kde-format
 msgid "MPEG layer I audio"
-msgstr ""
+msgstr "صوت إم بي إي جي الطبقة I"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:97
 #, kde-format
@@ -3904,6 +4004,8 @@ msgid ""
 "The file has an invalid checksum.\n"
 "Do you still want to continue?"
 msgstr ""
+"الملف يحتوي على مجموع غير صالح.\n"
+"هل ما زلت تريد المتابعة؟"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:166
 #, kde-format
@@ -3911,6 +4013,8 @@ msgid ""
 "The file contains an invalid channel mode 0x%1\n"
 "Assuming Mono..."
 msgstr ""
+"الملف يحتوي على وضع قناة غير صالح 0x%1\n"
+"سيفترض أنه أحادي..."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:464
 #, kde-format
@@ -3918,26 +4022,28 @@ msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
 "No header information has been found."
 msgstr ""
+"الملف المفتوح ليس ملف إم بي إي جي أو أنه تالف.\n"
+"لم يعثر على معلومات الرأس."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:535
 #, kde-format
 msgid "Checksum error"
-msgstr ""
+msgstr "خطأ في المجموع"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:538
 #, kde-format
 msgid "Synchronization lost"
-msgstr ""
+msgstr "فقدت المزامنة"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:555
 #, kde-format
 msgid "File contains invalid data"
-msgstr ""
+msgstr "الملف يحتوي على بيانات غير صالحة"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:560
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
-msgstr ""
+msgstr "خطأ غير معروف 0x%1. ملف تالف؟"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:564
 #, kde-format
@@ -3946,16 +4052,19 @@ msgid ""
 "'%1',\n"
 "at position %2."
 msgstr ""
+"حدث خطأ أثناء فك ترميز الملف:\n"
+"'%1',\n"
+"في الموضع %2."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:569
 #, kde-format
 msgid "Do you still want to continue?"
-msgstr ""
+msgstr "هل تريد المتابعة؟"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:574
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
-msgstr ""
+msgstr "هل تريد المتابعة وتجاهل جميع الأخطاء التالية؟"
 
 #: plugins/codec_mp3/MP3Encoder.cpp:344
 #, kde-format
@@ -3963,11 +4072,13 @@ msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
 "be mixed down to stereo when saving."
 msgstr ""
+"تنسيق الملف الذي اخترته يدعم الأحادي أو المجسم فقط. سيُدمج هذا الملف إلى مجسم "
+"عند الحفظ."
 
 #: plugins/codec_mp3/MP3Encoder.cpp:357 plugins/codec_wav/WavEncoder.cpp:408
 #, kde-format
 msgid "Unable to open the file for saving!"
-msgstr ""
+msgstr "تعذر فتح الملف للحفظ!"
 
 #: plugins/codec_mp3/MP3Encoder.cpp:604
 #, kde-format
@@ -3977,6 +4088,9 @@ msgid ""
 "\n"
 "%2"
 msgstr ""
+"حدث خطأ أثناء استدعاء المرمز الخارجي '%1':\n"
+"\n"
+"%2"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:54
 #, kde-format
@@ -3989,6 +4103,8 @@ msgid ""
 "sample rate in Hz (use %1 as placeholder)\n"
 "or kHz (use %2 as placeholder)"
 msgstr ""
+"معدل العينة بالهرتز (استخدم %1 كعنصر نائب)\n"
+"أو كيلوهرتز (استخدم %2 كعنصر نائب)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:345
 #, kde-format
@@ -3996,6 +4112,8 @@ msgid ""
 "bits per sample,\n"
 "use %1 as placeholder"
 msgstr ""
+"بت لكل عينة،\n"
+"استخدم %1 كعنصر نائب"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:349
 #, kde-format
@@ -4003,6 +4121,8 @@ msgid ""
 "parameter for minimum bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
+"معلمة لأدنى معدل بت بالبت/الثانية\n"
+"(استخدم %1 كعنصر نائب)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:353
 #, kde-format
@@ -4010,6 +4130,8 @@ msgid ""
 "parameter for maximum bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
+"معلمة لأعلى معدل بت بالبت/الثانية\n"
+"(استخدم %1 كعنصر نائب)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:357
 #, kde-format
@@ -4017,22 +4139,24 @@ msgid ""
 "parameter for average bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
+"معلمة لمتوسط معدل بت بالبت/الثانية\n"
+"(استخدم %1 كعنصر نائب)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:603
 #, kde-format
 msgid "Select MP3 Encoder"
-msgstr ""
+msgstr "اختر مرمز MP3"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:657
 #, kde-format
 msgid "Congratulation, the test was successful!"
-msgstr ""
+msgstr "مبارك، كان الاختبار ناجحًا!"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, MP3EncoderDialogBase)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:20
 #, kde-format
 msgid "MP3 Encoder Settings"
-msgstr ""
+msgstr "إعدادات مرمز MP3"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpProgram)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:32
@@ -4044,7 +4168,7 @@ msgstr "برنامج"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:54
 #, kde-format
 msgid "manually browse for the encoder"
-msgstr ""
+msgstr "استعرض يدويًا للعثور على المرمز"
 
 #. i18n: ectx: property (text), widget (QPushButton, btSearch)
 #. i18n: ectx: property (text), widget (QPushButton, btSelectDate)
@@ -4059,13 +4183,13 @@ msgstr "ا&ختر..."
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:66
 #, kde-format
 msgid "select one of the predefined encoder setups"
-msgstr ""
+msgstr "اختر أحد إعدادات المرمز المحددة مسبقًا"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btDetect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:89
 #, kde-format
 msgid "auto-detect the installed encoder"
-msgstr ""
+msgstr "اكتشف المرمز المثبت آليًا"
 
 #. i18n: ectx: property (text), widget (QPushButton, btDetect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:92
@@ -4077,7 +4201,7 @@ msgstr "ا&كتشف آليًّا..."
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:101
 #, kde-format
 msgid "show the usage information of the encoder"
-msgstr ""
+msgstr "اعرض معلومات استخدام المرمز"
 
 #. i18n: ectx: property (text), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:104
@@ -4089,7 +4213,7 @@ msgstr "الا&ستخدام"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:117
 #, kde-format
 msgid "path to the encoder"
-msgstr ""
+msgstr "المسار إلى المرمز"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPath)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:127
@@ -4101,7 +4225,7 @@ msgstr "المسار:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:134
 #, kde-format
 msgid "find the full path to the encoder"
-msgstr ""
+msgstr "ابحث عن المسار الكامل إلى المرمز"
 
 #. i18n: ectx: property (text), widget (QPushButton, btLocate)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:137
@@ -4131,13 +4255,13 @@ msgstr "و&قّع:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:188
 #, kde-format
 msgid "parameter for switching the byte order"
-msgstr ""
+msgstr "معلمة لتبديل ترتيب البايت"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edRawFormat)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:210
 #, kde-format
 msgid "parameter for telling the encoder to use raw data as input format"
-msgstr ""
+msgstr "معلمة لإخبار المرمز باستخدام البيانات الأولية كتنسيق إدخال"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRawFormat)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:233
@@ -4155,7 +4279,7 @@ msgstr "ترتيب البايتات:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:259
 #, kde-format
 msgid "parameter to use signed sample format"
-msgstr ""
+msgstr "معلمة لاستخدام تنسيق عينة موقعة"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabFormat)
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox1_2)
@@ -4196,7 +4320,7 @@ msgstr "أحادي:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:360
 #, kde-format
 msgid "parameter for single channel files (mono)"
-msgstr ""
+msgstr "معلمة لملفات القناة المفردة (أحادي)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblStereo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:376
@@ -4211,6 +4335,8 @@ msgid ""
 "parameter for multi channel files\n"
 "(stereo or more channels)"
 msgstr ""
+"معلمة لملفات متعددة القنوات\n"
+"(مجسمي أو أكثر)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabQuality)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:420
@@ -4258,13 +4384,13 @@ msgstr "التشديد:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:562
 #, kde-format
 msgid "none"
-msgstr "لاشيء"
+msgstr "لا شيء"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edEmphasisNone)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:587
 #, kde-format
 msgid "parameter for no emphasis"
-msgstr ""
+msgstr "معلمة لعدم التشديد"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEmphasis5015ms)
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
@@ -4278,7 +4404,7 @@ msgstr "50/15م‌ث"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:622
 #, kde-format
 msgid "parameter for 50/15ms emphasis"
-msgstr ""
+msgstr "معلمة لتشديد 50/15 مللي ثانية"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEmphasisCCIT_J17)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:638
@@ -4290,19 +4416,19 @@ msgstr "CCIT J17"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:657
 #, kde-format
 msgid "parameter for CCIT J17 emphasis"
-msgstr ""
+msgstr "معلمة لتشديد CCIT J17"
 
 #. i18n: ectx: property (text), widget (QLabel, lblNoiseShaping)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:667
 #, kde-format
 msgid "Noise Shaping:"
-msgstr ""
+msgstr "تشكيل الضوضاء:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edNoiseShaping)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:686
 #, kde-format
 msgid "parameters for configuring noise shaping"
-msgstr ""
+msgstr "معلمات لتكوين تشكيل الضوضاء"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompatibility)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:696
@@ -4314,7 +4440,7 @@ msgstr "درجة التوافق:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:715
 #, kde-format
 msgid "parameters for compatibility settings"
-msgstr ""
+msgstr "معلمات لإعدادات التوافق"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabFlags)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:739
@@ -4332,7 +4458,7 @@ msgstr "حقوق النسخ:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:770
 #, kde-format
 msgid "parameter for marking the file as copyrighted"
-msgstr ""
+msgstr "معلمة لوضع علامة على الملف بأنه محمي بحقوق النشر"
 
 #. i18n: ectx: property (text), widget (QLabel, lblOriginal)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:786
@@ -4344,7 +4470,7 @@ msgstr "الأصلية:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:805
 #, kde-format
 msgid "parameter for marking the signal as original (not a copy)"
-msgstr ""
+msgstr "معلمة لوضع علامة على الإشارة على أنها أصلية (ليست نسخة)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblProtect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:821
@@ -4356,7 +4482,7 @@ msgstr "حماية:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:840
 #, kde-format
 msgid "parameter to enable CRC protection"
-msgstr ""
+msgstr "معلمة لتمكين حماية CRC"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPrepend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:866
@@ -4368,7 +4494,7 @@ msgstr "قدّم:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:879
 #, kde-format
 msgid "additional parameters to put at the start of the encoder command line"
-msgstr ""
+msgstr "معلمات إضافية لوضعها في بداية سطر أمر المرمز"
 
 #. i18n: ectx: property (text), widget (QLabel, lblAppend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:889
@@ -4380,7 +4506,7 @@ msgstr "ألحق:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:902
 #, kde-format
 msgid "additional parameters to append at the end of the encoder command line"
-msgstr ""
+msgstr "معلمات إضافية لإلحاقها في نهاية سطر أمر المرمز"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:926
@@ -4398,7 +4524,7 @@ msgstr "مساعد المرمز:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:957
 #, kde-format
 msgid "parameter for getting usage information of the encoder"
-msgstr ""
+msgstr "معلمة للحصول على معلومات استخدام المرمز"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEncoderInfo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:967
@@ -4410,13 +4536,13 @@ msgstr "معلومات الإصدارة:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1005
 #, kde-format
 msgid "parameter for getting the encoder version information"
-msgstr ""
+msgstr "معلمة للحصول على معلومات إصدار المرمز"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btTest)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1047
 #, kde-format
 msgid "try to encode some short test signal with the current settings"
-msgstr ""
+msgstr "حاول ترميز بعض إشارات الاختبار القصيرة بالإعدادات الحالية"
 
 #. i18n: ectx: property (text), widget (QPushButton, btTest)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1050
@@ -4427,7 +4553,7 @@ msgstr "اختبار..."
 #: plugins/codec_ogg/OggCodecPlugin.h:60
 #, kde-format
 msgid "Ogg Opus audio"
-msgstr ""
+msgstr "صوت Ogg Opus"
 
 #: plugins/codec_ogg/OggCodecPlugin.h:67
 #, kde-format
@@ -4442,32 +4568,32 @@ msgstr "صوت Ogg"
 #: plugins/codec_ogg/OggDecoder.cpp:93
 #, kde-format
 msgid "Ogg bitstream has zero-length."
-msgstr ""
+msgstr "دفق بتات Ogg له طول صفري."
 
 #: plugins/codec_ogg/OggDecoder.cpp:105
 #, kde-format
 msgid "Input does not appear to be an Ogg bitstream."
-msgstr ""
+msgstr "الإدخال لا يبدو أنه دفق بتات Ogg."
 
 #: plugins/codec_ogg/OggDecoder.cpp:117
 #, kde-format
 msgid "Error reading first page of the Ogg bitstream data."
-msgstr ""
+msgstr "خطأ في قراءة الصفحة الأولى من بيانات دفق بتات Ogg."
 
 #: plugins/codec_ogg/OggDecoder.cpp:124
 #, kde-format
 msgid "Error reading initial header packet."
-msgstr ""
+msgstr "خطأ في قراءة حزمة الرأس الأولية."
 
 #: plugins/codec_ogg/OggDecoder.cpp:161
 #, kde-format
 msgid "Error: Codec not supported"
-msgstr ""
+msgstr "خطأ: الترميز غير مدعوم"
 
 #: plugins/codec_ogg/OggDecoder.cpp:220
 #, kde-format
 msgid "Corrupt or missing data in bitstream. Continuing."
-msgstr ""
+msgstr "بيانات تالفة أو مفقودة في دفق البت. جاري المتابعة."
 
 #: plugins/codec_ogg/OggEncoder.cpp:111
 #, kde-format
@@ -4475,57 +4601,57 @@ msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
 "etc)"
 msgid "Error: No Codec for '%1' available"
-msgstr ""
+msgstr "خطأ: لا يوجد مرمز متاح لـ '%1'"
 
 #: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:117
 #, kde-format
 msgid "One or more invalid/out of range arguments."
-msgstr ""
+msgstr "وسيط واحد أو أكثر غير صالح/خارج النطاق."
 
 #: plugins/codec_ogg/OpusCommon.cpp:58
 #, kde-format
 msgid "The mode struct passed is invalid."
-msgstr ""
+msgstr "هيكل الوضع المُمرر غير صالح."
 
 #: plugins/codec_ogg/OpusCommon.cpp:61
 #, kde-format
 msgid "An internal error was detected."
-msgstr ""
+msgstr "اكُتشاف خطأ داخلي."
 
 #: plugins/codec_ogg/OpusCommon.cpp:64
 #, kde-format
 msgid "The compressed data passed is corrupted."
-msgstr ""
+msgstr "البيانات المضغوطة المُمررة تالفة."
 
 #: plugins/codec_ogg/OpusCommon.cpp:67
 #, kde-format
 msgid "Invalid/unsupported request number."
-msgstr ""
+msgstr "رقم طلب غير صالح/غير مدعوم."
 
 #: plugins/codec_ogg/OpusCommon.cpp:70
 #, kde-format
 msgid "A decoder structure is invalid or already freed."
-msgstr ""
+msgstr "هيكل فك الترميز غير صالح أو محرر فعلًا."
 
 #: plugins/codec_ogg/OpusCommon.cpp:76
 #, kde-format
 msgid "Decoder error: %1"
-msgstr ""
+msgstr "خطأ في فك الترميز: %1"
 
 #: plugins/codec_ogg/OpusDecoder.cpp:152
 #, kde-format
 msgid "End of file before finding Opus Comment headers."
-msgstr ""
+msgstr "نهاية الملف قبل العثور على رؤوس تعليقات Opus."
 
 #: plugins/codec_ogg/OpusDecoder.cpp:356
 #, kde-format
 msgid "This Ogg bitstream does not contain valid Opus audio data."
-msgstr ""
+msgstr "دفق بتات Ogg هذا لا يحتوي على بيانات صوت Opus صالحة."
 
 #: plugins/codec_ogg/OpusDecoder.cpp:403
 #, kde-format
 msgid "Opus decoder failed"
-msgstr ""
+msgstr "فشل فك ترميز Opus"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:141
 #, kde-format
@@ -4533,6 +4659,8 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to mono."
 msgstr ""
+"معدل البت المحيط سيكون أقل من 32 كيلوبت/الثانية لكل قناة، يجب دمج هذا الملف "
+"إلى أحادي."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:153
 #, kde-format
@@ -4540,12 +4668,14 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to stereo."
 msgstr ""
+"معدل البت المحيط سيكون أقل من 32 كيلوبت/الثانية لكل قناة، يجب دمج هذا الملف "
+"إلى مجسمي."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:223
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
-msgstr ""
+msgstr "معدل البت %1 كيلوبت/الثانية خارج النطاق، محدود إلى %2 كيلوبت/الثانية"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:275
 #, kde-format
@@ -4554,52 +4684,54 @@ msgid ""
 "Sample rate %1 samples/sec is out of range,\n"
 "supported are %2 ... %3 samples/sec."
 msgstr ""
+"معدل العينة %1 عينة/الثانية خارج النطاق،\n"
+"المتاح هو %2 ... %3 عينة/الثانية."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
 #, kde-format
 msgid "Opus encoder failed"
-msgstr ""
+msgstr "فشل ترميز Opus"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:472
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
-msgstr ""
+msgstr "فشل مرمز Opus في ضبط معدل البت: '%1'"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:484
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
-msgstr ""
+msgstr "فشل مرمز Opus في تكوين وضع VBR: '%1'"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:494
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
-msgstr ""
+msgstr "فشل مرمز Opus في تكوين قيد VBR: '%1'"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:596
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
-msgstr ""
+msgstr "فشل مرمز Opus في الحصول على قيمة lookahead: '%1'"
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:89
 #, kde-format
 msgid "This Ogg bitstream does not contain any Vorbis audio data."
-msgstr ""
+msgstr "دفق بتات Ogg هذا لا يحتوي على أي بيانات صوت Vorbis."
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:122
 #, kde-format
 msgid "Corrupt secondary header. Exiting."
-msgstr ""
+msgstr "رأس ثانوي تالف. جاري الخروج."
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:136
 #, kde-format
 msgid "End of file before finding all Vorbis headers."
-msgstr ""
+msgstr "نهاية الملف قبل العثور على جميع رؤوس Vorbis."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:97
 #, kde-format
 msgid ""
 "This codec supports only mono or stereo files, %1 channels are not supported."
-msgstr ""
+msgstr "هذا الترميز يدعم فقط الملفات الأحادية أو المجسمة، %1 قنوات غير متوفرة."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:120
 #, kde-format
@@ -4607,6 +4739,8 @@ msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
 "and encode with %1 kBit/s or cancel and choose a different bitrate?"
 msgstr ""
+"لم تحدد أي معدل بت للترميز. هل تريد المتابعة والترميز بمعدل %1 كيلوبت/ثانية "
+"أو إلغاء واختيار معدل بت مختلف؟"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:177
 #, kde-format
@@ -4614,21 +4748,23 @@ msgid ""
 "One or more encoding parameters are not supported. Please change the "
 "settings and try again."
 msgstr ""
+"معلمة ترميز واحدة أو أكثر غير مدعومة. يرجى تغيير الإعدادات والمحاولة مرة "
+"أخرى."
 
 #: plugins/codec_wav/RIFFParser.cpp:122
 #, kde-format
 msgid "Detecting endianness (standard search)..."
-msgstr ""
+msgstr "جاري اكتشاف endianness (بحث قياسي)..."
 
 #: plugins/codec_wav/RIFFParser.cpp:151
 #, kde-format
 msgid "Detecting endianness (statistic search)..."
-msgstr ""
+msgstr "جاري اكتشاف endianness (بحث إحصائي)..."
 
 #: plugins/codec_wav/RIFFParser.cpp:547
 #, kde-format
 msgid "Searching for missing chunk '%1'..."
-msgstr ""
+msgstr "جاري البحث عن القطعة المفقودة '%1'..."
 
 #: plugins/codec_wav/WavDecoder.cpp:143
 #, kde-format
@@ -4646,11 +4782,13 @@ msgid ""
 "The file has been structurally damaged or it is no WAV file.\n"
 "Should Kwave try to repair it?"
 msgstr ""
+"الملف تالف هيكليًا أو أنه ليس ملف WAV.\n"
+"هل يجب على برنامج موجة محاولة إصلاحه؟"
 
 #: plugins/codec_wav/WavDecoder.cpp:177 plugins/codec_wav/WavDecoder.cpp:282
 #, kde-format
 msgid "Kwave Auto Repair"
-msgstr ""
+msgstr "الإصلاح الآلي لموجة"
 
 #: plugins/codec_wav/WavDecoder.cpp:178
 #, kde-format
@@ -4665,6 +4803,10 @@ msgid ""
 "\n"
 "It makes no sense to continue now."
 msgstr ""
+"الملف المفتوح ليس ملف WAV أو أنه تالف:\n"
+"لا توجد بيانات صوتية صالحة كافية.\n"
+"\n"
+"لا فائدة من المتابعة الآن."
 
 #: plugins/codec_wav/WavDecoder.cpp:278
 #, kde-format
@@ -4675,16 +4817,21 @@ msgid ""
 "Kwave will only use the first ones and ignore\n"
 "the rest. This might lead to loss of data."
 msgstr ""
+"يبدو أن ملف WAV تالف:\n"
+"بعض القطع مكررة أو مفقودة.\n"
+"\n"
+"سيستخدم موجة الأولى فقط ويتجاهل\n"
+"الباقي. قد يؤدي هذا إلى فقدان البيانات."
 
 #: plugins/codec_wav/WavDecoder.cpp:375
 #, kde-format
 msgid "file header is damaged"
-msgstr ""
+msgstr "رأس الملف تالف"
 
 #: plugins/codec_wav/WavDecoder.cpp:391
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
-msgstr ""
+msgstr "خطأ داخلي في libaudiofile #%1: '%2'"
 
 #: plugins/codec_wav/WavEncoder.cpp:361
 #, kde-format
@@ -4692,21 +4839,23 @@ msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
 "you want to use G711 ULAW compression instead?"
 msgstr ""
+"عذرًا، لا يمكن استخدام نوع الضغط المحدد حاليًا للحفظ. هل تريد استخدام ضغط G711 "
+"ULAW بدلاً من ذلك؟"
 
 #: plugins/codec_wav/WavEncoder.cpp:364
 #, kde-format
 msgid "&Yes, use G711"
-msgstr ""
+msgstr "&نعم، استخدم G711"
 
 #: plugins/codec_wav/WavEncoder.cpp:365
 #, kde-format
 msgid "&No, store uncompressed"
-msgstr ""
+msgstr "لا، خزّن غير &مضغوط"
 
 #: plugins/codec_wav/WavEncoder.cpp:414 plugins/sonagram/SonagramPlugin.cpp:204
 #, kde-format
 msgid "File or selection too large"
-msgstr ""
+msgstr "الملف أو التحديد كبير جدًا"
 
 #: plugins/codec_wav/WavFileFormat.h:291
 #, kde-format
@@ -4715,39 +4864,39 @@ msgstr "صوت WAV"
 
 #: plugins/debug/DebugPlugin.cpp:89
 msgid "Generate 50% DC Level"
-msgstr ""
+msgstr "توليد مستوى 50% تيار مستمر"
 
 #: plugins/debug/DebugPlugin.cpp:91
 msgid "Generate 100% DC Level"
-msgstr ""
+msgstr "توليد مستوى 100% تيار مستمر"
 
 #: plugins/debug/DebugPlugin.cpp:93
 msgid "MinMax Pattern"
-msgstr ""
+msgstr "نمط MinMax"
 
 #: plugins/debug/DebugPlugin.cpp:95
 msgid "Generate Sawtooth Pattern"
-msgstr ""
+msgstr "توليد نمط سن المنشار"
 
 #: plugins/debug/DebugPlugin.cpp:97
 msgid "Verify Sawtooth Pattern"
-msgstr ""
+msgstr "التحقق من نمط سن المنشار"
 
 #: plugins/debug/DebugPlugin.cpp:99
 msgid "FM Sweep"
-msgstr ""
+msgstr "مسح FM"
 
 #: plugins/debug/DebugPlugin.cpp:109
 msgid "Labels at Stripe borders"
-msgstr ""
+msgstr "تسميات عند حدود الشريط"
 
 #: plugins/debug/DebugPlugin.cpp:113
 msgid "Dump Window Hierarchy"
-msgstr ""
+msgstr "تفريغ تسلسل النوافذ"
 
 #: plugins/debug/DebugPlugin.cpp:117
 msgid "Dump Meta Data"
-msgstr ""
+msgstr "تفريغ البيانات الوصفية"
 
 #: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:238
 #, kde-format
@@ -4766,17 +4915,17 @@ msgstr "(مكتشف آليًّا)"
 #, kde-format
 msgctxt "file type filter when exporting to K3b"
 msgid "K3b project file (*.k3b)"
-msgstr ""
+msgstr "ملف مشروع كي٣بي (*.k3b)"
 
 #: plugins/export_k3b/K3BExportDialog.cpp:161
 #, kde-format
 msgid "Please choose a K3b project file name"
-msgstr ""
+msgstr "يرجى اختيار اسم ملف مشروع كي٣بي"
 
 #: plugins/export_k3b/K3BExportDialog.cpp:165
 #, kde-format
 msgid "Please choose where to export the audio files"
-msgstr ""
+msgstr "يرجى اختيار مكان تصدير ملفات الصوت"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportDialogBase.ui:35
@@ -4788,7 +4937,7 @@ msgstr "إعدادات دخل"
 #: plugins/export_k3b/K3BExportDialogBase.ui:46
 #, kde-format
 msgid "Format of Labels:"
-msgstr ""
+msgstr "تنسيق التسميات:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbLabelPattern)
 #: plugins/export_k3b/K3BExportDialogBase.ui:62
@@ -4806,6 +4955,16 @@ msgid ""
 "courier'; font-weight:600;\">[%artist]</span> name of the artist</li></ul></"
 "body></html>"
 msgstr ""
+"<html><head/><body><p>حدد نمطًا لاكتشاف العنوان والفنان من نص التسمية.<br/"
+">يفهم حاليًا العناصر النائبة التالية:</p><ul style=\"margin-top: 0px; margin-"
+"bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li "
+"style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"family:'Courier New,courier'; font-weight:600;\">[%title] </span>عنوان "
+"الأغنية</li><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
+"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"family:'Courier New,courier'; font-weight:600;\">[%artist]</span> اسم "
+"الفنان</li></ul></body></html>"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkSelectionOnly)
 #: plugins/export_k3b/K3BExportDialogBase.ui:83
@@ -4817,24 +4976,27 @@ msgid ""
 "disabled if nothing is selected or the selection already covers the whole "
 "file.</i>"
 msgstr ""
+"إذا حُدد، <b>احفظ فقط الكتل التي تتداخل مع التحديد الحالي</b>، وإلا فسيحفظ "
+"الملف بأكمله. <br><i>يرجى ملاحظة أن هذا الخيار معطل إذا لم يحدد أي شيء أو "
+"إذا كان التحديد يغطي الملف بأكمله بالفعل.</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/export_k3b/K3BExportDialogBase.ui:86
 #, kde-format
 msgid "Use Selection only"
-msgstr ""
+msgstr "استخدم التحديد فقط"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpOutputSettings)
 #: plugins/export_k3b/K3BExportDialogBase.ui:99
 #, kde-format
 msgid "Output Settings"
-msgstr "إعدادات المخرجات"
+msgstr "إعدادات المخرجات"
 
 #. i18n: ectx: property (text), widget (QLabel, lblOverwritePolicy)
 #: plugins/export_k3b/K3BExportDialogBase.ui:111
 #, kde-format
 msgid "Overwrite Policy:"
-msgstr ""
+msgstr "سياسة الاستبدال:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportDialogBase.ui:127
@@ -4843,6 +5005,8 @@ msgid ""
 "Select whether existing files are overwritten or new file names are used "
 "when exporting the files to use as tracks of the audio CD."
 msgstr ""
+"حدد ما إذا كانت الملفات الموجودة ستستبدل أو سيستخدم أسماء ملفات جديدة عند "
+"تصدير الملفات لاستخدامها كمسارات للقرص الصوتي."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportDialogBase.ui:134
@@ -4854,7 +5018,7 @@ msgstr "اكتب فوق الملفات الموجودة"
 #: plugins/export_k3b/K3BExportDialogBase.ui:139
 #, kde-format
 msgid "Use new File Names"
-msgstr ""
+msgstr "استخدم أسماء ملفات جديدة"
 
 #. i18n: ectx: property (text), widget (QLabel, lblDirectory)
 #. i18n: ectx: property (text), widget (QLabel, lblLocation)
@@ -4862,19 +5026,19 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:147
 #, kde-format
 msgid "Export Location:"
-msgstr ""
+msgstr "موقع التصدير:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFilename)
 #: plugins/export_k3b/K3BExportDialogBase.ui:154
 #, kde-format
 msgid "K3b Project File:"
-msgstr ""
+msgstr "ملف مشروع كي٣بي:"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:161
 #, kde-format
 msgid "Location to save the K3b project file"
-msgstr ""
+msgstr "موقع حفظ ملف مشروع كي٣بي"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:173
@@ -4886,18 +5050,18 @@ msgstr "ملف المشروع"
 #: plugins/export_k3b/K3BExportDialogBase.ui:180
 #, kde-format
 msgid "Location to export the audio files to"
-msgstr ""
+msgstr "موقع تصدير ملفات الصوت إليه"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:189
 #, kde-format
 msgid "Export Location"
-msgstr ""
+msgstr "موقع التصدير"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:280
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
-msgstr ""
+msgstr "تصدير إلى مشروع كي٣بي..."
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:599
 #, kde-format
@@ -4906,6 +5070,9 @@ msgid ""
 "deselect some channels or export the file in a different file format that "
 "supports mono and stereo only (for example FLAC) and then try again."
 msgstr ""
+"يمكن استخدام الملفات الأحادية والمجسمة فقط للقرص الصوتي. يمكنك إما إلغاء "
+"تحديد بعض القنوات أو تصدير الملف بتنسيق ملف مختلف يدعم الأحادي والمجسم فقط "
+"(مثل FLAC) ثم المحاولة مرة أخرى."
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:662
 #, kde-format
@@ -4913,12 +5080,14 @@ msgid ""
 "A K3b project file has been created and audio files have been exported.\n"
 "Should I start K3b and open the audio CD project now?"
 msgstr ""
+"أُنشئ ملف مشروع كي٣بي وصُدرت ملفات الصوت.\n"
+"هل يجب أن أبدأ كي٣بي وأفتح مشروع القرص الصوتي الآن؟"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:50
 #, kde-format
 msgid "Average Bitrate Mode"
-msgstr ""
+msgstr "وضع معدل البت المتوسط"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:55
@@ -4928,12 +5097,15 @@ msgid ""
 "Bitrate is set to an average value,\n"
 "with optional upper and lower limit."
 msgstr ""
+"<b>وضع معدل البت المتوسط</b><br>\n"
+"يُضبط معدل البت على قيمة متوسطة،\n"
+"مع حد أعلى وأدنى اختياري."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:58
 #, kde-format
 msgid "ABR:"
-msgstr ""
+msgstr "معدل بت متوسط:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLowestBitrate)
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, sbBaseQuality)
@@ -4947,7 +5119,7 @@ msgstr "الأقل"
 #: plugins/fileinfo/CompressionWidgetBase.ui:88
 #, kde-format
 msgid "Variable Bitrate Mode"
-msgstr ""
+msgstr "وضع معدل البت المتغير"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbVBR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:92
@@ -4956,6 +5128,8 @@ msgid ""
 "<b>Variable Bitrate Mode</b><br>\n"
 "The bitrate is selected by an average quality."
 msgstr ""
+"<b>وضع معدل البت المتغير</b><br>\n"
+"يعين معدل البت بناءً على جودة متوسطة."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbVBR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:95
@@ -4973,7 +5147,7 @@ msgstr "الأقصى"
 #: plugins/fileinfo/CompressionWidgetBase.ui:115
 #, kde-format
 msgid "Nominal Bitrate"
-msgstr ""
+msgstr "معدل البت الاسمي"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbBaseQuality)
 #: plugins/fileinfo/CompressionWidgetBase.ui:184
@@ -4989,12 +5163,12 @@ msgstr "%1 بايت"
 #: plugins/fileinfo/FileInfoDialog.cpp:215
 #, kde-format
 msgid "%1 kB (%2 byte)"
-msgstr ""
+msgstr "%1 كيلوبايت (%2 بايت)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:218
 #, kde-format
 msgid "%1 MB (%2 byte)"
-msgstr ""
+msgstr "%1 ميغابايت (%2 بايت)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
 #: plugins/fileinfo/FileInfoDialog.cpp:231 plugins/newsignal/NewSigDlg.ui:102
@@ -5010,6 +5184,9 @@ msgid ""
 "well-known sample rates or you can enter\n"
 "any sample rate on your own."
 msgstr ""
+"هنا يمكنك اختيار أحد معدلات العينة المعروفة\n"
+"المحددة مسبقًا أو يمكنك إدخال\n"
+"أي معدل عينة بنفسك."
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
 #: plugins/fileinfo/FileInfoDialog.cpp:240 plugins/newsignal/NewSigDlg.ui:206
@@ -5023,14 +5200,14 @@ msgstr "الدقّة:"
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
-msgstr ""
+msgstr "حدد دقة بالبتات سيُحفظ الملف بها."
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
 #: plugins/fileinfo/FileInfoDialog.cpp:248 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
-msgstr "المقطوعات:"
+msgstr "المسارات:"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:251
 #, kde-format
@@ -5038,6 +5215,8 @@ msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
+"يعرض عدد مسارات الإشارة.\n"
+"يمكنك إضافة أو حذف المسارات عبر قائمة التحرير."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:261
 #, kde-format
@@ -5050,6 +5229,8 @@ msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
 msgstr ""
+"يعرض طول الملف بالعينات\n"
+"وإذا أمكن كوقت."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:270
 #, kde-format
@@ -5079,7 +5260,7 @@ msgstr "(مجسمي)"
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
-msgstr "(كوادرو)"
+msgstr "(رباعي)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:819
 #: plugins/fileinfo/FileInfoDialog.cpp:825
@@ -5313,19 +5494,19 @@ msgstr "CCIT J.17"
 #: plugins/fileinfo/FileInfoDlg.ui:1006
 #, kde-format
 msgid "MPEG Version 1 (ISO/IEC 11172-3)"
-msgstr "MPEG الإصدار 1 (ISO/IEC 11172-3)"
+msgstr "إم بي إي جي الإصدار 1 (ISO/IEC 11172-3)"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegVersion)
 #: plugins/fileinfo/FileInfoDlg.ui:1011
 #, kde-format
 msgid "MPEG Version 2 (ISO/IEC 13818-3)"
-msgstr "MPEG الإصدار 2 (ISO/IEC 13818-3)"
+msgstr "إم بي إي جي الإصدار 2 (ISO/IEC 13818-3)"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegVersion)
 #: plugins/fileinfo/FileInfoDlg.ui:1016
 #, kde-format
 msgid "MPEG Version 2.5 (unofficial)"
-msgstr "MPEG الإصدار 2.5 (غير رسمية)"
+msgstr "إم بي إي جي الإصدار 2.5 (غير رسمية)"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegLayer)
 #: plugins/fileinfo/FileInfoDlg.ui:1035
@@ -5355,20 +5536,20 @@ msgstr "المحتوى"
 #: plugins/fileinfo/FileInfoDlg.ui:1267
 #, kde-format
 msgid "Select a date from the calendar."
-msgstr ""
+msgstr "حدد تاريخًا من التقويم."
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDate)
 #: plugins/fileinfo/FileInfoDlg.ui:1270
 #, kde-format
 msgid "Opens a dialog for selecting a date from the calendar."
-msgstr ""
+msgstr "يفتح نافذة حوار لاختيار تاريخ من التقويم."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btSelectDateNow)
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDateNow)
 #: plugins/fileinfo/FileInfoDlg.ui:1292 plugins/fileinfo/FileInfoDlg.ui:1295
 #, kde-format
 msgid "Set the date to today."
-msgstr ""
+msgstr "اضبط التاريخ إلى اليوم."
 
 #. i18n: ectx: property (text), widget (QPushButton, btSelectDateNow)
 #: plugins/fileinfo/FileInfoDlg.ui:1298
@@ -5387,7 +5568,7 @@ msgstr " / "
 #: plugins/fileinfo/FileInfoDlg.ui:1719
 #, kde-format
 msgid "Author/Copyright"
-msgstr ""
+msgstr "المؤلف/حقوق النسخ"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: plugins/fileinfo/FileInfoDlg.ui:2000
@@ -5403,6 +5584,9 @@ msgid ""
 "to repair a damaged file? Note: changing only the sample rate can cause "
 "\"Mickey Mouse\" effects."
 msgstr ""
+"لقد غيرت معدل العينة. هل تريد تحويل الملف بأكمله إلى معدل العينة الجديد أم "
+"تريد فقط تعيين معلومات المعدل لإصلاح ملف تالف؟ ملاحظة: تغيير معدل العينة فقط "
+"قد يسبب تأثيرات \"ميكي ماوس\"."
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:91
 #, kde-format
@@ -5412,7 +5596,7 @@ msgstr "&حوّل"
 #: plugins/fileinfo/FileInfoPlugin.cpp:92
 #, kde-format
 msgid "&Set Rate"
-msgstr ""
+msgstr "&عيّن المعدل"
 
 #. i18n: ectx: property (text), widget (QPushButton, btRemove)
 #: plugins/fileinfo/KeywordWidgetBase.ui:29
@@ -5430,7 +5614,7 @@ msgstr "أ&ضف"
 #: plugins/fileinfo/KeywordWidgetBase.ui:62
 #, kde-format
 msgid "auto-generate keywords"
-msgstr ""
+msgstr "توليد الكلمات المفتاحية آليًا"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:66
@@ -5440,6 +5624,9 @@ msgid ""
 "Create a list of keywords by going through all present file information and "
 "merge it with the current list of keywords."
 msgstr ""
+"<b>إنشاء الكلمات المفتاحية آلياً</b><br>\n"
+"أنشئ قائمة بالكلمات المفتاحية من خلال مراجعة جميع معلومات الملف الحالية "
+"ودمجها مع القائمة الحالية للكلمات المفتاحية."
 
 #. i18n: ectx: property (text), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:69
@@ -5451,7 +5638,7 @@ msgstr "آ&ليّ"
 #: plugins/fileinfo/KeywordWidgetBase.ui:82
 #, kde-format
 msgid "List of keywords."
-msgstr ""
+msgstr "قائمة الكلمات المفتاحية."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectDateDlg)
 #: plugins/fileinfo/SelectDateDlg.ui:20
@@ -5497,12 +5684,15 @@ msgid ""
 "Determines the highest audible frequency, higher\n"
 "frequencies will be cut off."
 msgstr ""
+"<b>تردد القطع</b>\n"
+"يحدد أعلى تردد مسموع، سيُقطع الترددات\n"
+"الأعلى."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NewSigDlg)
 #: plugins/newsignal/NewSigDlg.ui:15
 #, kde-format
 msgid "New Signal"
-msgstr ""
+msgstr "إشارة جديدة"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbSampleRate)
 #: plugins/newsignal/NewSigDlg.ui:39
@@ -5511,12 +5701,14 @@ msgid ""
 "<b>Sample rate</b><br>Here you can select one of the predefined well-known "
 "sample rates or you can enter any sample rate on your own."
 msgstr ""
+"<b>معدل العينة</b><br>هنا يمكنك اختيار أحد معدلات العينة المعروفة المحددة "
+"مسبقًا أو يمكنك إدخال أي معدل عينة بنفسك."
 
 #. i18n: ectx: property (text), widget (QLabel, lblSamplesPerSecond)
 #: plugins/newsignal/NewSigDlg.ui:168 plugins/record/RecordDlg.ui:670
 #, kde-format
 msgid "Samples per second"
-msgstr ""
+msgstr "عينات في الثانية"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBits)
 #: plugins/newsignal/NewSigDlg.ui:224
@@ -5531,6 +5723,8 @@ msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
+"<b>عدد المسارات</b><br>حدد عدد مسارات الإشارة الجديدة. إذا لم تكن متأكدًا "
+"الآن، يمكنك إضافة أو حذف المسارات لاحقًا في البرنامج."
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbResolution)
 #: plugins/newsignal/NewSigDlg.ui:301
@@ -5540,12 +5734,14 @@ msgid ""
 "saved. However, Kwave always uses 24 bits as its own internal resolution to "
 "give the best results when processing the audio data."
 msgstr ""
+"<b>الدقة</b><br> حدد دقة بالبتات سيُحفظ الملف بها. ومع ذلك، يستخدم موجة دائمًا "
+"24 بت كدقة داخلية خاصة به لإعطاء أفضل النتائج عند معالجة بيانات الصوت."
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbTime)
 #: plugins/newsignal/NewSigDlg.ui:347
 #, kde-format
 msgid "Select this to set the length of the file by time"
-msgstr ""
+msgstr "حدد هذا لضبط طول الملف حسب الوقت"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbTime)
 #: plugins/newsignal/NewSigDlg.ui:350
@@ -5557,7 +5753,7 @@ msgstr "الوقت"
 #: plugins/newsignal/NewSigDlg.ui:357
 #, kde-format
 msgid "Select this to enter the number of samples directly"
-msgstr ""
+msgstr "حدد هذا لإدخال عدد العينات مباشرة"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbSamples)
 #: plugins/newsignal/NewSigDlg.ui:360
@@ -5569,7 +5765,7 @@ msgstr " عينات"
 #: plugins/newsignal/NewSigDlg.ui:492
 #, kde-format
 msgid "Minimum"
-msgstr "الحد الادنى"
+msgstr "الحد الأدنى"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2_2)
 #: plugins/newsignal/NewSigDlg.ui:521
@@ -5581,18 +5777,18 @@ msgstr "(حجم الملفّ)"
 #: plugins/newsignal/NewSigDlg.ui:550
 #, kde-format
 msgid "Maximum"
-msgstr "الحد الاعلى"
+msgstr "الحد الأعلى"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slideLength)
 #: plugins/newsignal/NewSigDlg.ui:571
 #, kde-format
 msgid "Sets the file size by the percentage of the possible maximum"
-msgstr ""
+msgstr "يضبط حجم الملف بالنسبة المئوية للحد الأقصى الممكن"
 
 #: plugins/newsignal/NewSignalDialog.cpp:327
 #, kde-format
 msgid "(Resulting file size: %1 MB)"
-msgstr ""
+msgstr "(حجم الملف الناتج: %1 ميغابايت)"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NoiseDlg)
 #: plugins/noise/NoiseDlg.ui:17 plugins/noise/NoisePlugin.cpp:135
@@ -5612,7 +5808,7 @@ msgstr "الوضع"
 #: plugins/noise/NoiseDlg.ui:54
 #, kde-format
 msgid "add a noise level by percentage"
-msgstr ""
+msgstr "أضف مستوى ضوضاء بالنسبة المئوية"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:58
@@ -5622,6 +5818,8 @@ msgid ""
 "level.\n"
 "For example: \"1 %\", \"15%\" or \"100%\""
 msgstr ""
+"يضيف مستوى ضوضاء معطى كنسبة مئوية بالنسبة لأقصى مستوى صوت.\n"
+"على سبيل المثال: \"1%\"، \"15%\" أو \"100%\""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:61 plugins/volume/VolumeDlg.ui:91
@@ -5633,7 +5831,7 @@ msgstr "ال&نسبة"
 #: plugins/noise/NoiseDlg.ui:77
 #, kde-format
 msgid "add a noise level in dB"
-msgstr ""
+msgstr "أضف مستوى ضوضاء بوحدة dB"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbLogarithmic)
 #: plugins/noise/NoiseDlg.ui:81
@@ -5642,6 +5840,8 @@ msgid ""
 "adds a noise level in logarithmic scale (decibel).\n"
 "For example: \"-3 dB\", \"- 6 dB\"."
 msgstr ""
+"يضيف مستوى ضوضاء بمقياس لوغاريتمي (ديسيبل).\n"
+"على سبيل المثال: \"-3 dB\"، \"-6 dB\"."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbLogarithmic)
 #: plugins/noise/NoiseDlg.ui:84 plugins/volume/VolumeDlg.ui:111
@@ -5673,19 +5873,19 @@ msgstr "المساواة"
 #: plugins/normalize/NormalizePlugin.cpp:92
 #, kde-format
 msgid "Analyzing volume level..."
-msgstr ""
+msgstr "جاري تحليل مستوى الصوت..."
 
 #: plugins/normalize/NormalizePlugin.cpp:129
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
-msgstr ""
+msgstr "جاري التسوية (%1 dB) ..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NotchFilterDlg)
 #: plugins/notch_filter/NotchFilterDlg.ui:14
 #: plugins/notch_filter/NotchFilterPlugin.cpp:124
 #, kde-format
 msgid "Notch Filter"
-msgstr ""
+msgstr "مرشح الشق"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, spinbox)
 #. i18n: ectx: property (toolTip), widget (QSlider, slider)
@@ -5693,7 +5893,7 @@ msgstr ""
 #: plugins/notch_filter/NotchFilterDlg.ui:96
 #, kde-format
 msgid "center frequency"
-msgstr ""
+msgstr "التردد المركزي"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox)
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider)
@@ -5705,6 +5905,9 @@ msgid ""
 "Determines the center of the frequency range that\n"
 "should be removed."
 msgstr ""
+"<b>التردد المركزي</b>\n"
+"يحدد مركز نطاق التردد الذي\n"
+"يجب إزالته."
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slider_2)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, spinbox_2)
@@ -5724,13 +5927,16 @@ msgid ""
 "Determines the width of the frequency range that\n"
 "should be removed."
 msgstr ""
+"<b>عرض النطاق</b>\n"
+"يحدد عرض نطاق التردد الذي\n"
+"يجب إزالته."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PitchShiftDlg)
 #: plugins/pitch_shift/PitchShiftDlg.ui:20
 #: plugins/pitch_shift/PitchShiftPlugin.cpp:128
 #, kde-format
 msgid "Pitch Shift"
-msgstr ""
+msgstr "تغيير درجة الصوت"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: plugins/pitch_shift/PitchShiftDlg.ui:98
@@ -5744,7 +5950,7 @@ msgstr "التردد:"
 #: plugins/pitch_shift/PitchShiftDlg.ui:146
 #, kde-format
 msgid "chopper frequency"
-msgstr ""
+msgstr "تردد المقطّع"
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slFrequency)
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbFrequency)
@@ -5756,6 +5962,9 @@ msgid ""
 "audio data are before they get processed by the pitch shift. If your audio "
 "data sounds interrupted, you might get better result with higher values."
 msgstr ""
+"<b>تردد المقطّع</b><br>يحدد هذا الإعداد مدى صغر قطع بيانات الصوت قبل معالجتها "
+"بواسطة تغيير درجة الصوت. إذا بدت بيانات الصوت متقطعة، فقد تحصل على نتيجة "
+"أفضل بقيم أعلى."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: plugins/pitch_shift/PitchShiftDlg.ui:136
@@ -5775,7 +5984,7 @@ msgstr "السرعة"
 #: plugins/pitch_shift/PitchShiftDlg.ui:215
 #, kde-format
 msgid "change speed by percentage"
-msgstr ""
+msgstr "تغيير السرعة بالنسبة المئوية"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:219
@@ -5784,18 +5993,20 @@ msgid ""
 "Sets the speed to a relative percentage of the original speed.\n"
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
+"يضبط السرعة إلى نسبة مئوية نسبية من السرعة الأصلية.\n"
+"على سبيل المثال: \"50%\"، \"75%\" أو \"125%\""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:222
 #, kde-format
 msgid "by Percentage"
-msgstr ""
+msgstr "باستخدام النسبة المئوية"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:232
 #, kde-format
 msgid "change speed by a factor"
-msgstr ""
+msgstr "تغيير السرعة بعامل"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:236
@@ -5804,12 +6015,14 @@ msgid ""
 "Increments or decrements the speed by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
+"يزيد أو ينقص السرعة بعامل.\n"
+"على سبيل المثال: \"x1\"، \"x2\"، \"/ 4\""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:239
 #, kde-format
 msgid "by Factor"
-msgstr ""
+msgstr "باستخدام العامل"
 
 #: plugins/playback/PlayBack-ALSA.cpp:51 plugins/playback/PlayBack-Qt.cpp:44
 #: plugins/record/Record-Qt.cpp:49
@@ -5820,7 +6033,7 @@ msgstr "الجهاز المبدئي"
 #: plugins/playback/PlayBack-ALSA.cpp:54
 #, kde-format
 msgid "Null device"
-msgstr ""
+msgstr "جهاز Null"
 
 #: plugins/playback/PlayBack-ALSA.cpp:573 plugins/playback/PlayBack-OSS.cpp:140
 #, kde-format
@@ -5829,6 +6042,9 @@ msgid ""
 "is not present in your kernel or it is not\n"
 "properly configured."
 msgstr ""
+"خطأ I/O. ربما برنامج التشغيل\n"
+"غير موجود في نواة نظامك أو أنه غير\n"
+"مكون بشكل صحيح."
 
 #: plugins/playback/PlayBack-ALSA.cpp:579 plugins/playback/PlayBack-OSS.cpp:146
 #, kde-format
@@ -5839,11 +6055,16 @@ msgid ""
 "the program by calling: \"fuser -v %1\"\n"
 "on the command line.)"
 msgstr ""
+"الجهاز مشغول. ربما تطبيق آخر\n"
+"يستخدمه حاليًا. يرجى المحاولة مرة أخرى لاحقًا.\n"
+"(تلميح: يمكنك معرفة اسم ومعرف عملية\n"
+"البرنامج عن طريق استدعاء: \"fuser -v %1\"\n"
+"في سطر الأوامر.)"
 
 #: plugins/playback/PlayBack-ALSA.cpp:587
 #, kde-format
 msgid "Opening the device '%1' failed: %2"
-msgstr ""
+msgstr "فشل فتح الجهاز '%1': %2"
 
 #: plugins/playback/PlayBack-ALSA.cpp:817
 #: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1059
@@ -5862,7 +6083,7 @@ msgstr "جهاز %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:821 plugins/record/Record-ALSA.cpp:1063
 #, kde-format
 msgid "Subdevice %1: "
-msgstr ""
+msgstr "جهاز فرعي %1: "
 
 #: plugins/playback/PlayBack-ALSA.cpp:851
 #, kde-format
@@ -5872,58 +6093,58 @@ msgstr "الملحقة DMIX"
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
 msgid "The device '%1' cannot be opened in the correct mode."
-msgstr ""
+msgstr "لا يمكن فتح الجهاز '%1' في الوضع الصحيح."
 
 #: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:150
 #, kde-format
 msgid "%1 bits per sample are not supported"
-msgstr ""
+msgstr "%1 بت لكل عينة غير متوفر"
 
 #: plugins/playback/PlayBack-OSS.cpp:193
 #, kde-format
 msgid "%1 channels playback is not supported"
-msgstr ""
+msgstr "تشغيل %1 قنوات غير مدعوم"
 
 #: plugins/playback/PlayBack-OSS.cpp:200
 #, kde-format
 msgid "Playback rate %1 Hz is not supported"
-msgstr ""
+msgstr "معدل التشغيل %1 هرتز غير مدعوم"
 
 #: plugins/playback/PlayBack-OSS.cpp:210
 #, kde-format
 msgid "Unusable buffer size: %1"
-msgstr ""
+msgstr "حجم المخزن المؤقت غير صالح: %1"
 
 #: plugins/playback/PlayBack-OSS.cpp:404
 #, kde-format
 msgid "OSS playback device (dsp*)"
-msgstr ""
+msgstr "جهاز تشغيل OSS (dsp*)"
 
 #: plugins/playback/PlayBack-OSS.cpp:407
 #, kde-format
 msgid "ALSA playback device (adsp*)"
-msgstr ""
+msgstr "جهاز تشغيل ALSA (adsp*)"
 
 #: plugins/playback/PlayBack-OSS.cpp:410 plugins/record/Record-OSS.cpp:315
 #: plugins/record/RecordDialog.cpp:622
 #, kde-format
 msgid "Any device (*)"
-msgstr ""
+msgstr "أي جهاز (*)"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:465
 #, kde-format
 msgid "%1 channels are not supported, maximum is 255"
-msgstr ""
+msgstr "%1 قناة غير مدعومة، الحد الأقصى هو 255"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:472
 #, kde-format
 msgid "Connecting to the PulseAudio server failed."
-msgstr ""
+msgstr "فشل الاتصال بخادم PulseAudio."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:478
 #, kde-format
 msgid "The PulseAudio device '%1' is unknown or no longer connected"
-msgstr ""
+msgstr "جهاز PulseAudio '%1' غير معروف أو لم يعد متصلاً"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:522
 #, kde-format
@@ -5933,32 +6154,32 @@ msgstr "تشغيل..."
 #: plugins/playback/PlayBack-PulseAudio.cpp:538
 #, kde-format
 msgid "Failed to create a PulseAudio stream (%1)."
-msgstr ""
+msgstr "فشل إنشاء دفق PulseAudio (%1)."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:580
 #, kde-format
 msgid "Failed to open a PulseAudio stream for playback (%1)."
-msgstr ""
+msgstr "فشل فتح دفق PulseAudio للتشغيل (%1)."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:821
 #, kde-format
 msgid "(Use server default)"
-msgstr ""
+msgstr "(استخدم الإعداد المبدئي للخادم)"
 
 #: plugins/playback/PlayBack-Qt.cpp:129
 #, kde-format
 msgid "The audio device '%1' is unknown or no longer connected"
-msgstr ""
+msgstr "جهاز الصوت '%1' غير معروف أو لم يعد متصلاً"
 
 #: plugins/playback/PlayBack-Qt.cpp:156
 #, kde-format
 msgid "format not supported"
-msgstr ""
+msgstr "التنسيق غير متاح"
 
 #: plugins/playback/PlayBack-Qt.cpp:209
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
-msgstr ""
+msgstr "فشل فتح جهاز Qt Multimedia '%1'"
 
 #: plugins/playback/PlayBackDialog.cpp:519
 #, kde-format
@@ -5984,12 +6205,12 @@ msgstr "(مجسمي)"
 #: plugins/playback/PlayBackDialog.cpp:621
 #, kde-format
 msgid "(quadro)"
-msgstr "(كوادرو)"
+msgstr "(رباعي)"
 
 #: plugins/playback/PlayBackDialog.cpp:651
 #, kde-format
 msgid "Select Playback Device"
-msgstr ""
+msgstr "اختر جهاز التشغيل"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PlayBackDlg)
 #: plugins/playback/PlayBackDlg.ui:20
@@ -6007,7 +6228,7 @@ msgstr "إعدادات التشغيل"
 #: plugins/playback/PlayBackDlg.ui:64
 #, kde-format
 msgid "Playback device"
-msgstr ""
+msgstr "جهاز التشغيل"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbDevice)
 #: plugins/playback/PlayBackDlg.ui:67
@@ -6017,13 +6238,16 @@ msgid ""
 "suitable for the chosen playback method. If your device is not listed here, "
 "you can enter a device name on your own or search through the filesystem.</p>"
 msgstr ""
+"<b>الجهاز:</b><p>تعرض هذه القائمة مجموعة من أجهزة التشغيل المعروفة المناسبة "
+"لطريقة التشغيل المختارة. إذا لم يكن جهازك مدرجًا هنا، يمكنك إدخال اسم جهاز "
+"بشكل مستقل أو البحث في نظام الملفات.</p>"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btSelectDevice)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btSourceSelect)
 #: plugins/playback/PlayBackDlg.ui:92 plugins/record/RecordDlg.ui:1072
 #, kde-format
 msgid "Search on the filesystem for a device"
-msgstr ""
+msgstr "ابحث في نظام الملفات عن جهاز"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDevice)
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSourceSelect)
@@ -6033,12 +6257,14 @@ msgid ""
 "<b>Select...</b><p>Choose a device name on the harddisk, if your device is "
 "not already listed in the list of devices.</p>"
 msgstr ""
+"<b>اختر...</b><p>اختر اسم جهاز على القرص الصلب، إذا لم يكن جهازك مدرجًا أصلاً "
+"في قائمة الأجهزة.</p>"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:121
 #, kde-format
 msgid "Method or system used for playback"
-msgstr ""
+msgstr "الطريقة أو النظام المستخدم للتشغيل"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:128
@@ -6058,12 +6284,23 @@ msgid ""
 "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
 "Multiple applications can play at the same time.</p>"
 msgstr ""
+"<b>طريقة التشغيل:</b><p>اختر طريقة أو نظامًا مستخدمًا\n"
+"للتشغيل. اعتمادًا على خيارات التجميع، يمكنك اختيار إحدى الطرق التالية:</p>\n"
+"<p><b><i>OSS (نظام الصوت المفتوح)</i></b>: أقدم تنفيذ لنظام لينكس، قادر على "
+"إخراج أحادي ومجسم. أصبح قديمًا منذ نواة لينكس 2.6، لكنه لا يزال منتشرًا على "
+"نطاق واسع. قد يتعارض مع PulseAudio أو تطبيقات الصوت الأخرى، فقط تطبيق واحد "
+"في كل مرة يمكنه استخدام تشغيل OSS!</p>\n"
+"<p><b><i>ALSA (هندسة الصوت المتقدمة لنظام لينكس)</i></b>: يحل محل OSS، يدعم "
+"ميزات أكثر وأجهزة أكثر. قد يتعارض مع التطبيقات الأخرى مثل OSS، لكن لديه ملحق "
+"يسمى <i>dmix</i> كحل.</p>\n"
+"<p><b><i>PulseAudio</i></b>: الطريقة المفضلة لإجراء التشغيل في كيدي. يمكن "
+"للتطبيقات المتعددة التشغيل في نفس الوقت.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: plugins/playback/PlayBackDlg.ui:137
 #, kde-format
 msgid "Playback method:"
-msgstr ""
+msgstr "طريقة التشغيل:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
@@ -6082,7 +6319,7 @@ msgstr "256 بايت"
 #: plugins/playback/PlayBackDlg.ui:187
 #, kde-format
 msgid "Size of the playback buffer in bytes"
-msgstr ""
+msgstr "حجم مخزن التشغيل المؤقت بالبايت"
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slBufferSize)
 #: plugins/playback/PlayBackDlg.ui:190
@@ -6094,13 +6331,17 @@ msgid ""
 "update of the playback position and the real sound output. If you encounter "
 "dropouts you should increase this setting a bit.</p>"
 msgstr ""
+"<b>حجم المخزن المؤقت:</b><p>اختر حجم مخزن مؤقت للتشغيل. يجب عليك تعيين هذا "
+"الرقم صغيرًا قدر الإمكان لتقليل زمن التأخير في التشغيل. زمن التأخير هو الفاصل "
+"بين إجراءات واجهة المستخدم مثل بدء/إيقاف التشغيل، تحديث موضع التشغيل وإخراج "
+"الصوت الفعلي. إذا واجهت انقطاعات، يجب عليك زيادة هذا الإعداد قليلاً.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: plugins/playback/PlayBackDlg.ui:220 plugins/record/RecordDlg.ui:990
 #, kde-format
 msgid "Buffer size:"
-msgstr "حجم الصّوان:"
+msgstr "حجم المخزن المؤقت:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: plugins/playback/PlayBackDlg.ui:256
@@ -6112,7 +6353,7 @@ msgstr "عدد البت في العينة:"
 #: plugins/playback/PlayBackDlg.ui:280
 #, kde-format
 msgid "Playback resolution in bits per sample"
-msgstr ""
+msgstr "دقة التشغيل بعدد البتات في العينة"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbBitsPerSample)
 #: plugins/playback/PlayBackDlg.ui:283
@@ -6124,12 +6365,16 @@ msgid ""
 "resolution (24 bit) to the setting you specify. Higher resolutions mean "
 "better audio quality.</p>"
 msgstr ""
+"<b>البتات في العينة:</b><p>هنا يمكنك اختيار إحدى دقات البت التي يدعمها جهاز "
+"التشغيل الخاص بك. ليس بالضرورة أن تكون نفس الدقة الموجودة في ملفك الصوتي، "
+"حيث يقوم موجة آليًا بالتهدئة من دقته الداخلية (24 بت) إلى الإعداد الذي تحدده. "
+"الدقات الأعلى تعني جودة صوت أفضل.</p>"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, sbChannels)
 #: plugins/playback/PlayBackDlg.ui:325
 #, kde-format
 msgid "Number of channels: mono, stereo..."
-msgstr ""
+msgstr "عدد القنوات: أحادي، مجسم..."
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbChannels)
 #: plugins/playback/PlayBackDlg.ui:328
@@ -6143,6 +6388,12 @@ msgid ""
 "50% of the second track, the right channel will also contain 50% of the "
 "second track and the third track.</p>"
 msgstr ""
+"<b>القنوات:</b><p>عدد القنوات المستخدمة للتشغيل.ليس بالضرورة أن يكون مطابقًا "
+"لعدد المسارات في ملفك الحالي. يقوم موجة آليًا بدمج مسارات ملفك إلى القنوات "
+"التي تحددها هنا. </p><p><i>على سبيل المثال:</i> إذا كان لديك ثلاثة مسارات "
+"وضبطت التشغيل على \"مجسمي\"، فستحتوي القناة اليسرى على المسار الأول + 50% من "
+"المسار الثاني، وستحتوي القناة اليمنى أيضًا على 50% من المسار الثاني والمسار "
+"الثالث.</p>"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/playback/PlayBackDlg.ui:388
@@ -6154,7 +6405,7 @@ msgstr "1"
 #: plugins/playback/PlayBackDlg.ui:458
 #, kde-format
 msgid "Play a short test sound"
-msgstr ""
+msgstr "شغل صوت اختبار قصير"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btTest)
 #: plugins/playback/PlayBackDlg.ui:461
@@ -6163,17 +6414,19 @@ msgid ""
 "<b>Test</b><p>Try to play a short sound using the current settings.</"
 "p><p><i>(Sorry, not implemented yet!)</i></p>"
 msgstr ""
+"<b>اختبار</b><p>حاول تشغيل صوت قصير باستخدام الإعدادات الحالية.</"
+"p><p><i>(آسف، لم توفر بعد!)</i></p>"
 
 #. i18n: ectx: property (text), widget (QPushButton, btTest)
 #: plugins/playback/PlayBackDlg.ui:464
 #, kde-format
 msgid "&Test..."
-msgstr "ا&ختبار..."
+msgstr "ا&ختبر..."
 
 #: plugins/playback/PlayBackPlugin.cpp:401
 #, kde-format
 msgid "Please select a playback device first"
-msgstr ""
+msgstr "يرجى اختيار جهاز تشغيل أولاً"
 
 #: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format
@@ -6186,6 +6439,8 @@ msgid ""
 "You should now hear a %1 Hz test tone.<br/><br/>(If you hear clicks or "
 "dropouts, please increase<br/>the buffer size and try again)"
 msgstr ""
+"يجب أن تسمع الآن نغمة اختبارية ترددها %1 هرتز.<br/><br/>(إذا سمعت نقرات أو "
+"انقطاعات، يرجى زيادة<br/>حجم المخزن المؤقتة والمحاولة مرة أخرى)"
 
 #: plugins/record/LevelMeter.cpp:278 plugins/record/LevelMeter.cpp:302
 #, kde-format
@@ -6200,17 +6455,17 @@ msgstr "ملحقة DSNOOP"
 #: plugins/record/Record-OSS.cpp:306
 #, kde-format
 msgid "OSS recording device (audio*)"
-msgstr ""
+msgstr "جهاز تسجيل OSS (audio*)"
 
 #: plugins/record/Record-OSS.cpp:309
 #, kde-format
 msgid "OSS recording device (dsp*)"
-msgstr ""
+msgstr "جهاز تسجيل OSS (dsp*)"
 
 #: plugins/record/Record-OSS.cpp:312
 #, kde-format
 msgid "ALSA recording device (adsp*)"
-msgstr ""
+msgstr "جهاز تسجيل ALSA (adsp*)"
 
 #: plugins/record/Record-PulseAudio.cpp:216
 #, kde-format
@@ -6225,17 +6480,17 @@ msgstr "&تمّ"
 #: plugins/record/RecordDialog.cpp:620
 #, kde-format
 msgid "OSS record device (dsp*)"
-msgstr ""
+msgstr "جهاز تسجيل OSS (dsp*)"
 
 #: plugins/record/RecordDialog.cpp:621
 #, kde-format
 msgid "ALSA record device (adsp*)"
-msgstr ""
+msgstr "جهاز تسجيل ALSA (adsp*)"
 
 #: plugins/record/RecordDialog.cpp:630
 #, kde-format
 msgid "Select Record Device"
-msgstr ""
+msgstr "اختر جهاز التسجيل"
 
 #: plugins/record/RecordDialog.cpp:717 plugins/record/RecordPlugin.cpp:544
 #: plugins/record/RecordPlugin.cpp:552
@@ -6253,12 +6508,12 @@ msgstr "مجسمي"
 #: plugins/record/RecordPlugin.cpp:554
 #, kde-format
 msgid "Quadro"
-msgstr "كوادرو"
+msgstr "رباعي"
 
 #: plugins/record/RecordDialog.cpp:734
 #, kde-format
 msgid "%1 tracks"
-msgstr "%1 مقطوعة"
+msgstr "%1 مسار(ات)"
 
 #: plugins/record/RecordDialog.cpp:790
 #, kde-format
@@ -6273,7 +6528,7 @@ msgstr "%1 بت"
 #: plugins/record/RecordDialog.cpp:1004
 #, kde-format
 msgid "Please check the source device settings..."
-msgstr ""
+msgstr "يرجى التحقق من إعدادات الجهاز المصدر..."
 
 #: plugins/record/RecordDialog.cpp:1016
 #, kde-format
@@ -6288,12 +6543,12 @@ msgstr "جارٍ التخزين المؤقت..."
 #: plugins/record/RecordDialog.cpp:1038
 #, kde-format
 msgid "Prerecording..."
-msgstr ""
+msgstr "تسجيل مسبق..."
 
 #: plugins/record/RecordDialog.cpp:1049 plugins/record/RecordDialog.cpp:1205
 #, kde-format
 msgid "Waiting for trigger..."
-msgstr ""
+msgstr "في انتظار المشغل..."
 
 #: plugins/record/RecordDialog.cpp:1060
 #, kde-format
@@ -6314,15 +6569,19 @@ msgstr "تمّ"
 #, kde-format
 msgid "one day "
 msgid_plural "%1 days "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "أقل عن يوم"
+msgstr[1] "يوم واحد "
+msgstr[2] "يومان"
+msgstr[3] "%1 أيام "
+msgstr[4] "%1 يومًا "
+msgstr[5] "%1 يوم "
 
 #: plugins/record/RecordDialog.cpp:1191
 #, kde-format
 msgid "one hour "
 msgid_plural "%1 hours "
-msgstr[0] ""
-msgstr[1] "ساعة واحدة ساعة واحدة "
+msgstr[0] "أقل عن ساعة"
+msgstr[1] "ساعة واحدة "
 msgstr[2] "ساعتان "
 msgstr[3] "%1 ساعات "
 msgstr[4] "%1 ساعة "
@@ -6332,8 +6591,8 @@ msgstr[5] "%1 ساعة "
 #, kde-format
 msgid "one minute "
 msgid_plural "%1 minutes "
-msgstr[0] ""
-msgstr[1] "دقيقة واحدة دقيقة واحدة "
+msgstr[0] "أقل عن دقيقة"
+msgstr[1] "دقيقة واحدة "
 msgstr[2] "دقيقتان "
 msgstr[3] "%1 دقائق "
 msgstr[4] "%1 دقيقة "
@@ -6343,21 +6602,29 @@ msgstr[5] "%1 دقيقة "
 #, kde-format
 msgid "and %1 second"
 msgid_plural "and %1 seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "0"
+msgstr[1] "وثانية واحدة"
+msgstr[2] "وثانيتان"
+msgstr[3] "و%1 ثوان"
+msgstr[4] "و%1 ثانية"
+msgstr[5] "و%1 ثانية"
 
 #: plugins/record/RecordDialog.cpp:1197
 #, kde-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ثانية"
+msgstr[1] "ثانية واحدة"
+msgstr[2] "ثانيتان"
+msgstr[3] "%1 ثواني"
+msgstr[4] "%1 ثانية"
+msgstr[5] "%1 ثانية"
 
 #: plugins/record/RecordDialog.cpp:1201
 #, kde-format
 msgctxt "%1=days; %2=hours; %3=minutes; %4=seconds"
 msgid "Waiting for start in %1%2%3%4..."
-msgstr ""
+msgstr "في انتظار البدء خلال %1%2%3%4..."
 
 #: plugins/record/RecordDialog.cpp:1220
 #, kde-format
@@ -6379,13 +6646,13 @@ msgstr "يسجّل"
 #: plugins/record/RecordDlg.ui:66
 #, kde-format
 msgid "Record Control"
-msgstr ""
+msgstr "تحكم التسجيل"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordPre)
 #: plugins/record/RecordDlg.ui:72
 #, kde-format
 msgid "Enable Pre-recording"
-msgstr ""
+msgstr "مكّن التسجيل المسبق"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordPre)
 #: plugins/record/RecordDlg.ui:75
@@ -6396,18 +6663,21 @@ msgid ""
 "already a few seconds before you press the record button. <i>(For example "
 "when recording from radio)</i>"
 msgstr ""
+"عند استخدام <b>التسجيل المسبق</b>، يقوم موجة داخليًا بالتسجيل بالفعل قبل بدء "
+"التسجيل الفعلي. هذه الميزة مفيدة إذا كنت تريد بدء التسجيل قبل بضع ثوانٍ من "
+"الضغط على زر التسجيل. <i>(على سبيل المثال عند التسجيل من الراديو)</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordPre)
 #: plugins/record/RecordDlg.ui:78
 #, kde-format
 msgid "Pre-record:"
-msgstr ""
+msgstr "تسجيل مسبق:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:91
 #, kde-format
 msgid "Limit the recording time"
-msgstr ""
+msgstr "حدد وقت التسجيل"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:94
@@ -6416,18 +6686,20 @@ msgid ""
 "If checked, the <b>Record time</b> is limited and recording will "
 "automatically stop when the selected time is reached."
 msgstr ""
+"إذا حددته، فإن <b>وقت التسجيل</b> محدود وسيتوقف التسجيل آليًا عند الوصول إلى "
+"الوقت المحدد."
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:97
 #, kde-format
 msgid "Record &time:"
-msgstr ""
+msgstr "وقت الت&سجيل:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordTrigger)
 #: plugins/record/RecordDlg.ui:110
 #, kde-format
 msgid "Trigger level"
-msgstr ""
+msgstr "مستوى المشغل"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordTrigger)
 #: plugins/record/RecordDlg.ui:113
@@ -6436,12 +6708,14 @@ msgid ""
 "If the <b>Record trigger</b> is enabled, recording will start as soon as the "
 "volume of the input signal goes over the selected level."
 msgstr ""
+"إذا مُكّن <b>مشغل التسجيل</b>، سيبدأ التسجيل بمجرد تجاوز حجم إشارة الإدخال "
+"للمستوى المحدد."
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordTrigger)
 #: plugins/record/RecordDlg.ui:116
 #, kde-format
 msgid "Record trigger:"
-msgstr ""
+msgstr "مشغل التسجيل:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btStop)
 #: plugins/record/RecordDlg.ui:172
@@ -6453,7 +6727,7 @@ msgstr "إيقاف التسجيل"
 #: plugins/record/RecordDlg.ui:191
 #, kde-format
 msgid "Pause/Continue"
-msgstr ""
+msgstr "ألبث/تابع"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbRecordPre)
 #: plugins/record/RecordDlg.ui:285
@@ -6465,7 +6739,7 @@ msgstr " ث"
 #: plugins/record/RecordDlg.ui:353
 #, kde-format
 msgid "Start at a given date and time"
-msgstr ""
+msgstr "ابدأ في تاريخ ووقت محددين"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordStartTime)
 #: plugins/record/RecordDlg.ui:356
@@ -6475,6 +6749,9 @@ msgid ""
 "Please note that if the time is in the past, the recording will be started "
 "immediately or as soon as the defined trigger level is reached (if enabled)."
 msgstr ""
+"عند التحديد، سيبدأ التسجيل في التاريخ والوقت المحددين. يرجى ملاحظة أنه إذا "
+"كان الوقت في الماضي، فسيبدأ التسجيل فورًا أو بمجرد الوصول إلى مستوى المشغل "
+"المحدد (إذا كان ممكّنًا)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordStartTime)
 #: plugins/record/RecordDlg.ui:359
@@ -6493,7 +6770,7 @@ msgstr "المستوى"
 #: plugins/record/RecordDlg.ui:420
 #, kde-format
 msgid "AGC:"
-msgstr ""
+msgstr "AGC:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLevelAmplify)
 #: plugins/record/RecordDlg.ui:433
@@ -6532,6 +6809,8 @@ msgid ""
 "<b>Sample rate</b><br>Here you can select one of the predefined well-known "
 "sample rates that your sound card supports."
 msgstr ""
+"<b>معدل العينة</b><br>هنا يمكنك اختيار أحد معدلات العينة المعرفة مسبقًا "
+"والمعروفة التي تدعمها بطاقة الصوت الخاصة بك."
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbFormatTracks)
 #: plugins/record/RecordDlg.ui:718
@@ -6540,6 +6819,8 @@ msgid ""
 "<b>Number of channels</b><br>Select a number of channels, e.g. for mono or "
 "stereo recording."
 msgstr ""
+"<b>عدد القنوات</b><br>اختر عددًا من القنوات، على سبيل المثال للتسجيل الأحادي "
+"أو المجسم."
 
 #. i18n: ectx: property (text), widget (QLabel, lblTracksVerbose)
 #: plugins/record/RecordDlg.ui:755
@@ -6560,6 +6841,8 @@ msgid ""
 "<b>Compression</b><br>Here you can select one of the compression types if "
 "your audio hardware supports it."
 msgstr ""
+"<b>الضغط</b><br>هنا يمكنك اختيار أحد أنواع الضغط إذا كان جهاز الصوت الخاص بك "
+"يدعمه."
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbFormatSampleFormat)
 #: plugins/record/RecordDlg.ui:860
@@ -6569,12 +6852,15 @@ msgid ""
 "your audio hardware supports. This normally has no big influence on the "
 "result, so you can just leave it as it is."
 msgstr ""
+"<b>تنسيق العينة</b><br>هنا يمكنك اختيار أحد تنسيقات العينات التي يدعمها جهاز "
+"الصوت الخاص بك. عادة لا يكون لهذا تأثير كبير على النتيجة، لذا يمكنك تركه كما "
+"هو."
 
 #. i18n: ectx: property (text), widget (QLabel, lblSampleFormat)
 #: plugins/record/RecordDlg.ui:883
 #, kde-format
 msgid "Sample format:"
-msgstr ""
+msgstr "تنسيق العينة:"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbFormatResolution)
 #: plugins/record/RecordDlg.ui:893
@@ -6583,18 +6869,20 @@ msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
 "recorded. Higher values give better quality but also more system load."
 msgstr ""
+"<b>الدقة</b><br>اختر دقة بالبتات سيُسجل بها الملف. القيم الأعلى تعطي جودة "
+"أفضل ولكنها تزيد أيضًا من حمل النظام."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
 #: plugins/record/RecordDlg.ui:1000
 #, kde-format
 msgid "Buffer count:"
-msgstr ""
+msgstr "عدد الذاكرة المؤقتة:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1022
 #, kde-format
 msgid "Method or system used for recording"
-msgstr ""
+msgstr "الطريقة أو النظام المستخدم للتسجيل"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1028
@@ -6609,18 +6897,25 @@ msgid ""
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes OSS, "
 "supports more features and more hardware.</p>"
 msgstr ""
+"<b>طريقة التسجيل:</b><p>اختر طريقة أو نظامًا مستخدمًا\n"
+"للتسجيل. اعتمادًا على خيارات الترجمة، يمكنك اختيار إحدى الطرق التالية:</p>\n"
+"<p><b><i>OSS (نظام الصوت المفتوح)</i></b>: أقدم تنفيذ لنظام لينكس، يدخل فقط "
+"بشكل أحادي مجسم. أصبح قديمًا منذ نواة لينكس 2.6، لكنه لا يزال منتشرًا على نطاق "
+"واسع.</p>\n"
+"<p><b><i>ALSA (هندسة الصوت المتقدمة لنظام لينكس)</i></b>: يحل محل OSS، ويدعم "
+"المزيد من الميزات والمزيد من الأجهزة.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_5)
 #: plugins/record/RecordDlg.ui:1035
 #, kde-format
 msgid "Recording method:"
-msgstr ""
+msgstr "طريقة التسجيل:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1053
 #, kde-format
 msgid "Recording device"
-msgstr ""
+msgstr "جهاز التسجيل"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1056
@@ -6630,6 +6925,9 @@ msgid ""
 "suitable for the chosen recording method. If your device is not listed here, "
 "you can enter a device name on your own or search through the filesystem.</p>"
 msgstr ""
+"<b>الجهاز:</b><p>تعرض هذه القائمة مجموعة من أجهزة التسجيل المعروفة المناسبة "
+"لطريقة التسجيل المختارة. إذا لم يكن جهازك مدرجًا هنا، يمكنك إدخال اسم جهاز "
+"بشكل مستقل أو البحث في نظام الملفات.</p>"
 
 #. i18n: ectx: property (text), widget (QPushButton, btSourceSelect)
 #: plugins/record/RecordDlg.ui:1078
@@ -6647,7 +6945,7 @@ msgstr "الجهاز"
 #: plugins/record/RecordDlg.ui:1204
 #, kde-format
 msgid "Buffer:"
-msgstr "المؤقتة:"
+msgstr "المخزن المؤقت:"
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_level_meter)
 #: plugins/record/RecordDlg.ui:1236
@@ -6661,12 +6959,13 @@ msgid ""
 "Maybe your system lacks support for the corresponding hardware or the "
 "hardware is not connected."
 msgstr ""
+"ربما لا يوفر نظامك إمكانية التعامل مع الجهاز المقابل أو أن الجهاز غير متصل."
 
 #: plugins/record/RecordPlugin.cpp:461
 #, kde-format
 msgid ""
 "The audio device seems to be occupied by another application. Retrying..."
-msgstr ""
+msgstr "يبدو أن جهاز الصوت مشغول بتطبيق آخر. جاري إعادة المحاولة..."
 
 #: plugins/record/RecordPlugin.cpp:467
 #, kde-format
@@ -6674,12 +6973,13 @@ msgid ""
 "Some unexpected error happened (%1). You may try an other recording method "
 "or recording device."
 msgstr ""
+"حدث خطأ غير متوقع (%1). يمكنك تجربة طريقة تسجيل أخرى أو جهاز تسجيل آخر."
 
 #: plugins/record/RecordPlugin.cpp:482
 #, kde-format
 msgctxt "%1 = a device name"
 msgid "Unable to open the recording device (%1)"
-msgstr ""
+msgstr "تعذر فتح جهاز التسجيل (%1)"
 
 #: plugins/record/RecordPlugin.cpp:548 plugins/record/RecordPlugin.cpp:556
 #, kde-format
@@ -6689,78 +6989,78 @@ msgstr "%1 قناة"
 #: plugins/record/RecordPlugin.cpp:559
 #, kde-format
 msgid "%1 is not supported, using %2"
-msgstr ""
+msgstr "%1 غير متاح؛ يستخدم %2"
 
 #: plugins/record/RecordPlugin.cpp:582
 #, kde-format
 msgid "Recording with %1 channel(s) failed, using %2 channel(s)"
-msgstr ""
+msgstr "فشل التسجيل باستخدام %1 قناة، يستخدم %2 قناة"
 
 #: plugins/record/RecordPlugin.cpp:627
 #, kde-format
 msgid "%1 Hz is not supported, using %2 Hz"
-msgstr ""
+msgstr "%1 هرتز غير متاح، يستخدم %2 هرتز"
 
 #: plugins/record/RecordPlugin.cpp:644
 #, kde-format
 msgid "%1 Hz failed, using %2 Hz"
-msgstr ""
+msgstr "فشل %1 هرتز، يستخدم %2 هرتز"
 
 #: plugins/record/RecordPlugin.cpp:690
 #, kde-format
 msgid "Compression '%1' not supported, using '%2'"
-msgstr ""
+msgstr "ضغط '%1' غير متاح، يستخدم '%2'"
 
 #: plugins/record/RecordPlugin.cpp:703
 #, kde-format
 msgid "Compression '%1' failed, using '%2'."
-msgstr ""
+msgstr "فشل ضغط '%1'، يستخدم '%2'."
 
 #: plugins/record/RecordPlugin.cpp:742
 #, kde-format
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
-msgstr ""
+msgstr "%1 بت لكل عينة غير متاح، يستخدم %2 بت لكل عينة"
 
 #: plugins/record/RecordPlugin.cpp:755
 #, kde-format
 msgid "%1 bits per sample failed, using %2 bits per sample"
-msgstr ""
+msgstr "فشل %1 بت لكل عينة، يستخدم %2 بت لكل عينة"
 
 #: plugins/record/RecordPlugin.cpp:797
 #, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
-msgstr ""
+msgstr "تنسيق العينة '%1' غير متاح، يستخدم '%2'"
 
 #: plugins/record/RecordPlugin.cpp:813
 #, kde-format
 msgid "Sample format '%1' failed, using '%2'"
-msgstr ""
+msgstr "فشل تنسيق العينة '%1'، يستخدم '%2'"
 
 #: plugins/record/RecordPlugin.cpp:952
 #, kde-format
 msgid "The current sample format is not supported!"
-msgstr ""
+msgstr "تنسيق العينة الحالي غير متاح!"
 
 #: plugins/record/RecordPlugin.cpp:958
 #, kde-format
 msgid "The current compression type is not supported!"
-msgstr ""
+msgstr "نوع الضغط الحالي غير متاح!"
 
 #: plugins/record/RecordPlugin.cpp:1095
 #, kde-format
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
-msgstr ""
+msgstr "فيض المخزن المؤقت. يرجى زيادة عدد و/أو حجم مخازن التسجيل المؤقتة."
 
 #: plugins/record/RecordPlugin.cpp:1099
 #, kde-format
 msgid "The recording device seems to be busy."
-msgstr ""
+msgstr "يبدو أن جهاز التسجيل مشغول."
 
 #: plugins/record/RecordPlugin.cpp:1102
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
-msgstr ""
+msgstr "فشل القراءة من جهاز التسجيل. رقم الخطأ = %1 (%2)"
 
 #: plugins/reverse/ReversePlugin.cpp:77
 #: plugins/reverse/UndoReverseAction.cpp:44
@@ -6776,12 +7076,12 @@ msgstr "غيّر معدّل الاعتيان"
 #: plugins/samplerate/SampleRatePlugin.cpp:161
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
-msgstr ""
+msgstr "جاري تغيير معدل العينة من %1 كيلوهرتز إلى %2 كيلوهرتز..."
 
 #: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
 msgid "Please choose where to save the files"
-msgstr ""
+msgstr "يرجى اختيار مكان حفظ الملفات"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:37
@@ -6800,6 +7100,18 @@ msgid ""
 "the files that will be saved</li>\n"
 "</ul>"
 msgstr ""
+"<p>حدد النموذج المستخدم لإنشاء اسم الملف لكل كتلة محفوظة. يفهم حاليًا العناصر "
+"النائبة التالية:</p>\n"
+"<ul>\n"
+"<li><tt><b>[%filename]</b></tt>اسم الملف، بلا مسار</li>\n"
+"<li><tt><b>[</b>%<i>0</i></tt><i>N</i><tt><b>nr]</b></tt>فهرس الملف، "
+"اختياريًا بأصفار رائدة (إذا أُضيف <tt>'0'</tt>) واختياريًا بعدد ثابت من الأرقام "
+"(<tt>N</tt>)</li>\n"
+"<li><tt><b>[%</b><i>0</i><i>N</i><b>count]</b></tt>عدد الملفات التي ستُحفظ</"
+"li>\n"
+"<li><tt><b>[%</b><i>0</i><i>N</i><b>total]</b></tt>أعلى فهرس ضمن الملفات "
+"التي ستُحفظ</li>\n"
+"</ul>"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPattern)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:50
@@ -6824,18 +7136,24 @@ msgid ""
 "existing files</li>\n"
 "</ul>"
 msgstr ""
+"يحدد كيفية <b>ترقيم الملفات</b>:<ul>\n"
+"<li>المتابعة بعد <b>أعلى فهرس</b> يمكن العثور عليه، وتجنب التعارض مع الملفات "
+"الموجودة</li>\n"
+"<li>ابدأ الترقيم دائمًا من <b>واحد</b>، مع احتمال التعارض مع الملفات الموجودة "
+"مسبقًا</li>\n"
+"</ul>"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:89
 #, kde-format
 msgid "Continue after highest index"
-msgstr ""
+msgstr "المتابعة بعد أعلى فهرس"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:94
 #, kde-format
 msgid "Always start with 1, overwrite if necessary"
-msgstr ""
+msgstr "ابدأ دائمًا بـ 1، واستبدل إذا لزم الأمر"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:102
@@ -6847,19 +7165,19 @@ msgstr "الامتداد:"
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:118
 #, kde-format
 msgid "Choose what encoding to save the blocks with."
-msgstr ""
+msgstr "اختر الترميز الذي ستُحفظ الكتل به."
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:131
 #, kde-format
 msgid "Location to save the files"
-msgstr ""
+msgstr "موقع حفظ الملفات"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:140
 #, kde-format
 msgid "Choose where to save the files"
-msgstr ""
+msgstr "اختر مكان حفظ الملفات"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:154
@@ -6868,6 +7186,8 @@ msgid ""
 "Example of the first file name that will be saved, using the file name "
 "pattern, extension, and numbering"
 msgstr ""
+"مثال على اسم الملف الأول الذي سيُحفظ، باستخدام نموذج اسم الملف، والامتداد، "
+"والترقيم"
 
 #. i18n: ectx: property (text), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:157
@@ -6877,10 +7197,9 @@ msgstr "لصيقة نصّيّة"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:170
-#, fuzzy, kde-format
-#| msgid "Example:"
+#, kde-format
 msgid "Example file name:"
-msgstr "مثال:"
+msgstr "مثال اسم الملف:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:189
@@ -6897,14 +7216,14 @@ msgstr "..."
 #, kde-format
 msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
-msgstr ""
+msgstr "هذا سيستبدل الملف(ات) التالية: %1 هل تريد حقًا المتابعة؟"
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:284
 #, kde-format
 msgid ""
 "The following directories do not exist: %1Do you want to create them and "
 "continue?"
-msgstr ""
+msgstr "المجلدات التالية غير موجودة: %1 هل تريد إنشاءها والمتابعة؟"
 
 #: plugins/selectrange/SelectRangeDialog.cpp:45
 #, kde-format
@@ -6921,18 +7240,18 @@ msgstr "حدد النطاق"
 #: plugins/sonagram/SonagramDialog.cpp:148
 #, kde-format
 msgid "(resulting window size: %1)"
-msgstr ""
+msgstr "(حجم النافذة الناتج: %1)"
 
 #: plugins/sonagram/SonagramDialog.cpp:151
 #, kde-format
 msgid "Size of bitmap: %1x%2"
-msgstr ""
+msgstr "حجم الصورة النقطية: %1×%2"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SonagramDlg)
 #: plugins/sonagram/SonagramDlg.ui:20
 #, kde-format
 msgid "Set FFT/Time Resolution Parameters"
-msgstr ""
+msgstr "تعيين معاملات دقة FFT/الوقت"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroup1)
 #: plugins/sonagram/SonagramDlg.ui:49
@@ -6944,7 +7263,7 @@ msgstr "العرض"
 #: plugins/sonagram/SonagramDlg.ui:55
 #, kde-format
 msgid "Use different colors for amplitude"
-msgstr ""
+msgstr "استخدم ألوانًا مختلفة للسعة"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbColor)
 #: plugins/sonagram/SonagramDlg.ui:58
@@ -6956,7 +7275,7 @@ msgstr "استخدم الألوان"
 #: plugins/sonagram/SonagramDlg.ui:68
 #, kde-format
 msgid "Use grayscale only for amplitude"
-msgstr ""
+msgstr "استخدم التدرج الرمادي فقط للسعة"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbGreyScale)
 #: plugins/sonagram/SonagramDlg.ui:71
@@ -6974,13 +7293,13 @@ msgstr "حدّث"
 #: plugins/sonagram/SonagramDlg.ui:87
 #, kde-format
 msgid "Automatically update the sonagram <br>if the signal data has changed"
-msgstr ""
+msgstr "حدّث السونوغرام آليًا <br>إذا تغيرت بيانات الإشارة"
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbTrackChanges)
 #: plugins/sonagram/SonagramDlg.ui:90
 #, kde-format
 msgid "On modifications"
-msgstr ""
+msgstr "عند التعديلات"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, cbFollowSelection)
 #: plugins/sonagram/SonagramDlg.ui:100
@@ -6988,25 +7307,25 @@ msgstr ""
 msgid ""
 "Automatically update the sonagram if the selection<br>has been enlarged, "
 "reduced or moved"
-msgstr ""
+msgstr "حدّث السونوغرام آليًا إذا <br>وُسّع التحديد أو صُغّر أو نُقل"
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbFollowSelection)
 #: plugins/sonagram/SonagramDlg.ui:103
 #, kde-format
 msgid "Follow selection"
-msgstr ""
+msgstr "اتبع التحديد"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
 #: plugins/sonagram/SonagramDlg.ui:119
 #, kde-format
 msgid "FFT settings"
-msgstr ""
+msgstr "إعدادات FFT"
 
 #. i18n: ectx: property (text), widget (QLabel, m_pointlabel)
 #: plugins/sonagram/SonagramDlg.ui:127
 #, kde-format
 msgid "Number of FFT points:"
-msgstr ""
+msgstr "عدد نقاط FFT:"
 
 #. i18n: ectx: property (text), widget (QLabel, Label2)
 #: plugins/sonagram/SonagramDlg.ui:157
@@ -7022,6 +7341,8 @@ msgid ""
 "Choose windowing function here.<br>\n"
 "If the transformation should stay reversible, use the type \"None\"."
 msgstr ""
+"اختر دالة التقطيع هنا.<br>\n"
+"إذا كان يجب أن يبقى التحويل قابلًا للعكس، فاستخدم النوع \"لا شيء\"."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, pointbox)
 #. i18n: ectx: property (whatsThis), widget (KComboBox, pointbox)
@@ -7033,6 +7354,9 @@ msgid ""
 "if choosing big window sizes.<br>\n"
 "The computation will be much faster!"
 msgstr ""
+"<b>عدد نقاط FFT:</b><p></p>حاول اختيار أرقام بعوامل أولية صغيرة،<br>\n"
+"إذا كنت تختار أحجام نوافذ كبيرة.<br>\n"
+"سيكون الحساب أسرع بكثير!"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, pointbox)
 #: plugins/sonagram/SonagramDlg.ui:235

@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[ar]": "توماس إيشينباخر",
                 "Name[ca@valencia]": "Thomas Eschenbacher",
                 "Name[ca]": "Thomas Eschenbacher",
                 "Name[cs]": "Thomas Eschenbacher",
@@ -35,6 +36,7 @@
         "EnabledByDefault": true,
         "License": "GPL-2.0+",
         "Name": "Sample Rate Conversion",
+        "Name[ar]": "تحويل معدل العينة",
         "Name[ca@valencia]": "Conversió de la freqüència de mostreig",
         "Name[ca]": "Conversió de la freqüència de mostreig",
         "Name[cs]": "Převod vzorkovací frekvence",

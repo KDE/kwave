@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[ar]": "توماس إيشينباخر",
                 "Name[ca@valencia]": "Thomas Eschenbacher",
                 "Name[ca]": "Thomas Eschenbacher",
                 "Name[cs]": "Thomas Eschenbacher",
@@ -35,6 +36,7 @@
         "EnabledByDefault": true,
         "License": "GPL-2.0+",
         "Name": "K3b Project Export",
+        "Name[ar]": "تصدير مشروع كي٣بي",
         "Name[ca@valencia]": "Exporta un projecte de K3b",
         "Name[ca]": "Exporta un projecte del K3b",
         "Name[cs]": "Export projektu K3b",

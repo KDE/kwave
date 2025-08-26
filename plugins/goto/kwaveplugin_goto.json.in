@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[ar]": "توماس إيشينباخر",
                 "Name[ca@valencia]": "Thomas Eschenbacher",
                 "Name[ca]": "Thomas Eschenbacher",
                 "Name[cs]": "Thomas Eschenbacher",
@@ -35,6 +36,7 @@
         "EnabledByDefault": true,
         "License": "GPL-2.0+",
         "Name": "Goto Position",
+        "Name[ar]": "اذهب إلى",
         "Name[ca@valencia]": "Ves fins a la posició",
         "Name[ca]": "Ves a la posició",
         "Name[cs]": "Přejít na místo",

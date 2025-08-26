@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[ar]": "توماس إيشينباخر",
                 "Name[ca@valencia]": "Thomas Eschenbacher",
                 "Name[ca]": "Thomas Eschenbacher",
                 "Name[cs]": "Thomas Eschenbacher",
@@ -35,6 +36,7 @@
         "EnabledByDefault": true,
         "License": "GPL-2.0+",
         "Name": "Debug Functions",
+        "Name[ar]": "دوال التنقيح",
         "Name[ca@valencia]": "Funcions de depuració",
         "Name[ca]": "Funcions de depuració",
         "Name[cs]": "Funkce pro ladění",

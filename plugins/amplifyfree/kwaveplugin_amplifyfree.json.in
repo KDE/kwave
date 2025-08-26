@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[ar]": "توماس إيشينباخر",
                 "Name[ca@valencia]": "Thomas Eschenbacher",
                 "Name[ca]": "Thomas Eschenbacher",
                 "Name[cs]": "Thomas Eschenbacher",
@@ -35,6 +36,7 @@
         "EnabledByDefault": true,
         "License": "GPL-2.0+",
         "Name": "Amplify Free",
+        "Name[ar]": "التضخيم الحر",
         "Name[ca@valencia]": "Amplifica amb llibertat",
         "Name[ca]": "Amplifica amb llibertat",
         "Name[cs]": "Volně zesílit",

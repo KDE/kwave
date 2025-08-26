@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Dave Flogeras",
+                "Name[ar]": "ديف فلوجيراس",
                 "Name[ca@valencia]": "Dave Flogeras",
                 "Name[ca]": "Dave Flogeras",
                 "Name[cs]": "Dave Flogeras",
@@ -35,6 +36,7 @@
         "EnabledByDefault": true,
         "License": "GPL-2.0+",
         "Name": "Band Pass Filter",
+        "Name[ar]": "مرشح تمرير النطاق",
         "Name[ca@valencia]": "Filtre passabanda",
         "Name[ca]": "Filtre passabanda",
         "Name[cs]": "Pásmová propust",

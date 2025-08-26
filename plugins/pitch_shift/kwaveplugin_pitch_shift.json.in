@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[ar]": "توماس إيشينباخر",
                 "Name[ca@valencia]": "Thomas Eschenbacher",
                 "Name[ca]": "Thomas Eschenbacher",
                 "Name[cs]": "Thomas Eschenbacher",
@@ -35,6 +36,7 @@
         "EnabledByDefault": true,
         "License": "GPL-2.0+",
         "Name": "Pitch Shift",
+        "Name[ar]": "تحويل النغمة",
         "Name[ca@valencia]": "Desplaça el to",
         "Name[ca]": "Desplaça el to",
         "Name[cs]": "Posun výšky tónu",

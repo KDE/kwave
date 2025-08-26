@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Ralf Waspe & Gilles Caulier",
+                "Name[ar]": "رالف واسب وجيل كولييه",
                 "Name[ca@valencia]": "Ralf Waspe i Gilles Caulier",
                 "Name[ca]": "Ralf Waspe i Gilles Caulier",
                 "Name[cs]": "Ralf Waspe & Gilles Caulier",
@@ -35,6 +36,7 @@
         "EnabledByDefault": true,
         "License": "GPL-2.0+",
         "Name": "About Kwave",
+        "Name[ar]": "عن موجة",
         "Name[ca@valencia]": "Quant a Kwave",
         "Name[ca]": "Quant al Kwave",
         "Name[cs]": "O aplikaci Kwave",

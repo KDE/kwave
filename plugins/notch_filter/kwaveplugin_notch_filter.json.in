@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Dave Flogeras",
+                "Name[ar]": "ديف فلوجيراس",
                 "Name[ca@valencia]": "Dave Flogeras",
                 "Name[ca]": "Dave Flogeras",
                 "Name[cs]": "Dave Flogeras",
@@ -35,6 +36,7 @@
         "EnabledByDefault": true,
         "License": "GPL-2.0+",
         "Name": "Notch Filter",
+        "Name[ar]": "مرشح الشق",
         "Name[ca@valencia]": "Filtre de supressió de la banda",
         "Name[ca]": "Filtre de supressió de la banda",
         "Name[cs]": "Vroubkový filtr",

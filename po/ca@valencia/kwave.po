@@ -398,7 +398,7 @@ msgstr "fitxer"
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
-msgstr "Selecciona un tipus de la IGU: mode SDI, MDI o en pestanyes."
+msgstr "Tria un tipus de la IGU: mode SDI, MDI o en pestanyes."
 
 #: kwave/main.cpp:181
 #, kde-format
@@ -1245,7 +1245,7 @@ msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
 "2000...3000 (1000 samples)'"
 msgid "Selected: %1...%2 (%3 samples)"
-msgstr "Seleccionat: %1…%2 (%3 mostres)"
+msgstr "Triat: %1…%2 (%3 mostres)"
 
 #: kwave/TopWidget.cpp:1218
 #, kde-format
@@ -1253,7 +1253,7 @@ msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
 "(3 min)'"
 msgid "Selected: %1...%2 (%3)"
-msgstr "Seleccionat: %1…%2 (%3)"
+msgstr "Triat: %1…%2 (%3)"
 
 #: kwave/TopWidget.cpp:1237
 #, kde-format
@@ -1344,7 +1344,7 @@ msgstr "Zoom a tot"
 #: kwave/ZoomToolBar.cpp:85
 #, kde-format
 msgid "Select zoom factor"
-msgstr "Selecciona el factor d'apropament"
+msgstr "Tria el factor d'apropament"
 
 #: kwave/ZoomToolBar.cpp:91 kwave/ZoomToolBar.cpp:92 kwave/ZoomToolBar.cpp:93
 #, kde-format
@@ -3456,17 +3456,17 @@ msgstr "Expandix la selecció a l'etiqueta"
 #: libkwave/SignalManager.cpp:764
 #, kde-format
 msgid "Select Next Labels"
-msgstr "Selecciona les etiquetes següents"
+msgstr "Tria les etiquetes següents"
 
 #: libkwave/SignalManager.cpp:802
 #, kde-format
 msgid "Select Previous Labels"
-msgstr "Selecciona les etiquetes anteriors"
+msgstr "Tria les etiquetes anteriors"
 
 #: libkwave/SignalManager.cpp:841
 #, kde-format
 msgid "Select All Tracks"
-msgstr "Selecciona totes les pistes"
+msgstr "Tria totes les pistes"
 
 #: libkwave/SignalManager.cpp:845
 #, kde-format
@@ -3481,7 +3481,7 @@ msgstr "Invertix la selecció de les pistes"
 #: libkwave/SignalManager.cpp:855
 #, kde-format
 msgid "Select Track"
-msgstr "Selecciona la pista"
+msgstr "Tria la pista"
 
 #: libkwave/SignalManager.cpp:860
 #, kde-format
@@ -4166,7 +4166,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:603
 #, kde-format
 msgid "Select MP3 Encoder"
-msgstr "Selecciona el codificador MP3"
+msgstr "Tria el codificador MP3"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:657
 #, kde-format
@@ -4198,13 +4198,13 @@ msgstr "Navega manualment pel codificador"
 #: plugins/fileinfo/FileInfoDlg.ui:1273 plugins/playback/PlayBackDlg.ui:98
 #, kde-format
 msgid "&Select..."
-msgstr "&Selecciona…"
+msgstr "&Tria…"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbProgram)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:66
 #, kde-format
 msgid "select one of the predefined encoder setups"
-msgstr "Selecciona una de les configuracions predefinides del codificador"
+msgstr "Tria una de les configuracions predefinides del codificador"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btDetect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:89
@@ -4774,8 +4774,7 @@ msgid ""
 "and encode with %1 kBit/s or cancel and choose a different bitrate?"
 msgstr ""
 "No heu seleccionat cap taxa de bits per a la codificació. Voleu continuar i "
-"codificar amb %1 kbits/s o cancel·lar i seleccionar una taxa de bits "
-"diferent?"
+"codificar amb %1 kbits/s o cancel·lar i triar una taxa de bits diferent?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:177
 #, kde-format
@@ -4955,12 +4954,12 @@ msgstr "Fitxer del projecte K3b (*.k3b)"
 #: plugins/export_k3b/K3BExportDialog.cpp:161
 #, kde-format
 msgid "Please choose a K3b project file name"
-msgstr "Seleccioneu un nom de fitxer del projecte K3b"
+msgstr "Trieu un nom de fitxer del projecte K3b"
 
 #: plugins/export_k3b/K3BExportDialog.cpp:165
 #, kde-format
 msgid "Please choose where to export the audio files"
-msgstr "Seleccioneu a on exportar els fitxers d'àudio"
+msgstr "Trieu a on exportar els fitxers d'àudio"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportDialogBase.ui:35
@@ -4990,17 +4989,17 @@ msgid ""
 "courier'; font-weight:600;\">[%artist]</span> name of the artist</li></ul></"
 "body></html>"
 msgstr ""
-"<html><head/><body><p>Seleccioneu un patró per a la detecció del títol i "
-"artista a partir del text d'una etiqueta.<br/>En l'actualitat s'entenen els "
-"següents marcadors de posició:</p><ul style=\"margin-top: 0px; margin-"
-"bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li "
-"style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Courier New,courier'; font-weight:600;\">[%title] </span>títol de la "
-"cançó</li><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; "
-"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Courier New,courier'; font-weight:600;\">[%artist]</span> nom de "
-"l'artista</li></ul></body></html>"
+"<html><head/><body><p>Trieu un patró per a la detecció del títol i artista a "
+"partir del text d'una etiqueta.<br/>En l'actualitat s'entenen els següents "
+"marcadors de posició:</p><ul style=\"margin-top: 0px; margin-bottom: 0px; "
+"margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" "
+"margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-"
+"block-indent:0; text-indent:0px;\"><span style=\" font-family:'Courier New,"
+"courier'; font-weight:600;\">[%title] </span>títol de la cançó</li><li style="
+"\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-"
+"block-indent:0; text-indent:0px;\"><span style=\" font-family:'Courier New,"
+"courier'; font-weight:600;\">[%artist]</span> nom de l'artista</li></ul></"
+"body></html>"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkSelectionOnly)
 #: plugins/export_k3b/K3BExportDialogBase.ui:83
@@ -5042,8 +5041,8 @@ msgid ""
 "Select whether existing files are overwritten or new file names are used "
 "when exporting the files to use as tracks of the audio CD."
 msgstr ""
-"Seleccioneu si els fitxers existents se sobreescriuran o s'empraran noms de "
-"fitxer nous per a exportar-los com a pistes del CD d'àudio."
+"Trieu si els fitxers existents se sobreescriuran o s'empraran noms de fitxer "
+"nous per a exportar-los com a pistes del CD d'àudio."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportDialogBase.ui:134
@@ -5240,7 +5239,7 @@ msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
 msgstr ""
-"Seleccioneu una resolució en bits en la\n"
+"Trieu una resolució en bits en la\n"
 "qual guardar el fitxer."
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
@@ -5578,7 +5577,7 @@ msgstr "Contingut"
 #: plugins/fileinfo/FileInfoDlg.ui:1267
 #, kde-format
 msgid "Select a date from the calendar."
-msgstr "Seleccioneu una data del calendari."
+msgstr "Trieu una data del calendari."
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDate)
 #: plugins/fileinfo/FileInfoDlg.ui:1270
@@ -5687,7 +5686,7 @@ msgstr "Llista de les paraules clau."
 #: plugins/fileinfo/SelectDateDlg.ui:20
 #, kde-format
 msgid "Select Date"
-msgstr "Seleccioneu la data"
+msgstr "Trieu la data"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, GotoDlg)
 #: plugins/goto/GotoDlg.ui:15
@@ -5767,8 +5766,8 @@ msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
-"<b>Nombre de pistes</b><br>Seleccioneu un nombre de pistes del senyal nou. "
-"Si ara no esteu segur, les podeu afegir o eliminar més tard en el programa."
+"<b>Nombre de pistes</b><br>Trieu un nombre de pistes del senyal nou. Si ara "
+"no esteu segur, les podeu afegir o eliminar més tard en el programa."
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbResolution)
 #: plugins/newsignal/NewSigDlg.ui:301
@@ -5778,7 +5777,7 @@ msgid ""
 "saved. However, Kwave always uses 24 bits as its own internal resolution to "
 "give the best results when processing the audio data."
 msgstr ""
-"<b>Resolució</b><br>Seleccioneu una resolució en bits que s'utilitzarà per a "
+"<b>Resolució</b><br>Trieu una resolució en bits que s'utilitzarà per a "
 "guardar el fitxer. Recordeu que Kwave sempre utilitza 24 bits com a "
 "resolució interna per a proporcionar els millors resultats en processar les "
 "dades de l'àudio."
@@ -5787,7 +5786,7 @@ msgstr ""
 #: plugins/newsignal/NewSigDlg.ui:347
 #, kde-format
 msgid "Select this to set the length of the file by time"
-msgstr "Seleccioneu açò per a establir la llargària del fitxer per temps"
+msgstr "Trieu açò per a establir la llargària del fitxer per temps"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbTime)
 #: plugins/newsignal/NewSigDlg.ui:350
@@ -5799,7 +5798,7 @@ msgstr "Temps"
 #: plugins/newsignal/NewSigDlg.ui:357
 #, kde-format
 msgid "Select this to enter the number of samples directly"
-msgstr "Seleccioneu açò per a introduir el nombre de mostres directament"
+msgstr "Trieu açò per a introduir el nombre de mostres directament"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbSamples)
 #: plugins/newsignal/NewSigDlg.ui:360
@@ -6259,7 +6258,7 @@ msgstr "(quadrifònica)"
 #: plugins/playback/PlayBackDialog.cpp:651
 #, kde-format
 msgid "Select Playback Device"
-msgstr "Seleccioneu el dispositiu de reproducció"
+msgstr "Trieu el dispositiu de reproducció"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PlayBackDlg)
 #: plugins/playback/PlayBackDlg.ui:20
@@ -6307,8 +6306,8 @@ msgid ""
 "<b>Select...</b><p>Choose a device name on the harddisk, if your device is "
 "not already listed in the list of devices.</p>"
 msgstr ""
-"<b>Selecciona…</b><p>Seleccioneu un nom de dispositiu en el disc dur si el "
-"vostre dispositiu no apareix en la llista de dispositius.</p>"
+"<b>Tria…</b><p>Trieu un nom de dispositiu en el disc dur si el vostre "
+"dispositiu no apareix en la llista de dispositius.</p>"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:121
@@ -6334,8 +6333,7 @@ msgid ""
 "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
 "Multiple applications can play at the same time.</p>"
 msgstr ""
-"<b>Mètode de reproducció:</b><p>Seleccioneu un mètode o sistema de "
-"reproducció.\n"
+"<b>Mètode de reproducció:</b><p>Trieu un mètode o sistema de reproducció.\n"
 "Depenent de les opcions de compilació, podreu seleccionar un dels següents "
 "mètodes:</p>\n"
 "<p><b><i>OSS (sistema de so obert)</i></b>: La implementació més antiga de "
@@ -6385,7 +6383,7 @@ msgid ""
 "update of the playback position and the real sound output. If you encounter "
 "dropouts you should increase this setting a bit.</p>"
 msgstr ""
-"<b>Mida de la memòria intermèdia:</b><p>Seleccioneu una mida per al cau de "
+"<b>Mida de la memòria intermèdia:</b><p>Trieu una mida per al cau de "
 "reproducció. Hauríeu d'establir este número amb el valor més baix possible "
 "per a reduir la latència de la reproducció. La latència és el retard entre "
 "les accions de la interfície d'usuari, com iniciar/parar la reproducció o "
@@ -6484,7 +6482,7 @@ msgstr "&Prova…"
 #: plugins/playback/PlayBackPlugin.cpp:401
 #, kde-format
 msgid "Please select a playback device first"
-msgstr "Seleccioneu primer un dispositiu de reproducció"
+msgstr "Trieu primer un dispositiu de reproducció"
 
 #: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format
@@ -6549,7 +6547,7 @@ msgstr "Dispositiu de gravació ALSA (adsp*)"
 #: plugins/record/RecordDialog.cpp:630
 #, kde-format
 msgid "Select Record Device"
-msgstr "Seleccioneu el dispositiu de gravació"
+msgstr "Trieu el dispositiu de gravació"
 
 #: plugins/record/RecordDialog.cpp:717 plugins/record/RecordPlugin.cpp:544
 #: plugins/record/RecordPlugin.cpp:552
@@ -6859,8 +6857,8 @@ msgid ""
 "<b>Number of channels</b><br>Select a number of channels, e.g. for mono or "
 "stereo recording."
 msgstr ""
-"<b>Nombre de canals</b><br>Seleccioneu el nombre de canals, p. ex., per a "
-"gravar en mono o en estèreo."
+"<b>Nombre de canals</b><br>Trieu el nombre de canals, p. ex., per a gravar "
+"en mono o en estèreo."
 
 #. i18n: ectx: property (text), widget (QLabel, lblTracksVerbose)
 #: plugins/record/RecordDlg.ui:755
@@ -6909,9 +6907,9 @@ msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
 "recorded. Higher values give better quality but also more system load."
 msgstr ""
-"<b>Resolució</b><br>Seleccioneu una resolució en bits en la qual es gravarà "
-"el fitxer. Els valors més alts proporcionen una millor qualitat a canvi "
-"d'una càrrega superior en el sistema."
+"<b>Resolució</b><br>Trieu una resolució en bits en la qual es gravarà el "
+"fitxer. Els valors més alts proporcionen una millor qualitat a canvi d'una "
+"càrrega superior en el sistema."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
 #: plugins/record/RecordDlg.ui:1000
@@ -6938,8 +6936,7 @@ msgid ""
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes OSS, "
 "supports more features and more hardware.</p>"
 msgstr ""
-"<b>Mètode de gravació:</b><p>Seleccioneu un mètode o sistema que "
-"s'utilitzarà\n"
+"<b>Mètode de gravació:</b><p>Trieu un mètode o sistema que s'utilitzarà\n"
 "per a la gravació. Depenent de les opcions de compilació, podreu seleccionar "
 "un dels següents mètodes:</p>\n"
 "<p><b><i>OSS (sistema de so obert)</i></b>: La implementació més antiga de "
@@ -6977,7 +6974,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1078
 #, kde-format
 msgid "Selec&t..."
-msgstr "&Selecciona…"
+msgstr "&Tria…"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
@@ -7133,7 +7130,7 @@ msgstr "S'està canviant la freqüència de mostreig de %1 kHz a %2 kHz…"
 #: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
 msgid "Please choose where to save the files"
-msgstr "Seleccioneu a on s'han de guardar els fitxers"
+msgstr "Trieu a on s'han de guardar els fitxers"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:37
@@ -7152,9 +7149,9 @@ msgid ""
 "the files that will be saved</li>\n"
 "</ul>"
 msgstr ""
-"<p>Seleccioneu el patró que s'utilitzarà per a crear el nom de fitxer de "
-"cadascun dels blocs guardats. Actualment es poden utilitzar les variables "
-"següents de substitució:</p>\n"
+"<p>Trieu el patró que s'utilitzarà per a crear el nom de fitxer de cadascun "
+"dels blocs guardats. Actualment es poden utilitzar les variables següents de "
+"substitució:</p>\n"
 "<ul>\n"
 "<li><tt><b>[%filename]</b></tt>nom del fitxer, sense el camí</li>\n"
 "<li><tt><b>[</b>%<i>0</i></tt><i>N</i><tt><b>nr]</b> </tt>l'índex del "
@@ -7219,7 +7216,7 @@ msgstr "Extensió:"
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:118
 #, kde-format
 msgid "Choose what encoding to save the blocks with."
-msgstr "Seleccioneu amb quina codificació guardar els blocs."
+msgstr "Trieu amb quina codificació guardar els blocs."
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:131
@@ -7231,7 +7228,7 @@ msgstr "Ubicació a on s'han de guardar els fitxers"
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:140
 #, kde-format
 msgid "Choose where to save the files"
-msgstr "Seleccioneu a on s'han de guardar els fitxers"
+msgstr "Trieu a on s'han de guardar els fitxers"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:154
@@ -7289,7 +7286,7 @@ msgstr "Inicia"
 #: plugins/selectrange/SelectRangePlugin.cpp:121
 #, kde-format
 msgid "Select Range"
-msgstr "Seleccioneu l'interval"
+msgstr "Trieu l'interval"
 
 #: plugins/sonagram/SonagramDialog.cpp:148
 #, kde-format
@@ -7399,7 +7396,7 @@ msgid ""
 "Choose windowing function here.<br>\n"
 "If the transformation should stay reversible, use the type \"None\"."
 msgstr ""
-"Seleccioneu ací la funció de les finestres.<br>\n"
+"Trieu ací la funció de les finestres.<br>\n"
 "Si la transformació ha de romandre reversible, utilitzeu el tipus «Cap»."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, pointbox)

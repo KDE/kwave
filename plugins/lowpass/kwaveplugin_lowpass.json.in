@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Lågpassfilter",
         "Name[tr]": "Düşük Geçiş Süzgeci",
         "Name[uk]": "Низькочастотний фільтр",
-        "Name[x-test]": "xxLow Pass Filterxx",
         "Name[zh_CN]": "低通滤波器",
         "Name[zh_TW]": "低通濾波器",
         "Version": "@KWAVE_VERSION@:2.3"

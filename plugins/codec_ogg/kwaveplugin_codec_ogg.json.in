@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Ogg-kodare",
         "Name[tr]": "Ogg Kod Çözücüsü",
         "Name[uk]": "Кодек Ogg",
-        "Name[x-test]": "xxOgg Codecxx",
         "Name[zh_CN]": "Ogg 编解码器",
         "Name[zh_TW]": "Ogg 編碼器",
         "Version": "@KWAVE_VERSION@:2.3"

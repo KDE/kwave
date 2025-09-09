@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Ange kommando",
         "Name[tr]": "Komut Girin",
         "Name[uk]": "Введення команди",
-        "Name[x-test]": "xxEnter Commandxx",
         "Name[zh_CN]": "输入命令",
         "Name[zh_TW]": "輸入指令",
         "Version": "@KWAVE_VERSION@:2.3"

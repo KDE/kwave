@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Audiofil-kodare",
         "Name[tr]": "Audiofile Kod Çözücüsü",
         "Name[uk]": "Кодек Audiofile",
-        "Name[x-test]": "xxAudiofile Codecxx",
         "Name[zh_CN]": "Audiofile 编解码器",
         "Name[zh_TW]": "音樂檔案編碼器",
         "Version": "@KWAVE_VERSION@:2.3"

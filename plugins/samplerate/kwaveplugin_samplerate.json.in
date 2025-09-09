@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Konvertering av samplingsfrekvens",
         "Name[tr]": "Örnekleme Hızı Dönüşümü",
         "Name[uk]": "Зміна частоти дискретизації",
-        "Name[x-test]": "xxSample Rate Conversionxx",
         "Name[zh_CN]": "采样率转换",
         "Name[zh_TW]": "採樣率轉換",
         "Version": "@KWAVE_VERSION@:2.3"

@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Felsökningsfunktioner",
         "Name[tr]": "Hata Ayıklama İşlevleri",
         "Name[uk]": "Функції діагностики",
-        "Name[x-test]": "xxDebug Functionsxx",
         "Name[zh_CN]": "调试功能",
         "Name[zh_TW]": "偵錯函式",
         "Version": "@KWAVE_VERSION@:2.3"

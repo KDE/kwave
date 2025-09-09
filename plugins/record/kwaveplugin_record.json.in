@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Spela in",
         "Name[tr]": "Kaydet",
         "Name[uk]": "Запис",
-        "Name[x-test]": "xxRecordxx",
         "Name[zh_CN]": "捕获",
         "Name[zh_TW]": "錄音",
         "Version": "@KWAVE_VERSION@:2.6"

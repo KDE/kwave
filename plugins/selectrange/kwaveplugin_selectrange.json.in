@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Markera intervall",
         "Name[tr]": "Aralık Seç",
         "Name[uk]": "Вибір діапазону",
-        "Name[x-test]": "xxSelect Rangexx",
         "Name[zh_CN]": "选择范围",
         "Name[zh_TW]": "選擇範圍",
         "Version": "@KWAVE_VERSION@:2.3"

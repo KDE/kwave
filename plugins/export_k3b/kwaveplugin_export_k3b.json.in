@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "K3b-projektexport",
         "Name[tr]": "K3b Proje Dışa Aktarma",
         "Name[uk]": "Експортування до проєкту K3b",
-        "Name[x-test]": "xxK3b Project Exportxx",
         "Name[zh_CN]": "K3b 项目导出",
         "Name[zh_TW]": "K3b 專案匯出",
         "Version": "@KWAVE_VERSION@:2.3"

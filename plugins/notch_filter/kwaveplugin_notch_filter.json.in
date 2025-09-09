@@ -29,7 +29,6 @@
                 "Name[sv]": "Dave Flogeras",
                 "Name[tr]": "Dave Flogeras",
                 "Name[uk]": "Dave Flogeras",
-                "Name[x-test]": "xxDave Flogerasxx",
                 "Name[zh_TW]": "Dave Flogeras"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Bandspärrfilter",
         "Name[tr]": "Çentik Süzgeci",
         "Name[uk]": "Фільтр розривів",
-        "Name[x-test]": "xxNotch Filterxx",
         "Name[zh_CN]": "陷波滤波器",
         "Name[zh_TW]": "陷波濾波器",
         "Version": "@KWAVE_VERSION@:2.3"

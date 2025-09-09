@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Spara block",
         "Name[tr]": "Blokları Kaydet",
         "Name[uk]": "Зберегти блоки",
-        "Name[x-test]": "xxSave Blocksxx",
         "Name[zh_CN]": "保存区块",
         "Name[zh_TW]": "儲存區段",
         "Version": "@KWAVE_VERSION@:2.4"

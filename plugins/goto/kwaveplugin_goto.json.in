@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Gå till position",
         "Name[tr]": "Gidilecek Konum",
         "Name[uk]": "Позиція переходу",
-        "Name[x-test]": "xxGoto Positionxx",
         "Name[zh_CN]": "转到位置",
         "Name[zh_TW]": "前往位置",
         "Version": "@KWAVE_VERSION@:2.3"

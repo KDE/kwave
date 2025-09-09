@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Nollgenerator",
         "Name[tr]": "Sıfır Üreteci",
         "Name[uk]": "Генератор нуля",
-        "Name[x-test]": "xxZero Generatorxx",
         "Name[zh_CN]": "零生成器",
         "Name[zh_TW]": "靜音 (Zero) 產生器",
         "Version": "@KWAVE_VERSION@:2.3"

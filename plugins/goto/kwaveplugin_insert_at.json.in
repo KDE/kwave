@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Infoga vid",
         "Name[tr]": "Şuraya Ekle",
         "Name[uk]": "Вставити до",
-        "Name[x-test]": "xxInsert Atxx",
         "Name[zh_CN]": "插入于",
         "Name[zh_TW]": "插入在",
         "Version": "@KWAVE_VERSION@:2.3"

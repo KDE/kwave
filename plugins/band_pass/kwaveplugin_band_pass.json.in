@@ -29,7 +29,6 @@
                 "Name[sv]": "Dave Flogeras",
                 "Name[tr]": "Dave Flogeras",
                 "Name[uk]": "Dave Flogeras",
-                "Name[x-test]": "xxDave Flogerasxx",
                 "Name[zh_TW]": "Dave Flogeras"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Bandpassfilter",
         "Name[tr]": "Bant Geçiş Süzgeci",
         "Name[uk]": "Фільтр діапазону частот",
-        "Name[x-test]": "xxBand Pass Filterxx",
         "Name[zh_CN]": "带通滤波器",
         "Name[zh_TW]": "帶通濾波器",
         "Version": "@KWAVE_VERSION@:2.3"

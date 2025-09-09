@@ -29,7 +29,6 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
                 "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
@@ -69,7 +68,6 @@
         "Name[sv]": "Ny signal",
         "Name[tr]": "Yeni Sinyal",
         "Name[uk]": "Новий сигнал",
-        "Name[x-test]": "xxNew Signalxx",
         "Name[zh_CN]": "新建信号",
         "Name[zh_TW]": "新訊號源",
         "Version": "@KWAVE_VERSION@:2.3"

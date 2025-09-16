@@ -2492,7 +2492,7 @@ msgstr "Completados %1 MB de %2 MB"
 #, kde-format
 msgctxt "%1=Progress in percentage, %2=path to file"
 msgid "(%1%) %2"
-msgstr "(%1%) %2"
+msgstr "(%1 %) %2"
 
 #: libkwave/FileProgress.cpp:368
 #, kde-format
@@ -7535,7 +7535,7 @@ msgstr "Frecuencia: %1 Hz"
 #: plugins/sonagram/SonagramWindow.cpp:565
 #, kde-format
 msgid "Amplitude: %1%"
-msgstr "Amplitud: %1%"
+msgstr "Amplitud: %1 %"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, StringEnterDlg)
 #: plugins/stringenter/StringEnterDlg.ui:21

@@ -544,7 +544,7 @@
     <para
 >Od &kwave; v0.8.0 dnevnik sprememb ni več vključen v ta priročnik. Torej, če vas zanima celoten seznam sprememb, lahko najdete celotno zgodovino tukaj: <ulink url="&url_changelog;"
 > &url_changelog;</ulink
-> ali pa sami brskate po virih prek <ulink url=" &url_git_web_kde;"
+> ali pa sami brskate po virih prek <ulink url="&url_git_web_kde;"
 >Spletni vmesnik GIT</ulink
 >. </para>
 

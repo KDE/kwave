@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the kwave package.
 #
 # SPDX-FileCopyrightText: 2013, 2014 Carlos <pureacetone@gmail.com>
-# SPDX-FileCopyrightText: 2015, 2016, 2017 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2015, 2016, 2017, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2017, 2018, 2019, 2020, 2024, 2025 Víctor Rodrigo Córdoba <vrcordoba@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-11 00:41+0000\n"
-"PO-Revision-Date: 2025-06-09 02:15+0100\n"
+"PO-Revision-Date: 2025-09-20 16:44+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -753,7 +753,7 @@ msgstr "Ampliar a toda la señal"
 #: kwave/menus.config:129
 msgctxt "menu: /View/Zoom to 100%"
 msgid "Zoom to 100%"
-msgstr "Ampliar al 100%"
+msgstr "Ampliar al 100 %"
 
 #: kwave/menus.config:131
 msgctxt "menu: /Play"
@@ -1333,7 +1333,7 @@ msgstr "Ampliar a la selección"
 #: kwave/ZoomToolBar.cpp:74 kwave/ZoomToolBar.cpp:75
 #, kde-format
 msgid "Zoom to 100%"
-msgstr "Ampliar al 100%"
+msgstr "Ampliar al 100 %"
 
 #: kwave/ZoomToolBar.cpp:79 kwave/ZoomToolBar.cpp:80
 #, kde-format
@@ -1666,21 +1666,21 @@ msgstr "Horas"
 #: libgui/SelectTimeWidgetBase.ui:314 plugins/newsignal/NewSigDlg.ui:601
 #, no-c-format, kde-format
 msgid "0%"
-msgstr "0%"
+msgstr "0 %"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel3_2)
 #. i18n: ectx: property (text), widget (QLabel, TextLabel3)
 #: libgui/SelectTimeWidgetBase.ui:340 plugins/newsignal/NewSigDlg.ui:627
 #, no-c-format, kde-format
 msgid "50%"
-msgstr "50%"
+msgstr "50 %"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2_2)
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2)
 #: libgui/SelectTimeWidgetBase.ui:366 plugins/newsignal/NewSigDlg.ui:653
 #, no-c-format, kde-format
 msgid "100%"
-msgstr "100%"
+msgstr "100 %"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slidePercents)
 #: libgui/SelectTimeWidgetBase.ui:387
@@ -4894,11 +4894,11 @@ msgstr "Audio WAV"
 
 #: plugins/debug/DebugPlugin.cpp:89
 msgid "Generate 50% DC Level"
-msgstr "Generar nivel DC del 50%"
+msgstr "Generar nivel DC del 50 %"
 
 #: plugins/debug/DebugPlugin.cpp:91
 msgid "Generate 100% DC Level"
-msgstr "Generar nivel DC del 100%"
+msgstr "Generar nivel DC del 100 %"
 
 #: plugins/debug/DebugPlugin.cpp:93
 msgid "MinMax Pattern"
@@ -5861,8 +5861,8 @@ msgid ""
 "For example: \"1 %\", \"15%\" or \"100%\""
 msgstr ""
 "Añade un nivel de ruido como un porcentaje relativo al nivel máximo de "
-"volumenl.\n"
-"Por ejemplo: «1%»,  «15%» o «100%»"
+"volumen.\n"
+"Por ejemplo: «1 %»,  «15 %» o «100 %»"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:61 plugins/volume/VolumeDlg.ui:91
@@ -6038,7 +6038,7 @@ msgid ""
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
 "Fija la velocidad a un porcentaje relativo de la velocidad original.\n"
-"Por ejemplo: «50%», «75%» o «125%»"
+"Por ejemplo: «50 %», «75 %» o «125 %»"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:222
@@ -6446,8 +6446,8 @@ msgstr ""
 "audio actual. Kwave mezcla automáticamente las pistas del archivo a la "
 "cantidad de canales que indique aquí.</p><p><i>Por ejemplo:</i> si tiene "
 "tres pistas y fija la reproducción a «estéreo», el canal izquierdo contendrá "
-"la primera pista más el 50% de la segunda pista y el canal derecho contendrá "
-"el 50% de la segunda pista más la tercera pista.</p>"
+"la primera pista más el 50 % de la segunda pista y el canal derecho "
+"contendrá el 50 % de la segunda pista más la tercera pista.</p>"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/playback/PlayBackDlg.ui:388
@@ -7596,7 +7596,7 @@ msgid ""
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
 "Fija el volumen a un porcentaje relativo al nivel original.\n"
-"Por ejemplo: «50%», «75%» o «125%»"
+"Por ejemplo: «50 %», «75 %» o «125 %»"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:104

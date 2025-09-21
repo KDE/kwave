@@ -592,7 +592,7 @@
     <para
 >Primero debe saber que el mundo es <emphasis
 >analógico</emphasis
-> y que los ordenadores trabajan digitalmente. Por lo que existen distintos modos para convertir audio analógico en audio digital y viceversa. Como el modo de convertir de digital a analógico es normalmente el proceso inverso de convertir de analógico a digital sólo describiremos el modo de analógico a digital. </para>
+> y que los ordenadores trabajan digitalmente. Por lo que existen distintos modos para convertir audio analógico en audio digital y viceversa. Como el modo de convertir de digital a analógico es normalmente el proceso inverso de convertir de analógico a digital solo describiremos el modo de analógico a digital. </para>
     <para>
 	<inlinemediaobject>
 	<imageobject>
@@ -645,9 +645,9 @@
 ><para
 >La señal contiene <emphasis
 >ruido</emphasis
->. El ruido es el mayor enemigo para alguien que tiene que tratar con señales de audio. El ruido es un efecto analógico que perturba la señal de audio, que siempre está presente y que no puede ser evitado. Uno sólo puede intentar usar componentes de alta calidad que produzcan niveles de ruido lo más bajos posibles para evitar oirlos. Normalmente el ruido tiene un cierto volumen, por lo que el sonido que nos interesa debe ser mucho más alto en comparación con el ruido. Esto se denomina <emphasis
+>. El ruido es el mayor enemigo para alguien que tiene que tratar con señales de audio. El ruido es un efecto analógico que perturba la señal de audio, que siempre está presente y que no puede ser evitado. Uno solo puede intentar usar componentes de alta calidad que produzcan niveles de ruido lo más bajos posibles para evitar oírlos. Normalmente el ruido tiene un cierto volumen, por lo que el sonido que nos interesa debe ser mucho más alto en comparación con el ruido. Esto se denomina <emphasis
 >relación señal/ruido (SNR)</emphasis
->, cuanto más alto sea, mayor será la calidad del sonido. Sonidos que tienen un volumen menor que el ruido no pueden ser oidos. </para
+>, cuanto más alto sea, mayor será la calidad del sonido. Sonidos que tienen un volumen menor que el ruido no pueden ser oídos. </para
 ></listitem>
 	</orderedlist>
     </para>
@@ -787,7 +787,7 @@
 ><para
 >&kwave; internamente usa un formato de <emphasis
 >enteros con signo</emphasis
-> con 24 bits de precisión, almacenados en enteros de 32 bits. Esto tiene la desventaja de mayor consumo de memoria al procesar archivos con menos precisión (&eg; 8 bits), pero procesando números de 32 bits es muy rápido, y además reserva para cálculos internos, ya que normalmente suelen usarse sólo 24 bits. </para
+> con 24 bits de precisión, almacenados en enteros de 32 bits. Esto tiene la desventaja de mayor consumo de memoria al procesar archivos con menos precisión (&eg; 8 bits), pero procesando números de 32 bits es muy rápido, y además reserva para cálculos internos, ya que normalmente suelen usarse solo 24 bits. </para
 ></note>
 </sect1>
 
@@ -867,7 +867,7 @@
 >Misma ventana (MDI)</guimenuitem
 >: Al usar el modo <emphasis
 >Multi Document Interface</emphasis
-> (MDI), sólo habrá una única ventana de &kwave; pero dentro de dicha ventana dispondrá de un area que mostrará sub-ventanas, cada una de las cuales podrá ser manipulada en tamaño, posición y organizada en vista en cascada o minimizada. </para>
+> (MDI), solo habrá una única ventana de &kwave; pero dentro de dicha ventana dispondrá de un area que mostrará sub-ventanas, cada una de las cuales podrá ser manipulada en tamaño, posición y organizada en vista en cascada o minimizada. </para>
 		<para
 >Puede seleccionar una ventana desde el menú <guimenu
 >Ventana</guimenu
@@ -1441,7 +1441,7 @@
 ><para
 ><guilabel
 >Grabación tras detección:</guilabel
-> Si se encuentra activada la grabación comienza solo si el volumen de entrada supera cierto límite, el cual puede ser definido de 0 a 100% del volumen de entrada más alto posible. Esto es útil si no quiere grabar silencio al comienzo. (Pista: combine esto con la característica de pre-grabación mencionada arriba para capturar también algunos segundos antes de alcanzar el disparador, de esta manera no perderá ningún fade-in silencioso.) </para
+> Si se encuentra activada la grabación comienza solo si el volumen de entrada supera cierto límite, el cual puede ser definido de 0 a 100 % del volumen de entrada más alto posible. Esto es útil si no quiere grabar silencio al comienzo. (Pista: combine esto con la característica de pre-grabación mencionada arriba para capturar también algunos segundos antes de alcanzar el disparador, de esta manera no perderá ningún fade-in silencioso.) </para
 ></listitem>
 	<listitem
 ><para
@@ -1508,7 +1508,7 @@
 ></listitem>
 	    <listitem
 ><para
->Si pre-grabación está activada, la primera pulsación sólo inicia la pre-grabación y la segunda pulsación inicia la grabación. </para
+>Si pre-grabación está activada, la primera pulsación solo inicia la pre-grabación y la segunda pulsación inicia la grabación. </para
 ></listitem>
 	    </orderedlist>
 	</para
@@ -1543,7 +1543,7 @@
 ></listitem>
 	<listitem
 ><para
->OSS (Open Sound System): La antigua implementación para linux, capaz de salida estéreo y mono. Reemplazada desde el kernel 2.6. Puede colisionar con otras aplicaciones de sonido, además sólo una aplicación al mismo tiempo puede utilizar la reproducción OSS. </para
+>OSS (Open Sound System): La antigua implementación para linux, capaz de salida estéreo y mono. Reemplazada desde el kernel 2.6. Puede colisionar con otras aplicaciones de sonido, además solo una aplicación al mismo tiempo puede utilizar la reproducción OSS. </para
 ></listitem>
     </itemizedlist
 ></para>
@@ -1616,7 +1616,7 @@
 ><guimenuitem
 >Pausar</guimenuitem
 > </menuchoice
->: Pausa la reproducción en la posición actual. Sólo disponible cuando la reproducción están en marcha. </para
+>: Pausa la reproducción en la posición actual. Solo disponible cuando la reproducción están en marcha. </para
 ></listitem>
         <listitem
 ><para
@@ -1630,7 +1630,7 @@
 ><guimenuitem
 >Continuar</guimenuitem
 > </menuchoice
->: Continua la reproducción desde la posición donde ha sido pausada. Sólo disponible si la reproducción ha sido pausada. </para
+>: Continua la reproducción desde la posición donde ha sido pausada. Solo disponible si la reproducción ha sido pausada. </para
 ></listitem>
         <listitem
 ><para
@@ -1802,7 +1802,7 @@
         <listitem
 ><para
 ><emphasis
->zum al 100%:</emphasis
+>zum al 100 %:</emphasis
 > acerca hasta una escala en donde una muestra es representada por un pixel en la pantalla. <itemizedlist
 > <listitem
 ><para
@@ -1810,7 +1810,7 @@
 > <guimenu
 >Vista</guimenu
 ><guimenuitem
->Zum al 100%</guimenuitem
+>Zum al 100 %</guimenuitem
 > </menuchoice
 > </para
 ></listitem>
@@ -2070,9 +2070,9 @@
     <para
 >Si selecciona un intervalo de muestras en &kwave; ese intervalo será <emphasis
 >inclusivo</emphasis
->. Esto significa que la primera y la última muestra seleccionadas pertenecen a la selección y serán usadas en las posteriores acciones. Asi que incluso aunque no seleccione un <emphasis
+>. Esto significa que la primera y la última muestra seleccionadas pertenecen a la selección y serán usadas en las posteriores acciones. Así que incluso aunque no seleccione un <emphasis
 >intervalo</emphasis
->, excepto una sola muestra, la selección nunca estará realmente "vacía". Asi que por ejemplo, si no ve ningún intervalo seleccionado la función "eliminar" sólo se aplica a esa muestra en concreto. </para>
+>, excepto una sola muestra, la selección nunca estará realmente "vacía". Así que, por ejemplo, si no ve ningún intervalo seleccionado la función "eliminar" solo se aplica a esa muestra en concreto. </para>
 
     <para
 >La manera más fácil de seleccionar un intervalo de muestras es haciéndolo con el ratón. Funciona como ya está acostumbrado en otras aplicaciones: simplemente pulse el &LMB; en un punto que desée establecer como el inicio de la selección y suéltelo donde quiere terminar la selección. </para>
@@ -2328,7 +2328,7 @@
 >&kwave; soporta el protocolo de arrastrar y soltar de &kde-frameworks;. Esto le permite abrir archivos simplemente seleccionándolos en una ventana de &dolphin; o &konqueror; o del escritorio y soltándolos en la ventana de &kwave; </para>
 
     <para
->Dese cuenta que si suelta un archivo en la ventana de &kwave; que ya cotinene un archivo abierto, el archivo actual será cerrado y sólo entonces se abrirá el archivo que ha soltado. Si no desea esto debería abrir una ventana vacía de &kwave; primero. </para>
+>Dese cuenta que si suelta un archivo en la ventana de &kwave; que ya contiene un archivo abierto, el archivo actual será cerrado y solo entonces se abrirá el archivo que ha soltado. Si no desea esto debería abrir una ventana vacía de &kwave; primero. </para>
 
     <para
 >También puede seleccionar un intervalo de muestras y arrastrarlo o soltarlo en una ventana de &kwave;. Por defecto la operación de arrastre se realiza en modo <emphasis
@@ -3759,7 +3759,7 @@
 	    <para
 >Se corresponde con el botón <guibutton
 >Continuar</guibutton
-> de la barra de herramientas y continua la reproducción si ésta está pausada. </para>
+> de la barra de herramientas y continua la reproducción si está pausada. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -3821,7 +3821,7 @@
 >&no-i18n-tag;&no-i18n-cmd_cut;</command
 >()</title>
 	    <para
->Copia el contenido de la selección actual al portapapeles y lo elimina de la señal. Si la selección está vacía, esta orden no hace nada y el portapapeles no se modifica. Sólo el contenido de la pista seleccionada actualmente se copia al portapapeles, pero el intervalo seleccionado se borra de todas las pistas. </para>
+>Copia el contenido de la selección actual al portapapeles y lo elimina de la señal. Si la selección está vacía, esta orden no hace nada y el portapapeles no se modifica. Solo el contenido de la pista seleccionada actualmente se copia al portapapeles, pero el intervalo seleccionado se borra de todas las pistas. </para>
 	</simplesect>
 	</sect2>
     </sect1>
@@ -5929,7 +5929,7 @@
 	    <para
 >Corresponde al botón de la barra de herramientas <guibutton
 >Inicio</guibutton
-> e inicia la reproducción de la selección o continua ésta si está pausada. </para>
+> e inicia la reproducción de la selección o la continúa si está pausada. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -6276,7 +6276,7 @@
 >posición</replaceable
 >])</title>
 	    <para
->Reduce el factor de zum (en muestras por píxel) en un 30%, para hacer más detalles visibles. Si se proporciona una <replaceable
+>Reduce el factor de zum (en muestras por píxel) en un 30 %, para hacer más detalles visibles. Si se proporciona una <replaceable
 >posición</replaceable
 >, intenta mostrar la posición centrada en la vista actual, en caso contrario, el centro de la vista antes del cambio de zum se usará como centro. El factor mínimo de zum está limitado a un mínimo de cinco muestras por anchura de la vista. </para>
 	</simplesect>
@@ -6336,7 +6336,7 @@
 >])</command
 ></title>
 	    <para
->Incrementa el factor de zum (en muestras por pixel) un 30%, para hacer menos detalles visibles. Si se proporciona una <replaceable
+>Incrementa el factor de zum (en muestras por pixel) un 30 %, para hacer menos detalles visibles. Si se proporciona una <replaceable
 >posición</replaceable
 >, intenta mostrar la posición centrada en la vista actual, en caso contrario, el centro de la vista antes del cambio de zum se usará como centro. El factor máximo de zum está limitado a el número de muestras de la señal completa y la anchura de la vista. </para>
 	</simplesect>
@@ -7590,7 +7590,7 @@
 ></term>
 	    <listitem
 ><para
->codificador/decodificador [sólo importar]</para
+>codificador/decodificador [solo importar]</para
 ></listitem>
 	</varlistentry>
 	<varlistentry>
@@ -8675,7 +8675,7 @@
 >inicio</emphasis
 > del bloque. Si el texto está vacío, se usará el título del archivo (ver el elemento de información de archivo «<link linkend="INF_NAME"
 >Nombre</link
->»). Si éste tampoco existe, se usará el nombre del archivo tal y como se ha descrito más arriba. </entry>
+>»). Si este tampoco existe, se usará el nombre del archivo tal y como se ha descrito más arriba. </entry>
 					    </row>
 					</tbody>
 				    </tgroup>
@@ -9343,7 +9343,7 @@
 ></term>
 	    <listitem>
 	    <para
->Añade una cierta cantidad de ruido blanco a la selección actual. La cantidad de ruido puede tomar valores desde 0 (sin ruido, el original queda intacto) hasta 1 (original remplazado por un 100% de ruido). </para>
+>Añade una cierta cantidad de ruido blanco a la selección actual. La cantidad de ruido puede tomar valores desde 0 (sin ruido, el original queda intacto) hasta 1 (original remplazado por un 100 % de ruido). </para>
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
@@ -9609,7 +9609,7 @@
 ></term>
 	    <listitem>
 	    <para
->El efecto de desplazamiento de tono modifica la señal cambiando la velocidad del contenido, pero manteniendo la longitud original. Puede seleccionar la velocidad relativa en un factor de 1/10 a 5x, o usando un porcentaje del 1% al 400% de la velocidad original. </para>
+>El efecto de desplazamiento de tono modifica la señal cambiando la velocidad del contenido, pero manteniendo la longitud original. Puede seleccionar la velocidad relativa en un factor de 1/10 a 5x, o usando un porcentaje del 1 % al 400 % de la velocidad original. </para>
 	    <para
 >Un factor de velocidad menor que 1.0 hace más grave la señal (hace a las voces sonar más viejas), el factor 1.0 no modifica la señal y un factor por encima de 1.0 hace más aguda la señal (efecto Mickey Mouse). </para>
 	    <para
@@ -10372,15 +10372,15 @@
 >inicio</emphasis
 > del bloque. Si el texto está vacío, se usará el título del archivo (ver el elemento de información de archivo «<link linkend="INF_NAME"
 >Nombre</link
->»). Si éste tampoco existe, se usará el nombre del archivo tal y como se ha descrito más arriba. </entry>
+>»). Si este tampoco existe, se usará el nombre del archivo tal y como se ha descrito más arriba. </entry>
 					    </row>
 					</tbody>
 				    </tgroup>
 				</informaltable>
 			   <para
->Todos los comodines numéricos pueden contener un argumento numérico después del "<literal
+>Todos los comodines numéricos pueden contener un argumento numérico después del «<literal
 >%</literal
->" y del identificador, para forzar un determinado número de dígitos. Si el número es precedido por un <literal
+>» y del identificador, para forzar un determinado número de dígitos. Si el número es precedido por un <literal
 >0</literal
 >, entonces el resultado contendrá ceros precedentes, en cualquier otro caso contendrá espacios precedentes. </para>
 			   <para
@@ -10440,7 +10440,7 @@
 ></term>
 			<listitem>
 			    <para
->La extensión del archivo a usar al guardar bloques. Ésta determina la codificación usada. </para>
+>La extensión del archivo a usar al guardar bloques. Esta determina la codificación usada. </para>
 			</listitem>
 		    </varlistentry>
 
@@ -12003,7 +12003,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Contacto</entry>
 	    <entry colname='c2'
->Información de contacto para los creadores o distribuidores de la pista. Ésta podría ser una dirección URL, una dirección de correo o la dirección física del sello discográfico. </entry>
+>Información de contacto para los creadores o distribuidores de la pista. Esta podría ser una dirección URL, una dirección de correo o la dirección física del sello discográfico. </entry>
 	</row>
 	<row id="INF_COPYRIGHT">
 	    <entry colname='c1'
@@ -12127,7 +12127,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Extensión de modo</entry>
 	    <entry colname='c2'
->MPEG Mode de extensión (sólo con estéreo conjunto) </entry>
+>MPEG Mode de extensión (solo con estéreo conjunto) </entry>
 	</row>
 	<row id="INF_MPEG_VERSION">
 	    <entry colname='c1'

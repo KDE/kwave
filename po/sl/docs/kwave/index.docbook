@@ -6,8 +6,7 @@
   <!ENTITY % Slovenian "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "20.07.70">
-  <!ENTITY version_year "2020">
+  <!ENTITY version "24.12.0">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -18,6 +17,7 @@
   <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
   <!ENTITY url_debian "https://www.debian.org">
   <!ENTITY url_flac "https://xiph.org/flac/">
+  <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
@@ -30,7 +30,6 @@
   <!ENTITY url_licenses "&url_prefix_gitweb;LICENSES">
   <!ENTITY url_ogg_vorbis "https://www.xiph.org">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
-  <!ENTITY url_sourceforge "https://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_web_sf "https://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY i18n-cmd_syntax "Syntax: ">
@@ -342,29 +341,33 @@
 ></copyright>
     <copyright
 ><year
->&version_year;</year
+>2020</year
 ><holder
 >Thomas Eschenbacher</holder
+></copyright>
+    <copyright
+><year
+>2024</year
+><holder
+>Mark Penner</holder
 ></copyright>
 
     <legalnotice
 >&FDLNotice;</legalnotice>
 
     <date
->06.07.2020</date>
+>09.11.2024</date>
     <releaseinfo
->20.07.70</releaseinfo>
+>&version;</releaseinfo>
 
     <abstract
 ><para
->&kwave; je preprost urejevalnik zvoka, zgrajen na &kf5-full;.</para
+>&kwave; je preprost urejevalnik zvoka, zgrajen na &kde-frameworks;.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
-	<keyword
->KF5</keyword>
 	<keyword
 >večpredstavnost</keyword>
 	<keyword
@@ -399,7 +402,7 @@
 >Uvod</title>
 
     <para
->To je "&kwave;", preprost urejevalnik zvoka, zgrajen na &kf5-full;. Njegove zmožnosti vključujejo: <itemizedlist>
+>To je "&kwave;", preprost urejevalnik zvoka, zgrajen na &kde-frameworks;. Njegove zmožnosti vključujejo: <itemizedlist>
     	<listitem
 ><para
 >uporabniški vmesnik, ki ga je mogoče preklopiti v način SDI, MDI ali Tab </para
@@ -434,11 +437,11 @@
 ></listitem>
     	<listitem
 ><para
->Predvajanje prek Qt, PulseAudio, ALSA in OSS </para
+>Playback prek ALSA, PulseAudio, Qt in OSS </para
 ></listitem>
     	<listitem
 ><para
->Snemanje preko PulseAudio, ALSA in OSS </para
+>Snemanje preko ALSA, PulseAudio, Qt in OSS </para
 ></listitem>
     	<listitem
 ><para
@@ -508,23 +511,21 @@
 ><para
 >Domača stran projekta<anchor id="project-homepage"/></para
 ><para
->Za informacije o novih posodobljenih izdajah ali kakšne druge informacije o tem projektu si oglejte <ulink url="&url_homepage;"
->&kwave; domača stran</ulink
->. </para
+>Za informacije o novih posodobljenih izdajah glejte <ulink url="&url_apps_kde;"
+>&kwave; strani</ulink
+> na apps.kde.org. Za druge informacije si oglejte <ulink url="&url_homepage;"
+>&kwave; domačo stran</ulink
+> . </para
 ></listitem>
 	<listitem
 ><para
 >Repozitorij GIT<anchor id="git-repository"/> </para>
 	<para
->Obstaja tudi nov repozitorij GIT, ki gostuje na &kde; strežniki in zrcalno skladišče, ki ga gosti <ulink url="&url_sourceforge;"
+>Skladišče git gostuje v pojavku Gitlab &kde; <ulink url="&url_git_web_kde;"
+>tukaj</ulink
+>, na <ulink url="&url_git_web_sf;"
 >SourceForge</ulink
->, kjer lahko dobite izvorne kode najnovejše razvojne različice. Za navodila o tem, kako pridobiti dostop do repozitorija, preberite v poglavju o <ulink url="&url_devel_fetching_from_git;"
->gradnji iz GIT</ulink
-> v dokumentaciji za razvijalce. Obstaja tudi spletni vmesnik GIT na <ulink url="&url_git_web_kde;"
->&kde;</ulink
-> in na <ulink url="&url_git_web_sf;"
->SourceForge</ulink
->, ki ga lahko uporabite za brskanje po virih. </para
+> pa je tudi zrcalno skladišče. </para
 ></listitem>
     </itemizedlist>
 
@@ -545,7 +546,7 @@
 >Od &kwave; v0.8.0 dnevnik sprememb ni več vključen v ta priročnik. Torej, če vas zanima celoten seznam sprememb, lahko najdete celotno zgodovino tukaj: <ulink url="&url_changelog;"
 > &url_changelog;</ulink
 > ali pa sami brskate po virih prek <ulink url="&url_git_web_kde;"
->Spletni vmesnik GIT</ulink
+>spletnega vmesnika git</ulink
 >. </para>
 
     <para
@@ -959,7 +960,7 @@
 ><abbrev
 >MDI</abbrev
 ></link
-> ali <link linkend="gui_tab "
+> ali <link linkend="gui_tab"
 ><abbrev
 >TAB</abbrev
 ></link
@@ -1329,7 +1330,7 @@
     <para>
 	<screenshot>
 	    <screeninfo
->Tukaj je posnetek zaslona pogovornega okna za novo datoteko &kwave; </screeninfo>
+>Tukaj je posnetek zaslona &kwave; pogovornega okna za novo datoteko </screeninfo>
 	    <mediaobject>
 		<imageobject>
 	    	    <imagedata fileref="kwave-plugin-newsignal.png" format="PNG"/>
@@ -1356,7 +1357,7 @@
 >Snemanje</title>
 
     <para
->&kwave; lahko snema zvočne podatke iz različnih virov, z vsemi stopnjami vzorčenja, formati vzorčenja in drugimi načini, ki jih podpira vaša zvočna strojna oprema. Trenutno &kwave; snema prek starega zvočnega vmesnika OSS, od v0.7.4 pa tudi novejši in zmogljivejši vmesnik ALSA, ki je prednostna izbira za jedro linux 2.6. </para>
+>&kwave; lahko snema zvočne podatke iz različnih virov, z vsemi stopnjami vzorčenja, formati vzorčenja in drugimi načini, ki jih podpira vaša zvočna strojna oprema. &kwave; lahko snema z zaledji ALSA, PulseAudio, Qt in OSS. </para>
     <para
 >Do posnetka lahko pridete v meniju pod <menuchoice
 > <guimenu
@@ -1371,7 +1372,7 @@
     <para>
 	<screenshot>
 	    <screeninfo
->Tukaj je posnetek zaslona pogovornega okna za snemanje &kwave; </screeninfo>
+>Tukaj je posnetek zaslona &kwave; pogovornega okna za snemanje </screeninfo>
 	    <mediaobject>
 		<imageobject>
 		    <imagedata fileref="kwave-plugin-record.png" format="PNG"/>
@@ -1513,7 +1514,7 @@
 >Predvajanje</title>
 
     <para
->Odvisno od možnosti prevajanja &kwave; lahko predvaja zvoke v enem od naslednjih načinov predvajanja: </para>
+>Odvisno od možnosti prevajanja &kwave; lahko predvaja zvoke v enem od naslednjih načinov playbacka: </para>
     <para
 ><itemizedlist>
 	<listitem
@@ -1522,7 +1523,15 @@
 ></listitem>
 	<listitem
 ><para
->OSS (odprt zvočni sistem): Najstarejša izvedba Linuxa, zmožna mono in stereo izhoda. Zastarel od jedra linux 2.6, vendar še vedno široko razširjen. Lahko naleti na druge zvočne aplikacije, samo ena aplikacija naenkrat lahko uporablja predvajanje OSS! </para
+>PulseAudio: skupni zvočni strežnik za splošne namene v sistemu Linux. PulseAudio morda ne bo mogel doseči tako nizke zakasnitve kot ALSA. </para
+></listitem>
+	<listitem
+><para
+>Qt Multimedia: ni zasnovan za zvok z nizko zakasnitvijo, vendar deluje z velikimi medpomnilniki. </para
+></listitem>
+	<listitem
+><para
+>OSS (odprt zvočni sistem): Najstarejša izvedba Linuxa, zmožna mono in stereo izhoda. Zastarel od jedra linux 2.6 naprej. Lahko naleti na druge zvočne aplikacije, samo ena aplikacija naenkrat lahko uporablja playback OSS! </para
 ></listitem>
     </itemizedlist
 ></para>
@@ -1532,7 +1541,7 @@
     <para>
 	<screenshot>
 	    <screeninfo
->Tukaj je posnetek zaslona pogovornega okna za nastavitev predvajanja &kwave; </screeninfo>
+>Tukaj je posnetek zaslona &kwave; pogovornega okna za nastavitev predvajanja </screeninfo>
 	    <mediaobject>
 		<imageobject>
 		    <imagedata fileref="kwave-plugin-playback.png" format="PNG"/>
@@ -1545,8 +1554,6 @@
 	</screenshot>
     </para>
 
-    <para
->Trenutno &kwave; podpira samo 8- in 16-bitno predvajanje, z mono ali stereo izhodom prek vmesnika OSS, veliko pa tudi vse načine, ki jih vaša zvočna strojna oprema podpira prek vmesnika ALSA. </para>
     <para
 >Če vaša zvočna datoteka uporablja več ali manj kanalov, kot jih dovoljuje predvajanje, bodo vsi kanali med predvajanjem pomešani. Na primer, če imate datoteko s tremi kanali in uporabljate stereo predvajanje, bo levi kanal predvajal kanal 0 (zgornji) in polovico kanala 1 (srednji), desni kanal pa bo predvajal polovico kanala 1 (srednji) in kanal 2 (spodnji). </para>
     <para
@@ -1653,7 +1660,7 @@
     <para>
 	<screenshot>
 	    <screeninfo
->Tukaj je posnetek zaslona pogovornega okna z lastnostmi datoteke &kwave; </screeninfo>
+>Tukaj je posnetek zaslona &kwave; pogovornega okna z lastnostmi datoteke </screeninfo>
 	    <mediaobject>
 		<imageobject>
 		    <imagedata fileref="kwave-plugin-fileinfo.png" format="PNG"/>
@@ -4410,7 +4417,7 @@
 >menijski skupini</emphasis
 > . </para>
 	    <para
->Običajno tega ukaza ne potrebujete v datoteki skriptu &kwave; </para>
+>Običajno tega ukaza ne potrebujete v datoteki skriptu &kwave;! </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -8618,17 +8625,6 @@
 			<varlistentry>
 			    <term
 ><replaceable
->ime datoteke</replaceable
-></term>
-			    <listitem>
-				<para
->Ime projektne datoteke K3b bo uporabljeno kot osnovno ime za imena izvoženih datotek. </para>
-			    </listitem>
-			</varlistentry>
-
-			<varlistentry>
-			    <term
-><replaceable
 >vzorec</replaceable
 ></term>
 			    <listitem>
@@ -8741,47 +8737,22 @@
 			<varlistentry>
 			    <term
 ><replaceable
+>projektna datoteka</replaceable
+></term>
+			    <listitem>
+				<para
+>Ime projektne datoteke K3b bo uporabljeno kot osnovno ime za imena izvoženih datotek. </para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
+			    <term
+><replaceable
 >lokacija izvoza</replaceable
 ></term>
 			    <listitem>
 				<para
->Določa, kam naj bodo shranjeni bloki. <informaltable frame='all'
-> <tgroup cols='2'>
-					    <thead>
-						<row>
-						    <entry align='left'
->vrednost</entry>
-						    <entry align='left'
->opis</entry>
-						</row>
-					    </thead>
-					    <tbody>
-						<row>
-						    <entry
->&no-i18n-tag;<command
->0</command
-></entry>
-						    <entry
->Shrani v isti imenik kot projektna datoteka K3b. </entry>
-						</row>
-						<row>
-						    <entry
->&no-i18n-tag;<command
->1</command
-></entry>
-						    <entry
->Shranite v podimenik imenika projektne datoteke K3b, pri čemer uporabite ime projektne datoteke K3b kot osnovo in dodate <quote
-><command
-><literal
->.dir</literal
-></command
-></quote
->. </entry>
-						</row>
-					    </tbody>
-					</tgroup>
-				    </informaltable>
-				</para>
+>Lokacija kamor naj bi bili shranjeni bloki. </para>
 			    </listitem>
 			</varlistentry>
 
@@ -10313,17 +10284,6 @@
 		    <varlistentry>
 			<term
 ><replaceable
->ime</replaceable
-></term>
-			<listitem>
-			    <para
->Ime izvirne datoteke bo uporabljeno kot osnovno ime za imena datotek. </para>
-			</listitem>
-		    </varlistentry>
-
-		    <varlistentry>
-			<term
-><replaceable
 >vzorec</replaceable
 ></term>
 			<listitem>
@@ -10454,6 +10414,28 @@
 				    </tgroup>
 				</informaltable>
 			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>podaljšek</replaceable
+></term>
+			<listitem>
+			    <para
+>Končnica imena datoteke, ki se uporablja za shranjene bloke. To določa, katero kodiranje se uporablja. </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>lokacija izvoza</replaceable
+></term>
+			<listitem>
+			    <para
+>Lokacija za izvoz shranjenih blokov. </para>
 			</listitem>
 		    </varlistentry>
 
@@ -11210,7 +11192,7 @@
 	    </question>
     	    <answer>
 	    	<para
->&kwave; ne potrebuje podpore za nobeno posebno zvočno kartico. Zvočno kartico morata podpirati samo vaš operacijski sistem in &kwave; uporablja svoj vmesnik za gonilnik zvoka operacijskega sistema prek vmesnika OSS ali ALSA. </para>
+>&kwave; ne potrebuje podpore za nobeno posebno zvočno kartico. Zvočno kartico morata podpirati samo vaš operacijski sistem in &kwave; uporablja svoj vmesnik za gonilnik zvoka operacijskega sistema prek vmesnika ALSA, PulseAudio, Qt, ali OSS. </para>
 	    </answer>
 	</qandaentry>
 
@@ -11376,8 +11358,12 @@
 >, v kateri so navedeni vsi avtorji in sodelavci &kwave;. </para>
 
     <para
->Avtorske pravice za dokumentacijo (C) &version_year; Thomas Eschenbacher <email
+>Avtorske pravice za dokumentacijo (C) 2020 Thomas Eschenbacher <email
 >thomas.eschenbacher@gmx.de</email
+> </para>
+    <para
+>Avtorske pravice za dokumentacijo (C) 2024 Mark Penner <email
+>mrp@markpenner.space</email
 > </para>
 <para
 >Prevod: Matjaž Jeran<email
@@ -11460,6 +11446,16 @@
 >i18n, francoski prevodi, začetni zaslon, beta tester </para>
 	    </listitem>
 	    <listitem>
+		<para
+><emphasis role="bold"
+>Mark Penner <email
+>mrp@markpenner.space</email
+> </emphasis
+></para
+><para
+>razvoj </para>
+	    </listitem>
+	    <listitem>
 	    	<para
 ><emphasis role="bold"
 >Pavel Fric <email
@@ -11498,16 +11494,6 @@
 >Manjši sodelavci, imetniki avtorskih pravic in drugi</title>
     <para>
     	<itemizedlist>
-	    <listitem>
-	    	<para
-><emphasis role="bold"
->Aaron Holtzman <email
->aholtzma@ess.engr.uvic.ca</email
-> </emphasis
-></para
-><para
->libkwave/cpu_accel.cpp </para>
-	    </listitem>
 	    <listitem>
 	    	<para
 ><emphasis role="bold"
@@ -11647,14 +11633,6 @@
 ></para
 ><para
 >cmake/FindAlsa.cmake </para>
-	    </listitem>
-	    <listitem>
-	    	<para
-><emphasis role="bold"
->Miguel Freitas </emphasis
-></para
-><para
->deli libkwave/memcpy.c </para>
 	    </listitem>
 	    <listitem>
 	    	<para

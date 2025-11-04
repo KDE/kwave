@@ -169,7 +169,7 @@ msgstr "Ralf Waspe"
 #: kwave/main.cpp:59
 #, kde-format
 msgid "Creator of the Help/About dialog"
-msgstr "Créateur de la boîte de dialogue Aide / À propos de"
+msgstr "Créateur de la boite de dialogue Aide / À propos de"
 
 #: kwave/main.cpp:63
 #, kde-format
@@ -374,7 +374,7 @@ msgstr "Panagiotis Papadopoulos"
 #: kwave/main.cpp:146
 #, kde-format
 msgid "String and i18n updates"
-msgstr "Mises à jour des chaînes de caractères i18n"
+msgstr "Mises à jour des chaines de caractères i18n"
 
 #: kwave/main.cpp:165
 #, kde-format
@@ -5583,7 +5583,7 @@ msgstr "Sélectionner une date depuis le calendrier."
 #, kde-format
 msgid "Opens a dialog for selecting a date from the calendar."
 msgstr ""
-"Ouvre une boîte de dialogue pour la sélection d'une date depuis le "
+"Ouvre une boite de dialogue pour la sélection d'une date depuis le "
 "calendrier."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btSelectDateNow)

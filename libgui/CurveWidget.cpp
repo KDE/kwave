@@ -213,7 +213,7 @@ void Kwave::CurveWidget::savePreset()
         name.append(_(".curve"));
 
     QFile out(name);
-    out.open(QIODevice::WriteOnly);
+    if (!out.open(QIODevice::WriteOnly)) return;
     QString cmd = m_curve.getCommand();
     out.write(DBG(cmd), cmd.length());
 

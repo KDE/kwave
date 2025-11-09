@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kwave/kwave.pot\n"
-"X-Crowdin-File-ID: 55098\n"
+"X-Crowdin-File: /kf6-stable/messages/kwave/kwave.pot\n"
+"X-Crowdin-File-ID: 56668\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -6862,7 +6862,7 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:50
 #, kde-format
 msgid "Filename pattern:"
-msgstr "文件名样式："
+msgstr "文件名模式："
 
 #. i18n: ectx: property (text), widget (QLabel, lblNumbering)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:60

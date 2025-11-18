@@ -36,7 +36,7 @@ namespace Kwave
     public:
 
         /**
-         * Primitve constructor for usage in a Qt designer's dialog
+         * Primitive constructor for usage in a Qt designer's dialog
          * @param parent the widget's parent widget
          */
         explicit ScaleWidget(QWidget *parent);

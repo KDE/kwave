@@ -71,7 +71,7 @@ namespace Kwave
     public slots:
 
         /**
-         * Selects a new interpolation type by it's numeric index. Used from the
+         * Selects a new interpolation type by its numeric index. Used from the
          * mouse context menu.
          */
         void selectInterpolationType(QAction *action);

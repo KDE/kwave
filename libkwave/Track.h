@@ -210,7 +210,7 @@ namespace Kwave
         /**
          * Append samples after a given stripe.
          *
-         * @param stripe the stripe after which to instert. Null pointer is
+         * @param stripe the stripe after which to insert. Null pointer is
          *               allowed, in this case a new stripe is created
          * @param offset position where the new data should start
          * @param buffer array with samples

@@ -83,7 +83,7 @@ namespace Kwave
 
         private:
             /**
-             * interal class for buffering huge amounts of mime data.
+             * internal class for buffering huge amounts of mime data.
              * Used as a "write only" stream, after writing the data can be
              * memory mapped and accessed through a QByteArray.
              */

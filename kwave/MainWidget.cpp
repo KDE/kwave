@@ -75,7 +75,7 @@
 #define MINIMUM_SAMPLES_PER_SCREEN 5
 
 /**
- * Default widht of the display in seconds when in streaming mode,
+ * Default width of the display in seconds when in streaming mode,
  * where no initial length information is available (guess: 5min)
  */
 #define DEFAULT_DISPLAY_TIME (5 * 60.0)

@@ -191,7 +191,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 
     // find out how many samples have been written and delete the leftovers
     sample_index_t written = sink[0]->position() - first;
-//     qDebug("SampleRatePlugin: old=%u, expexted=%u, written=%u",
+//     qDebug("SampleRatePlugin: old=%u, expected=%u, written=%u",
 //          length, new_length, written);
     if (written < length) {
         sample_index_t to_delete = length - written;

@@ -101,7 +101,7 @@ QStringList *Kwave::SonagramPlugin::setup(QStringList &previous_params)
 {
     QStringList *result = nullptr;
 
-    // try to interprete the list of previous parameters, ignore errors
+    // try to interpret the list of previous parameters, ignore errors
     if (previous_params.count()) interpreteParameters(previous_params);
 
     QPointer<Kwave::SonagramDialog> dlg =
@@ -421,7 +421,7 @@ void Kwave::SonagramPlugin::calculateSlice(Kwave::SonagramPlugin::Slice *slice)
     // norm all values to [0...254] and use them as pixel value
     const double scale = static_cast<double>(m_fft_points) / 254.0;
     for (unsigned int j = 0; j < m_fft_points / 2; j++) {
-        // get singal energy and scale to [0 .. 254]
+        // get signal energy and scale to [0 .. 254]
         double rea = slice->m_output[j][0];
         double ima = slice->m_output[j][1];
         double a = ((rea * rea) + (ima * ima)) / scale;
@@ -489,7 +489,7 @@ void Kwave::SonagramPlugin::createNewImage(const unsigned int width,
     Q_ASSERT(!m_image.isNull());
     if (m_image.isNull()) return;
 
-    // initialize the image's palette with transparecy
+    // initialize the image's palette with transparency
     m_image.setColorCount(256);
     for (int i = 0; i < 256; i++) {
         m_image.setColor(i, 0x00000000);

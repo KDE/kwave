@@ -81,7 +81,7 @@ namespace Kwave
         int start(QStringList &params) override;
 
         /**
-         * Runns once until all slices of the sonagram are
+         * Runs once until all slices of the sonagram are
          * calculated.
          * @param params list of strings with parameters
          * @see Kwave::Plugin::run()
@@ -167,7 +167,7 @@ namespace Kwave
     protected:
 
         /**
-         * interpretes a given parameter list and sets up internal
+         * interprets a given parameter list and sets up internal
          * coordinates accordingly
          * @param params reference to a QStringList with parameters
          * @return 0 if ok, or an error code if failed

@@ -163,7 +163,7 @@ namespace Kwave
         bool isChildOf(Kwave::RIFFChunk *chunk);
 
         /**
-         * Fixes descrepancies in the size of the chunk. The new size will be
+         * Fixes discrepancies in the size of the chunk. The new size will be
          * computed as the size of all sub-chunks (that will be recursively
          * fixed too) plus the own header.
          */

@@ -112,7 +112,7 @@ namespace Kwave
         void removeChild(Kwave::MenuNode *child) override;
 
         /**
-         * Handles/interpretes special menu commands.
+         * Handles/interprets special menu commands.
          * @param command name of a menu node or command
          * @return true if the name was recognized as a command and handled
          */

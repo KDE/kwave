@@ -58,7 +58,7 @@ namespace Kwave
          * @see MenuNode::insertNode()
          *
          * @param name non-localized name of the first node (might be 0)
-         * @param position path consiting of several node names separated
+         * @param position path consisting of several node names separated
          *        by a '/'. All strings are non-localized.
          * @param command the command to be sent when the node is
          *                selected (might be 0)

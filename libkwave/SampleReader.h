@@ -130,7 +130,7 @@ namespace Kwave
 
         /**
          * Reads a full buffer of samples. If the buffer cannot be filled,
-         * it will be shrinked to the number of samples that were really
+         * it will be shrunk to the number of samples that were really
          * read.
          */
         SampleReader& operator >> (Kwave::SampleArray &sample);

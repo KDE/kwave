@@ -102,7 +102,7 @@ namespace Kwave
          */
         static QStringList descriptions(bool localized = false);
 
-        /** Sets a new interpolation tpye */
+        /** Sets a new interpolation type */
         inline void setType (Kwave::interpolation_t t) {
             m_type = t;
         }

@@ -676,7 +676,7 @@ void Kwave::OpusDecoder::close(Kwave::FileInfo &info)
         qDebug("    OpusDecoder: VBR mode");
     }
 
-    // determine the avarage frame length in ms
+    // determine the average frame length in ms
     qreal avg_ms = (static_cast<qreal>(m_samples_raw) /
                     static_cast<qreal>(m_packet_count)) / 48.0;
     qDebug("    OpusDecoder: average frame length: %0.1f ms", avg_ms);

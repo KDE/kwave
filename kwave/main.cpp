@@ -38,7 +38,7 @@ using namespace Qt::StringLiterals;
 
 /**
  * add data concerning the developers and
- * contributers to the about data
+ * contributors to the about data
  */
 static void addDataStrings(KAboutData &aboutdata)
 {

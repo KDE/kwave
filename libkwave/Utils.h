@@ -46,20 +46,20 @@ namespace Kwave
 
     /**
      * Converts a zoom factor into a string. The number of decimals
-     * is automatically adjusted in order to give a nice formated
+     * is automatically adjusted in order to give a nice formatted
      * percent value. If the zoom factor gets too high for a reasonable
      * display in percent, the factor is displayed as a numeric
      * multiplier.
      * examples: "0.1 %", "12.3 %", "468 %", "11x"
-     * @param percent the zoom factor to be formated, a value of "100.0"
+     * @param percent the zoom factor to be formatted, a value of "100.0"
      *             means "100%", "0.1" means "0.1%" and so on.
      */
     QString LIBKWAVE_EXPORT zoom2string(double percent);
 
     /**
      * Converts a time in milliseconds into a string. Times below one
-     * millisecond are formated with an automatically adjusted number
-     * of decimals. Times below one second are formated like "9.9 ms".
+     * millisecond are formatted with an automatically adjusted number
+     * of decimals. Times below one second are formatted like "9.9 ms".
      * Times above one second and below one minute are rounded up
      * to full seconds and shown as "12.3 s". From one full minute
      * upwards time is shown as "12:34" (like most CD players do).

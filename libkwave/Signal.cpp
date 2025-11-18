@@ -509,7 +509,7 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //
 //
 //      } else {
-//          // basically the same,but the loops go viceversa
+//          // basically the same,but the loops go vice-versa
 //
 //          //slower routine because of check, needed only in this range...
 //          for (unsigned int i = begin; i < begin + max; i++) {

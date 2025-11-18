@@ -86,7 +86,7 @@ namespace Kwave
         INF_OPUS_FRAME_LEN,      /**< Opus codec: frame length in ms */
         INF_ORGANIZATION,        /**< organization/label */
         INF_ORIGINAL,            /**< true=original, false=copy */
-        INF_PERFORMER,           /**< name ot the performer */
+        INF_PERFORMER,           /**< name of the performer */
         INF_PRIVATE,             /**< "private" bit */
         INF_PRODUCT,             /**< product */
         INF_SAMPLE_FORMAT,       /**< sample format (libaudiofile) */

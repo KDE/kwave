@@ -235,8 +235,8 @@ namespace Kwave
         void sigModified();
 
         /**
-         * emitted when the context is about to be destroyed
-         * (in the context of it's destructor)
+         * Emitted when the context is about to be destroyed
+         * (in the context of its destructor)
          */
         void destroyed(Kwave::FileContext *context);
 

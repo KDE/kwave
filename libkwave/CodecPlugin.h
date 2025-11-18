@@ -45,7 +45,7 @@ namespace Kwave
         /**
          * Constructor
          * @param parent pointer to the corresponding plugin manager
-         * @param args argument list, containts internal meta data
+         * @param args argument list, contains internal meta data
          * @param codec reference to a static container for the codec
          */
         CodecPlugin(QObject *parent, const QVariantList &args, Codec &codec);

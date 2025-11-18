@@ -31,7 +31,7 @@
 namespace Kwave
 {
     /**
-     * This plugin is intended to be used internally for debuggin and
+     * This plugin is intended to be used internally for debugging and
      * verification purposes.
      */
     class DebugPlugin: public Kwave::Plugin

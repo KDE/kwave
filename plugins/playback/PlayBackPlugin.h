@@ -88,7 +88,7 @@ namespace Kwave
     protected:
 
         /**
-         * Interpretes a given parameter list and sets up internal
+         * Interprets a given parameter list and sets up internal
          * parameters accordingly.
          * @param params reference to a QStringList with parameters
          * @return the detected playback parameters

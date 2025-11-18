@@ -1082,7 +1082,7 @@
 	<para>
 	    The ASCII format is quite useful for scientific and educational
 	    purposes.
-	    Due to it's simple format, you can either write simple
+	    Due to its simple format, you can either write simple
 	    files on your own with a text editor or you can use the output
 	    of some other application and convert it into ASCII. As the format is
 	    <emphasis>really</emphasis> simple, you

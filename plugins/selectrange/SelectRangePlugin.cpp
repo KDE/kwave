@@ -96,7 +96,7 @@ QStringList *Kwave::SelectRangePlugin::setup(QStringList &previous_params)
 //***************************************************************************
 int Kwave::SelectRangePlugin::start(QStringList &params)
 {
-    // interprete the parameters
+    // interpret the parameters
     int result = interpreteParameters(params);
     if (result) return result;
 

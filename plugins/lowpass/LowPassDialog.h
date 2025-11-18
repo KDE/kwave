@@ -58,7 +58,7 @@ namespace Kwave
         /** Sets the from a list of parameters */
         void setParams(QStringList &params) override;
 
-        /** retruns a pointer to this as a QDialog */
+        /** Returns a pointer to this as a QDialog */
         QDialog *dialog() override { return this; }
 
     signals:

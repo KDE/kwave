@@ -1,5 +1,5 @@
 /***************************************************************************
-     InsertAtPlugin.cpp  -  plugin for insertin the clipboard at a position
+     InsertAtPlugin.cpp  -  plugin for inserting the clipboard at a position
                              -------------------
     begin                : Thu May 12 2011
     copyright            : (C) 2011 by Thomas Eschenbacher

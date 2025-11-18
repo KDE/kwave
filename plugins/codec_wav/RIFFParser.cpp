@@ -644,7 +644,7 @@ void Kwave::RIFFParser::collectGarbage()
             if (!chunk) continue;
             if (start_over || m_cancel) break;
 
-            // skip garbage chunks themselfes
+            // skip garbage chunks themselves
             if (chunk->type() == Kwave::RIFFChunk::Garbage) continue;
 
             Kwave::RIFFChunkList &subchunks = chunk->subChunks();

@@ -130,7 +130,7 @@ void Kwave::PitchShiftDialog::setMode(Mode mode)
         DEFAULT_IMPOSSIBLE;
     }
 
-    // update the spped value in the display
+    // update the speed value in the display
     m_speed = speed;
     updateSpeed(m_speed);
     m_enable_updates = old_enable_updates;

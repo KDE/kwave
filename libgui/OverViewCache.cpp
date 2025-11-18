@@ -103,7 +103,7 @@ void Kwave::OverViewCache::scaleUp()
         sample_t *dmax = smax;
         CacheState *dstate = sstate;
 
-        // loop over all entries to be shrinked
+        // loop over all entries to be shrunk
         while (dst < count) {
             sample_t min = SAMPLE_MAX;
             sample_t max = SAMPLE_MIN;

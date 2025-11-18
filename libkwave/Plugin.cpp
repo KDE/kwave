@@ -311,7 +311,7 @@ void Kwave::Plugin::closeProgressDialog(Kwave::Plugin *)
     if (m_confirm_cancel) m_confirm_cancel->disconnect();
     if (m_progress)       m_progress->disconnect();
 
-    // NOTE: as the progress dialog is *modal*, it is higly probable
+    // NOTE: as the progress dialog is *modal*, it is highly probable
     //       that this function is called from the context of the event
     //       loop that is provided by the progress dialog
     //       => deleting this object should be done somewhere later...

@@ -68,7 +68,7 @@ namespace Kwave
         void freqChanged(double freq);
 
         /**
-         * Emitted when the bandwidth selectio has changed
+         * Emitted when the bandwidth selection has changed
          * @param bw the bandwidth parameter in Hz
          */
         void bwChanged(double bw);

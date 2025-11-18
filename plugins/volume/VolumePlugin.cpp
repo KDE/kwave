@@ -80,7 +80,7 @@ int Kwave::VolumePlugin::interpreteParameters(QStringList &params)
 //***************************************************************************
 QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
 {
-    // try to interprete the previous parameters
+    // try to interpret the previous parameters
     interpreteParameters(previous_params);
 
     // initialize the overview cache

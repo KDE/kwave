@@ -355,7 +355,7 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
     // take the change in the method
     m_method = method;
 
-    // activate the cange in the dialog
+    // activate the change in the dialog
     m_dialog->setMethod(method);
 
     // set list of supported devices

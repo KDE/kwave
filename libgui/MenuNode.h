@@ -228,7 +228,7 @@ namespace Kwave
          * position contains a path that doesn't completely exist, all
          * missing branches will be appended.
          * @param name non-localized name of the first node (might be 0)
-         * @param position path consiting of several node names separated
+         * @param position path consisting of several node names separated
          *        by a '/'. All strings are non-localized.
          * @param command the command to be sent when the node is
          *                selected (might be 0)
@@ -251,7 +251,7 @@ namespace Kwave
         virtual Kwave::MenuNode *leafToBranch(Kwave::MenuNode *node);
 
         /**
-         * Handles/interpretes special menu commands.
+         * Handles/interprets special menu commands.
          * @param command name of a menu node or command
          * @return true if the name was recognized as a command and handled
          */

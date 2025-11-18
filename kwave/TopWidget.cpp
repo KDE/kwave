@@ -842,7 +842,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
                 const Kwave::FileContext *context = it.value();
                 if (!sub  || !context) continue;
 
-                // identify the window by it's title
+                // identify the window by its title
                 if (context->windowCaption(false) == title) {
                     // activate the sub window if it is not the active one
                     if (m_mdi_area->activeSubWindow() != sub)
@@ -1417,7 +1417,7 @@ void Kwave::TopWidget::updateMenu()
                     i18nc(
                     "list menu entry of a label, %1=index, %2=description/name",
                     "#%1 (%2)", index, name) :
-                    i18nc("list menue entry of a label, "
+                    i18nc("list menu entry of a label, "
                             "without description, %1=index",
                             "#%1", index);
                 m_menu_manager->addNumberedMenuEntry(

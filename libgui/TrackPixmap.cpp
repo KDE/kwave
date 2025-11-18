@@ -493,7 +493,7 @@ void Kwave::TrackPixmap::calculateInterpolation()
 
 //    qDebug("TrackPixmap::calculateInterpolation()");
 
-    // remove all previous coefficents and signal buffer
+    // remove all previous coefficients and signal buffer
     m_interpolation_alpha.clear();
 
     Q_ASSERT(!qFuzzyIsNull(m_zoom));

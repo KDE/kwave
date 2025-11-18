@@ -78,7 +78,7 @@ namespace Kwave
     private:
 
         /**
-         * Intializer, see constructor...
+         * Initializer, see constructor...
          *
          * @param signal_manager reference to a SignalManager
          * @param track_list array of indices of tracks for reading

@@ -60,7 +60,7 @@ namespace Kwave
         /** Sets the from a list of parameters */
         void setParams(QStringList &params) override;
 
-        /** retruns a pointer to this as a QDialog */
+        /** Returns a pointer to this as a QDialog */
         QDialog *dialog() override { return this; }
 
     signals:
@@ -73,7 +73,7 @@ namespace Kwave
 
         /**
          * emitted whenever the bandwidth setting has changed
-         * @param bw bandwith parameter [0 .. 1.0]
+         * @param bw bandwidth parameter [0 .. 1.0]
          */
         void bwChanged(double bw);
 

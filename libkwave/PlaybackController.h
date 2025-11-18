@@ -174,7 +174,7 @@ namespace Kwave
         void playbackContinue();
 
         /**
-         * Stopps playback / loop. Like playbackPause(), but resets the
+         * Stops playback / loop. Like playbackPause(), but resets the
          * playback pointer back to the start.
          */
         void playbackStop();

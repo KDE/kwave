@@ -81,7 +81,7 @@ Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     double np = sqrt(2.0 * static_cast<double>(m_length) / aspect_ratio);
 
     // round down to an exponent of 2, this makes the image more
-    // wide than heigh and gives a fast calculation
+    // wide than height and gives a fast calculation
     int bits = Kwave::toInt(floor(log(np) / log(2)));
     if (bits < 2) bits = 2;
     if (bits > 16) bits = 16;

@@ -102,7 +102,7 @@ namespace Kwave
 
         /**
          * Gets the next parameter through calling nextParam() and
-         * interpretes it as a "bool" value. It will recognize the
+         * interprets it as a "bool" value. It will recognize the
          * strings "true" and "false" (not case-sensitive) and
          * numeric values (true means not zero). On errors the
          * return value will be false.
@@ -111,28 +111,28 @@ namespace Kwave
 
         /**
          * Gets the next parameter through calling nextParam() and
-         * interpretes it as an "int" value. On errors the
+         * interprets it as an "int" value. On errors the
          * return value will be zero.
          */
         int toInt();
 
         /**
          * Gets the next parameter through calling nextParam() and
-         * interpretes it as an "unsigned int" value. On errors the
+         * interprets it as an "unsigned int" value. On errors the
          * return value will be zero.
          */
         unsigned int toUInt();
 
         /**
          * Gets the next parameter through calling nextParam() and
-         * interpretes it as a "sample_index_t" value. On errors the
+         * interprets it as a "sample_index_t" value. On errors the
          * return value will be zero.
          */
         sample_index_t toSampleIndex();
 
         /**
          * Gets the next parameter through calling nextParam() and
-         * interpretes it as a "double" value. On errors the
+         * interprets it as a "double" value. On errors the
          * return value will be zero.
          */
         double toDouble();

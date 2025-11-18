@@ -165,7 +165,7 @@ namespace Kwave
         /** returns a list with all property names */
         QStringList keys() const;
 
-        /** returns a list of position bount property names */
+        /** returns a list of position bound property names */
         static QStringList positionBoundPropertyNames();
 
         /**

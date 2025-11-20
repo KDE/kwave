@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:51+0000\n"
+"POT-Creation-Date: 2025-11-20 00:42+0000\n"
 "PO-Revision-Date: 2015-06-23 23:35-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -1301,7 +1301,7 @@ msgstr ""
 
 #: kwave/TopWidget.cpp:1422
 #, kde-format
-msgctxt "list menue entry of a label, without description, %1=index"
+msgctxt "list menu entry of a label, without description, %1=index"
 msgid "#%1"
 msgstr ""
 

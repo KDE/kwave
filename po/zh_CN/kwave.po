@@ -1315,7 +1315,7 @@ msgstr "#%1 (%2)"
 #, kde-format
 msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"
-msgstr "#%1"
+msgstr ""
 
 #: kwave/ZoomToolBar.cpp:63 kwave/ZoomToolBar.cpp:64
 #, kde-format

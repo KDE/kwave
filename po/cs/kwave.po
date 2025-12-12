@@ -1321,11 +1321,10 @@ msgstr "#%1 (%2)"
 
 #: kwave/TopWidget.cpp:1422
 #, fuzzy, kde-format
-#| msgctxt "list menue entry of a label, without description, %1=index"
-#| msgid "#%1"
+#| msgid "%1"
 msgctxt "list menu entry of a label, without description, %1=index"
 msgid "#%1"
-msgstr "#%1"
+msgstr "%1"
 
 #: kwave/ZoomToolBar.cpp:63 kwave/ZoomToolBar.cpp:64
 #, kde-format

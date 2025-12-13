@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:40+0000\n"
-"PO-Revision-Date: 2025-10-31 10:19+0100\n"
+"PO-Revision-Date: 2025-12-12 09:21+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -2290,7 +2290,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:254
 msgid "Sample Rate"
-msgstr "Freqüència del mostratge"
+msgstr "Freqüència de mostreig"
 
 #: libkwave/FileInfo.cpp:255
 msgid "Number of samples per second"
@@ -5213,7 +5213,7 @@ msgstr "%1 MB (%2 byte)"
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
-msgstr "Freqüència del mostratge:"
+msgstr "Freqüència de mostreig:"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:234
 #, kde-format

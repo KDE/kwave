@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:40+0000\n"
-"PO-Revision-Date: 2025-10-31 10:19+0100\n"
+"PO-Revision-Date: 2025-12-12 09:21+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2290,7 +2290,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:254
 msgid "Sample Rate"
-msgstr "Freqüència del mostratge"
+msgstr "Freqüència de mostreig"
 
 #: libkwave/FileInfo.cpp:255
 msgid "Number of samples per second"
@@ -3336,7 +3336,7 @@ msgstr "Mostreig i retenció"
 #: libkwave/Logger.cpp:79
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
-msgstr "No s'ha pogut obrir el fitxer de registre «%1» per a escriptura"
+msgstr "Ha fallat mentre s'obria el fitxer de registre «%1» per a escriptura"
 
 #: libkwave/PlaybackController.cpp:667
 #, kde-format
@@ -3954,7 +3954,7 @@ msgstr "Tipus de còdec no vàlid"
 #: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid "Opening the file failed"
-msgstr "No s'ha pogut obrir el fitxer"
+msgstr "Ha fallat mentre s'obria el fitxer"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
 #: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:472
@@ -3975,7 +3975,7 @@ msgid ""
 "An error occurred while opening the file:\n"
 "'%1'"
 msgstr ""
-"S'ha produït un error en obrir el fitxer:\n"
+"S'ha produït un error mentre s'obria el fitxer:\n"
 "«%1»"
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
@@ -3986,13 +3986,12 @@ msgstr "Àudio en FLAC"
 #: plugins/codec_flac/FlacDecoder.cpp:282
 #, kde-format
 msgid "Opening the FLAC bitstream failed."
-msgstr "No s'ha pogut obrir el flux de bits FLAC."
+msgstr "Ha fallat mentre s'obria el flux de bits FLAC."
 
 #: plugins/codec_flac/FlacDecoder.cpp:292
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
-msgstr ""
-"S'ha produït un error en l'anàlisi sintàctica de les metadades FLAC. (%s)"
+msgstr "S'ha produït un error durant l'anàlisi de les metadades FLAC. (%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:225
 #, kde-format
@@ -4049,7 +4048,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3Decoder.cpp:535
 #, kde-format
 msgid "Checksum error"
-msgstr "S'ha produït un error en la suma de verificació"
+msgstr "S'ha produït un error durant la suma de verificació"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:538
 #, kde-format
@@ -4073,7 +4072,7 @@ msgid ""
 "'%1',\n"
 "at position %2."
 msgstr ""
-"S'ha produït un error en descodificar el fitxer:\n"
+"S'ha produït un error mentre es descodificava el fitxer:\n"
 "«%1»,\n"
 "a la posició %2."
 
@@ -4109,7 +4108,7 @@ msgid ""
 "\n"
 "%2"
 msgstr ""
-"S'ha produït un error en cridar al codificador extern «%1»:\n"
+"S'ha produït un error mentre es cridava al codificador extern «%1»:\n"
 "\n"
 "%2"
 
@@ -4606,13 +4605,14 @@ msgstr "Pareix que l'entrada no és un flux de bits en Ogg."
 #, kde-format
 msgid "Error reading first page of the Ogg bitstream data."
 msgstr ""
-"S'ha produït un error en llegir la primera pàgina de les dades del flux de "
-"bits en Ogg."
+"S'ha produït un error mentre es llegia la primera pàgina de les dades del "
+"flux de bits en Ogg."
 
 #: plugins/codec_ogg/OggDecoder.cpp:124
 #, kde-format
 msgid "Error reading initial header packet."
-msgstr "S'ha produït un error en llegir el paquet de la capçalera inicial."
+msgstr ""
+"S'ha produït un error mentre es llegia el paquet de la capçalera inicial."
 
 #: plugins/codec_ogg/OggDecoder.cpp:161
 #, kde-format
@@ -4727,22 +4727,24 @@ msgstr "Ha fallat el codificador Opus"
 #: plugins/codec_ogg/OpusEncoder.cpp:472
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
-msgstr "El codificador Opus ha fallat en establir la taxa de bits: «%1»"
+msgstr "El codificador Opus ha fallat mentre s'establia la taxa de bits: «%1»"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:484
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
-msgstr "El codificador Opus ha fallat en configurar el mode VBR: «%1»"
+msgstr "El codificador Opus ha fallat mentre es configurava el mode VBR: «%1»"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:494
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
-msgstr "El codificador Opus ha fallat en configurar la restricció VBR: «%1»"
+msgstr ""
+"El codificador Opus ha fallat mentre es configurava la restricció VBR: «%1»"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:596
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
-msgstr "El codificador Opus ha fallat en obtindre el valor d'anticipació: «%1»"
+msgstr ""
+"El codificador Opus ha fallat mentre s'obtenia el valor d'anticipació: «%1»"
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:89
 #, kde-format
@@ -5213,7 +5215,7 @@ msgstr "%1 MB (%2 byte)"
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
-msgstr "Freqüència del mostratge:"
+msgstr "Freqüència de mostreig:"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:234
 #, kde-format
@@ -6112,7 +6114,7 @@ msgstr ""
 #: plugins/playback/PlayBack-ALSA.cpp:587
 #, kde-format
 msgid "Opening the device '%1' failed: %2"
-msgstr "No s'ha pogut obrir el dispositiu «%1»: %2"
+msgstr "Ha fallat mentre s'obria el dispositiu «%1»: %2"
 
 #: plugins/playback/PlayBack-ALSA.cpp:817
 #: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1059
@@ -6187,7 +6189,7 @@ msgstr "No es permet utilitzar %1 canals, el màxim són 255"
 #: plugins/playback/PlayBack-PulseAudio.cpp:472
 #, kde-format
 msgid "Connecting to the PulseAudio server failed."
-msgstr "No s'ha pogut connectar amb el servidor PulseAudio."
+msgstr "Ha fallat mentre es connectava amb el servidor PulseAudio."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:478
 #, kde-format
@@ -6207,7 +6209,8 @@ msgstr "No s'ha pogut crear un flux de dades PulseAudio (%1)."
 #: plugins/playback/PlayBack-PulseAudio.cpp:580
 #, kde-format
 msgid "Failed to open a PulseAudio stream for playback (%1)."
-msgstr "No s'ha pogut obrir un flux de dades PulseAudio per a reproduir (%1)."
+msgstr ""
+"Ha fallat mentre s'obria un flux de dades PulseAudio per a reproduir (%1)."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:821
 #, kde-format
@@ -6227,7 +6230,7 @@ msgstr "format no admés"
 #: plugins/playback/PlayBack-Qt.cpp:209
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
-msgstr "No s'ha pogut obrir el dispositiu «%1» de Qt Multimedia"
+msgstr "Ha fallat mentre s'obria el dispositiu «%1» de Qt Multimedia"
 
 #: plugins/playback/PlayBackDialog.cpp:519
 #, kde-format

@@ -1059,9 +1059,10 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
         Kwave::FileInfo info(m_signal_manager->metaData());
         info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
 
+        QString previous_file_name = info.get(Kwave::INF_FILENAME).toString();
         // set the new filename
         info.set(Kwave::INF_FILENAME, url.toDisplayString());
-        m_signal_manager->setFileInfo(info, false);
+        m_signal_manager->setFileInfo(info, true);
 
         // now call the fileinfo plugin with the new filename and
         // mimetype
@@ -1072,8 +1073,8 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
         // restore the mime type and the filename
         info = Kwave::FileInfo(m_signal_manager->metaData());
         info.set(Kwave::INF_MIMETYPE, previous_mimetype_name);
-        info.set(Kwave::INF_FILENAME, url.toDisplayString());
-        m_signal_manager->setFileInfo(info, false);
+        info.set(Kwave::INF_FILENAME, previous_file_name);
+        m_signal_manager->setFileInfo(info, true);
     }
 
     // now we have a file name -> do the "save" operation

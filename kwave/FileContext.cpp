@@ -39,6 +39,7 @@
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Utils.h"
+#include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/FileDialog.h"
 
@@ -1054,26 +1055,28 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
         qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
             DBG(url.toDisplayString()), DBG(new_mimetype_name),
             DBG(previous_mimetype_name) );
+        {
+            Kwave::UndoTransactionGuard undo_guard(*m_signal_manager);
 
-        // set the new mimetype
-        Kwave::FileInfo info(m_signal_manager->metaData());
-        info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
+            // set the new mimetype
+            Kwave::FileInfo info(m_signal_manager->metaData());
+            info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
 
-        // set the new filename
-        info.set(Kwave::INF_FILENAME, url.toDisplayString());
-        m_signal_manager->setFileInfo(info, false);
+            // set the new filename
+            info.set(Kwave::INF_FILENAME, url.toDisplayString());
+            m_signal_manager->setFileInfo(info, true);
 
-        // now call the fileinfo plugin with the new filename and
-        // mimetype
-        res = (m_plugin_manager) ?
-               m_plugin_manager->setupPlugin(_("fileinfo"), QStringList())
-               : -1;
-
-        // restore the mime type and the filename
-        info = Kwave::FileInfo(m_signal_manager->metaData());
-        info.set(Kwave::INF_MIMETYPE, previous_mimetype_name);
-        info.set(Kwave::INF_FILENAME, url.toDisplayString());
-        m_signal_manager->setFileInfo(info, false);
+            // now call the fileinfo plugin with the new filename and
+            // mimetype
+            res = (m_plugin_manager) ?
+                m_plugin_manager->setupPlugin(_("fileinfo"), QStringList())
+                : -1;
+        }
+        // if the fileinfo dialog was cancelled, undo the metadata changes
+        if (res) {
+            m_signal_manager->undo();
+            return res;
+        }
     }
 
     // now we have a file name -> do the "save" operation

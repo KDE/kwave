@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kwave package.
 #
-# SPDX-FileCopyrightText: 2020, 2021, 2024, 2025 Giovanni Sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2020, 2021, 2024, 2025, 2026 Giovanni Sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:42+0000\n"
-"PO-Revision-Date: 2025-01-08 15:19+0100\n"
+"PO-Revision-Date: 2026-01-21 18:57+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1317,9 +1317,7 @@ msgid "#%1 (%2)"
 msgstr "#%1 (%2)"
 
 #: kwave/TopWidget.cpp:1422
-#, fuzzy, kde-format
-#| msgctxt "list menue entry of a label, without description, %1=index"
-#| msgid "#%1"
+#, kde-format
 msgctxt "list menu entry of a label, without description, %1=index"
 msgid "#%1"
 msgstr "#%1"
@@ -6990,7 +6988,7 @@ msgid ""
 "hardware is not connected."
 msgstr ""
 "Forsan tu systema care de supporto pro le hardware correspondente o le "
-"hardware nn es connectite."
+"hardware non es connectite."
 
 #: plugins/record/RecordPlugin.cpp:461
 #, kde-format

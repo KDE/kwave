@@ -144,7 +144,7 @@ void Kwave::Filter::save(const QString &filename)
         name.append(_(".filter"));
 
     QFile file(name);
-    file.open(QIODevice::WriteOnly);
+    if (!file.open(QIODevice::WriteOnly)) return;
     QTextStream out(&file);
 
     out << ((m_fir) ? "FIR " : "IIR ") << count() << Qt::endl;
@@ -164,7 +164,7 @@ void Kwave::Filter::load(const QString &filename)
     unsigned int linenr = 0;
 
     QFile file(filename);
-    file.open(QIODevice::ReadOnly);
+    if (!file.open(QIODevice::ReadOnly)) return;
     QTextStream in(&file);
 
     // type of the filter (FIR/IIR)

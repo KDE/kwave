@@ -1008,7 +1008,7 @@ int Kwave::MainWidget::saveLabels(const QString &filename)
         _("saving labels to '") + url.toDisplayString() + _("'"));
 
     QFile file(url.path());
-    file.open(QIODevice::WriteOnly);
+    if (!file.open(QIODevice::WriteOnly)) return -1;
     QTextStream out(&file);
 
     Kwave::LabelList labels(signal_manager->metaData());

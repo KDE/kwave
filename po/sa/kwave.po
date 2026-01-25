@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 14:40+0000\n"
+"POT-Creation-Date: 2026-01-25 02:36+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -49,37 +49,37 @@ msgstr "स्टार्टअप कृतम्"
 msgid "Scanning plugins..."
 msgstr "प्लगिन्स् स्कैनिङ्ग..."
 
-#: kwave/FileContext.cpp:226 kwave/FileContext.cpp:227
+#: kwave/FileContext.cpp:235 kwave/FileContext.cpp:236
 #, kde-format
 msgid "Loading plugins..."
 msgstr "प्लगिन्स् लोड् भवति..."
 
-#: kwave/FileContext.cpp:229
+#: kwave/FileContext.cpp:238
 #, kde-format
 msgid "Failed"
 msgstr "असफल"
 
-#: kwave/FileContext.cpp:232
+#: kwave/FileContext.cpp:241
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
 msgstr "क्वावे सम्यक् न स्थापितः। प्लगिन्स् न प्राप्ताः!"
 
-#: kwave/FileContext.cpp:238
+#: kwave/FileContext.cpp:247
 #, kde-format
 msgid "Ready"
 msgstr "आत्त"
 
-#: kwave/FileContext.cpp:518
+#: kwave/FileContext.cpp:527
 #, kde-format
 msgid "Playback: %1"
 msgstr "प्लेबैक: %1"
 
-#: kwave/FileContext.cpp:520
+#: kwave/FileContext.cpp:529
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "प्लेबैक: %1 नमूनानि"
 
-#: kwave/FileContext.cpp:862
+#: kwave/FileContext.cpp:871
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -87,13 +87,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:868
+#: kwave/FileContext.cpp:877
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (संशोधितम्)"
 
-#: kwave/FileContext.cpp:903
+#: kwave/FileContext.cpp:912
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -102,12 +102,12 @@ msgstr ""
 "एषा सञ्चिका परिवर्तिता अस्ति, परिवर्तनं नष्टं भविष्यति ।\n"
 "किं त्वं निरन्तरं कर्तुम् इच्छसि ?"
 
-#: kwave/FileContext.cpp:983
+#: kwave/FileContext.cpp:992
 #, kde-format
 msgid "Save As"
 msgstr "As Save As इति"
 
-#: kwave/FileContext.cpp:1024 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1033 kwave/MainWidget.cpp:995
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -116,7 +116,7 @@ msgstr ""
 "'%1' इति सञ्चिका पूर्वमेव अस्ति ।\n"
 "किं भवन्तः तस्य अधिलेखनं कर्तुम् इच्छन्ति वा ?"
 
-#: kwave/FileContext.cpp:1093
+#: kwave/FileContext.cpp:1102
 #, kde-format
 msgid ""
 "This file has been modified.\n"

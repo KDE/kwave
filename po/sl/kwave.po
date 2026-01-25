@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 14:40+0000\n"
+"POT-Creation-Date: 2026-01-25 02:36+0000\n"
 "PO-Revision-Date: 2025-01-06 07:16+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -49,37 +49,37 @@ msgstr "Zagon končan"
 msgid "Scanning plugins..."
 msgstr "Priskovanje vstavkov ..."
 
-#: kwave/FileContext.cpp:226 kwave/FileContext.cpp:227
+#: kwave/FileContext.cpp:235 kwave/FileContext.cpp:236
 #, kde-format
 msgid "Loading plugins..."
 msgstr "Nalaganje vstavkov …"
 
-#: kwave/FileContext.cpp:229
+#: kwave/FileContext.cpp:238
 #, kde-format
 msgid "Failed"
 msgstr "Neuspešno"
 
-#: kwave/FileContext.cpp:232
+#: kwave/FileContext.cpp:241
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
 msgstr "Kwave ni bil pravilno nameščen. Ni najdenih vstavkov!"
 
-#: kwave/FileContext.cpp:238
+#: kwave/FileContext.cpp:247
 #, kde-format
 msgid "Ready"
 msgstr "Pripravljen"
 
-#: kwave/FileContext.cpp:518
+#: kwave/FileContext.cpp:527
 #, kde-format
 msgid "Playback: %1"
 msgstr "Predvajanje: %1"
 
-#: kwave/FileContext.cpp:520
+#: kwave/FileContext.cpp:529
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Predvajanje: %1 vzorcev"
 
-#: kwave/FileContext.cpp:862
+#: kwave/FileContext.cpp:871
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -87,13 +87,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:868
+#: kwave/FileContext.cpp:877
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (spremenjeno)"
 
-#: kwave/FileContext.cpp:903
+#: kwave/FileContext.cpp:912
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -102,12 +102,12 @@ msgstr ""
 "Ta datoteka je bila spremenjena, spremembe bodo izgubljene.\n"
 "Ali želite nadaljevati?"
 
-#: kwave/FileContext.cpp:983
+#: kwave/FileContext.cpp:992
 #, kde-format
 msgid "Save As"
 msgstr "Shrani kot"
 
-#: kwave/FileContext.cpp:1024 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1033 kwave/MainWidget.cpp:995
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -116,7 +116,7 @@ msgstr ""
 "Datoteka »%1« že obstaja.\n"
 "Ali jo res želite prepisati?"
 
-#: kwave/FileContext.cpp:1093
+#: kwave/FileContext.cpp:1102
 #, kde-format
 msgid ""
 "This file has been modified.\n"

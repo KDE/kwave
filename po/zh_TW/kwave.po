@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 14:40+0000\n"
+"POT-Creation-Date: 2026-01-25 02:36+0000\n"
 "PO-Revision-Date: 2024-08-09 03:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -48,37 +48,37 @@ msgstr "啟動已完成"
 msgid "Scanning plugins..."
 msgstr "掃描外掛程式中..."
 
-#: kwave/FileContext.cpp:226 kwave/FileContext.cpp:227
+#: kwave/FileContext.cpp:235 kwave/FileContext.cpp:236
 #, kde-format
 msgid "Loading plugins..."
 msgstr "載入外掛程式中..."
 
-#: kwave/FileContext.cpp:229
+#: kwave/FileContext.cpp:238
 #, kde-format
 msgid "Failed"
 msgstr "已失敗"
 
-#: kwave/FileContext.cpp:232
+#: kwave/FileContext.cpp:241
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
 msgstr "Kwave 未被正確安裝。沒有找到外掛程式！"
 
-#: kwave/FileContext.cpp:238
+#: kwave/FileContext.cpp:247
 #, kde-format
 msgid "Ready"
 msgstr "已就緒"
 
-#: kwave/FileContext.cpp:518
+#: kwave/FileContext.cpp:527
 #, kde-format
 msgid "Playback: %1"
 msgstr "播放：%1"
 
-#: kwave/FileContext.cpp:520
+#: kwave/FileContext.cpp:529
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "播放：%1 個樣本"
 
-#: kwave/FileContext.cpp:862
+#: kwave/FileContext.cpp:871
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -86,13 +86,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:868
+#: kwave/FileContext.cpp:877
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1（已修改）"
 
-#: kwave/FileContext.cpp:903
+#: kwave/FileContext.cpp:912
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -101,12 +101,12 @@ msgstr ""
 "這個檔案已被變更，這些變更都會喪失。\n"
 "您還是要繼續嗎？"
 
-#: kwave/FileContext.cpp:983
+#: kwave/FileContext.cpp:992
 #, kde-format
 msgid "Save As"
 msgstr "另存新檔"
 
-#: kwave/FileContext.cpp:1024 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1033 kwave/MainWidget.cpp:995
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -115,7 +115,7 @@ msgstr ""
 "檔案 '%1' 已存在。\n"
 "您要覆寫它嗎？"
 
-#: kwave/FileContext.cpp:1093
+#: kwave/FileContext.cpp:1102
 #, kde-format
 msgid ""
 "This file has been modified.\n"

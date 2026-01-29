@@ -3818,7 +3818,7 @@ msgstr "dB"
 #: plugins/pitch_shift/PitchShiftDialog.cpp:330
 #, kde-format
 msgid "&Stop"
-msgstr "A&tura"
+msgstr "&Para"
 
 #. i18n: ectx: property (text), widget (QPushButton, btListen)
 #: plugins/band_pass/BandPassDialog.cpp:203

@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kwave package.
-# SPDX-FileCopyrightText: 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-25 02:36+0000\n"
-"PO-Revision-Date: 2025-08-24 22:08+0400\n"
+"PO-Revision-Date: 2026-02-19 08:21+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -3709,7 +3709,7 @@ msgstr ""
 #: plugins/about/AboutDialogBase.ui:182
 #, kde-format
 msgid "Authors"
-msgstr "المؤلفين"
+msgstr "المؤلفون"
 
 #. i18n: ectx: attribute (title), widget (QWidget, thanks_tab)
 #: plugins/about/AboutDialogBase.ui:199

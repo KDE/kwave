@@ -3371,7 +3371,7 @@ msgstr "مكمل ثنائي خطي"
 
 #: libkwave/SampleFormat.cpp:39
 msgid "Unsigned Integer"
-msgstr "عدد صحيح غير موقّع"
+msgstr "عدد صحيح غير موقع"
 
 #: libkwave/SampleFormat.cpp:41
 msgid "32-bit IEEE Floating-Point"

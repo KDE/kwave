@@ -75,7 +75,7 @@ namespace Kwave
             if (isCanceled()) return;
 
             QFutureSynchronizer<void> synchronizer;
-            foreach (SOURCE *src, static_cast< QList<SOURCE *> >(*this)) {
+            for (SOURCE *src : static_cast< QList<SOURCE *> >(*this)) {
                 if (!src) continue;
                 synchronizer.addFuture(QtConcurrent::run(
                     &Kwave::MultiTrackSource<SOURCE, INITIALIZE>::runSource,
@@ -89,7 +89,7 @@ namespace Kwave
         /** Returns true when all sources are done */
         bool done() const override
         {
-            foreach (SOURCE *src, static_cast< QList<SOURCE *> >(*this))
+            for (SOURCE *src : static_cast< QList<SOURCE *> >(*this))
                 if (src && !src->done()) return false;
             return true;
         }

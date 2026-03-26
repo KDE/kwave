@@ -166,7 +166,7 @@ void Kwave::MetaDataList::replace(const Kwave::MetaDataList &list)
 
     // find out which meta data types are affected
     QStringList types;
-    foreach (const Kwave::MetaData &meta, list) {
+    for (const Kwave::MetaData &meta : list) {
         QString type = meta[Kwave::MetaData::STDPROP_TYPE].toString();
         if (!types.contains(type)) {
             // remember this type in our list
@@ -202,7 +202,7 @@ void Kwave::MetaDataList::add(const Kwave::MetaData &metadata)
 //***************************************************************************
 void Kwave::MetaDataList::add(const Kwave::MetaDataList &list)
 {
-    foreach (const Kwave::MetaData &metadata, list)
+    for (const Kwave::MetaData &metadata : list)
         add(metadata);
 }
 
@@ -216,7 +216,7 @@ void Kwave::MetaDataList::remove(const Kwave::MetaData &metadata)
 //***************************************************************************
 void Kwave::MetaDataList::remove(const Kwave::MetaDataList &list)
 {
-    foreach (const Kwave::MetaData &metadata, list)
+    for (const Kwave::MetaData &metadata : list)
         remove(metadata);
 }
 

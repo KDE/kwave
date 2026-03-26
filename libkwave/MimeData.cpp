@@ -229,7 +229,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
     unsigned int   decoded_tracks = 0;
 
     // try to find a suitable decoder
-    foreach (const QString &format, e->formats()) {
+    for (const QString &format : e->formats()) {
         // skip all non-supported formats
         if (!Kwave::CodecManager::canDecode(format)) continue;
 

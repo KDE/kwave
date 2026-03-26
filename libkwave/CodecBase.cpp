@@ -52,7 +52,7 @@ void Kwave::CodecBase::addMimeType(const char *name,
     if (type_name.contains(_(","))) {
         // list of mime types -> call recursively for each of them
         QStringList types = type_name.split(_(","), Qt::SkipEmptyParts);
-        foreach (const QString &mt, types) {
+        for (const QString &mt : types) {
             addMimeType(mt.trimmed().toUtf8().data(), description, patterns);
         }
         return;
@@ -105,7 +105,7 @@ bool Kwave::CodecBase::supports(const QMimeType &mimetype)
 /***************************************************************************/
 bool Kwave::CodecBase::supports(const QString &mimetype_name)
 {
-    foreach (const Kwave::CodecBase::MimeType &mime, m_supported_mime_types) {
+    for (const Kwave::CodecBase::MimeType &mime : m_supported_mime_types) {
         if (mime.name == mimetype_name) return true;
     }
     return false;
@@ -115,9 +115,9 @@ bool Kwave::CodecBase::supports(const QString &mimetype_name)
 QStringList Kwave::CodecBase::extensions(const QString &mimetype_name) const
 {
     QStringList result;
-    foreach (const Kwave::CodecBase::MimeType &mime, m_supported_mime_types) {
+    for (const Kwave::CodecBase::MimeType &mime : m_supported_mime_types) {
         if (mime.name == mimetype_name) {
-            foreach (const QString &ext, mime.patterns)
+            for (const QString &ext : mime.patterns)
                 if (!result.contains(ext)) result.append(ext);
         }
     }

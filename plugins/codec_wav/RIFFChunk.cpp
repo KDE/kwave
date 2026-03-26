@@ -69,7 +69,7 @@ bool Kwave::RIFFChunk::isSane() const
         return false;
     }
 
-    foreach (const Kwave::RIFFChunk *chunk, subChunks())
+    for (const Kwave::RIFFChunk *chunk : subChunks())
         if (chunk && !chunk->isSane()) return false;
     return true;
 }
@@ -157,7 +157,7 @@ bool Kwave::RIFFChunk::isChildOf(Kwave::RIFFChunk *chunk)
 void Kwave::RIFFChunk::fixSize()
 {
     // pass one: fix sizes of sub chunks recursively
-    foreach (Kwave::RIFFChunk *chunk, subChunks())
+    for (Kwave::RIFFChunk *chunk : subChunks())
         if (chunk) chunk->fixSize();
 
     // pass two: sum up sub-chunks if type is main or root.
@@ -166,7 +166,7 @@ void Kwave::RIFFChunk::fixSize()
         m_phys_length = 0;
         if (m_type == Main) m_phys_length += 4;
 
-        foreach (const Kwave::RIFFChunk *chunk, subChunks()) {
+        for (const Kwave::RIFFChunk *chunk : subChunks()) {
             if (!chunk) continue;
             quint32 len = chunk->physEnd() - chunk->physStart() + 1;
             m_phys_length += len;
@@ -219,7 +219,7 @@ void Kwave::RIFFChunk::dumpStructure()
     );
 
     // recursively dump all sub-chunks
-    foreach (Kwave::RIFFChunk *chunk, m_sub_chunks)
+    for (Kwave::RIFFChunk *chunk : m_sub_chunks)
         if (chunk) chunk->dumpStructure();
 
 }

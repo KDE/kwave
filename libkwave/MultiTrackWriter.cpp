@@ -91,7 +91,7 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
     Kwave::UndoTransactionGuard guard(signal_manager, QString());
 
     unsigned int index = 0;
-    foreach (unsigned int track, track_list) {
+    for (unsigned int track : track_list) {
         // NOTE: this function is *nearly* identical to the one in the
         //       Signal class, except for undo support
         Kwave::Writer *writer = signal_manager.openWriter(
@@ -142,7 +142,7 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
             break;
         }
         case Kwave::Overwrite: {
-            foreach (unsigned int track, track_list) {
+            for (unsigned int track : track_list) {
                 undo = new(std::nothrow) Kwave::UndoModifyAction(
                     track, left, right - left + 1);
                 if (!signal_manager.registerUndoAction(undo)) {

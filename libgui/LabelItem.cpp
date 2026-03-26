@@ -89,7 +89,7 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
 
     // locate the "label" menu
     QMenu *label_menu = nullptr;
-    foreach (const QAction *action, parent->actions()) {
+    for (const QAction *action : parent->actions()) {
         if (action->text() == i18n("Label")) {
             label_menu = action->menu();
             break;
@@ -100,7 +100,7 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
     if (label_menu) {
 
         // find the "New" action and disable it
-        foreach (QAction *action, label_menu->actions()) {
+        for (QAction *action : label_menu->actions()) {
             if (action->text() == i18n("New")) {
                 action->setEnabled(false);
                 break;

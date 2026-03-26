@@ -564,21 +564,21 @@ void Kwave::PlaybackController::checkMethod(Kwave::playback_method_t &method)
     QList<Kwave::playback_method_t> all_methods;
 
     // create a list of all supported playback methods
-    foreach (Kwave::PlaybackDeviceFactory *f, m_playback_factories) {
+    for (Kwave::PlaybackDeviceFactory *f : m_playback_factories) {
         QList<Kwave::playback_method_t> methods = f->supportedMethods();
 
         // return immediately on a direct match
         if (methods.contains(method)) return;
 
         // otherwise accumulate all found methods
-        foreach (Kwave::playback_method_t m, methods)
+        for (Kwave::playback_method_t m : methods)
             if (!all_methods.contains(m))
                 all_methods.append(m);
     }
 
     // no direct match found: take the best match (lowest number)
     Kwave::playback_method_t best = Kwave::PLAYBACK_INVALID;
-    foreach (Kwave::playback_method_t m, all_methods) {
+    for (Kwave::playback_method_t m : all_methods) {
         if (m == Kwave::PLAYBACK_NONE) continue; // not a valid selection
         if (m < best) best = m;
     }
@@ -603,7 +603,7 @@ Kwave::PlayBackDevice *Kwave::PlaybackController::createDevice(
 {
     // locate the corresponding playback device factory (plugin)
     Kwave::PlaybackDeviceFactory *factory = nullptr;
-    foreach (Kwave::PlaybackDeviceFactory *f, m_playback_factories) {
+    for (Kwave::PlaybackDeviceFactory *f : m_playback_factories) {
         Q_ASSERT(f);
         if (f && f->supportedMethods().contains(method)) {
             factory = f;

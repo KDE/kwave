@@ -99,7 +99,7 @@ void Kwave::SampleReader::minMax(sample_index_t first, sample_index_t last,
     min = SAMPLE_MAX;
     max = SAMPLE_MIN;
 
-    foreach (Kwave::Stripe s, m_stripes) {
+    for (Kwave::Stripe s : m_stripes) {
         if (!s.length()) continue;
         sample_index_t start = s.start();
         sample_index_t end   = s.end();
@@ -310,7 +310,7 @@ unsigned int Kwave::SampleReader::readSamples(sample_index_t offset,
     sample_index_t left  = offset;
     sample_index_t right = offset + length - 1;
 
-    foreach (Kwave::Stripe s, m_stripes) {
+    for (Kwave::Stripe s : m_stripes) {
         if (!s.length()) continue;
         sample_index_t start = s.start();
         sample_index_t end   = s.end();

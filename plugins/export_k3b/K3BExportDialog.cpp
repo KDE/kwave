@@ -54,7 +54,7 @@ Kwave::K3BExportDialog::K3BExportDialog(
         "from a label description)",
         "(auto detect)"
     ));
-    foreach (const QString &p, Kwave::K3BExportPlugin::knownPatterns())
+    for (const QString &p : Kwave::K3BExportPlugin::knownPatterns())
         cbLabelPattern->addItem(p);
 
     Q_ASSERT(cbLabelPattern);

@@ -269,7 +269,7 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
     m_enable_setDevice = false;
 
 //     qDebug("PlayBackDialog::setSupportedDevices():");
-//     foreach (const QString &d, devices)
+//     for (const QString &d : devices)
 //      qDebug("    '%s'", DBG(d));
 
     cbDevice->clearEditText();
@@ -303,11 +303,11 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
         m_devices_list_map.clear();
 
         // build a tree with all nodes in the list
-        foreach (const QString &dev_id, devices) {
+        for (const QString &dev_id : devices) {
             QTreeWidgetItem *parent = nullptr;
 
             QStringList list = dev_id.split(_("||"), Qt::KeepEmptyParts);
-            foreach (const QString &t, list) {
+            for (const QString &t : list) {
                 QString token(t);
                 QTreeWidgetItem *item = nullptr;
 
@@ -532,7 +532,7 @@ void Kwave::PlayBackDialog::setSupportedBits(const QList<unsigned int> &bits)
     int current_bits = m_playback_params.bits_per_sample;
     cbBitsPerSample->clear();
     QString txt;
-    foreach (unsigned int b, bits) {
+    for (unsigned int b : bits) {
         txt.setNum(b);
         cbBitsPerSample->addItem(txt);
     }

@@ -645,7 +645,7 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
                     // QAction::eventFilter: Ambiguous shortcut overload: Ctrl+W
                     QMenu *m = sub->systemMenu();
                     if (m) {
-                        foreach (QAction *act, m->actions())
+                        for (QAction *act : m->actions())
                             if (act) act->setShortcut(0); // remove shortcut
                     }
                 }
@@ -810,7 +810,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 
         // determine the number of not minimized sub windows
         int count = 0;
-        foreach (QMdiSubWindow *sub, m_mdi_area->subWindowList()) {
+        for (QMdiSubWindow *sub : m_mdi_area->subWindowList()) {
             if (sub && !(sub->windowState() & Qt::WindowMinimized))
                 ++count;
         }
@@ -821,7 +821,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
         int height = total_height / count;
         int increment = height;
         int y = 0;
-        foreach (QMdiSubWindow *sub, m_mdi_area->subWindowList()) {
+        for (QMdiSubWindow *sub : m_mdi_area->subWindowList()) {
             if (!sub || (sub->windowState() & Qt::WindowMinimized))
                 continue;
             // resize/move the sub window
@@ -1309,7 +1309,7 @@ void Kwave::TopWidget::updateRecentFiles()
     if (!m_menu_manager) return;
     m_menu_manager->clearNumberedMenu(_("ID_FILE_OPEN_RECENT"));
 
-    foreach (const QString &file, m_application.recentFiles())
+    for (const QString &file : m_application.recentFiles())
         m_menu_manager->addNumberedMenuEntry(
             _("ID_FILE_OPEN_RECENT"), file, QString());
 
@@ -1411,7 +1411,7 @@ void Kwave::TopWidget::updateMenu()
 
             // iterate over the list of labels
             unsigned int index = 0;
-            foreach (const Kwave::Label &label, labels) {
+            for (const Kwave::Label &label : labels) {
                 QString name = label.name();
                 QString desc = (name.length()) ?
                     i18nc(
@@ -1472,7 +1472,7 @@ void Kwave::TopWidget::resetToolbarToDefaults()
     int icon_size_big = style()->pixelMetric(QStyle::PM_LargeIconSize);
 
     // change style to "symbols only mode" and set standard size
-    foreach(KToolBar *bar, toolBars()) {
+    for (KToolBar *bar : toolBars()) {
         bar->setToolButtonStyle(Qt::ToolButtonIconOnly);
         bar->setIconSize( QSize(icon_size_def, icon_size_def) );
     }
@@ -1494,7 +1494,7 @@ void Kwave::TopWidget::resetToolbarToDefaults()
     toolbar_record_play->setIconSize(QSize(icon_size_big, icon_size_big));
     toolbar_zoom->setIconSize(QSize(icon_size_big, icon_size_big));
 
-    foreach(KToolBar *bar, toolBars()) {
+    for (KToolBar *bar : toolBars()) {
         bar->update();
         bar->show();
     }
@@ -1624,7 +1624,7 @@ void Kwave::TopWidget::dropEvent(QDropEvent *event)
 
     if (event->mimeData()->hasUrls()) {
         bool first = true;
-        foreach (const QUrl &url, event->mimeData()->urls()) {
+        for (const QUrl &url : event->mimeData()->urls()) {
             QString filename = url.toLocalFile();
             QString mimetype = Kwave::CodecManager::mimeTypeOf(url);
             if (Kwave::CodecManager::canDecode(mimetype)) {

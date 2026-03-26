@@ -90,7 +90,7 @@ namespace Kwave
          */
         IDX findFromData(const DATA &data) const
         {
-            foreach (const IDX &it, m_list.keys()) {
+            for (const IDX &it : m_list.keys()) {
                 if (m_list[it].first() == data) return it;
             }
             return IDX(0);
@@ -102,7 +102,7 @@ namespace Kwave
          */
         IDX findFromName(const QString &name) const
         {
-            foreach (const IDX &it, m_list.keys()) {
+            for (const IDX &it : m_list.keys()) {
                 if (m_list[it].second() == name) return it;
             }
             return IDX(0);
@@ -140,7 +140,7 @@ namespace Kwave
         QStringList allNames() const
         {
             QStringList names;
-            foreach (const IDX &it, m_list.keys()) {
+            for (const IDX &it : m_list.keys()) {
                 names.append(m_list[it].second());
             }
             return names;

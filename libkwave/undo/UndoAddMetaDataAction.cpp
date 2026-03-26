@@ -49,11 +49,11 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
      * loop over the list to find out the first/last sample offset
      * and the list of affected tracks
      */
-    foreach (const Kwave::MetaData &m, meta_data)
+    for (const Kwave::MetaData &m : meta_data)
     {
         // search over a list of known properties which contain range/position
         QStringList properties = Kwave::MetaData::positionBoundPropertyNames();
-        foreach (const QString &tag, properties) {
+        for (const QString &tag : properties) {
             // check for a "start" property
             QVariant v = m[tag];
             bool ok = false;
@@ -100,7 +100,7 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
 
         // check if the list contains only objects of the same type
         bool all_same_type = true;
-        foreach (const Kwave::MetaData &m, meta_data) {
+        for (const Kwave::MetaData &m : meta_data) {
             QString n = m[Kwave::MetaData::STDPROP_TYPE].toString();
             if (!n.length() || (n != name)) {
                 all_same_type = false;

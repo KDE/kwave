@@ -160,7 +160,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
             {
                 ok = false;
                 QStringList list = info.get(property).toStringList();
-                foreach (QString c, list)
+                for (QString c : list)
                 {
                     delete frame;
                     frame = new(std::nothrow) ID3_Frame;
@@ -260,7 +260,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
             case ID3_PropertyMap::ENC_BINARY:
             {
                 QStringList frames = value.toStringList();
-                foreach (const QString &f, frames) {
+                for (const QString &f : frames) {
                     delete frame;
                     frame = new(std::nothrow) ID3_Frame;
                     Q_ASSERT(frame != nullptr);

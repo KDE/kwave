@@ -368,7 +368,7 @@ QString Kwave::Parser::fromUrl(const QUrl &url)
     QStringList params = url.query().split(_(","));
     if (!params.isEmpty()) {
         bool first = true;
-        foreach (const QString &param, params) {
+        for (const QString &param : params) {
             if (!first) command += _(",");
             command += QUrl::fromPercentEncoding(param.toLatin1());
             first = false;

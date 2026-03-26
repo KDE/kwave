@@ -61,7 +61,7 @@ QString Kwave::UndoModifyMetaDataAction::description()
 
     // check if the list contains only objects of the same type
     bool all_same_type = true;
-    foreach (const Kwave::MetaData &m, m_saved_data) {
+    for (const Kwave::MetaData &m : m_saved_data) {
         QString n = m[Kwave::MetaData::STDPROP_TYPE].toString();
         if (!n.length() || (n != name)) {
             all_same_type = false;
@@ -112,7 +112,7 @@ Kwave::UndoAction *Kwave::UndoModifyMetaDataAction::undo(
         Kwave::MetaDataList old_data;
         const Kwave::MetaDataList &current_data = manager.metaData();
 
-        foreach (const Kwave::MetaData &meta, m_saved_data) {
+        for (const Kwave::MetaData &meta : m_saved_data) {
             if (current_data.contains(meta)) {
                 // add a new entry that will replace the old one
                 old_data.add(current_data[meta.id()]);
@@ -141,16 +141,16 @@ Kwave::UndoAction *Kwave::UndoModifyMetaDataAction::undo(
 //***************************************************************************
 void Kwave::UndoModifyMetaDataAction::dump(const QString &indent)
 {
-   foreach (const Kwave::MetaData &m, m_saved_data) {
+   for (const Kwave::MetaData &m : m_saved_data) {
         qDebug("%sundo modify meta data object '%s'",
                DBG(indent), DBG(m.id()));
 
         // dump all properties of the object
-        foreach (const QString &key, m.keys()) {
+        for (const QString &key : m.keys()) {
             QVariant v = m[key];
             QString value;
             if (v.typeId() == QMetaType::QVariantList) {
-                foreach (const QVariant &v1, v.toList())
+                for (const QVariant &v1 : v.toList())
                     value += _("'") + v1.toString() + _("' ");
             } else {
                 value = v.toString();

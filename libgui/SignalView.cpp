@@ -601,7 +601,7 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
         }
     } else if (mime_data->hasUrls()) {
         bool first = true;
-        foreach (const QUrl &url, mime_data->urls()) {
+        for (const QUrl &url : mime_data->urls()) {
             QString filename = url.toLocalFile();
             QString mimetype = Kwave::CodecManager::mimeTypeOf(url);
             if (Kwave::CodecManager::canDecode(mimetype)) {

@@ -136,7 +136,7 @@ unsigned int Kwave::SampleFIFO::get(Kwave::SampleArray &buffer)
 unsigned int Kwave::SampleFIFO::unlockedLength()
 {
     unsigned int len = 0;
-    foreach (const Kwave::SampleArray &buf, m_buffer)
+    for (const Kwave::SampleArray &buf : m_buffer)
         len += buf.size();
     return len;
 }

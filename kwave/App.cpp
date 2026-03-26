@@ -162,7 +162,7 @@ int Kwave::App::newInstance(const QStringList &args, const QString &dir)
     } else {
         // open a window for each file specified in the
         // command line an load it
-        foreach (const QString &name, params) {
+        for (const QString &name : params) {
             retval = newWindow(Kwave::URLfromUserInput(name));
         }
     }
@@ -296,7 +296,7 @@ bool Kwave::App::toplevelWindowHasClosed(Kwave::TopWidget *todel)
 QList<Kwave::App::FileAndInstance> Kwave::App::openFiles() const
 {
     QList<Kwave::App::FileAndInstance> all_files;
-    foreach (const Kwave::TopWidget *topwidget, m_top_widgets) {
+    for (const Kwave::TopWidget *topwidget : m_top_widgets) {
         if (!topwidget) continue;
         QList<Kwave::App::FileAndInstance> files = topwidget->openFiles();
         if (!files.isEmpty())
@@ -334,7 +334,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
     // context and a list of contexts (which may be empty)
     if (!all_contexts.isEmpty()) {
         bool first = true;
-        foreach (Kwave::FileContext *context, all_contexts) {
+        for (Kwave::FileContext *context : all_contexts) {
             Kwave::TopWidget *top_widget = nullptr;
 
             switch (m_gui_type) {

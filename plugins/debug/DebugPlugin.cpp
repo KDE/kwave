@@ -264,7 +264,7 @@ void Kwave::DebugPlugin::run(QStringList params)
 
         const Kwave::Stripe::List &stripes = all_stripes.first();
         unsigned int index = 0;
-        foreach (const Kwave::Stripe &stripe, stripes) {
+        for (const Kwave::Stripe &stripe : stripes) {
             QString text;
             text = _("stripe #%1 [%2 .. %3]").
                 arg(index++).
@@ -421,7 +421,7 @@ void Kwave::DebugPlugin::dump_children(const QObject *obj,
         classname
     );
 
-    foreach (QObject *o, obj->children()) {
+    for (QObject *o : obj->children()) {
         dump_children(o, indent + _("|   "));
     }
 }
@@ -443,7 +443,7 @@ QObject *Kwave::DebugPlugin::findObject(QObject *obj,
     if (strcmp(class_name, obj_class_name) == 0)
         return obj;
 
-    foreach (QObject *o, obj->children()) {
+    for (QObject *o : obj->children()) {
         QObject *result = findObject(o, class_name);
         if (result) return result; // first match -> found
     }

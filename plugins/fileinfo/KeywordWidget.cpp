@@ -90,7 +90,7 @@ void Kwave::KeywordWidget::setKeywords(const QStringList &keywords)
     lstKeywords->clear();
     edKeyword->clear();
 
-    foreach (const QString &it, keywords) {
+    for (const QString &it : keywords) {
         QString item = it.simplified();
         if (contained(item)) continue; // skip duplicate
         lstKeywords->addItem(item);

@@ -136,7 +136,7 @@ Kwave::SignalWidget::~SignalWidget()
 void Kwave::SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
 {
     Q_ASSERT(zoom >= 0.0);
-    foreach (QPointer<Kwave::SignalView> view, m_views)
+    for (QPointer<Kwave::SignalView> view : m_views)
         view->setZoomAndOffset(zoom, offset);
 }
 
@@ -292,7 +292,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // find out whether there was a click within a signal view
     QSharedPointer<Kwave::ViewItem> item(nullptr);
-    foreach (QPointer<Kwave::SignalView> view, m_views) {
+    for (QPointer<Kwave::SignalView> view : m_views) {
         // map the rect of the view to our coordinate system
         const QRect view_rect = QRect(
             view->mapToParent(view->rect().topLeft()),
@@ -361,11 +361,11 @@ void Kwave::SignalWidget::setVerticalZoom(double zoom)
     m_vertical_zoom = zoom;
 
     // propagate the zoom to all views
-    foreach (QPointer<Kwave::SignalView> view, m_views)
+    for (QPointer<Kwave::SignalView> view : m_views)
         if (view) view->setVerticalZoom(m_vertical_zoom);
 
     // get back the maximum zoom set by the views
-    foreach (QPointer<Kwave::SignalView> view, m_views)
+    for (QPointer<Kwave::SignalView> view : m_views)
         if (view && view->verticalZoom() > m_vertical_zoom)
             m_vertical_zoom = view->verticalZoom();
 }
@@ -611,7 +611,7 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
     }
 
     // loop over all views and adjust the track index of the following ones
-    foreach (QPointer<Kwave::SignalView> view, m_views) {
+    for (QPointer<Kwave::SignalView> view : m_views) {
         if (view->track() >= Kwave::toInt(index))
             view->setTrack(view->track() + 1);
     }

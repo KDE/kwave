@@ -36,7 +36,7 @@ namespace Kwave
 
             if (source->hasUrls()) {
                 // dropping URLs
-                foreach (QUrl url, source->urls()) {
+                for (QUrl url : source->urls()) {
                     QString mimetype =
                         Kwave::CodecManager::mimeTypeOf(url);
                     if (Kwave::CodecManager::canDecode(mimetype)) {
@@ -45,7 +45,7 @@ namespace Kwave
                 }
             }
 
-            foreach (QString format, source->formats()) {
+            for (QString format : source->formats()) {
                 // dropping known mime type
                 if (Kwave::CodecManager::canDecode(format)) {
                     qDebug("Kwave::FileDrag::canDecode(%s)",

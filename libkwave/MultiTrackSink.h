@@ -58,8 +58,8 @@ namespace Kwave
         /** Returns true when all sinks are done */
         bool done() const override
         {
-            foreach (Kwave::SampleSink *s,
-                     static_cast< QList<SINK *> >(*this))
+            for (Kwave::SampleSink *s :
+                 static_cast< QList<SINK *> >(*this))
                 if (s && !s->done()) return false;
             return true;
         }

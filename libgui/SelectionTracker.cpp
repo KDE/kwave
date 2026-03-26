@@ -69,14 +69,14 @@ Kwave::SelectionTracker::SelectionTracker(Kwave::SignalManager *signal,
 
     if (tracks && !tracks->isEmpty()) {
         // having a list of selected tracks
-        foreach (unsigned int track, *tracks) {
+        for (unsigned int track : *tracks) {
             slotTrackInserted(track, nullptr);
             if (m_selection_only)
                 m_tracks.append(m_signal->uuidOfTrack(track));
         }
     } else {
         // take over all tracks from the signal manager
-        foreach (unsigned int track, m_signal->allTracks()) {
+        for (unsigned int track : m_signal->allTracks()) {
             slotTrackInserted(track, nullptr);
             if (m_selection_only)
                 m_tracks.append(m_signal->uuidOfTrack(track));
@@ -325,7 +325,7 @@ void Kwave::SelectionTracker::selectRange(QList<QUuid> tracks,
     QMutexLocker lock(&m_lock);
 
     // remove deleted tracks
-    foreach (const QUuid &uuid, m_tracks) {
+    for (const QUuid &uuid : m_tracks) {
         if (!tracks.contains(uuid)) {
             m_tracks.removeAll(uuid);
             emit sigTrackDeleted(uuid);
@@ -333,7 +333,7 @@ void Kwave::SelectionTracker::selectRange(QList<QUuid> tracks,
     }
 
     // add new tracks
-    foreach (const QUuid &uuid, tracks) {
+    for (const QUuid &uuid : tracks) {
         if (!m_tracks.contains(uuid)) {
             m_tracks.append(uuid);
             emit sigTrackInserted(uuid);

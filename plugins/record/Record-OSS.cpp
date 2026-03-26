@@ -290,7 +290,7 @@ QStringList Kwave::RecordOSS::supportedDevices()
     scanDirectory(list, _("/dev"));
     scanDirectory(list, _("/dev/sound"));
     scanFiles(dirlist, _("/dev/oss"), _("[^.]*"));
-    foreach(QString dir, dirlist)
+    for (QString dir : dirlist)
         scanDirectory(list, dir);
     list.append(_("#EDIT#"));
     list.append(_("#SELECT#"));
@@ -443,7 +443,7 @@ QList<double> Kwave::RecordOSS::detectSampleRates()
 
         // do not produce duplicates
         bool is_duplicate = false;
-        foreach (const double &r, list)
+        for (const double &r : list)
             if (qFuzzyCompare(rate, r)) { is_duplicate = true; break; }
         if (is_duplicate) continue;
 

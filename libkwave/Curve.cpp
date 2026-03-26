@@ -74,7 +74,7 @@ QString Kwave::Curve::getCommand()
     QString cmd = _("curve(");
     cmd += m_interpolation.name(m_interpolation.type());
 
-    foreach (const Point &p, *this) {
+    for (const Point &p : *this) {
         QString par = _(",%1,%2");
         cmd += par.arg(p.x()).arg(p.y());
     }
@@ -205,7 +205,7 @@ void Kwave::Curve::scaleFit(unsigned int range)
     Kwave::Interpolation interpolation(m_interpolation.type());
 
     QVector<double> y = interpolation.interpolation(*this, range);
-    foreach (double yi, y) {
+    for (double yi : y) {
         if (yi > max) max = yi;
         if (yi < min) min = yi;
     }

@@ -214,7 +214,7 @@ bool Kwave::K3BExportPlugin::detectBlockMetaData(
 {
     if (!pattern.length()) {
         // auto detect -> try all known patterns
-        foreach (const QString &p, knownPatterns())
+        for (const QString &p : knownPatterns())
             if (detectBlockMetaData(text, p, block))
                 return true;
         return false;
@@ -490,7 +490,7 @@ void Kwave::K3BExportPlugin::saveDocumentData(QDomElement *docElem)
     QDomElement contentsElem = doc.createElement(_("contents"));
 
     unsigned int index = 1;
-    foreach (const Kwave::K3BExportPlugin::BlockInfo &block, m_block_info) {
+    for (const Kwave::K3BExportPlugin::BlockInfo &block : m_block_info) {
         QString title      = block.m_title;
         QString artist     = block.m_artist;
         QString songwriter;
@@ -696,7 +696,7 @@ int Kwave::K3BExportPlugin::saveBlocks(bool selection_only,
             delete encoder;
         }
         if (!unsupported_properties.isEmpty()) {
-            foreach (const Kwave::FileProperty &p, unsupported_properties) {
+            for (const Kwave::FileProperty &p : unsupported_properties) {
                 file_info.set(p, QVariant());
             }
         }

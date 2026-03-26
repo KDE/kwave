@@ -79,7 +79,7 @@ void Kwave::WavPropertyMap::insert(const Kwave::FileProperty property,
 QByteArray Kwave::WavPropertyMap::findProperty(
         const Kwave::FileProperty property) const
 {
-    foreach(const Pair &p, QList<Pair>(*this)) {
+    for (const Pair &p : QList<Pair>(*this)) {
         if (p.first == property)
             return p.second;
     }
@@ -90,7 +90,7 @@ QByteArray Kwave::WavPropertyMap::findProperty(
 bool Kwave::WavPropertyMap::containsProperty(
     const Kwave::FileProperty property) const
 {
-    foreach(const Pair &p, QList<Pair>(*this)) {
+    for (const Pair &p : QList<Pair>(*this)) {
         if (p.first == property)
             return true;
     }
@@ -100,7 +100,7 @@ bool Kwave::WavPropertyMap::containsProperty(
 //***************************************************************************
 bool Kwave::WavPropertyMap::containsChunk(const QByteArray &chunk) const
 {
-    foreach(const Pair &p, QList<Pair>(*this)) {
+    for (const Pair &p : QList<Pair>(*this)) {
         if (p.second == chunk)
             return true;
     }
@@ -111,7 +111,7 @@ bool Kwave::WavPropertyMap::containsChunk(const QByteArray &chunk) const
 QList<QByteArray> Kwave::WavPropertyMap::chunks() const
 {
     QList<QByteArray> list;
-    foreach(const Pair &p, QList<Pair>(*this)) {
+    for (const Pair &p : QList<Pair>(*this)) {
         if (!list.contains(p.second))
             list.append(p.second);
     }
@@ -122,7 +122,7 @@ QList<QByteArray> Kwave::WavPropertyMap::chunks() const
 Kwave::FileProperty Kwave::WavPropertyMap::property(
     const QByteArray &chunk) const
 {
-    foreach(const Pair &p, QList<Pair>(*this)) {
+    for (const Pair &p : QList<Pair>(*this)) {
         if (p.second == chunk) return p.first;
     }
     return static_cast<Kwave::FileProperty>(-1);
@@ -132,7 +132,7 @@ Kwave::FileProperty Kwave::WavPropertyMap::property(
 QList<Kwave::FileProperty> Kwave::WavPropertyMap::properties() const
 {
     QList<Kwave::FileProperty> list;
-    foreach(const Pair &p, QList<Pair>(*this)) {
+    for (const Pair &p : QList<Pair>(*this)) {
         if (!list.contains(p.first))
             list.append(p.first);
     }

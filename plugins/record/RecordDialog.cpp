@@ -410,11 +410,11 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
         m_devices_list_map.clear();
 
         // build a tree with all nodes in the list
-        foreach (QString dev_id, devices) {
+        for (QString dev_id : devices) {
             QTreeWidgetItem *parent = nullptr;
 
             QStringList list = dev_id.split(_("||"), Qt::KeepEmptyParts);
-            foreach (QString token, list) {
+            for (QString token : list) {
                 QTreeWidgetItem *item = nullptr;
 
                 // split the icon name from the token
@@ -757,7 +757,7 @@ void Kwave::RecordDialog::setSupportedSampleRates(const QList<double> &rates)
     cbFormatSampleRate->setEditable(false);
     cbFormatSampleRate->clear();
 
-    foreach (double r, rates) {
+    for (double r : rates) {
         QString rate = rate2string(r);
         Q_ASSERT(rate.length());
         if (!rate.length()) continue; // string was zero?
@@ -816,7 +816,7 @@ void Kwave::RecordDialog::setSupportedCompressions(
         const Kwave::Compression comp(Kwave::Compression::NONE);
         cbFormatCompression->addItem(comp.name());
     } else {
-        foreach (Kwave::Compression::Type c, comps) {
+        for (Kwave::Compression::Type c : comps) {
             const Kwave::Compression comp(c);
             cbFormatCompression->addItem(comp.name(), comp.toInt());
         }
@@ -935,7 +935,7 @@ void Kwave::RecordDialog::setSupportedSampleFormats(
 
     cbFormatSampleFormat->clear();
     Kwave::SampleFormat::Map types;
-    foreach (Kwave::SampleFormat::Format format, formats) {
+    for (Kwave::SampleFormat::Format format : formats) {
         int index = types.findFromData(format);
         cbFormatSampleFormat->addItem(
             types.description(index, true),

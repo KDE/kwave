@@ -80,7 +80,7 @@ int Kwave::BitrateSpinBox::nearestIndex(int rate)
 {
     // find the nearest value
     int nearest = 0;
-    foreach(int i, m_rates)
+    for (int i : m_rates)
         if (qAbs(i - rate) < qAbs(nearest - rate)) nearest = i;
 
     // find the index

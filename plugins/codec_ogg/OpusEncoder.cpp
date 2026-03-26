@@ -714,7 +714,7 @@ bool Kwave::OpusEncoder::writeOpusTags(QIODevice &dst)
     _writeInt(buffer, static_cast<quint32>(tags.count()));
 
     // serialize the tags into the buffer
-    foreach (const QByteArray &tag, tags) {
+    for (const QByteArray &tag : tags) {
         _writeInt(buffer, static_cast<quint32>(tag.size()));
         buffer.write(tag);
     }

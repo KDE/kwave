@@ -80,7 +80,7 @@ QSize Kwave::AboutContainer::sizeHint() const
 
     int numChild = 0;
     const QList<QObject*> l = children(); // silence please
-    foreach (QObject *o, l) {
+    for (QObject *o : l) {
         if (o->isWidgetType()) {
             ++numChild;
             QWidget * const w = static_cast<QWidget *>(o);
@@ -132,7 +132,7 @@ void Kwave::AboutContainer::addWidget(QWidget *widget)
     setMinimumSize(s);
 
     const QList<QObject *> l = children(); // silence please
-    foreach (QObject *o, l) {
+    for (QObject *o : l) {
         if (o->isWidgetType())
             static_cast<QWidget *>(o)->setMinimumWidth(s.width());
     }

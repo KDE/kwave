@@ -179,7 +179,7 @@ void Kwave::ChannelMixer::idxInput(unsigned int index, Kwave::SampleArray data)
 
     // check: if there is one empty queue we are not yet ready for mixing
     bool ready = true;
-    foreach (const QQueue<Kwave::SampleArray> &queue, m_input_queue) {
+    for (const QQueue<Kwave::SampleArray> &queue : m_input_queue) {
         if (queue.isEmpty()) {
             ready = false;
             break;

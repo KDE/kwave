@@ -162,7 +162,7 @@ void Kwave::RIFFParser::detectEndianness()
     // loop over all chunk names
     int count = static_cast<int>(names.count());
     int index = 0;
-    foreach (QString chunk_name, names) {
+    for (QString chunk_name : names) {
         // scan all offsets where the name matches
         QByteArray name = chunk_name.toLatin1();
         QList<quint32> offsets = scanForName(name,
@@ -171,7 +171,7 @@ void Kwave::RIFFParser::detectEndianness()
         if (m_cancel) return;
 
         // loop over all found offsets
-        foreach (quint32 ofs, offsets) {
+        for (quint32 ofs : offsets) {
             m_dev.seek(ofs + 4);
 
             // read length, assuming little endian
@@ -260,7 +260,7 @@ Kwave::RIFFChunk *Kwave::RIFFParser::addChunk(
     // sort the chunk into the parent, order by physical start
     Kwave::RIFFChunk *before = nullptr;
     Kwave::RIFFChunkList &chunks = parent->subChunks();
-    foreach (Kwave::RIFFChunk *c, chunks) {
+    for (Kwave::RIFFChunk *c : chunks) {
         if (!c) continue;
         quint32 pos = c->physStart();
         if (pos > phys_offset) {
@@ -405,7 +405,7 @@ bool Kwave::RIFFParser::parse(Kwave::RIFFChunk *parent,
     } while (length && !m_cancel);
 
     // parse for sub-chunks in the chunks we newly found
-    foreach (Kwave::RIFFChunk *chunk, found_chunks) {
+    for (Kwave::RIFFChunk *chunk : found_chunks) {
         if (!chunk) continue;
         if ( (guessType(chunk->name()) == Kwave::RIFFChunk::Main) &&
             (chunk->dataLength() >= 4) )
@@ -446,7 +446,7 @@ Kwave::RIFFChunk *Kwave::RIFFParser::findChunk(const QByteArray &path)
     Kwave::RIFFChunkList chunks;
     listAllChunks(m_root, chunks);
 
-    foreach (Kwave::RIFFChunk *chunk, chunks) {
+    for (Kwave::RIFFChunk *chunk : chunks) {
         if (!chunk) continue;
         if (path.contains("/")) {
             // search for full path
@@ -467,7 +467,7 @@ unsigned int Kwave::RIFFParser::chunkCount(const QByteArray &path)
     Kwave::RIFFChunkList chunks;
     listAllChunks(m_root, chunks);
 
-    foreach (const Kwave::RIFFChunk *chunk, chunks) {
+    for (const Kwave::RIFFChunk *chunk : chunks) {
         if (!chunk) continue;
         if (path.contains("/")) {
             // search for full path
@@ -527,7 +527,7 @@ void Kwave::RIFFParser::listAllChunks(Kwave::RIFFChunk &parent,
                                       Kwave::RIFFChunkList &list)
 {
     list.append(&parent);
-    foreach (Kwave::RIFFChunk *chunk, parent.subChunks())
+    for (Kwave::RIFFChunk *chunk : parent.subChunks())
         if (chunk) listAllChunks(*chunk, list);
 }
 
@@ -536,9 +536,9 @@ Kwave::RIFFChunk *Kwave::RIFFParser::chunkAt(quint32 offset)
 {
     Kwave::RIFFChunkList list;
     listAllChunks(m_root, list);
-    foreach (Kwave::RIFFChunk *chunk, list)
+    for (Kwave::RIFFChunk *chunk : list)
         if (chunk && chunk->physStart() == offset) return chunk;
-        return nullptr;
+    return nullptr;
 }
 
 //***************************************************************************
@@ -556,7 +556,7 @@ Kwave::RIFFChunk *Kwave::RIFFParser::findMissingChunk(const QByteArray &name)
 
     int index = 0;
     int count = static_cast<int>(all_chunks.count());
-    foreach (Kwave::RIFFChunk *chunk, all_chunks) {
+    for (Kwave::RIFFChunk *chunk : all_chunks) {
         if (m_cancel) break;
         if (!chunk) continue;
         if (chunk->type() == Kwave::RIFFChunk::Garbage) {
@@ -569,7 +569,7 @@ Kwave::RIFFChunk *Kwave::RIFFParser::findMissingChunk(const QByteArray &name)
 
             // process the results -> convert them into chunks
             quint32 end = chunk->physEnd();
-            foreach (quint32 pos, offsets) {
+            for (quint32 pos : offsets) {
                 if (m_cancel) break;
                 quint32 len = end - pos + 1;
                 qDebug("found at [0x%08X...0x%08X] len=%u", pos, end, len);
@@ -588,7 +588,7 @@ Kwave::RIFFChunk *Kwave::RIFFParser::findMissingChunk(const QByteArray &name)
 
         // process the results -> convert them into chunks
         quint32 end = m_root.physEnd();
-        foreach (quint32 pos, offsets) {
+        for (quint32 pos : offsets) {
             if (m_cancel) break;
             quint32 len = end - pos + 1;
             qDebug("found at [0x%08X...0x%08X] len=%u", pos, end, len);
@@ -640,7 +640,7 @@ void Kwave::RIFFParser::collectGarbage()
         Kwave::RIFFChunkList chunks;
         listAllChunks(m_root, chunks);
 
-        foreach (Kwave::RIFFChunk *chunk, chunks) {
+        for (Kwave::RIFFChunk *chunk : chunks) {
             if (!chunk) continue;
             if (start_over || m_cancel) break;
 
@@ -649,7 +649,7 @@ void Kwave::RIFFParser::collectGarbage()
 
             Kwave::RIFFChunkList &subchunks = chunk->subChunks();
             bool contains_only_garbage = true;
-            foreach (const Kwave::RIFFChunk *sub, subchunks) {
+            for (const Kwave::RIFFChunk *sub : subchunks) {
                 if (m_cancel) break;
                 if (sub && (sub->type() != Kwave::RIFFChunk::Garbage)) {
                     contains_only_garbage = false;

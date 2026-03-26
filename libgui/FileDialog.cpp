@@ -205,7 +205,7 @@ void Kwave::FileDialog::saveConfig()
             pattern = pattern.left(i);
         }
         m_last_ext = _("");
-        foreach (const QString &mask, pattern.split(_(" "))) {
+        for (const QString &mask : pattern.split(_(" "))) {
             QRegularExpression regex{
                 QRegularExpression::wildcardToRegularExpression(mask)};
             if (file_name.indexOf(regex) >= 0) {
@@ -282,7 +282,7 @@ QString Kwave::FileDialog::guessFilterFromFileExt(const QString &pattern,
     // if there are multiple extensions in a list, iterate over them
     if (pattern.contains(_(" "))) {
         QStringList patterns = pattern.split(_(" "));
-        foreach (const QString &p, patterns) {
+        for (const QString &p : patterns) {
             QString f = guessFilterFromFileExt(p, mode);
             if (f.length()) return f;
         }
@@ -293,13 +293,13 @@ QString Kwave::FileDialog::guessFilterFromFileExt(const QString &pattern,
     QString filters = (mode == SaveFile) ?
         Kwave::CodecManager::encodingFilter() :
         Kwave::CodecManager::decodingFilter();
-    foreach (const QString &filter, filters.split(_(" "))) {
+    for (const QString &filter : filters.split(_(" "))) {
         QString p = filter;
         if (p.contains(_("|"))) {
             qsizetype i = p.indexOf(_("|"));
             p = p.left(i);
         }
-        foreach (const QString &mask, p.split(_(" "))) {
+        for (const QString &mask : p.split(_(" "))) {
             if (mask == pattern) {
 //              qDebug("MATCH from CodecManager: '%s' matches '%s' -> '%s'",
 //                     DBG(mask), DBG(pattern), DBG(filter));
@@ -312,7 +312,7 @@ QString Kwave::FileDialog::guessFilterFromFileExt(const QString &pattern,
     QMimeDatabase db;
     QList<QMimeType> mime_types = db.mimeTypesForFileName(pattern);
     if (!mime_types.isEmpty()) {
-        foreach (const QMimeType &m, mime_types) {
+        for (const QMimeType &m : mime_types) {
             if (m.isValid() && !m.isDefault()) {
                 QString filter_string =
                     m.globPatterns().join(_(" ")) + _("|") +

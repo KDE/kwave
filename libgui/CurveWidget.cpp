@@ -125,7 +125,7 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
 
     QStringList types = Kwave::Interpolation::descriptions(true);
     int id = 0;
-    foreach (const QString &text, types) {
+    for (const QString &text : types) {
         QAction *action = new(std::nothrow) QAction(interpolation);
         action->setText(text);
         action->setData(id++);
@@ -229,10 +229,10 @@ void Kwave::CurveWidget::loadPresetList()
     QStringList files;
     QStringList presetPaths = QStandardPaths::standardLocations(
         QStandardPaths::GenericDataLocation);
-    foreach (const QString &path, presetPaths) {
+    for (const QString &path : presetPaths) {
         QDir d(path + presetSubDir);
         QStringList f = d.entryList(QDir::Files, QDir::Name);
-        foreach (const QString &file, f) {
+        for (const QString &file : f) {
             QString preset = d.path() + s + file;
             if (!files.contains(preset)) files.append(preset);
         }
@@ -240,7 +240,7 @@ void Kwave::CurveWidget::loadPresetList()
     files.sort();
 
     m_preset_menu->clear();
-    foreach (const QString &file, files) {
+    for (const QString &file : files) {
         QFileInfo fi(file);
         QString name = fi.baseName();
         QAction *action = new(std::nothrow) QAction(name, m_preset_menu);
@@ -478,7 +478,7 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
     }
 
     // draw the points (knobs)
-    foreach (const Kwave::Curve::Point &pt, m_curve) {
+    for (const Kwave::Curve::Point &pt : m_curve) {
         int lx = Kwave::toInt(pt.x() * (m_width - 1));
         ly = (m_height - 1) - Kwave::toInt(pt.y() * (m_height - 1));
 

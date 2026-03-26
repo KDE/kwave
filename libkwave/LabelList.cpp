@@ -42,7 +42,7 @@ Kwave::LabelList::LabelList(const Kwave::MetaDataList &meta_data_list)
 
         if (!list.isEmpty()) {
             // append a label for each meta data object
-            foreach (const Kwave::MetaData &meta_data, list)
+            for (const Kwave::MetaData &meta_data : list)
                 append(Kwave::Label(meta_data));
         }
 
@@ -72,7 +72,7 @@ void Kwave::LabelList::sort()
 Kwave::MetaDataList Kwave::LabelList::toMetaDataList() const
 {
     Kwave::MetaDataList list;
-    foreach (const Kwave::Label &label, *this)
+    for (const Kwave::Label &label : *this)
         list.add(label);
     return list;
 }
@@ -83,7 +83,7 @@ sample_index_t Kwave::LabelList::nextLabelLeft(sample_index_t from)
     sample_index_t best  = 0;
     bool           found = false;
     if (!isEmpty()) {
-        foreach (const Kwave::Label &label, *this) {
+        for (const Kwave::Label &label : *this) {
             sample_index_t lp = label.pos();
             if (lp >= from) break;
             best  = lp;
@@ -97,7 +97,7 @@ sample_index_t Kwave::LabelList::nextLabelLeft(sample_index_t from)
 sample_index_t Kwave::LabelList::nextLabelRight(sample_index_t from)
 {
     if (!isEmpty()) {
-        foreach (const Kwave::Label &label, *this) {
+        for (const Kwave::Label &label : *this) {
             sample_index_t lp = label.pos();
             if (lp  > from)
                 return lp; // found the first label after "from"

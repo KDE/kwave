@@ -211,13 +211,13 @@ void Kwave::MetaData::dump() const
 
     qDebug("    scope =%s", DBG(scope_list));
     const QStringList props = keys();
-    foreach (const QString &name, props) {
+    for (const QString &name : props) {
         QVariant    val  = property(name);
         QStringList list = val.toStringList();
         if (list.size() > 1)
         {
             int index = 0;
-            foreach (const QString &v, list)
+            for (const QString &v : list)
             {
                 if (index > 32) {
                     qDebug("    ..."); // emergency break

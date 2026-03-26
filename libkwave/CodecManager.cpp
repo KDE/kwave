@@ -77,7 +77,7 @@ void Kwave::CodecManager::unregisterDecoder(Kwave::Decoder *decoder)
 //***************************************************************************
 bool Kwave::CodecManager::canDecode(const QString &mimetype_name)
 {
-    foreach (Kwave::Decoder *d, m_decoders)
+    for (Kwave::Decoder *d : m_decoders)
         if (d && d->supports(mimetype_name)) return true;
     return false;
 }
@@ -87,12 +87,12 @@ QString Kwave::CodecManager::mimeTypeOf(const QUrl &url)
 {
     const QString default_mime_type = QMimeType().name();
 
-    foreach (Kwave::Decoder *d, m_decoders) {
+    for (Kwave::Decoder *d : m_decoders) {
         if (!d) continue;
         QString mime_type = d->mimeTypeOf(url);
         if (mime_type != default_mime_type) return mime_type;
     }
-    foreach (Kwave::Encoder *e, m_encoders) {
+    for (Kwave::Encoder *e : m_encoders) {
         if (!e) continue;
         QString mime_type = e->mimeTypeOf(url);
         if (mime_type != default_mime_type) return mime_type;
@@ -106,9 +106,9 @@ QString Kwave::CodecManager::mimeTypeOf(const QUrl &url)
 QStringList Kwave::CodecManager::encodingMimeTypes()
 {
     QStringList list;
-    foreach (Kwave::Encoder *e, m_encoders) {
+    for (Kwave::Encoder *e : m_encoders) {
         if (!e) continue;
-        foreach (const Kwave::CodecBase::MimeType &mime_type, e->mimeTypes()) {
+        for (const Kwave::CodecBase::MimeType &mime_type : e->mimeTypes()) {
             QString name = mime_type.name;
             if (list.isEmpty() || !list.contains(name))
                 list.append(name);
@@ -120,7 +120,7 @@ QStringList Kwave::CodecManager::encodingMimeTypes()
 //***************************************************************************
 Kwave::Decoder *Kwave::CodecManager::decoder(const QString &mimetype_name)
 {
-    foreach (Kwave::Decoder *d, m_decoders)
+    for (Kwave::Decoder *d : m_decoders)
         if (d && d->supports(mimetype_name)) return d->instance();
     return nullptr;
 }
@@ -128,7 +128,7 @@ Kwave::Decoder *Kwave::CodecManager::decoder(const QString &mimetype_name)
 //***************************************************************************
 Kwave::Encoder *Kwave::CodecManager::encoder(const QString &mimetype_name)
 {
-    foreach (Kwave::Encoder *e, m_encoders)
+    for (Kwave::Encoder *e : m_encoders)
         if (e && e->supports(mimetype_name)) return e->instance();
     return nullptr;
 }
@@ -137,7 +137,7 @@ Kwave::Encoder *Kwave::CodecManager::encoder(const QString &mimetype_name)
 QString Kwave::CodecManager::encodingFilter()
 {
     QStringList list;
-    foreach (Kwave::Encoder *e, m_encoders) {
+    for (Kwave::Encoder *e : m_encoders) {
         // loop over all mime types that the encoder supports
         QList<Kwave::CodecBase::MimeType> types = e->mimeTypes();
         QListIterator<Kwave::CodecBase::MimeType> ti(types);
@@ -173,7 +173,7 @@ QString Kwave::CodecManager::decodingFilter()
     QStringList list;
     QStringList all_extensions;
 
-    foreach (Kwave::Decoder *d, m_decoders) {
+    for (Kwave::Decoder *d : m_decoders) {
         // loop over all mime types that the decoder supports
         QList<Kwave::CodecBase::MimeType> types = d->mimeTypes();
         QListIterator<Kwave::CodecBase::MimeType> ti(types);

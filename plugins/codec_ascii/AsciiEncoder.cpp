@@ -125,7 +125,7 @@ bool Kwave::AsciiEncoder::encode(QWidget *widget,
 
         // write out all labels
         Kwave::LabelList labels(meta_data);
-        foreach (const Kwave::Label &label, labels) {
+        for (const Kwave::Label &label : labels) {
             m_dst << META_PREFIX << "'label["
             << QString::number(label.pos()) << "]'='"
             << Kwave::Parser::escape(label.name()).toUtf8()

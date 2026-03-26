@@ -195,8 +195,8 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
     double       d_label             = tolerance;
     {
         unsigned int index = 0;
-        foreach (const Kwave::Label &label,
-            Kwave::LabelList(m_signal_manager->metaData()))
+        for (const Kwave::Label &label :
+             Kwave::LabelList(m_signal_manager->metaData()))
         {
             double d = qAbs(static_cast<double>(label.pos()) - fine_pos);
             if (d < qMin(d_label, tolerance)) {
@@ -407,8 +407,8 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 
         int last_marker = -1;
         const sample_index_t last_visible = lastVisible();
-        foreach (const Kwave::Label &label,
-                 Kwave::LabelList(m_signal_manager->metaData()))
+        for (const Kwave::Label &label :
+             Kwave::LabelList(m_signal_manager->metaData()))
         {
             sample_index_t pos = label.pos();
             if (pos < m_offset)     continue; // outside left

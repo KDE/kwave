@@ -137,7 +137,7 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
         QByteArray chunk_id = m_property_map.findProperty(property);
 
         QStringList list = properties[property].toStringList();
-        foreach (QString s, list)
+        for (QString s : list)
         {
             QByteArray raw = s.toUtf8();
             info_size += raw.length();
@@ -214,7 +214,7 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
 
     // now the size of the labels
     quint32 size_of_labels = 0;
-    foreach (const Kwave::Label &label, labels) {
+    for (const Kwave::Label &label : labels) {
         if (label.isNull()) continue;
         quint32 name_len = static_cast<quint32>(label.name().toUtf8().size());
         if (!name_len) continue; // skip zero-length names
@@ -253,7 +253,7 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
     dst.write(reinterpret_cast<char *>(&size), 4);
 
     index = 0;
-    foreach (const Kwave::Label &label, labels) {
+    for (const Kwave::Label &label : labels) {
         if (label.isNull()) continue;
         /*
          * typedef struct {
@@ -284,7 +284,7 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
         dst.write(reinterpret_cast<char *>(&size), 4);
         dst.write("adtl", 4);
         index = 0;
-        foreach (const Kwave::Label &label, labels) {
+        for (const Kwave::Label &label : labels) {
             if (label.isNull()) continue;
             QByteArray name = label.name().toUtf8();
 

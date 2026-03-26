@@ -294,7 +294,7 @@ void Kwave::SonagramPlugin::makeAllValid()
         m_valid.fill(true);
 
         const QList<QUuid> selected_tracks(m_selection->allTracks());
-        foreach (unsigned int track, signalManager().allTracks())
+        for (unsigned int track : signalManager().allTracks())
             if (selected_tracks.contains(signalManager().uuidOfTrack(track)))
                 track_list.append(track);
     }

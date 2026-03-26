@@ -222,7 +222,7 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
         qWarning("menu file not found in:");
         QStringList locations = QStandardPaths::standardLocations(
             QStandardPaths::GenericDataLocation);
-        foreach (const QString &location, locations)
+        for (const QString &location : locations)
         {
             qWarning("    '%s'", DBG(location));
         }
@@ -352,7 +352,7 @@ int Kwave::FileContext::executeCommand(const QString &line)
     Kwave::Parser parse_list(command);
     if (parse_list.hasMultipleCommands()) {
         QStringList macro = parse_list.commandList();
-        foreach (const QString &it, macro) {
+        for (const QString &it : macro) {
             result = executeCommand(_("nomacro:") + it);
             Q_ASSERT(!result);
             if (result) {
@@ -548,7 +548,7 @@ void Kwave::FileContext::metaDataChanged(Kwave::MetaDataList meta_data)
         // filter out all instances of our file name
         QString our_name = signalName();
         QList<int> existing_instances;
-        foreach (const Kwave::App::FileAndInstance &it, files) {
+        for (const Kwave::App::FileAndInstance &it : files) {
             const QString &name = it.first;
             int            inst = it.second;
             if (name == our_name) existing_instances.append(inst);

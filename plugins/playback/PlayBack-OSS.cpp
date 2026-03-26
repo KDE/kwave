@@ -388,7 +388,7 @@ QStringList Kwave::PlayBackOSS::supportedDevices()
     scanDirectory(list, _("/dev/snd"));
     scanDirectory(list, _("/dev/sound"));
     scanFiles(dirlist, _("/dev/oss"), _("[^.]*"));
-    foreach (QString dir, dirlist)
+    for (QString dir : dirlist)
         scanDirectory(list, dir);
     list.append(_("#EDIT#"));
     list.append(_("#SELECT#"));

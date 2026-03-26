@@ -41,7 +41,7 @@ Kwave::MultiTrackReader::MultiTrackReader(
 {
     unsigned int index = 0;
 
-    foreach(unsigned int track, track_list) {
+    for (unsigned int track : track_list) {
         Kwave::SampleReader *s = signal_manager.openReader(
             mode, track, first, last);
         if (!s) break;

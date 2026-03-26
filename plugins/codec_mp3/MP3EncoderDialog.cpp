@@ -726,7 +726,7 @@ QString Kwave::MP3EncoderDialog::searchPath(const QString &program)
     QString d = f.path();
     if (d.length()) path.prepend(d);
 
-    foreach (const QString &dir, path) {
+    for (const QString &dir : path) {
         QString p = dir;
         if (!p.endsWith(QDir::separator()))
             p += QDir::separator();

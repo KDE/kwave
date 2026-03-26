@@ -385,7 +385,7 @@ pa_sample_format_t Kwave::RecordPulseAudio::mode2format(
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
-    foreach (const pa_sample_format_t &fmt, m_supported_formats)
+    for (const pa_sample_format_t &fmt : m_supported_formats)
     {
         if (compression_of(fmt) != compression) continue;
         if (bits_of(fmt) != bits) continue;
@@ -435,7 +435,7 @@ QList<Kwave::SampleFormat::Format>
     QList<Kwave::SampleFormat::Format> list;
 
     // try all known sample formats
-    foreach (const pa_sample_format_t &fmt, m_supported_formats)
+    for (const pa_sample_format_t &fmt : m_supported_formats)
     {
         const Kwave::SampleFormat::Format sample_format = sample_format_of(fmt);
 
@@ -476,7 +476,7 @@ QList< unsigned int > Kwave::RecordPulseAudio::supportedBits()
     QList<unsigned int> list;
 
     // try all known sample formats
-    foreach(const pa_sample_format_t &fmt, m_supported_formats)
+    for (const pa_sample_format_t &fmt : m_supported_formats)
     {
         const unsigned int bits = bits_of(fmt);
 
@@ -519,7 +519,7 @@ QList<Kwave::Compression::Type> Kwave::RecordPulseAudio::detectCompressions()
     QList<Kwave::Compression::Type> list;
 
     // try all known sample formats
-    foreach (const pa_sample_format_t &fmt, m_supported_formats)
+    for (const pa_sample_format_t &fmt : m_supported_formats)
     {
         Kwave::Compression::Type compression = compression_of(fmt);
 

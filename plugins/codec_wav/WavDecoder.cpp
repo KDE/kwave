@@ -83,7 +83,7 @@ Kwave::WavDecoder::WavDecoder()
     m_known_chunks.append(_("smpl")); /* Sampler */
 
     // add all sub-chunks of the LIST chunk (properties)
-    foreach (const QByteArray &name, m_property_map.chunks())
+    for (const QByteArray &name : m_property_map.chunks())
         m_known_chunks.append(QLatin1String(name));
 
     // some chunks known from AIFF format
@@ -445,7 +445,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     if (info_chunk) {
         // found info chunk !
         Kwave::RIFFChunkList &list = info_chunk->subChunks();
-        foreach (Kwave::RIFFChunk *chunk, list) {
+        for (Kwave::RIFFChunk *chunk : list) {
             if (!chunk) continue;
             if (!m_property_map.containsChunk(chunk->name())) continue;
 
@@ -735,7 +735,7 @@ bool Kwave::WavDecoder::repairChunk(
 
     // recursively go over all sub-chunks
     Kwave::RIFFChunkList &list = chunk->subChunks();
-    foreach (Kwave::RIFFChunk *c, list) {
+    for (Kwave::RIFFChunk *c : list) {
         if (!c) continue;
         if (!repairChunk(repair_list, c, offset))
             return false;
@@ -782,7 +782,7 @@ bool Kwave::WavDecoder::repair(QList<Kwave::RecoverySource *> *repair_list,
     // NOTE: The sizes might be re-assigned and get invalid afterwards!!!
     if (riff_chunk) {
         Kwave::RIFFChunkList &list = riff_chunk->subChunks();
-        foreach (Kwave::RIFFChunk *chunk, list) {
+        for (Kwave::RIFFChunk *chunk : list) {
             if (!chunk) continue;
             if (chunk->name() == "fmt ") continue;
             if (chunk->name() == "data") continue;

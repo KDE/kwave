@@ -31,7 +31,7 @@ QList<Kwave::FileProperty> Kwave::Encoder::unsupportedProperties(
     const QList<Kwave::FileProperty> supported(supportedProperties());
     const Kwave::FileInfo info;
 
-    foreach (const Kwave::FileProperty &s, properties_to_check) {
+    for (const Kwave::FileProperty &s : properties_to_check) {
         if (info.canLoadSave(s) && !supported.contains(s))
             unsupported.append(s);
     }

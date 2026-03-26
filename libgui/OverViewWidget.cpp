@@ -399,7 +399,7 @@ void Kwave::OverViewWidget::calculateBitmap()
 
     // draw labels
     int last_label_pos = width + 1;
-    foreach (const Kwave::Label &label, m_labels) {
+    for (const Kwave::Label &label : m_labels) {
         sample_index_t pos = label.pos();
         int x = Kwave::toInt(static_cast<double>(pos) * scale);
 

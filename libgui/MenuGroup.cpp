@@ -80,7 +80,7 @@ void Kwave::MenuGroup::leave(Kwave::MenuNode *node)
 //*****************************************************************************
 void Kwave::MenuGroup::setEnabled(bool enable)
 {
-    foreach (Kwave::MenuNode *member, m_members) {
+    for (Kwave::MenuNode *member : m_members) {
         if (member) member->setEnabled(enable);
     }
 }
@@ -90,7 +90,7 @@ void Kwave::MenuGroup::selectItem(const QString &uid)
 {
     Kwave::MenuNode *new_selection = nullptr;
 
-    foreach (Kwave::MenuNode *member, m_members) {
+    for (Kwave::MenuNode *member : m_members) {
         if (member == nullptr) continue;
         if (uid == member->uid())
             new_selection = member;    // new selected member found !

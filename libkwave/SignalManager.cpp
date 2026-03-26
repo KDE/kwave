@@ -353,7 +353,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
             file_info.properties().keys());
         if (!unsupported.isEmpty()) {
             QString list_of_lost_properties = _("\n");
-            foreach (const Kwave::FileProperty &p, unsupported) {
+            for (const Kwave::FileProperty &p : unsupported) {
                 list_of_lost_properties +=
                     i18n(UTF8(file_info.name(p))) + _("\n");
             }
@@ -742,7 +742,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 
         // the last label <= selection start -> label_left
         // the first label >= selection end  -> label_right
-        foreach (const Kwave::Label &label, labels) {
+        for (const Kwave::Label &label : labels) {
             sample_index_t lp = label.pos();
             if (lp <= selection_left)
                 label_left = label;
@@ -807,7 +807,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
         if (labels.isEmpty()) return false; // we need labels for this
 
         // find the last label before the start of the selection
-        foreach (const Kwave::Label &label, labels) {
+        for (const Kwave::Label &label : labels) {
             if (label.pos() > selection_left)
                 break; // done
             label_left  = label_right;
@@ -839,15 +839,15 @@ int Kwave::SignalManager::executeCommand(const QString &command)
     // track selection
     CASE_COMMAND("select_track:all")
         Kwave::UndoTransactionGuard undo(*this, i18n("Select All Tracks"));
-        foreach (unsigned int track, allTracks())
+        for (unsigned int track : allTracks())
             selectTrack(track, true);
     CASE_COMMAND("select_track:none")
         Kwave::UndoTransactionGuard undo(*this, i18n("Deselect all tracks"));
-        foreach (unsigned int track, allTracks())
+        for (unsigned int track : allTracks())
             selectTrack(track, false);
     CASE_COMMAND("select_track:invert")
         Kwave::UndoTransactionGuard undo(*this, i18n("Invert Track Selection"));
-        foreach (unsigned int track, allTracks())
+        for (unsigned int track : allTracks())
             selectTrack(track, !trackSelected(track));
     CASE_COMMAND("select_track:on")
         unsigned int track = parser.toUInt();
@@ -874,7 +874,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
         QString value    = parser.nextParam();
         Kwave::FileInfo info(m_meta_data);
         bool found = false;
-        foreach (Kwave::FileProperty p, info.allKnownProperties()) {
+        for (Kwave::FileProperty p : info.allKnownProperties()) {
             if (info.name(p) == property) {
                 if (value.length())
                     info.set(p, QVariant(value)); // add/modify
@@ -1064,7 +1064,7 @@ bool Kwave::SignalManager::deleteRange(sample_index_t offset,
 
     // delete the ranges in all tracks
     // (this makes all metadata positions after the selected range invalid)
-    foreach (unsigned int track, track_list) {
+    for (unsigned int track : track_list) {
         m_signal.deleteRange(track, offset, length);
     }
 
@@ -1096,7 +1096,7 @@ bool Kwave::SignalManager::insertSpace(sample_index_t offset,
     }
 
     // then insert space into all tracks
-    foreach (unsigned int track, track_list) {
+    for (unsigned int track : track_list) {
         m_signal.insertSpace(track, offset, length);
     }
 
@@ -1147,7 +1147,7 @@ QList<Kwave::Stripe::List> Kwave::SignalManager::stripes(
 {
     QList<Kwave::Stripe::List> stripes;
 
-    foreach (unsigned int track, track_list) {
+    for (unsigned int track : track_list) {
         Kwave::Stripe::List s = m_signal.stripes(track, left, right);
         if (s.isEmpty()) {
             stripes.clear(); // something went wrong -> abort
@@ -1459,10 +1459,10 @@ qint64 Kwave::SignalManager::usedUndoRedoMemory()
 {
     qint64 size = 0;
 
-    foreach (Kwave::UndoTransaction *undo, m_undo_buffer)
+    for (Kwave::UndoTransaction *undo : m_undo_buffer)
         if (undo) size += undo->undoSize();
 
-    foreach (Kwave::UndoTransaction *redo, m_redo_buffer)
+    for (Kwave::UndoTransaction *redo : m_redo_buffer)
         if (redo) size += redo->undoSize();
 
     return size;
@@ -1638,7 +1638,7 @@ void Kwave::SignalManager::undo()
     // that has to do with modification of the signal
     if (m_modified) {
         bool stay_modified = false;
-        foreach (Kwave::UndoTransaction *transaction, m_undo_buffer) {
+        for (Kwave::UndoTransaction *transaction : m_undo_buffer) {
             if (!transaction) continue;
             if (transaction->containsModification()) {
                 stay_modified = true;
@@ -1825,7 +1825,7 @@ void Kwave::SignalManager::setFileInfo(const Kwave::FileInfo &new_info,
 Kwave::Label Kwave::SignalManager::findLabel(sample_index_t pos)
 {
     Kwave::LabelList labels(m_meta_data);
-    foreach (const Kwave::Label &label, labels) {
+    for (const Kwave::Label &label : labels) {
         if (label.pos() == pos) return label; // found it
     }
     return Kwave::Label(); // nothing found
@@ -1836,7 +1836,7 @@ int Kwave::SignalManager::labelIndex(const Kwave::Label &label) const
 {
     int index = 0;
     Kwave::LabelList labels(m_meta_data);
-    foreach (const Kwave::Label &l, labels) {
+    for (const Kwave::Label &l : labels) {
         if (l == label) return index; // found it
         index++;
     }

@@ -64,7 +64,7 @@ QString Kwave::UndoDeleteMetaDataAction::description()
 
     // check if the list contains only objects of the same type
     bool all_same_type = true;
-    foreach (const Kwave::MetaData &m, m_meta_data) {
+    for (const Kwave::MetaData &m : m_meta_data) {
         QString n = m[Kwave::MetaData::STDPROP_TYPE].toString();
         if (!n.length() || (n != name)) {
             all_same_type = false;
@@ -128,16 +128,16 @@ Kwave::UndoAction *Kwave::UndoDeleteMetaDataAction::undo(
 //***************************************************************************
 void Kwave::UndoDeleteMetaDataAction::dump(const QString &indent)
 {
-    foreach (const Kwave::MetaData &m, m_meta_data) {
+    for (const Kwave::MetaData &m : m_meta_data) {
         qDebug("%sundo delete meta data object '%s'",
                DBG(indent), DBG(m.id()));
 
         // dump all properties of the object
-        foreach (const QString &key, m.keys()) {
+        for (const QString &key : m.keys()) {
             QVariant v = m[key];
             QString value;
             if (v.typeId() == QMetaType::QVariantList) {
-                foreach (const QVariant &v1, v.toList())
+                for (const QVariant &v1 : v.toList())
                     value += _("'") + v1.toString() + _("' ");
             } else {
                 value = v.toString();

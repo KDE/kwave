@@ -293,7 +293,7 @@ namespace Kwave
     );
 
 #define REGISTER_COMPRESSION_TYPES \
-    foreach (Kwave::Compression::Type c, Kwave::audiofileCompressionTypes()) \
+    for (Kwave::Compression::Type c : Kwave::audiofileCompressionTypes()) \
         addCompression(c);
 
 #endif /* WAV_FILE_FORMAT_H */

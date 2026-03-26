@@ -182,7 +182,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 
             // mime type does not match compression -> switch
             QList<Kwave::Compression::Type> comps_found;
-            foreach (Kwave::Compression::Type c, comps) {
+            for (Kwave::Compression::Type c : comps) {
                 Kwave::Compression cmp(c);
                 if ((cmp.preferredMimeType() == mimetype) &&
                      comps.contains(c))
@@ -280,7 +280,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     cbSampleFormat->clear();
     Kwave::SampleFormat::Map sf;
     const QList<int> formats = sf.keys();
-    foreach (const int &k, formats) {
+    for (const int &k : formats) {
         cbSampleFormat->addItem(
             sf.description(k, true),
             QVariant(Kwave::SampleFormat(sf.data(k)).toInt())
@@ -617,12 +617,12 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
         supported_compressions.append(Kwave::Compression::NONE);
 
         QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
-        foreach (QString m, mime_types) {
+        for (QString m : mime_types) {
             Kwave::Encoder *encoder = Kwave::CodecManager::encoder(m);
             if (!encoder) continue;
             QList<Kwave::Compression::Type> comps =
                 encoder->compressionTypes();
-            foreach (Kwave::Compression::Type c, comps)
+            for (Kwave::Compression::Type c : comps)
                 if (!supported_compressions.contains(c))
                     supported_compressions.append(c);
         }
@@ -634,7 +634,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
 
     // add supported compressions to the combo box
     cbCompression->clear();
-    foreach (Kwave::Compression::Type c, supported_compressions) {
+    for (Kwave::Compression::Type c : supported_compressions) {
         Kwave::Compression compression(c);
         cbCompression->addItem(compression.name(), compression.toInt());
     }
@@ -681,7 +681,7 @@ void Kwave::FileInfoDialog::compressionChanged()
             // only one single encoder which also supports only one single
             // mime type
             QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
-            foreach (const QString &mime_type, mime_types) {
+            for (const QString &mime_type : mime_types) {
                 Kwave::Encoder *encoder =
                     Kwave::CodecManager::encoder(mime_type);
                 if (!encoder) continue;

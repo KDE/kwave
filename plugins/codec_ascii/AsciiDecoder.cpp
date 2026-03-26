@@ -182,7 +182,7 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
             }
 
             bool found = false;
-            foreach (const Kwave::FileProperty &p, info.allKnownProperties()) {
+            for (const Kwave::FileProperty &p : info.allKnownProperties()) {
                 if (info.name(p).toLower() == name.toLower()) {
                     found = true;
                     info.set(p, QVariant(value));

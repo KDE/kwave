@@ -170,7 +170,7 @@ void Kwave::PluginManager::stopAllPlugins()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty()) {
-        foreach (const KwavePluginPointer &plugin, m_plugin_instances)
+        for (const KwavePluginPointer &plugin : m_plugin_instances)
             if (plugin && plugin->isRunning())
                 plugin->stop() ;
     }
@@ -275,7 +275,7 @@ int Kwave::PluginManager::executePlugin(const QString &name,
             // macro recorder
             command = _("plugin:execute(");
             command += name;
-            foreach (const QString &p, *params)
+            for (const QString &p : *params)
                 command += _(", ") + p;
             delete params;
             command += _(")");
@@ -301,7 +301,7 @@ bool Kwave::PluginManager::canClose()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty()) {
-        foreach (const KwavePluginPointer &plugin, m_plugin_instances)
+        for (const KwavePluginPointer &plugin : m_plugin_instances)
             if (plugin && !plugin->canClose()) return false;
     }
 
@@ -316,7 +316,7 @@ bool Kwave::PluginManager::onePluginRunning()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty()) {
-        foreach (const KwavePluginPointer &plugin, m_plugin_instances)
+        for (const KwavePluginPointer &plugin : m_plugin_instances)
             if (plugin && plugin->isRunning()) return true;
     }
 
@@ -629,7 +629,7 @@ void Kwave::PluginManager::searchPluginModules()
 
     QVector<KPluginMetaData> plugins_meta_data =
         KPluginMetaData::findPlugins(_("kwave"));
-    foreach (const KPluginMetaData &i, plugins_meta_data) {
+    for (const KPluginMetaData &i : plugins_meta_data) {
         QString library     = i.fileName();
         QString description = i.name();
         QString name        = i.pluginId();

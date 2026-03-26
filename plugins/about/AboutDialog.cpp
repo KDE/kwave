@@ -80,7 +80,7 @@ Kwave::AboutDialog::AboutDialog(
         new(std::nothrow) Kwave::AboutContainer(this);
     Q_ASSERT(about);
     if (!about) return;
-    foreach (const KAboutPerson &author, about_data.authors()) {
+    for (const KAboutPerson &author : about_data.authors()) {
         about->addPerson(
             author.name(),
             author.emailAddress(),
@@ -97,7 +97,7 @@ Kwave::AboutDialog::AboutDialog(
     Q_ASSERT(contrib);
     if (!contrib) return;
 
-    foreach (const KAboutPerson &credit, about_data.credits()) {
+    for (const KAboutPerson &credit : about_data.credits()) {
         contrib->addPerson(
             credit.name(),
             credit.emailAddress(),
@@ -137,7 +137,7 @@ Kwave::AboutDialog::AboutDialog(
     QList<Kwave::PluginManager::PluginModule> list = plugin_info;
     if (!list.isEmpty()) {
         std::sort(list.begin(), list.end(), pluginInfoDescriptionLessThan);
-        foreach (const Kwave::PluginManager::PluginModule &info, list) {
+        for (const Kwave::PluginManager::PluginModule &info : list) {
             QStringList item;
             item << info.m_description
                  << info.m_version
@@ -190,12 +190,12 @@ Kwave::AboutDialog::AboutDialog(
         (translators.first().name() == _(NAME_OF_TRANSLATORS))) ) {
         tabwidget->removeTab(4);
     } else {
-        foreach (const KAboutPerson &translator, translators) {
+        for (const KAboutPerson &translator : translators) {
             QString website = translator.webAddress();
 
             // if the translator is already listed in the "authors" section,
             // give him the same web address
-            foreach (const KAboutPerson &author, about_data.authors())
+            for (const KAboutPerson &author : about_data.authors())
                 if (author.name() == translator.name()) {
                     website = author.webAddress();
                     break;
@@ -203,7 +203,7 @@ Kwave::AboutDialog::AboutDialog(
 
             // if the translator is already listed in the "credits" section,
             // give him the same web address
-            foreach (const KAboutPerson &credit, about_data.credits())
+            for (const KAboutPerson &credit : about_data.credits())
                 if (credit.name() == translator.name()) {
                     website = credit.webAddress();
                     break;
@@ -230,7 +230,7 @@ Kwave::AboutDialog::AboutDialog(
     /* the frame containing the license(s) */
     licenseframe->setReadOnly(true);
     QString licenses;
-    foreach (const KAboutLicense &license, about_data.licenses()) {
+    for (const KAboutLicense &license : about_data.licenses()) {
         licenses += license.text();
     }
     licenseframe->setText(licenses);

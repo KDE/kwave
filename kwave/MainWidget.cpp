@@ -1012,7 +1012,7 @@ int Kwave::MainWidget::saveLabels(const QString &filename)
     QTextStream out(&file);
 
     Kwave::LabelList labels(signal_manager->metaData());
-    foreach (const Kwave::Label &label, labels) {
+    for (const Kwave::Label &label : labels) {
         sample_index_t pos = label.pos();
         const QString name = Kwave::Parser::escape(label.name());
         out << _("label:add(") << pos;

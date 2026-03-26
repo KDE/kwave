@@ -607,13 +607,13 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
     // check the supported sample rates
     QList<double> supported_rates = m_device->detectSampleRates();
     bool is_supported = false;
-    foreach (const double &r, supported_rates)
+    for (const double &r : supported_rates)
         if (qFuzzyCompare(new_rate, r)) { is_supported = true; break; }
     double rate = new_rate;
     if (!is_supported && !supported_rates.isEmpty()) {
         // find the nearest sample rate
         double nearest = supported_rates.last();
-        foreach (double r, supported_rates) {
+        for (double r : supported_rates) {
             if (fabs(r - rate) <= fabs(nearest - rate))
                 nearest = r;
         }
@@ -732,7 +732,7 @@ void Kwave::RecordPlugin::changeBitsPerSample(unsigned int new_bits)
     if (!supported_bits.contains(bits) && !supported_bits.isEmpty()) {
         // find the nearest resolution
         int nearest = supported_bits.last();
-        foreach (unsigned int b, supported_bits) {
+        for (unsigned int b : supported_bits) {
             if (qAbs(Kwave::toInt(b) - nearest) <= qAbs(bits - nearest))
                 nearest = Kwave::toInt(b);
         }

@@ -160,7 +160,7 @@ QString Kwave::SaveBlocksPlugin::createDisplayList(
     QString retval;
     unsigned int count = 0;
 
-    foreach (const QString &entry, list) {
+    for (const QString &entry : list) {
         if (count == 0) // first entry
             retval = _("<br><br>");
         if (count < max_entries)
@@ -295,7 +295,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 
         // create all missing directories
         QUrl base_url = m_url.adjusted(QUrl::RemoveFilename);
-        foreach (const QString &missing, missing_dirs) {
+        for (const QString &missing : missing_dirs) {
             QUrl url(base_url);
             url.setPath(
                 QString::fromLatin1(QUrl::toPercentEncoding(missing)),
@@ -374,7 +374,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
             // and prevent any further annoying questions by removing all
             // unsupported file info before the next run...
             if ((index == first) && !unsupported_properties.isEmpty()) {
-                foreach (const Kwave::FileProperty &p, unsupported_properties) {
+                for (const Kwave::FileProperty &p : unsupported_properties) {
                     file_info.set(p, QVariant());
                 }
                 signalManager().metaData().replace(

@@ -336,8 +336,8 @@ Kwave::FileInfo::FileInfo(const Kwave::MetaDataList &meta_data_list)
 {
     setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
 
-    foreach (const Kwave::MetaData &meta_data, meta_data_list) {
-        foreach (Kwave::FileProperty key, m_property_map.keys()) {
+    for (const Kwave::MetaData &meta_data : meta_data_list) {
+        for (Kwave::FileProperty key : m_property_map.keys()) {
             QString name = FILE_INFO_PROPERTY_PREFIX +
                 m_property_map.name(key);
             if (meta_data.hasProperty(name)) {
@@ -393,7 +393,7 @@ QList<Kwave::FileProperty> Kwave::FileInfo::allKnownProperties() const
 const QMap<Kwave::FileProperty, QVariant> Kwave::FileInfo::properties() const
 {
     QMap<Kwave::FileProperty, QVariant> map;
-    foreach (Kwave::FileProperty key, m_property_map.keys()) {
+    for (Kwave::FileProperty key : m_property_map.keys()) {
         if (!contains(key)) continue;
         map[key] = get(key);
     }
@@ -481,13 +481,13 @@ void Kwave::FileInfo::dump() const
     qDebug("   tracks = %u", tracks());
 
 //     qDebug("labels:");
-//     foreach (Kwave::Label label, m_labels) {
+//     for (Kwave::Label label : m_labels) {
 //      qDebug("   [%10lu] = '%s'", static_cast<unsigned long int>(label.pos()),
 //                                 DBG(label.name()));
 //     }
 
     qDebug("other properties:");
-    foreach (Kwave::FileProperty key, m_property_map.keys()) {
+    for (Kwave::FileProperty key : m_property_map.keys()) {
         if (!contains(key)) continue;
         QString     name = m_property_map.name(key);
         QVariant    val  = get(key);
@@ -495,7 +495,7 @@ void Kwave::FileInfo::dump() const
         if (list.size() > 1)
         {
             int index = 0;
-            foreach (const QString &s, list)
+            for (const QString &s : list)
             {
                 if (index > 32) {
                     qDebug("    ..."); // emergency break

@@ -56,7 +56,7 @@ Kwave::OverViewCache::OverViewCache(Kwave::SignalManager &signal,
     );
 
     // take over the initial list of tracks
-    foreach (const QUuid &uuid, m_selection.allTracks())
+    for (const QUuid &uuid : m_selection.allTracks())
         slotTrackInserted(uuid);
 }
 
@@ -278,7 +278,7 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 
     QVector<unsigned int> track_list;
     const QList<QUuid> selected_tracks = m_selection.allTracks();
-    foreach (unsigned int track, m_signal.allTracks())
+    for (unsigned int track : m_signal.allTracks())
         if (selected_tracks.contains(m_signal.uuidOfTrack(track)))
             track_list.append(track);
     if (track_list.isEmpty())

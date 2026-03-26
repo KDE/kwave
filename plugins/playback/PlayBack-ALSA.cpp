@@ -263,7 +263,7 @@ int Kwave::PlayBackALSA::mode2format(int bits)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
-    foreach (int index, m_supported_formats) {
+    for (int index : m_supported_formats) {
         const snd_pcm_format_t *fmt = &_known_formats[index];
 
         if (snd_pcm_format_width(*fmt) != bits) continue;
@@ -311,7 +311,7 @@ QList<int> Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
         const snd_pcm_format_t *fmt = &(_known_formats[i]);
 
         // eliminate duplicate alsa sample formats (e.g. BE/LE)
-        foreach (int index, m_supported_formats) {
+        for (int index : m_supported_formats) {
             const snd_pcm_format_t *f = &_known_formats[index];
             if (*f == *fmt) {
                 fmt = nullptr;
@@ -949,7 +949,7 @@ QList<unsigned int> Kwave::PlayBackALSA::supportedBits(const QString &device)
 
     // try all known sample formats
     supported_formats = detectSupportedFormats(device);
-    foreach (int index, supported_formats) {
+    for (int index : supported_formats) {
         const snd_pcm_format_t *fmt = &(_known_formats[index]);
         const unsigned int bits = snd_pcm_format_width(*fmt);
 

@@ -242,7 +242,7 @@ void Kwave::RecordALSA::detectSupportedFormats()
         const snd_pcm_format_t *fmt = &(_known_formats[i]);
 
         // eliminate duplicate alsa sample formats (e.g. BE/LE)
-        foreach (int it, m_supported_formats) {
+        for (int it : m_supported_formats) {
             const snd_pcm_format_t *f = &_known_formats[it];
             if (*f == *fmt) {
                 fmt = nullptr;
@@ -775,7 +775,7 @@ QList<double> Kwave::RecordALSA::detectSampleRates()
 
         // do not produce duplicates
         bool is_duplicate = false;
-        foreach (const double &r, list)
+        for (const double &r : list)
             if (qFuzzyCompare(rate, r)) { is_duplicate = true; break; }
         if (is_duplicate) continue;
 
@@ -807,7 +807,7 @@ int Kwave::RecordALSA::mode2format(Kwave::Compression::Type compression,
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
-    foreach (int index, m_supported_formats)
+    for (int index : m_supported_formats)
     {
         const snd_pcm_format_t *fmt = &_known_formats[index];
 
@@ -833,7 +833,7 @@ QList<Kwave::Compression::Type> Kwave::RecordALSA::detectCompressions()
     QList<Kwave::Compression::Type> list;
 
     // try all known sample formats
-    foreach(int it, m_supported_formats)
+    for (int it : m_supported_formats)
     {
         const snd_pcm_format_t *fmt = &(_known_formats[it]);
         Kwave::Compression::Type comp = compression_of(*fmt);
@@ -870,7 +870,7 @@ QList<unsigned int> Kwave::RecordALSA::supportedBits()
     QList<unsigned int> list;
 
     // try all known sample formats
-    foreach(int it, m_supported_formats)
+    for (int it : m_supported_formats)
     {
         const snd_pcm_format_t *fmt = &(_known_formats[it]);
         const unsigned int bits = snd_pcm_format_width(*fmt);
@@ -911,7 +911,7 @@ QList<Kwave::SampleFormat::Format> Kwave::RecordALSA::detectSampleFormats()
     QList<Kwave::SampleFormat::Format> list;
 
     // try all known sample formats
-    foreach(int it, m_supported_formats)
+    for (int it : m_supported_formats)
     {
         const snd_pcm_format_t *fmt = &(_known_formats[it]);
         const Kwave::SampleFormat::Format sample_format =

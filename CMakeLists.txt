@@ -108,11 +108,6 @@ INCLUDE(CheckFunctionExists)
 INCLUDE(FindRequiredProgram)
 
 #############################################################################
-### toplevel compiler flags                                               ###
-
-ADD_DEFINITIONS(-DHAVE_CONFIG_H)
-
-#############################################################################
 
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)

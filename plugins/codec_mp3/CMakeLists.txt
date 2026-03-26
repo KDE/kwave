@@ -58,6 +58,18 @@ IF (WITH_MP3)
         ${LIBMAD} ${ID3LIB} stdc++ z
     )
 
+    INCLUDE(CheckCXXCompilerFlag)
+    CHECK_CXX_COMPILER_FLAG("-Wno-non-virtual-dtor" HAVE_WNO_NON_VIRTUAL_DTOR)
+    IF (HAVE_WNO_NON_VIRTUAL_DTOR)
+        SET_SOURCE_FILES_PROPERTIES(
+            MP3Decoder.cpp
+            MP3Encoder.cpp
+            ID3_QIODeviceReader.cpp
+            ID3_QIODeviceWriter.cpp
+            PROPERTIES COMPILE_FLAGS "-Wno-non-virtual-dtor"
+        )
+    ENDIF (HAVE_WNO_NON_VIRTUAL_DTOR)
+
     KWAVE_PLUGIN(codec_mp3)
 
 ENDIF (WITH_MP3)

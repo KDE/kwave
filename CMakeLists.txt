@@ -118,32 +118,6 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 
 #############################################################################
-### Qt support                                                            ###
-
-SET(CMAKE_AUTOMOC TRUE)
-SET(CMAKE_AUTOMOC_RELAXED_MODE FALSE)
-
-FIND_PACKAGE(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
-    Concurrent
-    Core
-    Widgets
-)
-
-# NOTE: this must be *after* FIND_PACKAGE(Qt5 Core ...), otherwise it would
-#       be overwritten and produce many annoying build warnings
-LIST(APPEND CMAKE_AUTOMOC_MACRO_NAMES "KWAVE_PLUGIN")
-
-# Qt Multimedia support
-OPTION(WITH_QT_AUDIO "enable playback via Qt Multimedia [default=on]" ON)
-IF (WITH_QT_AUDIO)
-    SET(HAVE_QT_AUDIO_SUPPORT on)
-    FIND_PACKAGE(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
-        Multimedia
-    )
-ENDIF (WITH_QT_AUDIO)
-
-
-#############################################################################
 ### KF support                                                            ###
 
 FIND_PACKAGE(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
@@ -152,7 +126,7 @@ SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH}  )
 INCLUDE(KDEInstallDirs)
 INCLUDE(KDECompilerSettings NO_POLICY_SCOPE)
 REMOVE_DEFINITIONS(
-    -DQT_NO_FOREACH
+    # -DQT_NO_FOREACH
     -DQT_NO_KEYWORDS
 )
 INCLUDE(KDECMakeSettings)
@@ -195,6 +169,31 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
 )
+
+#############################################################################
+### Qt support                                                            ###
+
+SET(CMAKE_AUTOMOC TRUE)
+SET(CMAKE_AUTOMOC_RELAXED_MODE FALSE)
+
+FIND_PACKAGE(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
+    Concurrent
+    Core
+    Widgets
+)
+
+# NOTE: this must be *after* FIND_PACKAGE(Qt5 Core ...), otherwise it would
+#       be overwritten and produce many annoying build warnings
+LIST(APPEND CMAKE_AUTOMOC_MACRO_NAMES "KWAVE_PLUGIN")
+
+# Qt Multimedia support
+OPTION(WITH_QT_AUDIO "enable playback via Qt Multimedia [default=on]" ON)
+IF (WITH_QT_AUDIO)
+    SET(HAVE_QT_AUDIO_SUPPORT on)
+    FIND_PACKAGE(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
+        Multimedia
+    )
+ENDIF (WITH_QT_AUDIO)
 
 #############################################################################
 

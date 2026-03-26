@@ -58,13 +58,14 @@ Kwave::Logger::~Logger()
 }
 
 //***************************************************************************
-bool Kwave::Logger::open(const QString& filename)
+bool Kwave::Logger::open(const QString &filename)
 {
     if (m_logfile) {
         qWarning("reopening log file");
         log(nullptr, Kwave::Logger::Info, _("--- CLOSED / REOPEN ---"));
         m_logfile->flush();
         delete m_logfile;
+        m_logfile = nullptr;
     }
     qDebug("logging to file: '%s'", DBG(filename));
 
@@ -72,15 +73,17 @@ bool Kwave::Logger::open(const QString& filename)
     m_logfile = new(std::nothrow) QFile(name);
     Q_ASSERT(m_logfile);
 
-    if (m_logfile) m_logfile->open(
-        QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
-    if (!m_logfile || (!m_logfile->isWritable())) {
-        if (Kwave::MessageBox::warningContinueCancel(nullptr,
+    bool log_is_open = false;
+    if (m_logfile) log_is_open = m_logfile->open(
+            QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
+    if (!log_is_open || !m_logfile || !m_logfile->isWritable()) {
+        Kwave::MessageBox::warningContinueCancel(nullptr,
             i18n("Failed opening the log file '%1' for writing",
-            filename)) != KMessageBox::Continue)
-        {
-            return false;
-        }
+            filename)
+        );
+        delete m_logfile;
+        m_logfile = nullptr;
+        return false;
     }
 
     /*

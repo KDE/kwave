@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:42+0000\n"
+"POT-Creation-Date: 2026-03-27 00:44+0000\n"
 "PO-Revision-Date: 2025-11-20 21:41+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3331,7 +3331,7 @@ msgstr "Поліноміальна, 7-го степеня"
 msgid "Sample and Hold"
 msgstr "Дискретизація і екстраполяція"
 
-#: libkwave/Logger.cpp:79
+#: libkwave/Logger.cpp:81
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
 msgstr "Не вдалося відкрити файл журналу «%1» для запису даних"

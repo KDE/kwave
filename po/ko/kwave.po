@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:42+0000\n"
+"POT-Creation-Date: 2026-03-27 00:44+0000\n"
 "PO-Revision-Date: 2025-04-06 23:40+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -3319,7 +3319,7 @@ msgstr "7차 다항식"
 msgid "Sample and Hold"
 msgstr "샘플 앤 홀드"
 
-#: libkwave/Logger.cpp:79
+#: libkwave/Logger.cpp:81
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
 msgstr "로그 파일 '%1'에 쓰려고 열 수 없음"

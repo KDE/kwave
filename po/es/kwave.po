@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:42+0000\n"
+"POT-Creation-Date: 2026-03-27 00:44+0000\n"
 "PO-Revision-Date: 2025-11-22 21:02+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -3328,7 +3328,7 @@ msgstr "Polinomio de grado 7"
 msgid "Sample and Hold"
 msgstr "Muestrear y retener"
 
-#: libkwave/Logger.cpp:79
+#: libkwave/Logger.cpp:81
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
 msgstr "No se ha podido abrir el archivo de registro «%1» para escritura"

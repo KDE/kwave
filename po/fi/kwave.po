@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:42+0000\n"
+"POT-Creation-Date: 2026-03-27 00:44+0000\n"
 "PO-Revision-Date: 2026-01-10 20:52+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -3335,7 +3335,7 @@ msgstr "7. asteen polynomi"
 msgid "Sample and Hold"
 msgstr "Ota näyte ja pidä"
 
-#: libkwave/Logger.cpp:79
+#: libkwave/Logger.cpp:81
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
 msgstr "Lokitiedoston ”%1” avaus kirjoitettavaksi epäonnistui"

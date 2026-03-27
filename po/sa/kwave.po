@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:42+0000\n"
+"POT-Creation-Date: 2026-03-27 00:44+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -3324,7 +3324,7 @@ msgstr "बहुपद, 7 वीं डिग्री"
 msgid "Sample and Hold"
 msgstr "नमूना तथा धारनम्"
 
-#: libkwave/Logger.cpp:79
+#: libkwave/Logger.cpp:81
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
 msgstr "लेखनार्थं '%1' इति लॉग् सञ्चिकां उद्घाटयितुं असफलम्"

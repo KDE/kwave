@@ -941,7 +941,7 @@ int Kwave::FileContext::saveFile()
 //***************************************************************************
 int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 {
-    if (!m_signal_manager) return -EINVAL;
+    if (!m_signal_manager || !m_plugin_manager) return -EINVAL;
 
     QString name = filename;
     QUrl url;
@@ -1048,7 +1048,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
     QString new_mimetype_name = Kwave::CodecManager::mimeTypeOf(url);
 
     if (new_mimetype_name != previous_mimetype_name) {
-        // saving to a different mime type
+        // saving to a different mime type:
         // now we have to do as if the mime type and file name
         // has already been selected to satisfy the fileinfo
         // plugin
@@ -1062,21 +1062,17 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
             Kwave::FileInfo info(m_signal_manager->metaData());
             info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
 
-            // set the new filename
+            // set the new file name
             info.set(Kwave::INF_FILENAME, url.toDisplayString());
             m_signal_manager->setFileInfo(info, true);
 
-            // now call the fileinfo plugin with the new filename and
-            // mimetype
-            res = (m_plugin_manager) ?
-                m_plugin_manager->setupPlugin(_("fileinfo"), QStringList())
-                : -1;
+            // now call the fileinfo plugin with the new file name and
+            // mime type
+            res = m_plugin_manager->setupPlugin(_("fileinfo"), QStringList());
         }
-        // if the fileinfo dialog was cancelled, undo the metadata changes
-        if (res) {
-            m_signal_manager->undo();
-            return res;
-        }
+
+        // if the fileinfo dialog was canceled, undo the metadata changes
+        if (res) m_signal_manager->undo();
     }
 
     // now we have a file name -> do the "save" operation

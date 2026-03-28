@@ -128,7 +128,7 @@ void Kwave::FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
                                          Kwave::FileProperty property)
 {
     initInfo(label, edit, property);
-    if (edit) edit->setText(QVariant(m_info.get(property)).toString());
+    if (edit) edit->setText(m_info.get(property).toString());
 }
 
 //***************************************************************************
@@ -136,13 +136,13 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 {
     /* filename */
     initInfo(lblFileName, edFileName, Kwave::INF_FILENAME);
-    QFileInfo fi(QVariant(m_info.get(Kwave::INF_FILENAME)).toString());
+    QFileInfo fi(m_info.get(Kwave::INF_FILENAME).toString());
     QString file_name = fi.fileName();
     edFileName->setText(file_name);
     edFileName->setEnabled(file_name.length() != 0);
 
     /* mime type */
-    QString mimetype = QVariant(m_info.get(Kwave::INF_MIMETYPE)).toString();
+    QString mimetype = m_info.get(Kwave::INF_MIMETYPE).toString();
     if (!mimetype.length())
         mimetype = _("audio/x-wav"); // default mimetype
 
@@ -167,7 +167,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
             // encoder does not support compression -> switch
             QList<Kwave::Compression::Type> comps = encoder->compressionTypes();
             Kwave::Compression::Type comp = Kwave::Compression::fromInt(
-                QVariant(m_info.get(Kwave::INF_COMPRESSION)).toInt()
+                m_info.get(Kwave::INF_COMPRESSION).toInt()
             );
             if (!comps.contains(comp)) {
                 Kwave::Compression comp_old(comp);
@@ -207,7 +207,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     /* file size in bytes */
     initInfo(lblFileSize, edFileSize, Kwave::INF_FILESIZE);
     if (m_info.contains(Kwave::INF_FILESIZE)) {
-        unsigned int size = QVariant(m_info.get(Kwave::INF_FILESIZE)).toUInt();
+        unsigned int size = m_info.get(Kwave::INF_FILESIZE).toUInt();
         QString dotted = QLocale().toString(size);
         if (size < 10*1024) {
             edFileSize->setText(i18n("%1 bytes", dotted));
@@ -287,7 +287,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
         );
     }
 
-    int format = QVariant(m_info.get(Kwave::INF_SAMPLE_FORMAT)).toInt();
+    int format = m_info.get(Kwave::INF_SAMPLE_FORMAT).toInt();
     if (format == 0)
         format = Kwave::SampleFormat::Signed; // default = signed int
 
@@ -317,19 +317,19 @@ void Kwave::FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
 
     // ABR bitrate settings
     int abr_bitrate = m_info.contains(Kwave::INF_BITRATE_NOMINAL) ?
-                  QVariant(m_info.get(Kwave::INF_BITRATE_NOMINAL)).toInt() :
+                  m_info.get(Kwave::INF_BITRATE_NOMINAL).toInt() :
                   cfg.readEntry("default_abr_nominal_bitrate", -1);
     int min_bitrate = m_info.contains(Kwave::INF_BITRATE_LOWER) ?
-                  QVariant(m_info.get(Kwave::INF_BITRATE_LOWER)).toInt() :
+                  m_info.get(Kwave::INF_BITRATE_LOWER).toInt() :
                   cfg.readEntry("default_abr_lower_bitrate",-1);
     int max_bitrate = m_info.contains(Kwave::INF_BITRATE_UPPER) ?
-                  QVariant(m_info.get(Kwave::INF_BITRATE_UPPER)).toInt() :
+                  m_info.get(Kwave::INF_BITRATE_UPPER).toInt() :
                   cfg.readEntry("default_abr_upper_bitrate",-1);
     compressionWidget->setBitrates(abr_bitrate, min_bitrate, max_bitrate);
 
     // VBR base quality
     int quality = m_info.contains(Kwave::INF_VBR_QUALITY) ?
-              QVariant(m_info.get(Kwave::INF_VBR_QUALITY)).toInt() :
+              m_info.get(Kwave::INF_VBR_QUALITY).toInt() :
               cfg.readEntry("default_vbr_quality", -1);
     compressionWidget->setQuality(quality);
 
@@ -359,7 +359,7 @@ void Kwave::FileInfoDialog::setupMpegTab()
     /* MPEG version */
     initInfo(lblMpegVersion, cbMpegVersion,  Kwave::INF_MPEG_VERSION);
     int ver = Kwave::toInt(
-        (2.0 * QVariant(m_info.get(Kwave::INF_MPEG_VERSION)).toDouble()));
+        (2.0 * m_info.get(Kwave::INF_MPEG_VERSION).toDouble()));
     // 1, 2, 2.5 -> 2, 4, 5
     if ((ver < 1) || (ver > 5)) ver = 4; // default = version 2
     if (ver > 3) ver++; // 2, 4, 6
@@ -382,7 +382,7 @@ void Kwave::FileInfoDialog::setupMpegTab()
 
     int modeext = -1;
     if (m_info.contains(Kwave::INF_MPEG_MODEEXT))
-        modeext = QVariant(m_info.get(Kwave::INF_MPEG_MODEEXT)).toInt();
+        modeext = m_info.get(Kwave::INF_MPEG_MODEEXT).toInt();
     if (modeext < 0) {
         // find some reasonable default
         if (m_info.tracks() < 2) {
@@ -417,7 +417,7 @@ void Kwave::FileInfoDialog::setupMpegTab()
 
     /* Emphasis */
     initInfo(lblMpegEmphasis, cbMpegEmphasis, Kwave::INF_MPEG_EMPHASIS);
-    int emphasis = QVariant(m_info.get(Kwave::INF_MPEG_EMPHASIS)).toInt();
+    int emphasis = m_info.get(Kwave::INF_MPEG_EMPHASIS).toInt();
     switch (emphasis) {
         case 0:  cbMpegEmphasis->setCurrentIndex(0); break;
         case 1:  cbMpegEmphasis->setCurrentIndex(1); break;
@@ -427,13 +427,13 @@ void Kwave::FileInfoDialog::setupMpegTab()
 
     /* Copyrighted */
     initInfo(lblMpegCopyrighted, chkMpegCopyrighted, Kwave::INF_COPYRIGHTED);
-    bool copyrighted = QVariant(m_info.get(Kwave::INF_COPYRIGHTED)).toBool();
+    bool copyrighted = m_info.get(Kwave::INF_COPYRIGHTED).toBool();
     chkMpegCopyrighted->setChecked(copyrighted);
     mpegCopyrightedChanged(copyrighted);
 
     /* Original */
     initInfo(lblMpegOriginal, chkMpegOriginal, Kwave::INF_ORIGINAL);
-    bool original = QVariant(m_info.get(Kwave::INF_ORIGINAL)).toBool();
+    bool original = m_info.get(Kwave::INF_ORIGINAL).toBool();
     chkMpegOriginal->setChecked(original);
     mpegOriginalChanged(original);
 
@@ -466,8 +466,7 @@ void Kwave::FileInfoDialog::setupContentTab()
     /* date widget */
     initInfo(lblDate, dateEdit, Kwave::INF_CREATION_DATE);
     QDate date;
-    QString date_str =
-        QVariant(m_info.get(Kwave::INF_CREATION_DATE)).toString();
+    QString date_str = m_info.get(Kwave::INF_CREATION_DATE).toString();
     if (m_info.contains(Kwave::INF_CREATION_DATE)) {
         if (date_str.length())
             date = QDate::fromString(date_str, Qt::ISODate);
@@ -499,22 +498,22 @@ void Kwave::FileInfoDialog::setupSourceTab()
     initInfoText(lblAlbum,      edAlbum,      Kwave::INF_ALBUM);
     initInfo(lblCD, sbCD, Kwave::INF_CD);
     int cd = (m_info.contains(Kwave::INF_CD)) ?
-        QVariant(m_info.get(Kwave::INF_CD)).toInt() : 0;
+        m_info.get(Kwave::INF_CD).toInt() : 0;
     sbCD->setValue(cd);
 
     initInfo(nullptr, sbCDs, Kwave::INF_CDS);
     int cds = (m_info.contains(Kwave::INF_CDS)) ?
-        QVariant(m_info.get(Kwave::INF_CDS)).toInt() : 0;
+        m_info.get(Kwave::INF_CDS).toInt() : 0;
     sbCDs->setValue(cds);
 
     initInfo(lblTrack, sbTrack, Kwave::INF_TRACK);
     int track = (m_info.contains(Kwave::INF_TRACK)) ?
-        QVariant(m_info.get(Kwave::INF_TRACK)).toInt() : 0;
+        m_info.get(Kwave::INF_TRACK).toInt() : 0;
     sbTrack->setValue(track);
 
     initInfo(nullptr, sbTracks, Kwave::INF_TRACKS);
     int tracks = (m_info.contains(Kwave::INF_TRACKS)) ?
-        QVariant(m_info.get(Kwave::INF_TRACKS)).toInt() : 0;
+        m_info.get(Kwave::INF_TRACKS).toInt() : 0;
     sbTracks->setValue(tracks);
 
     /* software, engineer, technician */
@@ -555,7 +554,7 @@ void Kwave::FileInfoDialog::setupMiscellaneousTab()
         i18n(m_info.description(Kwave::INF_KEYWORDS).toLatin1().constData()));
     if (m_info.contains(Kwave::INF_KEYWORDS)) {
         QString keywords =
-            QVariant(m_info.get(Kwave::INF_KEYWORDS)).toString();
+            m_info.get(Kwave::INF_KEYWORDS).toString();
         lstKeywords->setKeywords(keywords.split(_(";")));
     }
     connect(lstKeywords, SIGNAL(autoGenerate()),
@@ -642,7 +641,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
     cbCompression->blockSignals(false);
 
     // update the selection of the compression type
-    int c = QVariant(m_info.get(Kwave::INF_COMPRESSION)).toInt();
+    int c = m_info.get(Kwave::INF_COMPRESSION).toInt();
     int new_index = cbCompression->findData(c);
 
     // take the highest supported compression if changed to "invalid"
@@ -789,7 +788,7 @@ void Kwave::FileInfoDialog::mpegLayerChanged()
         // switched from layer I or II to layer III
         cbMpegModeExt->setEnabled(false);
 
-        int modeext = QVariant(m_info.get(Kwave::INF_MPEG_MODEEXT)).toInt();
+        int modeext = m_info.get(Kwave::INF_MPEG_MODEEXT).toInt();
         if ((modeext < 4) || (modeext > 7)) {
             modeext = 7; // default to MS stereo + Intensity stereo
             chkMpegIntensityStereo->setChecked(modeext & 0x01);
@@ -801,7 +800,7 @@ void Kwave::FileInfoDialog::mpegLayerChanged()
     } else if (!cbMpegModeExt->isEnabled() && (layer <= 2)) {
         // switched from layer III to layer I or II
         int modeext = (m_info.contains(Kwave::INF_MPEG_MODEEXT)) ?
-            QVariant(m_info.get(Kwave::INF_MPEG_MODEEXT)).toInt() : -1;
+            m_info.get(Kwave::INF_MPEG_MODEEXT).toInt() : -1;
         if ((modeext < 0) || (modeext > 3)) {
             modeext = 0; // default bands 4 to 31
             cbMpegModeExt->setCurrentIndex(modeext);

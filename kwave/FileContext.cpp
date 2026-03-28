@@ -1071,8 +1071,8 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
             res = m_plugin_manager->setupPlugin(_("fileinfo"), QStringList());
         }
 
-        // if the fileinfo dialog was canceled, undo the metadata changes
-        if (res) m_signal_manager->undo();
+        // undo the temporary metadata changes
+        m_signal_manager->undo();
     }
 
     // now we have a file name -> do the "save" operation

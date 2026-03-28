@@ -109,6 +109,9 @@ namespace Kwave
         /**
          * Same as initInfo, but works only for text edit controls and sets
          * the current text
+         * @param label the label to be set
+         * @param edit a QLineEdit with the text
+         * @param property the file property which it belongs to
          */
         void initInfoText(QLabel *label, QLineEdit *edit,
                           Kwave::FileProperty property);
@@ -121,30 +124,83 @@ namespace Kwave
          */
         void acceptEdit(Kwave::FileProperty property, QString value);
 
-        /** initializes the "File" tab */
-        void setupFileInfoTab();
-
-        /** initialize the "Compression" tab */
-        void setupCompressionTab(KConfigGroup &cfg);
-
         /** returns true if the current compression is MPEG I/II/III */
         bool isMpeg() const;
 
-        /** initialize the "MPEG" tab */
+        /**
+         * initializes the "File" tab:
+         * - edFileName
+         * - edFileFormat
+         * - cbSampleRate
+         * - sbResolution
+         * - sbChannels
+         * - cbSampleFormat
+         */
+        void setupFileInfoTab();
+
+        /**
+         * initialize the "Compression" tab:
+         * - compressionWidget / bitrates
+         * - compressionWidget / quality
+         * @param cfg an opened config file group with defaults
+         */
+        void setupCompressionTab(KConfigGroup &cfg);
+
+        /**
+         * initialize the "MPEG" tab:
+         * - cbMpegLayer
+         * - cbMpegVersion
+         * - cbMpegModeExt
+         * - cbMpegEmphasis
+         * - chkMpegCopyrighted
+         * - chkMpegOriginal
+         */
         void setupMpegTab();
 
-        /** initializes the "Content" tab */
+        /**
+         * initializes the "Content" tab:
+         * - edName
+         * - edSubject
+         * - edVersion
+         * - cbGenre
+         * - dateEdit
+         */
         void setupContentTab();
 
-        /** initialize the "Source" tab */
+        /**
+         * initialize the "Source" tab
+         * - edSource
+         * - edSourceForm
+         * - edAlbum
+         * - sbCD
+         * - sbCDs
+         * - sbTrack
+         * - sbTracks
+         * - edSoftware
+         * - edEngineer
+         * - edTechnican
+         */
         void setupSourceTab();
 
-        /** initialize the "Author/Copyright" tab */
+        /**
+         * initialize the "Author/Copyright" tab:
+         * - edAuthor
+         * - edOrganization
+         * - edCopyright
+         * - edLicense
+         * - edISRC
+         * - edProduct
+         * - edArchival
+         * - edContact
+         */
         void setupAuthorCopyrightTab();
 
-        /** initialize the "Miscellaneous" tab */
+        /**
+         * initialize the "Miscellaneous" tab
+         * - edCommissioned
+         * - lstKeywords
+         */
         void setupMiscellaneousTab();
-
 
     private:
 

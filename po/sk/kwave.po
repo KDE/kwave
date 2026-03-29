@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:44+0000\n"
+"POT-Creation-Date: 2026-03-29 00:43+0000\n"
 "PO-Revision-Date: 2020-10-01 21:36+0200\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -41,44 +41,44 @@ msgstr "Otváram hlavné okno..."
 msgid "Startup done"
 msgstr "Spustenie hotové"
 
-#: kwave/FileContext.cpp:202
+#: kwave/FileContext.cpp:203
 #, kde-format
 msgid "Scanning plugins..."
 msgstr "Prehľadávanie zásuvných modulov..."
 
-#: kwave/FileContext.cpp:235 kwave/FileContext.cpp:236
+#: kwave/FileContext.cpp:236 kwave/FileContext.cpp:237
 #, kde-format
 msgid "Loading plugins..."
 msgstr "Načítavanie zásuvných modulov..."
 
-#: kwave/FileContext.cpp:238
+#: kwave/FileContext.cpp:239
 #, kde-format
 msgid "Failed"
 msgstr "Zlyhalo"
 
-#: kwave/FileContext.cpp:241
+#: kwave/FileContext.cpp:242
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
 msgstr ""
 "Aplikácia Kwave nebola správne nainštalovaná. Nenašli sa žiadne zásuvné "
 "moduly!"
 
-#: kwave/FileContext.cpp:247
+#: kwave/FileContext.cpp:248
 #, kde-format
 msgid "Ready"
 msgstr "Pripravený"
 
-#: kwave/FileContext.cpp:527
+#: kwave/FileContext.cpp:528
 #, kde-format
 msgid "Playback: %1"
 msgstr "Prehrávanie: %1"
 
-#: kwave/FileContext.cpp:529
+#: kwave/FileContext.cpp:530
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Prehrávanie: %1 vzoriek"
 
-#: kwave/FileContext.cpp:871
+#: kwave/FileContext.cpp:872
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -86,13 +86,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:877
+#: kwave/FileContext.cpp:878
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (zmenené)"
 
-#: kwave/FileContext.cpp:912
+#: kwave/FileContext.cpp:913
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -101,12 +101,12 @@ msgstr ""
 "Tento súbor bol zmenený, zmeny sa stratia..\n"
 "Chcete pokračovať?"
 
-#: kwave/FileContext.cpp:992
+#: kwave/FileContext.cpp:993
 #, kde-format
 msgid "Save As"
 msgstr "Uložiť ako"
 
-#: kwave/FileContext.cpp:1033 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1034 kwave/MainWidget.cpp:995
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -115,7 +115,7 @@ msgstr ""
 "Súbor '%1' už existuje.\n"
 "Chcete ho prepísať?"
 
-#: kwave/FileContext.cpp:1102
+#: kwave/FileContext.cpp:1101
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -5265,32 +5265,32 @@ msgstr "%1 (%2 vzoriek)"
 msgid "%1 samples"
 msgstr "%1 vzoriek"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:588
+#: plugins/fileinfo/FileInfoDialog.cpp:587
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:591
+#: plugins/fileinfo/FileInfoDialog.cpp:590
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:594
+#: plugins/fileinfo/FileInfoDialog.cpp:593
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(Quadro)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:819
-#: plugins/fileinfo/FileInfoDialog.cpp:825
+#: plugins/fileinfo/FileInfoDialog.cpp:818
+#: plugins/fileinfo/FileInfoDialog.cpp:824
 #, kde-format
 msgid "Yes"
 msgstr "Áno"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:819
-#: plugins/fileinfo/FileInfoDialog.cpp:825
+#: plugins/fileinfo/FileInfoDialog.cpp:818
+#: plugins/fileinfo/FileInfoDialog.cpp:824
 #, kde-format
 msgid "No"
 msgstr "Nie"

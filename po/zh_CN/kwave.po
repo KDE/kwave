@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:44+0000\n"
+"POT-Creation-Date: 2026-03-29 00:43+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -42,42 +42,42 @@ msgstr "正在打开主窗口..."
 msgid "Startup done"
 msgstr "启动完成"
 
-#: kwave/FileContext.cpp:202
+#: kwave/FileContext.cpp:203
 #, kde-format
 msgid "Scanning plugins..."
 msgstr "正在扫描插件..."
 
-#: kwave/FileContext.cpp:235 kwave/FileContext.cpp:236
+#: kwave/FileContext.cpp:236 kwave/FileContext.cpp:237
 #, kde-format
 msgid "Loading plugins..."
 msgstr "正在加载插件..."
 
-#: kwave/FileContext.cpp:238
+#: kwave/FileContext.cpp:239
 #, kde-format
 msgid "Failed"
 msgstr "已失败"
 
-#: kwave/FileContext.cpp:241
+#: kwave/FileContext.cpp:242
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
 msgstr "Kwave 未被正确安装。找不到插件！"
 
-#: kwave/FileContext.cpp:247
+#: kwave/FileContext.cpp:248
 #, kde-format
 msgid "Ready"
 msgstr "就绪"
 
-#: kwave/FileContext.cpp:527
+#: kwave/FileContext.cpp:528
 #, kde-format
 msgid "Playback: %1"
 msgstr "播放：%1"
 
-#: kwave/FileContext.cpp:529
+#: kwave/FileContext.cpp:530
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "播放：%1 个采样"
 
-#: kwave/FileContext.cpp:871
+#: kwave/FileContext.cpp:872
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -85,25 +85,25 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:877
+#: kwave/FileContext.cpp:878
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1（已修改）"
 
-#: kwave/FileContext.cpp:912
+#: kwave/FileContext.cpp:913
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
 "Do you want to continue?"
 msgstr "此文件已被修改，改动会丢失。是否继续？"
 
-#: kwave/FileContext.cpp:992
+#: kwave/FileContext.cpp:993
 #, kde-format
 msgid "Save As"
 msgstr "另存为"
 
-#: kwave/FileContext.cpp:1033 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1034 kwave/MainWidget.cpp:995
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -112,7 +112,7 @@ msgstr ""
 "文件“%1”已存在。\n"
 "您要覆盖它吗？"
 
-#: kwave/FileContext.cpp:1102
+#: kwave/FileContext.cpp:1101
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -5131,32 +5131,32 @@ msgstr "%1 (%2 个采样)"
 msgid "%1 samples"
 msgstr "%1 个采样"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:588
+#: plugins/fileinfo/FileInfoDialog.cpp:587
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(单声道)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:591
+#: plugins/fileinfo/FileInfoDialog.cpp:590
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(立体声)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:594
+#: plugins/fileinfo/FileInfoDialog.cpp:593
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(四倍)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:819
-#: plugins/fileinfo/FileInfoDialog.cpp:825
+#: plugins/fileinfo/FileInfoDialog.cpp:818
+#: plugins/fileinfo/FileInfoDialog.cpp:824
 #, kde-format
 msgid "Yes"
 msgstr "是"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:819
-#: plugins/fileinfo/FileInfoDialog.cpp:825
+#: plugins/fileinfo/FileInfoDialog.cpp:818
+#: plugins/fileinfo/FileInfoDialog.cpp:824
 #, kde-format
 msgid "No"
 msgstr "否"

@@ -1071,8 +1071,6 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
             res = m_plugin_manager->setupPlugin(_("fileinfo"), QStringList());
         }
 
-        // undo the temporary metadata changes
-        m_signal_manager->undo();
     }
 
     // now we have a file name -> do the "save" operation
@@ -1080,6 +1078,9 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 
     // if saving was successful, add the file to the list of recent files
     if (!res) m_application.addRecentFile(signalName());
+
+    // undo the temporary metadata changes in case of errors or cancel
+    if (res)  m_signal_manager->undo();
 
     return res;
 }

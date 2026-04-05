@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-29 00:43+0000\n"
+"POT-Creation-Date: 2026-04-05 00:44+0000\n"
 "PO-Revision-Date: 2020-08-02 17:38+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -114,7 +114,7 @@ msgstr ""
 "Filen '%1' findes allerede.\n"
 "Vil du virkelig overskrive den?"
 
-#: kwave/FileContext.cpp:1101
+#: kwave/FileContext.cpp:1102
 #, kde-format
 msgid ""
 "This file has been modified.\n"

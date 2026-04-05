@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-29 00:43+0000\n"
+"POT-Creation-Date: 2026-04-05 00:44+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -112,7 +112,7 @@ msgstr ""
 "文件“%1”已存在。\n"
 "您要覆盖它吗？"
 
-#: kwave/FileContext.cpp:1101
+#: kwave/FileContext.cpp:1102
 #, kde-format
 msgid ""
 "This file has been modified.\n"

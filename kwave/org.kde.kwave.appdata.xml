@@ -67,6 +67,7 @@ SPDX-FileCopyrightText: none
   <summary xml:lang="pt-BR">Editor de som</summary>
   <summary xml:lang="ru">Аудиоредактор</summary>
   <summary xml:lang="sa">ध्वनि सम्पादक</summary>
+  <summary xml:lang="sk">Editor zvuku</summary>
   <summary xml:lang="sl">Urejevalnik zvoka</summary>
   <summary xml:lang="sv">Ljudeditor</summary>
   <summary xml:lang="tr">Ses Düzenleyicisi</summary>
@@ -95,6 +96,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="pt-BR">O Kwave é um editor de som que pode gravar, reproduzir, abrir e editar diversos formatos de arquivo. O Kwave simplifica a edição de áudio de diversas maneiras.</p>
     <p xml:lang="ru">Kwave — аудиоредактор, поддерживающий запись, воспроизведение, открытие и редактирование файлов в различных форматах. Kwave упрощает редактирование звуковых данных.</p>
     <p xml:lang="sa">क्वावे इति ध्वनिसम्पादकः अस्ति यः अनेकसञ्चिकास्वरूपेषु रिकार्ड् कर्तुं, वादयितुं, उद्घाटयितुं, सम्पादयितुं च शक्नोति । क्वावे इत्यनेन बहुधा श्रव्यसम्पादनं सरलं भवति ।</p>
+    <p xml:lang="sk">Kwave je editor zvuku, ktorý dokáže nahrávať, prehrávať, otvárať a upravovať mnoho formátov súborov. Kwave umožňuje jednoducho upravovať zvuk mnohými spôsobmi.</p>
     <p xml:lang="sl">Kwave je urejevalnik zvoka, ki lahko snema, predvaja, odpira in ureja številne oblike datotek. Kwave poenostavi urejanje zvoka na številne načine.</p>
     <p xml:lang="sv">Kwave är en ljudeditor som kan spela in, spela upp, öppna och redigera många filformat. Kwave gör det enkelt att redigera ljud på många sätt.</p>
     <p xml:lang="tr">K Dalga, birçok dosya biçimini kaydedebilen, çalabilen, açabilen ve düzenleyebilen bir ses düzenleyicisidir. K Dalga, sesi birçok şekilde düzenlemeyi kolaylaştırır.</p>
@@ -120,6 +122,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="pt-BR">Ajustar nível de volume:</p>
     <p xml:lang="ru">Настройка уровня громкости:</p>
     <p xml:lang="sa">मात्रास्तरं समायोजयन्तु :</p>
+    <p xml:lang="sk">Úprava úrovne hlasitosti:</p>
     <p xml:lang="sl">Prilagodi glasnost:</p>
     <p xml:lang="sv">Justera volymnivå:</p>
     <p xml:lang="tr">Ses düzeyini ayarla:</p>
@@ -146,6 +149,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Fade in, fade out ou curva de amplitude personalizada</li>
       <li xml:lang="ru">Нарастание, затухание или пользовательская амплитудная кривая</li>
       <li xml:lang="sa">फीक इन, फेड आउट, अथवा कस्टम आयाम वक्र</li>
+      <li xml:lang="sk">Zosilnenie, zoslabenie alebo vlastná krivka amplitúdy</li>
       <li xml:lang="sl">Ojačanje, utišanje ali krivulja amplitude po meri</li>
       <li xml:lang="sv">Intoning, borttoning, eller egen amplitudkurva</li>
       <li xml:lang="tr">Solma, kaybolma veya özel genlik eğrisi</li>
@@ -171,6 +175,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Escala de volume por um fator constante</li>
       <li xml:lang="ru">Масштабирование громкости на постоянный коэффициент</li>
       <li xml:lang="sa">नित्यगुणकेन आयतनं स्केल कुर्वन्तु</li>
+      <li xml:lang="sk">Zmena hlasitosti o konštantný faktor</li>
       <li xml:lang="sl">Prilagodi z lestvico glasnosti s konstantnim faktorjem</li>
       <li xml:lang="sv">Skala volym med en konstant faktor</li>
       <li xml:lang="tr">Ses düzeyini sabit bir çarpanla ölçeklendir</li>
@@ -196,6 +201,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Normalizar volume</li>
       <li xml:lang="ru">Нормализация громкости</li>
       <li xml:lang="sa">आयतनं सामान्यं कुर्वन्तु</li>
+      <li xml:lang="sk">Normalizácia hlasitosti</li>
       <li xml:lang="sl">Normalizira glasnost</li>
       <li xml:lang="sv">Normalisera volym</li>
       <li xml:lang="tr">Ses düzeyini normalleştir</li>
@@ -222,6 +228,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="pt-BR">Ajustar conteúdo de frequência:</p>
     <p xml:lang="ru">Настройка спектра частот:</p>
     <p xml:lang="sa">आवृत्तिसामग्री समायोजयन्तु :</p>
+    <p xml:lang="sk">Úprava frekvenčného obsahu:</p>
     <p xml:lang="sl">Prilagodi vsebino frekvence:</p>
     <p xml:lang="sv">Justera frekvensinnehåll:</p>
     <p xml:lang="tr">Frekans içeriğini ayarla</p>
@@ -248,6 +255,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Filtro passa-baixo</li>
       <li xml:lang="ru">Фильтр низких частот</li>
       <li xml:lang="sa">लोपास फ़िल्टर</li>
+      <li xml:lang="sk">Dolnopriepustný filter</li>
       <li xml:lang="sl">Nizkoprepustni filter</li>
       <li xml:lang="sv">Lågpassfilter</li>
       <li xml:lang="tr">Düşük geçiş süzgeci</li>
@@ -273,6 +281,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Filtro passa-banda</li>
       <li xml:lang="ru">Полосовой фильтр</li>
       <li xml:lang="sa">बैण्डपास फ़िल्टर</li>
+      <li xml:lang="sk">Pásmový filter</li>
       <li xml:lang="sl">Pasovni filter</li>
       <li xml:lang="sv">Bandpassfilter</li>
       <li xml:lang="tr">Bant geçişi süzgeci</li>
@@ -298,6 +307,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Filtro de atenuação</li>
       <li xml:lang="ru">Режекторный фильтр</li>
       <li xml:lang="sa">नॉच फिल्टर</li>
+      <li xml:lang="sk">Režový filter</li>
       <li xml:lang="sl">Zarezni filter</li>
       <li xml:lang="sv">Bandspärrfilter</li>
       <li xml:lang="tr">Çentik süzgeci</li>
@@ -323,6 +333,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Mudança de tom</li>
       <li xml:lang="ru">Изменение высоты тона</li>
       <li xml:lang="sa">पिच शिफ्ट</li>
+      <li xml:lang="sk">Zmena výšky tónu</li>
       <li xml:lang="sl">Premik višine tonov</li>
       <li xml:lang="sv">Tonhöjdsändring</li>
       <li xml:lang="tr">Perde kayması</li>
@@ -349,6 +360,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="pt-BR">Outras funcionalidades:</p>
     <p xml:lang="ru">Другие возможности:</p>
     <p xml:lang="sa">अन्ये विशेषताः :</p>
+    <p xml:lang="sk">Ďalšie funkcie:</p>
     <p xml:lang="sl">Druge zmožnosti:</p>
     <p xml:lang="sv">Övriga funktioner:</p>
     <p xml:lang="tr">Diğer özellikler:</p>
@@ -375,6 +387,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Adicionar ruído</li>
       <li xml:lang="ru">Добавление шума</li>
       <li xml:lang="sa">कोलाहलं योजयन्तु</li>
+      <li xml:lang="sk">Pridať šum</li>
       <li xml:lang="sl">Doda šum</li>
       <li xml:lang="sv">Lägg till brus</li>
       <li xml:lang="tr">Gürültü ekle</li>
@@ -400,6 +413,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Adicionar silêncio</li>
       <li xml:lang="ru">Добавление тишины</li>
       <li xml:lang="sa">मौनं योजयतु</li>
+      <li xml:lang="sk">Pridať ticho</li>
       <li xml:lang="sl">Doda tišino</li>
       <li xml:lang="sv">Lägg till tystnad</li>
       <li xml:lang="tr">Sessizlik ekle</li>
@@ -425,6 +439,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Converter taxa de amostragem de áudio</li>
       <li xml:lang="ru">Преобразование частоты дискретизации звуковых данных</li>
       <li xml:lang="sa">श्रव्यनमूनादरं परिवर्तयन्तु</li>
+      <li xml:lang="sk">Konvertovať vzorkovaciu frekvenciu zvuku</li>
       <li xml:lang="sl">Pretvori hitrost vzorčenja zvoka</li>
       <li xml:lang="sv">Konvertera ljudets samplingsfrekvens</li>
       <li xml:lang="tr">Ses örneklem hızını dönüştür</li>
@@ -450,6 +465,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Ir para a posição</li>
       <li xml:lang="ru">Переход к позиции</li>
       <li xml:lang="sa">स्थितिं गच्छतु</li>
+      <li xml:lang="sk">Prejsť na pozíciu</li>
       <li xml:lang="sl">Pojdi na pozicijo</li>
       <li xml:lang="sv">Gå till position</li>
       <li xml:lang="tr">Konuma git</li>
@@ -475,6 +491,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Inserir áudio a partir da área de transferência</li>
       <li xml:lang="ru">Вставка звуковых данных из буфера обмена</li>
       <li xml:lang="sa">क्लिपबोर्डतः श्रव्यं सम्मिलितं कुर्वन्तु</li>
+      <li xml:lang="sk">Vložiť zvuk zo schránky</li>
       <li xml:lang="sl">Vstavi zvok iz odložišča</li>
       <li xml:lang="sv">Infoga ljud från klippbordet</li>
       <li xml:lang="tr">Panodan ses ekle</li>
@@ -500,6 +517,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Áudio reverso</li>
       <li xml:lang="ru">Реверс звуковых данных</li>
       <li xml:lang="sa">श्रव्यं विपर्ययम्</li>
+      <li xml:lang="sk">Obrátiť zvuk</li>
       <li xml:lang="sl">Obrni zvok</li>
       <li xml:lang="sv">Vänd ljud</li>
       <li xml:lang="tr">Sesi tersine çevir</li>
@@ -525,6 +543,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Salvar blocos de áudio entre rótulos como arquivos separados</li>
       <li xml:lang="ru">Сохранение блоков звуковых данных между отметками как отдельных файлов</li>
       <li xml:lang="sa">लेबल् मध्ये श्रव्यखण्डान् पृथक् सञ्चिकारूपेण रक्षन्तु</li>
+      <li xml:lang="sk">Uložiť zvukové bloky medzi značkami ako samostatné súbory</li>
       <li xml:lang="sl">Shrani bloke zvoka med oznakami kot ločene datoteke</li>
       <li xml:lang="sv">Spara ljudblock mellan beteckningar som separata filer</li>
       <li xml:lang="tr">Etiketler arasındaki ses bloklarını ayrı dosyalar olarak kaydet</li>
@@ -550,6 +569,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Sonagrama (espectrograma)</li>
       <li xml:lang="ru">Сонаграмма (спектрограмма)</li>
       <li xml:lang="sa">सोनाग्राम (स्पेक्ट्रोग्राम)</li>
+      <li xml:lang="sk">Sonagram (spektrogram)</li>
       <li xml:lang="sl">Sonagram (spektrogram)</li>
       <li xml:lang="sv">Sonagram (spektrogram)</li>
       <li xml:lang="tr">Sonagram (Spektogram)</li>
@@ -577,6 +597,7 @@ SPDX-FileCopyrightText: none
     <p xml:lang="pt-BR">Formatos de arquivo suportados:</p>
     <p xml:lang="ru">Поддерживаемые форматы файлов:</p>
     <p xml:lang="sa">समर्थिताः सञ्चिकास्वरूपाः :</p>
+    <p xml:lang="sk">Supported file formats:</p>
     <p xml:lang="sl">Podprti formati datotek:</p>
     <p xml:lang="sv">Filformat som stöds:</p>
     <p xml:lang="tr">Desteklenen dosya biçimleri:</p>
@@ -603,6 +624,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">WAV (*.wav)</li>
       <li xml:lang="ru">WAV (*.wav)</li>
       <li xml:lang="sa">वाव (*.wav)</li>
+      <li xml:lang="sk">WAV (*.wav)</li>
       <li xml:lang="sl">WAV (*.wav)</li>
       <li xml:lang="sv">WAV (*.wav)</li>
       <li xml:lang="tr">WAV (*.wav)</li>
@@ -628,6 +650,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Ogg/Opus (*.opus)</li>
       <li xml:lang="ru">Ogg/Opus (*.opus)</li>
       <li xml:lang="sa">ओग्ग्/कार्य (*.कार्य)</li>
+      <li xml:lang="sk">Ogg/Opus (*.opus)</li>
       <li xml:lang="sl">Ogg/Opus (*.opus)</li>
       <li xml:lang="sv">Ogg/Opus (*.opus)</li>
       <li xml:lang="tr">Ogg/Opus (*.opus)</li>
@@ -653,6 +676,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="ru">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="sa">ओग्ग्/वोर्बिस् (*.ओग्ग्)</li>
+      <li xml:lang="sk">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="sl">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="sv">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="tr">Ogg/Vorbis (*.ogg)</li>
@@ -678,6 +702,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">MP3 (*.mp3)</li>
       <li xml:lang="ru">MP3 (*.mp3)</li>
       <li xml:lang="sa">एमपी 3 (*.mp3)</li>
+      <li xml:lang="sk">MP3 (*.mp3)</li>
       <li xml:lang="sl">MP3 (*.mp3)</li>
       <li xml:lang="sv">MP3 (*.mp3)</li>
       <li xml:lang="tr">MP3 (*.mp3)</li>
@@ -703,6 +728,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">FLAC (*.flac)</li>
       <li xml:lang="ru">FLAC (*.flac)</li>
       <li xml:lang="sa">FLAC (*.flac)</li>
+      <li xml:lang="sk">FLAC (*.flac)</li>
       <li xml:lang="sl">FLAC (*.flac)</li>
       <li xml:lang="sv">FLAC (*.flac)</li>
       <li xml:lang="tr">FLAC (*.flac)</li>
@@ -728,6 +754,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">Áudio codificado em ASCII (*.ascii)</li>
       <li xml:lang="ru">Звуковые данные в кодировке ASCII (*.ascii)</li>
       <li xml:lang="sa">ASCII कोडित श्रव्य (*.ascii) .</li>
+      <li xml:lang="sk">Zvuk kódovaný v ASCII (*.ascii)</li>
       <li xml:lang="sl">ASCII kodiran zvok (*.ascii)</li>
       <li xml:lang="sv">ASCII-kodat ljud (*.ascii)</li>
       <li xml:lang="tr">ASCII kodlu ses (*.ascii)</li>
@@ -753,6 +780,7 @@ SPDX-FileCopyrightText: none
       <li xml:lang="pt-BR">todos os formatos de arquivo suportados pelo libaudiofile (alguns formatos são somente para importação)</li>
       <li xml:lang="ru">Все форматы файлов, поддерживаемые libaudiofile (для некоторых форматов предусмотрен только импорт)</li>
       <li xml:lang="sa">libaudiofile द्वारा समर्थिताः सर्वे सञ्चिकास्वरूपाः (केचन प्रारूपाः केवलं आयाताः एव सन्ति)</li>
+      <li xml:lang="sk">všetky formáty súborov podporované knižnicou libaudiofile (niektoré formáty sú len na import)</li>
       <li xml:lang="sl">vsi formati datotek, ki jih podpira libaudiofile (nekateri formati so samo za uvoz)</li>
       <li xml:lang="sv">alla filformat som stöds av libaudiofile (vissa format är bara för import)</li>
       <li xml:lang="tr">libaudiofile tarafından desteklenen tüm dosya biçimleri (bazı biçimler yalnızca içe aktarılabilir)</li>

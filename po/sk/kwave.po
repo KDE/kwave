@@ -4669,7 +4669,7 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to mono."
 msgstr ""
-"Priestorová bitová rýchlosť by bola nižšia ako 32kBit/sek na kanál, tento "
+"Priestorová bitová rýchlosť by bola nižšia ako 32kBit/s na kanál, tento "
 "súbor by mal byť zmiešaný na mono."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:153
@@ -4678,7 +4678,7 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to stereo."
 msgstr ""
-"Priestorová bitová rýchlosť by bola nižšia ako 32kBit/sek na kanál, tento "
+"Priestorová bitová rýchlosť by bola nižšia ako 32kBit/s na kanál, tento "
 "súbor by mal byť zmiešaný na stereo."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:223
@@ -7106,7 +7106,7 @@ msgstr "Mením vzorkovaciu frekvenciu z %1 kHz na %2 kHz..."
 #: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
 msgid "Please choose where to save the files"
-msgstr "Please choose where to save súbors"
+msgstr "Vyberte, kam uložiť súbory"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:37
@@ -7125,17 +7125,17 @@ msgid ""
 "the files that will be saved</li>\n"
 "</ul>"
 msgstr ""
-"<p>Select the pattern that is používaný na create the filename of each saved "
-"block. It currently understands nasledujúce placeholders:</p>\n"
+"<p>Vyberte vzor, ktorý sa používa na vytvorenie názvu súboru každého "
+"uloženého bloku. V súčasnosti rozumie nasledujúcim zástupným znakom:</p>\n"
 "<ul>\n"
-"<li><tt><b>[%filename]</b></tt>name of the file, without the path</li>\n"
-"<li><tt><b>[</b>%<i>0</i></tt><i>N</i><tt><b>nr]</b></tt>the index of the "
-"file, optionally with leading zeroes (if <tt>'0</tt>' prepended) and "
-"optionally a fixed počet digits (<tt>N</tt>)</li>\n"
-"<li><tt><b>[%</b><i>0</i><i>N</i><b>count]</b></tt>the počet files that will "
-"be saved</li>\n"
-"<li><tt><b>[%</b><i>0</i><i>N</i><b>total]</b></tt>the highest index within "
-"the files that will be saved</li>\n"
+"<li><tt><b>[%filename]</b></tt>názov súboru bez cesty</li>\n"
+"<li><tt><b>[</b>%<i>0</i></tt><i>N</i><tt><b>nr]</b></tt>index súboru, "
+"voliteľne s úvodnými nulami (ak je predradené <tt>'0</tt>') a voliteľne s "
+"pevným počtom číslic (<tt>N</tt>)</li>\n"
+"<li><tt><b>[%</b><i>0</i><i>N</i><b>count]</b></tt>počet súborov, ktoré budú "
+"uložené</li>\n"
+"<li><tt><b>[%</b><i>0</i><i>N</i><b>total]</b></tt>najvyšší index spomedzi "
+"súborov, ktoré budú uložené</li>\n"
 "</ul>"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPattern)

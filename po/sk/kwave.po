@@ -4669,7 +4669,7 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to mono."
 msgstr ""
-"Priestorová bitová rýchlosť by bola nižšia ako 32kBit/sek na kanál, tento "
+"Priestorová bitová rýchlosť by bola nižšia ako 32kBit/s na kanál, tento "
 "súbor by mal byť zmiešaný na mono."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:153
@@ -4678,7 +4678,7 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to stereo."
 msgstr ""
-"Priestorová bitová rýchlosť by bola nižšia ako 32kBit/sek na kanál, tento "
+"Priestorová bitová rýchlosť by bola nižšia ako 32kBit/s na kanál, tento "
 "súbor by mal byť zmiešaný na stereo."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:223
@@ -7106,7 +7106,7 @@ msgstr "Mením vzorkovaciu frekvenciu z %1 kHz na %2 kHz..."
 #: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
 msgid "Please choose where to save the files"
-msgstr "Please choose where to save súbors"
+msgstr "Vyberte, kam uložiť súbory"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:37

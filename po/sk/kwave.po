@@ -5924,7 +5924,7 @@ msgid ""
 "Determines the center of the frequency range that\n"
 "should be removed."
 msgstr ""
-"<b>stredná frekvencia\n"
+"<b>stredná frekvencia</b>\n"
 "Určuje stred frekvenčného rozsahu,\n"
 "ktorý by sa mal odstrániť."
 

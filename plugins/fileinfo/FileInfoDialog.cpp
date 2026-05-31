@@ -86,9 +86,9 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
     KConfigGroup cfg = KSharedConfig::openConfig()->group(
         CONFIG_DEFAULT_SECTION);
 
-    setupFileInfoTab();
+    setupFileInfoTab(cfg);
     setupCompressionTab(cfg);
-    setupMpegTab();
+    setupMpegTab(cfg);
     setupContentTab();
     setupSourceTab();
     setupAuthorCopyrightTab();
@@ -132,7 +132,7 @@ void Kwave::FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
 }
 
 //***************************************************************************
-void Kwave::FileInfoDialog::setupFileInfoTab()
+void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
 {
     /* filename */
     initInfo(lblFileName, edFileName, Kwave::INF_FILENAME);
@@ -288,8 +288,11 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     }
 
     int format = m_info.get(Kwave::INF_SAMPLE_FORMAT).toInt();
-    if (format == 0)
-        format = Kwave::SampleFormat::Signed; // default = signed int
+    if (format == 0) {
+        // builtin default = signed int
+        format = cfg.readEntry("default_sample_format",
+            static_cast<int>(Kwave::SampleFormat::Signed));
+    }
 
     cbSampleFormat->setCurrentIndex(cbSampleFormat->findData(format));
 }
@@ -344,7 +347,7 @@ void Kwave::FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
 }
 
 //***************************************************************************
-void Kwave::FileInfoDialog::setupMpegTab()
+void Kwave::FileInfoDialog::setupMpegTab(KConfigGroup &cfg)
 {
     // the whole tab is only enabled in mpeg mode
     InfoTab->setTabEnabled(2, isMpeg());
@@ -352,16 +355,21 @@ void Kwave::FileInfoDialog::setupMpegTab()
     /* MPEG layer */
     initInfo(lblMpegLayer,   cbMpegLayer,    Kwave::INF_MPEG_LAYER);
     int layer = m_info.get(Kwave::INF_MPEG_LAYER).toInt();
-    if ((layer < 1) || (layer > 3))
-        layer = 3; // default = layer III
+    if ((layer < 1) || (layer > 3)) {
+        // builtin default = layer III
+        layer = cfg.readEntry("default_mpeg_layer", 3);
+    }
     cbMpegLayer->setCurrentIndex(layer - 1);
 
-    /* MPEG version */
+    /* MPEG version (1, 2 or 2.5, builtin default = version 2) */
     initInfo(lblMpegVersion, cbMpegVersion,  Kwave::INF_MPEG_VERSION);
     int ver = Kwave::toInt(
         (2.0 * m_info.get(Kwave::INF_MPEG_VERSION).toDouble()));
+    if (ver < 1) {
+        ver = cfg.readEntry("default_mpeg_version_x2", 2 * 2);
+    }
     // 1, 2, 2.5 -> 2, 4, 5
-    if ((ver < 1) || (ver > 5)) ver = 4; // default = version 2
+    if ((ver < 2) || (ver > 5)) ver = 4; // default = version 2
     if (ver > 3) ver++; // 2, 4, 6
     ver >>= 1;          // 1, 2, 3
     ver--;              // 0, 1, 2
@@ -383,6 +391,8 @@ void Kwave::FileInfoDialog::setupMpegTab()
     int modeext = -1;
     if (m_info.contains(Kwave::INF_MPEG_MODEEXT))
         modeext = m_info.get(Kwave::INF_MPEG_MODEEXT).toInt();
+    else
+        modeext = cfg.readEntry("default_mpeg_modeext", -1);
     if (modeext < 0) {
         // find some reasonable default
         if (m_info.tracks() < 2) {
@@ -417,7 +427,11 @@ void Kwave::FileInfoDialog::setupMpegTab()
 
     /* Emphasis */
     initInfo(lblMpegEmphasis, cbMpegEmphasis, Kwave::INF_MPEG_EMPHASIS);
-    int emphasis = m_info.get(Kwave::INF_MPEG_EMPHASIS).toInt();
+    int emphasis = -1;
+    if (m_info.contains(Kwave::INF_MPEG_EMPHASIS))
+        emphasis = m_info.get(Kwave::INF_MPEG_EMPHASIS).toInt();
+    else
+        emphasis = cfg.readEntry("default_mpeg_emphasis", -1);
     switch (emphasis) {
         case 0:  cbMpegEmphasis->setCurrentIndex(0); break;
         case 1:  cbMpegEmphasis->setCurrentIndex(1); break;
@@ -947,6 +961,9 @@ void Kwave::FileInfoDialog::accept()
         CONFIG_DEFAULT_SECTION);
     cfg.sync();
     {
+        cfg.writeEntry("default_sample_format",
+            cbSampleFormat->itemData(cbSampleFormat->currentIndex()).toInt());
+
         int nominal, upper, lower;
         compressionWidget->getABRrates(nominal, lower, upper);
         cfg.writeEntry("default_abr_nominal_bitrate", nominal);
@@ -956,7 +973,6 @@ void Kwave::FileInfoDialog::accept()
         int quality = compressionWidget->baseQuality();
         cfg.writeEntry("default_vbr_quality", quality);
     }
-    cfg.sync();
 
     qDebug("FileInfoDialog::accept()");
     m_info.dump();
@@ -989,6 +1005,12 @@ void Kwave::FileInfoDialog::accept()
     if (isMpeg()) {
         int layer = cbMpegLayer->currentIndex() + 1;
         m_info.set(Kwave::INF_MPEG_LAYER, layer);
+        cfg.writeEntry("default_mpeg_layer", layer);
+
+        // [0, 1, 2] -> [1, 2, 2.5]
+        int v = cbMpegVersion->currentIndex();
+        int y = (2 + ((v * 3) + 1) / 2);
+        cfg.writeEntry("default_mpeg_version_x2", y);
 
         // only in "Joint Stereo" mode, then depends on Layer
         //
@@ -1002,26 +1024,32 @@ void Kwave::FileInfoDialog::accept()
         if (m_info.tracks() < 2) {
             // mono -> no mode ext.
             m_info.set(Kwave::INF_MPEG_MODEEXT, QVariant());
+            cfg.writeEntry("default_mpeg_modeext", -1);
         } else if (cbMpegModeExt->isEnabled()) {
             // Layer I+II
             int modeext = cbMpegModeExt->currentIndex();
             m_info.set(Kwave::INF_MPEG_MODEEXT, modeext);
+            cfg.writeEntry("default_mpeg_modeext", modeext);
         } else {
             // Layer III
             int modeext = 4;
             if (chkMpegIntensityStereo->isChecked()) modeext |= 1;
             if (chkMpegMSStereo->isChecked())        modeext |= 2;
             m_info.set(Kwave::INF_MPEG_MODEEXT, modeext);
+            cfg.writeEntry("default_mpeg_modeext", modeext);
         }
 
-        int emphasis = 0;
-        switch (cbMpegEmphasis->currentIndex()) {
-            case 1:  emphasis = 1; break; /* 1 -> 1 */
-            case 2:  emphasis = 3; break; /* 2 -> 3 */
-            case 0: /* FALLTHROUGH */
-            default: emphasis = 0; break; /* 0 -> 0 */
+        int emphasis = -1;
+        if (cbMpegEmphasis->isEnabled()) {
+            switch (cbMpegEmphasis->currentIndex()) {
+                case 0:  emphasis =  0; break; /* 0 -> 0 */
+                case 1:  emphasis =  1; break; /* 1 -> 1 */
+                case 2:  emphasis =  3; break; /* 2 -> 3 */
+                default: emphasis = -1; break; /* * -> disabled */
+            }
         }
         m_info.set(Kwave::INF_MPEG_EMPHASIS, emphasis);
+        cfg.writeEntry("default_mpeg_emphasis", emphasis);
 
         bool copyrighted = chkMpegCopyrighted->isChecked();
         m_info.set(Kwave::INF_COPYRIGHTED, copyrighted);
@@ -1123,6 +1151,7 @@ void Kwave::FileInfoDialog::accept()
     qDebug("FileInfoDialog::accept() [done]");
     m_info.dump();
 
+    cfg.sync();
     QDialog::accept();
 }
 

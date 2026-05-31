@@ -135,8 +135,9 @@ namespace Kwave
          * - sbResolution
          * - sbChannels
          * - cbSampleFormat
+         * @param cfg an opened config file group with defaults
          */
-        void setupFileInfoTab();
+        void setupFileInfoTab(KConfigGroup &cfg);
 
         /**
          * initialize the "Compression" tab:
@@ -154,8 +155,9 @@ namespace Kwave
          * - cbMpegEmphasis
          * - chkMpegCopyrighted
          * - chkMpegOriginal
+         * @param cfg an opened config file group with defaults
          */
-        void setupMpegTab();
+        void setupMpegTab(KConfigGroup &cfg);
 
         /**
          * initializes the "Content" tab:

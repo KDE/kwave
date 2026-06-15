@@ -5461,7 +5461,7 @@ msgstr "作者/版权"
 #: plugins/fileinfo/FileInfoDlg.ui:2000
 #, kde-format
 msgid "Miscellaneous"
-msgstr "杂项"
+msgstr "其他"
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:85
 #, kde-format

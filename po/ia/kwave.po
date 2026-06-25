@@ -6373,7 +6373,7 @@ msgstr ""
 "reproduction. Le latentia ed le retardo inter le actiones de interfacie de "
 "usator como startar/stoppar reproduction, actualisar le position de "
 "reproduction e le exito real de sono. Si tu incontra dropouts "
-"(abandonamentos) tu deberea augmentar un pauc iste preferentia.</p>"
+"(abandonamentos) tu deberea augmentar un pauco iste preferentia.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
@@ -6687,7 +6687,7 @@ msgid ""
 msgstr ""
 "Quando on usa <b>Pre-Registrar</b>, Kwave ja registra internemente ante que "
 "le real registration initia. Iste characteristica es utile si tu vole "
-"startar a registrar ja un pauc secundas ante que tu pressa le button de "
+"startar a registrar ja un pauco secundas ante que tu pressa le button de "
 "registrar.<i>(Pro exemplo quando on registra ex le radio)</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordPre)

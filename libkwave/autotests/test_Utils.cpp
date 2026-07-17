@@ -24,7 +24,7 @@ void TestUtils::test_string2date()
     QCOMPARE(Kwave::string2date(QStringLiteral("12/23/99 1:23 PM")),
              QStringLiteral("1999-12-23T13:23:00"));
     QCOMPARE(Kwave::string2date(
-                QStringLiteral("Saturday, December 23, 2023 1:23:45 AM CET")),
+                QStringLiteral("Saturday, December 23, 2023 1:23:45 AM Central Standard Time")),
              QStringLiteral("2023-12-23T01:23:45"));
 }
 

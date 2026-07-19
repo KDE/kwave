@@ -35,7 +35,6 @@
 #include <QUrl>
 #include <QLineEdit>
 #include <QLocale>
-#include <QSpinBox>
 #include <QDateEdit>
 
 #include <KComboBox>
@@ -139,11 +138,11 @@ void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
     QFileInfo fi(m_info.get(Kwave::INF_FILENAME).toString());
     QString file_name = fi.fileName();
     edFileName->setText(file_name);
-    edFileName->setEnabled(file_name.length() != 0);
+    edFileName->setEnabled(!file_name.isEmpty());
 
     /* mime type */
     QString mimetype = m_info.get(Kwave::INF_MIMETYPE).toString();
-    if (!mimetype.length())
+    if (mimetype.isEmpty())
         mimetype = _("audio/x-wav"); // default mimetype
 
     qDebug("mimetype = %s", DBG(mimetype));
@@ -153,7 +152,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
      * we might be in the "SaveAs" mode and the compression belongs to
      * the old file name
      */
-    if (file_name.length()) {
+    if (!file_name.isEmpty()) {
         QString mt = Kwave::CodecManager::mimeTypeOf(QUrl(file_name));
         Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mt);
         if (encoder) {
@@ -482,7 +481,7 @@ void Kwave::FileInfoDialog::setupContentTab()
     QDate date;
     QString date_str = m_info.get(Kwave::INF_CREATION_DATE).toString();
     if (m_info.contains(Kwave::INF_CREATION_DATE)) {
-        if (date_str.length())
+        if (!date_str.isEmpty())
             date = QDate::fromString(date_str, Qt::ISODate);
     }
     if (!date.isValid()) {
@@ -621,7 +620,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
     QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
 
     // switch by mime type:
-    if (mime_type.length()) {
+    if (!mime_type.isEmpty()) {
         // mime type is present -> offer only matching compressions
         Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
         if (encoder) supported_compressions = encoder->compressionTypes();
@@ -681,14 +680,14 @@ void Kwave::FileInfoDialog::compressionChanged()
 
     // selected compression -> mime type (edit field)
 
-    if (preferred_mime_type.length()) {
+    if (!preferred_mime_type.isEmpty()) {
         // if a compression implies a specific mime type -> select it
         edFileFormat->setText(preferred_mime_type);
     } else {
         // if mime type is given by file info -> keep it
         // otherwise select one by evaluating the compression <-> encoder
         QString file_mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
-        if (!file_mime_type.length()) {
+        if (file_mime_type.isEmpty()) {
             // determine mime type from a matching encoder.
             // This should work for compression types that are supported by
             // only one single encoder which also supports only one single
@@ -875,23 +874,23 @@ void Kwave::FileInfoDialog::autoGenerateKeywords()
         QString token = it.next();
 
         // remove punktation characters like '.', ',', '!' from start and end
-        while (token.length()) {
+        while (!token.isEmpty()) {
             QString old_value = token;
 
-            QChar c = token[token.length()-1];
+            QChar c = token[token.length() - 1];
             if (c.isPunct() || c.isMark() || c.isSpace())
-                token = token.left(token.length()-1);
-            if (!token.length()) break;
+                token = token.left(token.length() - 1);
+            if (token.isEmpty()) break;
 
             c = token[0];
             if (c.isPunct() || c.isMark() || c.isSpace())
-                token = token.right(token.length()-1);
+                token = token.right(token.length() - 1);
 
             if (token == old_value) break; // no (more) change(s)
         }
 
         // remove empty entries
-        if (!token.length()) {
+        if (token.isEmpty()) {
             it.remove();
             continue;
         }
@@ -912,14 +911,10 @@ void Kwave::FileInfoDialog::autoGenerateKeywords()
             if (list.indexOf(token) == list.lastIndexOf(token2)) continue;
             if (token2.compare(token, Qt::CaseInsensitive) == 0) {
                 // take the one with less uppercase characters
-                unsigned int upper1 = 0;
-                unsigned int upper2 = 0;
-                for (int i=0; i < token.length(); ++i)
-                    if (token[i].category() == QChar::Letter_Uppercase)
-                        upper1++;
-                for (int i=0; i < token2.length(); ++i)
-                    if (token2[i].category() == QChar::Letter_Uppercase)
-                        upper2++;
+                unsigned int upper1 = std::count_if(token.begin(), token.end(),
+                    [](QChar c) { return c.isUpper(); });
+                unsigned int upper2 = std::count_if(token2.begin(), token2.end(),
+                    [](QChar c) { return c.isUpper(); });
                 if (upper2 < upper1) {
                     is_duplicate = true;
                     break;
@@ -944,9 +939,9 @@ void Kwave::FileInfoDialog::acceptEdit(Kwave::FileProperty property,
                                        QString value)
 {
     value = value.simplified();
-    if (!m_info.contains(property) && !value.length()) return;
+    if (!m_info.contains(property) && value.isEmpty()) return;
 
-    if (!value.length()) {
+    if (value.isEmpty()) {
         m_info.set(property, QVariant());
     } else {
         m_info.set(property, value);

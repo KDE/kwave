@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-01 00:43+0000\n"
+"POT-Creation-Date: 2026-07-20 00:43+0000\n"
 "PO-Revision-Date: 2025-12-11 18:40+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -5189,29 +5189,29 @@ msgstr "Номинальный битрейт"
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:213
+#: plugins/fileinfo/FileInfoDialog.cpp:212
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 байт"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:215
+#: plugins/fileinfo/FileInfoDialog.cpp:214
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 кб (%2 байт)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:218
+#: plugins/fileinfo/FileInfoDialog.cpp:217
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 МБ (%2 байт)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
-#: plugins/fileinfo/FileInfoDialog.cpp:231 plugins/newsignal/NewSigDlg.ui:102
+#: plugins/fileinfo/FileInfoDialog.cpp:230 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
 msgstr "Частота дискретизации:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:234
+#: plugins/fileinfo/FileInfoDialog.cpp:233
 #, kde-format
 msgid ""
 "Here you can select one of the predefined\n"
@@ -5223,13 +5223,13 @@ msgstr ""
 "ввод любой другой частоты дискретизации."
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
-#: plugins/fileinfo/FileInfoDialog.cpp:240 plugins/newsignal/NewSigDlg.ui:206
+#: plugins/fileinfo/FileInfoDialog.cpp:239 plugins/newsignal/NewSigDlg.ui:206
 #: plugins/record/RecordDlg.ui:912
 #, kde-format
 msgid "Resolution:"
 msgstr "Разрешение:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:243
+#: plugins/fileinfo/FileInfoDialog.cpp:242
 #, kde-format
 msgid ""
 "Select a resolution in bits in which the file\n"
@@ -5237,13 +5237,13 @@ msgid ""
 msgstr "Выбор разрешения в битах для сохранения файла."
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/fileinfo/FileInfoDialog.cpp:248 plugins/newsignal/NewSigDlg.ui:196
+#: plugins/fileinfo/FileInfoDialog.cpp:247 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
 msgstr "Дорожки:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:251
+#: plugins/fileinfo/FileInfoDialog.cpp:250
 #, kde-format
 msgid ""
 "Shows the number of tracks of the signal.\n"
@@ -5253,12 +5253,12 @@ msgstr ""
 "Дорожки можно добавлять и удалять в меню «Правка»."
 
 # BUGME: надо уницифировать перевод "length", посмотреть в amarok --aspotashev
-#: plugins/fileinfo/FileInfoDialog.cpp:261
+#: plugins/fileinfo/FileInfoDialog.cpp:260
 #, kde-format
 msgid "Length:"
 msgstr "Продолжительность:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:264
+#: plugins/fileinfo/FileInfoDialog.cpp:263
 #, kde-format
 msgid ""
 "Shows the length of the file in samples\n"
@@ -5267,44 +5267,44 @@ msgstr ""
 "Продолжительность файла в отсчётах и в единицах\n"
 "времени, если такая информация доступна."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:270
+#: plugins/fileinfo/FileInfoDialog.cpp:269
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 отсчётов)"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
-#: plugins/fileinfo/FileInfoDialog.cpp:274 plugins/record/RecordDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:273 plugins/record/RecordDialog.cpp:602
 #: plugins/record/RecordDlg.ui:1133
 #, no-c-format, kde-format
 msgid "%1 samples"
 msgstr "%1 отсчётов"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:601
+#: plugins/fileinfo/FileInfoDialog.cpp:600
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(моно)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:604
+#: plugins/fileinfo/FileInfoDialog.cpp:603
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(стерео)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:607
+#: plugins/fileinfo/FileInfoDialog.cpp:606
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(квадро)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:832
-#: plugins/fileinfo/FileInfoDialog.cpp:838
+#: plugins/fileinfo/FileInfoDialog.cpp:831
+#: plugins/fileinfo/FileInfoDialog.cpp:837
 #, kde-format
 msgid "Yes"
 msgstr "Да"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:832
-#: plugins/fileinfo/FileInfoDialog.cpp:838
+#: plugins/fileinfo/FileInfoDialog.cpp:831
+#: plugins/fileinfo/FileInfoDialog.cpp:837
 #, kde-format
 msgid "No"
 msgstr "Нет"

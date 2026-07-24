@@ -41,7 +41,7 @@ Kwave::Stripe::Stripe(Stripe &&other)
     :m_lock(), m_start(other.m_start), m_data(other.m_data)
 {
     other.m_start = 0;
-    other.m_data.resize(0);
+    other.resize(0);
 }
 
 //***************************************************************************

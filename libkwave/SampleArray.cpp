@@ -83,16 +83,21 @@ const sample_t & Kwave::SampleArray::operator [] (unsigned int index) const
 //***************************************************************************
 bool Kwave::SampleArray::resize(unsigned int size)
 {
+    const unsigned int current_size = this->size();
     if (!m_storage) return false;
-    if (size == m_storage->m_size) return true;
+    if (size == current_size) return true;
 
-    m_storage->resize(size);
-    if (size && (m_storage->m_size > size)) {
-        qWarning("Kwave::SampleArray::resize(): shrinking from %u to %u "
-                 "failed, keeping old memory", m_storage->m_size, size);
-        return true;
+    if (size == 0) {
+        m_storage = new(std::nothrow) SampleStorage;
+    } else {
+        m_storage->resize(size);
+        if (size && (this->size() > size)) {
+            qWarning("Kwave::SampleArray::resize(): shrinking from %u to %u "
+                    "failed, keeping old memory", current_size, size);
+            return true;
+        }
     }
-    return (m_storage->m_size == size);
+    return (this->size() == size);
 }
 
 //***************************************************************************
@@ -103,20 +108,22 @@ unsigned int Kwave::SampleArray::size() const
 
 //***************************************************************************
 Kwave::SampleArray::SampleStorage::SampleStorage()
-    :QSharedData()
+    :QSharedData(),
+     m_size(0),
+     m_data(nullptr)
 {
-    m_size     = 0;
-    m_data     = nullptr;
 }
 
 //***************************************************************************
 Kwave::SampleArray::SampleStorage::SampleStorage(const SampleStorage &other)
-    :QSharedData(other)
+    :QSharedData(other),
+     m_size(0),
+     m_data(nullptr)
 {
-    m_size     = 0;
-    m_data     = nullptr;
-
     if (other.m_size) {
+        // qDebug("SampleStorage - DEEP COPY");
+        // print_backtrace();
+
         m_data = static_cast<sample_t *>(
             ::malloc(other.m_size * sizeof(sample_t))
         );
@@ -130,7 +137,8 @@ Kwave::SampleArray::SampleStorage::SampleStorage(const SampleStorage &other)
 //***************************************************************************
 Kwave::SampleArray::SampleStorage::~SampleStorage()
 {
-    if (m_data) ::free(m_data);
+    ::free(m_data);
+    m_data = nullptr;
 }
 
 //***************************************************************************

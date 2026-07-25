@@ -330,7 +330,7 @@ namespace Kwave
             }
 
         private:
-            QPointer<Kwave::FileContext> m_context;
+            Kwave::FileContext *m_context;
         };
 
     private:

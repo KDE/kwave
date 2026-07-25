@@ -173,20 +173,27 @@ namespace Kwave
 
     private:
 
+        /** combined state/min/max */
+        struct TrackState
+        {
+            /** bitmask for "validity" of the min/max values */
+            QVector <CacheState> m_state;
+
+            /** list of minimum value arrays */
+            QVector<sample_t> m_min;
+
+            /** list of maximum value arrays */
+            QVector <sample_t> m_max;
+        };
+
         /** signal with the data to be shown */
         Kwave::SignalManager &m_signal;
 
         /** selection tracker */
         Kwave::SelectionTracker m_selection;
 
-        /** list of minimum value arrays, one array per track */
-        QHash<quint64, QVector <sample_t> > m_min;
-
-        /** list of maximum value arrays, one array per track */
-        QHash<quint64, QVector <sample_t> > m_max;
-
-        /** bitmask for "validity" of the min/max values */
-        QHash<quint64, QVector <CacheState> > m_state;
+        /** combined state/min/max, one per track */
+        QHash<quint64, TrackState> m_track_state;
 
         /** list of min/max pairs, cached internally for getOverView */
         MinMaxArray m_minmax;

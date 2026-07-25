@@ -28,7 +28,6 @@
 
 #include <QtGlobal>
 #include <QReadWriteLock>
-#include <QUuid>
 #include <QVector>
 
 #include "libkwave/InsertMode.h"
@@ -80,13 +79,13 @@ namespace Kwave
          *        If the position is at or after the last track, the new track
          *        will be appended to the end.
          * @param length number of samples of the new track (zero is allowed)
-         * @param uuid pointer to a unique ID (optional, can be null)
+         * @param uid a unique ID (optional, can be zero)
          * @return pointer to the created track. If the length is
          *         omitted or zero, the track will have zero length.
          */
         Kwave::Track *insertTrack(unsigned int index,
                                   sample_index_t length,
-                                  QUuid *uuid);
+                                  quint64 uid);
 
         /**
          * Deletes a track.
@@ -198,10 +197,10 @@ namespace Kwave
         /**
          * Returns the uuid of a track
          * @param track index of the track [0...tracks-1]
-         * @return the QUuid of the track or a "null" uuid if the track
+         * @return the uid of the track or a "zero" uid if the track
          *         does not exist
          */
-        QUuid uuidOfTrack(unsigned int track);
+        quint64 uidOfTrack(unsigned int track);
 
     signals:
 

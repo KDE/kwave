@@ -26,7 +26,6 @@
 #include <QObject>
 #include <QPointer>
 #include <QRecursiveMutex>
-#include <QUuid>
 #include <QVector>
 
 #include "libkwave/Sample.h"
@@ -63,7 +62,7 @@ namespace Kwave
         /**
          * Returns all currently selected tracks
          */
-        QList<QUuid> allTracks();
+        QList<quint64> allTracks();
 
         /**
          * changes the selected range covered by the cache
@@ -72,7 +71,7 @@ namespace Kwave
          * @param offset index of the first selected sample
          * @param length number of selected samples
          */
-        void selectRange(QList<QUuid> tracks,
+        void selectRange(QList<quint64> tracks,
                          sample_index_t offset, sample_index_t length);
 
         /**
@@ -106,15 +105,15 @@ namespace Kwave
 
         /**
          * Signals that a track has been inserted.
-         * @param uuid unique ID of the track
+         * @param uid unique ID of the track
          */
-        void sigTrackInserted(const QUuid &uuid);
+        void sigTrackInserted(quint64 uid);
 
         /**
          * Signals that a track has been deleted.
-         * @param uuid unique ID of the track
+         * @param uid unique ID of the track
          */
-        void sigTrackDeleted(const QUuid &uuid);
+        void sigTrackDeleted(quint64 uid);
 
         /**
          * signals that the offset of the selection has changed
@@ -130,11 +129,11 @@ namespace Kwave
 
         /**
          * signals that a range of samples has become invalid
-         * @param track UUID of the track or null for "all tracks"
+         * @param track UID of the track or zero for "all tracks"
          * @param first index of the first invalidated sample
          * @param last index of the last invalidated sample
          */
-        void sigInvalidated(const QUuid *track,
+        void sigInvalidated(quint64 track,
                             sample_index_t first,
                             sample_index_t last);
 
@@ -260,7 +259,7 @@ namespace Kwave
              *       UndoAction object after undo.
              */
             Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-                                            bool with_redo) override;
+                                    bool with_redo) override;
 
             /**
              * This undo action does not contribute to the modification
@@ -282,7 +281,7 @@ namespace Kwave
             QPointer<Kwave::SelectionTracker> m_tracker;
 
             /** list of selected tracks */
-            QList<QUuid> m_tracks;
+            QList<quint64> m_tracks;
 
             /** start of the selection, first sample */
             sample_index_t m_offset;
@@ -304,7 +303,7 @@ namespace Kwave
         sample_index_t m_length;
 
         /** list of currently selected source tracks */
-        QList<QUuid> m_tracks;
+        QList<quint64> m_tracks;
 
         /** if true, track the selection only, otherwise the whole signal */
         bool m_selection_only;

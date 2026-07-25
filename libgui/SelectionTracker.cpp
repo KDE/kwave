@@ -72,14 +72,14 @@ Kwave::SelectionTracker::SelectionTracker(Kwave::SignalManager *signal,
         for (unsigned int track : *tracks) {
             slotTrackInserted(track, nullptr);
             if (m_selection_only)
-                m_tracks.append(m_signal->uuidOfTrack(track));
+                m_tracks.append(m_signal->uidOfTrack(track));
         }
     } else {
         // take over all tracks from the signal manager
         for (unsigned int track : m_signal->allTracks()) {
             slotTrackInserted(track, nullptr);
             if (m_selection_only)
-                m_tracks.append(m_signal->uuidOfTrack(track));
+                m_tracks.append(m_signal->uidOfTrack(track));
         }
     }
 }
@@ -95,7 +95,7 @@ Kwave::SelectionTracker::~SelectionTracker()
 }
 
 //***************************************************************************
-QList<QUuid> Kwave::SelectionTracker::allTracks()
+QList<quint64> Kwave::SelectionTracker::allTracks()
 {
     return m_tracks;
 }
@@ -140,8 +140,8 @@ void Kwave::SelectionTracker::slotTrackInserted(unsigned int index,
     Q_ASSERT(track || !m_signal.isNull());
     if (!track && m_signal.isNull()) return;
 
-    const QUuid &uuid = (track) ? track->uuid() : m_signal->uuidOfTrack(index);
-    Q_ASSERT(!uuid.isNull());
+    const quint64 uid = (track) ? track->uid() : m_signal->uidOfTrack(index);
+    Q_ASSERT(uid != 0);
 
     // track signal length changes when tracks were inserted
     sample_index_t new_len = m_signal->length();
@@ -151,8 +151,8 @@ void Kwave::SelectionTracker::slotTrackInserted(unsigned int index,
     }
 
     // a new track has been inserted
-    m_tracks.append(uuid);
-    emit sigTrackInserted(uuid);
+    m_tracks.append(uid);
+    emit sigTrackInserted(uid);
 }
 
 //***************************************************************************
@@ -166,9 +166,9 @@ void Kwave::SelectionTracker::slotTrackDeleted(unsigned int index,
     Q_ASSERT(track);
     if (!track) return;
 
-    const QUuid &uuid = track->uuid();
-    Q_ASSERT(!uuid.isNull());
-    if (!m_tracks.contains(uuid))
+    const quint64 uid = track->uid();
+    Q_ASSERT(uid != 0);
+    if (!m_tracks.contains(uid))
         return; // track not selected
 
     // track signal length changes when tracks were inserted
@@ -181,8 +181,8 @@ void Kwave::SelectionTracker::slotTrackDeleted(unsigned int index,
     }
 
     // one of our selected tracks was deleted
-    m_tracks.removeAll(uuid);
-    emit sigTrackDeleted(uuid);
+    m_tracks.removeAll(uid);
+    emit sigTrackDeleted(uid);
 }
 
 //***************************************************************************
@@ -195,15 +195,15 @@ void Kwave::SelectionTracker::slotSamplesInserted(unsigned int track,
     Q_ASSERT(!m_signal.isNull());
     if (m_signal.isNull()) return;
 
-    const QUuid uuid = m_signal->uuidOfTrack(track);
-    if (!m_tracks.contains(uuid))
+    const quint64 uid = m_signal->uidOfTrack(track);
+    if (!m_tracks.contains(uid))
         return; // track not selected
 
     if (!length)
         return; // nothing to do
 
     // NOTE: adjust offsets/lengths only for the first selected track
-    const bool is_first = (uuid == m_tracks.first());
+    const bool is_first = (uid == m_tracks.first());
 
     if (m_selection_only) {
         if (offset >= (m_offset + m_length))
@@ -226,7 +226,7 @@ void Kwave::SelectionTracker::slotSamplesInserted(unsigned int track,
         emit sigLengthChanged(m_length);
     }
 
-    emit sigInvalidated(&uuid, offset, SAMPLE_INDEX_MAX);
+    emit sigInvalidated(uid, offset, SAMPLE_INDEX_MAX);
 }
 
 //***************************************************************************
@@ -239,8 +239,8 @@ void Kwave::SelectionTracker::slotSamplesDeleted(unsigned int track,
     Q_ASSERT(!m_signal.isNull());
     if (m_signal.isNull()) return;
 
-    const QUuid uuid = m_signal->uuidOfTrack(track);
-    if (!m_tracks.contains(uuid))
+    const quint64 uid = m_signal->uidOfTrack(track);
+    if (!m_tracks.contains(uid))
         return; // track not selected
 
     if (!length)
@@ -250,7 +250,7 @@ void Kwave::SelectionTracker::slotSamplesDeleted(unsigned int track,
         return; // right of us
 
     // NOTE: adjust offsets/lengths only for the first selected track
-    const bool is_first = (uuid == m_tracks.first());
+    const bool is_first = (uid == m_tracks.first());
 
     if ((offset + length - 1) < m_offset) {
         // left of us, no overlap
@@ -283,7 +283,7 @@ void Kwave::SelectionTracker::slotSamplesDeleted(unsigned int track,
     }
 
     // in our range -> invalidate all samples from offset to end of file
-    emit sigInvalidated(&uuid, left, SAMPLE_INDEX_MAX);
+    emit sigInvalidated(uid, left, SAMPLE_INDEX_MAX);
 }
 
 //***************************************************************************
@@ -298,8 +298,8 @@ void Kwave::SelectionTracker::slotSamplesModified(unsigned int track,
     Q_ASSERT(!m_signal.isNull());
     if (m_signal.isNull()) return;
 
-    const QUuid uuid = m_signal->uuidOfTrack(track);
-    if (!m_tracks.contains(uuid))
+    const quint64 uid = m_signal->uidOfTrack(track);
+    if (!m_tracks.contains(uid))
         return; // track not selected
 
     if (offset >= (m_offset + m_length))
@@ -314,29 +314,29 @@ void Kwave::SelectionTracker::slotSamplesModified(unsigned int track,
     sample_index_t left  = qMax(first_mod, m_offset);
     sample_index_t right = qMin(last_mod,  m_offset + m_length - 1);
 
-    emit sigInvalidated(&uuid, left, right);
+    emit sigInvalidated(uid, left, right);
 }
 
 //***************************************************************************
-void Kwave::SelectionTracker::selectRange(QList<QUuid> tracks,
+void Kwave::SelectionTracker::selectRange(QList<quint64> tracks,
                                           sample_index_t offset,
                                           sample_index_t length)
 {
     QMutexLocker lock(&m_lock);
 
     // remove deleted tracks
-    for (const QUuid &uuid : m_tracks) {
-        if (!tracks.contains(uuid)) {
-            m_tracks.removeAll(uuid);
-            emit sigTrackDeleted(uuid);
+    for (const quint64 uid : m_tracks) {
+        if (!tracks.contains(uid)) {
+            m_tracks.removeAll(uid);
+            emit sigTrackDeleted(uid);
         }
     }
 
     // add new tracks
-    for (const QUuid &uuid : tracks) {
-        if (!m_tracks.contains(uuid)) {
-            m_tracks.append(uuid);
-            emit sigTrackInserted(uuid);
+    for (const quint64 uid : tracks) {
+        if (!m_tracks.contains(uid)) {
+            m_tracks.append(uid);
+            emit sigTrackInserted(uid);
         }
     }
 
@@ -370,14 +370,14 @@ void Kwave::SelectionTracker::selectRange(QList<QUuid> tracks,
         // offset has changed -> invalidate all
         m_offset = offset;
         emit sigOffsetChanged(m_offset);
-        emit sigInvalidated(nullptr, m_offset, SAMPLE_INDEX_MAX);
+        emit sigInvalidated(0, m_offset, SAMPLE_INDEX_MAX);
     } else if (length > old_len) {
         // length has changed and increased -> invalidate new area
-        emit sigInvalidated(nullptr, m_offset + old_len - 1,
+        emit sigInvalidated(0, m_offset + old_len - 1,
                             SAMPLE_INDEX_MAX);
     } else if (length < old_len) {
         // length was reduced -> invalidate shrunken area at end
-        emit sigInvalidated(nullptr, m_offset + length - 1,
+        emit sigInvalidated(0, m_offset + length - 1,
                             SAMPLE_INDEX_MAX);
     }
 }
@@ -387,7 +387,7 @@ void Kwave::SelectionTracker::selectRange(QList<QUuid> tracks,
 Kwave::SelectionTracker::Undo::Undo(Kwave::SelectionTracker *selection)
     :Kwave::UndoAction(),
      m_tracker(selection),
-     m_tracks(selection ? selection->allTracks() : QList<QUuid>()),
+     m_tracks(selection ? selection->allTracks() : QList<quint64>()),
      m_offset(selection ? selection->offset() : 0),
      m_length(selection ? selection->length() : 0)
 {
@@ -430,7 +430,7 @@ Kwave::UndoAction *Kwave::SelectionTracker::Undo::undo(
     Q_UNUSED(manager)
 
     if (!m_tracker.isNull()) {
-        QList<QUuid>   tracks = m_tracks;
+        QList<quint64> tracks = m_tracks;
         sample_index_t ofs    = m_offset;
         sample_index_t len    = m_length;
 

@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <algorithm>
+#include <atomic>
 #include <new>
 
 #include <QMutexLocker>
@@ -56,16 +57,23 @@
 #define STRIPE_LENGTH_MINIMUM (STRIPE_LENGTH_OPTIMAL / 2)
 
 //***************************************************************************
+static inline quint64 createUid()
+{
+    static std::atomic<quint64> s_counter{1};
+    return s_counter.fetch_add(1, std::memory_order_relaxed);
+}
+
+//***************************************************************************
 Kwave::Track::Track()
     :m_lock(), m_lock_usage(), m_stripes(), m_selected(true),
-     m_uuid(QUuid::createUuid())
+     m_uid(createUid())
 {
 }
 
 //***************************************************************************
-Kwave::Track::Track(sample_index_t length, QUuid *uuid)
+Kwave::Track::Track(sample_index_t length, quint64 uid)
     :m_lock(), m_lock_usage(), m_stripes(), m_selected(true),
-     m_uuid((uuid) ? *uuid : QUuid::createUuid())
+     m_uid((uid) ? uid : createUid())
 {
     if (length <= STRIPE_LENGTH_MAXIMUM) {
         if (length) appendStripe(length);

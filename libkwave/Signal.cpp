@@ -48,7 +48,7 @@ Kwave::Signal::Signal(unsigned int tracks, sample_index_t length)
     :m_tracks(), m_lock_tracks()
 {
     while (tracks--) {
-        insertTrack(0, length, nullptr);
+        insertTrack(0, length, 0);
     }
 }
 
@@ -69,13 +69,13 @@ void Kwave::Signal::close()
 //***************************************************************************
 Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
                                          sample_index_t length,
-                                         QUuid *uuid)
+                                         quint64 uid)
 {
     Kwave::Track *t = nullptr;
     {
         QWriteLocker lock(&m_lock_tracks);
 
-        t = new(std::nothrow) Kwave::Track(length, uuid);
+        t = new(std::nothrow) Kwave::Track(length, uid);
         Q_ASSERT(t);
         if (!t) return nullptr;
 
@@ -289,15 +289,15 @@ void Kwave::Signal::selectTrack(unsigned int track, bool select)
 }
 
 //***************************************************************************
-QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
+quint64 Kwave::Signal::uidOfTrack(unsigned int track)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    if (static_cast<size_t>(track) >= m_tracks.size()) return QUuid();
+    if (static_cast<size_t>(track) >= m_tracks.size()) return 0;
     Q_ASSERT(m_tracks.at(track));
-    if (!m_tracks.at(track)) return QUuid();
+    if (!m_tracks.at(track)) return 0;
 
-    return m_tracks.at(track)->uuid();
+    return m_tracks.at(track)->uid();
 }
 
 //// now follow the various editing and effects functions

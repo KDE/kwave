@@ -27,7 +27,6 @@
 #include <QApplication>
 #include <QColor>
 #include <QFutureSynchronizer>
-#include <QImage>
 #include <QMutexLocker>
 #include <QPointer>
 #include <QString>
@@ -211,15 +210,15 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     Q_ASSERT(m_selection);
     if (!m_selection) return -ENOMEM;
 
-    connect(m_selection, SIGNAL(sigTrackInserted(QUuid)),
-            this,        SLOT(slotTrackInserted(QUuid)));
-    connect(m_selection, SIGNAL(sigTrackDeleted(QUuid)),
-            this,        SLOT(slotTrackDeleted(QUuid)));
+    connect(m_selection, SIGNAL(sigTrackInserted(quint64)),
+            this,        SLOT(slotTrackInserted(quint64)));
+    connect(m_selection, SIGNAL(sigTrackDeleted(quint64)),
+            this,        SLOT(slotTrackDeleted(quint64)));
     connect(
         m_selection,
-        SIGNAL(sigInvalidated(const QUuid*,sample_index_t,sample_index_t)),
+        SIGNAL(sigInvalidated(quint64,sample_index_t,sample_index_t)),
         this,
-        SLOT(slotInvalidated(const QUuid*,sample_index_t,sample_index_t))
+        SLOT(slotInvalidated(quint64,sample_index_t,sample_index_t))
     );
 
     // create a new empty image
@@ -293,9 +292,9 @@ void Kwave::SonagramPlugin::makeAllValid()
         valid        = m_valid;
         m_valid.fill(true);
 
-        const QList<QUuid> selected_tracks(m_selection->allTracks());
+        const QList<quint64> selected_tracks(m_selection->allTracks());
         for (unsigned int track : signalManager().allTracks())
-            if (selected_tracks.contains(signalManager().uuidOfTrack(track)))
+            if (selected_tracks.contains(signalManager().uidOfTrack(track)))
                 track_list.append(track);
     }
     const unsigned int tracks = static_cast<unsigned int>(track_list.count());
@@ -537,7 +536,7 @@ void Kwave::SonagramPlugin::validate()
 }
 
 //***************************************************************************
-void Kwave::SonagramPlugin::slotTrackInserted(const QUuid &track_id)
+void Kwave::SonagramPlugin::slotTrackInserted(quint64 track_id)
 {
     QMutexLocker _lock(&m_lock_job_list);
 
@@ -552,7 +551,7 @@ void Kwave::SonagramPlugin::slotTrackInserted(const QUuid &track_id)
 }
 
 //***************************************************************************
-void Kwave::SonagramPlugin::slotTrackDeleted(const QUuid &track_id)
+void Kwave::SonagramPlugin::slotTrackDeleted(quint64 track_id)
 {
     QMutexLocker _lock(&m_lock_job_list);
 
@@ -567,7 +566,7 @@ void Kwave::SonagramPlugin::slotTrackDeleted(const QUuid &track_id)
 }
 
 //***************************************************************************
-void Kwave::SonagramPlugin::slotInvalidated(const QUuid *track_id,
+void Kwave::SonagramPlugin::slotInvalidated(quint64 track_id,
                                             sample_index_t first,
                                             sample_index_t last)
 {

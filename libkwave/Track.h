@@ -27,7 +27,6 @@
 #include <QObject>
 #include <QReadWriteLock>
 #include <QRecursiveMutex>
-#include <QUuid>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"
@@ -55,9 +54,9 @@ namespace Kwave
         /**
          * Constructor. Creates an empty track with a specified length.
          * @param length the length in samples
-         * @param uuid unique ID of the track, can be null
+         * @param uid unique ID of the track, can be zero
          */
-        Track(sample_index_t length, QUuid *uuid);
+        Track(sample_index_t length, quint64 uid);
 
         /**
          * Destructor.
@@ -141,7 +140,7 @@ namespace Kwave
         void select(bool select);
 
         /** returns the unique ID of this track instance */
-        const QUuid &uuid() const { return m_uuid; }
+        const quint64 &uid() const { return m_uid; }
 
     public slots:
 
@@ -318,7 +317,7 @@ namespace Kwave
         bool m_selected;
 
         /** unique ID */
-        QUuid m_uuid;
+        const quint64 m_uid;
     };
 }
 

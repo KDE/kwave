@@ -42,22 +42,22 @@ Kwave::OverViewCache::OverViewCache(Kwave::SignalManager &signal,
      m_lock()
 {
 
-    connect(&m_selection, SIGNAL(sigTrackInserted(QUuid)),
-            this,         SLOT(slotTrackInserted(QUuid)));
-    connect(&m_selection, SIGNAL(sigTrackDeleted(QUuid)),
-            this,         SLOT(slotTrackDeleted(QUuid)));
+    connect(&m_selection, SIGNAL(sigTrackInserted(quint64)),
+            this,         SLOT(slotTrackInserted(quint64)));
+    connect(&m_selection, SIGNAL(sigTrackDeleted(qint64)),
+            this,         SLOT(slotTrackDeleted(quint64)));
     connect(&m_selection, SIGNAL(sigLengthChanged(sample_index_t)),
             this,         SLOT(slotLengthChanged(sample_index_t)));
     connect(
         &m_selection,
-        SIGNAL(sigInvalidated(const QUuid*,sample_index_t,sample_index_t)),
+        SIGNAL(sigInvalidated(quint64,sample_index_t,sample_index_t)),
         this,
-        SLOT(slotInvalidated(const QUuid*,sample_index_t,sample_index_t))
+        SLOT(slotInvalidated(quint64,sample_index_t,sample_index_t))
     );
 
     // take over the initial list of tracks
-    for (const QUuid &uuid : m_selection.allTracks())
-        slotTrackInserted(uuid);
+    for (const quint64 uid : m_selection.allTracks())
+        slotTrackInserted(uid);
 }
 
 //***************************************************************************
@@ -85,17 +85,17 @@ void Kwave::OverViewCache::scaleUp()
     if (shrink <= 1) return; // nothing to shrink, just ignore new scale
 
     // loop over all tracks
-    for (QHash<QUuid, QVector <CacheState> >::iterator
+    for (QHash<quint64, QVector <CacheState> >::iterator
         it(m_state.begin()); it != m_state.end(); ++it)
     {
-        const QUuid &uuid = it.key();
+        const quint64 uid = it.key();
         unsigned int dst = 0;
         unsigned int count = CACHE_SIZE / shrink;
         Q_ASSERT(count <= CACHE_SIZE);
 
         // source pointers
-        sample_t *smin = m_min[uuid].data();
-        sample_t *smax = m_max[uuid].data();
+        sample_t *smin = m_min[uid].data();
+        sample_t *smax = m_max[uid].data();
         CacheState *sstate = it.value().data();
 
         // destination pointers
@@ -144,18 +144,18 @@ void Kwave::OverViewCache::scaleDown()
     if (m_scale == new_scale) return;
 
     m_scale = new_scale;
-    invalidateCache(nullptr, 0, CACHE_SIZE - 1);
+    invalidateCache(0, 0, CACHE_SIZE - 1);
 }
 
 //***************************************************************************
-void Kwave::OverViewCache::invalidateCache(const QUuid *track_id,
+void Kwave::OverViewCache::invalidateCache(quint64 track_id,
                                            unsigned int first,
                                            unsigned int last)
 {
     if (track_id) {
         // invalidate a single track
-        Q_ASSERT(m_state.contains(*track_id));
-        if (!m_state.contains(*track_id)) return;
+        Q_ASSERT(m_state.contains(track_id));
+        if (!m_state.contains(track_id)) return;
 
         if (last >= CACHE_SIZE) last = CACHE_SIZE - 1;
 
@@ -164,20 +164,20 @@ void Kwave::OverViewCache::invalidateCache(const QUuid *track_id,
 //             first, last);
 
         for (unsigned int pos = first; pos <= last; ++pos)
-            m_state[*track_id][pos] = Invalid;
+            m_state[track_id][pos] = Invalid;
     } else {
         // invalidate all tracks
-        for (QHash<QUuid, QVector <CacheState> >::const_iterator
+        for (QHash<quint64, QVector <CacheState> >::const_iterator
             it(m_state.constBegin()); it != m_state.constEnd(); ++it)
         {
-            const QUuid &uuid = it.key();
-            invalidateCache(&uuid, first, last);
+            const quint64 uid = it.key();
+            invalidateCache(uid, first, last);
         }
     }
 }
 
 //***************************************************************************
-void Kwave::OverViewCache::slotTrackInserted(const QUuid &track_id)
+void Kwave::OverViewCache::slotTrackInserted(quint64 track_id)
 {
     QMutexLocker lock(&m_lock);
 
@@ -200,13 +200,13 @@ void Kwave::OverViewCache::slotTrackInserted(const QUuid &track_id)
     m_state.insert(track_id, state);
 
     // mark the new cache content as invalid
-    invalidateCache(&track_id, 0, CACHE_SIZE - 1);
+    invalidateCache(track_id, 0, CACHE_SIZE - 1);
 
     emit changed();
 }
 
 //***************************************************************************
-void Kwave::OverViewCache::slotTrackDeleted(const QUuid &track_id)
+void Kwave::OverViewCache::slotTrackDeleted(quint64 track_id)
 {
     QMutexLocker lock(&m_lock);
 
@@ -218,7 +218,7 @@ void Kwave::OverViewCache::slotTrackDeleted(const QUuid &track_id)
 }
 
 //***************************************************************************
-void Kwave::OverViewCache::slotInvalidated(const QUuid *track_id,
+void Kwave::OverViewCache::slotInvalidated(quint64 track_id,
                                            sample_index_t first,
                                            sample_index_t last)
 {
@@ -277,9 +277,9 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
         width = static_cast<int>(minmax.count());
 
     QVector<unsigned int> track_list;
-    const QList<QUuid> selected_tracks = m_selection.allTracks();
+    const QList<quint64> selected_tracks = m_selection.allTracks();
     for (unsigned int track : m_signal.allTracks())
-        if (selected_tracks.contains(m_signal.uuidOfTrack(track)))
+        if (selected_tracks.contains(m_signal.uidOfTrack(track)))
             track_list.append(track);
     if (track_list.isEmpty())
         return 0;
@@ -299,17 +299,17 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
         unsigned int count = qBound<unsigned int>(
             1, Kwave::toUint(length / m_scale), CACHE_SIZE);
 
-        QUuid uuid = m_signal.uuidOfTrack(track_list[index]);
-        if (uuid.isNull()) continue; // track has just been deleted
+        quint64 uid = m_signal.uidOfTrack(track_list[index]);
+        if (uid == 0) continue; // track has just been deleted
 
         // check: maybe slotTrackInserted has not yet been called
         //        or slotTrackDeleted has just been called
-        if (!m_state.contains(uuid))
+        if (!m_state.contains(uid))
             continue;
 
-        sample_t *min = m_min[uuid].data();
-        sample_t *max = m_max[uuid].data();
-        CacheState *state = m_state[uuid].data();
+        sample_t *min = m_min[uid].data();
+        sample_t *max = m_max[uid].data();
+        CacheState *state = m_state[uid].data();
         Q_ASSERT(min && max && state);
         Kwave::SampleReader *reader = src[index];
         Q_ASSERT(reader);
@@ -346,12 +346,12 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
         sample_t maximum = SAMPLE_MIN;
         for (; index <= last_index; ++index) {
             // loop over all tracks
-            for (QHash<QUuid, QVector <CacheState> >::const_iterator
+            for (QHash<quint64, QVector <CacheState> >::const_iterator
                  it(m_state.constBegin()); it != m_state.constEnd(); ++it)
             {
-                const QUuid &uuid = it.key();
-                sample_t *min = m_min[uuid].data();
-                sample_t *max = m_max[uuid].data();
+                const quint64 uid = it.key();
+                sample_t *min = m_min[uid].data();
+                sample_t *max = m_max[uid].data();
                 const CacheState *state = it.value().constData();
                 Q_ASSERT(state);
                 if (!state) continue;

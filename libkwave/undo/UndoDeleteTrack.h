@@ -22,7 +22,6 @@
 #include "config.h"
 
 #include <QString>
-#include <QUuid>
 
 #include "libkwave/Sample.h"
 #include "libkwave/Stripe.h"
@@ -83,7 +82,7 @@ namespace Kwave
         QList<Kwave::Stripe::List> m_stripes;
 
         /** unique ID of the deleted track */
-        QUuid m_uuid;
+        quint64 m_uid;
 
     };
 }

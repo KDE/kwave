@@ -399,11 +399,11 @@ namespace Kwave
         /**
          * Returns the uuid of a track
          * @param track index of the track [0...tracks-1]
-         * @return the QUuid of the track or a "null" uuid if the track
+         * @return the uid of the track or a "zero" uid if the track
          *         does not exist
          */
-        QUuid uuidOfTrack(unsigned int track) {
-            return m_signal.uuidOfTrack(track);
+        quint64 uidOfTrack(unsigned int track) {
+            return m_signal.uidOfTrack(track);
         }
 
         /**

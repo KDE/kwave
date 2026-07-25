@@ -30,7 +30,7 @@
 Kwave::UndoDeleteTrack::UndoDeleteTrack(Kwave::Signal &signal,
                                         unsigned int track)
     :UndoAction(), m_signal(signal), m_track(track),
-     m_length(signal.length()), m_stripes(), m_uuid(signal.uuidOfTrack(track))
+     m_length(signal.length()), m_stripes(), m_uid(signal.uidOfTrack(track))
 {
 }
 
@@ -87,7 +87,7 @@ Kwave::UndoAction *Kwave::UndoDeleteTrack::undo(Kwave::SignalManager &manager,
     }
 
     // insert an empty track into the signal
-    m_signal.insertTrack(m_track, m_length, &m_uuid);
+    m_signal.insertTrack(m_track, m_length, m_uid);
 
     // merge the stripes back into the signal
     QVector<unsigned int> track_list;

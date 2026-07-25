@@ -31,8 +31,8 @@ void TestTrack::deleteRange()
     QFETCH(sample_index_t, offset);
     QFETCH(sample_index_t, deleteLen);
 
-    auto uuid{QUuid::createUuid()};
-    auto t = Kwave::Track{trackLen, &uuid};
+    quint64 uid = 1;
+    auto t = Kwave::Track{trackLen, uid};
     t.deleteRange(offset, deleteLen);
     QCOMPARE(t.length(), trackLen - deleteLen);
 }

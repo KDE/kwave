@@ -27,7 +27,6 @@
 #include <QList>
 #include <QObject>
 #include <QRecursiveMutex>
-#include <QUuid>
 #include <QVector>
 
 #include "libkwave/Sample.h"
@@ -111,14 +110,14 @@ namespace Kwave
          * @param track_id unique ID of the track
          * @see SelectionTracker::sigTrackInserted
          */
-        void slotTrackInserted(const QUuid &track_id);
+        void slotTrackInserted(quint64 track_id);
 
         /**
          * Connected to the selection tracker's sigTrackInserted.
          * @param track_id unique ID of the track
          * @see SelectionTracker::sigTrackDeleted
          */
-        void slotTrackDeleted(const QUuid &track_id);
+        void slotTrackDeleted(quint64 track_id);
 
         /**
          * Connected to the selection tracker's sigLengthChanged.
@@ -129,11 +128,11 @@ namespace Kwave
 
         /**
          * Connected to the selection tracker's sigInvalidated.
-         * @param track_id UUID of the track or null for "all tracks"
+         * @param track_id UUID of the track or zero for "all tracks"
          * @param first index of the first invalidated sample
          * @param last index of the last invalidated sample
          */
-        void slotInvalidated(const QUuid *track_id,
+        void slotInvalidated(quint64 track_id,
                              sample_index_t first,
                              sample_index_t last);
 
@@ -168,7 +167,7 @@ namespace Kwave
          * @param last index of the last entry
          *             (will be truncated to CACHE_SIZE-1)
          */
-        void invalidateCache(const QUuid *uuid,
+        void invalidateCache(quint64 uuid,
                              unsigned int first,
                              unsigned int last);
 
@@ -181,13 +180,13 @@ namespace Kwave
         Kwave::SelectionTracker m_selection;
 
         /** list of minimum value arrays, one array per track */
-        QHash<QUuid, QVector <sample_t> > m_min;
+        QHash<quint64, QVector <sample_t> > m_min;
 
         /** list of maximum value arrays, one array per track */
-        QHash<QUuid, QVector <sample_t> > m_max;
+        QHash<quint64, QVector <sample_t> > m_max;
 
         /** bitmask for "validity" of the min/max values */
-        QHash<QUuid, QVector <CacheState> > m_state;
+        QHash<quint64, QVector <CacheState> > m_state;
 
         /** list of min/max pairs, cached internally for getOverView */
         MinMaxArray m_minmax;

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-20 00:43+0000\n"
+"POT-Creation-Date: 2026-07-26 00:43+0000\n"
 "PO-Revision-Date: 2026-01-10 20:52+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -4876,7 +4876,7 @@ msgstr "&Kyllä, käytä G711:tä"
 msgid "&No, store uncompressed"
 msgstr "&Ei, tallenna pakkaamattomana"
 
-#: plugins/codec_wav/WavEncoder.cpp:414 plugins/sonagram/SonagramPlugin.cpp:204
+#: plugins/codec_wav/WavEncoder.cpp:414 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "Tiedosto tai valinta liian suuri"
@@ -7433,7 +7433,7 @@ msgstr "4096"
 msgid "?:"
 msgstr "?:"
 
-#: plugins/sonagram/SonagramPlugin.cpp:75
+#: plugins/sonagram/SonagramPlugin.cpp:74
 #: plugins/sonagram/SonagramWindow.cpp:529
 #, kde-format
 msgid "Sonagram"

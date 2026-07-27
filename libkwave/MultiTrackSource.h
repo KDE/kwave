@@ -39,7 +39,7 @@ namespace Kwave
      */
     template <class SOURCE, const bool INITIALIZE>
     class LIBKWAVE_EXPORT MultiTrackSource: public Kwave::SampleSource,
-                                          private QList<SOURCE *>
+                                            private QList<SOURCE *>
     {
     public:
         /**
@@ -172,7 +172,7 @@ namespace Kwave
         }
 
         /** Destructor */
-        virtual ~MultiTrackSource() override { }
+        ~MultiTrackSource() override { }
     };
 
 }

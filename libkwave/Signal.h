@@ -63,14 +63,10 @@ namespace Kwave
          */
         Signal(unsigned int tracks, sample_index_t length);
 
-        /**
-         * Destructor.
-         */
-        virtual ~Signal() override;
+        /** Destructor */
+        ~Signal() override;
 
-        /**
-         * Closes the signal by removing all tracks.
-         */
+        /** Closes the signal by removing all tracks. */
         void close();
 
         /**

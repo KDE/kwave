@@ -58,10 +58,8 @@ namespace Kwave
          */
         Track(sample_index_t length, quint64 uid);
 
-        /**
-         * Destructor.
-         */
-        virtual ~Track() override;
+        /** Destructor */
+        ~Track() override;
 
         /**
          * Returns the length of the track. This is equivalent

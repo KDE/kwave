@@ -59,9 +59,9 @@ namespace Kwave
          * @param last index of the last sample (right)
          */
         MultiTrackReader(Kwave::ReaderMode mode,
-                        Kwave::SignalManager &signal_manager,
-                        const QVector<unsigned int> &track_list,
-                        sample_index_t first, sample_index_t last);
+                         Kwave::SignalManager &signal_manager,
+                         const QVector<unsigned int> &track_list,
+                         sample_index_t first, sample_index_t last);
 
         /** Destructor */
         ~MultiTrackReader() override;

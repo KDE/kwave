@@ -53,15 +53,15 @@ namespace Kwave
         PlayBackQt();
 
         /** Destructor */
-        virtual ~PlayBackQt() override;
+        ~PlayBackQt() override;
 
         /**
          * Opens the device for playback.
          * @see PlayBackDevice::open
          */
-        virtual QString open(const QString &device, double rate,
-                             unsigned int channels, unsigned int bits,
-                             unsigned int bufbase) override;
+        QString open(const QString &device, double rate,
+                     unsigned int channels, unsigned int bits,
+                     unsigned int bufbase) override;
 
         /**
          * Writes an array of samples to the output device.
@@ -150,7 +150,7 @@ namespace Kwave
             Buffer();
 
             /** destructor */
-            virtual ~Buffer() override;
+            ~Buffer() override;
 
             /**
              * start filling the buffer

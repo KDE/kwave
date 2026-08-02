@@ -70,7 +70,7 @@ static inline double limiter(const double x, const double lmtr_lvl)
 }
 
 //***************************************************************************
-void Kwave::Normalizer::input(Kwave::SampleArray data)
+void Kwave::Normalizer::input(Kwave::SampleArray &data)
 {
     const unsigned int len = data.size();
     const bool use_limiter = (m_gain > 1.0);
@@ -82,7 +82,7 @@ void Kwave::Normalizer::input(Kwave::SampleArray data)
         data[i] = double2sample(s);
     }
 
-    emit output(data);
+    output(data);
 }
 
 //***************************************************************************

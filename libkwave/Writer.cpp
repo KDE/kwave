@@ -65,7 +65,7 @@ Kwave::Writer::~Writer()
 }
 
 //***************************************************************************
-Kwave::Writer &Kwave::Writer::operator << (const Kwave::SampleArray &samples)
+Kwave::Writer &Kwave::Writer::operator << (Kwave::SampleArray &samples)
 {
     unsigned int count = samples.size();
 
@@ -149,7 +149,7 @@ Kwave::Writer &flush(Kwave::Writer &s)
 }
 
 //***************************************************************************
-void Kwave::Writer::input(Kwave::SampleArray data)
+void Kwave::Writer::input(Kwave::SampleArray &data)
 {
     if (data.size()) (*this) << data;
 }

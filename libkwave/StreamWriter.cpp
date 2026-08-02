@@ -39,7 +39,7 @@ Kwave::StreamWriter::~StreamWriter()
 }
 
 //***************************************************************************
-bool Kwave::StreamWriter::write(const Kwave::SampleArray &buffer,
+bool Kwave::StreamWriter::write(Kwave::SampleArray &buffer,
                                 unsigned int &count)
 {
     // NOTE: even zero length input has to be passed, needed for flushing!
@@ -51,10 +51,10 @@ bool Kwave::StreamWriter::write(const Kwave::SampleArray &buffer,
             return false; // out-of-memory ?
 
         // emit the resized copy
-        emit output(data);
+        output(data);
     } else {
         // directly emit the buffer - fast :-)
-        emit output(buffer);
+        output(buffer);
     }
 
     count = 0;
@@ -63,5 +63,3 @@ bool Kwave::StreamWriter::write(const Kwave::SampleArray &buffer,
 
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_StreamWriter.cpp"

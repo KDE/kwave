@@ -112,7 +112,7 @@ void Kwave::SampleBuffer::finished()
 }
 
 //***************************************************************************
-void Kwave::SampleBuffer::input(Kwave::SampleArray data)
+void Kwave::SampleBuffer::input(Kwave::SampleArray &data)
 {
     // if we have buffered data, flush that first
     if (m_buffered) {
@@ -140,7 +140,7 @@ void Kwave::SampleBuffer::enqueue(Kwave::SampleArray data)
 void Kwave::SampleBuffer::emitData(Kwave::SampleArray data)
 {
     // NOTE: this signal could be connected to a slot that blocks for a while
-    emit output(data);
+    output(data);
     m_sema.release();
 }
 

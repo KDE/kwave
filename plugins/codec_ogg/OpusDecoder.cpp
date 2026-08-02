@@ -450,10 +450,7 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
                 QVariant(rate_to / rate_from)
             );
 
-            ok = Kwave::connect(
-                *m_buffer,         SIGNAL(output(Kwave::SampleArray)),
-                *m_rate_converter, SLOT(input(Kwave::SampleArray))
-            );
+            ok = Kwave::connect(*m_buffer, *m_rate_converter);
         }
 
         if (!ok) {
@@ -567,9 +564,7 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
     if (!m_output_is_connected) {
         Kwave::StreamObject *src =
             (m_rate_converter) ? m_rate_converter : m_buffer;
-        if (!Kwave::connect(*src, SIGNAL(output(Kwave::SampleArray)),
-                             dst, SLOT(input(Kwave::SampleArray))) )
-        {
+        if (!Kwave::connect(*src, dst)) {
             qWarning("OpusDecoder::decode() connecting output failed");
             return -1;
         }

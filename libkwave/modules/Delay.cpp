@@ -35,11 +35,11 @@ Kwave::Delay::~Delay()
 void Kwave::Delay::goOn()
 {
     m_fifo.get(m_out_buffer);
-    emit output(m_out_buffer);
+    output(m_out_buffer);
 }
 
 //***************************************************************************
-void Kwave::Delay::input(Kwave::SampleArray data)
+void Kwave::Delay::input(Kwave::SampleArray &data)
 {
     m_fifo.put(data);
 }

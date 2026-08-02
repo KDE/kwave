@@ -28,16 +28,14 @@
 
 #include "libkwave/MultiTrackSink.h"
 #include "libkwave/PlayBackDevice.h"
-#include "libkwave/PlaybackSink.h"
 #include "libkwave/SampleArray.h"
 
 namespace Kwave
 {
 
-    class LIBKWAVE_EXPORT MultiPlaybackSink
-        :public Kwave::MultiTrackSink<Kwave::PlaybackSink, false>
+    class LIBKWAVE_EXPORT MultiPlaybackSink : public Kwave::SampleSink
     {
-        Q_OBJECT
+        using StreamObject::input;
     public:
         /**
          * Constructor
@@ -49,14 +47,27 @@ namespace Kwave
         /** Destructor */
         ~MultiPlaybackSink() override;
 
-    private slots:
-
         /**
          * receives data from one of the tracks
-         * @param track index of the track [0...tracks-1]
+         * @param track index of the track [0 ... tracks - 1]
          * @param data sample data for the given track
          */
-        void input(unsigned int track, Kwave::SampleArray data);
+        void input(unsigned int track, Kwave::SampleArray &data) override;
+
+        /**
+         * always return 0 -> use "multi port mode"
+         * @return 0 always
+         */
+        unsigned int tracks() const override { return 0; }
+
+        /**
+         * Returns the number of inputs.
+         * @return number of inputs
+         */
+        unsigned int inputs() const override
+        {
+            return m_tracks;
+        }
 
     private:
 

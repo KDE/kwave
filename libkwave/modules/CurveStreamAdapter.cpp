@@ -52,7 +52,7 @@ void Kwave::CurveStreamAdapter::goOn()
             m_position = 0;
     }
 
-    emit output(m_buffer);
+    output(m_buffer);
 }
 
 /***************************************************************************/

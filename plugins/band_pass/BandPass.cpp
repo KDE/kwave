@@ -42,7 +42,7 @@ Kwave::BandPass::~BandPass()
 //***************************************************************************
 void Kwave::BandPass::goOn()
 {
-    emit output(m_buffer);
+    output(m_buffer);
 }
 
 //***************************************************************************
@@ -107,7 +107,7 @@ void Kwave::BandPass::setfilter_2polebp(double freq, double R)
 }
 
 //***************************************************************************
-void Kwave::BandPass::input(Kwave::SampleArray data)
+void Kwave::BandPass::input(Kwave::SampleArray &data)
 {
     const Kwave::SampleArray &in = data;
 

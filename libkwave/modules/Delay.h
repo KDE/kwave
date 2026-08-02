@@ -35,6 +35,8 @@ namespace Kwave
     class LIBKWAVE_EXPORT Delay: public Kwave::SampleSource
     {
         Q_OBJECT
+        using StreamObject::input;
+
         public:
             /** Constructor */
             Delay();
@@ -45,14 +47,10 @@ namespace Kwave
             /** does the calculation */
             void goOn() override;
 
-        signals:
-            /** emits a block with delayed wave data */
-            void output(Kwave::SampleArray data);
+            /** receives input data */
+            void input(Kwave::SampleArray &data) override;
 
         public slots:
-
-            /** receives input data */
-            void input(Kwave::SampleArray data);
 
             /**
              * Sets the delay time, normed to samples.

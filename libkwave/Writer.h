@@ -27,6 +27,7 @@
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/SampleSink.h"
+#include "modules/StreamObject.h"
 
 namespace Kwave
 {
@@ -36,6 +37,7 @@ namespace Kwave
     class LIBKWAVE_EXPORT Writer: public Kwave::SampleSink
     {
         Q_OBJECT
+        using StreamObject::input;
     public:
 
         /** default constructor */
@@ -57,7 +59,7 @@ namespace Kwave
         ~Writer() override;
 
         /** operator for inserting an array of samples */
-        virtual Writer &operator << (const Kwave::SampleArray &samples);
+        virtual Writer &operator << (Kwave::SampleArray &samples);
 
         /** operator for inserting a single sample */
         virtual Writer &operator << (const sample_t &sample);
@@ -85,7 +87,7 @@ namespace Kwave
          *              will be internally set to zero if successful
          * @return true if successful, false if failed (e.g. out of memory)
          */
-        virtual bool write(const Kwave::SampleArray &buffer,
+        virtual bool write(Kwave::SampleArray &buffer,
                            unsigned int &count) = 0;
 
         /**
@@ -125,6 +127,12 @@ namespace Kwave
         /** Returns the insert mode */
         inline Kwave::InsertMode mode() const { return m_mode; }
 
+        /**
+         * Interface for the streaming API.
+         * @param data sample data to write
+         */
+        void input(Kwave::SampleArray &data) override;
+
     signals:
 
         /**
@@ -137,14 +145,6 @@ namespace Kwave
          * Emitted when the internal buffer is flushed or the writer is closed
          */
         void proceeded();
-
-    public slots:
-
-        /**
-         * Interface for the signal/slot based streaming API.
-         * @param data sample data to write
-         */
-        void input(Kwave::SampleArray data);
 
     protected:
 

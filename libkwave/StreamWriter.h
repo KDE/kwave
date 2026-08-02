@@ -23,7 +23,6 @@
 #include "libkwave_export.h"
 
 #include <QtGlobal>
-#include <QObject>
 
 #include "libkwave/Writer.h"
 
@@ -36,13 +35,9 @@ namespace Kwave
     /**
      * @class StreamWriter
      * Input stream for transferring samples into a Track.
-     *
-     * @warning THIS CLASS IS NOT THREADSAFE! It is intended to be owned by
-     *          and used from only one thread.
      */
     class LIBKWAVE_EXPORT StreamWriter: public Kwave::Writer
     {
-        Q_OBJECT
     public:
 
         /**
@@ -66,13 +61,8 @@ namespace Kwave
          *              will be internally set to zero if successful
          * @return true if successful, false if failed (e.g. out of memory)
          */
-        virtual bool write(const Kwave::SampleArray &buffer,
-                            unsigned int &count) override;
-
-    signals:
-
-        /** emits a block with sine wave data */
-        void output(Kwave::SampleArray data);
+        bool write(Kwave::SampleArray &buffer,
+                   unsigned int &count) override;
 
     };
 

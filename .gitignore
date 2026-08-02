@@ -3,7 +3,10 @@
 CMakeLists.txt.user*
 /compile_commands.json
 .clangd
+.cproject
 .idea
 /cmake-build*
 .cache
 .flatpak-builder
+.project
+.settings

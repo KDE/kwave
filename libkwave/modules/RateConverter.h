@@ -37,6 +37,7 @@ namespace Kwave
     class LIBKWAVE_EXPORT RateConverter: public Kwave::SampleSource
     {
         Q_OBJECT
+        using StreamObject::input;
     public:
 
         /** Constructor */
@@ -48,15 +49,10 @@ namespace Kwave
         /** does nothing, processing is done in input() */
         void goOn() override;
 
-    signals:
-
-        /** emits a block with the filtered data */
-        void output(Kwave::SampleArray data);
+        /** receives input data and also directly does the calculation */
+        void input(Kwave::SampleArray &data) override;
 
     public slots:
-
-        /** receives input data and also directly does the calculation */
-        void input(Kwave::SampleArray data);
 
         /**
          * Sets the conversion ratio, ((new rate) / (old rate))

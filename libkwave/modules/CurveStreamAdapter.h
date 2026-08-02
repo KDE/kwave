@@ -46,12 +46,6 @@ namespace Kwave
         /** @see Kwave::KwaveSampleSource */
         void goOn() override;
 
-
-    signals:
-
-        /** emits a block with the interpolated curve */
-        void output(Kwave::SampleArray data);
-
     private:
 
         /** position within the interpolation */

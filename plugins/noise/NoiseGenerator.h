@@ -32,6 +32,7 @@ namespace Kwave
     class NoiseGenerator: public Kwave::SampleSource
     {
         Q_OBJECT
+        using StreamObject::input;
     public:
 
         /** Constructor */
@@ -46,16 +47,10 @@ namespace Kwave
          */
         void goOn() override;
 
-    signals:
-
-        /** emits a block with noise */
-        void output(Kwave::SampleArray data);
+        /** receives input data */
+        void input(Kwave::SampleArray &data) override;
 
     public slots:
-
-        /** receives input data */
-        void input(Kwave::SampleArray data);
-
         /**
          * Sets the noise level as a factor [0 .. 1.0]
          */

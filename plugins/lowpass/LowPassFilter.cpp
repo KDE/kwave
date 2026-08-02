@@ -40,7 +40,7 @@ Kwave::LowPassFilter::~LowPassFilter()
 //***************************************************************************
 void Kwave::LowPassFilter::goOn()
 {
-    emit output(m_buffer);
+    output(m_buffer);
 }
 
 //***************************************************************************
@@ -135,7 +135,7 @@ void Kwave::LowPassFilter::normed_setfilter_shelvelowpass(double freq)
 }
 
 //***************************************************************************
-void Kwave::LowPassFilter::input(Kwave::SampleArray data)
+void Kwave::LowPassFilter::input(Kwave::SampleArray &data)
 {
     const Kwave::SampleArray &in = data;
     bool ok = m_buffer.resize(in.size());

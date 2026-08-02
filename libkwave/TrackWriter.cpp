@@ -45,7 +45,7 @@ Kwave::TrackWriter::~TrackWriter()
 }
 
 //***************************************************************************
-bool Kwave::TrackWriter::write(const Kwave::SampleArray &buffer,
+bool Kwave::TrackWriter::write(Kwave::SampleArray &buffer,
                                unsigned int &count)
 {
     if (count == 0) return true; // nothing to write

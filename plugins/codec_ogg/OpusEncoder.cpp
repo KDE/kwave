@@ -181,10 +181,7 @@ bool Kwave::OpusEncoder::setupDownMix(QWidget *widget, unsigned int tracks,
 
         // connect it to the end of the current preprocessing queue
         // (normally this is the original sample source)
-        if (!Kwave::connect(
-            *m_last_queue_element, SIGNAL(output(Kwave::SampleArray)),
-            *m_channel_mixer,      SLOT(input(Kwave::SampleArray))))
-        {
+        if (!Kwave::connect(*m_last_queue_element, *m_channel_mixer)) {
             qWarning("connecting the channel mixer failed");
             return false;
         }
@@ -295,10 +292,7 @@ bool Kwave::OpusEncoder::setupCodingRate(QWidget *widget,
     // connect the rate converter to the end of the current preprocessing
     // queue/ (normally this is either the original sample source or
     // a channel mixer)
-    if (!Kwave::connect(
-        *m_last_queue_element, SIGNAL(output(Kwave::SampleArray)),
-        *m_rate_converter,     SLOT(input(Kwave::SampleArray))))
-    {
+    if (!Kwave::connect(*m_last_queue_element, *m_rate_converter)) {
         qWarning("connecting the rate converter failed");
         return false;
     }
@@ -551,10 +545,7 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
         qWarning("cannot create sample buffer");
         return false;
     }
-    if (!Kwave::connect(
-        *m_last_queue_element, SIGNAL(output(Kwave::SampleArray)),
-        *m_buffer,             SLOT(input(Kwave::SampleArray))) )
-    {
+    if (!Kwave::connect(*m_last_queue_element, *m_buffer)) {
         qWarning("failed to connect sample buffer");
         return false;
     }

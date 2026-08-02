@@ -22,13 +22,18 @@
 #include "libkwave_export.h"
 
 #include <QtGlobal>
+#include <QList>
 #include <QObject>
 #include <QRecursiveMutex>
+
+#include "libkwave/SampleArray.h"
 
 class QVariant;
 
 namespace Kwave
 {
+    class SampleSink;
+    class SampleSource;
 
     class LIBKWAVE_EXPORT StreamObject: public QObject
     {
@@ -50,42 +55,63 @@ namespace Kwave
          */
         virtual unsigned int tracks() const { return 1; }
 
-        /**
-         * Returns the source that corresponds to one specific track
-         * if the object has multiple tracks. For single-track objects
-         * it returns "this" for the first index and 0 for all others
-         * @param track index of the track
-         * @return a stream object or NULL
-         */
         virtual Kwave::StreamObject * operator [] (unsigned int track)
         {
             return (track == 0) ? this : nullptr;
         }
 
         /**
-         * Returns the number of tracks of a input or output port.
-         * Can be overwritten for objects that have a different count
-         * of inputs and outputs.
-         * @param port name of the port (name of signal or slot)
-         * @return number of tracks of a input or output, default is
-         *         the same as tracks()
+         * Returns the number of tracks used as input, usually defaults to
+         * the number of tracks
+         * @return number of input tracks
          */
-        virtual unsigned int tracksOfPort(const char *port) const
+        virtual unsigned int tracksIn() const { return tracks(); }
+
+        /**
+         * Returns the number of tracks used as output, usually defaults to
+         * the number of tracks
+         * @return number of output tracks
+         */
+        virtual unsigned int tracksOut() const { return tracks(); }
+
+        /**
+         * Returns the sink that corresponds to one specific track
+         * if the object has multiple tracks. For single-track objects
+         * it returns "this" for the first index and 0 for all others
+         * @param track index of the track
+         * @return a stream object or nullptr
+         */
+        virtual Kwave::StreamObject *in(unsigned int track);
+
+        /**
+         * Returns the source that corresponds to one specific track
+         * if the object has multiple tracks. For single-track objects
+         * it returns "this" for the first index and 0 for all others
+         * @param track index of the track
+         * @return a stream object or nullptr
+         */
+        virtual Kwave::StreamObject *out(unsigned int track);
+
+        /**
+         * Returns the number of input. Defaults to the number of
+         * tracks, but can be overwritten for objects that have different
+         * numbers of tracks / inputs.
+         * @return number of inputs
+         */
+        virtual unsigned int inputs() const
         {
-            Q_UNUSED(port)
             return tracks();
         }
 
         /**
-         * Returns an indexed port, identified by name
-         * @param port name of the port (name of signal or slot)
-         * @param track index of the track
-         * @return the corresponding stream object
+         * Returns the number of outputs. Defaults to the number of
+         * tracks, but can be overwritten for objects that have different
+         * numbers of tracks / outputs.
+         * @return number of outputs
          */
-        virtual Kwave::StreamObject *port(const char *port, unsigned int track)
+        virtual unsigned int outputs() const
         {
-            Q_UNUSED(port)
-            return (*this)[track];
+            return tracks();
         }
 
         /**
@@ -114,6 +140,48 @@ namespace Kwave
         /** returns true if the transfer has been canceled */
         virtual bool isCanceled() const { return m_canceled; }
 
+        /**
+         * Connect the output of this stream object to another stream
+         * object that acts as a sink.
+         *
+         * @param sink pointer to a StreamObject
+         * @param port index of the input or 0
+         */
+        virtual void connectTo(Kwave::StreamObject *sink,
+                               unsigned int port);
+
+        /**
+         * Receive input data, version without port.
+         *
+         * @param port index of the input, use zero if only
+         *                    one input exists
+         * @param data the sample data to process
+         */
+        virtual void input(Kwave::SampleArray &data);
+
+        /**
+         * Receive input data, default version which just calls
+         * input(0, data).
+         * @param port index of the input, use zero if only
+         *                    one input exists
+         * @param data the sample data to process
+         */
+        virtual void input(unsigned int port,
+                           Kwave::SampleArray &data)
+        {
+            Q_UNUSED(port);
+            Q_ASSERT(port == 0);
+            input(data);
+        }
+
+        /**
+         * Should be called from the worker function of the stream
+         * object to publish resulting data to the next stage.
+         * Can be connected to one or more inputs of of other stream
+         * objects.
+         */
+        virtual void output(Kwave::SampleArray &data);
+
     public slots:
 
         /**
@@ -137,6 +205,19 @@ namespace Kwave
         void sigCancel();
 
     private:
+
+        /** info about a sink that is connected to one of our outputs */
+        struct ConnectedSink
+        {
+            /** pointer to the sink, must not be nullptr */
+            Kwave::StreamObject *m_sink;
+
+            /** zero based index of the input (default is 0) */
+            unsigned int         m_port;
+        };
+
+        /** List of connected sinks which receive our output */
+        QList<ConnectedSink> m_sinks;
 
         /** Mutex for locking access to setAttribute (recursive) */
         QRecursiveMutex m_lock_set_attribute;

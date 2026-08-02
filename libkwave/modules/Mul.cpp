@@ -95,8 +95,9 @@ void Kwave::Mul::multiply()
 
     // special handling for zero length input
     if (!count) {
-        emit output(Kwave::SampleArray()); // emit zero length output
-        return;                            // and bail out
+        Kwave::SampleArray empty;
+        output(empty); // emit zero length output
+        return;        // and bail out
     }
 
 //     if (!m_a_is_const && !m_b_is_const && (m_a.size() != m_b.size()))
@@ -127,7 +128,7 @@ void Kwave::Mul::multiply()
     }
 
     // emit the result
-    emit output(m_buffer_x);
+    output(m_buffer_x);
 }
 
 /***************************************************************************/

@@ -55,7 +55,7 @@ void Kwave::Osc::goOn()
             m_omega_t -= two_pi;
     }
 
-    emit output(m_buffer);
+    output(m_buffer);
 }
 
 //***************************************************************************

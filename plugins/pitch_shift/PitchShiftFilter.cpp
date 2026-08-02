@@ -48,7 +48,7 @@ Kwave::PitchShiftFilter::~PitchShiftFilter()
 //***************************************************************************
 void Kwave::PitchShiftFilter::goOn()
 {
-    emit output(m_buffer);
+    output(m_buffer);
 }
 
 //***************************************************************************
@@ -72,7 +72,7 @@ void Kwave::PitchShiftFilter::initFilter()
 }
 
 //***************************************************************************
-void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
+void Kwave::PitchShiftFilter::input(Kwave::SampleArray &data)
 {
     const Kwave::SampleArray &in = data;
 

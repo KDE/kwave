@@ -40,7 +40,7 @@ Kwave::NotchFilter::~NotchFilter()
 //***************************************************************************
 void Kwave::NotchFilter::goOn()
 {
-    emit output(m_buffer);
+    output(m_buffer);
 }
 
 //***************************************************************************
@@ -117,7 +117,7 @@ void Kwave::NotchFilter::setfilter_peaknotch2(double freq, double bw)
 }
 
 //***************************************************************************
-void Kwave::NotchFilter::input(Kwave::SampleArray data)
+void Kwave::NotchFilter::input(Kwave::SampleArray &data)
 {
     const Kwave::SampleArray &in = data;
     bool ok = m_buffer.resize(in.size());

@@ -38,76 +38,87 @@ namespace Kwave
     class LIBKWAVE_EXPORT Mul: public Kwave::SampleSource
     {
         Q_OBJECT
-        public:
-            /** Constructor */
-            Mul();
+        using StreamObject::input;
 
-            /** Destructor */
-            ~Mul() override;
+    public:
+        /** Constructor */
+        Mul();
 
-            /** does nothing, work is done automatically in multiply() */
-            void goOn() override;
+        /** Destructor */
+        ~Mul() override;
 
-        signals:
-            /** emits a block with the interpolated curve */
-            void output(Kwave::SampleArray data);
+        /** does nothing, work is done automatically in multiply() */
+        void goOn() override;
 
-        public slots:
+        virtual void input(unsigned int port,
+                           Kwave::SampleArray &data) override
+        {
+            switch (port)
+            {
+                case 0: input_a(data); break;
+                case 1: input_b(data); break;
+                default:
+                    Q_ASSERT(port < 2);
+                    break;
+            }
+        }
 
-            /** receives input data for input A */
-            void input_a(Kwave::SampleArray data);
+        /** receives input data for input A */
+        void input_a(Kwave::SampleArray data);
 
-            /** receives input data for input B */
-            void input_b(Kwave::SampleArray data);
+        /** receives input data for input B */
+        void input_b(Kwave::SampleArray data);
 
-            /** sets input A to a constant value (as float) */
-            void set_a(const QVariant &a);
+    public slots:
 
-            /** sets input B to a constant value (as float) */
-            void set_b(const QVariant &b);
+        /** sets input A to a constant value (as float) */
+        void set_a(const QVariant &a);
 
-        private:
+        /** sets input B to a constant value (as float) */
+        void set_b(const QVariant &b);
 
-            /** does the calculation */
-            virtual void multiply();
+    private:
 
-        private:
+        /** does the calculation */
+        virtual void multiply();
 
-            /** queue for input A */
-            QQueue<Kwave::SampleArray> m_queue_a;
+    private:
 
-            /** queue for input B */
-            QQueue<Kwave::SampleArray> m_queue_b;
+        /** queue for input A */
+        QQueue<Kwave::SampleArray> m_queue_a;
 
-            /** semaphore to wait for input on input A */
-            QSemaphore m_sem_a;
+        /** queue for input B */
+        QQueue<Kwave::SampleArray> m_queue_b;
 
-            /** semaphore to wait for input on input B */
-            QSemaphore m_sem_b;
+        /** semaphore to wait for input on input A */
+        QSemaphore m_sem_a;
 
-            /** buffer for input A (currently in work) */
-            Kwave::SampleArray m_a;
+        /** semaphore to wait for input on input B */
+        QSemaphore m_sem_b;
 
-            /** buffer for input B (currently in work) */
-            Kwave::SampleArray m_b;
+        /** buffer for input A (currently in work) */
+        Kwave::SampleArray m_a;
 
-            /** buffer for output data */
-            Kwave::SampleArray m_buffer_x;
+        /** buffer for input B (currently in work) */
+        Kwave::SampleArray m_b;
 
-            /** if true, input A is a constant */
-            bool m_a_is_const;
+        /** buffer for output data */
+        Kwave::SampleArray m_buffer_x;
 
-            /** if true, input B is a constant */
-            bool m_b_is_const;
+        /** if true, input A is a constant */
+        bool m_a_is_const;
 
-            /** if m_a_is_const is set, the value of A */
-            float m_value_a;
+        /** if true, input B is a constant */
+        bool m_b_is_const;
 
-            /** if m_b_is_const is set, the value of B */
-            float m_value_b;
+        /** if m_a_is_const is set, the value of A */
+        float m_value_a;
 
-            /** mutex for locking access to the queues */
-            QMutex m_lock;
+        /** if m_b_is_const is set, the value of B */
+        float m_value_b;
+
+        /** mutex for locking access to the queues */
+        QMutex m_lock;
     };
 }
 

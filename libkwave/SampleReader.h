@@ -142,12 +142,6 @@ namespace Kwave
          */
         void proceeded();
 
-        /**
-         * Interface for the signal/slot based streaming API.
-         * @param data sample data that has been read
-         */
-        void output(Kwave::SampleArray data);
-
     protected:
 
         /** Fills the sample buffer */

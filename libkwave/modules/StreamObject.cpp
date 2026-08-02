@@ -17,9 +17,13 @@
 
 #include "config.h"
 
+#include <QFutureSynchronizer>
 #include <QString>
 #include <QVariant>
+#include <QtConcurrentRun>
 
+#include "libkwave/SampleSink.h"
+#include "libkwave/SampleSource.h"
 #include "libkwave/modules/StreamObject.h"
 
 /** interactive mode */
@@ -37,6 +41,20 @@ Kwave::StreamObject::StreamObject(QObject *parent)
 //***************************************************************************
 Kwave::StreamObject::~StreamObject()
 {
+}
+
+//***************************************************************************
+Kwave::StreamObject *Kwave::StreamObject::in(unsigned int track)
+{
+    return (track == 0) ?
+        dynamic_cast<Kwave::SampleSink*>(this) : nullptr;
+}
+
+//***************************************************************************
+Kwave::StreamObject *Kwave::StreamObject::out(unsigned int track)
+{
+    return (track == 0) ?
+        dynamic_cast<Kwave::SampleSource *>(this) : nullptr;
 }
 
 //***************************************************************************
@@ -73,6 +91,40 @@ unsigned int Kwave::StreamObject::blockSize() const
 void Kwave::StreamObject::setInteractive(bool interactive)
 {
     m_interactive = interactive;
+}
+
+//***************************************************************************
+void Kwave::StreamObject::connectTo(Kwave::StreamObject *sink,
+                                    unsigned int port)
+{
+    m_sinks.append({sink, port});
+}
+
+//***************************************************************************
+void Kwave::StreamObject::input(Kwave::SampleArray &data)
+{
+    Q_UNUSED(data);
+}
+
+//***************************************************************************
+void Kwave::StreamObject::output(Kwave::SampleArray &data)
+{
+    qsizetype count = m_sinks.count();
+    if (count > 1) {
+        QFutureSynchronizer<void> synchronizer;
+        for (auto &sink : m_sinks) {
+            if (sink.m_sink == nullptr) continue;
+            synchronizer.addFuture(QtConcurrent::run(
+                [&sink, &data] () {
+                    sink.m_sink->input(sink.m_port, data);
+            }));
+        }
+        synchronizer.waitForFinished();
+    } else if (count == 1) {
+        auto &sink = m_sinks.first();
+        if (sink.m_sink != nullptr)
+            sink.m_sink->input(sink.m_port, data);
+    }
 }
 
 //***************************************************************************

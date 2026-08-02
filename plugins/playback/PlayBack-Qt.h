@@ -176,7 +176,7 @@ namespace Kwave
              * @param len number of bytes to read
              * @return number of bytes that have been read
              */
-            virtual qint64 readData(char *data, qint64 len) override;
+            qint64 readData(char *data, qint64 len) override;
 
             /**
              * write data into the buffer, called from our own worker thread
@@ -184,11 +184,10 @@ namespace Kwave
              * @param len number of bytes to write
              * @return number of bytes written
              */
-            virtual qint64 writeData(const char *data, qint64 len)
-                override;
+            qint64 writeData(const char *data, qint64 len) override;
 
             /** returns the number of bytes available for reading */
-            virtual qint64 bytesAvailable() const override;
+            qint64 bytesAvailable() const override;
 
         private:
 

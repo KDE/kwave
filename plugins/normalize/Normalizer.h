@@ -34,6 +34,7 @@ namespace Kwave
     class Normalizer: public Kwave::SampleSource
     {
         Q_OBJECT
+        using StreamObject::input;
     public:
 
         /** Constructor */
@@ -45,15 +46,10 @@ namespace Kwave
         /** does the calculation */
         void goOn() override;
 
-    signals:
-
-        /** emits a block with the filtered data */
-        void output(Kwave::SampleArray data);
+        /** receives input data */
+        void input(Kwave::SampleArray &data) override;
 
     public slots:
-
-        /** receives input data */
-        void input(Kwave::SampleArray data);
 
         /**
          * Sets the gain of the amplifier [0...1]

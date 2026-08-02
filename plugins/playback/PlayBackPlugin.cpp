@@ -352,19 +352,10 @@ void Kwave::PlayBackPlugin::run(QStringList params)
     //                  ^
     //                  |
     //            osc --'
-
-    Kwave::connect(
-        curve_adapter,    SIGNAL(output(Kwave::SampleArray)),
-        delay,            SLOT(input(Kwave::SampleArray)));
-    Kwave::connect(
-        delay,            SIGNAL(output(Kwave::SampleArray)),
-        mul,              SLOT(input_a(Kwave::SampleArray)));
-    Kwave::connect(
-        osc,              SIGNAL(output(Kwave::SampleArray)),
-        mul,              SLOT(input_b(Kwave::SampleArray)));
-    Kwave::connect(
-        mul,              SIGNAL(output(Kwave::SampleArray)),
-        *m_playback_sink, SLOT(input(Kwave::SampleArray)));
+    Kwave::connect(curve_adapter, delay);
+    Kwave::connect(delay,         mul, 0);
+    Kwave::connect(osc,           mul, 1);
+    Kwave::connect(mul, *m_playback_sink);
 
     // show a progress dialog
 

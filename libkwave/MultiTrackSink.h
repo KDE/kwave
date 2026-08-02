@@ -26,6 +26,7 @@
 #include <QObject>
 
 #include "libkwave/SampleSink.h"
+#include "modules/StreamObject.h"
 
 namespace Kwave
 {
@@ -78,13 +79,38 @@ namespace Kwave
          * if the object has multiple tracks. For single-track objects
          * it returns "this" for the first index and 0 for all others
          */
-        inline virtual SINK *at(unsigned int track) const {
+        inline SINK *at(unsigned int track) const {
             return QList<SINK *>::at(track);
         }
 
         /** @see the Kwave::MultiTrackSink.at()... */
-        inline virtual SINK * operator [] (unsigned int track) override {
+        inline SINK * operator [] (unsigned int track) override {
             return at(track);
+        }
+
+        /**
+         * Returns the sink that corresponds to one specific track
+         * if the object has multiple tracks. For single-track objects
+         * it returns "this" for the first index and 0 for all others
+         *
+         * @see the Kwave::MultiTrackSink.at()...
+         * @param track index of the track
+         * @return a stream object or nullptr
+         */
+        Kwave::StreamObject *in(unsigned int track) override
+        {
+            return at(track);
+        }
+
+        /**
+         * Returns the same as in (for convenience)
+         *
+         * @param track index of the track
+         * @return a stream object or nullptr
+         */
+        Kwave::StreamObject *out(unsigned int track) override
+        {
+            return in(track);
         }
 
         /**

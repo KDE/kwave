@@ -24,14 +24,12 @@
 #include <QByteArray>
 #include <QMetaObject>
 #include <QMutexLocker>
-#include <QObject>
 #include <QVarLengthArray>
 
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/Sample.h"
 #include "libkwave/Utils.h"
 #include "libkwave/modules/ChannelMixer.h"
-#include "libkwave/modules/Indexer.h"
 #include "libkwave/modules/StreamObject.h"
 
 //***************************************************************************
@@ -40,7 +38,6 @@ Kwave::ChannelMixer::ChannelMixer(unsigned int inputs, unsigned int outputs)
      m_matrix(nullptr),
      m_inputs(inputs),
      m_outputs(outputs),
-     m_indexer(),
      m_input_queue(),
      m_output_buffer(),
      m_lock()
@@ -67,21 +64,6 @@ bool Kwave::ChannelMixer::init()
         m_output_buffer.append(out_buffer);
     }
 
-    // create indexing proxies and connect their output to this mixer
-    for (unsigned int index = 0; index < m_inputs; ++index) {
-        Kwave::StreamObject *indexer =
-            new(std::nothrow) Kwave::Indexer(index);
-        Q_ASSERT(indexer);
-        if (!indexer) return false;
-
-        m_indexer.append(indexer);
-        bool ok = Kwave::connect(
-            *indexer, SIGNAL(output(uint,Kwave::SampleArray)),
-            *this,    SLOT(idxInput(uint,Kwave::SampleArray)));
-        Q_ASSERT(ok);
-        if (!ok) return false;
-    }
-
     // create the mixer matrix
     // create a translation matrix for mixing up/down to the desired
     // number of output channels
@@ -98,11 +80,6 @@ Kwave::ChannelMixer::~ChannelMixer()
 {
     QMutexLocker _lock(&m_lock);
 
-    while (!m_indexer.isEmpty()) {
-        delete m_indexer[0];
-        m_indexer.remove(0);
-    }
-
     m_input_queue.clear();
 
     while (!m_output_buffer.isEmpty()) {
@@ -112,69 +89,14 @@ Kwave::ChannelMixer::~ChannelMixer()
 }
 
 //***************************************************************************
-static inline QByteArray _sig(const char *sig)
-{
-    return QMetaObject::normalizedSignature(sig);
-}
-
-//***************************************************************************
-unsigned int Kwave::ChannelMixer::tracksOfPort(const char *port) const
-{
-    unsigned int retval = 0;
-    QMutexLocker _lock(const_cast<QMutex *>(&m_lock));
-
-    if (_sig(port) == _sig(SLOT(input(Kwave::SampleArray)))) {
-        // input ports
-        retval = m_inputs; // init is done
-    } else if (_sig(port) == _sig(SIGNAL(output(Kwave::SampleArray)))) {
-        // output ports
-        retval = m_outputs;
-    } else if (_sig(port) ==
-               _sig(SLOT(idxInput(uint,Kwave::SampleArray)))) {
-        retval = 1;
-    } else {
-        qFatal("unknown port");
-    }
-
-    return retval;
-}
-
-//***************************************************************************
-Kwave::StreamObject *Kwave::ChannelMixer::port(const char *port,
-                                               unsigned int track)
-{
-    Kwave::StreamObject *retval = nullptr;
-    QMutexLocker _lock(&m_lock);
-
-    if (_sig(port) == _sig(SLOT(input(Kwave::SampleArray)))) {
-        // input proxy
-        Q_ASSERT(Kwave::toInt(track) < m_indexer.count());
-        if (Kwave::toInt(track) >= m_indexer.count()) return nullptr;
-        retval = m_indexer.at(track);
-    } else if (_sig(port) == _sig(SIGNAL(output(Kwave::SampleArray)))) {
-        // output proxy
-        Q_ASSERT(Kwave::toInt(track) < m_output_buffer.count());
-        if (Kwave::toInt(track) >= m_output_buffer.count()) return nullptr;
-        retval = m_output_buffer[track];
-    } else if (_sig(port) ==
-               _sig(SLOT(idxInput(uint,Kwave::SampleArray)))) {
-        retval = this;
-    } else {
-        qFatal("unknown port");
-    }
-
-    return retval;
-}
-
-//***************************************************************************
-void Kwave::ChannelMixer::idxInput(unsigned int index, Kwave::SampleArray data)
+void Kwave::ChannelMixer::input(unsigned int index, Kwave::SampleArray &data)
 {
     QMutexLocker _lock(&m_lock);
 
     // put the data into the corresponding input queue
-    Q_ASSERT(index < m_inputs);
-    Q_ASSERT(Kwave::toInt(index) < m_input_queue.count());
-    if (Kwave::toInt(index) < m_input_queue.count())
+    Q_ASSERT(index < Kwave::toUint(m_inputs));
+    Q_ASSERT(index < Kwave::toUint(m_input_queue.count()));
+    if (index < m_input_queue.count())
         m_input_queue[index].enqueue(data);
 
     // check: if there is one empty queue we are not yet ready for mixing
@@ -188,6 +110,17 @@ void Kwave::ChannelMixer::idxInput(unsigned int index, Kwave::SampleArray data)
 
     // mix if we are ready
     if (ready && m_matrix) mix();
+}
+
+//***************************************************************************
+Kwave::StreamObject *Kwave::ChannelMixer::out(unsigned int track)
+{
+    Q_ASSERT(track < Kwave::toUint(m_outputs));
+    Q_ASSERT(track < Kwave::toUint(m_output_buffer.count()));
+    if (track >= m_output_buffer.count()) return nullptr;
+
+    Kwave::SampleBuffer *buffer = m_output_buffer[track];
+    return buffer;
 }
 
 //***************************************************************************
@@ -262,5 +195,3 @@ void Kwave::ChannelMixer::mix()
 
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_ChannelMixer.cpp"

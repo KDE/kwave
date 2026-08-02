@@ -172,15 +172,9 @@ void Kwave::SampleRatePlugin::run(QStringList params)
         first, first + new_length - 1);
 
     // connect the objects
-    bool ok = Kwave::connect(
-        source,    SIGNAL(output(Kwave::SampleArray)),
-        converter, SLOT(input(Kwave::SampleArray)));
-    if (ok) ok = Kwave::connect(
-        converter, SIGNAL(output(Kwave::SampleArray)),
-        sink,      SLOT(input(Kwave::SampleArray)));
-    if (!ok) {
-        return;
-    }
+    bool    ok = Kwave::connect(source,    converter);
+    if (ok) ok = Kwave::connect(converter, sink);
+    if (!ok) return;
 
     while (!shouldStop() && !source.eof()) {
         source.goOn();

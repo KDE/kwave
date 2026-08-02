@@ -340,29 +340,18 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
             if (mixer) {
                 // connect the channel mixer
-                ok = Kwave::connect(
-                    *last_output, SIGNAL(output(Kwave::SampleArray)),
-                    *mixer,       SLOT(input(Kwave::SampleArray))
-                );
+                ok = Kwave::connect(*last_output, *mixer);
                 last_output = mixer;
             }
 
             if (ok && rate_converter) {
                 // connect the rate converter
-                ok = Kwave::connect(
-                    *last_output,    SIGNAL(output(Kwave::SampleArray)),
-                    *rate_converter, SLOT(input(Kwave::SampleArray))
-                );
+                ok = Kwave::connect(*last_output, *rate_converter);
                 last_output = rate_converter;
             }
 
             // connect the sink
-            if (ok) {
-                ok = Kwave::connect(
-                    *last_output, SIGNAL(output(Kwave::SampleArray)),
-                    dst,          SLOT(input(Kwave::SampleArray))
-                );
-            }
+            if (ok) ok = Kwave::connect(*last_output, dst);
 
             // this also starts the conversion automatically
             if (ok)

@@ -23,38 +23,25 @@
 #include <QtGlobal>
 #include <QThread>
 
+#include "libkwave/Connect.h"
 #include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
-#include "libkwave/PlaybackSink.h"
 
 //***************************************************************************
 Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,
                                             Kwave::PlayBackDevice *device)
-    :Kwave::MultiTrackSink<Kwave::PlaybackSink, false>(0),
+    :Kwave::SampleSink(),
      m_tracks(tracks), m_device(device), m_in_buffer(tracks),
      m_in_buffer_filled(tracks),
      m_out_buffer(tracks), m_lock()
 {
     m_in_buffer.fill(Kwave::SampleArray(0));
     m_in_buffer_filled.fill(false);
-
-    for (unsigned int track = 0; track < m_tracks; track++) {
-        // allocate a sink
-        Kwave::PlaybackSink *sink =
-            new(std::nothrow) Kwave::PlaybackSink(track);
-        insert(track, sink);
-        connect(sink, SIGNAL(output(uint,Kwave::SampleArray)),
-                this, SLOT(input(uint,Kwave::SampleArray)),
-                Qt::DirectConnection);
-    }
 }
 
 //***************************************************************************
 Kwave::MultiPlaybackSink::~MultiPlaybackSink()
 {
-    // close all stream objects
-    clear();
-
     // close the device
     if (m_device) {
         m_device->close();
@@ -70,7 +57,7 @@ Kwave::MultiPlaybackSink::~MultiPlaybackSink()
 
 //***************************************************************************
 void Kwave::MultiPlaybackSink::input(unsigned int track,
-                                     Kwave::SampleArray data)
+                                     Kwave::SampleArray &data)
 {
     QMutexLocker lock(&m_lock);
 
@@ -121,5 +108,3 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
 
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_MultiPlaybackSink.cpp"

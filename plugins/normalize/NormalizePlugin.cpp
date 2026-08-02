@@ -111,15 +111,9 @@ void Kwave::NormalizePlugin::run(QStringList params)
             Qt::BlockingQueuedConnection);
 
     // connect them
-    bool ok = Kwave::connect(
-        source,     SIGNAL(output(Kwave::SampleArray)),
-        normalizer, SLOT(input(Kwave::SampleArray)));
-    if (ok) ok = Kwave::connect(
-        normalizer, SIGNAL(output(Kwave::SampleArray)),
-        sink,       SLOT(input(Kwave::SampleArray)));
-    if (!ok) {
-        return;
-    }
+    bool    ok = Kwave::connect(source,     normalizer);
+    if (ok) ok = Kwave::connect(normalizer, sink);
+    if (!ok) return;
 
     double target = pow(10.0, (TARGET_LEVEL / 20.0));
     double gain = target / level;

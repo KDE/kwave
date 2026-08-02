@@ -24,7 +24,6 @@
 
 #include <QtGlobal>
 #include <QList>
-#include <QObject>
 
 #include "libkwave/MultiWriter.h"
 
@@ -37,8 +36,6 @@ namespace Kwave
      */
     class LIBKWAVE_EXPORT MultiStreamWriter: public Kwave::MultiWriter
     {
-        Q_OBJECT
-
     public:
 
         /** Default constructor */

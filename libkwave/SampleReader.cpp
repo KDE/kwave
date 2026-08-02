@@ -293,7 +293,7 @@ void Kwave::SampleReader::goOn()
 {
     Kwave::SampleArray buffer(blockSize());
     (*this) >> buffer;
-    emit output(buffer);
+    output(buffer);
 }
 
 //***************************************************************************

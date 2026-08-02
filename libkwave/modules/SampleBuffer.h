@@ -34,6 +34,7 @@ namespace Kwave
     class LIBKWAVE_EXPORT SampleBuffer: public Kwave::SampleSink
     {
         Q_OBJECT
+        using StreamObject::input;
     public:
 
         /**
@@ -76,10 +77,11 @@ namespace Kwave
         /** emit the sample data stored in m_data */
         virtual void finished();
 
-    public slots:
-
-        /** slot for taking input data, stores it into m_data */
-        virtual void input(Kwave::SampleArray data);
+        /**
+         * Interface for the streaming API.
+         * @param data sample data to write
+         */
+        void input(Kwave::SampleArray &data) override;
 
     protected:
 
@@ -95,11 +97,6 @@ namespace Kwave
 
         /** enqueue some data */
         void enqueue(Kwave::SampleArray data);
-
-    signals:
-
-        /** emits the data received via input() */
-        void output(Kwave::SampleArray data);
 
     private:
 

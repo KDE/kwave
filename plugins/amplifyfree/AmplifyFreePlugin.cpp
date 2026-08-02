@@ -163,18 +163,10 @@ void Kwave::AmplifyFreePlugin::run(QStringList params)
     if (!sink.tracks()) return;
 
     // connect them
-    bool ok = Kwave::connect(
-        source, SIGNAL(output(Kwave::SampleArray)),
-        mul,    SLOT(input_a(Kwave::SampleArray)));
-    if (ok) ok = Kwave::connect(
-        curve,  SIGNAL(output(Kwave::SampleArray)),
-        mul,    SLOT(input_b(Kwave::SampleArray)));
-    if (ok) ok = Kwave::connect(
-        mul,    SIGNAL(output(Kwave::SampleArray)),
-        sink,   SLOT(input(Kwave::SampleArray)));
-    if (!ok) {
-        return;
-    }
+    bool    ok = Kwave::connect(source, mul, 0);
+    if (ok) ok = Kwave::connect(curve,  mul, 1);
+    if (ok) ok = Kwave::connect(mul,    sink);
+    if (!ok)return;
 
     // connect the progress dialog
     connect(&sink, SIGNAL(progress(qreal)),

@@ -47,11 +47,11 @@ void Kwave::RateConverter::goOn()
 }
 
 //***************************************************************************
-void Kwave::RateConverter::input(Kwave::SampleArray data)
+void Kwave::RateConverter::input(Kwave::SampleArray &data)
 {
     // shortcut for ratio == 1:1
     if ((m_ratio == 1.0) || data.isEmpty()) {
-        emit output(data);
+        output(data);
         return;
     }
 
@@ -124,7 +124,7 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
     for (; remaining; remaining--, ++s_out, ++f_out)
         *s_out = float2sample(*f_out);
 
-    emit output(out);
+    output(out);
 }
 
 //***************************************************************************

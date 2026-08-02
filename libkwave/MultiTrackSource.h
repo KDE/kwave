@@ -29,6 +29,7 @@
 #include <QtConcurrentRun>
 
 #include "libkwave/SampleSource.h"
+#include "modules/StreamObject.h"
 
 namespace Kwave
 {
@@ -113,8 +114,31 @@ namespace Kwave
         }
 
         /** @see the Kwave::MultiTrackSource.at()... */
-        inline virtual SOURCE * operator [] (unsigned int track)
-            override
+        inline SOURCE * operator [] (unsigned int track) override {
+            return at(track);
+        }
+
+        /**
+         * Returns the same as in (for convenience)
+         *
+         * @param track index of the track
+         * @return a stream object or nullptr
+         */
+        Kwave::StreamObject *in(unsigned int track) override
+        {
+            return out(track);
+        }
+
+        /**
+         * Returns the source that corresponds to one specific track
+         * if the object has multiple tracks. For single-track objects
+         * it returns "this" for the first index and 0 for all others
+         *
+         * @see the Kwave::MultiTrackSink.at()...
+         * @param track index of the track
+         * @return a stream object or nullptr
+         */
+        Kwave::StreamObject *out(unsigned int track) override
         {
             return at(track);
         }

@@ -29,7 +29,6 @@
 
 namespace Kwave
 {
-
     class LIBKWAVE_EXPORT SampleSink: public Kwave::StreamObject
     {
         Q_OBJECT

@@ -22,38 +22,37 @@
 #include "libkwave_export.h"
 
 #include <QtGlobal>
+#include <QSemaphore>
 
+#include "libkwave/SampleArray.h"
+#include "libkwave/modules/StreamObject.h"
 
 namespace Kwave
 {
-
     class StreamObject;
 
     /**
      * Connect an output of a Kwave::SampleSource to the input
      * of a Kwave::SampleSink. The following combinations of
-     * single-track and multi-track sources/sinks are allowed.:
+     * single-track and multi-track sources/sinks are allowed:
      * \li single -> single (1:1)
      * \li single -> multi  (1:N)
      * \li multi  -> multi  (N:N)
      *
      * @param source a Kwave::SampleSource that produces data
-     * @param output name of the output, must be formed with the
-     *               Qt macro \c SIGNAL(...) \c out of
-     *               a Qt style signal.
      * @param sink a Kwave::SampleSink that can receive data
-     * @param input name of the inputm must be formed with the
-     *              Qt macro \c SLOT(...) \c out of a Qt style
-     *              (public) slot .
+     * @param input index of the input (optional, default is 0)
      * @return true if successful or false if either
      *         \li an invalid combination of single/multi track
      *             source/sink has been passed
      *         \li a source or sink's track is NULL (missing)
-     *         \li input or output name is zero-length
+     *         \li sink index is invalid
      */
-    bool connect(Kwave::StreamObject &source, const char *output,
-                 Kwave::StreamObject &sink,   const char *input)
+    bool connect(StreamObject &source,
+                 StreamObject &sink,
+                 unsigned int port = 0)
                  LIBKWAVE_EXPORT;
+
 }
 
 #endif /* CONNECT_H */

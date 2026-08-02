@@ -32,11 +32,11 @@
 
 namespace Kwave
 {
-
     class BandPass: public Kwave::SampleSource,
                     public Kwave::TransmissionFunction
     {
         Q_OBJECT
+        using StreamObject::input;
     public:
 
         /** Constructor */
@@ -51,15 +51,10 @@ namespace Kwave
         /** @see TransmissionFunction::at() */
         double at(double f) override;
 
-    signals:
-
-        /** emits a block with the filtered data */
-        void output(Kwave::SampleArray data);
+        /** receives input data */
+        void input(Kwave::SampleArray &data) override;
 
     public slots:
-
-        /** receives input data */
-        void input(Kwave::SampleArray data);
 
         /**
          * Sets the center frequency, normed to [0...2Pi]. The calculation is:

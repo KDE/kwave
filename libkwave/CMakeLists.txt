@@ -58,7 +58,6 @@ SET(libkwave_LIB_SRCS
     MultiWriter.cpp
     Parser.cpp
     PlaybackController.cpp
-    PlaybackSink.cpp
     PlayBackTypesMap.cpp
     Plugin.cpp
     PluginManager.cpp
@@ -117,7 +116,6 @@ SET(libkwave_LIB_SRCS
     MultiWriter.h
     Parser.h
     PlaybackController.h
-    PlaybackSink.h
     PlayBackTypesMap.h
     Plugin.h
     PluginManager.h
@@ -145,7 +143,6 @@ SET(libkwave_LIB_SRCS
 
     modules/ChannelMixer.cpp
     modules/CurveStreamAdapter.cpp
-    modules/Indexer.cpp
     modules/Delay.cpp
     modules/Mul.cpp
     modules/Osc.cpp
@@ -155,7 +152,6 @@ SET(libkwave_LIB_SRCS
 
     modules/ChannelMixer.h
     modules/CurveStreamAdapter.h
-    modules/Indexer.h
     modules/Delay.h
     modules/Mul.h
     modules/Osc.h

@@ -33,6 +33,7 @@ namespace Kwave
                          public Kwave::TransmissionFunction
     {
         Q_OBJECT
+        using StreamObject::input;
     public:
 
         /** Constructor */
@@ -47,16 +48,10 @@ namespace Kwave
         /** does the calculation */
         void goOn() override;
 
-    signals:
-
-        /** emits a block with the filtered data */
-        void output(Kwave::SampleArray data);
+        /** receives input data */
+        void input(Kwave::SampleArray &data) override;
 
     public slots:
-
-        /** receives input data */
-        void input(Kwave::SampleArray data);
-
         /**
          * Sets the cutoff frequency, normed to [0...2Pi]. The calculation is:
          * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].

@@ -39,11 +39,11 @@ Kwave::NoiseGenerator::~NoiseGenerator()
 //***************************************************************************
 void Kwave::NoiseGenerator::goOn()
 {
-    emit output(m_buffer);
+    output(m_buffer);
 }
 
 //***************************************************************************
-void Kwave::NoiseGenerator::input(Kwave::SampleArray data)
+void Kwave::NoiseGenerator::input(Kwave::SampleArray &data)
 {
     bool ok = m_buffer.resize(data.size());
     Q_ASSERT(ok);

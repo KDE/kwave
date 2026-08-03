@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-26 00:43+0000\n"
+"POT-Creation-Date: 2026-08-03 00:41+0000\n"
 "PO-Revision-Date: 2025-11-22 13:19+0100\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -1199,7 +1199,7 @@ msgstr "Caricamento del file «%1»..."
 #: plugins/codec_flac/FlacEncoder.cpp:266
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
-#: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
+#: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
 #: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
@@ -1433,7 +1433,7 @@ msgstr "Preimpostazione curva Kwave (*.curve)"
 msgid "Save Curve Preset"
 msgstr "Salva preimpostazione curva"
 
-#: libgui/FilterPlugin.cpp:240
+#: libgui/FilterPlugin.cpp:238
 #, kde-format
 msgid "Applying '%1'..."
 msgstr "Applicazione di «%1»..."
@@ -4691,13 +4691,13 @@ msgstr ""
 "Il bitrate surround dovrebbe essere meno di 32kBit/sec per canale, questo "
 "file dovrebbe essere miscelato in stereo."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:223
+#: plugins/codec_ogg/OpusEncoder.cpp:220
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
 msgstr "Bitrate %1 kBit/sec fuori dell'intervallo, limitato a %2 kBit/sec"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:275
+#: plugins/codec_ogg/OpusEncoder.cpp:272
 #, kde-format
 msgctxt "%1=requested sample rate, %2=lowest supported, %3=highest supported"
 msgid ""
@@ -4707,27 +4707,27 @@ msgstr ""
 "La velocità di campionamento %1 samples/sec è fuori dall'intervallo,\n"
 "quelle supportate sono %2 ... %3 samples/sec."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
+#: plugins/codec_ogg/OpusEncoder.cpp:411 plugins/codec_ogg/OpusEncoder.cpp:430
 #, kde-format
 msgid "Opus encoder failed"
 msgstr "Codificatore Opus non riuscito"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:472
+#: plugins/codec_ogg/OpusEncoder.cpp:466
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
 msgstr "Il codificatore Opus non è riuscito a impostare il bitrate: «%1»"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:484
+#: plugins/codec_ogg/OpusEncoder.cpp:478
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
 msgstr "Il codificatore Opus non è riuscito a configurare il modo VBR: «%1»"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:494
+#: plugins/codec_ogg/OpusEncoder.cpp:488
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
 msgstr "Il codificatore Opus non è riuscito a configurare il limite VBR: «%1»"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:596
+#: plugins/codec_ogg/OpusEncoder.cpp:587
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr ""
@@ -5908,7 +5908,7 @@ msgstr "Normalizza"
 msgid "Analyzing volume level..."
 msgstr "Analisi del livello di volume..."
 
-#: plugins/normalize/NormalizePlugin.cpp:129
+#: plugins/normalize/NormalizePlugin.cpp:123
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
 msgstr "Normalizzazione (%1 dB) ..."
@@ -6466,17 +6466,17 @@ msgstr ""
 msgid "&Test..."
 msgstr "&Test..."
 
-#: plugins/playback/PlayBackPlugin.cpp:401
+#: plugins/playback/PlayBackPlugin.cpp:392
 #, kde-format
 msgid "Please select a playback device first"
 msgstr "Seleziona prima un dispositivo di riproduzione"
 
-#: plugins/playback/PlayBackPlugin.cpp:427
+#: plugins/playback/PlayBackPlugin.cpp:418
 #, kde-format
 msgid "Playback Test"
 msgstr "Test di riproduzione"
 
-#: plugins/playback/PlayBackPlugin.cpp:436
+#: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format
 msgid ""
 "You should now hear a %1 Hz test tone.<br/><br/>(If you hear clicks or "

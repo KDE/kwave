@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-26 00:43+0000\n"
+"POT-Creation-Date: 2026-08-03 00:41+0000\n"
 "PO-Revision-Date: 2026-02-08 14:22+0100\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1199,7 +1199,7 @@ msgstr "Datei „%1“ wird geladen …"
 #: plugins/codec_flac/FlacEncoder.cpp:266
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
-#: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
+#: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
 #: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
@@ -1435,7 +1435,7 @@ msgstr "Kwave Kurven-Voreinstellungen (*.curve)"
 msgid "Save Curve Preset"
 msgstr "Kurven-Voreinstellung speichern"
 
-#: libgui/FilterPlugin.cpp:240
+#: libgui/FilterPlugin.cpp:238
 #, kde-format
 msgid "Applying '%1'..."
 msgstr "„%1“ wird angewendet …"
@@ -4696,7 +4696,7 @@ msgstr ""
 "Die Surround-Bitrate würde 32 kBit/s pro Kanal unterschreiten, die Datei "
 "sollte auf Stereo herunter gemischt werden."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:223
+#: plugins/codec_ogg/OpusEncoder.cpp:220
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
@@ -4704,7 +4704,7 @@ msgstr ""
 "Bitrate %1 kBit/sec ist außerhalb des Bereichs, wird beschränkt auf %2 kBit/"
 "sec"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:275
+#: plugins/codec_ogg/OpusEncoder.cpp:272
 #, kde-format
 msgctxt "%1=requested sample rate, %2=lowest supported, %3=highest supported"
 msgid ""
@@ -4714,27 +4714,27 @@ msgstr ""
 "Die Abtastrate %1 Samples/s ist außerhalb des unterstützten Bereichs, "
 "unterstützt werden %2...%3 Samples/s."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
+#: plugins/codec_ogg/OpusEncoder.cpp:411 plugins/codec_ogg/OpusEncoder.cpp:430
 #, kde-format
 msgid "Opus encoder failed"
 msgstr "im Opus-Encoder ist ein Fehler aufgetreten"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:472
+#: plugins/codec_ogg/OpusEncoder.cpp:466
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
 msgstr "Der Opus-Encoder kann die Bitrate nicht setzen: „%1“"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:484
+#: plugins/codec_ogg/OpusEncoder.cpp:478
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
 msgstr "Der Opus-Encoder kann den VBR-Modus nicht einstellen: „%1“"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:494
+#: plugins/codec_ogg/OpusEncoder.cpp:488
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
 msgstr "Der Opus-Encoder kann die VBR-Grenzwerte nicht setzen: „%1“"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:596
+#: plugins/codec_ogg/OpusEncoder.cpp:587
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr "Der Opus-Encoder kann den Lookahead-Wert nicht bestimmen: „%1“"
@@ -5922,7 +5922,7 @@ msgstr "Normalisieren"
 msgid "Analyzing volume level..."
 msgstr "Lautstärke wird analysiert …"
 
-#: plugins/normalize/NormalizePlugin.cpp:129
+#: plugins/normalize/NormalizePlugin.cpp:123
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
 msgstr "Wird normalisiert (%1 dB) …"
@@ -6488,17 +6488,17 @@ msgstr ""
 msgid "&Test..."
 msgstr "&Test …"
 
-#: plugins/playback/PlayBackPlugin.cpp:401
+#: plugins/playback/PlayBackPlugin.cpp:392
 #, kde-format
 msgid "Please select a playback device first"
 msgstr "Bitte wählen Sie zuerst ein Wiedergabegerät"
 
-#: plugins/playback/PlayBackPlugin.cpp:427
+#: plugins/playback/PlayBackPlugin.cpp:418
 #, kde-format
 msgid "Playback Test"
 msgstr "Wiedergabetest"
 
-#: plugins/playback/PlayBackPlugin.cpp:436
+#: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format
 msgid ""
 "You should now hear a %1 Hz test tone.<br/><br/>(If you hear clicks or "

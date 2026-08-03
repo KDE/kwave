@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-26 00:43+0000\n"
+"POT-Creation-Date: 2026-08-03 00:41+0000\n"
 "PO-Revision-Date: 2025-11-20 21:41+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1199,7 +1199,7 @@ msgstr "Завантажуємо файл «%1»…"
 #: plugins/codec_flac/FlacEncoder.cpp:266
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
-#: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
+#: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
 #: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
@@ -1433,7 +1433,7 @@ msgstr "набір кривих Kwave (*.curve)"
 msgid "Save Curve Preset"
 msgstr "Збереження набору кривих"
 
-#: libgui/FilterPlugin.cpp:240
+#: libgui/FilterPlugin.cpp:238
 #, kde-format
 msgid "Applying '%1'..."
 msgstr "Застосовуємо «%1»…"
@@ -4697,7 +4697,7 @@ msgstr ""
 "Бітова швидкість об’ємного звуку є меншою за 32 кбіт/с на канал. Цей файл "
 "має бути змікшовано до стерео."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:223
+#: plugins/codec_ogg/OpusEncoder.cpp:220
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
@@ -4705,7 +4705,7 @@ msgstr ""
 "Бітова швидкість %1 кбіт/с перебуває поза межами можливого діапазону, "
 "обмежено до %2 кбіт/с"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:275
+#: plugins/codec_ogg/OpusEncoder.cpp:272
 #, kde-format
 msgctxt "%1=requested sample rate, %2=lowest supported, %3=highest supported"
 msgid ""
@@ -4715,27 +4715,27 @@ msgstr ""
 "Частота дискретизації %1 Гц перебуває поза межами\n"
 "припустимого діапазону, може бути від %2 до %3 Гц."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
+#: plugins/codec_ogg/OpusEncoder.cpp:411 plugins/codec_ogg/OpusEncoder.cpp:430
 #, kde-format
 msgid "Opus encoder failed"
 msgstr "Критична помилка кодувальника Opus"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:472
+#: plugins/codec_ogg/OpusEncoder.cpp:466
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
 msgstr "Засобу кодування Opus не вдалося встановити бітову швидкість: «%1»"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:484
+#: plugins/codec_ogg/OpusEncoder.cpp:478
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
 msgstr "Засобу кодування Opus не вдалося налаштувати режим ЗБШ: «%1»"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:494
+#: plugins/codec_ogg/OpusEncoder.cpp:488
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
 msgstr "Засобу кодування Opus не вдалося налаштувати обмеження ЗБШ: «%1»"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:596
+#: plugins/codec_ogg/OpusEncoder.cpp:587
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr ""
@@ -5921,7 +5921,7 @@ msgstr "Нормалізація"
 msgid "Analyzing volume level..."
 msgstr "Аналізуємо рівень гучності…"
 
-#: plugins/normalize/NormalizePlugin.cpp:129
+#: plugins/normalize/NormalizePlugin.cpp:123
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
 msgstr "Нормалізуємо (%1 дБ)…"
@@ -6480,17 +6480,17 @@ msgstr ""
 msgid "&Test..."
 msgstr "&Тест…"
 
-#: plugins/playback/PlayBackPlugin.cpp:401
+#: plugins/playback/PlayBackPlugin.cpp:392
 #, kde-format
 msgid "Please select a playback device first"
 msgstr "Будь ласка, спочатку виберіть пристрій відтворення"
 
-#: plugins/playback/PlayBackPlugin.cpp:427
+#: plugins/playback/PlayBackPlugin.cpp:418
 #, kde-format
 msgid "Playback Test"
 msgstr "Перевірка відтворення"
 
-#: plugins/playback/PlayBackPlugin.cpp:436
+#: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format
 msgid ""
 "You should now hear a %1 Hz test tone.<br/><br/>(If you hear clicks or "

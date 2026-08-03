@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-26 00:43+0000\n"
+"POT-Creation-Date: 2026-08-03 00:41+0000\n"
 "PO-Revision-Date: 2024-08-09 03:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1196,7 +1196,7 @@ msgstr "載入檔案 '%1' 中..."
 #: plugins/codec_flac/FlacEncoder.cpp:266
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
-#: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
+#: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
 #: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
@@ -1432,7 +1432,7 @@ msgstr "Kwave 曲線預設檔 (*.curve)"
 msgid "Save Curve Preset"
 msgstr "儲存曲線預設檔"
 
-#: libgui/FilterPlugin.cpp:240
+#: libgui/FilterPlugin.cpp:238
 #, kde-format
 msgid "Applying '%1'..."
 msgstr "正在套用「%1」..."
@@ -4659,13 +4659,13 @@ msgid ""
 "be mixed down to stereo."
 msgstr "環繞位元率會低於每頻道 32kBit/秒，這個檔案應該混音為立體聲（雙聲道）。"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:223
+#: plugins/codec_ogg/OpusEncoder.cpp:220
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
 msgstr "位元率 %1 kBit/秒超出範圍，已限制到 %2 kBit/秒"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:275
+#: plugins/codec_ogg/OpusEncoder.cpp:272
 #, kde-format
 msgctxt "%1=requested sample rate, %2=lowest supported, %3=highest supported"
 msgid ""
@@ -4675,27 +4675,27 @@ msgstr ""
 "取樣率 %1 樣本/秒超出範圍，\n"
 "支援的取樣率介於 %2 ... %3 樣本/秒之間。"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
+#: plugins/codec_ogg/OpusEncoder.cpp:411 plugins/codec_ogg/OpusEncoder.cpp:430
 #, kde-format
 msgid "Opus encoder failed"
 msgstr "Opus 編碼器失敗"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:472
+#: plugins/codec_ogg/OpusEncoder.cpp:466
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
 msgstr "Opus 編碼器設定位元率時失敗：'%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:484
+#: plugins/codec_ogg/OpusEncoder.cpp:478
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
 msgstr "Opus 編碼器設定 VBR 模式時失敗：'%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:494
+#: plugins/codec_ogg/OpusEncoder.cpp:488
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
 msgstr "Opus 編碼器設定 VBR 限制時失敗：'%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:596
+#: plugins/codec_ogg/OpusEncoder.cpp:587
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr "Opus 編碼器取得 lookahead 數值時失敗：'%1'"
@@ -5837,7 +5837,7 @@ msgstr "正規化"
 msgid "Analyzing volume level..."
 msgstr "正在分析音量等級..."
 
-#: plugins/normalize/NormalizePlugin.cpp:129
+#: plugins/normalize/NormalizePlugin.cpp:123
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
 msgstr "正在正規化 (%1 dB) ..."
@@ -6335,17 +6335,17 @@ msgstr ""
 msgid "&Test..."
 msgstr "測試(&T)..."
 
-#: plugins/playback/PlayBackPlugin.cpp:401
+#: plugins/playback/PlayBackPlugin.cpp:392
 #, kde-format
 msgid "Please select a playback device first"
 msgstr "請先選擇回放裝置"
 
-#: plugins/playback/PlayBackPlugin.cpp:427
+#: plugins/playback/PlayBackPlugin.cpp:418
 #, kde-format
 msgid "Playback Test"
 msgstr "播放測試"
 
-#: plugins/playback/PlayBackPlugin.cpp:436
+#: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format
 msgid ""
 "You should now hear a %1 Hz test tone.<br/><br/>(If you hear clicks or "

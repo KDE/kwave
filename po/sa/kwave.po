@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-26 00:43+0000\n"
+"POT-Creation-Date: 2026-08-03 00:41+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1198,7 +1198,7 @@ msgstr "'%1' सञ्चिकां लोड् क्रियते..."
 #: plugins/codec_flac/FlacEncoder.cpp:266
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
-#: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
+#: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
 #: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
@@ -1434,7 +1434,7 @@ msgstr "क्वावे वक्र पूर्वनिर्धारि�
 msgid "Save Curve Preset"
 msgstr "वक्र पूर्वनिर्धारितं रक्षतु"
 
-#: libgui/FilterPlugin.cpp:240
+#: libgui/FilterPlugin.cpp:238
 #, kde-format
 msgid "Applying '%1'..."
 msgstr "'%1' इत्यस्य प्रयोगः..."
@@ -4677,13 +4677,13 @@ msgstr ""
 "सरौण्ड् बिटरेट् प्रति चैनल् 32kBit/sec इत्यस्मात् न्यूनः भविष्यति, एषा सञ्चिका स्टीरियो "
 "यावत् मिश्रिता भवेत् ।"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:223
+#: plugins/codec_ogg/OpusEncoder.cpp:220
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
 msgstr "बिट्रेट् %1 kBit/sec परिधितः बहिः अस्ति, %2 kBit/sec यावत् सीमितम् अस्ति"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:275
+#: plugins/codec_ogg/OpusEncoder.cpp:272
 #, kde-format
 msgctxt "%1=requested sample rate, %2=lowest supported, %3=highest supported"
 msgid ""
@@ -4693,27 +4693,27 @@ msgstr ""
 "नमूनादरः %1 नमूनानि/सेकण्ड् परिधितः बहिः अस्ति,\n"
 "समर्थिताः %2 ... %3 नमूनाः/सेकण्ड् सन्ति ।"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
+#: plugins/codec_ogg/OpusEncoder.cpp:411 plugins/codec_ogg/OpusEncoder.cpp:430
 #, kde-format
 msgid "Opus encoder failed"
 msgstr "ओपस् एन्कोडर विफलः अभवत्"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:472
+#: plugins/codec_ogg/OpusEncoder.cpp:466
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
 msgstr "ओपस् एन्कोडरः बिटरेट् सेट् कर्तुं असफलः अभवत्: '%1'."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:484
+#: plugins/codec_ogg/OpusEncoder.cpp:478
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
 msgstr "VBR मोडं विन्यस्तं कर्तुं Opus एन्कोडरः विफलः अभवत्: '%1'."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:494
+#: plugins/codec_ogg/OpusEncoder.cpp:488
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
 msgstr "VBR बाध्यतां विन्यस्तं कर्तुं Opus एन्कोडरः विफलः अभवत्: '%1'."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:596
+#: plugins/codec_ogg/OpusEncoder.cpp:587
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr "Opus encoder lookahead मूल्यं प्राप्तुं असफलः अभवत्: '%1'."
@@ -5883,7 +5883,7 @@ msgstr "सामान्यं कुरुत"
 msgid "Analyzing volume level..."
 msgstr "आयतनस्तरस्य विश्लेषणं कुर्वन्..."
 
-#: plugins/normalize/NormalizePlugin.cpp:129
+#: plugins/normalize/NormalizePlugin.cpp:123
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
 msgstr "सामान्यीकरणं (%1 dB) ..."
@@ -6426,17 +6426,17 @@ msgstr ""
 msgid "&Test..."
 msgstr "&परीक्षा..."
 
-#: plugins/playback/PlayBackPlugin.cpp:401
+#: plugins/playback/PlayBackPlugin.cpp:392
 #, kde-format
 msgid "Please select a playback device first"
 msgstr "कृपया प्रथमं प्लेबैक-यन्त्रं चिनोतु"
 
-#: plugins/playback/PlayBackPlugin.cpp:427
+#: plugins/playback/PlayBackPlugin.cpp:418
 #, kde-format
 msgid "Playback Test"
 msgstr "प्लेबैक टेस्ट"
 
-#: plugins/playback/PlayBackPlugin.cpp:436
+#: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format
 msgid ""
 "You should now hear a %1 Hz test tone.<br/><br/>(If you hear clicks or "

@@ -55,7 +55,7 @@ IF (WITH_MP3)
     )
 
     SET(plugin_codec_mp3_LIBS
-        ${LIBMAD} ${ID3LIB} stdc++ z
+        ${LIBMAD} ${ID3LIB}
     )
 
     INCLUDE(CheckCXXCompilerFlag)

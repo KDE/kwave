@@ -328,7 +328,7 @@ int Kwave::RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
     min = 0;
     max = 0;
 
-    // find the smalles number of tracks, limit to MAX_CHANNELS
+    // find the smallest number of tracks, limit to MAX_CHANNELS
     for (t = 1; t < MAX_CHANNELS; t++) {
         int real_tracks = t;
         err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);

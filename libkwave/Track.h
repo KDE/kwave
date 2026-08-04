@@ -239,7 +239,7 @@ namespace Kwave
         /**
          * Split a stripe into two stripes. The new stripe will be created
          * from the right portion of the given stripe and the original
-         * stripe will be shrinked to it's new size. The newly created stripe
+         * stripe will be shrunk to it's new size. The newly created stripe
          * will be inserted into m_stripes after the old one.
          *
          * @param stripe the stripe to be split

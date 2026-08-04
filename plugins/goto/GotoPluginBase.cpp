@@ -96,7 +96,7 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
 //***************************************************************************
 int Kwave::GotoPluginBase::start(QStringList &params)
 {
-    // interprete the parameters
+    // interpret the parameters
     int result = interpreteParameters(params);
     if (result) return result;
 

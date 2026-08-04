@@ -301,7 +301,7 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
     // builtin help of the encoder
     connect(btEncoderHelp, SIGNAL(clicked()), this, SLOT(encoderHelp()));
 
-    // whenever a setting has been manally edited, check if that is a
+    // whenever a setting has been manually edited, check if that is a
     // user defined setting or a predefined set of parameters
     CONNECT(edPath);
 

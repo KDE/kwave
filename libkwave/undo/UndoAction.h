@@ -85,7 +85,7 @@ namespace Kwave
          * @param manager the SignalManager for modifying the signal
          * @param with_redo if true a UndoAction for redo will be created
          * @note The return value is allowed to be the same object. This
-         *       is useful for objects that can re-use their data for
+         *       is useful for objects that can reuse their data for
          *       undo/redo. You have to check for this when deleting an
          *       UndoAction object after undo.
          */

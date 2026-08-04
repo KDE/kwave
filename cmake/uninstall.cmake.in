@@ -55,7 +55,7 @@ FOREACH(_file ${files})
         ENDIF(NOT "${_rm_retval}" STREQUAL 0)
     ENDIF(EXISTS "${_file}")
 
-    # clean up remainig empty directories
+    # clean up remaining empty directories
     GET_FILENAME_COMPONENT(_dirname ${_file} PATH)
     EXEC_PROGRAM(
         "@RMDIR_EXECUTABLE@"

@@ -81,7 +81,7 @@ namespace Kwave
          * reverse a slice of samples
          * @param track index of the track
          * @param src_a reader for reading from the start (forward)
-         * @param src_b reader fro reading from the end (backwards)
+         * @param src_b reader for reading from the end (backwards)
          * @param params common slice parameters (first/last/block size)
          */
         void reverseSlice(unsigned int track,

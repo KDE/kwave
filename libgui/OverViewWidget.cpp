@@ -385,9 +385,9 @@ void Kwave::OverViewWidget::calculateBitmap()
         if (len < 1) len = 1;
 
         // draw the selection as rectangle
-        QBrush hilight(Qt::yellow);
-        hilight.setStyle(Qt::SolidPattern);
-        p.setBrush(hilight);
+        QBrush highlight(Qt::yellow);
+        highlight.setStyle(Qt::SolidPattern);
+        p.setBrush(highlight);
         p.setPen(QPen(Qt::yellow));
         p.setCompositionMode(QPainter::CompositionMode_Exclusion);
         p.drawRect(first, 0, len, height);

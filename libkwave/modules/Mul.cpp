@@ -101,7 +101,7 @@ void Kwave::Mul::multiply()
     }
 
 //     if (!m_a_is_const && !m_b_is_const && (m_a.size() != m_b.size()))
-//      qWarning("Kwave::Mul: block sizes differ: %u x %u -> shrinked to %u",
+//      qWarning("Kwave::Mul: block sizes differ: %u x %u -> shrunk to %u",
 //          m_a.size(), m_b.size(), count);
 
     bool ok = m_buffer_x.resize(count);

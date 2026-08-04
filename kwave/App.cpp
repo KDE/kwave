@@ -232,7 +232,7 @@ int Kwave::App::newWindow(const QUrl &url)
     switch (m_gui_type) {
         case Kwave::App::GUI_TAB: /* FALLTHROUGH */
         case Kwave::App::GUI_MDI:
-            // re-use the last top widget to open the file
+            // reuse the last top widget to open the file
             if (!m_top_widgets.isEmpty())
                 new_top_widget = m_top_widgets.last();
             break;

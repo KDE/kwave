@@ -86,7 +86,7 @@ int Kwave::NewSignalPlugin::interpreteParameters(QStringList &params)
 //***************************************************************************
 QStringList *Kwave::NewSignalPlugin::setup(QStringList &previous_params)
 {
-    // try to interprete the previous parameters
+    // try to interpret the previous parameters
     interpreteParameters(previous_params);
 
     // create the setup dialog

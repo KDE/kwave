@@ -74,7 +74,7 @@ namespace Kwave
             const char buf[], ID3_Writer::size_type len)
             override;
 
-        /** returns true if the writer has readed eof (always false) */
+        /** returns true if the writer has read eof (always false) */
         bool atEnd() override;
 
     private:

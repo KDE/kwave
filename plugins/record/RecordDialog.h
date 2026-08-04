@@ -176,7 +176,7 @@ namespace Kwave
         /** emitted when the compression has changed */
         void sigCompressionChanged(Kwave::Compression::Type compression);
 
-        /** emitted when the resoluton in bits per sample changed */
+        /** emitted when the resolution in bits per sample changed */
         void sigBitsPerSampleChanged(unsigned int bits);
 
         /** emitted when the sample format has changed */
@@ -290,7 +290,7 @@ namespace Kwave
     private:
 
         /**
-         * Convert a formated sample rate string back to a numeric sample
+         * Convert a formatted sample rate string back to a numeric sample
          * rate (the opposite of rate2string() )
          * @param rate the sample rate, formatted as string
          * @return the numeric sample rate [samples/second]

@@ -1051,7 +1051,7 @@ void Kwave::RecordPlugin::startRecording()
                 return;
             }
         } else {
-            // re-use the current signal and append to it
+            // reuse the current signal and append to it
         }
 
         // initialize the file information

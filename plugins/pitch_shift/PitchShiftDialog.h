@@ -49,7 +49,7 @@ namespace Kwave
         /** Sets the from a list of parameters */
         void setParams(QStringList &params) override;
 
-        /** retruns a pointer to this as a QDialog */
+        /** returns a pointer to this as a QDialog */
         QDialog *dialog() override { return this; }
 
     signals:
@@ -75,7 +75,7 @@ namespace Kwave
         /** called when the speed slider's position has changed */
         void sliderChanged(int pos);
 
-        /** called when the spped spinbox value has changed */
+        /** called when the speed spinbox value has changed */
         void spinboxChanged(int pos);
 
         /** called if the frequency sbinbox value has changed */

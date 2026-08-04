@@ -62,7 +62,7 @@ namespace Kwave
 
         /**
          * Exchange samples from the current signal and the internal undo
-         * buffer. So this instance will be re-used for redo and so does not
+         * buffer. So this instance will be reused for redo and so does not
          * require any extra memory for redo.
          * @see UndoAction::undo()
          */

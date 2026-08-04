@@ -97,7 +97,7 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     // Copyright message.
     insert(Kwave::INF_COPYRIGHT,     ID3FID_COPYRIGHT,
            ENC_TEXT);
-    // Copyright/Legal infromation
+    // Copyright/Legal information
     insert(Kwave::INF_COPYRIGHT,     ID3FID_WWWCOPYRIGHT,
            ENC_TEXT_URL);
     // Terms of use

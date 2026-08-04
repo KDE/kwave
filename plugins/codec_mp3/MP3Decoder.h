@@ -77,7 +77,7 @@ namespace Kwave
         /** Callback for filling libmad's input buffer */
         enum mad_flow fillInput(struct mad_stream *stream);
 
-        /** Calback for processing libmad's output */
+        /** Callback for processing libmad's output */
         enum mad_flow processOutput(void *data,
                                     struct mad_header const *header,
                                     struct mad_pcm *pcm);

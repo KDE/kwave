@@ -358,7 +358,7 @@
  * bugfix: ambiguous keyboard shortcut for "File/New Window"
  * bugfix: undo of "modify label" caused loss of other labels
  * bugfix: use timeout for phonon playback, to avoid hang on unusable devices
- * using klocale for formating numbers of samples
+ * using klocale for formatting numbers of samples
  * added common base class for all codec plugins
  * reduced quality level of sample rate converter from "best" to "medium",
    to improve speed
@@ -450,7 +450,7 @@
  * bugfix: startup as unique application did not work correctly
  * bugfix: potential crash in message loop of progress dialog
  * bugfix: handling of track selection was wrong in reverse plugin
- * workaround for bug in libaudiofile: some files have sampe rate zero,
+ * workaround for bug in libaudiofile: some files have sample rate zero,
    falling back to 8000 samples/sec in that case (audio/x-ircam, sun, BE)
  * bugfix: reverse failed on files smaller than the internal block size
  * using entities for URLs in handbook, to simplify maintenance
@@ -637,7 +637,7 @@
  * implemented vertical zoom (Ctrl + MouseWheelUp/Down)
  * using more standard KDE keyboard shortcuts
  * nicer icons for the menus
- * using more icons from the crystal icon collection (to clearify
+ * using more icons from the crystal icon collection (to clarify
    the license situation)
  * removed aRts support
  * now also available through the openSUSE build service for
@@ -757,7 +757,7 @@
  * completely new playback settings dialog, with support for aRts,
    ALSA and OSS
  * playback plugin: play a test sound
- * record plugin: detect when device is alread open, now no longer
+ * record plugin: detect when device is already open, now no longer
    blocks. Show an error message.
  * smoother signal display in overview mode (no gaps) and improved
    polyline mode
@@ -1015,7 +1015,7 @@
  * playback only for selected channels
  * rework of the settings/playback dialog (plugin)
  * heavy reword on the playback code
- * fixed severe bug in SignalManager::readWavChunk(), chrashed if there
+ * fixed severe bug in SignalManager::readWavChunk(), crashed if there
    was data after the wav chunk
 
 0.5.2-12 [2000-06-02]
@@ -1060,7 +1060,7 @@
 
 0.5.2-8 [2000-05-18]
 
- * replaced all occurances of sprintf with snprintf, strcpy with strncpy
+ * replaced all occurrences of sprintf with snprintf, strcpy with strncpy
    (in 92 places) !
  * doesn't show any zoom factor if no signal is loaded
  * handling of channel add/delete: selection/speakers are shifted
@@ -1263,7 +1263,7 @@
 
 0.29.3 [1998-12-18] (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
- * developement has slowed down a bit, this release is not as complete as I
+ * development has slowed down a bit, this release is not as complete as I
    wished but since 0.29.2 has a destructor with parameters accidentally left
    in, and so does not compile on all systems -> here we go again...
 

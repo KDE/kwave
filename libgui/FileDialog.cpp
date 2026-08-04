@@ -92,7 +92,7 @@ Kwave::FileDialog::FileDialog(
                DBG(m_last_ext), DBG(file_filter));
     }
 
-    // if a filename or directory URL was passed, try to re-use it
+    // if a filename or directory URL was passed, try to reuse it
     if (!m_last_url.isEmpty() && (m_last_url.isLocalFile() || saving)) {
         QFileInfo file(m_last_url.toLocalFile());
         if (QFileInfo::exists(file.path()) || saving)

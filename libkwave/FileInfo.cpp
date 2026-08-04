@@ -36,7 +36,7 @@ void Kwave::FileInfo::PropertyTypesMap::fill()
         FP_NONE,
         _(kli18n("Album").untranslatedText()),
         kli18n("Name of the album if the source is an album\n"
-            "that consist of more medias."));
+            "that consist of more media."));
     append(Kwave::INF_ANNOTATION,
         FP_NONE,
         _(kli18n("Annotation").untranslatedText()),

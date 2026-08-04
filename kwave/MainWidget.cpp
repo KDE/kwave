@@ -1339,7 +1339,7 @@ bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
 
 //*****************************************************************************
 //int findFirstMark (int *sample, int len)
-// finds first sample that is non-zero, or one that preceeds a zero crossing
+// finds first sample that is non-zero, or one that precedes a zero crossing
 //{
 //    int i = 1;
 //    int last = sample[0];

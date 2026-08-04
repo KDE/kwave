@@ -48,7 +48,7 @@ Kwave::MenuNode::~MenuNode()
         group = m_groups.begin();
     }
 
-    // remove all childs
+    // remove all children
     clear();
 
     // de-register from our parent

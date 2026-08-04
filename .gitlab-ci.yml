@@ -11,3 +11,11 @@ include:
       - /gitlab-templates/xml-lint.yml
       - /gitlab-templates/yaml-lint.yml
       - /gitlab-templates/snap-snapcraft-lxd.yml
+
+codespell:
+  stage: validate
+  image: python:3-slim
+  before_script:
+    - pip install --no-cache-dir --break-system-packages codespell
+  script:
+    - codespell

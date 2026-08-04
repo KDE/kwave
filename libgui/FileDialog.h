@@ -36,7 +36,7 @@ namespace Kwave
 {
     /**
      * A wrapper for QFileDialog that remembers the previous directory
-     * and pre-selects the previous file extension for multiple contexts.
+     * and preselects the previous file extension for multiple contexts.
      */
     class LIBKWAVEGUI_EXPORT FileDialog: public QObject
     {

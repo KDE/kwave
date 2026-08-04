@@ -120,7 +120,7 @@ namespace Kwave
 
         /**
          * takes the content of an edit field or similar into the current
-         * info ore removes it if the text is zero-length
+         * info or removes it if the text is zero-length
          */
         void acceptEdit(Kwave::FileProperty property, QString value);
 

@@ -45,7 +45,7 @@ Kwave::OverViewCache::OverViewCache(Kwave::SignalManager &signal,
 
     connect(&m_selection, SIGNAL(sigTrackInserted(quint64)),
             this,         SLOT(slotTrackInserted(quint64)));
-    connect(&m_selection, SIGNAL(sigTrackDeleted(qint64)),
+    connect(&m_selection, SIGNAL(sigTrackDeleted(quint64)),
             this,         SLOT(slotTrackDeleted(quint64)));
     connect(&m_selection, SIGNAL(sigLengthChanged(sample_index_t)),
             this,         SLOT(slotLengthChanged(sample_index_t)));

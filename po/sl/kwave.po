@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-05 00:45+0000\n"
-"PO-Revision-Date: 2025-11-20 07:08+0100\n"
+"PO-Revision-Date: 2026-08-05 07:10+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1840,16 +1840,12 @@ msgid "Album"
 msgstr "Album"
 
 #: libkwave/FileInfo.cpp:38
-#, fuzzy
-#| msgid ""
-#| "Name of the album if the source is an album\n"
-#| "that consist of more medias."
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more media."
 msgstr ""
 "Ime albuma, če je vir album,\n"
-"ki ga sestavlja več nosilcev."
+"ki ga sestavlja več medijev."
 
 #: libkwave/FileInfo.cpp:42
 msgid "Annotation"
@@ -4133,7 +4129,7 @@ msgid ""
 "parameter for minimum bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
-"Parameter za najmanjšo bitno hitrost v bitih/s\n"
+"parameter za najmanjšo bitno hitrost v bitih/s\n"
 "(uporabite %1 kot ogrado)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:353
@@ -4142,7 +4138,7 @@ msgid ""
 "parameter for maximum bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
-"Parameter za največjo bitno hitrost v bitih/s\n"
+"parameter za največjo bitno hitrost v bitih/s\n"
 "(uporabite %1 kot ogrado)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:357
@@ -4151,7 +4147,7 @@ msgid ""
 "parameter for average bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
-"Parameter za povprečno bitno hitrost v bitih/s\n"
+"parameter za povprečno bitno hitrost v bitih/s\n"
 "(uporabite %1 kot ogrado)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:603
@@ -6290,22 +6286,7 @@ msgstr "Metoda ali sistem, uporabljen za predvajanje"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:128
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Playback Method:</b><p>Choose a method or system used for\n"
-#| "playback. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, capable of mono and stereo output. Deprecated since linux "
-#| "kernel 2.6, but still wide spread. Might collide with PulseAudio or other "
-#| "sound applications, only one application at a time can use OSS playback !"
-#| "</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware. Might collide with other "
-#| "applications like OSS does, but has a plugin called <i>dmix</i> as a way "
-#| "out.</p>\n"
-#| "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
-#| "Multiple applications can play at the same time.</p>"
+#, kde-format
 msgid ""
 "<b>Playback Method:</b><p>Choose a method or system used for\n"
 "playback. Depending on the compilation options you can select one of the "
@@ -6321,20 +6302,20 @@ msgid ""
 "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
 "Multiple applications can play at the same time.</p>"
 msgstr ""
-"<b>Način predvajanja:</b><p>Izberite metodo ali sistem, ki naj se uporablja "
-"za\n"
-"predvajanje. Glede na možnosti zbiranja lahko izberete enega od naslednjih "
+"<b>Način predvajanja:</b><p>Izberite način ali sistem, ki se uporablja za\n"
+"predvajanje. Glede na možnosti prevajanja lahko izberete enega od naslednjih "
 "načinov:</p>\n"
-"<p><b><i>OSS (Open Sound System)</i></b>: najstarejša izvedba za Linux, "
-"zmožna mono in stereo izhoda. Opuščen od jedra linux 2.6, vendar še vedno "
-"široko razširjen. Morda v sporu z PulseAudio ali drugimi zvočnimi programi, "
-"samo en program naenkrat lahko uporabite za predvajanje OSS!</p>\n"
-"<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: nasledila je OSS, "
-"podpira več funkcij in več vrst strojne opreme. Morda je v sporu z drugimi "
-"programi, tako kot OSS, vendar ima vstavek, imenovan <i>dmix</i> kot izhod.</"
-"p>\n"
-"<p><b><i>PulseAudio</i></b>: priporočen način predvajanja v KDE. Več "
-"programov lahko predvaja hkrati.</p>"
+"<p><b><i>OSS (Open Sound System)</i></b>: Najstarejša implementacija Linuxa, "
+"ki omogoča mono in stereo izhod. Zastarela od jedra Linuxa 2.6, vendar še "
+"vedno zelo razširjena. Lahko pride do kolizij s PulseAudio ali drugimi "
+"zvočnimi aplikacijami, predvajanje OSS lahko hkrati uporablja samo ena "
+"aplikacija!</p>\n"
+"<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Nadomešča OSS, "
+"podpira več funkcij in več strojne opreme. Lahko pride do kolizij z drugimi "
+"aplikacijami, kot to počne OSS, vendar ima kot izhod vtičnik z imenom "
+"<i>dmix</i>.</p>\n"
+"<p><b><i>PulseAudio</i></b>: Prednostni način predvajanja v KDE. Hkrati "
+"lahko predvaja več aplikacij.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: plugins/playback/PlayBackDlg.ui:137
@@ -6921,16 +6902,7 @@ msgstr "Metoda ali sistem, uporabljen za snemanje"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1028
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Recording method:</b><p>Choose a method or system used for\n"
-#| "recording. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, only capable of mono and stereo input. Deprecated since "
-#| "linux kernel 2.6, but still wide spread.</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware.</p>"
+#, kde-format
 msgid ""
 "<b>Recording method:</b><p>Choose a method or system used for\n"
 "recording. Depending on the compilation options you can select one of the "
@@ -6947,8 +6919,8 @@ msgstr ""
 "<p><b><i>OSS (Open Sound System)</i></b>: najstarejša implementacija Linux, "
 "ki je zmožna le mono in stereo vhodov. Opuščen od jedra linux 2.6, vendar še "
 "vedno široko razširjen;</p>\n"
-"<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: nasledil je OSS, "
-"podpira več funkcij in več vrst strojne opreme.</p>"
+"<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Nasledil je OSS, "
+"podpira več zmožnosti in več vrst strojne opreme.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_5)
 #: plugins/record/RecordDlg.ui:1035
@@ -7243,7 +7215,7 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:157
 #, kde-format
 msgid "TextLabel"
-msgstr "besedilna oznaka"
+msgstr "Besedilna oznaka"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:170

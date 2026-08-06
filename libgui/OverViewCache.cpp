@@ -279,6 +279,7 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
         return 0; // empty ?
 
     // loop over all min/max buffers and make their content valid
+    QFutureSynchronizer<void> synchronizer;
     for (int index = 0; index < track_list.count(); ++index) {
         unsigned int count = qBound<unsigned int>(
             1, Kwave::toUint(length / m_scale), CACHE_SIZE);
@@ -302,17 +303,24 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 
         if (!reader || !min || !max || !state) continue;
 
-        for (unsigned int ofs = 0; ofs < count; ++ofs) {
-            if (state[ofs] == Valid)  continue;
-            if (state[ofs] == Unused) continue;
+        sample_index_t selection_ofs = m_selection.offset();
+        quint64        scale         = m_scale;
+        synchronizer.addFuture(QtConcurrent::run(
+            [&reader, selection_ofs, scale, &min, &max, count, &state]
+            () {
+            for (unsigned int ofs = 0; ofs < count; ++ofs) {
+                if (state[ofs] == Valid)  continue;
+                if (state[ofs] == Unused) continue;
 
-            // get min/max
-            sample_index_t first_idx = m_selection.offset() + (ofs * m_scale);
-            sample_index_t last_idx  = first_idx + m_scale - 1;
-            reader->minMax(first_idx, last_idx, min[ofs], max[ofs]);
-            state[ofs] = Valid;
-        }
+                // get min/max
+                sample_index_t first_idx = selection_ofs + (ofs * scale);
+                sample_index_t last_idx  = first_idx + scale - 1;
+                reader->minMax(first_idx, last_idx, min[ofs], max[ofs]);
+                state[ofs] = Valid;
+            }
+        }));
     }
+    synchronizer.waitForFinished();
 
     // loop over all min/max buffers
     for (int x = 0; x < width; ++x) {

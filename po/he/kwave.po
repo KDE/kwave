@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-01 00:43+0000\n"
-"PO-Revision-Date: 2026-05-26 08:45+0300\n"
+"PO-Revision-Date: 2026-08-06 13:01+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 26.04.0\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -6193,7 +6193,7 @@ msgstr ""
 #: plugins/record/LevelMeter.cpp:278 plugins/record/LevelMeter.cpp:302
 #, kde-format
 msgid "%1 dB"
-msgstr ""
+msgstr "%1 דציבלים"
 
 #: plugins/record/Record-ALSA.cpp:36
 #, kde-format
@@ -6261,27 +6261,27 @@ msgstr ""
 #: plugins/record/RecordDialog.cpp:734
 #, kde-format
 msgid "%1 tracks"
-msgstr ""
+msgstr "%1 רצועות"
 
 #: plugins/record/RecordDialog.cpp:790
 #, kde-format
 msgid "%1 Hz"
-msgstr ""
+msgstr "%1 הרץ"
 
 #: plugins/record/RecordDialog.cpp:888
 #, kde-format
 msgid "%1 bit"
-msgstr ""
+msgstr "%1 סיביות"
 
 #: plugins/record/RecordDialog.cpp:1004
 #, kde-format
 msgid "Please check the source device settings..."
-msgstr ""
+msgstr "נא לבדוק את הגדרות מכשיר המקור…"
 
 #: plugins/record/RecordDialog.cpp:1016
 #, kde-format
 msgid "(empty)"
-msgstr ""
+msgstr "(ריק)"
 
 #: plugins/record/RecordDialog.cpp:1027
 #, kde-format
@@ -6291,17 +6291,17 @@ msgstr ""
 #: plugins/record/RecordDialog.cpp:1038
 #, kde-format
 msgid "Prerecording..."
-msgstr ""
+msgstr "טרום הקלטה…"
 
 #: plugins/record/RecordDialog.cpp:1049 plugins/record/RecordDialog.cpp:1205
 #, kde-format
 msgid "Waiting for trigger..."
-msgstr ""
+msgstr "בהמתנה להזנקה…"
 
 #: plugins/record/RecordDialog.cpp:1060
 #, kde-format
 msgid "Recording..."
-msgstr ""
+msgstr "הקלטה…"
 
 #: plugins/record/RecordDialog.cpp:1078
 #, kde-format
@@ -6367,7 +6367,7 @@ msgstr ""
 #: plugins/record/RecordDialog.cpp:1220
 #, kde-format
 msgid "Length: %1"
-msgstr ""
+msgstr "אורך: %1"
 
 #: plugins/record/RecordDialog.cpp:1221
 #, kde-format
@@ -6378,7 +6378,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:54
 #, kde-format
 msgid "Recording"
-msgstr ""
+msgstr "הקלטה"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpRecording)
 #: plugins/record/RecordDlg.ui:66
@@ -6510,13 +6510,13 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:452
 #, kde-format
 msgid " dB"
-msgstr ""
+msgstr " דציבלים"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelAGC)
 #: plugins/record/RecordDlg.ui:471
 #, kde-format
 msgid " ms"
-msgstr ""
+msgstr " מ״ש"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpFading)
 #: plugins/record/RecordDlg.ui:521
@@ -6550,13 +6550,13 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:755
 #, kde-format
 msgid "?"
-msgstr ""
+msgstr "?"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFormatCompression)
 #: plugins/record/RecordDlg.ui:783
 #, kde-format
 msgid "Compression:"
-msgstr ""
+msgstr "דחיסה:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbFormatCompression)
 #: plugins/record/RecordDlg.ui:799
@@ -6593,13 +6593,13 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1000
 #, kde-format
 msgid "Buffer count:"
-msgstr ""
+msgstr "כמות חוצץ:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1022
 #, kde-format
 msgid "Method or system used for recording"
-msgstr ""
+msgstr "שיטה או מערכת שמשמשת להקלטה"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1028
@@ -6619,13 +6619,13 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1035
 #, kde-format
 msgid "Recording method:"
-msgstr ""
+msgstr "שיטת הקלטה:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1053
 #, kde-format
 msgid "Recording device"
-msgstr ""
+msgstr "מכשיר הקלטה"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1056
@@ -6640,25 +6640,25 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1078
 #, kde-format
 msgid "Selec&t..."
-msgstr ""
+msgstr "ב&חירה…"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
 #, kde-format
 msgid "Device"
-msgstr ""
+msgstr "מכשיר"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
 #: plugins/record/RecordDlg.ui:1204
 #, kde-format
 msgid "Buffer:"
-msgstr ""
+msgstr "חוצץ:"
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_level_meter)
 #: plugins/record/RecordDlg.ui:1236
 #, kde-format
 msgid "Level:"
-msgstr ""
+msgstr "רמה:"
 
 #: plugins/record/RecordPlugin.cpp:455
 #, kde-format
@@ -6684,17 +6684,17 @@ msgstr ""
 #, kde-format
 msgctxt "%1 = a device name"
 msgid "Unable to open the recording device (%1)"
-msgstr ""
+msgstr "לא ניתן לפתוח את מכשיר הקלטה (%1)"
 
 #: plugins/record/RecordPlugin.cpp:548 plugins/record/RecordPlugin.cpp:556
 #, kde-format
 msgid "%1 channels"
-msgstr ""
+msgstr "%1 ערוצים"
 
 #: plugins/record/RecordPlugin.cpp:559
 #, kde-format
 msgid "%1 is not supported, using %2"
-msgstr ""
+msgstr "אין תמיכה ב־%1, נעשה שימוש ב־%2"
 
 #: plugins/record/RecordPlugin.cpp:582
 #, kde-format
@@ -6771,12 +6771,12 @@ msgstr ""
 #: plugins/reverse/UndoReverseAction.cpp:44
 #, kde-format
 msgid "Reverse"
-msgstr ""
+msgstr "היפוך"
 
 #: plugins/samplerate/SampleRatePlugin.cpp:100
 #, kde-format
 msgid "Change sample rate"
-msgstr ""
+msgstr "שינוי קצב דגימה"
 
 #: plugins/samplerate/SampleRatePlugin.cpp:161
 #, kde-format
@@ -6786,7 +6786,7 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
 msgid "Please choose where to save the files"
-msgstr ""
+msgstr "נא לבחור איפה לשמור את הקבצים"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:37
@@ -6816,7 +6816,7 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:60
 #, kde-format
 msgid "Numbering:"
-msgstr ""
+msgstr "מספור:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:79
@@ -6846,7 +6846,7 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:102
 #, kde-format
 msgid "Extension:"
-msgstr ""
+msgstr "סיומת:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbExtension)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:118
@@ -6858,13 +6858,13 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:131
 #, kde-format
 msgid "Location to save the files"
-msgstr ""
+msgstr "מקום לשמירת הקבצים"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:140
 #, kde-format
 msgid "Choose where to save the files"
-msgstr ""
+msgstr "נא לבחור איפה לשמור את הקבצים"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:154
@@ -6878,24 +6878,24 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:157
 #, kde-format
 msgid "TextLabel"
-msgstr ""
+msgstr "תווית טקסט"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:170
 #, kde-format
 msgid "Example file name:"
-msgstr ""
+msgstr "שם קובץ לדוגמה:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:189
 #, kde-format
 msgid "Save selection only"
-msgstr ""
+msgstr "שמירת הבחירה בלבד"
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:169
 #, kde-format
 msgid "..."
-msgstr ""
+msgstr "…"
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:271
 #, kde-format
@@ -6913,24 +6913,24 @@ msgstr ""
 #: plugins/selectrange/SelectRangeDialog.cpp:45
 #, kde-format
 msgid "Start"
-msgstr ""
+msgstr "התחלה"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectRangeDlg)
 #: plugins/selectrange/SelectRangeDlg.ui:15
 #: plugins/selectrange/SelectRangePlugin.cpp:121
 #, kde-format
 msgid "Select Range"
-msgstr ""
+msgstr "בחירת טווח"
 
 #: plugins/sonagram/SonagramDialog.cpp:148
 #, kde-format
 msgid "(resulting window size: %1)"
-msgstr ""
+msgstr "(גודל החלון שיתקבל: %1)"
 
 #: plugins/sonagram/SonagramDialog.cpp:151
 #, kde-format
 msgid "Size of bitmap: %1x%2"
-msgstr ""
+msgstr "גודל מפת הסיביות: %1×%2"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SonagramDlg)
 #: plugins/sonagram/SonagramDlg.ui:20
@@ -6942,37 +6942,37 @@ msgstr ""
 #: plugins/sonagram/SonagramDlg.ui:49
 #, kde-format
 msgid "display"
-msgstr ""
+msgstr "תצוגה"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbColor)
 #: plugins/sonagram/SonagramDlg.ui:55
 #, kde-format
 msgid "Use different colors for amplitude"
-msgstr ""
+msgstr "להשתמש בצבעים שונים למשרעת"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbColor)
 #: plugins/sonagram/SonagramDlg.ui:58
 #, kde-format
 msgid "Use colors"
-msgstr ""
+msgstr "להשמש בצבעים"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbGreyScale)
 #: plugins/sonagram/SonagramDlg.ui:68
 #, kde-format
 msgid "Use grayscale only for amplitude"
-msgstr ""
+msgstr "להשתמש בגווני אפור למשרעת"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbGreyScale)
 #: plugins/sonagram/SonagramDlg.ui:71
 #, kde-format
 msgid "Grayscale"
-msgstr ""
+msgstr "גווני אפור"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
 #: plugins/sonagram/SonagramDlg.ui:81
 #, kde-format
 msgid "Update"
-msgstr ""
+msgstr "עדכון"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, cbTrackChanges)
 #: plugins/sonagram/SonagramDlg.ui:87
@@ -7042,50 +7042,50 @@ msgstr ""
 #: plugins/sonagram/SonagramDlg.ui:235
 #, kde-format
 msgid "64"
-msgstr ""
+msgstr "64"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, pointbox)
 #: plugins/sonagram/SonagramDlg.ui:240
 #, kde-format
 msgid "128"
-msgstr ""
+msgstr "128"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, pointbox)
 #: plugins/sonagram/SonagramDlg.ui:245
 #, kde-format
 msgid "256"
-msgstr ""
+msgstr "256"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, pointbox)
 #: plugins/sonagram/SonagramDlg.ui:250
 #, kde-format
 msgid "512"
-msgstr ""
+msgstr "512"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, pointbox)
 #: plugins/sonagram/SonagramDlg.ui:255
 #, kde-format
 msgid "1024"
-msgstr ""
+msgstr "1024"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, pointbox)
 #: plugins/sonagram/SonagramDlg.ui:260
 #, kde-format
 msgid "2048"
-msgstr ""
+msgstr "2048"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, pointbox)
 #: plugins/sonagram/SonagramDlg.ui:265
 #, kde-format
 msgid "4096"
-msgstr ""
+msgstr "4096"
 
 #. i18n: ectx: property (text), widget (QLabel, bitmaplabel)
 #. i18n: ectx: property (text), widget (QLabel, windowlabel)
 #: plugins/sonagram/SonagramDlg.ui:310 plugins/sonagram/SonagramDlg.ui:320
 #, kde-format
 msgid "?:"
-msgstr ""
+msgstr "?:"
 
 #: plugins/sonagram/SonagramPlugin.cpp:75
 #: plugins/sonagram/SonagramWindow.cpp:529
@@ -7106,17 +7106,17 @@ msgstr ""
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
 msgid "&Close"
-msgstr ""
+msgstr "&סגירה"
 
 #: plugins/sonagram/SonagramWindow.cpp:146
 #, kde-format
 msgid "Time: ------ ms"
-msgstr ""
+msgstr "זמן: ------ מ״ש"
 
 #: plugins/sonagram/SonagramWindow.cpp:148
 #, kde-format
 msgid "Frequency: ------ Hz"
-msgstr ""
+msgstr "תדירות: ------ הרץ"
 
 #: plugins/sonagram/SonagramWindow.cpp:150
 #, kde-format
@@ -7131,12 +7131,12 @@ msgstr ""
 #: plugins/sonagram/SonagramWindow.cpp:200
 #, kde-format
 msgid "Frequency: 0 Hz"
-msgstr ""
+msgstr "תדירות: 0 הרץ"
 
 #: plugins/sonagram/SonagramWindow.cpp:201
 #, kde-format
 msgid "Amplitude: 0 %"
-msgstr ""
+msgstr "משרעת: 0 %"
 
 #: plugins/sonagram/SonagramWindow.cpp:230
 #, kde-format
@@ -7151,46 +7151,46 @@ msgstr ""
 #: plugins/sonagram/SonagramWindow.cpp:552
 #, kde-format
 msgid "Time: %1"
-msgstr ""
+msgstr "זמן: %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:556
 #, kde-format
 msgid "Frequency: %1 Hz"
-msgstr ""
+msgstr "תדירות: %1 הרץ"
 
 #: plugins/sonagram/SonagramWindow.cpp:565
 #, kde-format
 msgid "Amplitude: %1%"
-msgstr ""
+msgstr "משרעת:  %1%"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, StringEnterDlg)
 #: plugins/stringenter/StringEnterDlg.ui:21
 #, kde-format
 msgid "Enter Command..."
-msgstr ""
+msgstr "הקלדת פקודה…"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCommand)
 #: plugins/stringenter/StringEnterDlg.ui:36
 #, kde-format
 msgid "Enter Command:"
-msgstr ""
+msgstr "נא להקליד פקודה:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edCommand)
 #: plugins/stringenter/StringEnterDlg.ui:68
 #, kde-format
 msgid "please enter a text command here..."
-msgstr ""
+msgstr "נא להקליד כאן את טקסט הפקודה…"
 
 #: plugins/stringenter/StringEnterPlugin.cpp:58
 msgctxt "menu: /Settings/Enter Command"
 msgid "Enter Command"
-msgstr ""
+msgstr "נא להקליד פקודה"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:64
 #, kde-format
 msgid "change volume by factor"
-msgstr ""
+msgstr "שינוי עוצמת השמע לפי מקדם"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:68
@@ -7204,13 +7204,13 @@ msgstr ""
 #: plugins/volume/VolumeDlg.ui:71
 #, kde-format
 msgid "&Factor"
-msgstr ""
+msgstr "מ&קדם"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbPercentage)
 #: plugins/volume/VolumeDlg.ui:84
 #, kde-format
 msgid "change volume by percentage"
-msgstr ""
+msgstr "שינוי עוצמת השמע באחוזים"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/volume/VolumeDlg.ui:88
@@ -7224,7 +7224,7 @@ msgstr ""
 #: plugins/volume/VolumeDlg.ui:104
 #, kde-format
 msgid "change volume in dB"
-msgstr ""
+msgstr "שינוי עוצמת השמע בדציבלים"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:108
@@ -7237,4 +7237,4 @@ msgstr ""
 #: plugins/zero/ZeroPlugin.cpp:61
 #, kde-format
 msgid "Silence"
-msgstr ""
+msgstr "שקט"

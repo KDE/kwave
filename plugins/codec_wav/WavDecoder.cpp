@@ -16,6 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <qfuturesynchronizer.h>
+#include <qtestsupport_core.h>
 #include <stdlib.h>
 #include <new>
 
@@ -28,7 +30,9 @@
 #include <QtGlobal>
 
 #include <QApplication>
+#include <QFutureSynchronizer>
 #include <QProgressDialog>
+#include <QtConcurrentRun>
 
 #include <KLocalizedString>
 
@@ -620,15 +624,17 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
     QVector<Kwave::Writer *>writers(tracks);
     Q_ASSERT(writers.count() == Kwave::toInt(dst.tracks()));
     if (writers.count() != Kwave::toInt(dst.tracks())) return false;
-    for (unsigned int t = 0; t < tracks; t++)
+    for (unsigned int t = 0; t < tracks; t++) {
+        Q_ASSERT(dst[t] != nullptr);
         writers[t] = dst[t];
+    }
     Kwave::Writer **writer_fast = writers.data();
 
     unsigned int frame_size = Kwave::toUint(
         afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
 
     // allocate a buffer for input data
-    const unsigned int buffer_frames = (8 * 1024);
+    const unsigned int buffer_frames = (64 * 1024);
     sample_storage_t *buffer = static_cast<sample_storage_t *>(
         malloc(buffer_frames * frame_size));
     Q_ASSERT(buffer);
@@ -648,22 +654,34 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
         rest -= buffer_used;
 
         // split into the tracks
-        sample_storage_t *p = buffer;
-        for (unsigned int count = buffer_used; count; count--) {
-            for (unsigned int track = 0; track < tracks; track++) {
-                sample_storage_t s = *p++;
+        sample_storage_t *p      = buffer;
+        unsigned int      count  = buffer_used;
+        unsigned int      step   = tracks;
+        QFutureSynchronizer<void> synchronizer;
+        for (unsigned int track = 0; track < tracks; track++) {
+            Kwave::Writer    *writer = writer_fast[track];
+            sample_storage_t *in     = p + track;
+            synchronizer.addFuture(QtConcurrent::run(
+                [in, count, step, writer] () {
+                    unsigned int      remaining = count;
+                    sample_storage_t *src       = in;
+                    while (remaining--) {
+                        sample_storage_t s = *src;
+                        src += step;
 
-                // adjust precision
-                if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
-                    s /= (1 << (SAMPLE_STORAGE_BITS - SAMPLE_BITS));
+                        // adjust precision
+                        if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
+                            s /= (1 << (SAMPLE_STORAGE_BITS - SAMPLE_BITS));
+                        }
+
+                        // the following cast is only necessary if
+                        // sample_t is not equal to a sample_storage_t
+                        *(writer) << static_cast<sample_t>(s);
+                    }
                 }
-
-                // the following cast is only necessary if
-                // sample_t is not equal to a sample_storage_t
-                Q_ASSERT(writer_fast[track]);
-                *(writer_fast[track]) << static_cast<sample_t>(s);
-            }
+            ));
         }
+        synchronizer.waitForFinished();
 
         // abort if the user pressed cancel
         if (dst.isCanceled()) break;

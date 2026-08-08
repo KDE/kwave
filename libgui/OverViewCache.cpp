@@ -19,6 +19,8 @@
 
 #include <QColor>
 #include <QPainter>
+#include <QtConcurrentRun>
+#include <QFutureSynchronizer>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SampleReader.h"

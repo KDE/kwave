@@ -112,7 +112,9 @@ void Kwave::Mul::multiply()
     p_a = m_a.constData();
     p_b = m_b.constData();
     p_x = m_buffer_x.data();
-    Q_ASSERT((m_a_is_const || p_a) && (m_b_is_const || p_b) && p_x);
+    Q_ASSERT(m_a_is_const || p_a);
+    Q_ASSERT(m_b_is_const || p_b);
+    Q_ASSERT(p_x);
     if ((!m_a_is_const && !p_a) || (!m_b_is_const && !p_b) || !p_x)
         return;
 

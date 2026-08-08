@@ -26,12 +26,16 @@
 #include <QByteArray>
 #include <QCursor>
 #include <QDate>
+#include <QEventLoop>
 #include <QFile>
 #include <QFileInfo>
+#include <QFuture>
+#include <QFutureWatcher>
 #include <QMutableListIterator>
 #include <QMutexLocker>
 #include <QUrl>
 #include <QVector>
+#include <QtConcurrent/QtConcurrentRun>
 
 #include <KAboutData>
 #include <KLocalizedString>
@@ -232,9 +236,30 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
                              &writers, SLOT(cancel()));
         }
 
-        // now decode
+        // now decode in a background thread
         res = 0;
-        if (!decoder->decode(m_parent_widget, writers)) {
+        bool ok = false;
+        {
+            QFutureWatcher<bool> watcher;
+            QEventLoop event_loop;
+
+            // quit local event loop once the worker thread finishes decoding
+            QObject::connect(&watcher, &QFutureWatcher<bool>::finished,
+                             &event_loop, &QEventLoop::quit);
+
+            // run the decoding process asynchronously in a worker thread
+            QFuture<bool> future = QtConcurrent::run([decoder, this, &writers]() {
+                return decoder->decode(m_parent_widget, writers);
+            });
+            watcher.setFuture(future);
+
+            // process GUI events while waiting
+            event_loop.exec();
+            ok = watcher.result();
+        }
+
+        // retrieve decoding result from the background thread
+        if (!ok) {
             qWarning("decoding failed.");
             res = -EIO;
         } else {

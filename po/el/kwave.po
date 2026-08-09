@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-05 00:45+0000\n"
+"POT-Creation-Date: 2026-08-09 00:44+0000\n"
 "PO-Revision-Date: 2024-09-20 13:15+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -438,7 +438,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Λίστα ετικετών Kwave"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1858
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1883
 #, kde-format
 msgid "Add Label"
 msgstr "Προσθήκη ετικέτας"
@@ -1136,7 +1136,7 @@ msgstr "Αναίρεση"
 msgid "Redo"
 msgstr "Επανάληψη"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:676
+#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:701
 #, kde-format
 msgid "Cut"
 msgstr "Αποκοπή"
@@ -1198,7 +1198,7 @@ msgstr "Φόρτωση αρχείου '%1'..."
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -1391,7 +1391,7 @@ msgstr "Στο πρώτο μισό"
 msgid "Into second half"
 msgstr "Στο δεύτερο μισό"
 
-#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:703
+#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:728
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -3395,12 +3395,12 @@ msgstr "32-bit IEEE κινητής υποδιαστολής"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-bit IEEE κινητής υποδιαστολής διπλής ακρίβειας"
 
-#: libkwave/SignalManager.cpp:334
+#: libkwave/SignalManager.cpp:359
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "Κενό σήμα, τίποτα για αποθήκευση."
 
-#: libkwave/SignalManager.cpp:363
+#: libkwave/SignalManager.cpp:388
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3411,118 +3411,118 @@ msgstr ""
 "ιδιοτήτων του αρχείου:%1\n"
 "Επιμένετε να συνεχίσετε;"
 
-#: libkwave/SignalManager.cpp:400 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:425 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(κατασκευάστηκε με το KDE Frameworks %1)"
 
-#: libkwave/SignalManager.cpp:457
+#: libkwave/SignalManager.cpp:482
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "Παρουσιάστηκε σφάλμα κατά την αποθήκευση του αρχείου."
 
-#: libkwave/SignalManager.cpp:469
+#: libkwave/SignalManager.cpp:494
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "Το αρχείο έχει αποκοπεί και ίσως να έχει καταστραφεί."
 
-#: libkwave/SignalManager.cpp:478
+#: libkwave/SignalManager.cpp:503
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "Λυπούμαστε, ο τύπος αρχείου δεν υποστηρίζεται."
 
-#: libkwave/SignalManager.cpp:652
+#: libkwave/SignalManager.cpp:677
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "Εισαγωγή προχείρου στη θέση"
 
-#: libkwave/SignalManager.cpp:662
+#: libkwave/SignalManager.cpp:687
 #, kde-format
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: libkwave/SignalManager.cpp:684
+#: libkwave/SignalManager.cpp:709
 #, kde-format
 msgid "Crop"
 msgstr "Περικοπή"
 
-#: libkwave/SignalManager.cpp:735
+#: libkwave/SignalManager.cpp:760
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "Επέκταση επιλογής στην ετικέτα"
 
-#: libkwave/SignalManager.cpp:764
+#: libkwave/SignalManager.cpp:789
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Επιλογή επόμενων ετικετών"
 
-#: libkwave/SignalManager.cpp:802
+#: libkwave/SignalManager.cpp:827
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Επιλογή προηγούμενων ετικετών"
 
-#: libkwave/SignalManager.cpp:841
+#: libkwave/SignalManager.cpp:866
 #, kde-format
 msgid "Select All Tracks"
 msgstr "Επιλογή όλων των κομματιών"
 
-#: libkwave/SignalManager.cpp:845
+#: libkwave/SignalManager.cpp:870
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "Αναίρεση επιλογής όλων των κομματιών"
 
-#: libkwave/SignalManager.cpp:849
+#: libkwave/SignalManager.cpp:874
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Αντιστροφή επιλογής κομματιών"
 
-#: libkwave/SignalManager.cpp:855
+#: libkwave/SignalManager.cpp:880
 #, kde-format
 msgid "Select Track"
 msgstr "Επιλογή κομματιού"
 
-#: libkwave/SignalManager.cpp:860
+#: libkwave/SignalManager.cpp:885
 #, kde-format
 msgid "Deselect Track"
 msgstr "Αναίρεση επιλογής κομματιού"
 
-#: libkwave/SignalManager.cpp:865
+#: libkwave/SignalManager.cpp:890
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Εναλλαγή στην επιλογή κομματιού"
 
-#: libkwave/SignalManager.cpp:907
+#: libkwave/SignalManager.cpp:932
 #, kde-format
 msgid "Append Track"
 msgstr "Προσθήκη κομματιού"
 
-#: libkwave/SignalManager.cpp:914 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:939 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Εισαγωγή κομματιού"
 
-#: libkwave/SignalManager.cpp:937 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:962 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Διαγραφή κομματιού"
 
-#: libkwave/SignalManager.cpp:1090
+#: libkwave/SignalManager.cpp:1115
 #, kde-format
 msgid "Insert Space"
 msgstr "Εισαγωγή κενού"
 
-#: libkwave/SignalManager.cpp:1362
+#: libkwave/SignalManager.cpp:1387
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "Ανεπαρκής μνήμη για αποθήκευση πληροφοριών αναίρεσης."
 
-#: libkwave/SignalManager.cpp:1364
+#: libkwave/SignalManager.cpp:1389
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Θέλετε να συνεχίσετε χωρίς τη δυνατότητα αναίρεσης;"
 
-#: libkwave/SignalManager.cpp:1366
+#: libkwave/SignalManager.cpp:1391
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3531,42 +3531,42 @@ msgstr ""
 "<b>Συμβουλή</b>: μπορείτε να διαμορφώσετε το μέγεθος της μνήμης<br>που είναι "
 "διαθέσιμη για αναίρεση στο '%1'/'%2'."
 
-#: libkwave/SignalManager.cpp:1368
+#: libkwave/SignalManager.cpp:1393
 #, kde-format
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: libkwave/SignalManager.cpp:1369
+#: libkwave/SignalManager.cpp:1394
 #, kde-format
 msgid "Memory"
 msgstr "Μνήμη"
 
-#: libkwave/SignalManager.cpp:1513 libkwave/SignalManager.cpp:1520
+#: libkwave/SignalManager.cpp:1538 libkwave/SignalManager.cpp:1545
 #, kde-format
 msgid "Last Action"
 msgstr "Τελευταία ενέργεια"
 
-#: libkwave/SignalManager.cpp:1810
+#: libkwave/SignalManager.cpp:1835
 #, kde-format
 msgid "Modify File Info"
 msgstr "Τροποποίηση πληροφοριών αρχείου"
 
-#: libkwave/SignalManager.cpp:1885
+#: libkwave/SignalManager.cpp:1910
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Διαγραφή όλων των ετικετών"
 
-#: libkwave/SignalManager.cpp:1904
+#: libkwave/SignalManager.cpp:1929
 #, kde-format
 msgid "Delete Label"
 msgstr "Διαγραφή ετικέτας"
 
-#: libkwave/SignalManager.cpp:2002
+#: libkwave/SignalManager.cpp:2027
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Χειροκίνητη επιλογή κομματιού"
 
-#: libkwave/SignalManager.cpp:2005
+#: libkwave/SignalManager.cpp:2030
 #, kde-format
 msgid "Manual Selection"
 msgstr "Χειροκίνητη επιλογή"
@@ -3931,7 +3931,7 @@ msgid "Creative Voice"
 msgstr "Δημιουργική φωνή"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:455
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:455
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Ο τύπος ή η λειτουργία δεν έχει εφαρμοστεί"
@@ -3943,31 +3943,31 @@ msgid "File header is damaged"
 msgstr "Η επικεφαλίδα του αρχείου έχει καταστραφεί"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:465
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:465
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Μη έγκυρος τύπος κωδικοποιητή"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:134
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:469
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid "Opening the file failed"
 msgstr "Αποτυχία ανοίγματος του αρχείου"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:472
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:472
 #, kde-format
 msgid "Read access failed"
 msgstr "Αποτυχία πρόσβασης για ανάγνωση"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:140
-#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:475
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:475
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Μη έγκυρος τύπος δείγματος"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:146
-#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:481
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:481
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4797,17 +4797,17 @@ msgstr ""
 msgid "Searching for missing chunk '%1'..."
 msgstr "Αναζήτηση του απολεσθέντος τμήματος '%1'..."
 
-#: plugins/codec_wav/WavDecoder.cpp:143
+#: plugins/codec_wav/WavDecoder.cpp:147
 #, kde-format
 msgid "Auto Repair"
 msgstr "Αυτόματη επισκευή"
 
-#: plugins/codec_wav/WavDecoder.cpp:149
+#: plugins/codec_wav/WavDecoder.cpp:153
 #, kde-format
 msgid "Reading..."
 msgstr "Ανάγνωση..."
 
-#: plugins/codec_wav/WavDecoder.cpp:174
+#: plugins/codec_wav/WavDecoder.cpp:178
 #, kde-format
 msgid ""
 "The file has been structurally damaged or it is no WAV file.\n"
@@ -4816,17 +4816,17 @@ msgstr ""
 "Το αρχείο είναι δομικά κατεστραμμένο ή δεν είναι αρχείο WAV.\n"
 "Να προσπαθήσει το Kwave να το επισκευάσει;"
 
-#: plugins/codec_wav/WavDecoder.cpp:177 plugins/codec_wav/WavDecoder.cpp:282
+#: plugins/codec_wav/WavDecoder.cpp:181 plugins/codec_wav/WavDecoder.cpp:286
 #, kde-format
 msgid "Kwave Auto Repair"
 msgstr "Αυτόματη επισκευή Kwave"
 
-#: plugins/codec_wav/WavDecoder.cpp:178
+#: plugins/codec_wav/WavDecoder.cpp:182
 #, kde-format
 msgid "&Repair"
 msgstr "&Επισκευή"
 
-#: plugins/codec_wav/WavDecoder.cpp:243
+#: plugins/codec_wav/WavDecoder.cpp:247
 #, kde-format
 msgid ""
 "The opened file is no WAV file or it is damaged:\n"
@@ -4839,7 +4839,7 @@ msgstr ""
 "\n"
 "Τώρα δεν έχει νόημα να συνεχίσετε."
 
-#: plugins/codec_wav/WavDecoder.cpp:278
+#: plugins/codec_wav/WavDecoder.cpp:282
 #, kde-format
 msgid ""
 "The WAV file seems to be damaged:\n"
@@ -4854,12 +4854,12 @@ msgstr ""
 "Το Kwave θα χρησιμοποιήσει μόνο τα πρώτα και θα αγνοήσει\n"
 "τα υπόλοιπα. Αυτό ίσως οδηγήσει σε απώλεια δεδομένων."
 
-#: plugins/codec_wav/WavDecoder.cpp:375
+#: plugins/codec_wav/WavDecoder.cpp:379
 #, kde-format
 msgid "file header is damaged"
 msgstr "η επικεφαλίδα του αρχείου έχει καταστραφεί"
 
-#: plugins/codec_wav/WavDecoder.cpp:391
+#: plugins/codec_wav/WavDecoder.cpp:395
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "εσωτερικό του libaudiofile σφάλμα #%1: '%2'"

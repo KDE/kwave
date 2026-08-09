@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-05 00:45+0000\n"
+"POT-Creation-Date: 2026-08-09 00:44+0000\n"
 "PO-Revision-Date: 2026-05-25 21:44+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -435,7 +435,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Kwave 이름표 목록"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1858
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1883
 #, kde-format
 msgid "Add Label"
 msgstr "이름표 추가"
@@ -1133,7 +1133,7 @@ msgstr "실행 취소"
 msgid "Redo"
 msgstr "다시 실행"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:676
+#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:701
 #, kde-format
 msgid "Cut"
 msgstr "잘라내기"
@@ -1194,7 +1194,7 @@ msgstr "파일 '%1' 불러오는 중..."
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -1385,7 +1385,7 @@ msgstr "첫 번째 절반으로"
 msgid "Into second half"
 msgstr "두 번째 절반으로"
 
-#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:703
+#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:728
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -3383,12 +3383,12 @@ msgstr "32비트 IEEE 부동 소수점"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64비트 IEEE 부동 소수점"
 
-#: libkwave/SignalManager.cpp:334
+#: libkwave/SignalManager.cpp:359
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "신호가 비어 있습니다. 저장할 것이 없습니다."
 
-#: libkwave/SignalManager.cpp:363
+#: libkwave/SignalManager.cpp:388
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3399,118 +3399,118 @@ msgstr ""
 "%1\n"
 "계속 진행하시겠습니까?"
 
-#: libkwave/SignalManager.cpp:400 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:425 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(KDE 프레임워크 %1(으)로 빌드됨)"
 
-#: libkwave/SignalManager.cpp:457
+#: libkwave/SignalManager.cpp:482
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "파일을 저장하는 중 오류가 발생했습니다."
 
-#: libkwave/SignalManager.cpp:469
+#: libkwave/SignalManager.cpp:494
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "파일이 잘렸으며 손상되었을 수도 있습니다."
 
-#: libkwave/SignalManager.cpp:478
+#: libkwave/SignalManager.cpp:503
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "죄송합니다. 이 형식의 파일은 지원하지 않습니다."
 
-#: libkwave/SignalManager.cpp:652
+#: libkwave/SignalManager.cpp:677
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "현재 위치에 클립보드 내용 삽입"
 
-#: libkwave/SignalManager.cpp:662
+#: libkwave/SignalManager.cpp:687
 #, kde-format
 msgid "Paste"
 msgstr "붙여넣기"
 
-#: libkwave/SignalManager.cpp:684
+#: libkwave/SignalManager.cpp:709
 #, kde-format
 msgid "Crop"
 msgstr "자르기"
 
-#: libkwave/SignalManager.cpp:735
+#: libkwave/SignalManager.cpp:760
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "선택 영역을 이름표로 확장"
 
-#: libkwave/SignalManager.cpp:764
+#: libkwave/SignalManager.cpp:789
 #, kde-format
 msgid "Select Next Labels"
 msgstr "다음 이름표 선택"
 
-#: libkwave/SignalManager.cpp:802
+#: libkwave/SignalManager.cpp:827
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "이전 이름표 선택"
 
-#: libkwave/SignalManager.cpp:841
+#: libkwave/SignalManager.cpp:866
 #, kde-format
 msgid "Select All Tracks"
 msgstr "모든 트랙 선택"
 
-#: libkwave/SignalManager.cpp:845
+#: libkwave/SignalManager.cpp:870
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "모든 트랙 선택 해제"
 
-#: libkwave/SignalManager.cpp:849
+#: libkwave/SignalManager.cpp:874
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "트랙 선택 반전"
 
-#: libkwave/SignalManager.cpp:855
+#: libkwave/SignalManager.cpp:880
 #, kde-format
 msgid "Select Track"
 msgstr "트랙 선택"
 
-#: libkwave/SignalManager.cpp:860
+#: libkwave/SignalManager.cpp:885
 #, kde-format
 msgid "Deselect Track"
 msgstr "트랙 선택 해제"
 
-#: libkwave/SignalManager.cpp:865
+#: libkwave/SignalManager.cpp:890
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "트랙 선택 전환"
 
-#: libkwave/SignalManager.cpp:907
+#: libkwave/SignalManager.cpp:932
 #, kde-format
 msgid "Append Track"
 msgstr "트랙 덧붙이기"
 
-#: libkwave/SignalManager.cpp:914 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:939 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "트랙 삽입"
 
-#: libkwave/SignalManager.cpp:937 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:962 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "트랙 삭제"
 
-#: libkwave/SignalManager.cpp:1090
+#: libkwave/SignalManager.cpp:1115
 #, kde-format
 msgid "Insert Space"
 msgstr "공간 삽입"
 
-#: libkwave/SignalManager.cpp:1362
+#: libkwave/SignalManager.cpp:1387
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "실행 취소 정보를 저장하기에 메모리 공간이 부족합니다."
 
-#: libkwave/SignalManager.cpp:1364
+#: libkwave/SignalManager.cpp:1389
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "실행 취소 정보 없이 계속 진행하시겠습니까?"
 
-#: libkwave/SignalManager.cpp:1366
+#: libkwave/SignalManager.cpp:1391
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3519,42 +3519,42 @@ msgstr ""
 "<b>힌트</b>: 실행 취소에 할당할 메모리 사용량을<br>'%1'/'%2'에서 설정할 수 있"
 "습니다."
 
-#: libkwave/SignalManager.cpp:1368
+#: libkwave/SignalManager.cpp:1393
 #, kde-format
 msgid "Settings"
 msgstr "설정"
 
-#: libkwave/SignalManager.cpp:1369
+#: libkwave/SignalManager.cpp:1394
 #, kde-format
 msgid "Memory"
 msgstr "메모리"
 
-#: libkwave/SignalManager.cpp:1513 libkwave/SignalManager.cpp:1520
+#: libkwave/SignalManager.cpp:1538 libkwave/SignalManager.cpp:1545
 #, kde-format
 msgid "Last Action"
 msgstr "마지막 동작"
 
-#: libkwave/SignalManager.cpp:1810
+#: libkwave/SignalManager.cpp:1835
 #, kde-format
 msgid "Modify File Info"
 msgstr "파일 정보 수정"
 
-#: libkwave/SignalManager.cpp:1885
+#: libkwave/SignalManager.cpp:1910
 #, kde-format
 msgid "Delete All Labels"
 msgstr "모든 이름표 삭제"
 
-#: libkwave/SignalManager.cpp:1904
+#: libkwave/SignalManager.cpp:1929
 #, kde-format
 msgid "Delete Label"
 msgstr "이름표 삭제"
 
-#: libkwave/SignalManager.cpp:2002
+#: libkwave/SignalManager.cpp:2027
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "수동 트랙 선택"
 
-#: libkwave/SignalManager.cpp:2005
+#: libkwave/SignalManager.cpp:2030
 #, kde-format
 msgid "Manual Selection"
 msgstr "수동 선택"
@@ -3916,7 +3916,7 @@ msgid "Creative Voice"
 msgstr "Creative 보이스"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:455
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:455
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "형식이나 기능이 구현되지 않음"
@@ -3928,31 +3928,31 @@ msgid "File header is damaged"
 msgstr "파일 헤더가 손상됨"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:465
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:465
 #, kde-format
 msgid "Invalid codec type"
 msgstr "잘못된 코덱 형식"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:134
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:469
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid "Opening the file failed"
 msgstr "파일을 열 수 없음"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:472
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:472
 #, kde-format
 msgid "Read access failed"
 msgstr "읽기 접근 실패"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:140
-#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:475
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:475
 #, kde-format
 msgid "Invalid sample format"
 msgstr "잘못된 샘플 형식"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:146
-#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:481
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:481
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4769,17 +4769,17 @@ msgstr "엔디안 검사 중(통계학적 검색)..."
 msgid "Searching for missing chunk '%1'..."
 msgstr "빠진 조각 '%1' 검색 중..."
 
-#: plugins/codec_wav/WavDecoder.cpp:143
+#: plugins/codec_wav/WavDecoder.cpp:147
 #, kde-format
 msgid "Auto Repair"
 msgstr "자동 복구"
 
-#: plugins/codec_wav/WavDecoder.cpp:149
+#: plugins/codec_wav/WavDecoder.cpp:153
 #, kde-format
 msgid "Reading..."
 msgstr "읽는 중..."
 
-#: plugins/codec_wav/WavDecoder.cpp:174
+#: plugins/codec_wav/WavDecoder.cpp:178
 #, kde-format
 msgid ""
 "The file has been structurally damaged or it is no WAV file.\n"
@@ -4788,17 +4788,17 @@ msgstr ""
 "이 파일이 구조적으로 손상되었거나 WAV 파일이 아닌 것 같습니다.\n"
 "파일 복구를 시도하시겠습니까?"
 
-#: plugins/codec_wav/WavDecoder.cpp:177 plugins/codec_wav/WavDecoder.cpp:282
+#: plugins/codec_wav/WavDecoder.cpp:181 plugins/codec_wav/WavDecoder.cpp:286
 #, kde-format
 msgid "Kwave Auto Repair"
 msgstr "Kwave 자동 복구"
 
-#: plugins/codec_wav/WavDecoder.cpp:178
+#: plugins/codec_wav/WavDecoder.cpp:182
 #, kde-format
 msgid "&Repair"
 msgstr "복구(&R)"
 
-#: plugins/codec_wav/WavDecoder.cpp:243
+#: plugins/codec_wav/WavDecoder.cpp:247
 #, kde-format
 msgid ""
 "The opened file is no WAV file or it is damaged:\n"
@@ -4811,7 +4811,7 @@ msgstr ""
 "\n"
 "더 이상 진행할 의미가 없습니다."
 
-#: plugins/codec_wav/WavDecoder.cpp:278
+#: plugins/codec_wav/WavDecoder.cpp:282
 #, kde-format
 msgid ""
 "The WAV file seems to be damaged:\n"
@@ -4826,12 +4826,12 @@ msgstr ""
 "Kwave에서는 첫 번째 조각만 사용하고 나머지 조각은\n"
 "무시합니다. 데이터가 손실될 수도 있습니다."
 
-#: plugins/codec_wav/WavDecoder.cpp:375
+#: plugins/codec_wav/WavDecoder.cpp:379
 #, kde-format
 msgid "file header is damaged"
 msgstr "파일 헤더가 손상됨"
 
-#: plugins/codec_wav/WavDecoder.cpp:391
+#: plugins/codec_wav/WavDecoder.cpp:395
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "libaudiofile 내부 오류 #%1: '%2'"

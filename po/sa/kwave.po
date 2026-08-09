@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-05 00:45+0000\n"
+"POT-Creation-Date: 2026-08-09 00:44+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -439,7 +439,7 @@ msgstr "(ग) २०१६, थॉमस एशेन्बकर"
 msgid "Kwave label list"
 msgstr "इदं लेबलसूची अस्ति"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1858
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1883
 #, kde-format
 msgid "Add Label"
 msgstr "लेबल योजयतु"
@@ -1137,7 +1137,7 @@ msgstr "पूर्ववत"
 msgid "Redo"
 msgstr "पुनः करो"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:676
+#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:701
 #, kde-format
 msgid "Cut"
 msgstr "छिन्न"
@@ -1199,7 +1199,7 @@ msgstr "'%1' सञ्चिकां लोड् क्रियते..."
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -1392,7 +1392,7 @@ msgstr "प्रथमार्धे"
 msgid "Into second half"
 msgstr "द्वितीयार्धे"
 
-#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:703
+#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:728
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -3390,12 +3390,12 @@ msgstr "३२-बिट् आईईईई फ्लोटिंग्-पॉ�
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-बिट IEEE द्विगुण परिशुद्धता फ्लोटिंग-बिन्दु"
 
-#: libkwave/SignalManager.cpp:334
+#: libkwave/SignalManager.cpp:359
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "संकेतः रिक्तः अस्ति, किमपि रक्षितुं नास्ति।"
 
-#: libkwave/SignalManager.cpp:363
+#: libkwave/SignalManager.cpp:388
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3406,118 +3406,118 @@ msgstr ""
 "%1\n"
 "किं त्वं अद्यापि निरन्तरं कर्तुम् इच्छसि ?"
 
-#: libkwave/SignalManager.cpp:400 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:425 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(KDE Frameworks %1 इत्यनेन सह निर्मितम्)"
 
-#: libkwave/SignalManager.cpp:457
+#: libkwave/SignalManager.cpp:482
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "सञ्चिकां रक्षन् त्रुटिः अभवत् ।"
 
-#: libkwave/SignalManager.cpp:469
+#: libkwave/SignalManager.cpp:494
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "सञ्चिका च्छिन्ना अस्ति, दूषिता अपि भवितुम् अर्हति ।"
 
-#: libkwave/SignalManager.cpp:478
+#: libkwave/SignalManager.cpp:503
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "क्षम्यतां, सञ्चिकाप्रकारः समर्थितः नास्ति ।"
 
-#: libkwave/SignalManager.cpp:652
+#: libkwave/SignalManager.cpp:677
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "स्थाने Clipboard सम्मिलितं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:662
+#: libkwave/SignalManager.cpp:687
 #, kde-format
 msgid "Paste"
 msgstr "चिनोतु"
 
-#: libkwave/SignalManager.cpp:684
+#: libkwave/SignalManager.cpp:709
 #, kde-format
 msgid "Crop"
 msgstr "अन्नग्रह"
 
-#: libkwave/SignalManager.cpp:735
+#: libkwave/SignalManager.cpp:760
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "चयनं लेबलं प्रति विस्तारयन्तु"
 
-#: libkwave/SignalManager.cpp:764
+#: libkwave/SignalManager.cpp:789
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Next Labels इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:802
+#: libkwave/SignalManager.cpp:827
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Previous Labels इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:841
+#: libkwave/SignalManager.cpp:866
 #, kde-format
 msgid "Select All Tracks"
 msgstr "All Tracks इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:845
+#: libkwave/SignalManager.cpp:870
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "सर्वाणि पटलानि अचयनं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:849
+#: libkwave/SignalManager.cpp:874
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Track चयनं विपर्यययतु"
 
-#: libkwave/SignalManager.cpp:855
+#: libkwave/SignalManager.cpp:880
 #, kde-format
 msgid "Select Track"
 msgstr "Track इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:860
+#: libkwave/SignalManager.cpp:885
 #, kde-format
 msgid "Deselect Track"
 msgstr "Track इत्यस्य चयनं विच्छेदं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:865
+#: libkwave/SignalManager.cpp:890
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Track चयनं Toggle कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:907
+#: libkwave/SignalManager.cpp:932
 #, kde-format
 msgid "Append Track"
 msgstr "Append Track इति"
 
-#: libkwave/SignalManager.cpp:914 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:939 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Track सम्मिलित करें"
 
-#: libkwave/SignalManager.cpp:937 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:962 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Track विलोपयन्तु"
 
-#: libkwave/SignalManager.cpp:1090
+#: libkwave/SignalManager.cpp:1115
 #, kde-format
 msgid "Insert Space"
 msgstr "अन्तरिक्षं सम्मिलितं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:1362
+#: libkwave/SignalManager.cpp:1387
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "पूर्ववतसूचनायाः रक्षणार्थं पर्याप्तं स्मृतिः नास्ति ।"
 
-#: libkwave/SignalManager.cpp:1364
+#: libkwave/SignalManager.cpp:1389
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "किं भवन्तः पूर्ववतीकरणस्य सम्भावनां विना निरन्तरं कर्तुम् इच्छन्ति?"
 
-#: libkwave/SignalManager.cpp:1366
+#: libkwave/SignalManager.cpp:1391
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3526,42 +3526,42 @@ msgstr ""
 "<b>Hint</b> : स्मृतेः परिमाणं विन्यस्तुं शक्नुवन्ति<br> &#39;%1&#39;/&#39;%2&#39; इत्यस्य "
 "अन्तर्गतं पूर्ववतीकरणाय उपलब्धम् ।"
 
-#: libkwave/SignalManager.cpp:1368
+#: libkwave/SignalManager.cpp:1393
 #, kde-format
 msgid "Settings"
 msgstr "सेटिंग्स्"
 
-#: libkwave/SignalManager.cpp:1369
+#: libkwave/SignalManager.cpp:1394
 #, kde-format
 msgid "Memory"
 msgstr "स्मृति"
 
-#: libkwave/SignalManager.cpp:1513 libkwave/SignalManager.cpp:1520
+#: libkwave/SignalManager.cpp:1538 libkwave/SignalManager.cpp:1545
 #, kde-format
 msgid "Last Action"
 msgstr "अन्तिम कर्म"
 
-#: libkwave/SignalManager.cpp:1810
+#: libkwave/SignalManager.cpp:1835
 #, kde-format
 msgid "Modify File Info"
 msgstr "सञ्चिकासूचना परिवर्तयतु"
 
-#: libkwave/SignalManager.cpp:1885
+#: libkwave/SignalManager.cpp:1910
 #, kde-format
 msgid "Delete All Labels"
 msgstr "सर्वाणि लेबलानि विलोपयन्तु"
 
-#: libkwave/SignalManager.cpp:1904
+#: libkwave/SignalManager.cpp:1929
 #, kde-format
 msgid "Delete Label"
 msgstr "लेबलं विलोपयन्तु"
 
-#: libkwave/SignalManager.cpp:2002
+#: libkwave/SignalManager.cpp:2027
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "मैनुअल ट्रैक चयन"
 
-#: libkwave/SignalManager.cpp:2005
+#: libkwave/SignalManager.cpp:2030
 #, kde-format
 msgid "Manual Selection"
 msgstr "मैनुअल चयन"
@@ -3923,7 +3923,7 @@ msgid "Creative Voice"
 msgstr "सृजनात्मक स्वर"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:455
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:455
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "प्रारूपं वा कार्यं वा कार्यान्वितं न भवति"
@@ -3935,31 +3935,31 @@ msgid "File header is damaged"
 msgstr "सञ्चिकाशीर्षकं क्षतिग्रस्तम् अस्ति"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:465
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:465
 #, kde-format
 msgid "Invalid codec type"
 msgstr "अमान्यः कोडेकप्रकारः"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:134
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:469
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid "Opening the file failed"
 msgstr "सञ्चिकां उद्घाटयितुं असफलम् अभवत्"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:472
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:472
 #, kde-format
 msgid "Read access failed"
 msgstr "पठनप्रवेशः विफलः अभवत्"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:140
-#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:475
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:475
 #, kde-format
 msgid "Invalid sample format"
 msgstr "अमान्य नमूना प्रारूप"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:146
-#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:481
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:481
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4777,17 +4777,17 @@ msgstr "endianness (सांख्यिकीय अन्वेषण) का
 msgid "Searching for missing chunk '%1'..."
 msgstr "'%1' इत्यस्य अनुपलब्धखण्डस्य अन्वेषणं क्रियते..."
 
-#: plugins/codec_wav/WavDecoder.cpp:143
+#: plugins/codec_wav/WavDecoder.cpp:147
 #, kde-format
 msgid "Auto Repair"
 msgstr "ऑटो मरम्मत"
 
-#: plugins/codec_wav/WavDecoder.cpp:149
+#: plugins/codec_wav/WavDecoder.cpp:153
 #, kde-format
 msgid "Reading..."
 msgstr "पठन..."
 
-#: plugins/codec_wav/WavDecoder.cpp:174
+#: plugins/codec_wav/WavDecoder.cpp:178
 #, kde-format
 msgid ""
 "The file has been structurally damaged or it is no WAV file.\n"
@@ -4796,17 +4796,17 @@ msgstr ""
 "सञ्चिका संरचनात्मकरूपेण क्षतिग्रस्ता अस्ति अथवा सा WAV सञ्चिका नास्ति ।\n"
 "क्वावे इत्यनेन तस्य मरम्मतस्य प्रयासः कर्तव्यः वा ?"
 
-#: plugins/codec_wav/WavDecoder.cpp:177 plugins/codec_wav/WavDecoder.cpp:282
+#: plugins/codec_wav/WavDecoder.cpp:181 plugins/codec_wav/WavDecoder.cpp:286
 #, kde-format
 msgid "Kwave Auto Repair"
 msgstr "इदं Auto Repair इति"
 
-#: plugins/codec_wav/WavDecoder.cpp:178
+#: plugins/codec_wav/WavDecoder.cpp:182
 #, kde-format
 msgid "&Repair"
 msgstr "&उद्धार"
 
-#: plugins/codec_wav/WavDecoder.cpp:243
+#: plugins/codec_wav/WavDecoder.cpp:247
 #, kde-format
 msgid ""
 "The opened file is no WAV file or it is damaged:\n"
@@ -4819,7 +4819,7 @@ msgstr ""
 "\n"
 "इदानीं निरन्तरं कर्तुं कोऽपि अर्थः नास्ति।"
 
-#: plugins/codec_wav/WavDecoder.cpp:278
+#: plugins/codec_wav/WavDecoder.cpp:282
 #, kde-format
 msgid ""
 "The WAV file seems to be damaged:\n"
@@ -4834,12 +4834,12 @@ msgstr ""
 "क्वावे केवलं प्रथमानां उपयोगं करिष्यति, अवहेलनां च करिष्यति\n"
 "शेषः । एतेन दत्तांशस्य हानिः भवितुम् अर्हति ।"
 
-#: plugins/codec_wav/WavDecoder.cpp:375
+#: plugins/codec_wav/WavDecoder.cpp:379
 #, kde-format
 msgid "file header is damaged"
 msgstr "सञ्चिकाशीर्षकं क्षतिग्रस्तम् अस्ति"
 
-#: plugins/codec_wav/WavDecoder.cpp:391
+#: plugins/codec_wav/WavDecoder.cpp:395
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "आन्तरिक libaudiofile त्रुटि #%1: '%2'."

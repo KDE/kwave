@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-05 00:45+0000\n"
+"POT-Creation-Date: 2026-08-09 00:44+0000\n"
 "PO-Revision-Date: 2026-08-05 14:47+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -440,7 +440,7 @@ msgstr "© Thomas Eschenbacher, 2016"
 msgid "Kwave label list"
 msgstr "Список міток Kwave"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1858
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1883
 #, kde-format
 msgid "Add Label"
 msgstr "Додавання мітки"
@@ -1138,7 +1138,7 @@ msgstr "Скасувати"
 msgid "Redo"
 msgstr "Повторити"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:676
+#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:701
 #, kde-format
 msgid "Cut"
 msgstr "Вирізати"
@@ -1200,7 +1200,7 @@ msgstr "Завантажуємо файл «%1»…"
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:459
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -1391,7 +1391,7 @@ msgstr "У першу половину"
 msgid "Into second half"
 msgstr "У другу половину"
 
-#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:703
+#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:728
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -3393,12 +3393,12 @@ msgstr "32-бітове дійсне значення IEEE"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-бітове дійсне значення подвійної точності IEEE"
 
-#: libkwave/SignalManager.cpp:334
+#: libkwave/SignalManager.cpp:359
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "Сигнал порожній, нічого зберігати."
 
-#: libkwave/SignalManager.cpp:363
+#: libkwave/SignalManager.cpp:388
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3410,118 +3410,118 @@ msgstr ""
 "%1\n"
 "Хочете продовжити дію зі збереження?"
 
-#: libkwave/SignalManager.cpp:400 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:425 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(зібрано з KDE Frameworks %1)"
 
-#: libkwave/SignalManager.cpp:457
+#: libkwave/SignalManager.cpp:482
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "Під час спроби зберегти файл сталася помилка."
 
-#: libkwave/SignalManager.cpp:469
+#: libkwave/SignalManager.cpp:494
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "Файл обрізано, його, ймовірно, пошкоджено."
 
-#: libkwave/SignalManager.cpp:478
+#: libkwave/SignalManager.cpp:503
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "Вибачте, підтримки цього типу файлів не передбачено."
 
-#: libkwave/SignalManager.cpp:652
+#: libkwave/SignalManager.cpp:677
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "Вставити вміст буфера у позицію"
 
-#: libkwave/SignalManager.cpp:662
+#: libkwave/SignalManager.cpp:687
 #, kde-format
 msgid "Paste"
 msgstr "Вставити"
 
-#: libkwave/SignalManager.cpp:684
+#: libkwave/SignalManager.cpp:709
 #, kde-format
 msgid "Crop"
 msgstr "Обрізати"
 
-#: libkwave/SignalManager.cpp:735
+#: libkwave/SignalManager.cpp:760
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "Розширити позначене до мітки"
 
-#: libkwave/SignalManager.cpp:764
+#: libkwave/SignalManager.cpp:789
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Позначити наступні мітки"
 
-#: libkwave/SignalManager.cpp:802
+#: libkwave/SignalManager.cpp:827
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Позначити попередні мітки"
 
-#: libkwave/SignalManager.cpp:841
+#: libkwave/SignalManager.cpp:866
 #, kde-format
 msgid "Select All Tracks"
 msgstr "Позначити всі доріжки"
 
-#: libkwave/SignalManager.cpp:845
+#: libkwave/SignalManager.cpp:870
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "Скасувати позначення всіх доріжок"
 
-#: libkwave/SignalManager.cpp:849
+#: libkwave/SignalManager.cpp:874
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Інвертувати позначення доріжки"
 
-#: libkwave/SignalManager.cpp:855
+#: libkwave/SignalManager.cpp:880
 #, kde-format
 msgid "Select Track"
 msgstr "Позначити доріжку"
 
-#: libkwave/SignalManager.cpp:860
+#: libkwave/SignalManager.cpp:885
 #, kde-format
 msgid "Deselect Track"
 msgstr "Скасувати позначення доріжок"
 
-#: libkwave/SignalManager.cpp:865
+#: libkwave/SignalManager.cpp:890
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Перемкнути позначення доріжок"
 
-#: libkwave/SignalManager.cpp:907
+#: libkwave/SignalManager.cpp:932
 #, kde-format
 msgid "Append Track"
 msgstr "Дописати доріжку"
 
-#: libkwave/SignalManager.cpp:914 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:939 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Вставити доріжку"
 
-#: libkwave/SignalManager.cpp:937 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:962 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Вилучити доріжку"
 
-#: libkwave/SignalManager.cpp:1090
+#: libkwave/SignalManager.cpp:1115
 #, kde-format
 msgid "Insert Space"
 msgstr "Вставити проміжок"
 
-#: libkwave/SignalManager.cpp:1362
+#: libkwave/SignalManager.cpp:1387
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "Недостатньо пам’яті для зберігання даних скасування дій."
 
-#: libkwave/SignalManager.cpp:1364
+#: libkwave/SignalManager.cpp:1389
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Хочете продовжити без можливості скасування результатів дій?"
 
-#: libkwave/SignalManager.cpp:1366
+#: libkwave/SignalManager.cpp:1391
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3530,42 +3530,42 @@ msgstr ""
 "<b>Підказка</b>: ви можете налаштувати об’єм пам’яті,<br>доступний для дій "
 "зі скасування тут: «%1»/«%2»."
 
-#: libkwave/SignalManager.cpp:1368
+#: libkwave/SignalManager.cpp:1393
 #, kde-format
 msgid "Settings"
 msgstr "Параметри"
 
-#: libkwave/SignalManager.cpp:1369
+#: libkwave/SignalManager.cpp:1394
 #, kde-format
 msgid "Memory"
 msgstr "Пам'ять"
 
-#: libkwave/SignalManager.cpp:1513 libkwave/SignalManager.cpp:1520
+#: libkwave/SignalManager.cpp:1538 libkwave/SignalManager.cpp:1545
 #, kde-format
 msgid "Last Action"
 msgstr "Остання дія"
 
-#: libkwave/SignalManager.cpp:1810
+#: libkwave/SignalManager.cpp:1835
 #, kde-format
 msgid "Modify File Info"
 msgstr "Змінити дані щодо файла"
 
-#: libkwave/SignalManager.cpp:1885
+#: libkwave/SignalManager.cpp:1910
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Вилучити усі мітки"
 
-#: libkwave/SignalManager.cpp:1904
+#: libkwave/SignalManager.cpp:1929
 #, kde-format
 msgid "Delete Label"
 msgstr "Вилучити мітку"
 
-#: libkwave/SignalManager.cpp:2002
+#: libkwave/SignalManager.cpp:2027
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Позначення доріжок вручну"
 
-#: libkwave/SignalManager.cpp:2005
+#: libkwave/SignalManager.cpp:2030
 #, kde-format
 msgid "Manual Selection"
 msgstr "Позначення вручну"
@@ -3930,7 +3930,7 @@ msgid "Creative Voice"
 msgstr "Creative Voice"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:455
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:455
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Формат або функцію не реалізовано"
@@ -3942,31 +3942,31 @@ msgid "File header is damaged"
 msgstr "Заголовок файла пошкоджено"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:465
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:465
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Некоректний тип кодека"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:134
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:469
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid "Opening the file failed"
 msgstr "Спроба відкрити файл завершилася невдало"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:472
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:472
 #, kde-format
 msgid "Read access failed"
 msgstr "Не вдалося отримати доступ до читання"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:140
-#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:475
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:475
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Некоректний формат дискретизації"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:146
-#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:481
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:481
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4799,17 +4799,17 @@ msgstr "Визначаємо порядок байтів (статистични
 msgid "Searching for missing chunk '%1'..."
 msgstr "Шукаємо пропущену частину «%1»…"
 
-#: plugins/codec_wav/WavDecoder.cpp:143
+#: plugins/codec_wav/WavDecoder.cpp:147
 #, kde-format
 msgid "Auto Repair"
 msgstr "Автовідновлення"
 
-#: plugins/codec_wav/WavDecoder.cpp:149
+#: plugins/codec_wav/WavDecoder.cpp:153
 #, kde-format
 msgid "Reading..."
 msgstr "Читання…"
 
-#: plugins/codec_wav/WavDecoder.cpp:174
+#: plugins/codec_wav/WavDecoder.cpp:178
 #, kde-format
 msgid ""
 "The file has been structurally damaged or it is no WAV file.\n"
@@ -4818,17 +4818,17 @@ msgstr ""
 "Файл містить структурні пошкодження або не є файлом WAV.\n"
 "Чи має Kwave спробувати виправити його?"
 
-#: plugins/codec_wav/WavDecoder.cpp:177 plugins/codec_wav/WavDecoder.cpp:282
+#: plugins/codec_wav/WavDecoder.cpp:181 plugins/codec_wav/WavDecoder.cpp:286
 #, kde-format
 msgid "Kwave Auto Repair"
 msgstr "Автоматичне відновлення Kwave"
 
-#: plugins/codec_wav/WavDecoder.cpp:178
+#: plugins/codec_wav/WavDecoder.cpp:182
 #, kde-format
 msgid "&Repair"
 msgstr "Від&новити"
 
-#: plugins/codec_wav/WavDecoder.cpp:243
+#: plugins/codec_wav/WavDecoder.cpp:247
 #, kde-format
 msgid ""
 "The opened file is no WAV file or it is damaged:\n"
@@ -4841,7 +4841,7 @@ msgstr ""
 "\n"
 "Немає сенсу продовжувати."
 
-#: plugins/codec_wav/WavDecoder.cpp:278
+#: plugins/codec_wav/WavDecoder.cpp:282
 #, kde-format
 msgid ""
 "The WAV file seems to be damaged:\n"
@@ -4856,12 +4856,12 @@ msgstr ""
 "Kwave використовуватиме лише перші і ігноруватиме\n"
 "решту. Це може призвести до втрати даних."
 
-#: plugins/codec_wav/WavDecoder.cpp:375
+#: plugins/codec_wav/WavDecoder.cpp:379
 #, kde-format
 msgid "file header is damaged"
 msgstr "заголовок файла пошкоджено"
 
-#: plugins/codec_wav/WavDecoder.cpp:391
+#: plugins/codec_wav/WavDecoder.cpp:395
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "внутрішня помилка libaudiofile %1: «%2»"

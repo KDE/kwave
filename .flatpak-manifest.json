@@ -25,7 +25,10 @@
         {
             "name": "libaudiofile",
             "buildsystem": "autotools",
-            "config-opts": ["--disable-docs", "--disable-examples"],
+            "config-opts": [
+                "--disable-docs",
+                "--disable-examples"
+            ],
             "sources": [
                 {
                     "type": "git",
@@ -33,12 +36,16 @@
                     "commit": "b62c902dd258125cac86cd2df21fc898035a43d3"
                 }
             ],
-            "cleanup": ["/bin"]
+            "cleanup": [
+                "/bin"
+            ]
         },
         {
             "name": "id3lib",
             "buildsystem": "autotools",
-            "config-opts": ["--disable-static"],
+            "config-opts": [
+                "--disable-static"
+            ],
             "sources": [
                 {
                     "type": "archive",
@@ -65,26 +72,32 @@
                 },
                 {
                     "type": "shell",
-                    "commands": ["cp -p /usr/share/automake-*/config.{sub,guess} ."]
+                    "commands": [
+                        "cp -p /usr/share/automake-*/config.{sub,guess} ."
+                    ]
                 }
             ],
-            "cleanup": ["/bin"]
+            "cleanup": [
+                "/bin"
+            ]
         },
         {
-            "name" : "libmad",
+            "name": "libmad",
             "buildsystem": "cmake-ninja",
             "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://codeberg.org/tenacityteam/libmad.git",
-                    "commit" : "9aa591f6a9d09fd2fdc45a73f89980c57d832ccf"
+                    "type": "git",
+                    "url": "https://codeberg.org/tenacityteam/libmad.git",
+                    "commit": "9aa591f6a9d09fd2fdc45a73f89980c57d832ccf"
                 }
             ]
         },
         {
             "name": "kwave",
             "buildsystem": "cmake-ninja",
-            "config-opts": ["-DCMAKE_BUILD_TYPE=RelWithDebInfo"],
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+            ],
             "builddir": true,
             "sources": [
                 {

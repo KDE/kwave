@@ -3,31 +3,32 @@
 # Pavel Fric <pavelfric@seznam.cz>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016.
 # SPDX-FileCopyrightText: 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024 Vít Pelčák <vit@pelcak.org>
 # Vit Pelcak <vit@pelcak.org>, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-01 00:43+0000\n"
-"PO-Revision-Date: 2024-09-03 08:50+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-08-10 21:33+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Pavel Fric,Vít Pelčák"
+msgstr "Pavel Fric,Vít Pelčák,Libor Filípek"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "pavelfric@seznam.cz,vit@pelcak.org"
+msgstr "pavelfric@seznam.cz,vit@pelcak.org,libor.filipek@gmail.com"
 
 #: kwave/App.cpp:150
 #, kde-format
@@ -52,7 +53,7 @@ msgstr "Prohledávají se moduly..."
 #: kwave/FileContext.cpp:236 kwave/FileContext.cpp:237
 #, kde-format
 msgid "Loading plugins..."
-msgstr "Načítá přídavné moduly..."
+msgstr "Načítání přídavných modulů..."
 
 #: kwave/FileContext.cpp:239
 #, kde-format
@@ -62,7 +63,7 @@ msgstr "Selhalo"
 #: kwave/FileContext.cpp:242
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
-msgstr ""
+msgstr "Kwave nebyl správně nainstalován. Nebyly nalezeny žádné moduly!"
 
 #: kwave/FileContext.cpp:248
 #, kde-format
@@ -218,12 +219,12 @@ msgstr "Modul pro nahrávání PulseAudio"
 #: kwave/main.cpp:83
 #, kde-format
 msgid "Mark Penner"
-msgstr ""
+msgstr "Mark Penner"
 
 #: kwave/main.cpp:86
 #, kde-format
 msgid "https://markpenner.space"
-msgstr ""
+msgstr "https://markpenner.space"
 
 #: kwave/main.cpp:90
 #, kde-format
@@ -818,7 +819,7 @@ msgstr "Připravit..."
 #: kwave/menus.config:144
 msgctxt "menu: /Record/Start Now!"
 msgid "Start Now!"
-msgstr "Spustit nyní."
+msgstr "Spustit nyní!"
 
 #: kwave/menus.config:146
 msgctxt "menu: /Labels"
@@ -1320,11 +1321,10 @@ msgid "#%1 (%2)"
 msgstr "#%1 (%2)"
 
 #: kwave/TopWidget.cpp:1422
-#, fuzzy, kde-format
-#| msgid "%1"
+#, kde-format
 msgctxt "list menu entry of a label, without description, %1=index"
 msgid "#%1"
-msgstr "%1"
+msgstr "#%1"
 
 #: kwave/ZoomToolBar.cpp:63 kwave/ZoomToolBar.cpp:64
 #, kde-format
@@ -1556,7 +1556,7 @@ msgstr "Rejstřík:"
 #: libgui/LabelPropertiesWidgetBase.ui:95
 #, kde-format
 msgid "index of the label"
-msgstr "Rejstřík popisků"
+msgstr "rejstřík popisků"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, lblIndex)
 #: libgui/LabelPropertiesWidgetBase.ui:99
@@ -1591,7 +1591,7 @@ msgstr "Táhnout a pustit"
 #: libgui/SelectTimeWidgetBase.ui:20
 #, kde-format
 msgid "frmLength"
-msgstr "Délka pevné frekvence... (\"frm\")"
+msgstr "délka pevné frekvence... (\"frm\")"
 
 #. i18n: ectx: property (title), widget (QGroupBox, SelectTimeWidgetBase)
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox1)
@@ -1605,7 +1605,7 @@ msgstr "Délka"
 #: libgui/SelectTimeWidgetBase.ui:38
 #, kde-format
 msgid "select by number of samples"
-msgstr "Vybrat podle čísel vzorků"
+msgstr "vybrat podle čísel vzorků"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbSamples)
 #: libgui/SelectTimeWidgetBase.ui:41
@@ -1864,7 +1864,7 @@ msgstr ""
 "Poskytuje obecné poznámky o souboru nebo předloze \n"
 "souboru. V případě, že poznámka má několik vět, zakončete \n"
 "každou větu tečkou. Nezařazujte znaky \n"
-"nového řádku."
+"nového řádku!"
 
 #: libkwave/FileInfo.cpp:50
 msgid "Archival location"
@@ -1946,7 +1946,7 @@ msgstr "Počet CD, pokud je zdrojem album vytvořené z více CD"
 
 #: libkwave/FileInfo.cpp:91
 msgid "Commissioned"
-msgstr ""
+msgstr "Vydavatel"
 
 #: libkwave/FileInfo.cpp:92
 msgid ""
@@ -1986,7 +1986,7 @@ msgid ""
 msgstr ""
 "Kontaktní informace pro tvůrce nebo distributory\n"
 "stopy. Může to být URL, e-mailová adresa,\n"
-"fyzická adresa hudební vydavatelství"
+"fyzická adresa hudební vydavatelství."
 
 #: libkwave/FileInfo.cpp:115
 msgid "Copyright"
@@ -2072,11 +2072,11 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:156
 msgid "ID3 Tags"
-msgstr ""
+msgstr "ID3 značka"
 
 #: libkwave/FileInfo.cpp:157
 msgid "List of ID3 Tags"
-msgstr ""
+msgstr "Seznam ID3 značek"
 
 #: libkwave/FileInfo.cpp:160
 msgid "ISRC"
@@ -2234,7 +2234,7 @@ msgstr "Originál"
 
 #: libkwave/FileInfo.cpp:230
 msgid "Indicates whether the file is an original or a copy"
-msgstr "Ukazuje, zda je soubor originálem nebo kopií."
+msgstr "Ukazuje, zda je soubor originálem nebo kopií"
 
 #: libkwave/FileInfo.cpp:233
 msgid "Performer"
@@ -2256,7 +2256,7 @@ msgstr "Soukromý"
 
 #: libkwave/FileInfo.cpp:240
 msgid "Indicates whether the subject is private"
-msgstr "Ukazuje, zda je předloha soukromá."
+msgstr "Ukazuje, zda je předloha soukromá"
 
 #: libkwave/FileInfo.cpp:243
 msgid "Product"
@@ -2583,7 +2583,7 @@ msgstr "Pop"
 
 #: libkwave/GenreType.cpp:116
 msgid "Rhythm and Blues"
-msgstr ""
+msgstr "Rytmus a blues"
 
 #: libkwave/GenreType.cpp:117
 msgid "Rap"
@@ -3207,19 +3207,19 @@ msgstr "Krautrock"
 
 #: libkwave/GenreType.cpp:278
 msgid "Leftfield"
-msgstr ""
+msgstr "Leftfield"
 
 #: libkwave/GenreType.cpp:279
 msgid "Lounge"
-msgstr ""
+msgstr "Lounge"
 
 #: libkwave/GenreType.cpp:280
 msgid "Math Rock"
-msgstr ""
+msgstr "Math Rock"
 
 #: libkwave/GenreType.cpp:281
 msgid "New Romantic"
-msgstr ""
+msgstr "Nová romantika"
 
 #: libkwave/GenreType.cpp:282
 msgid "Nu-Breakz"
@@ -3255,7 +3255,7 @@ msgstr "Světová hudba"
 
 #: libkwave/GenreType.cpp:290
 msgid "Neoclassical"
-msgstr ""
+msgstr "Neoklasicistní"
 
 #: libkwave/GenreType.cpp:291
 msgid "Audiobook"
@@ -3263,7 +3263,7 @@ msgstr "Audiokniha"
 
 #: libkwave/GenreType.cpp:292
 msgid "Audio Theatre"
-msgstr ""
+msgstr "Rozhlasové divadlo"
 
 #: libkwave/GenreType.cpp:293
 msgid "Neue Deutsche Welle"
@@ -3287,7 +3287,7 @@ msgstr "Dubstep"
 
 #: libkwave/GenreType.cpp:298
 msgid "Garage Rock"
-msgstr ""
+msgstr "Garage Rock"
 
 #: libkwave/GenreType.cpp:299
 msgid "Psybient"
@@ -3328,7 +3328,7 @@ msgstr "Ukazovat vzorky a držet"
 #: libkwave/Logger.cpp:81
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
-msgstr "Nelze otevřít soubor se záznamem '%1' pro zápis."
+msgstr "Nelze otevřít soubor se záznamem '%1' pro zápis"
 
 #: libkwave/PlaybackController.cpp:667
 #, kde-format
@@ -3845,7 +3845,7 @@ msgstr " Hz"
 #: plugins/pitch_shift/PitchShiftDlg.ui:57
 #, kde-format
 msgid "start/stop pre-listening"
-msgstr "Spustit/Zastavit předposlech"
+msgstr "spustit/zastavit předposlech"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btListen)
 #: plugins/band_pass/BandPassDlg.ui:158 plugins/lowpass/LowPassDlg.ui:151
@@ -3914,12 +3914,12 @@ msgstr "Formát zvukového souboru NIST SPHERE"
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:74
 #, kde-format
 msgid "Sample Vision Format"
-msgstr ""
+msgstr "Formát Sample Vision"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:77
 #, kde-format
 msgid "Creative Voice"
-msgstr ""
+msgstr "Creative Voice"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
 #: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:455
@@ -3943,7 +3943,7 @@ msgstr "Neplatný typ kodeku"
 #: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid "Opening the file failed"
-msgstr "Otevření souboru selhalo."
+msgstr "Otevření souboru selhalo"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
 #: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:472
@@ -4087,7 +4087,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3Encoder.cpp:357 plugins/codec_wav/WavEncoder.cpp:408
 #, kde-format
 msgid "Unable to open the file for saving!"
-msgstr "Nelze otevřít soubor pro ukládáním"
+msgstr "Nelze otevřít soubor pro ukládáním!"
 
 #: plugins/codec_mp3/MP3Encoder.cpp:604
 #, kde-format
@@ -4159,7 +4159,7 @@ msgstr "Vyberte kodér MP3"
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:657
 #, kde-format
 msgid "Congratulation, the test was successful!"
-msgstr "Gratulujeme. Zkouška proběhla úspěšně."
+msgstr "Gratulujeme. Zkouška proběhla úspěšně!"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, MP3EncoderDialogBase)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:20
@@ -4621,7 +4621,7 @@ msgstr "Jeden nebo více neplatných argumentů nebo argumentů mimo rozsah."
 #: plugins/codec_ogg/OpusCommon.cpp:58
 #, kde-format
 msgid "The mode struct passed is invalid."
-msgstr ""
+msgstr "Předaná struktura režimu je neplatná."
 
 #: plugins/codec_ogg/OpusCommon.cpp:61
 #, kde-format
@@ -4720,7 +4720,7 @@ msgstr "Kodér pro Opus selhal při nastavování omezení VBR: '%1'"
 #: plugins/codec_ogg/OpusEncoder.cpp:596
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
-msgstr ""
+msgstr "Enkodér Opus nezískal hodnotu předběžného výpočtu: '%1'"
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:89
 #, kde-format
@@ -4838,7 +4838,7 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:375
 #, kde-format
 msgid "file header is damaged"
-msgstr "Hlavička souboru je poškozená"
+msgstr "hlavička souboru je poškozená"
 
 #: plugins/codec_wav/WavDecoder.cpp:391
 #, kde-format
@@ -4896,7 +4896,7 @@ msgstr "Ověřit pilovitý průběh signálu"
 
 #: plugins/debug/DebugPlugin.cpp:99
 msgid "FM Sweep"
-msgstr ""
+msgstr "Procházení FM pásma"
 
 #: plugins/debug/DebugPlugin.cpp:109
 msgid "Labels at Stripe borders"
@@ -4932,12 +4932,12 @@ msgstr "Soubor projektu K3b (*.k3b)"
 #: plugins/export_k3b/K3BExportDialog.cpp:161
 #, kde-format
 msgid "Please choose a K3b project file name"
-msgstr ""
+msgstr "Zadejte prosím název souboru projektu K3b"
 
 #: plugins/export_k3b/K3BExportDialog.cpp:165
 #, kde-format
 msgid "Please choose where to export the audio files"
-msgstr ""
+msgstr "Vyberte prosím, kam chcete zvukové soubory exportovat"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportDialogBase.ui:35
@@ -4949,7 +4949,7 @@ msgstr "Nastavení vstupu"
 #: plugins/export_k3b/K3BExportDialogBase.ui:46
 #, kde-format
 msgid "Format of Labels:"
-msgstr "Formát popisek"
+msgstr "Formát popisek:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbLabelPattern)
 #: plugins/export_k3b/K3BExportDialogBase.ui:62
@@ -5018,6 +5018,9 @@ msgid ""
 "Select whether existing files are overwritten or new file names are used "
 "when exporting the files to use as tracks of the audio CD."
 msgstr ""
+"Zvolte, zda se při exportu souborů, které budou použity jako skladby na "
+"zvukovém CD, mají přepsat stávající soubory, nebo zda se mají použít nové "
+"názvy souborů."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportDialogBase.ui:134
@@ -5043,13 +5046,13 @@ msgstr "Exportovat umístění:"
 #: plugins/export_k3b/K3BExportDialogBase.ui:154
 #, kde-format
 msgid "K3b Project File:"
-msgstr ""
+msgstr "Soubor projektu K3b:"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:161
 #, kde-format
 msgid "Location to save the K3b project file"
-msgstr ""
+msgstr "Umístění pro uložení souboru projektu K3b"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, fileUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:173
@@ -5061,13 +5064,13 @@ msgstr "Soubor projektu"
 #: plugins/export_k3b/K3BExportDialogBase.ui:180
 #, kde-format
 msgid "Location to export the audio files to"
-msgstr ""
+msgstr "Umístění, kam se mají zvukové soubory exportovat"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:189
 #, kde-format
 msgid "Export Location"
-msgstr ""
+msgstr "Umístění exportu"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:280
 msgctxt "menu: /File/Save/Export to K3b Project..."
@@ -5081,6 +5084,9 @@ msgid ""
 "deselect some channels or export the file in a different file format that "
 "supports mono and stereo only (for example FLAC) and then try again."
 msgstr ""
+"Pro zvukové CD lze použít pouze mono a stereo soubory. Můžete buď zrušit "
+"výběr některých kanálů, nebo soubor exportovat v jiném formátu, který "
+"podporuje pouze mono a stereo (například FLAC), a poté to zkusit znovu."
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:662
 #, kde-format
@@ -5088,6 +5094,8 @@ msgid ""
 "A K3b project file has been created and audio files have been exported.\n"
 "Should I start K3b and open the audio CD project now?"
 msgstr ""
+"Byl vytvořen soubor projektu K3b a zvukové soubory byly exportovány.\n"
+"Má se nyní spustit program K3b a otevřít projekt zvukového CD?"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:50
@@ -5623,7 +5631,7 @@ msgstr "Přid&at"
 #: plugins/fileinfo/KeywordWidgetBase.ui:62
 #, kde-format
 msgid "auto-generate keywords"
-msgstr "Automaticky generovat klíčová slova"
+msgstr "automaticky generovat klíčová slova"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:66
@@ -5719,7 +5727,7 @@ msgstr ""
 #: plugins/newsignal/NewSigDlg.ui:168 plugins/record/RecordDlg.ui:670
 #, kde-format
 msgid "Samples per second"
-msgstr "vzorků za sekundu"
+msgstr "Vzorků za sekundu"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBits)
 #: plugins/newsignal/NewSigDlg.ui:224
@@ -5821,7 +5829,7 @@ msgstr "Režim"
 #: plugins/noise/NoiseDlg.ui:54
 #, kde-format
 msgid "add a noise level by percentage"
-msgstr "Přidat úroveň šumu procentuálně"
+msgstr "přidat úroveň šumu procentuálně"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:58
@@ -5853,7 +5861,7 @@ msgid ""
 "adds a noise level in logarithmic scale (decibel).\n"
 "For example: \"-3 dB\", \"- 6 dB\"."
 msgstr ""
-"Přidá úroveň šumu logaritmicky (decibely). \n"
+"přidá úroveň šumu logaritmicky (decibely). \n"
 "Například:  \"-3 dB\", \"- 6 dB\"."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbLogarithmic)
@@ -5998,7 +6006,7 @@ msgstr "Rychlost"
 #: plugins/pitch_shift/PitchShiftDlg.ui:215
 #, kde-format
 msgid "change speed by percentage"
-msgstr "Změnit rychlost podle procentního podílu"
+msgstr "změnit rychlost podle procentního podílu"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:219
@@ -6014,13 +6022,13 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftDlg.ui:222
 #, kde-format
 msgid "by Percentage"
-msgstr "Podle procenta"
+msgstr "podle procenta"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:232
 #, kde-format
 msgid "change speed by a factor"
-msgstr "Změnit rychlost podle násobku"
+msgstr "změnit rychlost podle násobku"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:236
@@ -6036,7 +6044,7 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftDlg.ui:239
 #, kde-format
 msgid "by Factor"
-msgstr "Podle násobku"
+msgstr "podle násobku"
 
 #: plugins/playback/PlayBack-ALSA.cpp:51 plugins/playback/PlayBack-Qt.cpp:44
 #: plugins/record/Record-Qt.cpp:49
@@ -6609,7 +6617,7 @@ msgstr[2] "%1 hodin "
 msgid "one minute "
 msgid_plural "%1 minutes "
 msgstr[0] "jedna minuta "
-msgstr[1] "%1 minuty"
+msgstr[1] "%1 minuty "
 msgstr[2] "%1 minut "
 
 #: plugins/record/RecordDialog.cpp:1196
@@ -6766,7 +6774,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:359
 #, kde-format
 msgid "Start &at:"
-msgstr "Začít n&a"
+msgstr "Začít n&a:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_level)
 #. i18n: ectx: property (title), widget (QGroupBox, grpLevel)
@@ -6988,6 +6996,8 @@ msgid ""
 "Some unexpected error happened (%1). You may try an other recording method "
 "or recording device."
 msgstr ""
+"Došlo k neočekávané chybě (%1). Můžete zkusit jiný způsob nahrávání nebo "
+"jiné nahrávací zařízení."
 
 #: plugins/record/RecordPlugin.cpp:482
 #, kde-format
@@ -7053,12 +7063,12 @@ msgstr "Vzorkovací formát '%1' selhal. Použiji '%2'"
 #: plugins/record/RecordPlugin.cpp:952
 #, kde-format
 msgid "The current sample format is not supported!"
-msgstr "Nynější vzorkovací formát není podporován."
+msgstr "Nynější vzorkovací formát není podporován!"
 
 #: plugins/record/RecordPlugin.cpp:958
 #, kde-format
 msgid "The current compression type is not supported!"
-msgstr "Nynější druh komprese není podporován."
+msgstr "Nynější druh komprese není podporován!"
 
 #: plugins/record/RecordPlugin.cpp:1095
 #, kde-format
@@ -7097,7 +7107,7 @@ msgstr "Mění se vzorkovací frekvence z %1 kHz na %2 kHz..."
 #: plugins/saveblocks/SaveBlocksDialog.cpp:203
 #, kde-format
 msgid "Please choose where to save the files"
-msgstr ""
+msgstr "Vyberte prosím, kam chcete soubory uložit"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbPattern)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:37
@@ -7182,19 +7192,19 @@ msgstr "Přípona:"
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:118
 #, kde-format
 msgid "Choose what encoding to save the blocks with."
-msgstr ""
+msgstr "Vyberte, v jakém kódování se mají bloky uložit."
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:131
 #, kde-format
 msgid "Location to save the files"
-msgstr ""
+msgstr "Umístění pro uložení souborů"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:140
 #, kde-format
 msgid "Choose where to save the files"
-msgstr ""
+msgstr "Vyberte, kam chcete soubory uložit"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:154
@@ -7203,6 +7213,8 @@ msgid ""
 "Example of the first file name that will be saved, using the file name "
 "pattern, extension, and numbering"
 msgstr ""
+"Příklad názvu prvního souboru, který bude uložen, s využitím vzoru názvu "
+"souboru, přípony a číslování"
 
 #. i18n: ectx: property (text), widget (QLabel, txtExample)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:157
@@ -7214,7 +7226,7 @@ msgstr "Textový popisek"
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:170
 #, kde-format
 msgid "Example file name:"
-msgstr ""
+msgstr "Příklad názvu souboru:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:189
@@ -7238,7 +7250,7 @@ msgstr "Toto by přepsalo následující soubor(y): %1 Opravdu chcete pokračova
 msgid ""
 "The following directories do not exist: %1Do you want to create them and "
 "continue?"
-msgstr ""
+msgstr "Následující adresáře neexistují: %1 Chcete je vytvořit a pokračovat?"
 
 #: plugins/selectrange/SelectRangeDialog.cpp:45
 #, kde-format
@@ -7374,7 +7386,7 @@ msgstr ""
 "<b>Počet bodů FFT:</b><p></p>Pokuste se vybrat čísla s malými prvotními "
 "násobky,<br>\n"
 "když vybíráte velké velikosti oken.<br>\n"
-"Výpočty pak budou mnohem rychlejší."
+"Výpočty pak budou mnohem rychlejší!"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, pointbox)
 #: plugins/sonagram/SonagramDlg.ui:235

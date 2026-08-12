@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-01 00:43+0000\n"
-"PO-Revision-Date: 2026-03-24 11:08+0400\n"
+"PO-Revision-Date: 2026-08-10 15:11+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -458,7 +458,7 @@ msgid ""
 "There already is a label at the position you have chosen.\n"
 "Do you want to replace it?"
 msgstr ""
-"يوجد تسمية فعلاً في الموضع الذي اخترته.\n"
+"يوجد تسمية فعلًا في الموضع الذي اخترته.\n"
 "هل تريد استبدالها؟"
 
 #: kwave/MainWidget.cpp:1105
@@ -2263,7 +2263,7 @@ msgid ""
 "Example: 'Linux audio collection'"
 msgstr ""
 "يحدد الاسم أو العنوان الذي\n"
-"أُعد الملف له أصلاً.\n"
+"أُعد الملف له أصلًا.\n"
 "مثال: 'مجموعة لينكس الصوتية'"
 
 #: libkwave/FileInfo.cpp:249
@@ -3486,7 +3486,7 @@ msgstr "ألحق مسار"
 #: libkwave/SignalManager.cpp:914 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
-msgstr "أدرج مساراً"
+msgstr "أدرج مسارًا"
 
 #: libkwave/SignalManager.cpp:937 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
@@ -4840,7 +4840,7 @@ msgid ""
 "you want to use G711 ULAW compression instead?"
 msgstr ""
 "عذرًا، لا يمكن استخدام نوع الضغط المحدد حاليًا للحفظ. هل تريد استخدام ضغط G711 "
-"ULAW بدلاً من ذلك؟"
+"ULAW بدلًا من ذلك؟"
 
 #: plugins/codec_wav/WavEncoder.cpp:364
 #, kde-format
@@ -5624,7 +5624,7 @@ msgid ""
 "Create a list of keywords by going through all present file information and "
 "merge it with the current list of keywords."
 msgstr ""
-"<b>إنشاء الكلمات المفتاحية آلياً</b><br>\n"
+"<b>إنشاء الكلمات المفتاحية آليًا</b><br>\n"
 "أنشئ قائمة بالكلمات المفتاحية من خلال مراجعة جميع معلومات الملف الحالية "
 "ودمجها مع القائمة الحالية للكلمات المفتاحية."
 
@@ -6144,7 +6144,7 @@ msgstr "فشل الاتصال بخادم PulseAudio."
 #: plugins/playback/PlayBack-PulseAudio.cpp:478
 #, kde-format
 msgid "The PulseAudio device '%1' is unknown or no longer connected"
-msgstr "جهاز PulseAudio '%1' غير معروف أو لم يعد متصلاً"
+msgstr "جهاز PulseAudio '%1' غير معروف أو لم يعد متصلًا"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:522
 #, kde-format
@@ -6169,7 +6169,7 @@ msgstr "(استخدم الإعداد المبدئي للخادم)"
 #: plugins/playback/PlayBack-Qt.cpp:129
 #, kde-format
 msgid "The audio device '%1' is unknown or no longer connected"
-msgstr "جهاز الصوت '%1' غير معروف أو لم يعد متصلاً"
+msgstr "جهاز الصوت '%1' غير معروف أو لم يعد متصلًا"
 
 #: plugins/playback/PlayBack-Qt.cpp:156
 #, kde-format
@@ -6257,7 +6257,7 @@ msgid ""
 "<b>Select...</b><p>Choose a device name on the harddisk, if your device is "
 "not already listed in the list of devices.</p>"
 msgstr ""
-"<b>اختر...</b><p>اختر اسم جهاز على القرص الصلب، إذا لم يكن جهازك مدرجًا أصلاً "
+"<b>اختر...</b><p>اختر اسم جهاز على القرص الصلب، إذا لم يكن جهازك مدرجًا أصلًا "
 "في قائمة الأجهزة.</p>"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
@@ -6334,7 +6334,7 @@ msgstr ""
 "<b>حجم المخزن المؤقت:</b><p>اختر حجم مخزن مؤقت للتشغيل. يجب عليك تعيين هذا "
 "الرقم صغيرًا قدر الإمكان لتقليل زمن التأخير في التشغيل. زمن التأخير هو الفاصل "
 "بين إجراءات واجهة المستخدم مثل بدء/إيقاف التشغيل، تحديث موضع التشغيل وإخراج "
-"الصوت الفعلي. إذا واجهت انقطاعات، يجب عليك زيادة هذا الإعداد قليلاً.</p>"
+"الصوت الفعلي. إذا واجهت انقطاعات، يجب عليك زيادة هذا الإعداد قليلًا.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
@@ -6426,7 +6426,7 @@ msgstr "ا&ختبر..."
 #: plugins/playback/PlayBackPlugin.cpp:401
 #, kde-format
 msgid "Please select a playback device first"
-msgstr "يرجى اختيار جهاز تشغيل أولاً"
+msgstr "يرجى اختيار جهاز تشغيل أولًا"
 
 #: plugins/playback/PlayBackPlugin.cpp:427
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-09 00:44+0000\n"
-"PO-Revision-Date: 2026-08-06 13:01+0300\n"
+"PO-Revision-Date: 2026-08-11 17:52+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1465,33 +1465,33 @@ msgstr ""
 #: libgui/LabelItem.cpp:93 libgui/TrackView.cpp:272
 #, kde-format
 msgid "Label"
-msgstr ""
+msgstr "תווית"
 
 #: libgui/LabelItem.cpp:104 libgui/TrackView.cpp:279
 #, kde-format
 msgid "New"
-msgstr ""
+msgstr "חדשה"
 
 #: libgui/LabelItem.cpp:112
 #, kde-format
 msgid "&Delete"
-msgstr ""
+msgstr "מ&חיקה"
 
 #: libgui/LabelItem.cpp:118
 #, kde-format
 msgid "&Properties..."
-msgstr ""
+msgstr "מ&אפיינים…"
 
 #: libgui/LabelItem.cpp:158
 #, kde-format
 msgid "Move Label"
-msgstr ""
+msgstr "העברת תווית"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LabelPropertiesWidgetBase)
 #: libgui/LabelPropertiesWidgetBase.ui:20
 #, kde-format
 msgid "Label Properties..."
-msgstr ""
+msgstr "מאפייני תווית…"
 
 #. i18n: ectx: property (whatsThis), widget (Kwave::SelectTimeWidget, time)
 #: libgui/LabelPropertiesWidgetBase.ui:44
@@ -1507,13 +1507,13 @@ msgstr ""
 #: libgui/LabelPropertiesWidgetBase.ui:51
 #, kde-format
 msgid "Description:"
-msgstr ""
+msgstr "תיאור:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edDescription)
 #: libgui/LabelPropertiesWidgetBase.ui:61
 #, kde-format
 msgid "some description of the label (optional)"
-msgstr ""
+msgstr "חלק מתיאורי התווית (רשות)"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edDescription)
 #: libgui/LabelPropertiesWidgetBase.ui:65
@@ -6665,7 +6665,7 @@ msgstr "רמה:"
 msgid ""
 "Maybe your system lacks support for the corresponding hardware or the "
 "hardware is not connected."
-msgstr ""
+msgstr "כנראה שלמערכת שלך אין תמיכה בחומרה המתאימה או שהחומרה לא מחוברת."
 
 #: plugins/record/RecordPlugin.cpp:461
 #, kde-format
@@ -6714,22 +6714,22 @@ msgstr ""
 #: plugins/record/RecordPlugin.cpp:690
 #, kde-format
 msgid "Compression '%1' not supported, using '%2'"
-msgstr ""
+msgstr "אין תמיכה בדחיסה ‚%1’, נעשה שימוש ב־'%2'"
 
 #: plugins/record/RecordPlugin.cpp:703
 #, kde-format
 msgid "Compression '%1' failed, using '%2'."
-msgstr ""
+msgstr "הדחיסה ‚%1’ נכשלה, נעשה שימוש ב־‚%2’."
 
 #: plugins/record/RecordPlugin.cpp:742
 #, kde-format
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
-msgstr ""
+msgstr "אין תמיכה ב־%1 סיביות לדגימה, נעשה שימוש ב־%2 סיביות לדגימה"
 
 #: plugins/record/RecordPlugin.cpp:755
 #, kde-format
 msgid "%1 bits per sample failed, using %2 bits per sample"
-msgstr ""
+msgstr "%1 סיביות לדגימה נכשלה, נעשה שימוש ב־%2 סיביות לדגימה"
 
 #: plugins/record/RecordPlugin.cpp:797
 #, kde-format
@@ -6744,12 +6744,12 @@ msgstr ""
 #: plugins/record/RecordPlugin.cpp:952
 #, kde-format
 msgid "The current sample format is not supported!"
-msgstr ""
+msgstr "אין תמיכה בתסדיר הדגימה הנוכחי!"
 
 #: plugins/record/RecordPlugin.cpp:958
 #, kde-format
 msgid "The current compression type is not supported!"
-msgstr ""
+msgstr "אין תמיכה בסוג הדחיסה הנוכחי!"
 
 #: plugins/record/RecordPlugin.cpp:1095
 #, kde-format
@@ -6760,7 +6760,7 @@ msgstr ""
 #: plugins/record/RecordPlugin.cpp:1099
 #, kde-format
 msgid "The recording device seems to be busy."
-msgstr ""
+msgstr "התקן ההקלטה כנראה עסוק."
 
 #: plugins/record/RecordPlugin.cpp:1102
 #, kde-format
@@ -6810,7 +6810,7 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:50
 #, kde-format
 msgid "Filename pattern:"
-msgstr ""
+msgstr "תבנית שמות קבצים:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblNumbering)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:60
@@ -7016,7 +7016,7 @@ msgstr ""
 #: plugins/sonagram/SonagramDlg.ui:157
 #, kde-format
 msgid "Window function:"
-msgstr ""
+msgstr "פונקציית חלון:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, windowtypebox)
 #. i18n: ectx: property (whatsThis), widget (KComboBox, windowtypebox)
@@ -7101,7 +7101,7 @@ msgstr ""
 #: plugins/sonagram/SonagramWindow.cpp:128
 #, kde-format
 msgid "&Export to Bitmap..."
-msgstr ""
+msgstr "יי&צוא למפת סיביות…"
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7121,12 +7121,12 @@ msgstr "תדירות: ------ הרץ"
 #: plugins/sonagram/SonagramWindow.cpp:150
 #, kde-format
 msgid "Amplitude: --- %"
-msgstr ""
+msgstr "משרעת: --- %"
 
 #: plugins/sonagram/SonagramWindow.cpp:199
 #, kde-format
 msgid "Time: 0 ms"
-msgstr ""
+msgstr "זמן: 0 מ״ש"
 
 #: plugins/sonagram/SonagramWindow.cpp:200
 #, kde-format

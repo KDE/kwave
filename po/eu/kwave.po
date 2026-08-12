@@ -1,17 +1,17 @@
 # Translation of kwave.po to Euskara/Basque (eu).
 # Copyright (C) 2018, Free Software Foundation.
-# Copyright (C) 2019-2025 This file is copyright:
+# Copyright (C) 2019-2026 This file is copyright:
 # This file is distributed under the same license as the kwave package.
-# SPDX-FileCopyrightText: 2024, 2025 KDE Euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2024-2026 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
-# SPDX-FileCopyrightText: 2018, 2019, 2020, 2023, 2024, 2025 Iñigo Salvador Azurmendi <xalba@ni.eus>
+# SPDX-FileCopyrightText: Iñigo Salvador Azurmendi <xalba@ni.eus>, 2018, 2019, 2020, 2023, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-09 00:44+0000\n"
-"PO-Revision-Date: 2025-11-30 15:25+0100\n"
+"PO-Revision-Date: 2026-08-11 22:15+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.3\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -29,7 +29,7 @@ msgstr "Iñigo Salvador Azurmendi"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "xalba@euskalnet.net"
+msgstr "xalba@ni.eus"
 
 #: kwave/App.cpp:150
 #, kde-format
@@ -1845,15 +1845,11 @@ msgid "Album"
 msgstr "Albuma"
 
 #: libkwave/FileInfo.cpp:38
-#, fuzzy
-#| msgid ""
-#| "Name of the album if the source is an album\n"
-#| "that consist of more medias."
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more media."
 msgstr ""
-"Albumaren izena sorburua euskarri gehiagoz\n"
+"Albumaren izena, sorburua hainbat euskarriz\n"
 "osatutako album bat bada."
 
 #: libkwave/FileInfo.cpp:42
@@ -6300,22 +6296,7 @@ msgstr "Atzera-jotzeko erabilitako metodo edo sistema"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:128
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Playback Method:</b><p>Choose a method or system used for\n"
-#| "playback. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, capable of mono and stereo output. Deprecated since linux "
-#| "kernel 2.6, but still wide spread. Might collide with PulseAudio or other "
-#| "sound applications, only one application at a time can use OSS playback !"
-#| "</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware. Might collide with other "
-#| "applications like OSS does, but has a plugin called <i>dmix</i> as a way "
-#| "out.</p>\n"
-#| "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
-#| "Multiple applications can play at the same time.</p>"
+#, kde-format
 msgid ""
 "<b>Playback Method:</b><p>Choose a method or system used for\n"
 "playback. Depending on the compilation options you can select one of the "
@@ -6331,19 +6312,21 @@ msgid ""
 "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
 "Multiple applications can play at the same time.</p>"
 msgstr ""
-"<b>Atzera-jotze metodoa:</b><p>Hautatu atzera-jotzeko erabilitako\n"
-"metodo edo sistema bat. Konpilatze aukeren arabera ondoko metodoetako bat "
-"hauta dezakezu:</p>\n"
-"<p><b><i>OSS (Open Sound System)</i></b>: Mono eta estereo irteerak sortzeko "
-"Linux inplementazio zaharrena. Zaharkitua 2.6 Linux nukleotik baino oraindik "
-"oso zabaldua. PulseAudio edo beste soinu aplikazioekin talka egin lezake, "
-"aldiko aplikazio bakarrak erabili dezake OSS atzera-jotzea!</p>\n"
+"<b>Atzera-jotzeko metodoa:</b><p>Hautatu atzera jotzeko erabiliko den\n"
+"metodo edo sistema. Konpilazio-aukeren arabera, metodo hauetako bat hauta "
+"dezakezu:</p>\n"
+"<p><b><i>OSS (Open Sound System)</i></b>: Linuxeko inplementaziorik "
+"zaharrena da, eta mono eta estereo irteerak onartzen ditu. Linux 2.6 "
+"nukleoaz geroztik zaharkituta dago, baina oraindik oso hedatuta dago. "
+"PulseAudiorekin edo beste soinu-aplikazio batzuekin gatazka izan dezake; "
+"aldi berean aplikazio bakar batek erabil dezake OSS bidezko atzera-jotzea!</"
+"p>\n"
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: OSS ordezten du, "
-"eginbide eta hardware gehiago onartzen ditu. Beste aplikazio batzuekin talka "
-"egin lezake OSSek bezala, baino <i>dmix</i> izeneko plugin bat du hori "
-"bideratzeko.</p>\n"
-"<p><b><i>PulseAudio</i></b>: Atzera-jotzea egiteko era hobetsia KDEn. "
-"Aplikazio ugarik jo dezakete aldi berean.</p>"
+"eta eginbide eta hardware gehiago onartzen ditu. Beste aplikazio batzuekin "
+"gatazka izan dezake, OSSek bezala, baina <i>dmix</i> izeneko plugin bat du "
+"horri irtenbidea emateko.</p>\n"
+"<p><b><i>PulseAudio</i></b>: KDEn atzera jotzeko modu hobetsia da. Hainbat "
+"aplikaziok aldi berean jo dezakete.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: plugins/playback/PlayBackDlg.ui:137
@@ -6922,16 +6905,7 @@ msgstr "Grabatzeko erabilitako metodo edo sistema"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1028
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Recording method:</b><p>Choose a method or system used for\n"
-#| "recording. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, only capable of mono and stereo input. Deprecated since "
-#| "linux kernel 2.6, but still wide spread.</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware.</p>"
+#, kde-format
 msgid ""
 "<b>Recording method:</b><p>Choose a method or system used for\n"
 "recording. Depending on the compilation options you can select one of the "
@@ -6942,14 +6916,15 @@ msgid ""
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supersedes OSS, "
 "supports more features and more hardware.</p>"
 msgstr ""
-"<b>Grabatze modua:</b><p>Hautatu grabatzeko erabilitako metodo edo\n"
-"sistema bat. Konpilatze aukeren arabera ondoko metodoetako bat hauta "
-"dezakezu:</p>\n"
+"<b>Grabatzeko metodoa:</b><p>Hautatu grabatzeko erabiliko den metodoa edo\n"
+"sistema. Konpilazio-aukeren arabera, metodo hauetako bat hauta dezakezu:</"
+"p>\n"
 "<p><b><i>OSS (Open Sound System)</i></b>: Linuxerako inplementaziorik "
-"zaharrena, mono eta estereo sarreretarako gaitasuna besterik ez duena. "
-"Zaharkitua 2.6 Linux nukleotik baino oraindik oso zabaldua.</p>\n"
+"zaharrena da, eta mono eta estereo sarrerak baino ez ditu onartzen. Linux "
+"2.6 nukleoaz geroztik zaharkituta dago, baina oraindik oso hedatuta dago.</"
+"p>\n"
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: OSS ordezten du, "
-"eginbide eta hardware gehiago onartzen ditu.</p>"
+"eta eginbide eta hardware gehiago onartzen ditu.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_5)
 #: plugins/record/RecordDlg.ui:1035

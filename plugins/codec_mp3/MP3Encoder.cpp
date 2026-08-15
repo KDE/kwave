@@ -90,7 +90,6 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
                                       ID3_Tag &tag)
 {
     const Kwave::FileInfo info(meta_data);
-    ID3_FrameInfo frameInfo;
 
     const QMap<Kwave::FileProperty, QVariant> properties(info.properties());
     QMap<Kwave::FileProperty, QVariant>::const_iterator it;
@@ -134,7 +133,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
             {
                 field->SetEncoding(ID3TE_UTF16);
 
-                // if "number of CDs is available: append with "/"
+                // if "number of CDs" is available: append with "/"
                 int cds = info.get(Kwave::INF_CDS).toInt();
                 if (cds > 0)
                     str_val += _("/%1").arg(cds);
@@ -144,7 +143,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
             }
             case ID3_PropertyMap::ENC_TRACK_NUM:
             {
-                // if "number of tracks is available: append with "/"
+                // if "number of tracks" is available: append with "/"
                 int tracks = info.get(Kwave::INF_TRACKS).toInt();
                 if (tracks > 0)
                     str_val += _("/%1").arg(tracks);
@@ -179,8 +178,10 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
                     }
                     /* frame->GetField(ID3FN_DESCRIPTION)->Set("..."); */
                     field = frame->GetField(ID3FN_TEXT);
-                    field->SetEncoding(ID3TE_UTF16);
-                    field->Set(static_cast<const unicode_t *>(c.utf16()));
+                    if (field) {
+                        field->SetEncoding(ID3TE_UTF16);
+                        field->Set(static_cast<const unicode_t *>(c.utf16()));
+                    }
 
                     if (tag.AttachFrame(frame)) {
                         frame = nullptr;

@@ -32,6 +32,7 @@
 #include <QDateTime>
 #include <QIODevice>
 #include <QLatin1Char>
+#include <QStringView>
 #include <QTime>
 
 #include "libkwave/Compression.h"
@@ -416,13 +417,63 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 //***************************************************************************
 QString Kwave::MP3Decoder::parseId3Frame2String(const ID3_Frame *frame)
 {
-    QString s;
-    char *text = ID3_GetString(frame, ID3FN_TEXT);
-    if (text && strlen(text)) {
-        s = _(text);
-        ID3_FreeString(text);
+    if (!frame) return QString();
+
+    // retrieve the encoding field from the ID3 frame
+    ID3_TextEnc enc = ID3TE_NONE;
+    const ID3_Field *enc_field = frame->GetField(ID3FN_TEXTENC);
+    if (enc_field != nullptr)
+        enc = static_cast<ID3_TextEnc>(enc_field->Get());
+
+    switch (enc) {
+        case ID3TE_UTF16: /* FALLTHROUGH */
+        case ID3TE_UTF16BE: {
+            // read raw unicode text directly to bypass id3lib's broken
+            // mbs conversion
+            const ID3_Field *field = frame->GetField(ID3FN_TEXT);
+            if (field != nullptr) {
+                const size_t num_chars = field->GetNumTextItems();
+                if (num_chars > 0) {
+                    const char16_t *uc16_data =
+                        reinterpret_cast<const char16_t *>(
+                            field->GetRawText());
+                    const size_t size_in_bytes = field->Size();
+                    if ((uc16_data != nullptr) && (size_in_bytes > 0)) {
+                        const size_t max_chars =
+                            size_in_bytes / sizeof(char16_t);
+                        const qsizetype pos =
+                            QStringView(uc16_data, max_chars).indexOf(u'\0');
+                        const qsizetype len = (pos >= 0) ? pos :
+                            static_cast<qsizetype>(max_chars);
+                        return QString::fromUtf16(uc16_data, len).trimmed();
+                    }
+                }
+            }
+            break;
+        }
+        case ID3TE_UTF8: {
+            char *text = ID3_GetString(frame, ID3FN_TEXT);
+            if (text != nullptr) {
+                QString result = QString::fromUtf8(text).trimmed();
+                ID3_FreeString(text);
+                return result;
+            }
+            break;
+        }
+        case ID3TE_ISO8859_1: /* FALLTHROUGH */
+        case ID3TE_NONE:      /* FALLTHROUGH */
+        default: {
+            char *text = ID3_GetString(frame, ID3FN_TEXT);
+            if (text != nullptr) {
+                QString result = QString::fromLatin1(text).trimmed();
+                ID3_FreeString(text);
+                return result;
+            }
+            break;
+        }
     }
-    return s;
+
+    return QString();
 }
 
 //***************************************************************************

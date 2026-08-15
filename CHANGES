@@ -1,3 +1,17 @@
+26.11.70 [2026-08-15]
+ * codec_mp3: workaround for broken MBS conversion in ID3LIB
+ * codec_mp3: do no longer explicitly link against libstdc++ and libz
+ * codec_ogg: parallelized decoding of ogg/opus and ogg/vorbis
+ * integrated codespell into CI pipeline and fixed many codespell errors
+ * OverviewCache: parallelized multi track cache validation
+ * improved GUI responsiveness by pushing file load into a worker thread
+ * wav decoder: spawn one worker thread per track for loading
+ * refactoring of the streaming engine:
+    - use calls instead of signals and slots
+    - use worker threads for data processing
+    This shall speed up processing on multi core CPUs significantly and
+    the bottleneck of signal/slot processing is no longer relevant.
+
 24.12.0 [2024-11-09]
 
  * port to Qt6 and KDE Frameworks 6

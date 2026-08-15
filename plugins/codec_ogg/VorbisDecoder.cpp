@@ -23,8 +23,10 @@
 #include <vorbis/codec.h>
 
 #include <QDate>
+#include <QFutureSynchronizer>
 #include <QIODevice>
 #include <QString>
+#include <QtConcurrentRun>
 
 #include <KLocalizedString>
 
@@ -236,34 +238,40 @@ static inline int decodeFrame(float **pcm, unsigned int size,
                               Kwave::MultiWriter &dest)
 {
     const unsigned int tracks = dest.tracks();
+    QFutureSynchronizer<void> synchronizer;
 
-    // convert floats to 16 bit signed ints
-    // (host order) and interleave
     for (unsigned int track = 0; track < tracks; track++) {
-        float       *mono = pcm[track];
-        int          bout = size;
-        unsigned int ofs  = 0;
-        Kwave::SampleArray buffer(size);
+        float *mono = pcm[track];
+        Kwave::Writer *writer = dest[track];
 
-        while (bout--) {
-            // scale, use some primitive noise shaping + clipping
-            double   noise = (drand48() - double(0.5)) / double(SAMPLE_MAX);
-            double   d     = static_cast<double>(*(mono++));
-            sample_t s     = qBound<sample_t>(
-                SAMPLE_MIN, double2sample(d + noise), SAMPLE_MAX
-            );
+        synchronizer.addFuture(QtConcurrent::run(
+            [mono, size, writer] () {
+                int           bout = size;
+                unsigned int  ofs  = 0;
+                float        *in   = mono;
+                Kwave::SampleArray buffer(size);
 
-            // write the clipped sample to the stream
-            buffer[ofs++] = s;
-        }
+                while (bout--) {
+                    // scale, use some primitive noise shaping + clipping
+                    double   noise = (drand48() - double(0.5)) /
+                                      double(SAMPLE_MAX);
+                    double   d     = static_cast<double>(*(in++));
+                    sample_t s     = qBound<sample_t>(
+                        SAMPLE_MIN, double2sample(d + noise), SAMPLE_MAX
+                    );
 
-        // write the buffer to the stream
-        *(dest[track]) << buffer;
+                    buffer[ofs++] = s;
+                }
+
+                // write the buffer to the stream
+                *(writer) << buffer;
+            }
+        ));
     }
 
+    synchronizer.waitForFinished();
     return size;
 }
-
 //***************************************************************************
 int Kwave::VorbisDecoder::decode(Kwave::MultiWriter &dst)
 {

@@ -594,27 +594,30 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
         length -= diff;
     }
 
-    // convert the buffer from float to sample_t, blockwise...
+    // convert the buffer from float to sample_t, blockwise (parallelized)
+    QFutureSynchronizer<void> synchronizer;
+
     for (unsigned int t = 0; t < tracks; t++) {
         Kwave::SampleBuffer *buffer = m_buffer->at(t);
         const float         *in     = p + t;
-        for (int frame = 0; frame < length; frame++) {
-            // scale, use some primitive noise shaping + clipping
-            double   noise = (drand48() - double(0.5)) / double(SAMPLE_MAX);
-            double   d     = static_cast<double>(*in);
-            sample_t s     = qBound<sample_t>(
-                SAMPLE_MIN, double2sample(d + noise), SAMPLE_MAX
-            );
-            buffer->put(s);
-            in += tracks;
-        }
+
+        synchronizer.addFuture(QtConcurrent::run(
+            [buffer, in, length, tracks] () {
+                for (int frame = 0; frame < length; frame++) {
+                    // scale, use some primitive noise shaping + clipping
+                    double   noise = (drand48() - double(0.5)) / double(SAMPLE_MAX);
+                    double   d     = static_cast<double>(in[frame * tracks]);
+                    sample_t s     = qBound<sample_t>(
+                        SAMPLE_MIN, double2sample(d + noise), SAMPLE_MAX
+                    );
+                    buffer->put(s);
+                }
+            }
+        ));
     }
+    synchronizer.waitForFinished();
 
     m_samples_written += length;
-
-    // update the progress bar
-    QApplication::processEvents();
-
     return 0;
 }
 

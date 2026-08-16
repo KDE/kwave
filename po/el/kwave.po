@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-09 00:44+0000\n"
+"POT-Creation-Date: 2026-08-16 00:43+0000\n"
 "PO-Revision-Date: 2024-09-20 13:15+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1195,7 +1195,7 @@ msgstr "Φόρτωση αρχείου '%1'..."
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:125
 #: plugins/codec_flac/FlacEncoder.cpp:248
 #: plugins/codec_flac/FlacEncoder.cpp:266
-#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
+#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:583
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
 #: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
@@ -4016,7 +4016,7 @@ msgstr "MPEG layer II audio"
 msgid "MPEG layer I audio"
 msgstr "MPEG layer I audio"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:97
+#: plugins/codec_mp3/MP3Decoder.cpp:98
 #, kde-format
 msgid ""
 "The file has an invalid checksum.\n"
@@ -4025,7 +4025,7 @@ msgstr ""
 "Το αρχείο περιέχει μη έγκυρο άθροισμα ελέγχου.\n"
 "Επιμένετε να συνεχίσετε;"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:166
+#: plugins/codec_mp3/MP3Decoder.cpp:167
 #, kde-format
 msgid ""
 "The file contains an invalid channel mode 0x%1\n"
@@ -4034,7 +4034,7 @@ msgstr ""
 "Το αρχείο περιέχει μια μη έγκυρη λειτουργία καναλιού 0x%1\n"
 "Θεωρείται μονοφωνικό..."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:464
+#: plugins/codec_mp3/MP3Decoder.cpp:515
 #, kde-format
 msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
@@ -4043,27 +4043,27 @@ msgstr ""
 "Το ανοιχτό αρχείο δεν είναι αρχείο MPEG ή έχει καταστραφεί.\n"
 "Δε βρέθηκαν πληροφορίες επικεφαλίδας."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:535
+#: plugins/codec_mp3/MP3Decoder.cpp:586
 #, kde-format
 msgid "Checksum error"
 msgstr "Σφάλμα αθροίσματος ελέγχου"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:538
+#: plugins/codec_mp3/MP3Decoder.cpp:589
 #, kde-format
 msgid "Synchronization lost"
 msgstr "Απώλεια συγχρονισμού"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:555
+#: plugins/codec_mp3/MP3Decoder.cpp:606
 #, kde-format
 msgid "File contains invalid data"
 msgstr "Το αρχείο περιέχει μη έγκυρα δεδομένα"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:560
+#: plugins/codec_mp3/MP3Decoder.cpp:611
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "Άγνωστο σφάλμα 0x%1. Κατεστραμμένο αρχείο;"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:564
+#: plugins/codec_mp3/MP3Decoder.cpp:615
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4074,17 +4074,17 @@ msgstr ""
 "'%1',\n"
 "στη θέση %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:569
+#: plugins/codec_mp3/MP3Decoder.cpp:620
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "Επιμένετε να συνεχίσετε;"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:574
+#: plugins/codec_mp3/MP3Decoder.cpp:625
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Θέλετε να συνεχίσετε αγνοώντας όλα τα ακόλουθα σφάλματα;"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:344
+#: plugins/codec_mp3/MP3Encoder.cpp:345
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4094,12 +4094,12 @@ msgstr ""
 "ήχο μόνο. Η εγγραφή του αρχείου αυτού θα γίνει με στερεοφωνικό ήχο κατά την "
 "αποθήκευση."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:357 plugins/codec_wav/WavEncoder.cpp:408
+#: plugins/codec_mp3/MP3Encoder.cpp:358 plugins/codec_wav/WavEncoder.cpp:408
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Αδυναμία ανοίγματος του αρχείου για αποθήκευση!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:604
+#: plugins/codec_mp3/MP3Encoder.cpp:605
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4738,17 +4738,17 @@ msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr ""
 "Αποτυχία του κωδικοποιητή Opus να ανακτήσει την τιμή βάθους αναζήτησης: '%1'"
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:89
+#: plugins/codec_ogg/VorbisDecoder.cpp:91
 #, kde-format
 msgid "This Ogg bitstream does not contain any Vorbis audio data."
 msgstr "Αυτή η ψηφιακή ροή Ogg δεν περιέχει ηχητικά δεδομένα Vorbis."
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:122
+#: plugins/codec_ogg/VorbisDecoder.cpp:124
 #, kde-format
 msgid "Corrupt secondary header. Exiting."
 msgstr "Κατεστραμμένη δευτερεύουσα επικεφαλίδα. Έξοδος."
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:136
+#: plugins/codec_ogg/VorbisDecoder.cpp:138
 #, kde-format
 msgid "End of file before finding all Vorbis headers."
 msgstr "Τέλος αρχείου πριν την εύρεση όλων των επικεφαλίδων Vorbis."

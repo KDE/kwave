@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-09 00:44+0000\n"
+"POT-Creation-Date: 2026-08-16 00:43+0000\n"
 "PO-Revision-Date: 2026-08-08 17:22+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -1198,7 +1198,7 @@ msgstr "Cargando el archivo «%1»…"
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:125
 #: plugins/codec_flac/FlacEncoder.cpp:248
 #: plugins/codec_flac/FlacEncoder.cpp:266
-#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:532
+#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:583
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
 #: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
@@ -4012,7 +4012,7 @@ msgstr "Audio MPEG de capa II"
 msgid "MPEG layer I audio"
 msgstr "Audio MPEG de capa I"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:97
+#: plugins/codec_mp3/MP3Decoder.cpp:98
 #, kde-format
 msgid ""
 "The file has an invalid checksum.\n"
@@ -4021,7 +4021,7 @@ msgstr ""
 "El archivo tiene una suma de verificación no válida.\n"
 "¿Realmente desea continuar?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:166
+#: plugins/codec_mp3/MP3Decoder.cpp:167
 #, kde-format
 msgid ""
 "The file contains an invalid channel mode 0x%1\n"
@@ -4030,7 +4030,7 @@ msgstr ""
 "El archivo contiene un modo de canal no válido 0x%1\n"
 "Se asume que es en mono…"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:464
+#: plugins/codec_mp3/MP3Decoder.cpp:515
 #, kde-format
 msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
@@ -4039,27 +4039,27 @@ msgstr ""
 "El archivo abierto no es un archivo MPEG o está dañado.\n"
 "No se ha encontrado ninguna información de cabecera."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:535
+#: plugins/codec_mp3/MP3Decoder.cpp:586
 #, kde-format
 msgid "Checksum error"
 msgstr "Error en la suma de verificación"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:538
+#: plugins/codec_mp3/MP3Decoder.cpp:589
 #, kde-format
 msgid "Synchronization lost"
 msgstr "Se ha perdido la sincronización"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:555
+#: plugins/codec_mp3/MP3Decoder.cpp:606
 #, kde-format
 msgid "File contains invalid data"
 msgstr "El archivo contiene datos no válidos"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:560
+#: plugins/codec_mp3/MP3Decoder.cpp:611
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "Error desconocido 0x%1. ¿Está dañado el archivo?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:564
+#: plugins/codec_mp3/MP3Decoder.cpp:615
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4070,17 +4070,17 @@ msgstr ""
 "«%1»,\n"
 "en la posición %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:569
+#: plugins/codec_mp3/MP3Decoder.cpp:620
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "¿Desea continuar?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:574
+#: plugins/codec_mp3/MP3Decoder.cpp:625
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "¿Desea continuar e ignorar los siguiente errores?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:344
+#: plugins/codec_mp3/MP3Encoder.cpp:345
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4089,12 +4089,12 @@ msgstr ""
 "El formato del archivo que ha escogido solo permite mono o estéreo. Este "
 "archivo será transformado a estéreo cuando lo guarde."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:357 plugins/codec_wav/WavEncoder.cpp:408
+#: plugins/codec_mp3/MP3Encoder.cpp:358 plugins/codec_wav/WavEncoder.cpp:408
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "No ha sido posible abrir el archivo para guardar."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:604
+#: plugins/codec_mp3/MP3Encoder.cpp:605
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4737,17 +4737,17 @@ msgstr "El codificador Opus ha fallado al configurar la restricción VBR: «%1»
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr "El codificador Opus ha fallado al obtener el valor «look-ahead»: «%1»"
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:89
+#: plugins/codec_ogg/VorbisDecoder.cpp:91
 #, kde-format
 msgid "This Ogg bitstream does not contain any Vorbis audio data."
 msgstr "Este flujo de bits Ogg no contiene datos de audio Vorbis."
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:122
+#: plugins/codec_ogg/VorbisDecoder.cpp:124
 #, kde-format
 msgid "Corrupt secondary header. Exiting."
 msgstr "Cabecera secundaria dañada. Saliendo."
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:136
+#: plugins/codec_ogg/VorbisDecoder.cpp:138
 #, kde-format
 msgid "End of file before finding all Vorbis headers."
 msgstr ""

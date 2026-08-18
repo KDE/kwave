@@ -574,7 +574,6 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
                                 unsigned int buf_offset,
                                 unsigned int length)
 {
-    Q_ASSERT(length);
     if (!length) return true; // nothing to do !?
 
     switch (mode) {

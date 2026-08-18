@@ -22,7 +22,9 @@
 
 #include <audiofile.h>
 
+#include <QFutureSynchronizer>
 #include <QIODevice>
+#include <QtConcurrentRun>
 #include <QtGlobal>
 
 #include <KLocalizedString>
@@ -246,7 +248,7 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
         afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
 
     // allocate a buffer for input data
-    const unsigned int buffer_frames = (8 * 1024);
+    const unsigned int buffer_frames = (64 * 1024);
     sample_storage_t *buffer =
         static_cast<sample_storage_t *>(malloc(buffer_frames * frame_size));
     Q_ASSERT(buffer);
@@ -265,24 +267,36 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
         if (buffer_used <= 0) break;
         rest -= buffer_used;
 
-        // split into the tracks
-        const sample_storage_t *p = buffer;
-        unsigned int count = buffer_used;
-        while (count) {
-            for (unsigned int track = 0; track < tracks; track++) {
-                sample_storage_t s = *p++;
+        // parallel deinterleaving and writing directly per track
+        unsigned int step  = tracks;
+        QFutureSynchronizer<void> synchronizer;
 
-                // adjust precision
-                if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
-                    s /= (1 << (SAMPLE_STORAGE_BITS - SAMPLE_BITS));
+        for (unsigned int track = 0; track < tracks; ++track) {
+            Kwave::Writer          *writer = dst[track];
+            const sample_storage_t *in     = buffer + track;
+            if (!writer) continue;
+
+            synchronizer.addFuture(QtConcurrent::run(
+                [in, buffer_used, step, writer]() {
+                    unsigned int remaining = buffer_used;
+                    const sample_storage_t *src = in;
+                    while (remaining-- > 0) {
+                        sample_storage_t s = *src;
+                        src += step;
+
+                        // adjust precision
+                        if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
+                            s /= (1 << (SAMPLE_STORAGE_BITS - SAMPLE_BITS));
+                        }
+
+                        // the following cast is only necessary if
+                        // sample_t is not equal to a quint32
+                        *(writer) << static_cast<sample_t>(s);
+                    }
                 }
-
-                // the following cast is only necessary if
-                // sample_t is not equal to a quint32
-                *(dst[track]) << static_cast<sample_t>(s);
-            }
-            --count;
+            ));
         }
+        synchronizer.waitForFinished();
 
         // abort if the user pressed cancel
         if (dst.isCanceled()) break;

@@ -183,6 +183,13 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
     unsigned int   bits   = info.bits();
     sample_index_t length = info.length();
 
+    if ((tracks == 0) || (tracks > 8)) {
+        Kwave::MessageBox::sorry(widget,
+            i18n("This codec supports only 1 ... 8 channels, "
+                 "%1 channels are not supported.", tracks));
+        return false;
+    }
+
     set_compression_level(5); // @todo make the FLAC compression configurable
     set_channels(static_cast<unsigned>(tracks));
     set_bits_per_sample(static_cast<unsigned>(bits));

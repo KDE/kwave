@@ -20,7 +20,9 @@
 #include <new>
 
 #include <QDateTime>
+#include <QFutureSynchronizer>
 #include <QIODevice>
+#include <QtConcurrentRun>
 
 #include <KLocalizedString>
 
@@ -109,30 +111,39 @@ Kwave::Decoder *Kwave::FlacDecoder::instance()
     if (shift < 0) shift = 0;
     unsigned int mul = (1 << shift);
 
-    // decode the samples into a temporary buffer and
-    // flush it to the Writer(s), track by track
-    for (unsigned int track=0; track < tracks; track++) {
+    QFutureSynchronizer<void> synchronizer;
+    for (unsigned int track = 0; track < tracks; ++track) {
         Kwave::Writer *writer = (*m_dest)[track];
-        Q_ASSERT(writer);
         if (!writer) continue;
-        const FLAC__int32 *src = buffer[track];
-        sample_t *d = dst.data();
 
-        for (unsigned int sample = 0; sample < samples; sample++) {
-            // the following cast is only necessary if
-            // sample_t is not equal to a quint32
-            sample_t s  = static_cast<sample_t>(*src++);
+        const FLAC__int32 *buf = buffer[track];
 
-            // correct precision
-            if (shift) s *= mul;
+        synchronizer.addFuture(QtConcurrent::run(
+            [buf, samples, shift, mul, writer]() {
+                Kwave::SampleArray dst(samples);
+                sample_t *d = dst.data();
+                const FLAC__int32 *src = buf;
 
-            // write to destination buffer
-            *d++ = s;
-        }
+                for (unsigned int sample = 0; sample < samples; ++sample) {
+                    // the following cast is only necessary if
+                    // sample_t is not equal to a quint32
+                    sample_t s = static_cast<sample_t>(*src++);
 
-        // flush the temporary buffer
-        (*writer) << dst;
+                    // correct precision
+                    if (shift) s *= mul;
+
+                    // write to destination buffer
+                    *d++ = s;
+                }
+
+                // write converted samples to destination track
+                (*writer) << dst;
+            }
+        ));
     }
+
+    // wait for all channels in this frame to complete
+    synchronizer.waitForFinished();
 
     // at this point we check for a user-cancel
     return (m_dest->isCanceled()) ?

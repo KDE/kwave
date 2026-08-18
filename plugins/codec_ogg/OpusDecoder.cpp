@@ -26,8 +26,10 @@
 
 #include <QApplication>
 #include <QDate>
+#include <QFutureSynchronizer>
 #include <QIODevice>
 #include <QString>
+#include <QtConcurrentRun>
 #include <QtEndian>
 
 #include <KLocalizedString>

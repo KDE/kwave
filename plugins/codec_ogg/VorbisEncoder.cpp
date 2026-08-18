@@ -101,7 +101,7 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     long int sample_rate = static_cast<long int>(info.rate());
     int default_bitrate = (DEFAULT_BITRATE / 2) * tracks;
 
-    if ((tracks ==0) || (tracks > 255)) {
+    if ((tracks == 0) || (tracks > 255)) {
         Kwave::MessageBox::sorry(widget,
             i18n("This codec supports only 1 ... 255 channels, "
                  "%1 channels are not supported.", tracks));

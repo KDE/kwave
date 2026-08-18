@@ -1,4 +1,5 @@
-26.11.70 [2026-08-17]
+26.11.70 [2026-08-18]
+ * codec_flac: parallelized decoding + added check for > 8 channels
  * codec_mp3: workaround for broken MBS conversion in ID3LIB
  * codec_mp3: do no longer explicitly link against libstdc++ and libz
  * codec_ogg: parallelized decoding of ogg/opus and ogg/vorbis

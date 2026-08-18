@@ -25,7 +25,10 @@
 #include <QTime>
 #include <QtGlobal>
 
+#include <KConfig>
+#include <KConfigGroup>
 #include <KLocalizedString>
+#include <KSharedConfig>
 
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
@@ -35,11 +38,16 @@
 
 #include "VorbisEncoder.h"
 
+using namespace Qt::StringLiterals;
+
 /** size of a buffer used for Vorbis encoding */
 #define BUFFER_SIZE 1024
 
 /** bitrate to be used when no bitrate has been selected */
 #define DEFAULT_BITRATE 64000
+
+/** section in the config file with default settings (see file info dialog)*/
+#define CONFIG_DEFAULT_SECTION u"plugin fileinfo - setup dialog"_s
 
 /***************************************************************************/
 Kwave::VorbisEncoder::VorbisEncoder()
@@ -91,10 +99,11 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     m_info = info;
     const unsigned int tracks = info.tracks();
     long int sample_rate = static_cast<long int>(info.rate());
+    int default_bitrate = (DEFAULT_BITRATE / 2) * tracks;
 
-    if (tracks > 2) {
+    if ((tracks ==0) || (tracks > 255)) {
         Kwave::MessageBox::sorry(widget,
-            i18n("This codec supports only mono or stereo files, "
+            i18n("This codec supports only 1 ... 255 channels, "
                  "%1 channels are not supported.", tracks));
         return false;
     }
@@ -111,26 +120,62 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     int vbr_quality = info.contains(Kwave::INF_VBR_QUALITY) ?
         QVariant(info.get(Kwave::INF_VBR_QUALITY)).toInt() : -1;
 
-    qDebug("OggEncoder: ABR=%d...%d...%d Bits/s, VBR=%d%%",
-           bitrate_lower,bitrate_nominal,bitrate_upper,vbr_quality);
+    // force VBR mode for multi-channel audio (> 2 tracks)
+    // libvorbis Bitrate Management (ABR/CBR) does NOT support more than 2 channels.
+    if (tracks > 2) {
+        if (vbr_quality < 0) {
+            KConfigGroup cfg = KSharedConfig::openConfig()->group(
+                CONFIG_DEFAULT_SECTION);
+            vbr_quality = cfg.readEntry("default_vbr_quality", -1);
+            qDebug("default VBR quality is: %d%%", vbr_quality);
 
-    if ((vbr_quality < 0) && (bitrate_nominal <= 0)) {
+            // default to 50% quality if no quality setting is present
+            if (vbr_quality < 0)
+                vbr_quality = 50;
+            if (Kwave::MessageBox::warningContinueCancel(widget,
+                i18n("Ogg/Vorbis does not support ABR mode when using more "
+                     "than two channels. Switch to VBR mode with %1% "
+                     "and continue?",
+                     vbr_quality)) != KMessageBox::Continue)
+                return false; // <- canceled
+        }
+        // Reset ABR/CBR settings to enforce VBR mode
+        bitrate_nominal = -1;
+        bitrate_lower   = -1;
+        bitrate_upper   = -1;
+    }
+
+    qDebug("OggEncoder: ABR=%d...%d...%d Bits/s, VBR=%d%%",
+           bitrate_lower, bitrate_nominal, bitrate_upper,vbr_quality);
+
+    // fallback check if no bitrate or VBR quality was specified at all
+    if ((vbr_quality < 0) && (bitrate_nominal <= 0) &&
+        (bitrate_lower <= 0) && (bitrate_upper <= 0))
+    {
         // no quality and no bitrate given -> complain !
         if (Kwave::MessageBox::warningContinueCancel(widget,
             i18n("You have not selected any bitrate for the encoding. "
                  "Do you want to continue and encode with %1 kBit/s "
                  "or cancel and choose a different bitrate?",
-                 DEFAULT_BITRATE / 1000)) != KMessageBox::Continue)
+                 default_bitrate / 1000)) != KMessageBox::Continue)
             return false; // <- canceled
 
-        bitrate_nominal = DEFAULT_BITRATE;
+        bitrate_nominal = default_bitrate;
         bitrate_lower = -1;
         bitrate_upper = -1;
     }
 
-    // some checks first
-    // Q_ASSERT(tracks < 255);
-    // if (tracks > 255) return false;
+    // enforce minimum bitrate thresholds for ABR/CBR (Mono/Stereo)
+    // libvorbis requires at least ~45 kbit/s per channel at standard sample rates
+    if ((vbr_quality < 0) && (bitrate_nominal > 0)) {
+        int min_bitrate_floor = 45000 * tracks;
+        if (bitrate_nominal < min_bitrate_floor) {
+            qWarning("VorbisEncoder: requested bitrate %d bps is too low."\
+                     " adjusting to floor: %d bps",
+                     bitrate_nominal, min_bitrate_floor);
+            bitrate_nominal = min_bitrate_floor;
+        }
+    }
 
     /********** Encode setup ************/
     vorbis_info_init(&m_vi);

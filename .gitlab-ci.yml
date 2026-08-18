@@ -14,7 +14,7 @@ include:
 
 codespell:
   stage: validate
-  image: python:3-slim
+  image: python:3.13-slim
   before_script:
     - pip install --no-cache-dir --break-system-packages codespell
   script:

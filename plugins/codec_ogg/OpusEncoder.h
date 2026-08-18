@@ -39,7 +39,6 @@ class QWidget;
 namespace Kwave
 {
 
-    class ChannelMixer;
     class FileInfo;
     class MultiTrackReader;
     class StreamObject;
@@ -89,15 +88,6 @@ namespace Kwave
         void close() override;
 
     private:
-
-        /**
-         * set up the downmixing mode
-         * @param widget a QWidget to be used as parent for error messages
-         * @param tracks number of tracks
-         * @param bitrate in bits/sec or -1 for "auto"
-         * @return true if succeeded or false if failed/canceled
-         */
-        bool setupDownMix(QWidget *widget, unsigned int tracks, int bitrate);
 
         /**
          * determine the bitrate to use for encoding
@@ -177,27 +167,14 @@ namespace Kwave
         /** one raw packet of data for decode */
         ogg_packet       m_op;
 
-        /**
-         * downmix mode: off, automatic, mono or stereo
-         */
-        enum {
-            DOWNMIX_OFF    = -1, /**< no downmixing               */
-            DOWNMIX_AUTO   =  0, /**< automatic, based on bitrate */
-            DOWNMIX_MONO   =  1, /**< downmix to mono             */
-            DOWNMIX_STEREO =  2  /**< downmix to stereo           */
-        } m_downmix;
-
         /** bitrate in bits/sec */
         int m_bitrate;
 
         /** encoding sample rate in bits/sec */
         int m_coding_rate;
 
-        /** number of tracks used for encoding, after downmixing */
+        /** number of tracks used for encoding */
         unsigned int m_encoder_channels;
-
-        /** channel mixer (if downmixing is required) */
-        Kwave::ChannelMixer *m_channel_mixer;
 
         /** sample rate converter (if needed) */
         Kwave::StreamObject *m_rate_converter;

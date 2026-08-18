@@ -73,7 +73,6 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/Utils.h"
-#include "libkwave/modules/ChannelMixer.h"
 #include "libkwave/modules/RateConverter.h"
 
 #include "OpusCommon.h"
@@ -98,11 +97,9 @@
 Kwave::OpusEncoder::OpusEncoder()
     :m_comments_map(),
      m_info(),
-     m_downmix(DOWNMIX_AUTO),
      m_bitrate(0),
      m_coding_rate(0),
      m_encoder_channels(0),
-     m_channel_mixer(nullptr),
      m_rate_converter(nullptr),
      m_frame_size(0),
      m_extra_out(0),
@@ -122,73 +119,6 @@ Kwave::OpusEncoder::OpusEncoder()
 /***************************************************************************/
 Kwave::OpusEncoder::~OpusEncoder()
 {
-}
-
-/***************************************************************************/
-bool Kwave::OpusEncoder::setupDownMix(QWidget *widget, unsigned int tracks,
-                                      int bitrate)
-{
-    // get "downmix" setting, default is "auto"
-    m_downmix = DOWNMIX_AUTO; // currently not user configurable
-
-    if ((m_downmix == DOWNMIX_AUTO) &&
-        (bitrate > 0) && (bitrate < (32000 * Kwave::toInt(tracks))))
-    {
-        if (tracks > 8) {
-            // downmix from more than 8 channels to mono
-            if (Kwave::MessageBox::warningContinueCancel(
-                widget,
-                i18n("Surround bitrate would be less than 32kBit/sec per "
-                      "channel, this file should be mixed down to mono."),
-                QString(), QString(), QString(),
-                _("opus_accept_down_mix_on_export")) != KMessageBox::Continue)
-            {
-                return false;
-            }
-            m_downmix = DOWNMIX_MONO;
-        } else if (tracks > 2) {
-            // downmix from more than stereo to stereo
-            if (Kwave::MessageBox::warningContinueCancel(
-                widget,
-                i18n("Surround bitrate would be less than 32kBit/sec per "
-                      "channel, this file should be mixed down to stereo."),
-                QString(), QString(), QString(),
-                _("opus_accept_down_mix_on_export")) != KMessageBox::Continue)
-            {
-                return false;
-            }
-            m_downmix = DOWNMIX_STEREO;
-        }
-    }
-    if (m_downmix == DOWNMIX_AUTO) // if still "auto"
-        m_downmix = DOWNMIX_OFF;   // then switch it off
-
-    switch (m_downmix) {
-        case DOWNMIX_MONO:   m_encoder_channels = 1;      break;
-        case DOWNMIX_STEREO: m_encoder_channels = 2;      break;
-        default:             m_encoder_channels = tracks; break;
-    }
-
-    if (m_encoder_channels != tracks) {
-        // create a channel mixer
-        m_channel_mixer = new(std::nothrow)
-            Kwave::ChannelMixer(tracks, m_encoder_channels);
-        Q_ASSERT(m_channel_mixer);
-        if (!m_channel_mixer || !m_channel_mixer->init()) {
-            qWarning("creating channel mixer failed");
-            return false;
-        }
-
-        // connect it to the end of the current preprocessing queue
-        // (normally this is the original sample source)
-        if (!Kwave::connect(*m_last_queue_element, *m_channel_mixer)) {
-            qWarning("connecting the channel mixer failed");
-            return false;
-        }
-        m_last_queue_element = m_channel_mixer;
-    }
-
-    return true;
 }
 
 /***************************************************************************/
@@ -505,7 +435,6 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     int err;
 
     // reset everything to defaults
-    m_downmix            = DOWNMIX_AUTO;
     m_bitrate            = -1;
     m_coding_rate        = 0;
     m_extra_out          = 0;
@@ -514,14 +443,10 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     memset(&m_opus_header.map, 0xFF, sizeof(m_opus_header.map));
     m_max_frame_bytes    = 0;
     m_last_queue_element = &src;
+    m_encoder_channels   = src_tracks;
 
     // get the desired bitrate
     if (!setupBitrate(widget, src_tracks))
-        return false;
-
-    // determine the down mixing mode
-    // and set up the mixer if necessary
-    if (!setupDownMix(widget, src_tracks, m_bitrate))
         return false;
 
     // determine the decoding sample rate
@@ -964,9 +889,6 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
 /***************************************************************************/
 void Kwave::OpusEncoder::close()
 {
-    delete m_channel_mixer;
-    m_channel_mixer = nullptr;
-
     delete m_rate_converter;
     m_rate_converter = nullptr;
 

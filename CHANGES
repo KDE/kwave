@@ -1,7 +1,9 @@
-26.11.70 [2026-08-15]
+26.11.70 [2026-08-17]
  * codec_mp3: workaround for broken MBS conversion in ID3LIB
  * codec_mp3: do no longer explicitly link against libstdc++ and libz
  * codec_ogg: parallelized decoding of ogg/opus and ogg/vorbis
+ * codec_ogg: support for up to 255 channels for ogg/opus and ogg/vorbis
+ * file info: remember last ABR/VBR selection
  * integrated codespell into CI pipeline and fixed many codespell errors
  * OverviewCache: parallelized multi track cache validation
  * improved GUI responsiveness by pushing file load into a worker thread

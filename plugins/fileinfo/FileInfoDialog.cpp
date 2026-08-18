@@ -312,10 +312,16 @@ void Kwave::FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
     updateAvailableCompressions();
     initInfo(lblCompression, cbCompression, Kwave::INF_COMPRESSION);
 
+    // ABR or VBR mode
     compressionWidget->init(m_info);
-    compressionWidget->setMode(m_info.contains(Kwave::INF_VBR_QUALITY) ?
-        Kwave::CompressionWidget::VBR_MODE :
-        Kwave::CompressionWidget::ABR_MODE);
+    Kwave::CompressionWidget::Mode abr_vbr =
+        static_cast<Kwave::CompressionWidget::Mode>(
+            cfg.readEntry("default_abr_vbr_mode",
+                static_cast<int>(Kwave::CompressionWidget::VBR_MODE)));
+    if (abr_vbr == Kwave::CompressionWidget::VBR_MODE)
+        compressionWidget->setMode(Kwave::CompressionWidget::VBR_MODE);
+    else
+        compressionWidget->setMode(Kwave::CompressionWidget::ABR_MODE);
 
     // ABR bitrate settings
     int abr_bitrate = m_info.contains(Kwave::INF_BITRATE_NOMINAL) ?
@@ -323,10 +329,10 @@ void Kwave::FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
                   cfg.readEntry("default_abr_nominal_bitrate", -1);
     int min_bitrate = m_info.contains(Kwave::INF_BITRATE_LOWER) ?
                   m_info.get(Kwave::INF_BITRATE_LOWER).toInt() :
-                  cfg.readEntry("default_abr_lower_bitrate",-1);
+                  cfg.readEntry("default_abr_lower_bitrate", -1);
     int max_bitrate = m_info.contains(Kwave::INF_BITRATE_UPPER) ?
                   m_info.get(Kwave::INF_BITRATE_UPPER).toInt() :
-                  cfg.readEntry("default_abr_upper_bitrate",-1);
+                  cfg.readEntry("default_abr_upper_bitrate", -1);
     compressionWidget->setBitrates(abr_bitrate, min_bitrate, max_bitrate);
 
     // VBR base quality
@@ -967,6 +973,9 @@ void Kwave::FileInfoDialog::accept()
 
         int quality = compressionWidget->baseQuality();
         cfg.writeEntry("default_vbr_quality", quality);
+
+        cfg.writeEntry("default_abr_vbr_mode",
+            static_cast<int>(compressionWidget->mode()));
     }
 
     qDebug("FileInfoDialog::accept()");

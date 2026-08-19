@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-16 00:43+0000\n"
+"POT-Creation-Date: 2026-08-19 00:45+0000\n"
 "PO-Revision-Date: 2026-05-25 21:44+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1188,12 +1188,12 @@ msgstr "Kwave 스크립트 파일 '%1' 실행 중..."
 msgid "Loading file '%1'..."
 msgstr "파일 '%1' 불러오는 중..."
 
-#: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:125
-#: plugins/codec_flac/FlacEncoder.cpp:248
-#: plugins/codec_flac/FlacEncoder.cpp:266
-#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:583
-#: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
-#: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
+#: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:127
+#: plugins/codec_flac/FlacEncoder.cpp:255
+#: plugins/codec_flac/FlacEncoder.cpp:273
+#: plugins/codec_flac/FlacEncoder.cpp:288 plugins/codec_mp3/MP3Decoder.cpp:583
+#: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
+#: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
 #: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
@@ -3860,98 +3860,98 @@ msgid "ASCII encoded audio"
 msgstr "ASCII 인코딩된 오디오"
 
 #: plugins/codec_ascii/AsciiEncoder.cpp:92
-#: plugins/codec_flac/FlacEncoder.cpp:215 plugins/codec_ogg/OggEncoder.cpp:123
+#: plugins/codec_flac/FlacEncoder.cpp:222 plugins/codec_ogg/OggEncoder.cpp:123
 #, kde-format
 msgid "Unable to open the file for saving."
 msgstr "파일에 저장하려고 열 수 없습니다."
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:48
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:50
 #, kde-format
 msgid "NeXT, Sun Audio"
 msgstr "NeXT, Sun 오디오"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:53
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:55
 #, kde-format
 msgid "Amiga IFF/8SVX Sound File Format"
 msgstr "Amiga IFF/8SVX 소리 파일 형식"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:56
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:58
 #, kde-format
 msgid "Compressed Audio Interchange Format"
 msgstr "CAIF(압축된 오디오 교환 파일 형식)"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:59
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:61
 #, kde-format
 msgid "Audio Interchange Format"
 msgstr "AIFF(오디오 교환 파일 형식)"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:62
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:64
 #, kde-format
 msgid "Audio Visual Research File Format"
 msgstr "AVR(Audio Visual Research) 파일 형식"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:65
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:67
 #, kde-format
 msgid "Core Audio File Format"
 msgstr "Core Audio 파일 형식"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:68
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:70
 #, kde-format
 msgid "Berkeley, IRCAM, Carl Sound Format"
 msgstr "버클리, IRCAM, Carl 소리 형식"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:71
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:73
 #, kde-format
 msgid "NIST SPHERE Audio File Format"
 msgstr "NIST SPHERE 오디오 파일 형식"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:74
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:76
 #, kde-format
 msgid "Sample Vision Format"
 msgstr "SVG(샘플 비전 형식)"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:77
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:79
 #, kde-format
 msgid "Creative Voice"
 msgstr "Creative 보이스"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:122
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:124
 #: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:455
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "형식이나 기능이 구현되지 않음"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:128
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:130
 #: plugins/codec_wav/WavEncoder.cpp:462
 #, kde-format
 msgid "File header is damaged"
 msgstr "파일 헤더가 손상됨"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:131
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:133
 #: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:465
 #, kde-format
 msgid "Invalid codec type"
 msgstr "잘못된 코덱 형식"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:134
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:136
 #: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid "Opening the file failed"
 msgstr "파일을 열 수 없음"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:137
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:139
 #: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:472
 #, kde-format
 msgid "Read access failed"
 msgstr "읽기 접근 실패"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:140
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:142
 #: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:475
 #, kde-format
 msgid "Invalid sample format"
 msgstr "잘못된 샘플 형식"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:146
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:148
 #: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:481
 #, kde-format
 msgid ""
@@ -3966,17 +3966,27 @@ msgstr ""
 msgid "FLAC audio"
 msgstr "FLAC 오디오"
 
-#: plugins/codec_flac/FlacDecoder.cpp:282
+#: plugins/codec_flac/FlacDecoder.cpp:293
 #, kde-format
 msgid "Opening the FLAC bitstream failed."
 msgstr "FLAC 비트스트림을 열 수 없습니다."
 
-#: plugins/codec_flac/FlacDecoder.cpp:292
+#: plugins/codec_flac/FlacDecoder.cpp:303
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "FLAC 메타데이터를 처리하는 중 오류가 발생했습니다.(%s)"
 
-#: plugins/codec_flac/FlacEncoder.cpp:225
+#: plugins/codec_flac/FlacEncoder.cpp:188
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only mono or stereo files, %1 channels are not "
+#| "supported."
+msgid ""
+"This codec supports only 1 ... 8 channels, %1 channels are not supported."
+msgstr ""
+"이 코덱에서는 모노나 스테레오 파일만 지원하며 %1채널은 지원하지 않습니다."
+
+#: plugins/codec_flac/FlacEncoder.cpp:232
 #, kde-format
 msgid "Unable to open the FLAC encoder."
 msgstr "FLAC 인코더를 열 수 없습니다."
@@ -4641,46 +4651,28 @@ msgstr "디코더 구조체가 잘못되었거나 이미 할당 해제되었습�
 msgid "Decoder error: %1"
 msgstr "디코더 오류: %1"
 
-#: plugins/codec_ogg/OpusDecoder.cpp:152
+#: plugins/codec_ogg/OpusDecoder.cpp:154
 #, kde-format
 msgid "End of file before finding Opus Comment headers."
 msgstr "Opus Comment 헤더를 찾기 전에 파일이 끝났습니다."
 
-#: plugins/codec_ogg/OpusDecoder.cpp:356
+#: plugins/codec_ogg/OpusDecoder.cpp:358
 #, kde-format
 msgid "This Ogg bitstream does not contain valid Opus audio data."
 msgstr "Ogg 비트스트림에 올바른 Opus 데이터가 포함되지 않은 것 같습니다."
 
-#: plugins/codec_ogg/OpusDecoder.cpp:403
+#: plugins/codec_ogg/OpusDecoder.cpp:405
 #, kde-format
 msgid "Opus decoder failed"
 msgstr "Opus 디코더 실패"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:141
-#, kde-format
-msgid ""
-"Surround bitrate would be less than 32kBit/sec per channel, this file should "
-"be mixed down to mono."
-msgstr ""
-"서라운드 비트 전송률은 채널당 32kbps 이하여야 합니다. 이 파일은 모노로 다운믹"
-"스됩니다."
-
-#: plugins/codec_ogg/OpusEncoder.cpp:153
-#, kde-format
-msgid ""
-"Surround bitrate would be less than 32kBit/sec per channel, this file should "
-"be mixed down to stereo."
-msgstr ""
-"서라운드 비트 전송률은 채널당 32kbps 이하여야 합니다. 이 파일은 스테레오로 다"
-"운믹스됩니다."
-
-#: plugins/codec_ogg/OpusEncoder.cpp:220
+#: plugins/codec_ogg/OpusEncoder.cpp:150
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
 msgstr "비트 전송률 %1 kbps가 범위를 벗어났습니다. %2 kbps로 제한합니다"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:272
+#: plugins/codec_ogg/OpusEncoder.cpp:202
 #, kde-format
 msgctxt "%1=requested sample rate, %2=lowest supported, %3=highest supported"
 msgid ""
@@ -4690,27 +4682,27 @@ msgstr ""
 "샘플링 레이트 %1 Hz가 범위를 벗어났습니다.\n"
 "지원하는 범위는 %2 ... %3 Hz입니다."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:411 plugins/codec_ogg/OpusEncoder.cpp:430
+#: plugins/codec_ogg/OpusEncoder.cpp:341 plugins/codec_ogg/OpusEncoder.cpp:360
 #, kde-format
 msgid "Opus encoder failed"
 msgstr "Opus 인코더 실패"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:466
+#: plugins/codec_ogg/OpusEncoder.cpp:396
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
 msgstr "Opus 인코더 비트 전송률 설정 실패: '%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:478
+#: plugins/codec_ogg/OpusEncoder.cpp:408
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
 msgstr "Opus 인코더 VBR 모드 설정 실패: '%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:488
+#: plugins/codec_ogg/OpusEncoder.cpp:418
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
 msgstr "Opus 인코더 VBR 제약 조건 설정 실패: '%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:587
+#: plugins/codec_ogg/OpusEncoder.cpp:512
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr "Opus 인코더 룩어헤드 값 가져오기 실패: '%1'"
@@ -4730,14 +4722,24 @@ msgstr "보조 헤더가 잘못되었습니다. 종료합니다."
 msgid "End of file before finding all Vorbis headers."
 msgstr "모든 Vorbis 헤더를 찾기 전에 파일이 끝났습니다."
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:97
-#, kde-format
+#: plugins/codec_ogg/VorbisEncoder.cpp:106
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only mono or stereo files, %1 channels are not "
+#| "supported."
 msgid ""
-"This codec supports only mono or stereo files, %1 channels are not supported."
+"This codec supports only 1 ... 255 channels, %1 channels are not supported."
 msgstr ""
 "이 코덱에서는 모노나 스테레오 파일만 지원하며 %1채널은 지원하지 않습니다."
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:120
+#: plugins/codec_ogg/VorbisEncoder.cpp:136
+#, kde-format
+msgid ""
+"Ogg/Vorbis does not support ABR mode when using more than two channels. "
+"Switch to VBR mode with %1% and continue?"
+msgstr ""
+
+#: plugins/codec_ogg/VorbisEncoder.cpp:157
 #, kde-format
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
@@ -4746,7 +4748,7 @@ msgstr ""
 "인코딩할 비트 전송률을 선택하지 않았습니다. %1 kbps로 계속 진행하시겠습니까? "
 "아니면 취소하고 다른 비트 전송률을 선택하시겠습니까?"
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:177
+#: plugins/codec_ogg/VorbisEncoder.cpp:222
 #, kde-format
 msgid ""
 "One or more encoding parameters are not supported. Please change the "
@@ -5249,32 +5251,32 @@ msgstr "%1(샘플 %2개)"
 msgid "%1 samples"
 msgstr "샘플 %1개"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:600
+#: plugins/fileinfo/FileInfoDialog.cpp:606
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(모노)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:603
+#: plugins/fileinfo/FileInfoDialog.cpp:609
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(스테레오)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:606
+#: plugins/fileinfo/FileInfoDialog.cpp:612
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(쿼드로)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:831
 #: plugins/fileinfo/FileInfoDialog.cpp:837
+#: plugins/fileinfo/FileInfoDialog.cpp:843
 #, kde-format
 msgid "Yes"
 msgstr "예"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:831
 #: plugins/fileinfo/FileInfoDialog.cpp:837
+#: plugins/fileinfo/FileInfoDialog.cpp:843
 #, kde-format
 msgid "No"
 msgstr "아니요"
@@ -7563,6 +7565,20 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "무음"
+
+#~ msgid ""
+#~ "Surround bitrate would be less than 32kBit/sec per channel, this file "
+#~ "should be mixed down to mono."
+#~ msgstr ""
+#~ "서라운드 비트 전송률은 채널당 32kbps 이하여야 합니다. 이 파일은 모노로 다"
+#~ "운믹스됩니다."
+
+#~ msgid ""
+#~ "Surround bitrate would be less than 32kBit/sec per channel, this file "
+#~ "should be mixed down to stereo."
+#~ msgstr ""
+#~ "서라운드 비트 전송률은 채널당 32kbps 이하여야 합니다. 이 파일은 스테레오"
+#~ "로 다운믹스됩니다."
 
 #~ msgid ""
 #~ "Specify where to place the exported sound files which are used for the "

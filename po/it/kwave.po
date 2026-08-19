@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-16 00:43+0000\n"
+"POT-Creation-Date: 2026-08-19 00:45+0000\n"
 "PO-Revision-Date: 2026-08-06 22:29+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -1194,12 +1194,12 @@ msgstr "Esecuzione del file di script «%1» di Kwave..."
 msgid "Loading file '%1'..."
 msgstr "Caricamento del file «%1»..."
 
-#: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:125
-#: plugins/codec_flac/FlacEncoder.cpp:248
-#: plugins/codec_flac/FlacEncoder.cpp:266
-#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:583
-#: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
-#: plugins/codec_ogg/OpusEncoder.cpp:388 plugins/codec_ogg/OpusEncoder.cpp:441
+#: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:127
+#: plugins/codec_flac/FlacEncoder.cpp:255
+#: plugins/codec_flac/FlacEncoder.cpp:273
+#: plugins/codec_flac/FlacEncoder.cpp:288 plugins/codec_mp3/MP3Decoder.cpp:583
+#: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
+#: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
 #: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
@@ -3869,98 +3869,98 @@ msgid "ASCII encoded audio"
 msgstr "Audio con codifica ASCII"
 
 #: plugins/codec_ascii/AsciiEncoder.cpp:92
-#: plugins/codec_flac/FlacEncoder.cpp:215 plugins/codec_ogg/OggEncoder.cpp:123
+#: plugins/codec_flac/FlacEncoder.cpp:222 plugins/codec_ogg/OggEncoder.cpp:123
 #, kde-format
 msgid "Unable to open the file for saving."
 msgstr "Impossibile aprire il file per il salvataggio."
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:48
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:50
 #, kde-format
 msgid "NeXT, Sun Audio"
 msgstr "NeXT, Sun Audio"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:53
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:55
 #, kde-format
 msgid "Amiga IFF/8SVX Sound File Format"
 msgstr "Formato di file audio Amiga IFF/8SVX"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:56
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:58
 #, kde-format
 msgid "Compressed Audio Interchange Format"
 msgstr "Formato di scambio audio compresso"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:59
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:61
 #, kde-format
 msgid "Audio Interchange Format"
 msgstr "Formato di scambio audio"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:62
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:64
 #, kde-format
 msgid "Audio Visual Research File Format"
 msgstr "Formato di file Audio Visual Research"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:65
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:67
 #, kde-format
 msgid "Core Audio File Format"
 msgstr "Formato di file audio Core"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:68
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:70
 #, kde-format
 msgid "Berkeley, IRCAM, Carl Sound Format"
 msgstr "Formato audio Carl, IRCAM, Berkeley"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:71
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:73
 #, kde-format
 msgid "NIST SPHERE Audio File Format"
 msgstr "Formato di file audio NIST SPHERE"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:74
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:76
 #, kde-format
 msgid "Sample Vision Format"
 msgstr "Formato Sample Vision"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:77
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:79
 #, kde-format
 msgid "Creative Voice"
 msgstr "Voce creativa"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:122
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:124
 #: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:455
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Formato o funzione non implementata"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:128
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:130
 #: plugins/codec_wav/WavEncoder.cpp:462
 #, kde-format
 msgid "File header is damaged"
 msgstr "L'intestazione del file è danneggiata"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:131
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:133
 #: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:465
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Tipo di codifica non valido"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:134
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:136
 #: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid "Opening the file failed"
 msgstr "Apertura del file non riuscita"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:137
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:139
 #: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:472
 #, kde-format
 msgid "Read access failed"
 msgstr "Accesso in lettura non riuscito"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:140
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:142
 #: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:475
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Formato di campionamento non valido"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:146
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:148
 #: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:481
 #, kde-format
 msgid ""
@@ -3975,17 +3975,27 @@ msgstr ""
 msgid "FLAC audio"
 msgstr "Audio FLAC"
 
-#: plugins/codec_flac/FlacDecoder.cpp:282
+#: plugins/codec_flac/FlacDecoder.cpp:293
 #, kde-format
 msgid "Opening the FLAC bitstream failed."
 msgstr "Apertura del flusso FLAC non riuscita."
 
-#: plugins/codec_flac/FlacDecoder.cpp:292
+#: plugins/codec_flac/FlacDecoder.cpp:303
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Errore durante l'analisi dei metadati FLAC. (%s)"
 
-#: plugins/codec_flac/FlacEncoder.cpp:225
+#: plugins/codec_flac/FlacEncoder.cpp:188
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only mono or stereo files, %1 channels are not "
+#| "supported."
+msgid ""
+"This codec supports only 1 ... 8 channels, %1 channels are not supported."
+msgstr ""
+"Questo codec supporta solo file mono o stereo, %1 canali non sono supportati."
+
+#: plugins/codec_flac/FlacEncoder.cpp:232
 #, kde-format
 msgid "Unable to open the FLAC encoder."
 msgstr "Impossibile aprire il codificatore FLAC."
@@ -4658,46 +4668,28 @@ msgstr "Una struttura del decodificatore non è valida o è già rilasciata."
 msgid "Decoder error: %1"
 msgstr "Errore decodificatore: %1"
 
-#: plugins/codec_ogg/OpusDecoder.cpp:152
+#: plugins/codec_ogg/OpusDecoder.cpp:154
 #, kde-format
 msgid "End of file before finding Opus Comment headers."
 msgstr "Fine del file prima di trovare le intestazioni Opus Comment."
 
-#: plugins/codec_ogg/OpusDecoder.cpp:356
+#: plugins/codec_ogg/OpusDecoder.cpp:358
 #, kde-format
 msgid "This Ogg bitstream does not contain valid Opus audio data."
 msgstr "Questo flusso Ogg non contiene dati audio Opus validi."
 
-#: plugins/codec_ogg/OpusDecoder.cpp:403
+#: plugins/codec_ogg/OpusDecoder.cpp:405
 #, kde-format
 msgid "Opus decoder failed"
 msgstr "Decodificatore Opus non riuscito"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:141
-#, kde-format
-msgid ""
-"Surround bitrate would be less than 32kBit/sec per channel, this file should "
-"be mixed down to mono."
-msgstr ""
-"Il bitrate surround dovrebbe essere meno di 32kBit/sec per canale, questo "
-"file dovrebbe essere miscelato in mono."
-
-#: plugins/codec_ogg/OpusEncoder.cpp:153
-#, kde-format
-msgid ""
-"Surround bitrate would be less than 32kBit/sec per channel, this file should "
-"be mixed down to stereo."
-msgstr ""
-"Il bitrate surround dovrebbe essere meno di 32kBit/sec per canale, questo "
-"file dovrebbe essere miscelato in stereo."
-
-#: plugins/codec_ogg/OpusEncoder.cpp:220
+#: plugins/codec_ogg/OpusEncoder.cpp:150
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
 msgstr "Bitrate %1 kBit/sec fuori dell'intervallo, limitato a %2 kBit/sec"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:272
+#: plugins/codec_ogg/OpusEncoder.cpp:202
 #, kde-format
 msgctxt "%1=requested sample rate, %2=lowest supported, %3=highest supported"
 msgid ""
@@ -4707,27 +4699,27 @@ msgstr ""
 "La velocità di campionamento %1 samples/sec è fuori dall'intervallo,\n"
 "quelle supportate sono %2 ... %3 samples/sec."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:411 plugins/codec_ogg/OpusEncoder.cpp:430
+#: plugins/codec_ogg/OpusEncoder.cpp:341 plugins/codec_ogg/OpusEncoder.cpp:360
 #, kde-format
 msgid "Opus encoder failed"
 msgstr "Codificatore Opus non riuscito"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:466
+#: plugins/codec_ogg/OpusEncoder.cpp:396
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
 msgstr "Il codificatore Opus non è riuscito a impostare il bitrate: «%1»"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:478
+#: plugins/codec_ogg/OpusEncoder.cpp:408
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
 msgstr "Il codificatore Opus non è riuscito a configurare il modo VBR: «%1»"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:488
+#: plugins/codec_ogg/OpusEncoder.cpp:418
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
 msgstr "Il codificatore Opus non è riuscito a configurare il limite VBR: «%1»"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:587
+#: plugins/codec_ogg/OpusEncoder.cpp:512
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr ""
@@ -4748,14 +4740,24 @@ msgstr "Intestazione secondaria danneggiata. Sto uscendo."
 msgid "End of file before finding all Vorbis headers."
 msgstr "Fine del file prima di trovare tutte le intestazioni Vorbis."
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:97
-#, kde-format
+#: plugins/codec_ogg/VorbisEncoder.cpp:106
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only mono or stereo files, %1 channels are not "
+#| "supported."
 msgid ""
-"This codec supports only mono or stereo files, %1 channels are not supported."
+"This codec supports only 1 ... 255 channels, %1 channels are not supported."
 msgstr ""
 "Questo codec supporta solo file mono o stereo, %1 canali non sono supportati."
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:120
+#: plugins/codec_ogg/VorbisEncoder.cpp:136
+#, kde-format
+msgid ""
+"Ogg/Vorbis does not support ABR mode when using more than two channels. "
+"Switch to VBR mode with %1% and continue?"
+msgstr ""
+
+#: plugins/codec_ogg/VorbisEncoder.cpp:157
 #, kde-format
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
@@ -4764,7 +4766,7 @@ msgstr ""
 "Non hai selezionato alcun bitrate per la codifica. Vuoi continuare e "
 "codificare con %1 kBit/s o annullare e scegliere un bitrate differente?"
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:177
+#: plugins/codec_ogg/VorbisEncoder.cpp:222
 #, kde-format
 msgid ""
 "One or more encoding parameters are not supported. Please change the "
@@ -5271,32 +5273,32 @@ msgstr "%1 (%2 campioni)"
 msgid "%1 samples"
 msgstr "%1 campioni"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:600
+#: plugins/fileinfo/FileInfoDialog.cpp:606
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:603
+#: plugins/fileinfo/FileInfoDialog.cpp:609
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:606
+#: plugins/fileinfo/FileInfoDialog.cpp:612
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(Quadro)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:831
 #: plugins/fileinfo/FileInfoDialog.cpp:837
+#: plugins/fileinfo/FileInfoDialog.cpp:843
 #, kde-format
 msgid "Yes"
 msgstr "Sì"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:831
 #: plugins/fileinfo/FileInfoDialog.cpp:837
+#: plugins/fileinfo/FileInfoDialog.cpp:843
 #, kde-format
 msgid "No"
 msgstr "No"
@@ -7615,6 +7617,20 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Silenzia"
+
+#~ msgid ""
+#~ "Surround bitrate would be less than 32kBit/sec per channel, this file "
+#~ "should be mixed down to mono."
+#~ msgstr ""
+#~ "Il bitrate surround dovrebbe essere meno di 32kBit/sec per canale, questo "
+#~ "file dovrebbe essere miscelato in mono."
+
+#~ msgid ""
+#~ "Surround bitrate would be less than 32kBit/sec per channel, this file "
+#~ "should be mixed down to stereo."
+#~ msgstr ""
+#~ "Il bitrate surround dovrebbe essere meno di 32kBit/sec per canale, questo "
+#~ "file dovrebbe essere miscelato in stereo."
 
 #~ msgid ""
 #~ "Specify where to place the exported sound files which are used for the "

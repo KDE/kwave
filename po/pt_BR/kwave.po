@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-19 00:45+0000\n"
-"PO-Revision-Date: 2026-08-05 05:59-0300\n"
+"PO-Revision-Date: 2026-08-19 06:53-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -3987,15 +3987,11 @@ msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Ocorreu um erro ao processar os metadados do FLAC. (%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:188
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 8 channels, %1 channels are not supported."
 msgstr ""
-"Este codec tem suporte apenas para arquivos em mono ou estéreo, sendo que %1 "
-"canais não são suportados."
+"Este codec suporta apenas de 1 a 8 canais; %1 canais não são suportados."
 
 #: plugins/codec_flac/FlacEncoder.cpp:232
 #, kde-format
@@ -4746,15 +4742,11 @@ msgstr ""
 "O fim do arquivo foi alcançado antes de localizar todos os cabeçalhos Vorbis."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
 msgstr ""
-"Este codec tem suporte apenas para arquivos em mono ou estéreo, sendo que %1 "
-"canais não são suportados."
+"Este codec suporta apenas de 1 a 255 canais; %1 canais não são suportados."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:136
 #, kde-format
@@ -4762,6 +4754,8 @@ msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
+"O Ogg/Vorbis não suporta o modo ABR ao utilizar mais de dois canais. Mudar "
+"para o modo VBR com %1% e continuar?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:157
 #, kde-format

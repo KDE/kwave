@@ -1824,12 +1824,10 @@ msgid "Album"
 msgstr "专辑"
 
 #: libkwave/FileInfo.cpp:38
-#, fuzzy
-#| msgid "Number of the CD, if the source is an album of more CDROMs"
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more media."
-msgstr "如果来源是一张包含多张 CDROM 的专辑的话，表示 CD 编号"
+msgstr ""
 
 #: libkwave/FileInfo.cpp:42
 msgid "Annotation"
@@ -3897,13 +3895,10 @@ msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "处理 FLAC 元数据出错。(%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:188
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 8 channels, %1 channels are not supported."
-msgstr "该编解码器仅支持单声道或立体声文件，不支持%1声道。"
+msgstr ""
 
 #: plugins/codec_flac/FlacEncoder.cpp:232
 #, kde-format
@@ -4630,13 +4625,10 @@ msgid "End of file before finding all Vorbis headers."
 msgstr "找到所有 Vorbis 头部之前文件结束了。"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
-msgstr "该编解码器仅支持单声道或立体声文件，不支持%1声道。"
+msgstr ""
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:136
 #, kde-format

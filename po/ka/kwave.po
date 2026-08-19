@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-19 00:45+0000\n"
-"PO-Revision-Date: 2026-08-05 05:10+0200\n"
+"PO-Revision-Date: 2026-08-19 06:00+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -3981,15 +3981,12 @@ msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "შეცდომა FLAC მეტამონაცემების დამუშავებისას. (%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:188
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 8 channels, %1 channels are not supported."
 msgstr ""
-"ამ კოდეკს, მხოლოდ, სტერეო და მონო ფაილების მხარდაჭერა გააჩნია. %1 არხი "
-"მხარდაჭერილი არაა."
+"ამ კოდეკს, მხოლოდ,1 ... 8 არხის მხარდაჭერა გააჩნია. %1 არხი მხარდაჭერილი "
+"არაა."
 
 #: plugins/codec_flac/FlacEncoder.cpp:232
 #, kde-format
@@ -4733,15 +4730,12 @@ msgid "End of file before finding all Vorbis headers."
 msgstr "მიღწეულია ფაილის ბოლო Vorbis-ის თავსართების მოძებნამდე."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
 msgstr ""
-"ამ კოდეკს, მხოლოდ, სტერეო და მონო ფაილების მხარდაჭერა გააჩნია. %1 არხი "
-"მხარდაჭერილი არაა."
+"ამ კოდეკს, მხოლოდ, 1 ... 255 არხის მხარდაჭერა გააჩნია. %1 არხი მხარდაჭერილი "
+"არაა."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:136
 #, kde-format
@@ -4749,6 +4743,8 @@ msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
+"Ogg/Vorbis-ს არ აქვს ABR რეჟიმის მხარდაჭერა ორზე მეტი არხის გამოყენებისას. "
+"გადავერთო VRB-ზე %1%-ით და გავაგრძელო?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:157
 #, kde-format

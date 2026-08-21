@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-19 00:45+0000\n"
-"PO-Revision-Date: 2026-08-05 14:47+0300\n"
+"PO-Revision-Date: 2026-08-19 17:41+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -3991,15 +3991,12 @@ msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Помилка під час спроби обробити метадані FLAC. (%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:188
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 8 channels, %1 channels are not supported."
 msgstr ""
-"У цьому кодеці передбачено лише файли моно або стерео. Підтримки %1 каналів "
-"не передбачено."
+"У цьому кодеці передбачено підтримку лише діапазону кількості каналів від 1 "
+"до 8. Підтримки %1 каналів не передбачено."
 
 #: plugins/codec_flac/FlacEncoder.cpp:232
 #, kde-format
@@ -4751,15 +4748,12 @@ msgid "End of file before finding all Vorbis headers."
 msgstr "Досягнуто кінця файла і не виявлено усіх заголовків Vorbis."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
 msgstr ""
-"У цьому кодеці передбачено лише файли моно або стерео. Підтримки %1 каналів "
-"не передбачено."
+"У цьому кодеці передбачено підтримку лише діапазону кількості каналів від 1 "
+"до 255. Підтримки %1 каналів не передбачено."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:136
 #, kde-format
@@ -4767,6 +4761,9 @@ msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
+"В Ogg/Vorbis не передбачено підтримки середньої бітової швидкості при "
+"використанні понад двох каналів. Перемкнутися на режим змінної бітової "
+"швидкості з %1% і продовжити?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:157
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-19 00:45+0000\n"
-"PO-Revision-Date: 2026-08-06 22:29+0200\n"
+"PO-Revision-Date: 2026-08-20 09:29+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -3986,14 +3986,11 @@ msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Errore durante l'analisi dei metadati FLAC. (%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:188
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 8 channels, %1 channels are not supported."
 msgstr ""
-"Questo codec supporta solo file mono o stereo, %1 canali non sono supportati."
+"Questo codec supporta solo i canali 1 ... 8, i canali %1 non sono supportati."
 
 #: plugins/codec_flac/FlacEncoder.cpp:232
 #, kde-format
@@ -4741,14 +4738,12 @@ msgid "End of file before finding all Vorbis headers."
 msgstr "Fine del file prima di trovare tutte le intestazioni Vorbis."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
 msgstr ""
-"Questo codec supporta solo file mono o stereo, %1 canali non sono supportati."
+"Questo codec supporta solo i canali 1 ... 255, i canali %1 non sono "
+"supportati."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:136
 #, kde-format
@@ -4756,6 +4751,8 @@ msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
+"Ogg/Vorbis non supporta la modalità ABR quando si usano più di due canali. "
+"Passare alla modalità VBR con %1% e continuare?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:157
 #, kde-format

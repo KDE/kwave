@@ -192,7 +192,7 @@
          <item>
           <widget class="QLabel" name="lblChannelsVerbose">
            <property name="text">
-            <string>%1</string>
+            <string>#</string>
            </property>
            <property name="wordWrap">
             <bool>false</bool>

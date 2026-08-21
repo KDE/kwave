@@ -183,10 +183,11 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
     unsigned int   bits   = info.bits();
     sample_index_t length = info.length();
 
-    if ((tracks == 0) || (tracks > 8)) {
+    if (tracks < 1) return false;
+    if (tracks > 8) {
         Kwave::MessageBox::sorry(widget,
-            i18n("This codec supports only 1 ... 8 channels, "
-                 "%1 channels are not supported.", tracks));
+            i18n("This file format supports only up to %1 channels, "
+                 "%2 channels are not supported.", 8, tracks));
         return false;
     }
 

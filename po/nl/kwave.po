@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-19 00:45+0000\n"
+"POT-Creation-Date: 2026-08-22 00:45+0000\n"
 "PO-Revision-Date: 2026-08-19 14:01+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -1193,9 +1193,9 @@ msgid "Loading file '%1'..."
 msgstr "Bezig met laden van bestand '%1'..."
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:127
-#: plugins/codec_flac/FlacEncoder.cpp:255
-#: plugins/codec_flac/FlacEncoder.cpp:273
-#: plugins/codec_flac/FlacEncoder.cpp:288 plugins/codec_mp3/MP3Decoder.cpp:583
+#: plugins/codec_flac/FlacEncoder.cpp:256
+#: plugins/codec_flac/FlacEncoder.cpp:274
+#: plugins/codec_flac/FlacEncoder.cpp:289 plugins/codec_mp3/MP3Decoder.cpp:583
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
 #: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
@@ -3867,7 +3867,7 @@ msgid "ASCII encoded audio"
 msgstr "Ascii gecodeerd geluid"
 
 #: plugins/codec_ascii/AsciiEncoder.cpp:92
-#: plugins/codec_flac/FlacEncoder.cpp:222 plugins/codec_ogg/OggEncoder.cpp:123
+#: plugins/codec_flac/FlacEncoder.cpp:223 plugins/codec_ogg/OggEncoder.cpp:123
 #, kde-format
 msgid "Unable to open the file for saving."
 msgstr "Kan het bestand niet voor opslaan openen."
@@ -3983,15 +3983,18 @@ msgstr "Openen van de FLAC-bitstream is mislukt."
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Fout bij analyseren van FLAC-metagegevens. (%s)"
 
-#: plugins/codec_flac/FlacEncoder.cpp:188
-#, kde-format
+#: plugins/codec_flac/FlacEncoder.cpp:189
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only 1 ... 8 channels, %1 channels are not supported."
 msgid ""
-"This codec supports only 1 ... 8 channels, %1 channels are not supported."
+"This file format supports only up to %1 channels, %2 channels are not "
+"supported."
 msgstr ""
 "Deze codec ondersteunt alleen 1 ... 8 kanalen, %1 kanalen worden niet "
 "ondersteund."
 
-#: plugins/codec_flac/FlacEncoder.cpp:232
+#: plugins/codec_flac/FlacEncoder.cpp:233
 #, kde-format
 msgid "Unable to open the FLAC encoder."
 msgstr "Kon de FLAC-codeerder niet openen."
@@ -5316,6 +5319,7 @@ msgstr "Bestand"
 #. i18n: ectx: property (text), widget (QLabel, lblFileName)
 #. i18n: ectx: property (text), widget (QLabel, lblLength)
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
+#. i18n: ectx: property (text), widget (QLabel, lblChannelsVerbose)
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
 #. i18n: ectx: property (text), widget (QLabel, lblSampleRate)
 #. i18n: ectx: property (text), widget (QLabel, lblSampleFormat)
@@ -5352,36 +5356,28 @@ msgstr "Bestand"
 #. i18n: ectx: property (text), widget (QLabel, lblKeywords)
 #. i18n: ectx: property (text), widget (QLabel, lblCommissioned)
 #: plugins/fileinfo/FileInfoDlg.ui:64 plugins/fileinfo/FileInfoDlg.ui:145
-#: plugins/fileinfo/FileInfoDlg.ui:155 plugins/fileinfo/FileInfoDlg.ui:223
-#: plugins/fileinfo/FileInfoDlg.ui:233 plugins/fileinfo/FileInfoDlg.ui:243
-#: plugins/fileinfo/FileInfoDlg.ui:464 plugins/fileinfo/FileInfoDlg.ui:513
-#: plugins/fileinfo/FileInfoDlg.ui:633 plugins/fileinfo/FileInfoDlg.ui:816
-#: plugins/fileinfo/FileInfoDlg.ui:842 plugins/fileinfo/FileInfoDlg.ui:934
-#: plugins/fileinfo/FileInfoDlg.ui:944 plugins/fileinfo/FileInfoDlg.ui:1024
-#: plugins/fileinfo/FileInfoDlg.ui:1053 plugins/fileinfo/FileInfoDlg.ui:1092
-#: plugins/fileinfo/FileInfoDlg.ui:1156 plugins/fileinfo/FileInfoDlg.ui:1166
-#: plugins/fileinfo/FileInfoDlg.ui:1211 plugins/fileinfo/FileInfoDlg.ui:1240
-#: plugins/fileinfo/FileInfoDlg.ui:1358 plugins/fileinfo/FileInfoDlg.ui:1368
-#: plugins/fileinfo/FileInfoDlg.ui:1499 plugins/fileinfo/FileInfoDlg.ui:1509
-#: plugins/fileinfo/FileInfoDlg.ui:1519 plugins/fileinfo/FileInfoDlg.ui:1631
-#: plugins/fileinfo/FileInfoDlg.ui:1641 plugins/fileinfo/FileInfoDlg.ui:1689
-#: plugins/fileinfo/FileInfoDlg.ui:1731 plugins/fileinfo/FileInfoDlg.ui:1741
-#: plugins/fileinfo/FileInfoDlg.ui:1754 plugins/fileinfo/FileInfoDlg.ui:1764
-#: plugins/fileinfo/FileInfoDlg.ui:1847 plugins/fileinfo/FileInfoDlg.ui:1882
-#: plugins/fileinfo/FileInfoDlg.ui:1892 plugins/fileinfo/FileInfoDlg.ui:1909
-#: plugins/fileinfo/FileInfoDlg.ui:2063 plugins/fileinfo/FileInfoDlg.ui:2076
+#: plugins/fileinfo/FileInfoDlg.ui:155 plugins/fileinfo/FileInfoDlg.ui:195
+#: plugins/fileinfo/FileInfoDlg.ui:223 plugins/fileinfo/FileInfoDlg.ui:233
+#: plugins/fileinfo/FileInfoDlg.ui:243 plugins/fileinfo/FileInfoDlg.ui:464
+#: plugins/fileinfo/FileInfoDlg.ui:513 plugins/fileinfo/FileInfoDlg.ui:633
+#: plugins/fileinfo/FileInfoDlg.ui:816 plugins/fileinfo/FileInfoDlg.ui:842
+#: plugins/fileinfo/FileInfoDlg.ui:934 plugins/fileinfo/FileInfoDlg.ui:944
+#: plugins/fileinfo/FileInfoDlg.ui:1024 plugins/fileinfo/FileInfoDlg.ui:1053
+#: plugins/fileinfo/FileInfoDlg.ui:1092 plugins/fileinfo/FileInfoDlg.ui:1156
+#: plugins/fileinfo/FileInfoDlg.ui:1166 plugins/fileinfo/FileInfoDlg.ui:1211
+#: plugins/fileinfo/FileInfoDlg.ui:1240 plugins/fileinfo/FileInfoDlg.ui:1358
+#: plugins/fileinfo/FileInfoDlg.ui:1368 plugins/fileinfo/FileInfoDlg.ui:1499
+#: plugins/fileinfo/FileInfoDlg.ui:1509 plugins/fileinfo/FileInfoDlg.ui:1519
+#: plugins/fileinfo/FileInfoDlg.ui:1631 plugins/fileinfo/FileInfoDlg.ui:1641
+#: plugins/fileinfo/FileInfoDlg.ui:1689 plugins/fileinfo/FileInfoDlg.ui:1731
+#: plugins/fileinfo/FileInfoDlg.ui:1741 plugins/fileinfo/FileInfoDlg.ui:1754
+#: plugins/fileinfo/FileInfoDlg.ui:1764 plugins/fileinfo/FileInfoDlg.ui:1847
+#: plugins/fileinfo/FileInfoDlg.ui:1882 plugins/fileinfo/FileInfoDlg.ui:1892
+#: plugins/fileinfo/FileInfoDlg.ui:1909 plugins/fileinfo/FileInfoDlg.ui:2063
+#: plugins/fileinfo/FileInfoDlg.ui:2076
 #, kde-format
 msgid "#"
 msgstr "#"
-
-#. i18n: ectx: property (text), widget (QLabel, lblChannelsVerbose)
-#. i18n: ectx: property (text), widget (QLabel, lblTracksVerbose)
-#. i18n: ectx: property (text), widget (QLabel, lblFileSize)
-#: plugins/fileinfo/FileInfoDlg.ui:195 plugins/newsignal/NewSigDlg.ui:260
-#: plugins/newsignal/NewSigDlg.ui:700
-#, no-c-format, kde-format
-msgid "%1"
-msgstr "%1"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBits_2)
 #. i18n: ectx: property (text), widget (QLabel, lblBits)
@@ -5743,6 +5739,13 @@ msgstr "Samples per seconde"
 #, kde-format
 msgid "Bit"
 msgstr "Bit"
+
+#. i18n: ectx: property (text), widget (QLabel, lblTracksVerbose)
+#. i18n: ectx: property (text), widget (QLabel, lblFileSize)
+#: plugins/newsignal/NewSigDlg.ui:260 plugins/newsignal/NewSigDlg.ui:700
+#, no-c-format, kde-format
+msgid "%1"
+msgstr "%1"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbChannels)
 #: plugins/newsignal/NewSigDlg.ui:288

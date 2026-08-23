@@ -67,6 +67,14 @@ Kwave::Encoder *Kwave::OggEncoder::instance()
 }
 
 /***************************************************************************/
+QList<Kwave::SampleFormat::Format> Kwave::OggEncoder::sampleFormats(
+    const FileInfo &info) const
+{
+    Q_UNUSED(info);
+    return QList<Kwave::SampleFormat::Format>({Kwave::SampleFormat::Float});
+}
+
+/***************************************************************************/
 QList<Kwave::FileProperty> Kwave::OggEncoder::supportedProperties()
 {
     return m_comments_map.values();

@@ -135,14 +135,24 @@ namespace Kwave
         }
 
         /**
+         * Returns a list with all data items
+         */
+        QList<DATA> allData() const
+        {
+            QList<DATA> all;
+            for (const IDX &it : m_list.keys())
+                all.append(m_list[it].first());
+            return all;
+        }
+
+        /**
          * Returns a string list with all names,
          */
         QStringList allNames() const
         {
             QStringList names;
-            for (const IDX &it : m_list.keys()) {
+            for (const IDX &it : m_list.keys())
                 names.append(m_list[it].second());
-            }
             return names;
         }
 

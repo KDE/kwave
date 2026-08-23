@@ -66,6 +66,14 @@ Kwave::Encoder *Kwave::FlacEncoder::instance()
 }
 
 /***************************************************************************/
+QList<Kwave::SampleFormat::Format> Kwave::FlacEncoder::sampleFormats(
+    const FileInfo &info) const
+{
+    Q_UNUSED(info);
+    return QList<Kwave::SampleFormat::Format>({Kwave::SampleFormat::Signed});
+}
+
+/***************************************************************************/
 QList<Kwave::FileProperty> Kwave::FlacEncoder::supportedProperties()
 {
     return m_vorbis_comment_map.values();

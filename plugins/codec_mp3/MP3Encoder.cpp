@@ -80,6 +80,15 @@ Kwave::Encoder *Kwave::MP3Encoder::instance()
 }
 
 /***************************************************************************/
+QList<Kwave::SampleFormat::Format> Kwave::MP3Encoder::sampleFormats(
+    const FileInfo &info) const
+{
+    Q_UNUSED(info);
+    // return empty list -> configured via MP3 settings dialog
+    return QList<Kwave::SampleFormat::Format>();
+}
+
+/***************************************************************************/
 QList<Kwave::FileProperty> Kwave::MP3Encoder::supportedProperties()
 {
     return m_property_map.properties();

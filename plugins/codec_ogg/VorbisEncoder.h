@@ -55,9 +55,9 @@ namespace Kwave
          * @param src MultiTrackReader used as source of the audio data
          * @return true if succeeded, false if failed
          */
-        virtual bool open(QWidget *widget,
-                          const Kwave::FileInfo &info,
-                          Kwave::MultiTrackReader &src) override;
+        bool open(QWidget *widget,
+                  const Kwave::FileInfo &info,
+                  Kwave::MultiTrackReader &src) override;
 
         /**
          * write the header information
@@ -72,7 +72,7 @@ namespace Kwave
          * @param dst a QIODevice that receives the raw data
          * @return true if succeeded, false if failed
          */
-        virtual bool encode(Kwave::MultiTrackReader &src,
+        bool encode(Kwave::MultiTrackReader &src,
                             QIODevice &dst) override;
 
         /**

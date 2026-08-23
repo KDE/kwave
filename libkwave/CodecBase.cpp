@@ -28,6 +28,7 @@
 #include <QUrl>
 
 #include "libkwave/CodecBase.h"
+#include "libkwave/FileInfo.h"
 #include "libkwave/String.h"
 
 /***************************************************************************/
@@ -131,9 +132,33 @@ const QList<Kwave::CodecBase::MimeType> Kwave::CodecBase::mimeTypes()
 }
 
 /***************************************************************************/
-const QList<Kwave::Compression::Type> Kwave::CodecBase::compressionTypes()
+const QList<Kwave::Compression::Type> Kwave::CodecBase::compressionTypes(
+    const Kwave::FileInfo &info
+) const
 {
+    Q_UNUSED(info);
     return m_supported_compression_types;
+}
+
+/***************************************************************************/
+QList<Kwave::SampleFormat::Format> Kwave::CodecBase::sampleFormats(
+    const FileInfo &info
+) const
+{
+    QList<Kwave::SampleFormat::Format> result;
+    Kwave::SampleFormat::Map sf;
+
+    bool ok = false;
+    int c = info.get(Kwave::INF_COMPRESSION).toInt(&ok);
+    if (ok) {
+        Kwave::Compression::Type ct = Kwave::Compression::fromInt(c);
+        const Kwave::Compression comp(ct);
+        QList<Kwave::SampleFormat> fmts = comp.sampleFormats();
+        for (const Kwave::SampleFormat &sf : fmts)
+            result.append(sf);
+    } else result = sf.allData();
+
+    return result;
 }
 
 /***************************************************************************/

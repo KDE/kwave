@@ -27,12 +27,14 @@
 #include <QStringList>
 
 #include "libkwave/Compression.h"
+#include "libkwave/SampleFormat.h"
 
 class QMimeType;
 class QUrl;
 
 namespace Kwave
 {
+    class FileInfo;
 
     class LIBKWAVE_EXPORT CodecBase
     {
@@ -63,8 +65,26 @@ namespace Kwave
         /** Returns a list of supported mime types */
         virtual const QList<CodecBase::MimeType> mimeTypes();
 
-        /** Returns a list of supported compression types */
-        virtual const QList<Kwave::Compression::Type> compressionTypes();
+        /**
+         * Returns a list of supported compression types
+         * @note this may depend on the mime type, sample format or other
+         *       settings
+         * @param info the current meta data (file info)
+         */
+        virtual const QList<Kwave::Compression::Type> compressionTypes(
+            const FileInfo &info
+        ) const;
+
+        /**
+         * Returns a list of supported sample formats. The default
+         * implementation returns a list with all known sample formats.
+         * @note this may depend on the mime type, sample format or other
+         *       settings
+         * @param info the current meta data (file info)
+         */
+        virtual QList<Kwave::SampleFormat::Format> sampleFormats(
+            const FileInfo &info
+        ) const;
 
         /**
          * Adds a new mime type to the internal list of supported mime

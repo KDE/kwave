@@ -164,7 +164,8 @@ void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
             }
 
             // encoder does not support compression -> switch
-            QList<Kwave::Compression::Type> comps = encoder->compressionTypes();
+            QList<Kwave::Compression::Type> comps =
+                encoder->compressionTypes(m_info);
             Kwave::Compression::Type comp = Kwave::Compression::fromInt(
                 m_info.get(Kwave::INF_COMPRESSION).toInt()
             );
@@ -276,24 +277,15 @@ void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
 
     /* sample format */
     initInfo(lblSampleFormat, cbSampleFormat, Kwave::INF_SAMPLE_FORMAT);
-    cbSampleFormat->clear();
-    Kwave::SampleFormat::Map sf;
-    const QList<int> formats = sf.keys();
-    for (const int &k : formats) {
-        cbSampleFormat->addItem(
-            sf.description(k, true),
-            QVariant(Kwave::SampleFormat(sf.data(k)).toInt())
-        );
-    }
-
     int format = m_info.get(Kwave::INF_SAMPLE_FORMAT).toInt();
     if (format == 0) {
         // builtin default = signed int
         format = cfg.readEntry("default_sample_format",
             static_cast<int>(Kwave::SampleFormat::Signed));
+        m_info.set(Kwave::INF_SAMPLE_FORMAT, format);
     }
-
-    cbSampleFormat->setCurrentIndex(cbSampleFormat->findData(format));
+    // the rest is done later in compressionChanged(), called
+    // from setupCompressionTab()
 }
 
 //***************************************************************************
@@ -629,7 +621,8 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
     if (!mime_type.isEmpty()) {
         // mime type is present -> offer only matching compressions
         Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
-        if (encoder) supported_compressions = encoder->compressionTypes();
+        if (encoder)
+            supported_compressions = encoder->compressionTypes(m_info);
     } else {
         // no mime type -> allow all mimetypes suitable for encoding
         supported_compressions.append(Kwave::Compression::NONE);
@@ -639,7 +632,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
             Kwave::Encoder *encoder = Kwave::CodecManager::encoder(m);
             if (!encoder) continue;
             QList<Kwave::Compression::Type> comps =
-                encoder->compressionTypes();
+                encoder->compressionTypes(m_info);
             for (Kwave::Compression::Type c : comps)
                 if (!supported_compressions.contains(c))
                     supported_compressions.append(c);
@@ -680,9 +673,15 @@ void Kwave::FileInfoDialog::compressionChanged()
         Kwave::Compression::fromInt(cbCompression->itemData(
         cbCompression->currentIndex()).toInt()
     );
+    m_info.set(Kwave::INF_COMPRESSION,
+               (compression != Kwave::Compression::NONE) ?
+               QVariant(Kwave::Compression(compression).toInt()) :
+               QVariant());
 
     const Kwave::Compression comp(compression);
     const QString preferred_mime_type = comp.preferredMimeType();
+    QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
+
 
     // selected compression -> mime type (edit field)
 
@@ -692,21 +691,20 @@ void Kwave::FileInfoDialog::compressionChanged()
     } else {
         // if mime type is given by file info -> keep it
         // otherwise select one by evaluating the compression <-> encoder
-        QString file_mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
-        if (file_mime_type.isEmpty()) {
+        if (mime_type.isEmpty()) {
             // determine mime type from a matching encoder.
             // This should work for compression types that are supported by
             // only one single encoder which also supports only one single
             // mime type
             QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
-            for (const QString &mime_type : mime_types) {
+            for (const QString &mt : mime_types) {
                 Kwave::Encoder *encoder =
-                    Kwave::CodecManager::encoder(mime_type);
+                    Kwave::CodecManager::encoder(mt);
                 if (!encoder) continue;
                 QList<Kwave::Compression::Type> comps =
-                    encoder->compressionTypes();
+                    encoder->compressionTypes(m_info);
                 if (comps.contains(compression)) {
-                    edFileFormat->setText(mime_type);
+                    edFileFormat->setText(mt);
                     break;
                 }
             }
@@ -734,13 +732,37 @@ void Kwave::FileInfoDialog::compressionChanged()
     const bool vbr = comp.hasVBR();
     compressionWidget->enableABR(abr, lower, upper);
     compressionWidget->enableVBR(vbr);
-    cbSampleFormat->setEnabled(!comp.sampleFormats().isEmpty());
 
     if (abr && !vbr)
         compressionWidget->setMode(Kwave::CompressionWidget::ABR_MODE);
     else if (!abr && vbr)
         compressionWidget->setMode(Kwave::CompressionWidget::VBR_MODE);
 
+    // adjust the sample format selection, based on the compression
+    Kwave::SampleFormat::Map sf; // default to "all known"
+    QList<Kwave::SampleFormat::Format> formats = sf.allData();
+    if (!mime_type.isEmpty()) {
+        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
+        if (encoder != nullptr) {
+            formats = encoder->sampleFormats(m_info);
+        }
+    }
+    cbSampleFormat->clear();
+    for (const Kwave::SampleFormat::Format &f : formats) {
+        int k = sf.findFromData(f);
+        cbSampleFormat->addItem(
+            sf.description(k, true),
+            QVariant(Kwave::SampleFormat(sf.data(k)).toInt())
+        );
+    }
+    cbSampleFormat->setEnabled(!formats.empty());
+
+    int format = m_info.get(Kwave::INF_SAMPLE_FORMAT).toInt();
+    int idx    = cbSampleFormat->findData(format);
+    if (idx >= 0)
+        cbSampleFormat->setCurrentIndex(cbSampleFormat->findData(format));
+    else if (cbSampleFormat->count() != 0)
+        cbSampleFormat->setCurrentIndex(0); // default to the one and only
 }
 
 //***************************************************************************

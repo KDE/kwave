@@ -1,4 +1,4 @@
-26.11.70 [2026-08-18]
+26.11.70 [2026-08-23]
  * codec_audiofile: parallelized decoding
  * codec_flac: parallelized decoding + added check for > 8 channels
  * codec_mp3: workaround for broken MBS conversion in ID3LIB
@@ -15,6 +15,8 @@
     - use worker threads for data processing
     This shall speed up processing on multi core CPUs significantly and
     the bottleneck of signal/slot processing is no longer relevant.
+ * fixed selection of sample format when saving
+   (made it depend on file format and compression)
 
 24.12.0 [2024-11-09]
 

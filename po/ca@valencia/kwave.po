@@ -3323,11 +3323,11 @@ msgstr "Polinomi de 3r grau"
 
 #: libkwave/Interpolation.cpp:38
 msgid "Polynom, 5th Degree"
-msgstr "Polinomi de 5è grau"
+msgstr "Polinomi de 5é grau"
 
 #: libkwave/Interpolation.cpp:39
 msgid "Polynom, 7th Degree"
-msgstr "Polinomi de 7è grau"
+msgstr "Polinomi de 7é grau"
 
 #: libkwave/Interpolation.cpp:40
 msgid "Sample and Hold"

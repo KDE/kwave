@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-22 00:45+0000\n"
-"PO-Revision-Date: 2026-08-19 13:40+0300\n"
+"PO-Revision-Date: 2026-08-22 21:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3984,13 +3984,12 @@ msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "FLAC üst verisi ayrıştırılırken hata oluştu (%s)."
 
 #: plugins/codec_flac/FlacEncoder.cpp:189
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only 1 ... 8 channels, %1 channels are not supported."
+#, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
 "supported."
-msgstr "Bu kodlayıcı yalnızca 1…8 kanal destekler; %1 kanal desteklenmiyor."
+msgstr ""
+"Bu dosya biçimi yalnızca %1 kanala kadar destekler; %2 kanal desteklenmiyor."
 
 #: plugins/codec_flac/FlacEncoder.cpp:233
 #, kde-format

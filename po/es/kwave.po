@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-22 00:45+0000\n"
-"PO-Revision-Date: 2026-08-08 17:22+0100\n"
+"PO-Revision-Date: 2026-08-22 20:41+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -3988,15 +3988,12 @@ msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Ha ocurrido un error al analizar los metadatos FLAC. (%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:189
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
 "supported."
 msgstr ""
-"Este códec solo permite archivos mono o estéreo. No se permite el uso de %1 "
+"Este formato de archivo solo admite hasta %1 canales, no se admiten %2 "
 "canales."
 
 #: plugins/codec_flac/FlacEncoder.cpp:233
@@ -4749,15 +4746,10 @@ msgstr ""
 "Vorbis."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
-msgstr ""
-"Este códec solo permite archivos mono o estéreo. No se permite el uso de %1 "
-"canales."
+msgstr "Este códec solo admite de 1 a 255 canales, no se admiten %1 canales."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:136
 #, kde-format
@@ -4765,6 +4757,8 @@ msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
+"Ogg/Vorbis no admite el modo ABR al usar más de dos canales. ¿Cambiar al "
+"modo VBR con %1 y continuar?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:157
 #, kde-format
@@ -7622,17 +7616,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Silencio"
-
-#~ msgid ""
-#~ "Surround bitrate would be less than 32kBit/sec per channel, this file "
-#~ "should be mixed down to mono."
-#~ msgstr ""
-#~ "La tasa de bits envolvente sería menos de 32kBits/s por canal. Este "
-#~ "archivo debería transformarse a mono."
-
-#~ msgid ""
-#~ "Surround bitrate would be less than 32kBit/sec per channel, this file "
-#~ "should be mixed down to stereo."
-#~ msgstr ""
-#~ "La tasa de bits envolvente sería menos de 32kBits/s por canal. Este "
-#~ "archivo debería transformarse a estéreo."

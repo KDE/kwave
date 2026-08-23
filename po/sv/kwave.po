@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-22 00:45+0000\n"
-"PO-Revision-Date: 2026-08-21 19:29+0200\n"
+"PO-Revision-Date: 2026-08-22 08:37+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -3984,13 +3984,11 @@ msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Fel vid tolkning av FLAC-metadata (%s)."
 
 #: plugins/codec_flac/FlacEncoder.cpp:189
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only 1 ... 8 channels, %1 channels are not supported."
+#, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
 "supported."
-msgstr "Kodaren stöder bara 1 - 8 kanaler, %1 kanaler stöds inte."
+msgstr "Filformatet stöder bara upp till %1 kanaler, %2 kanaler stöds inte."
 
 #: plugins/codec_flac/FlacEncoder.cpp:233
 #, kde-format

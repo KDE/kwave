@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-22 00:45+0000\n"
-"PO-Revision-Date: 2026-08-19 09:24+0200\n"
+"PO-Revision-Date: 2026-08-22 09:09+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 26.04.3\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3323,11 +3323,11 @@ msgstr "Polinomi de 3r grau"
 
 #: libkwave/Interpolation.cpp:38
 msgid "Polynom, 5th Degree"
-msgstr "Polinomi de 5è grau"
+msgstr "Polinomi de 5é grau"
 
 #: libkwave/Interpolation.cpp:39
 msgid "Polynom, 7th Degree"
-msgstr "Polinomi de 7è grau"
+msgstr "Polinomi de 7é grau"
 
 #: libkwave/Interpolation.cpp:40
 msgid "Sample and Hold"
@@ -3994,13 +3994,12 @@ msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "S'ha produït un error durant l'anàlisi de les metadades FLAC. (%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:189
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only 1 ... 8 channels, %1 channels are not supported."
+#, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
 "supported."
-msgstr "Este còdec només permet d'1 a 8 canals, no admet %1 canals."
+msgstr ""
+"Este format de fitxer només permet fins a %1 canals, no s'admeten %2 canals."
 
 #: plugins/codec_flac/FlacEncoder.cpp:233
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-22 00:45+0000\n"
-"PO-Revision-Date: 2026-08-19 17:41+0300\n"
+"PO-Revision-Date: 2026-08-22 16:35+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -3991,15 +3991,13 @@ msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Помилка під час спроби обробити метадані FLAC. (%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:189
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only 1 ... 8 channels, %1 channels are not supported."
+#, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
 "supported."
 msgstr ""
-"У цьому кодеці передбачено підтримку лише діапазону кількості каналів від 1 "
-"до 8. Підтримки %1 каналів не передбачено."
+"У цьому форматі файлів передбачено підтримку лише кількість каналів до %1. "
+"Підтримки %2 каналів не передбачено."
 
 #: plugins/codec_flac/FlacEncoder.cpp:233
 #, kde-format

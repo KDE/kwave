@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-22 00:45+0000\n"
+"POT-Creation-Date: 2026-08-24 00:44+0000\n"
 "PO-Revision-Date: 2026-08-22 21:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -1193,9 +1193,9 @@ msgid "Loading file '%1'..."
 msgstr "“%1” dosyası yükleniyor…"
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:127
-#: plugins/codec_flac/FlacEncoder.cpp:256
-#: plugins/codec_flac/FlacEncoder.cpp:274
-#: plugins/codec_flac/FlacEncoder.cpp:289 plugins/codec_mp3/MP3Decoder.cpp:583
+#: plugins/codec_flac/FlacEncoder.cpp:264
+#: plugins/codec_flac/FlacEncoder.cpp:282
+#: plugins/codec_flac/FlacEncoder.cpp:297 plugins/codec_mp3/MP3Decoder.cpp:583
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
 #: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
@@ -3867,7 +3867,7 @@ msgid "ASCII encoded audio"
 msgstr "ASCII kodlanmış ses"
 
 #: plugins/codec_ascii/AsciiEncoder.cpp:92
-#: plugins/codec_flac/FlacEncoder.cpp:223 plugins/codec_ogg/OggEncoder.cpp:123
+#: plugins/codec_flac/FlacEncoder.cpp:231 plugins/codec_ogg/OggEncoder.cpp:131
 #, kde-format
 msgid "Unable to open the file for saving."
 msgstr "Dosyayı kaydetmek için açılamadı."
@@ -3983,7 +3983,7 @@ msgstr "FLAC bit akışını açılması başarısız oldu."
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "FLAC üst verisi ayrıştırılırken hata oluştu (%s)."
 
-#: plugins/codec_flac/FlacEncoder.cpp:189
+#: plugins/codec_flac/FlacEncoder.cpp:197
 #, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
@@ -3991,7 +3991,7 @@ msgid ""
 msgstr ""
 "Bu dosya biçimi yalnızca %1 kanala kadar destekler; %2 kanal desteklenmiyor."
 
-#: plugins/codec_flac/FlacEncoder.cpp:233
+#: plugins/codec_flac/FlacEncoder.cpp:241
 #, kde-format
 msgid "Unable to open the FLAC encoder."
 msgstr "FLAC kodlayıcısı açılamadı."
@@ -4084,7 +4084,7 @@ msgstr "Sürdürmeyi hâlâ istiyor musunuz?"
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Sürdürmek ve tüm izleyin hataları yok saymak istiyor musunuz?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:345
+#: plugins/codec_mp3/MP3Encoder.cpp:354
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4093,12 +4093,12 @@ msgstr ""
 "Seçmiş olduğunuz dosya biçimi yalnızca tek veya çift kanalı destekliyor. Bu "
 "dosya kaydedilirken çift kanala düşürülerek karıştırılacaktır."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:358 plugins/codec_wav/WavEncoder.cpp:408
+#: plugins/codec_mp3/MP3Encoder.cpp:367 plugins/codec_wav/WavEncoder.cpp:408
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Dosya kaydetmek için açılamadı!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:605
+#: plugins/codec_mp3/MP3Encoder.cpp:614
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4615,7 +4615,7 @@ msgstr "Hata: Kod çözücü desteklenmiyor"
 msgid "Corrupt or missing data in bitstream. Continuing."
 msgstr "Bit akışında bozuk ya da eksik veri. Sürdürülüyor."
 
-#: plugins/codec_ogg/OggEncoder.cpp:111
+#: plugins/codec_ogg/OggEncoder.cpp:119
 #, kde-format
 msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
@@ -5169,29 +5169,29 @@ msgstr "Nominal Bit Hızı"
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:212
+#: plugins/fileinfo/FileInfoDialog.cpp:213
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 bayt"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:214
+#: plugins/fileinfo/FileInfoDialog.cpp:215
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kB (%2 bayt)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:217
+#: plugins/fileinfo/FileInfoDialog.cpp:218
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 MB (%2 bayt)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
-#: plugins/fileinfo/FileInfoDialog.cpp:230 plugins/newsignal/NewSigDlg.ui:102
+#: plugins/fileinfo/FileInfoDialog.cpp:231 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
 msgstr "Örneklem hızı:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:233
+#: plugins/fileinfo/FileInfoDialog.cpp:234
 #, kde-format
 msgid ""
 "Here you can select one of the predefined\n"
@@ -5203,13 +5203,13 @@ msgstr ""
 "hızını kendiniz girebilirsiniz."
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
-#: plugins/fileinfo/FileInfoDialog.cpp:239 plugins/newsignal/NewSigDlg.ui:206
+#: plugins/fileinfo/FileInfoDialog.cpp:240 plugins/newsignal/NewSigDlg.ui:206
 #: plugins/record/RecordDlg.ui:912
 #, kde-format
 msgid "Resolution:"
 msgstr "Çözünürlük:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:242
+#: plugins/fileinfo/FileInfoDialog.cpp:243
 #, kde-format
 msgid ""
 "Select a resolution in bits in which the file\n"
@@ -5219,13 +5219,13 @@ msgstr ""
 "çözünürlük seçiniz."
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/fileinfo/FileInfoDialog.cpp:247 plugins/newsignal/NewSigDlg.ui:196
+#: plugins/fileinfo/FileInfoDialog.cpp:248 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
 msgstr "Parçalar:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:250
+#: plugins/fileinfo/FileInfoDialog.cpp:251
 #, kde-format
 msgid ""
 "Shows the number of tracks of the signal.\n"
@@ -5234,12 +5234,12 @@ msgstr ""
 "Sinyaldeki parçaların sayısını göster.\n"
 "Düzenleme menüsü ile parça ekleyip çıkarabilirsiniz."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:260
+#: plugins/fileinfo/FileInfoDialog.cpp:261
 #, kde-format
 msgid "Length:"
 msgstr "Uzunluk:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:263
+#: plugins/fileinfo/FileInfoDialog.cpp:264
 #, kde-format
 msgid ""
 "Shows the length of the file in samples\n"
@@ -5248,44 +5248,44 @@ msgstr ""
 "Örneklerin içindeki dosyanın boyutunu\n"
 "göster ve mümkünse zamanını."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:269
+#: plugins/fileinfo/FileInfoDialog.cpp:270
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 Örnekler)"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
-#: plugins/fileinfo/FileInfoDialog.cpp:273 plugins/record/RecordDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:274 plugins/record/RecordDialog.cpp:602
 #: plugins/record/RecordDlg.ui:1133
 #, no-c-format, kde-format
 msgid "%1 samples"
 msgstr "%1 örnekler"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:606
+#: plugins/fileinfo/FileInfoDialog.cpp:598
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Tek Kanallı)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:609
+#: plugins/fileinfo/FileInfoDialog.cpp:601
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:612
+#: plugins/fileinfo/FileInfoDialog.cpp:604
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(Dörtgen)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:837
-#: plugins/fileinfo/FileInfoDialog.cpp:843
+#: plugins/fileinfo/FileInfoDialog.cpp:859
+#: plugins/fileinfo/FileInfoDialog.cpp:865
 #, kde-format
 msgid "Yes"
 msgstr "Evet"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:837
-#: plugins/fileinfo/FileInfoDialog.cpp:843
+#: plugins/fileinfo/FileInfoDialog.cpp:859
+#: plugins/fileinfo/FileInfoDialog.cpp:865
 #, kde-format
 msgid "No"
 msgstr "Hayır"

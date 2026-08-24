@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-22 00:45+0000\n"
-"PO-Revision-Date: 2026-08-19 11:49+0200\n"
+"POT-Creation-Date: 2026-08-24 00:44+0000\n"
+"PO-Revision-Date: 2026-08-22 23:23+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 26.04.3\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1197,9 +1197,9 @@ msgid "Loading file '%1'..."
 msgstr "Načítám soubor '%1'..."
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:127
-#: plugins/codec_flac/FlacEncoder.cpp:256
-#: plugins/codec_flac/FlacEncoder.cpp:274
-#: plugins/codec_flac/FlacEncoder.cpp:289 plugins/codec_mp3/MP3Decoder.cpp:583
+#: plugins/codec_flac/FlacEncoder.cpp:264
+#: plugins/codec_flac/FlacEncoder.cpp:282
+#: plugins/codec_flac/FlacEncoder.cpp:297 plugins/codec_mp3/MP3Decoder.cpp:583
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
 #: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
@@ -3866,7 +3866,7 @@ msgid "ASCII encoded audio"
 msgstr "ASCII zakódovaný zvuk"
 
 #: plugins/codec_ascii/AsciiEncoder.cpp:92
-#: plugins/codec_flac/FlacEncoder.cpp:223 plugins/codec_ogg/OggEncoder.cpp:123
+#: plugins/codec_flac/FlacEncoder.cpp:231 plugins/codec_ogg/OggEncoder.cpp:131
 #, kde-format
 msgid "Unable to open the file for saving."
 msgstr "Nelze otevřít soubor pro uložení."
@@ -3982,16 +3982,16 @@ msgstr "Otevření datového proudu FLAC selhalo."
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Chyba při zpracování metadat FLAC. (%s)"
 
-#: plugins/codec_flac/FlacEncoder.cpp:189
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only 1 ... 8 channels, %1 channels are not supported."
+#: plugins/codec_flac/FlacEncoder.cpp:197
+#, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
 "supported."
-msgstr "Tento kodek podporuje pouze 1 … 8 kanálů, %1 kanálů není podporováno."
+msgstr ""
+"Tento formát souboru podporuje pouze maximálně %1 kanálů, %2 kanálů není "
+"podporováno."
 
-#: plugins/codec_flac/FlacEncoder.cpp:233
+#: plugins/codec_flac/FlacEncoder.cpp:241
 #, kde-format
 msgid "Unable to open the FLAC encoder."
 msgstr "Nelze otevřít kodér FLAC."
@@ -4084,7 +4084,7 @@ msgstr "Stále ještě chcete pokračovat?"
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Chcete pokračovat a nevšímat si všech následujících chyb?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:345
+#: plugins/codec_mp3/MP3Encoder.cpp:354
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4093,12 +4093,12 @@ msgstr ""
 "Formát souboru, který jste zvolili, podporuje pouze mono nebo stereo. Tento "
 "soubor bude při uložení smíchán do sterea."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:358 plugins/codec_wav/WavEncoder.cpp:408
+#: plugins/codec_mp3/MP3Encoder.cpp:367 plugins/codec_wav/WavEncoder.cpp:408
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Nelze otevřít soubor pro ukládáním!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:605
+#: plugins/codec_mp3/MP3Encoder.cpp:614
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4614,7 +4614,7 @@ msgstr "Chyba: Kodek nepodporován"
 msgid "Corrupt or missing data in bitstream. Continuing."
 msgstr "V datovém proudu chybějí data nebo jsou poškozená. Pokračuji."
 
-#: plugins/codec_ogg/OggEncoder.cpp:111
+#: plugins/codec_ogg/OggEncoder.cpp:119
 #, kde-format
 msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
@@ -5168,29 +5168,29 @@ msgstr "Nominální datový tok"
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:212
+#: plugins/fileinfo/FileInfoDialog.cpp:213
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 bajtů"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:214
+#: plugins/fileinfo/FileInfoDialog.cpp:215
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kB (%2 bajtů)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:217
+#: plugins/fileinfo/FileInfoDialog.cpp:218
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 MB (%2 bajtů)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
-#: plugins/fileinfo/FileInfoDialog.cpp:230 plugins/newsignal/NewSigDlg.ui:102
+#: plugins/fileinfo/FileInfoDialog.cpp:231 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
 msgstr "Vzorkovací frekvence:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:233
+#: plugins/fileinfo/FileInfoDialog.cpp:234
 #, kde-format
 msgid ""
 "Here you can select one of the predefined\n"
@@ -5202,13 +5202,13 @@ msgstr ""
 "zadat jakoukoliv vzorkovací frekvenci dle svého uvážení."
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
-#: plugins/fileinfo/FileInfoDialog.cpp:239 plugins/newsignal/NewSigDlg.ui:206
+#: plugins/fileinfo/FileInfoDialog.cpp:240 plugins/newsignal/NewSigDlg.ui:206
 #: plugins/record/RecordDlg.ui:912
 #, kde-format
 msgid "Resolution:"
 msgstr "Rozlišení:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:242
+#: plugins/fileinfo/FileInfoDialog.cpp:243
 #, kde-format
 msgid ""
 "Select a resolution in bits in which the file\n"
@@ -5218,13 +5218,13 @@ msgstr ""
 "soubor uložen."
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/fileinfo/FileInfoDialog.cpp:247 plugins/newsignal/NewSigDlg.ui:196
+#: plugins/fileinfo/FileInfoDialog.cpp:248 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
 msgstr "Stopy:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:250
+#: plugins/fileinfo/FileInfoDialog.cpp:251
 #, kde-format
 msgid ""
 "Shows the number of tracks of the signal.\n"
@@ -5233,12 +5233,12 @@ msgstr ""
 "Ukáže počet signálových stop.\n"
 "Můžete přidat anebo odstranit stopy s pomocí seznamu nabídek úprav."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:260
+#: plugins/fileinfo/FileInfoDialog.cpp:261
 #, kde-format
 msgid "Length:"
 msgstr "Délka:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:263
+#: plugins/fileinfo/FileInfoDialog.cpp:264
 #, kde-format
 msgid ""
 "Shows the length of the file in samples\n"
@@ -5247,44 +5247,44 @@ msgstr ""
 "Ukáže délku souboru jako počet vzorků,\n"
 "a pokud je to možné i jako čas."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:269
+#: plugins/fileinfo/FileInfoDialog.cpp:270
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 Ukázky)"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
-#: plugins/fileinfo/FileInfoDialog.cpp:273 plugins/record/RecordDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:274 plugins/record/RecordDialog.cpp:602
 #: plugins/record/RecordDlg.ui:1133
 #, no-c-format, kde-format
 msgid "%1 samples"
 msgstr "%1 vzorky"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:606
+#: plugins/fileinfo/FileInfoDialog.cpp:598
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:609
+#: plugins/fileinfo/FileInfoDialog.cpp:601
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:612
+#: plugins/fileinfo/FileInfoDialog.cpp:604
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(kvadrofonní zvuk)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:837
-#: plugins/fileinfo/FileInfoDialog.cpp:843
+#: plugins/fileinfo/FileInfoDialog.cpp:859
+#: plugins/fileinfo/FileInfoDialog.cpp:865
 #, kde-format
 msgid "Yes"
 msgstr "Ano"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:837
-#: plugins/fileinfo/FileInfoDialog.cpp:843
+#: plugins/fileinfo/FileInfoDialog.cpp:859
+#: plugins/fileinfo/FileInfoDialog.cpp:865
 #, kde-format
 msgid "No"
 msgstr "Ne"

@@ -64,6 +64,75 @@ Kwave::Encoder *Kwave::WavEncoder::instance()
 }
 
 /***************************************************************************/
+const QList<Kwave::Compression::Type>
+    Kwave::WavEncoder::supportedCompressions(const Kwave::FileInfo &info)
+    const
+{
+    Q_UNUSED(info);
+    return {
+        Kwave::Compression::NONE,
+        Kwave::Compression::G711_ALAW,
+        Kwave::Compression::G711_ULAW
+    };
+}
+
+/***************************************************************************/
+QList<Kwave::SampleFormat::Format> Kwave::WavEncoder::supportedSampleFormats(
+    const FileInfo &info) const
+{
+    Kwave::Compression::Type compression =
+        info.contains(Kwave::INF_COMPRESSION) ? Kwave::Compression::fromInt(
+        info.get(Kwave::INF_COMPRESSION).toInt()) : Kwave::Compression::NONE;
+
+    switch (compression)
+    {
+        case Kwave::Compression::NONE:
+            return {
+                Kwave::SampleFormat::Unsigned,
+                Kwave::SampleFormat::Signed,
+                Kwave::SampleFormat::Float,
+                Kwave::SampleFormat::Double
+            };
+        case Kwave::Compression::G711_ALAW: /* FALLTHROUGH */
+        case Kwave::Compression::G711_ULAW:
+            return {
+                Kwave::SampleFormat::Signed
+            };
+        default: break;
+    }
+    return {};
+}
+
+/***************************************************************************/
+QList<unsigned int> Kwave::WavEncoder::supportedBitsPerSample(
+    const FileInfo &info) const
+{
+    const Kwave::SampleFormat::Format format =
+    static_cast<Kwave::SampleFormat::Format>(
+        info.get(Kwave::INF_SAMPLE_FORMAT).toInt()
+    );
+    Kwave::Compression::Type compression =
+    info.contains(Kwave::INF_COMPRESSION) ? Kwave::Compression::fromInt(
+        info.get(Kwave::INF_COMPRESSION).toInt()) : Kwave::Compression::NONE;
+    switch (compression)
+    {
+        case Kwave::Compression::NONE:
+            switch (format) {
+                case Kwave::SampleFormat::Unsigned: return {8                };
+                case Kwave::SampleFormat::Signed:   return {   16, 24, 32    };
+                case Kwave::SampleFormat::Float:    return {           32    };
+                case Kwave::SampleFormat::Double:   return {               64};
+                default:                            return {8, 16, 24, 32    };
+            }
+        case Kwave::Compression::G711_ALAW: /* FALLTHROUGH */
+        case Kwave::Compression::G711_ULAW:
+            return {16};
+        default:
+            return {};
+    }
+}
+
+/***************************************************************************/
 QList<Kwave::FileProperty> Kwave::WavEncoder::supportedProperties()
 {
     return m_property_map.properties();

@@ -66,11 +66,19 @@ Kwave::Encoder *Kwave::FlacEncoder::instance()
 }
 
 /***************************************************************************/
-QList<Kwave::SampleFormat::Format> Kwave::FlacEncoder::sampleFormats(
+QList<Kwave::SampleFormat::Format> Kwave::FlacEncoder::supportedSampleFormats(
     const FileInfo &info) const
 {
     Q_UNUSED(info);
-    return QList<Kwave::SampleFormat::Format>({Kwave::SampleFormat::Signed});
+    return {Kwave::SampleFormat::Signed};
+}
+
+/***************************************************************************/
+QList<unsigned int> Kwave::FlacEncoder::supportedBitsPerSample(
+    const FileInfo &info) const
+{
+    Q_UNUSED(info);
+    return {8, 16, 24};
 }
 
 /***************************************************************************/

@@ -60,7 +60,14 @@ namespace Kwave
          * Returns a list of supported sample formats.
          * @param info the current meta data (not used)
          */
-        QList<Kwave::SampleFormat::Format> sampleFormats(
+        QList<Kwave::SampleFormat::Format> supportedSampleFormats(
+            const FileInfo &info) const override;
+
+        /**
+         * Returns a list of supported bit per sample.
+         * @param info the current meta data (not used)
+         */
+        QList<unsigned int> supportedBitsPerSample(
             const FileInfo &info) const override;
 
         /** Returns a list of supported file properties */

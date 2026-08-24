@@ -69,6 +69,12 @@ namespace Kwave
         /** called when the compression mode has changed */
         void compressionChanged();
 
+        /** called when the sample format has changed */
+        void sampleFormatChanged();
+
+        /** called when the resolution in bits/sample has changed */
+        void resolutionChanged(int bits);
+
         /** called when the MPEG layer combo box has changed */
         void mpegLayerChanged();
 

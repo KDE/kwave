@@ -71,20 +71,29 @@ namespace Kwave
          *       settings
          * @param info the current meta data (file info)
          */
-        virtual const QList<Kwave::Compression::Type> compressionTypes(
+        virtual const QList<Kwave::Compression::Type> supportedCompressions(
             const FileInfo &info
         ) const;
 
         /**
          * Returns a list of supported sample formats. The default
          * implementation returns a list with all known sample formats.
-         * @note this may depend on the mime type, sample format or other
-         *       settings
+         * @note this may depend on the mime type, compression type or
+         *       other settings
          * @param info the current meta data (file info)
          */
-        virtual QList<Kwave::SampleFormat::Format> sampleFormats(
+        virtual QList<Kwave::SampleFormat::Format> supportedSampleFormats(
             const FileInfo &info
         ) const;
+
+        /**
+         * Returns a list of supported bit per sample.
+         * @note this may depend on the mime type, sample format or other
+         *       settings
+         * @param info the current meta data
+         */
+        virtual QList<unsigned int> supportedBitsPerSample(
+            const FileInfo &info) const;
 
         /**
          * Adds a new mime type to the internal list of supported mime

@@ -59,6 +59,30 @@ namespace Kwave
                     QIODevice &dst,
                     const Kwave::MetaDataList &meta_data) override;
 
+        /**
+         * Returns a list of supported compression types
+         * @note this may depend on the mime type, sample format or other
+         *       settings
+         * @param info the current meta data (file info)
+         */
+        const QList<Kwave::Compression::Type> supportedCompressions(
+            const FileInfo &info
+        ) const override;
+
+        /**
+         * Returns a list of supported sample formats.
+         * @param info the current meta data (not used)
+         */
+        QList<Kwave::SampleFormat::Format> supportedSampleFormats(
+            const FileInfo &info) const override;
+
+        /**
+         * Returns a list of supported bit per sample.
+         * @param info the current meta data (not used)
+         */
+        QList<unsigned int> supportedBitsPerSample(
+            const FileInfo &info) const override;
+
         /** Returns a list of supported file properties */
         QList<Kwave::FileProperty> supportedProperties() override;
 

@@ -72,6 +72,8 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
 
     connect(cbCompression, SIGNAL(currentIndexChanged(int)),
             this, SLOT(compressionChanged()));
+    connect(cbSampleFormat, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(sampleFormatChanged()));
     connect(cbMpegLayer, SIGNAL(currentIndexChanged(int)),
             this, SLOT(mpegLayerChanged()));
     connect(chkMpegCopyrighted, SIGNAL(clicked(bool)),
@@ -165,7 +167,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
 
             // encoder does not support compression -> switch
             QList<Kwave::Compression::Type> comps =
-                encoder->compressionTypes(m_info);
+                encoder->supportedCompressions(m_info);
             Kwave::Compression::Type comp = Kwave::Compression::fromInt(
                 m_info.get(Kwave::INF_COMPRESSION).toInt()
             );
@@ -243,6 +245,8 @@ void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
         i18n("Select a resolution in bits in which the file\n"
              "will be saved."));
     sbResolution->setValue(m_info.bits());
+    connect(sbResolution, SIGNAL(valueChanged(int)),
+            this,         SLOT(resolutionChanged(int)));
 
     /* number of tracks */
     lblChannels->setText(i18n("Tracks:"));
@@ -622,7 +626,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
         // mime type is present -> offer only matching compressions
         Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
         if (encoder)
-            supported_compressions = encoder->compressionTypes(m_info);
+            supported_compressions = encoder->supportedCompressions(m_info);
     } else {
         // no mime type -> allow all mimetypes suitable for encoding
         supported_compressions.append(Kwave::Compression::NONE);
@@ -632,7 +636,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
             Kwave::Encoder *encoder = Kwave::CodecManager::encoder(m);
             if (!encoder) continue;
             QList<Kwave::Compression::Type> comps =
-                encoder->compressionTypes(m_info);
+                encoder->supportedCompressions(m_info);
             for (Kwave::Compression::Type c : comps)
                 if (!supported_compressions.contains(c))
                     supported_compressions.append(c);
@@ -682,7 +686,6 @@ void Kwave::FileInfoDialog::compressionChanged()
     const QString preferred_mime_type = comp.preferredMimeType();
     QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
 
-
     // selected compression -> mime type (edit field)
 
     if (!preferred_mime_type.isEmpty()) {
@@ -702,7 +705,7 @@ void Kwave::FileInfoDialog::compressionChanged()
                     Kwave::CodecManager::encoder(mt);
                 if (!encoder) continue;
                 QList<Kwave::Compression::Type> comps =
-                    encoder->compressionTypes(m_info);
+                    encoder->supportedCompressions(m_info);
                 if (comps.contains(compression)) {
                     edFileFormat->setText(mt);
                     break;
@@ -744,7 +747,7 @@ void Kwave::FileInfoDialog::compressionChanged()
     if (!mime_type.isEmpty()) {
         Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
         if (encoder != nullptr) {
-            formats = encoder->sampleFormats(m_info);
+            formats = encoder->supportedSampleFormats(m_info);
         }
     }
     cbSampleFormat->clear();
@@ -755,7 +758,7 @@ void Kwave::FileInfoDialog::compressionChanged()
             QVariant(Kwave::SampleFormat(sf.data(k)).toInt())
         );
     }
-    cbSampleFormat->setEnabled(!formats.empty());
+    cbSampleFormat->setEnabled(formats.count() > 1);
 
     int format = m_info.get(Kwave::INF_SAMPLE_FORMAT).toInt();
     int idx    = cbSampleFormat->findData(format);
@@ -763,6 +766,96 @@ void Kwave::FileInfoDialog::compressionChanged()
         cbSampleFormat->setCurrentIndex(cbSampleFormat->findData(format));
     else if (cbSampleFormat->count() != 0)
         cbSampleFormat->setCurrentIndex(0); // default to the one and only
+
+    // explicitly update the selection of the bits/sample
+    sampleFormatChanged();
+}
+
+//***************************************************************************
+void Kwave::FileInfoDialog::sampleFormatChanged()
+{
+    // get the current sample format setting and apply it to m_info
+    Kwave::SampleFormat::Map sample_formats;
+    int sample_format =
+        cbSampleFormat->itemData(cbSampleFormat->currentIndex()).toInt();
+    m_info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(sample_format));
+
+    QList<unsigned int> supported;
+    QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
+    qDebug("sampleFormatChanged: mime_type=%s", DBG(mime_type)); // ###
+
+    if (!mime_type.isEmpty()) {
+        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
+        if (encoder != nullptr)
+            supported = encoder->supportedBitsPerSample(m_info);
+    }
+    if (!supported.isEmpty()) {
+        int current_bits = sbResolution->value();
+        sbResolution->blockSignals(true);
+        sbResolution->setMinimum(supported.first());
+        sbResolution->setMaximum(supported.last());
+        qDebug("    min/max=%d...%d, current=%d", sbResolution->minimum(), sbResolution->maximum(), current_bits); // ###
+
+        // round up to the next supported value
+        for (unsigned int b : supported) {
+            qDebug("    supported: %2d", b); // ###
+            if (int(b) >= current_bits) {
+                sbResolution->setValue(b);
+                break;
+            }
+        }
+        sbResolution->blockSignals(false);
+    }
+    resolutionChanged(sbResolution->value());
+}
+
+//***************************************************************************
+void Kwave::FileInfoDialog::resolutionChanged(int bits)
+{
+    QList<unsigned int> supported;
+    QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
+    qDebug("resolutionChanged: mime_type=%s, bits=%d", DBG(mime_type), bits); // ###
+    if (!mime_type.isEmpty()) {
+        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
+        if (encoder != nullptr)
+            supported = encoder->supportedBitsPerSample(m_info);
+    }
+    if (!supported.isEmpty()) {
+        int current_bits = bits;
+        sbResolution->blockSignals(true);
+        sbResolution->setRange(supported.first(), supported.last());
+        qDebug("    min/max=%d...%d, current=%d", sbResolution->minimum(), sbResolution->maximum(), current_bits); // ###
+
+        // find the closest supported value
+        unsigned int closest = current_bits;
+        int delta_min = INT_MAX;
+        for (unsigned int b : supported) {
+            qDebug("    supported: %2d", b); // ###
+            int d = int(b) - current_bits;
+            if (abs(d) < abs(delta_min)) { delta_min = d; closest = b; }
+            if (d == 0) break;
+        }
+        int v = closest;
+        qDebug("delta_min=%d, closest=%d", delta_min, closest);
+        if (delta_min > 0)
+        {
+            // stepped up -> find next which is >= closest
+            for (unsigned int b : supported)
+                if (b >= closest) { v = b; break;}
+        }
+        else if (delta_min < 0)
+        {
+            // stepped down -> find next which is <= closest
+            for (unsigned int b : supported)
+                if (b <= closest) { v = b; } else break;
+        }
+        sbResolution->setValue(v);
+        sbResolution->blockSignals(false);
+    } else {
+        sbResolution->setRange(0, 0);
+        sbResolution->setValue(0);
+    }
+    sbResolution->setEnabled(supported.count() > 1);
 }
 
 //***************************************************************************

@@ -132,7 +132,7 @@ const QList<Kwave::CodecBase::MimeType> Kwave::CodecBase::mimeTypes()
 }
 
 /***************************************************************************/
-const QList<Kwave::Compression::Type> Kwave::CodecBase::compressionTypes(
+const QList<Kwave::Compression::Type> Kwave::CodecBase::supportedCompressions(
     const Kwave::FileInfo &info
 ) const
 {
@@ -141,7 +141,7 @@ const QList<Kwave::Compression::Type> Kwave::CodecBase::compressionTypes(
 }
 
 /***************************************************************************/
-QList<Kwave::SampleFormat::Format> Kwave::CodecBase::sampleFormats(
+QList<Kwave::SampleFormat::Format> Kwave::CodecBase::supportedSampleFormats(
     const FileInfo &info
 ) const
 {
@@ -159,6 +159,14 @@ QList<Kwave::SampleFormat::Format> Kwave::CodecBase::sampleFormats(
     } else result = sf.allData();
 
     return result;
+}
+
+/***************************************************************************/
+QList<unsigned int> Kwave::CodecBase::supportedBitsPerSample(
+    const FileInfo &info) const
+{
+    Q_UNUSED(info);
+    return {8, 16, 24, 32};
 }
 
 /***************************************************************************/

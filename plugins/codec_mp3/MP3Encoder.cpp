@@ -80,7 +80,7 @@ Kwave::Encoder *Kwave::MP3Encoder::instance()
 }
 
 /***************************************************************************/
-QList<Kwave::SampleFormat::Format> Kwave::MP3Encoder::sampleFormats(
+QList<Kwave::SampleFormat::Format> Kwave::MP3Encoder::supportedSampleFormats(
     const FileInfo &info) const
 {
     Q_UNUSED(info);

@@ -235,7 +235,7 @@ void Kwave::VirtualAudioFile::destroy()
 qint64 Kwave::VirtualAudioFile::seek(qint64 offset, bool is_relative)
 {
     qint64 abs_pos = (is_relative) ? (m_device.pos() + offset) : offset;
-    if (abs_pos >= m_device.size())
+    if (!m_device.isWritable() && (abs_pos >= m_device.size()))
         return -1; // avoid seek after EOF
     bool ok = m_device.seek(abs_pos);
     return (ok) ? m_device.pos() : -1;

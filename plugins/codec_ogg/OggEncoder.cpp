@@ -67,11 +67,19 @@ Kwave::Encoder *Kwave::OggEncoder::instance()
 }
 
 /***************************************************************************/
-QList<Kwave::SampleFormat::Format> Kwave::OggEncoder::sampleFormats(
+QList<Kwave::SampleFormat::Format> Kwave::OggEncoder::supportedSampleFormats(
     const FileInfo &info) const
 {
     Q_UNUSED(info);
     return QList<Kwave::SampleFormat::Format>({Kwave::SampleFormat::Float});
+}
+
+/***************************************************************************/
+QList<unsigned int> Kwave::OggEncoder::supportedBitsPerSample(
+    const FileInfo &info) const
+{
+    Q_UNUSED(info);
+    return {32};
 }
 
 /***************************************************************************/

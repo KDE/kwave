@@ -158,6 +158,9 @@ Kwave::VirtualAudioFile::VirtualAudioFile(QIODevice &device)
 void Kwave::VirtualAudioFile::open(Kwave::VirtualAudioFile *x,
                                    AFfilesetup setup)
 {
+    // reset errors from previous runs
+    _last_audiofile_error = -1;
+
     // register ourself
     adapter(nullptr); // dummy lookup, for creating a new map if needed
     Q_ASSERT(_adapter_map);

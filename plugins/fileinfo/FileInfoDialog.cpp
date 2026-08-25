@@ -666,6 +666,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
         new_index = cbCompression->count() - 1;
 
     cbCompression->setCurrentIndex(new_index);
+    cbCompression->setEnabled(cbCompression->count() > 1);
 }
 
 //***************************************************************************

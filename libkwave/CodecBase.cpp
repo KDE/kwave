@@ -137,7 +137,10 @@ const QList<Kwave::Compression::Type> Kwave::CodecBase::supportedCompressions(
 ) const
 {
     Q_UNUSED(info);
-    return m_supported_compression_types;
+    if (!m_supported_compression_types.isEmpty())
+        return m_supported_compression_types;
+    else
+        return { Kwave::Compression::NONE };
 }
 
 /***************************************************************************/

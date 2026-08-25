@@ -20,6 +20,8 @@
 
 #include "config.h"
 
+#include <audiofile.h>
+
 #include "libkwave/Decoder.h"
 
 class QIODevice;
@@ -65,6 +67,21 @@ namespace Kwave
          * Closes the source.
          */
         void close() override;
+
+    private:
+
+        /**
+         * decode file info from meta data
+         * @param fh the audiofile file handle
+         * @param info a Kwave::FileInfo that receives the meta data
+         */
+        void decodeFileInfo(AFfilehandle fh, Kwave::FileInfo &info);
+
+        /**
+         * decode the cue list (aka "markers"or "labels") if present
+         * @param fh the audiofile file handle
+         */
+        void decodeMarkers(AFfilehandle fh);
 
     private:
 

@@ -46,6 +46,9 @@
 
 #define addAfMimeType(m, d, e, t) addMimeType(m, d, e)
 
+#define MAX_META_DATA_LEN   1024 /**< max length of one meta data entry */
+#define MAX_META_DATA_COUNT 1024 /**< max number of meta data entries   */
+
 //***************************************************************************
 Kwave::AudiofileDecoder::AudiofileDecoder()
     :Kwave::Decoder(), m_source(nullptr), m_src_adapter(nullptr)
@@ -179,6 +182,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     info.setLength(length);
     info.set(INF_SAMPLE_FORMAT, Kwave::SampleFormat(fmt).toInt());
     info.set(Kwave::INF_COMPRESSION, compression.toInt());
+    decodeFileInfo(fh, info);
     metaData().replace(Kwave::MetaDataList(info));
     qDebug("-------------------------");
     qDebug("info:");
@@ -202,32 +206,76 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
         AF_SAMPFMT_TWOSCOMP, SAMPLE_STORAGE_BITS);
 
     // get the cue list (aka "markers" / "labels")
-    int num_labels = afGetMarkIDs(fh, AF_DEFAULT_TRACK, NULL);
-    if (num_labels > 0) {
-        Kwave::LabelList labels;
-
-        QVarLengthArray<int, 16> ids(num_labels);
-        afGetMarkIDs(fh, AF_DEFAULT_TRACK, ids.data());
-
-        for (int i = 0; i < num_labels; i++) {
-            const char *n = afGetMarkName(fh, AF_DEFAULT_TRACK, i + 1);
-            QString name = QString::fromUtf8(n);
-
-            const char *c = afGetMarkComment(fh, AF_DEFAULT_TRACK, i+ 1);
-            QString comment = QString::fromUtf8(c);
-
-            AFframecount p = afGetMarkPosition(fh, AF_DEFAULT_TRACK, i + 1);
-            sample_index_t pos = static_cast<sample_index_t>(p);
-
-            QString txt = comment;
-            if (txt.isEmpty()) txt = name;
-            labels.append(Kwave::Label(pos, txt.trimmed()));
-        }
-
-        metaData().replace(labels.toMetaDataList());
-    }
+    decodeMarkers(fh);
 
     return true;
+}
+
+//***************************************************************************
+void Kwave::AudiofileDecoder::decodeFileInfo(AFfilehandle fh,
+                                             Kwave::FileInfo &info)
+{
+    int count = afGetMiscIDs(fh, NULL);
+    if (count < 1) return;
+
+    QVarLengthArray<int, 16> ids(count);
+    afGetMiscIDs(fh, ids.data());
+    for (int i = 0; i < count; i++) {
+        if (i > MAX_META_DATA_COUNT) break;
+        int misctype = afGetMiscType(fh, ids[i]);
+        int datasize = afGetMiscSize(fh, ids[i]);
+        if (datasize < 1) continue;
+        if (datasize > MAX_META_DATA_LEN) continue;
+        QByteArray data(datasize, Qt::Uninitialized);
+        int res = afReadMisc(fh, ids[i], data.data(), datasize);
+        if (res != datasize) continue;
+
+        Kwave::FileProperty prop(INF_UNKNOWN);
+        switch (misctype) {
+            case AF_MISC_COPY:    prop = Kwave::INF_COPYRIGHT;     break;
+            case AF_MISC_AUTH:    prop = Kwave::INF_AUTHOR;        break;
+            case AF_MISC_NAME:    prop = Kwave::INF_NAME;          break;
+            case AF_MISC_ANNO:    prop = Kwave::INF_ANNOTATION;    break;
+            case AF_MISC_COMMENT: prop = Kwave::INF_COMMENTS;      break;
+            case AF_MISC_ICRD:    prop = Kwave::INF_CREATION_DATE; break;
+            case AF_MISC_ISFT:    prop = Kwave::INF_SOFTWARE;      break;
+            default: break;
+        }
+        if (prop != INF_UNKNOWN)
+        {
+            QString value = QString::fromUtf8(data.constData()).trimmed();
+            if (!value.isEmpty())
+                info.set(prop, value);
+        }
+    }
+}
+
+//***************************************************************************
+void Kwave::AudiofileDecoder::decodeMarkers(AFfilehandle fh)
+{
+    int num_labels = afGetMarkIDs(fh, AF_DEFAULT_TRACK, NULL);
+    if (num_labels < 1) return;
+
+    Kwave::LabelList labels;
+    QVarLengthArray<int, 16> ids(num_labels);
+    afGetMarkIDs(fh, AF_DEFAULT_TRACK, ids.data());
+
+    for (int i = 0; i < num_labels; i++) {
+        const char *n = afGetMarkName(fh, AF_DEFAULT_TRACK, ids[i]);
+        QString name = QString::fromUtf8(n);
+
+        const char *c = afGetMarkComment(fh, AF_DEFAULT_TRACK, ids[i]);
+        QString comment = QString::fromUtf8(c);
+
+        AFframecount p = afGetMarkPosition(fh, AF_DEFAULT_TRACK, ids[i]);
+        sample_index_t pos = static_cast<sample_index_t>(p);
+
+        QString txt = comment;
+        if (txt.isEmpty()) txt = name;
+        labels.append(Kwave::Label(pos, txt.trimmed()));
+    }
+
+    metaData().replace(labels.toMetaDataList());
 }
 
 //***************************************************************************

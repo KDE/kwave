@@ -73,7 +73,7 @@ static ssize_t af_file_read(AFvirtualfile *vfile, void *data,
         static_cast<ssize_t>(adapter->read(
             static_cast<char *>(data),
             Kwave::toUint(nbytes)
-        )) : 0;
+        )) : -1;
 }
 
 //***************************************************************************
@@ -92,7 +92,7 @@ static ssize_t af_file_write(AFvirtualfile *vfile, const void *data,
         static_cast<ssize_t>(adapter->write(
             static_cast<const char *>(data),
             Kwave::toUint(nbytes)
-        )) : 0;
+        )) : -1;
 }
 
 //***************************************************************************
@@ -207,6 +207,8 @@ Kwave::VirtualAudioFile::~VirtualAudioFile()
 //***************************************************************************
 qint64 Kwave::VirtualAudioFile::read(char *data, unsigned int nbytes)
 {
+    if (_last_audiofile_error != -1) return -1;
+
     Q_ASSERT(data);
     if (!data) return 0;
     return m_device.read(data, nbytes);
@@ -221,6 +223,8 @@ qint64 Kwave::VirtualAudioFile::length()
 //***************************************************************************
 qint64 Kwave::VirtualAudioFile::write(const char *data, unsigned int nbytes)
 {
+    if (_last_audiofile_error != -1) return -1;
+
     Q_ASSERT(data);
     if (!data) return 0;
     return m_device.write(data, nbytes);
@@ -234,8 +238,10 @@ void Kwave::VirtualAudioFile::destroy()
 //***************************************************************************
 qint64 Kwave::VirtualAudioFile::seek(qint64 offset, bool is_relative)
 {
+    if (_last_audiofile_error != -1) return -1;
+
     qint64 abs_pos = (is_relative) ? (m_device.pos() + offset) : offset;
-    if (!m_device.isWritable() && (abs_pos >= m_device.size()))
+    if (!m_device.isWritable() && (abs_pos > m_device.size()))
         return -1; // avoid seek after EOF
     bool ok = m_device.seek(abs_pos);
     return (ok) ? m_device.pos() : -1;

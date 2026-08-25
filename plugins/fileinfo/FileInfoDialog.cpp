@@ -782,7 +782,6 @@ void Kwave::FileInfoDialog::sampleFormatChanged()
 
     QList<unsigned int> supported;
     QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
-    qDebug("sampleFormatChanged: mime_type=%s", DBG(mime_type)); // ###
 
     if (!mime_type.isEmpty()) {
         Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
@@ -794,11 +793,9 @@ void Kwave::FileInfoDialog::sampleFormatChanged()
         sbResolution->blockSignals(true);
         sbResolution->setMinimum(supported.first());
         sbResolution->setMaximum(supported.last());
-        qDebug("    min/max=%d...%d, current=%d", sbResolution->minimum(), sbResolution->maximum(), current_bits); // ###
 
         // round up to the next supported value
         for (unsigned int b : supported) {
-            qDebug("    supported: %2d", b); // ###
             if (int(b) >= current_bits) {
                 sbResolution->setValue(b);
                 break;
@@ -814,7 +811,6 @@ void Kwave::FileInfoDialog::resolutionChanged(int bits)
 {
     QList<unsigned int> supported;
     QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
-    qDebug("resolutionChanged: mime_type=%s, bits=%d", DBG(mime_type), bits); // ###
     if (!mime_type.isEmpty()) {
         Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
         if (encoder != nullptr)
@@ -824,19 +820,16 @@ void Kwave::FileInfoDialog::resolutionChanged(int bits)
         int current_bits = bits;
         sbResolution->blockSignals(true);
         sbResolution->setRange(supported.first(), supported.last());
-        qDebug("    min/max=%d...%d, current=%d", sbResolution->minimum(), sbResolution->maximum(), current_bits); // ###
 
         // find the closest supported value
         unsigned int closest = current_bits;
         int delta_min = INT_MAX;
         for (unsigned int b : supported) {
-            qDebug("    supported: %2d", b); // ###
             int d = int(b) - current_bits;
             if (abs(d) < abs(delta_min)) { delta_min = d; closest = b; }
             if (d == 0) break;
         }
         int v = closest;
-        qDebug("delta_min=%d, closest=%d", delta_min, closest);
         if (delta_min > 0)
         {
             // stepped up -> find next which is >= closest

@@ -31,6 +31,8 @@
 
 #include "libkwave/Compression.h"
 #include "libkwave/FileInfo.h"
+#include "libkwave/Label.h"
+#include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
@@ -39,45 +41,16 @@
 #include "libkwave/VirtualAudioFile.h"
 #include "libkwave/Writer.h"
 
+#include "AudiofileCodecPlugin.h"
 #include "AudiofileDecoder.h"
+
+#define addAfMimeType(m, d, e, t) addMimeType(m, d, e)
 
 //***************************************************************************
 Kwave::AudiofileDecoder::AudiofileDecoder()
     :Kwave::Decoder(), m_source(nullptr), m_src_adapter(nullptr)
 {
-    /* defined in RFC 1521 */
-    addMimeType("audio/basic",
-                i18n("NeXT, Sun Audio"),
-                "*.au; *.snd");
-
-    /* some others, mime types might be wrong (I found no RFC or similar)  */
-    addMimeType("audio/x-8svx",
-                i18n("Amiga IFF/8SVX Sound File Format"),
-                "*.iff; *.8svx");
-    addMimeType("audio/x-aifc",
-                i18n("Compressed Audio Interchange Format"),
-                "*.aifc");
-    addMimeType("audio/x-aiff", /* included in KDE */
-                i18n("Audio Interchange Format"),
-                "*.aif; *.aiff");
-    addMimeType("audio/x-avr",
-                i18n("Audio Visual Research File Format"),
-                "*.avr");
-    addMimeType("audio/x-caf",
-                i18n("Core Audio File Format"),
-                "*.caf");
-    addMimeType("audio/x-ircam",
-                i18n("Berkeley, IRCAM, Carl Sound Format"),
-                "*.sf");
-    addMimeType("audio/x-nist",
-                i18n("NIST SPHERE Audio File Format"),
-                "*.nist");
-    addMimeType("audio/x-smp",
-                i18n("Sample Vision Format"),
-                "*.smp");
-    addMimeType("audio/x-voc",
-                i18n("Creative Voice"),
-                "*.voc");
+    REGISTER_MIME_TYPES
 }
 
 //***************************************************************************
@@ -227,6 +200,32 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 #endif
     afSetVirtualSampleFormat(fh, AF_DEFAULT_TRACK,
         AF_SAMPFMT_TWOSCOMP, SAMPLE_STORAGE_BITS);
+
+    // get the cue list (aka "markers" / "labels")
+    int num_labels = afGetMarkIDs(fh, AF_DEFAULT_TRACK, NULL);
+    if (num_labels > 0) {
+        Kwave::LabelList labels;
+
+        QVarLengthArray<int, 16> ids(num_labels);
+        afGetMarkIDs(fh, AF_DEFAULT_TRACK, ids.data());
+
+        for (int i = 0; i < num_labels; i++) {
+            const char *n = afGetMarkName(fh, AF_DEFAULT_TRACK, i + 1);
+            QString name = QString::fromUtf8(n);
+
+            const char *c = afGetMarkComment(fh, AF_DEFAULT_TRACK, i+ 1);
+            QString comment = QString::fromUtf8(c);
+
+            AFframecount p = afGetMarkPosition(fh, AF_DEFAULT_TRACK, i + 1);
+            sample_index_t pos = static_cast<sample_index_t>(p);
+
+            QString txt = comment;
+            if (txt.isEmpty()) txt = name;
+            labels.append(Kwave::Label(pos, txt.trimmed()));
+        }
+
+        metaData().replace(labels.toMetaDataList());
+    }
 
     return true;
 }

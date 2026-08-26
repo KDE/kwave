@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:44+0000\n"
+"POT-Creation-Date: 2026-08-26 00:46+0000\n"
 "PO-Revision-Date: 2026-01-10 20:52+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1197,13 +1197,13 @@ msgstr "Suoritetaan Kwave-skriptitiedostoa ”%1”…"
 msgid "Loading file '%1'..."
 msgstr "Ladataan tiedostoa ”%1”…"
 
-#: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:127
-#: plugins/codec_flac/FlacEncoder.cpp:264
-#: plugins/codec_flac/FlacEncoder.cpp:282
-#: plugins/codec_flac/FlacEncoder.cpp:297 plugins/codec_mp3/MP3Decoder.cpp:583
+#: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:103
+#: plugins/codec_flac/FlacEncoder.cpp:272
+#: plugins/codec_flac/FlacEncoder.cpp:290
+#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:583
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:459
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:528
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -3880,99 +3880,99 @@ msgid "ASCII encoded audio"
 msgstr "ASCII-koodattu ääni"
 
 #: plugins/codec_ascii/AsciiEncoder.cpp:92
-#: plugins/codec_flac/FlacEncoder.cpp:231 plugins/codec_ogg/OggEncoder.cpp:131
+#: plugins/codec_flac/FlacEncoder.cpp:239 plugins/codec_ogg/OggEncoder.cpp:139
 #, kde-format
 msgid "Unable to open the file for saving."
 msgstr "Tiedostoa ei voitu avata tallennettavaksi."
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:50
+#: plugins/codec_audiofile/AudiofileCodecPlugin.h:57
 #, kde-format
 msgid "NeXT, Sun Audio"
 msgstr "NeXT, Sun Audio"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:55
+#: plugins/codec_audiofile/AudiofileCodecPlugin.h:62
 #, kde-format
 msgid "Amiga IFF/8SVX Sound File Format"
 msgstr "Amigan IFF/8SVX-äänitiedostomuoto"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:58
+#: plugins/codec_audiofile/AudiofileCodecPlugin.h:66
 #, kde-format
 msgid "Compressed Audio Interchange Format"
 msgstr "Pakattu AIF"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:61
+#: plugins/codec_audiofile/AudiofileCodecPlugin.h:70
 #, kde-format
 msgid "Audio Interchange Format"
 msgstr "AIF (Audio Interchange Format)"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:64
+#: plugins/codec_audiofile/AudiofileCodecPlugin.h:74
 #, kde-format
 msgid "Audio Visual Research File Format"
 msgstr "Audio Visual Research -tiedostomuoto"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:67
+#: plugins/codec_audiofile/AudiofileCodecPlugin.h:78
 #, kde-format
 msgid "Core Audio File Format"
 msgstr "Äänitiedoston perusmuoto"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:70
+#: plugins/codec_audiofile/AudiofileCodecPlugin.h:82
 #, kde-format
 msgid "Berkeley, IRCAM, Carl Sound Format"
 msgstr "Berkeley, IRCAM, Carl-äänimuoto"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:73
+#: plugins/codec_audiofile/AudiofileCodecPlugin.h:86
 #, kde-format
 msgid "NIST SPHERE Audio File Format"
 msgstr "NIST SPHERE -äänitiedostomuoto"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:76
+#: plugins/codec_audiofile/AudiofileCodecPlugin.h:90
 #, kde-format
 msgid "Sample Vision Format"
 msgstr "Sample Vision -muoto"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:79
+#: plugins/codec_audiofile/AudiofileCodecPlugin.h:94
 #, kde-format
 msgid "Creative Voice"
 msgstr "Creative Voice"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:124
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:455
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:100
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:524
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Muotoa tai toimintoa ei ole toteutettu"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:130
-#: plugins/codec_wav/WavEncoder.cpp:462
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:106
+#: plugins/codec_wav/WavEncoder.cpp:531
 #, kde-format
 msgid "File header is damaged"
 msgstr "Tiedoston otsake on vioittunut"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:133
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:465
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:109
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:534
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Virheellinen koodekkityyppi"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:136
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:469
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:112
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:538
 #, kde-format
 msgid "Opening the file failed"
 msgstr "Tiedoston avaaminen epäonnistui"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:139
-#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:472
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:115
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:541
 #, kde-format
 msgid "Read access failed"
 msgstr "Lukusaanti epäonnistui"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:142
-#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:475
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:118
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:544
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Virheellinen näytemuoto"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:148
-#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:481
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:124
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:550
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -3996,7 +3996,7 @@ msgstr "FLAC-bittivirran avaus epäonnistui."
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Virhe FLAC-metatietoja jäsennettäessä. (%s)"
 
-#: plugins/codec_flac/FlacEncoder.cpp:197
+#: plugins/codec_flac/FlacEncoder.cpp:205
 #, fuzzy, kde-format
 #| msgid ""
 #| "This codec supports only mono or stereo files, %1 channels are not "
@@ -4007,7 +4007,7 @@ msgid ""
 msgstr ""
 "Koodekki tukee vain mono- ja stereotiedostoja: %1-kanavaääntä ei tueta."
 
-#: plugins/codec_flac/FlacEncoder.cpp:241
+#: plugins/codec_flac/FlacEncoder.cpp:249
 #, kde-format
 msgid "Unable to open the FLAC encoder."
 msgstr "FLAC-koodausohjelmaa ei voitu avata."
@@ -4109,7 +4109,7 @@ msgstr ""
 "Valitsemasi tiedostomuoto tukee vain mono- ja stereoääntä. Tiedosto "
 "miksataan alaspäin stereoksi tallennettaessa."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:367 plugins/codec_wav/WavEncoder.cpp:408
+#: plugins/codec_mp3/MP3Encoder.cpp:367 plugins/codec_wav/WavEncoder.cpp:477
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Tiedostoa ei voitu avata tallennettavaksi!"
@@ -4630,7 +4630,7 @@ msgstr "Virhe: Koodekkia ei tueta"
 msgid "Corrupt or missing data in bitstream. Continuing."
 msgstr "Bittivirran data on virheellistä tai dataa puuttuu. Jatketaan."
 
-#: plugins/codec_ogg/OggEncoder.cpp:119
+#: plugins/codec_ogg/OggEncoder.cpp:127
 #, kde-format
 msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
@@ -4864,7 +4864,7 @@ msgstr "tiedoston otsake on vioittunut"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "sisäinen libaudiofile-virhe #%1: ”%2”"
 
-#: plugins/codec_wav/WavEncoder.cpp:361
+#: plugins/codec_wav/WavEncoder.cpp:430
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4873,17 +4873,17 @@ msgstr ""
 "Valittua pakkaustyyppiä ei valitettavasti voi käyttää tallennettaessa. "
 "Haluatko käyttää sen sijaan G711 ULAW -pakkausta?"
 
-#: plugins/codec_wav/WavEncoder.cpp:364
+#: plugins/codec_wav/WavEncoder.cpp:433
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "&Kyllä, käytä G711:tä"
 
-#: plugins/codec_wav/WavEncoder.cpp:365
+#: plugins/codec_wav/WavEncoder.cpp:434
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&Ei, tallenna pakkaamattomana"
 
-#: plugins/codec_wav/WavEncoder.cpp:414 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:483 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "Tiedosto tai valinta liian suuri"
@@ -5189,29 +5189,29 @@ msgstr "Nimellinen bittinopeus"
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:213
+#: plugins/fileinfo/FileInfoDialog.cpp:215
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 tavua"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:215
+#: plugins/fileinfo/FileInfoDialog.cpp:217
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kt (%2 tavua)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:218
+#: plugins/fileinfo/FileInfoDialog.cpp:220
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 Mt (%2 tavua)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
-#: plugins/fileinfo/FileInfoDialog.cpp:231 plugins/newsignal/NewSigDlg.ui:102
+#: plugins/fileinfo/FileInfoDialog.cpp:233 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
 msgstr "Näytteenottotaajuus:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:234
+#: plugins/fileinfo/FileInfoDialog.cpp:236
 #, kde-format
 msgid ""
 "Here you can select one of the predefined\n"
@@ -5223,13 +5223,13 @@ msgstr ""
 "taajuutesi."
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
-#: plugins/fileinfo/FileInfoDialog.cpp:240 plugins/newsignal/NewSigDlg.ui:206
+#: plugins/fileinfo/FileInfoDialog.cpp:242 plugins/newsignal/NewSigDlg.ui:206
 #: plugins/record/RecordDlg.ui:912
 #, kde-format
 msgid "Resolution:"
 msgstr "Resoluutio:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:243
+#: plugins/fileinfo/FileInfoDialog.cpp:245
 #, kde-format
 msgid ""
 "Select a resolution in bits in which the file\n"
@@ -5239,13 +5239,13 @@ msgstr ""
 "bitteinä."
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/fileinfo/FileInfoDialog.cpp:248 plugins/newsignal/NewSigDlg.ui:196
+#: plugins/fileinfo/FileInfoDialog.cpp:252 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
 msgstr "Raitoja:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:251
+#: plugins/fileinfo/FileInfoDialog.cpp:255
 #, kde-format
 msgid ""
 "Shows the number of tracks of the signal.\n"
@@ -5254,12 +5254,12 @@ msgstr ""
 "Näyttää signaalin raitojen määrän.\n"
 "Voit lisätä tai poistaa raitoja Muokkaa-valikosta."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:261
+#: plugins/fileinfo/FileInfoDialog.cpp:265
 #, kde-format
 msgid "Length:"
 msgstr "Pituus:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:264
+#: plugins/fileinfo/FileInfoDialog.cpp:268
 #, kde-format
 msgid ""
 "Shows the length of the file in samples\n"
@@ -5268,44 +5268,44 @@ msgstr ""
 "Näytteen tiedoston pituuden näytteinä\n"
 "ja jos mahdollista ajallisen keston."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:270
+#: plugins/fileinfo/FileInfoDialog.cpp:274
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 näytettä)"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
-#: plugins/fileinfo/FileInfoDialog.cpp:274 plugins/record/RecordDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:278 plugins/record/RecordDialog.cpp:602
 #: plugins/record/RecordDlg.ui:1133
 #, no-c-format, kde-format
 msgid "%1 samples"
 msgstr "%1 näytettä"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:598
+#: plugins/fileinfo/FileInfoDialog.cpp:602
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:601
+#: plugins/fileinfo/FileInfoDialog.cpp:605
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:604
+#: plugins/fileinfo/FileInfoDialog.cpp:608
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(Nelikanavainen)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:859
-#: plugins/fileinfo/FileInfoDialog.cpp:865
+#: plugins/fileinfo/FileInfoDialog.cpp:946
+#: plugins/fileinfo/FileInfoDialog.cpp:952
 #, kde-format
 msgid "Yes"
 msgstr "Kyllä"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:859
-#: plugins/fileinfo/FileInfoDialog.cpp:865
+#: plugins/fileinfo/FileInfoDialog.cpp:946
+#: plugins/fileinfo/FileInfoDialog.cpp:952
 #, kde-format
 msgid "No"
 msgstr "Ei"

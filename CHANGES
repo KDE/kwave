@@ -3,6 +3,8 @@
    - parallelized decoding
    - implemented support for importing labels
    - implemented support for importing meta data
+   - implemented encoder, adding support for saving in many legacy formats,
+     including meta data and cue lists (as far as supported by libaudiofile)
  * codec_flac: parallelized decoding + added check for > 8 channels
  * codec_mp3: workaround for broken MBS conversion in ID3LIB
  * codec_mp3: do no longer explicitly link against libstdc++ and libz

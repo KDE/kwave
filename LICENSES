@@ -524,6 +524,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/codec_audiofile/AudiofileCodecPlugin.h  GPL2+
         plugins/codec_audiofile/AudiofileDecoder.cpp    GPL2+
         plugins/codec_audiofile/AudiofileDecoder.h      GPL2+
+        plugins/codec_audiofile/AudiofileEncoder.cpp    GPL2+
+        plugins/codec_audiofile/AudiofileEncoder.h      GPL2+
         plugins/codec_audiofile/CMakeLists.txt          BSD (3 clause)
         plugins/codec_audiofile/kwaveplugin_codec_audiofile.json.in  (UNKNOWN)
 

@@ -16,17 +16,28 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <audiofile.h>
+
 #include <KLocalizedString>
 
 #include "libkwave/PluginManager.h"
 
 #include "AudiofileCodecPlugin.h"
 #include "AudiofileDecoder.h"
+#include "AudiofileEncoder.h"
 
 // static instance of the codec container
 Kwave::CodecPlugin::Codec Kwave::AudiofileCodecPlugin::m_codec = EMPTY_CODEC;
 
 KWAVE_PLUGIN(codec_audiofile, AudiofileCodecPlugin)
+
+/***************************************************************************/
+static bool audiofileSupports(int format_id)
+{
+    return (afQueryLong(AF_QUERYTYPE_FILEFMT, AF_QUERY_IMPLEMENTED,
+                        format_id, 0, 0) == 1);
+}
 
 /***************************************************************************/
 Kwave::AudiofileCodecPlugin::AudiofileCodecPlugin(QObject *parent,
@@ -49,7 +60,16 @@ QList<Kwave::Decoder *> Kwave::AudiofileCodecPlugin::createDecoder()
 /***************************************************************************/
 QList<Kwave::Encoder *> Kwave::AudiofileCodecPlugin::createEncoder()
 {
-    return QList<Kwave::Encoder *>(); /* not implemented */
+    QList<Kwave::Encoder *> list;
+
+    #define addAfMimeType(m, d, e, t)                                  \
+        if (audiofileSupports(t))                                      \
+            list.append(                                               \
+                new(std::nothrow) Kwave::AudiofileEncoder(m, d, e, t))
+    REGISTER_MIME_TYPES
+    #undef addAfMimeType
+
+    return list;
 }
 
 /***************************************************************************/

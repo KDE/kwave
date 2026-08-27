@@ -1,5 +1,5 @@
 [codespell]
 skip = .git,build,*.po,*.qm,*.png,*.jpg,*.wav,*.docbook,*.xml,*/testfiles/*,*.desktop.in,*.json.in
-# ignore-words-list =
+ignore-words-list = CAF
 ignore-regex = (\*\.caf|Fade\ Leadin)
 quiet-level = 2

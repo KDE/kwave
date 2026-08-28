@@ -34,8 +34,6 @@ IF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
     INCLUDE(UsePkgConfig)
 
     PKG_CHECK_MODULES(OGG REQUIRED ogg>=1.0.0)
-    MESSAGE(STATUS "  Found Ogg library in ${OGG_LIBDIR}")
-    MESSAGE(STATUS "  Found Ogg headers in ${OGG_INCLUDEDIR}")
     SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} ${OGG_LIBRARIES})
 
 #############################################################################
@@ -43,8 +41,6 @@ IF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
 
     IF (WITH_OGG_OPUS)
         PKG_CHECK_MODULES(OPUS REQUIRED opus>=1.0.0)
-        MESSAGE(STATUS "  Found opus codec library in ${OPUS_LIBDIR}")
-        MESSAGE(STATUS "  Found opus codec headers in ${OPUS_INCLUDEDIR}")
         SET(CMAKE_REQUIRED_INCLUDES
             ${CMAKE_REQUIRED_INCLUDES} ${OPUS_INCLUDEDIR}
         )
@@ -75,8 +71,6 @@ IF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
 
     IF (WITH_OGG_VORBIS)
         PKG_CHECK_MODULES(VORBIS REQUIRED vorbis>=1.0.0)
-        MESSAGE(STATUS "  Found vorbis codec library in ${VORBIS_LIBDIR}")
-        MESSAGE(STATUS "  Found vorbis codec headers in ${VORBIS_INCLUDEDIR}")
         CHECK_LIBRARY_EXISTS(vorbis vorbis_bitrate_addblock
             "${VORBIS_LIBDIR}" HAVE_LIBVORBISENC_V2
         )
@@ -88,8 +82,6 @@ IF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
         )
 
         PKG_CHECK_MODULES(VORBISENC REQUIRED vorbisenc>=1.0.0)
-        MESSAGE(STATUS "  Found vorbisenc library in ${VORBISENC_LIBDIR}")
-        MESSAGE(STATUS "  Found vorbisenc headers in ${VORBISENC_INCLUDEDIR}")
         SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES}
             ${VORBISENC_LIBRARIES}
         )

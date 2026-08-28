@@ -53,7 +53,7 @@ SET(CMAKE_EXTRA_INCLUDE_FILES)
 
 IF (HAVE_AF_OPEN_VIRTUAL_FILE)
     # system libaudiofile is ok and will be used
-    MESSAGE(STATUS "Found libaudiofile")
+    MESSAGE(STATUS "Found libaudiofile version ${LIBAUDIOFILE_VERSION}")
 ELSE (HAVE_AF_OPEN_VIRTUAL_FILE)
     # system libaudiofile should be used but is not ok -> FAIL
     MESSAGE(FATAL_ERROR "system libaudiofile is missing or cannot be used")

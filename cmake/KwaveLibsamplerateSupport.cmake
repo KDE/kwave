@@ -29,11 +29,7 @@ INCLUDE(UsePkgConfig)
 ### check for libsamplerate headers and library                           ###
 
 PKG_CHECK_MODULES(SAMPLERATE REQUIRED samplerate>=0.1.3)
-
 SET(HAVE_LIBSAMPLERATE ON)
-
-MESSAGE(STATUS "Found samplerate library in ${SAMPLERATE_LIBDIR}")
-MESSAGE(STATUS "Found samplerate headers in ${SAMPLERATE_INCLUDEDIR}")
 
 #############################################################################
 #############################################################################

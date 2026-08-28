@@ -33,11 +33,6 @@ IF (NOT FFTW_FOUND)
     MESSAGE(FATAL_ERROR "FFTW library not found")
 ENDIF(NOT FFTW_FOUND)
 
-MESSAGE(STATUS "Found FFTW library in ${FFTW_LIBDIR}")
-MESSAGE(STATUS "Found FFTW headers in ${FFTW_INCLUDEDIR}")
-# MESSAGE(STATUS "    CFLAGS=${FFTW_CFLAGS}")
-# MESSAGE(STATUS "    LDLAGS=${FFTW_LDFLAGS}")
-
 #############################################################################
 ### sonagram plugin                                                       ###
 

@@ -26,10 +26,7 @@ OPTION(WITH_FLAC "enable support for FLAC files [default=on]" ON)
 IF (WITH_FLAC)
 
     PKG_CHECK_MODULES(FLAC REQUIRED flac>=1.2.0)
-    MESSAGE(STATUS "Found FLAC version ${FLAC_VERSION}")
-
     PKG_CHECK_MODULES(FLAC++ REQUIRED flac++>=1.2.0)
-    MESSAGE(STATUS "Found FLAC++ version ${FLAC++_VERSION}")
 
     SET(HAVE_FLAC  ON CACHE BOOL "enable FLAC codec")
     SET(plugin_codec_flac_LIB_SRCS

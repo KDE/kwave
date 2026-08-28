@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-26 00:46+0000\n"
+"POT-Creation-Date: 2026-08-28 00:45+0000\n"
 "PO-Revision-Date: 2026-05-25 21:44+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1189,6 +1189,7 @@ msgid "Loading file '%1'..."
 msgstr "파일 '%1' 불러오는 중..."
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:103
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:504
 #: plugins/codec_flac/FlacEncoder.cpp:272
 #: plugins/codec_flac/FlacEncoder.cpp:290
 #: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:583
@@ -3961,6 +3962,39 @@ msgstr ""
 "파일을 여는 중 오류가 발생했습니다:\n"
 "'%1'"
 
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:467
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only mono or stereo files, %1 channels are not "
+#| "supported."
+msgid "This file format supports only mono, %1 channels are not supported."
+msgstr ""
+"이 코덱에서는 모노나 스테레오 파일만 지원하며 %1채널은 지원하지 않습니다."
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:471
+#: plugins/codec_flac/FlacEncoder.cpp:205
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only mono or stereo files, %1 channels are not "
+#| "supported."
+msgid ""
+"This file format supports only up to %1 channels, %2 channels are not "
+"supported."
+msgstr ""
+"이 코덱에서는 모노나 스테레오 파일만 지원하며 %1채널은 지원하지 않습니다."
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:478
+#, fuzzy, kde-format
+#| msgid "Unable to open the file for saving."
+msgid "Unable to open the destination device for writing."
+msgstr "파일에 저장하려고 열 수 없습니다."
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:528
+#, fuzzy, kde-format
+#| msgid "Unable to open the FLAC encoder."
+msgid "Unable to initialize libaudiofile encoder."
+msgstr "FLAC 인코더를 열 수 없습니다."
+
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
 msgid "FLAC audio"
@@ -3975,17 +4009,6 @@ msgstr "FLAC 비트스트림을 열 수 없습니다."
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "FLAC 메타데이터를 처리하는 중 오류가 발생했습니다.(%s)"
-
-#: plugins/codec_flac/FlacEncoder.cpp:205
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
-msgid ""
-"This file format supports only up to %1 channels, %2 channels are not "
-"supported."
-msgstr ""
-"이 코덱에서는 모노나 스테레오 파일만 지원하며 %1채널은 지원하지 않습니다."
 
 #: plugins/codec_flac/FlacEncoder.cpp:249
 #, kde-format

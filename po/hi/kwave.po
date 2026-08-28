@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-26 00:46+0000\n"
+"POT-Creation-Date: 2026-08-28 00:45+0000\n"
 "PO-Revision-Date: 2024-12-15 19:37+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -1185,6 +1185,7 @@ msgid "Loading file '%1'..."
 msgstr "फ़ाइल '%1' लोड हो रही है..."
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:103
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:504
 #: plugins/codec_flac/FlacEncoder.cpp:272
 #: plugins/codec_flac/FlacEncoder.cpp:290
 #: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:583
@@ -3929,6 +3930,39 @@ msgstr ""
 "फ़ाइल खोलते समय एक त्रुटि हुई:\n"
 "'%1'"
 
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:467
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only mono or stereo files, %1 channels are not "
+#| "supported."
+msgid "This file format supports only mono, %1 channels are not supported."
+msgstr ""
+"यह कोडेक केवल मोनो या स्टीरियो फ़ाइलों का समर्थन करता है, %1 चैनल समर्थित नहीं हैं।"
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:471
+#: plugins/codec_flac/FlacEncoder.cpp:205
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only mono or stereo files, %1 channels are not "
+#| "supported."
+msgid ""
+"This file format supports only up to %1 channels, %2 channels are not "
+"supported."
+msgstr ""
+"यह कोडेक केवल मोनो या स्टीरियो फ़ाइलों का समर्थन करता है, %1 चैनल समर्थित नहीं हैं।"
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:478
+#, fuzzy, kde-format
+#| msgid "Unable to open the file for saving."
+msgid "Unable to open the destination device for writing."
+msgstr "फ़ाइल को सहेजने के लिए खोलने में असमर्थ."
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:528
+#, fuzzy, kde-format
+#| msgid "Unable to open the FLAC encoder."
+msgid "Unable to initialize libaudiofile encoder."
+msgstr "FLAC एनकोडर खोलने में असमर्थ."
+
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
 msgid "FLAC audio"
@@ -3943,17 +3977,6 @@ msgstr "FLAC बिटस्ट्रीम खोलना असफल रह�
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "FLAC मेटाडेटा पार्स करते समय त्रुटि. (%s)"
-
-#: plugins/codec_flac/FlacEncoder.cpp:205
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
-msgid ""
-"This file format supports only up to %1 channels, %2 channels are not "
-"supported."
-msgstr ""
-"यह कोडेक केवल मोनो या स्टीरियो फ़ाइलों का समर्थन करता है, %1 चैनल समर्थित नहीं हैं।"
 
 #: plugins/codec_flac/FlacEncoder.cpp:249
 #, kde-format

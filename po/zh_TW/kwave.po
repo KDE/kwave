@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-26 00:46+0000\n"
+"POT-Creation-Date: 2026-08-28 00:45+0000\n"
 "PO-Revision-Date: 2024-08-09 03:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1192,6 +1192,7 @@ msgid "Loading file '%1'..."
 msgstr "載入檔案 '%1' 中..."
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:103
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:504
 #: plugins/codec_flac/FlacEncoder.cpp:272
 #: plugins/codec_flac/FlacEncoder.cpp:290
 #: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:583
@@ -3964,6 +3965,36 @@ msgid ""
 "'%1'"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:467
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only mono or stereo files, %1 channels are not "
+#| "supported."
+msgid "This file format supports only mono, %1 channels are not supported."
+msgstr "這個編碼器只支援單聲道或雙聲道的檔案，不支援 %1 個聲道。"
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:471
+#: plugins/codec_flac/FlacEncoder.cpp:205
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only mono or stereo files, %1 channels are not "
+#| "supported."
+msgid ""
+"This file format supports only up to %1 channels, %2 channels are not "
+"supported."
+msgstr "這個編碼器只支援單聲道或雙聲道的檔案，不支援 %1 個聲道。"
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:478
+#, fuzzy, kde-format
+#| msgid "Unable to open the file for saving."
+msgid "Unable to open the destination device for writing."
+msgstr "無法開啟檔案以儲存。"
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:528
+#, kde-format
+msgid "Unable to initialize libaudiofile encoder."
+msgstr ""
+
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
 msgid "FLAC audio"
@@ -3978,16 +4009,6 @@ msgstr ""
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "剖析 FLAC 中繼資料時發生錯誤。（%s）"
-
-#: plugins/codec_flac/FlacEncoder.cpp:205
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
-msgid ""
-"This file format supports only up to %1 channels, %2 channels are not "
-"supported."
-msgstr "這個編碼器只支援單聲道或雙聲道的檔案，不支援 %1 個聲道。"
 
 #: plugins/codec_flac/FlacEncoder.cpp:249
 #, kde-format

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-26 00:46+0000\n"
+"POT-Creation-Date: 2026-08-28 00:45+0000\n"
 "PO-Revision-Date: 2026-08-11 17:52+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -1186,6 +1186,7 @@ msgid "Loading file '%1'..."
 msgstr ""
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:103
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:504
 #: plugins/codec_flac/FlacEncoder.cpp:272
 #: plugins/codec_flac/FlacEncoder.cpp:290
 #: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:583
@@ -3861,6 +3862,31 @@ msgid ""
 "'%1'"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:467
+#, kde-format
+msgid "This file format supports only mono, %1 channels are not supported."
+msgstr ""
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:471
+#: plugins/codec_flac/FlacEncoder.cpp:205
+#, kde-format
+msgid ""
+"This file format supports only up to %1 channels, %2 channels are not "
+"supported."
+msgstr ""
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:478
+#, fuzzy, kde-format
+#| msgctxt "%1 = a device name"
+#| msgid "Unable to open the recording device (%1)"
+msgid "Unable to open the destination device for writing."
+msgstr "לא ניתן לפתוח את מכשיר הקלטה (%1)"
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:528
+#, kde-format
+msgid "Unable to initialize libaudiofile encoder."
+msgstr ""
+
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
 msgid "FLAC audio"
@@ -3874,13 +3900,6 @@ msgstr ""
 #: plugins/codec_flac/FlacDecoder.cpp:303
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
-msgstr ""
-
-#: plugins/codec_flac/FlacEncoder.cpp:205
-#, kde-format
-msgid ""
-"This file format supports only up to %1 channels, %2 channels are not "
-"supported."
 msgstr ""
 
 #: plugins/codec_flac/FlacEncoder.cpp:249

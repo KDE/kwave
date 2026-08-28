@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-26 00:46+0000\n"
+"POT-Creation-Date: 2026-08-28 00:45+0000\n"
 "PO-Revision-Date: 2026-08-19 17:55+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -1192,6 +1192,7 @@ msgid "Loading file '%1'..."
 msgstr "يحمل الملف '%1'…"
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:103
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:504
 #: plugins/codec_flac/FlacEncoder.cpp:272
 #: plugins/codec_flac/FlacEncoder.cpp:290
 #: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:583
@@ -3958,6 +3959,35 @@ msgstr ""
 "حدث خطأ أثناء فتح الملف:\n"
 "'%1'"
 
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:467
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only 1 ... 8 channels, %1 channels are not supported."
+msgid "This file format supports only mono, %1 channels are not supported."
+msgstr "يتيح الترميز هذا من 1 إلى 8 قنوات فقط، ولا يدعم %1 قناة."
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:471
+#: plugins/codec_flac/FlacEncoder.cpp:205
+#, fuzzy, kde-format
+#| msgid ""
+#| "This codec supports only 1 ... 8 channels, %1 channels are not supported."
+msgid ""
+"This file format supports only up to %1 channels, %2 channels are not "
+"supported."
+msgstr "يتيح الترميز هذا من 1 إلى 8 قنوات فقط، ولا يدعم %1 قناة."
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:478
+#, fuzzy, kde-format
+#| msgid "Unable to open the file for saving."
+msgid "Unable to open the destination device for writing."
+msgstr "تعذر فتح الملف للحفظ."
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:528
+#, fuzzy, kde-format
+#| msgid "Unable to open the FLAC encoder."
+msgid "Unable to initialize libaudiofile encoder."
+msgstr "تعذر فتح مرمز FLAC."
+
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
 msgid "FLAC audio"
@@ -3972,15 +4002,6 @@ msgstr "فشل فتح دفق بتات FLAC."
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "خطأ أثناء تحليل البيانات الوصفية لـ FLAC. (%s)"
-
-#: plugins/codec_flac/FlacEncoder.cpp:205
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only 1 ... 8 channels, %1 channels are not supported."
-msgid ""
-"This file format supports only up to %1 channels, %2 channels are not "
-"supported."
-msgstr "يتيح الترميز هذا من 1 إلى 8 قنوات فقط، ولا يدعم %1 قناة."
 
 #: plugins/codec_flac/FlacEncoder.cpp:249
 #, kde-format

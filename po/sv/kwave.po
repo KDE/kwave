@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-26 00:46+0000\n"
+"POT-Creation-Date: 2026-08-28 00:45+0000\n"
 "PO-Revision-Date: 2026-08-22 08:37+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -1194,6 +1194,7 @@ msgid "Loading file '%1'..."
 msgstr "Läser in filen '%1'..."
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:103
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:504
 #: plugins/codec_flac/FlacEncoder.cpp:272
 #: plugins/codec_flac/FlacEncoder.cpp:290
 #: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:583
@@ -3968,6 +3969,34 @@ msgstr ""
 "Ett fel uppstod när filen öppnades.\n"
 "'%1'"
 
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:467
+#, fuzzy, kde-format
+#| msgid ""
+#| "This file format supports only up to %1 channels, %2 channels are not "
+#| "supported."
+msgid "This file format supports only mono, %1 channels are not supported."
+msgstr "Filformatet stöder bara upp till %1 kanaler, %2 kanaler stöds inte."
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:471
+#: plugins/codec_flac/FlacEncoder.cpp:205
+#, kde-format
+msgid ""
+"This file format supports only up to %1 channels, %2 channels are not "
+"supported."
+msgstr "Filformatet stöder bara upp till %1 kanaler, %2 kanaler stöds inte."
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:478
+#, fuzzy, kde-format
+#| msgid "Unable to open the file for saving."
+msgid "Unable to open the destination device for writing."
+msgstr "Kan inte öppna filen för att spara."
+
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:528
+#, fuzzy, kde-format
+#| msgid "Unable to open the FLAC encoder."
+msgid "Unable to initialize libaudiofile encoder."
+msgstr "Kan inte öppna FLAC-kodaren."
+
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
 msgid "FLAC audio"
@@ -3982,13 +4011,6 @@ msgstr "Misslyckades öppna FLAC-bitström."
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Fel vid tolkning av FLAC-metadata (%s)."
-
-#: plugins/codec_flac/FlacEncoder.cpp:205
-#, kde-format
-msgid ""
-"This file format supports only up to %1 channels, %2 channels are not "
-"supported."
-msgstr "Filformatet stöder bara upp till %1 kanaler, %2 kanaler stöds inte."
 
 #: plugins/codec_flac/FlacEncoder.cpp:249
 #, kde-format

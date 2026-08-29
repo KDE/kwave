@@ -15,6 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
+#ifndef CONFIG_H
+#define CONFIG_H
+
 /* support playback/recording via ALSA */
 #cmakedefine HAVE_ALSA_SUPPORT
 
@@ -71,6 +74,8 @@
 
 /* libaudiofile knows FLAC compression */
 #cmakedefine HAVE_AF_COMPRESSION_FLAC
+
+#endif /* CONFIG_H */
 
 /***************************************************************************/
 /***************************************************************************/

@@ -557,6 +557,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/codec_mp3/MP3EncoderDialog.h            GPL2+
         plugins/codec_mp3/MP3EncoderSettings.cpp        GPL2+
         plugins/codec_mp3/MP3EncoderSettings.h          GPL2+
+        plugins/codec_mp3/TagLib_PropertyMap.cpp        GPL2+
+        plugins/codec_mp3/TagLib_PropertyMap.h          GPL2+
+        plugins/codec_mp3/TagLib_QIODeviceStream.h      GPL2+
 
         plugins/codec_ogg/CMakeLists.txt                BSD (3 clause)
         plugins/codec_ogg/kwaveplugin_codec_ogg.json.in      (UNKNOWN)

@@ -48,8 +48,9 @@ to give a complete list of packages and versions!
 Beside the standard tools that most KDE projects require like cmake
 and a C++ compiler, you will need a few other libraries:
 
+- libaudiofile (for manly legacy audio file formats)
 - libmad (for MP3 import)
-- id3lib (for MP3 tag import, see www.id3lib.org)
+- taglib (for MP3 tag import, see www.taglib.org)
 - libogg (for Ogg/Vorbis import/export)
 - libvorbis (for Ogg/Vorbis import/export)
 - flac (for FLAC import/export)

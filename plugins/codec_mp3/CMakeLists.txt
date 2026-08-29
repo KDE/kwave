@@ -24,30 +24,38 @@
 
 OPTION(WITH_MP3 "enable support for mp3 files [default=on]" ON)
 IF (WITH_MP3)
+    INCLUDE(FindPkgConfig)
+    INCLUDE(UsePkgConfig)
 
+    PKG_CHECK_MODULES(MADLIB REQUIRED mad>=0.15.0)
+    PKG_CHECK_MODULES(TAGLIB REQUIRED taglib>=2.0)
+
+    ### TODO legacy ###
     find_library(ID3LIB NAMES id3 REQUIRED)
-    find_library(LIBMAD NAMES mad REQUIRED)
 
     SET(HAVE_MP3  ON CACHE BOOL "enable MP3 codec")
 
     SET(plugin_codec_mp3_LIB_SRCS
         ID3_PropertyMap.cpp
-        ID3_QIODeviceReader.cpp
-        ID3_QIODeviceWriter.cpp
+        ID3_QIODeviceReader.cpp ### TODO legacy ###
+        ID3_QIODeviceWriter.cpp ### TODO legacy ###
         MP3CodecPlugin.cpp
         MP3Decoder.cpp
         MP3Encoder.cpp
         MP3EncoderDialog.cpp
         MP3EncoderSettings.cpp
+        TagLib_PropertyMap.cpp
 
         ID3_PropertyMap.h
-        ID3_QIODeviceReader.h
-        ID3_QIODeviceWriter.h
+        ID3_QIODeviceReader.h ### TODO legacy ###
+        ID3_QIODeviceWriter.h ### TODO legacy ###
         MP3CodecPlugin.h
         MP3Decoder.h
         MP3Encoder.h
         MP3EncoderDialog.h
         MP3EncoderSettings.h
+        TagLib_PropertyMap.h
+        TagLib_QIODeviceStream.h
     )
 
     SET(plugin_codec_mp3_LIB_UI
@@ -55,9 +63,10 @@ IF (WITH_MP3)
     )
 
     SET(plugin_codec_mp3_LIBS
-        ${LIBMAD} ${ID3LIB}
+        ${MADLIB_LIBRARIES} ${ID3LIB} ${TAGLIB_LIBRARIES}
     )
 
+    ### TODO legacy ###
     INCLUDE(CheckCXXCompilerFlag)
     CHECK_CXX_COMPILER_FLAG("-Wno-non-virtual-dtor" HAVE_WNO_NON_VIRTUAL_DTOR)
     IF (HAVE_WNO_NON_VIRTUAL_DTOR)

@@ -22,14 +22,15 @@
 
 #include <mad.h>                // needs libmad-devel package
 
-#include <id3/globals.h>
+#include <taglib/mpegheader.h>
+#include <taglib/id3v2tag.h>
 
 #include <QString>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
 
-#include "ID3_PropertyMap.h"
+#include "TagLib_PropertyMap.h"
 
 class ID3_Frame;
 class ID3_Tag;
@@ -70,8 +71,8 @@ namespace Kwave
             override;
 
         /**
-        * Closes the source.
-        */
+         * Closes the source.
+         */
         void close() override;
 
         /** Callback for filling libmad's input buffer */
@@ -79,7 +80,7 @@ namespace Kwave
 
         /** Callback for processing libmad's output */
         enum mad_flow processOutput(void *data,
-                                    struct mad_header const *header,
+                                    const struct mad_header *header,
                                     struct mad_pcm *pcm);
 
         /** Callback for handling stream errors */
@@ -89,22 +90,16 @@ namespace Kwave
     private:
 
         /** parse MP3 headers */
-        bool parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget);
+        bool parseMp3Header(const TagLib::MPEG::Header &header,
+                            QWidget *widget);
 
         /** parse all known ID3 tags */
-        bool parseID3Tags(ID3_Tag &tag);
-
-        /**
-         * parse a ID3 frame into a string
-         * @param frame a ID3 frame
-         * @return QString with the content
-         */
-        QString parseId3Frame2String(const ID3_Frame *frame);
+        bool parseID3Tags(TagLib::ID3v2::Tag *tag);
 
     private:
 
         /** property - to - ID3 mapping */
-        ID3_PropertyMap m_property_map;
+        TagLib_PropertyMap m_property_map;
 
         /** source of the raw mp3 data */
         QIODevice *m_source;

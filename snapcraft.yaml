@@ -57,6 +57,7 @@ parts:
       - libvorbis-dev
       - libfftw3-dev
       - libpulse0
+      - libtag1-dev
     stage-packages:
       - gstreamer1.0-alsa
       - gstreamer1.0-plugins-base
@@ -79,6 +80,7 @@ parts:
       - libopus0
       - libvorbis0a
       - libfftw3-bin
+      - libtag1v5
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release

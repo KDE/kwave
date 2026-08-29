@@ -93,6 +93,21 @@
             ]
         },
         {
+            "name": "taglib",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DBUILD_SHARED_LIBS=ON",
+                "-DCMAKE_BUILD_TYPE=Release"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://taglib.github.io/releases/taglib-2.0.2.tar.gz",
+                    "sha256": "43242202ed726618764010375f4d80a1a0f82d259c63c32e541459a0d24ee312"
+                }
+            ]
+        },
+        {
             "name": "kwave",
             "buildsystem": "cmake-ninja",
             "config-opts": [

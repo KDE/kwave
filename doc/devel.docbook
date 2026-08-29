@@ -159,9 +159,6 @@
 		PulseAudio 4.0 or higher (for record/playback)
 	    </para></listitem>
 	    <listitem><para>
-		id3lib-3.8.1 or higher (for ID3 tags)
-	    </para></listitem>
-	    <listitem><para>
 		mad-0.15 or higher (optionally for MP3 import/export)
 	    </para></listitem>
 	    <listitem><para>

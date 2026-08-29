@@ -20,9 +20,9 @@
 #include <math.h>
 #include <new>
 
-#include <id3/globals.h>
-#include <id3/misc_support.h>
-#include <id3/tag.h>
+#include <taglib/commentsframe.h>
+#include <taglib/textidentificationframe.h>
+#include <taglib/unknownframe.h>
 
 #include <QBuffer>
 #include <QByteArray>
@@ -45,11 +45,10 @@
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
-#include "ID3_QIODeviceReader.h"
-#include "ID3_QIODeviceWriter.h"
 #include "MP3CodecPlugin.h"
 #include "MP3Encoder.h"
 #include "MP3EncoderSettings.h"
+#include "TagLib_PropertyMap.h"
 
 /***************************************************************************/
 Kwave::MP3Encoder::MP3Encoder()
@@ -96,223 +95,270 @@ QList<Kwave::FileProperty> Kwave::MP3Encoder::supportedProperties()
 
 /***************************************************************************/
 void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
-                                      ID3_Tag &tag)
+                                      TagLib::ID3v2::Tag &tag)
 {
+    // encode meta data with taglib
     const Kwave::FileInfo info(meta_data);
+    const QMap<Kwave::FileProperty, QVariant> props = info.properties();
 
-    const QMap<Kwave::FileProperty, QVariant> properties(info.properties());
-    QMap<Kwave::FileProperty, QVariant>::const_iterator it;
-    for (it = properties.begin(); it != properties.end(); ++it) {
-        const Kwave::FileProperty &property = it.key();
-        const QVariant            &value    = it.value();
+    for (auto it = props.constBegin(); it != props.constEnd(); ++it)
+    {
+        const Kwave::FileProperty prop = it.key();
 
-        ID3_FrameID id = m_property_map.findProperty(property);
-        if ((property != Kwave::FileProperty::INF_ID3) &&
-            (id == ID3FID_NOFRAME)) continue;
-
-        if (info.contains(Kwave::INF_CD) && (property == Kwave::INF_CDS))
-            continue; /* INF_CDS has already been handled by INF_CD */
-        if (info.contains(Kwave::INF_TRACK) && (property == Kwave::INF_TRACKS))
-            continue; /* INF_TRACKS has already been handled by INF_TRACK */
-
-        ID3_Frame *frame = new(std::nothrow) ID3_Frame;
-        Q_ASSERT(frame);
-        if (!frame) break;
-
-        QString str_val = value.toString();
-//      qDebug("encoding ID3 tag #%02d, property='%s', value='%s'",
-//          static_cast<int>(id),
-//          DBG(info.name(property)),
-//          DBG(str_val)
-//      );
-
-        // encode in UCS16
-        frame->SetID(id);
-        ID3_Field *field = frame->GetField(ID3FN_TEXT);
-        if ((property != Kwave::FileProperty::INF_ID3) && !field) {
-            qWarning("no field, frame id=%d", static_cast<int>(id));
-            delete frame;
+        // skip separate total track count if already merged into TRCK
+        if ((prop == Kwave::INF_TRACKS) && info.contains(Kwave::INF_TRACK))
             continue;
-        }
 
-        bool ok = true;
-        ID3_PropertyMap::Encoding encoding = m_property_map.encoding(id);
-        switch (encoding) {
-            case ID3_PropertyMap::ENC_TEXT_PARTINSET:
+        // skip separate total cd count if already merged into TPOS
+        if ((prop == Kwave::INF_CDS) && info.contains(Kwave::INF_CD))
+            continue;
+
+        const TagLib::ByteVector frame_id = m_property_map.findProperty(prop);
+        if (frame_id.isEmpty())
+            continue;
+
+        const TagLib_PropertyMap::Encoding enc =
+            m_property_map.encoding(frame_id);
+        switch (enc)
+        {
+            case TagLib_PropertyMap::ENC_COMMENT:
             {
-                field->SetEncoding(ID3TE_UTF16);
-
-                // if "number of CDs" is available: append with "/"
-                int cds = info.get(Kwave::INF_CDS).toInt();
-                if (cds > 0)
-                    str_val += _("/%1").arg(cds);
-
-                field->Set(static_cast<const unicode_t *>(str_val.utf16()));
-                break;
-            }
-            case ID3_PropertyMap::ENC_TRACK_NUM:
-            {
-                // if "number of tracks" is available: append with "/"
-                int tracks = info.get(Kwave::INF_TRACKS).toInt();
-                if (tracks > 0)
-                    str_val += _("/%1").arg(tracks);
-
-                field->SetEncoding(ID3TE_UTF16);
-                field->Set(static_cast<const unicode_t *>(str_val.utf16()));
-                break;
-            }
-            case ID3_PropertyMap::ENC_TERMS_OF_USE:
-                // the same as ENC_COMMENT, but without "Description"
-                /* FALLTHROUGH */
-            case ID3_PropertyMap::ENC_COMMENT:
-            {
-                ok = false;
-                QStringList list = info.get(property).toStringList();
+                // create comment frame with language code
+                const QStringList list = it.value().toStringList();
                 for (QString c : list)
                 {
-                    delete frame;
-                    frame = new(std::nothrow) ID3_Frame;
-                    Q_ASSERT(frame != nullptr);
-                    if (frame == nullptr) continue;
-                    frame->SetID(id);
+                    if (c.isEmpty())
+                        continue;
 
-                    // detect language at the start "[xxx] "
-                    if ( (c.length() > 5) &&
-                         (c.at(0) == QLatin1Char('[')) &&
-                         (c.at(4) == QLatin1Char(']')) ) {
-                        QString lang = c.mid(1,3);
-                        c      = c.mid(5).trimmed();
-                        frame->GetField(ID3FN_LANGUAGE)->Set(
-                            static_cast<const char *>(lang.toLatin1().data()));
-                    }
-                    /* frame->GetField(ID3FN_DESCRIPTION)->Set("..."); */
-                    field = frame->GetField(ID3FN_TEXT);
-                    if (field) {
-                        field->SetEncoding(ID3TE_UTF16);
-                        field->Set(static_cast<const unicode_t *>(c.utf16()));
+                    TagLib::ByteVector lang("eng", 3);
+                    if ((c.length() > 5) &&
+                        (c.at(0) == QLatin1Char('[')) &&
+                        (c.at(4) == QLatin1Char(']')))
+                    {
+                        const QString l = c.mid(1, 3);
+                        lang = TagLib::ByteVector(l.toLatin1().constData(), 3);
+                        c = c.mid(5).trimmed();
                     }
 
-                    if (tag.AttachFrame(frame)) {
-                        frame = nullptr;
-                        ok = true;
-                    }
+                    TagLib::ID3v2::CommentsFrame *frame =
+                    new(std::nothrow) TagLib::ID3v2::CommentsFrame(
+                        TagLib::String::UTF8);
+                    if (!frame)
+                        continue;
+
+                    frame->setLanguage(lang);
+                    frame->setText(
+                        TagLib::String(c.toUtf8().constData(),
+                                       TagLib::String::UTF8));
+                    tag.addFrame(frame);
                 }
                 break;
             }
-            case ID3_PropertyMap::ENC_GENRE_TYPE:
+            case TagLib_PropertyMap::ENC_TRACK_NUM:
             {
-                int genre = Kwave::GenreType::fromID3(str_val);
+                // format track number as "track/total" if total tracks count
+                QString val = it.value().toString();
+                if (val.isEmpty())
+                    break;
+
+                if ((prop == Kwave::INF_TRACK) && info.contains(Kwave::INF_TRACKS))
+                {
+                    const QString total = info.get(Kwave::INF_TRACKS).toString();
+                    if (!total.isEmpty())
+                        val += QLatin1Char('/') + total;
+                }
+
+                TagLib::ID3v2::TextIdentificationFrame *frame =
+                new(std::nothrow) TagLib::ID3v2::TextIdentificationFrame(
+                    frame_id, TagLib::String::UTF8);
+                if (!frame)
+                    break;
+
+                frame->setText(
+                    TagLib::String(val.toUtf8().constData(),
+                                   TagLib::String::UTF8));
+                tag.addFrame(frame);
+                break;
+            }
+            case TagLib_PropertyMap::ENC_TEXT_PARTINSET:
+            {
+                // format disc number as "disc/total" if total discs count
+                QString val = it.value().toString();
+                if (val.isEmpty())
+                    break;
+
+                if ((prop == Kwave::INF_CD) && info.contains(Kwave::INF_CDS))
+                {
+                    const QString total = info.get(Kwave::INF_CDS).toString();
+                    if (!total.isEmpty())
+                        val += QLatin1Char('/') + total;
+                }
+
+                TagLib::ID3v2::TextIdentificationFrame *frame =
+                new(std::nothrow) TagLib::ID3v2::TextIdentificationFrame(
+                    frame_id, TagLib::String::UTF8);
+                if (!frame)
+                    break;
+
+                frame->setText(
+                    TagLib::String(val.toUtf8().constData(),
+                                   TagLib::String::UTF8));
+                tag.addFrame(frame);
+                break;
+            }
+            case TagLib_PropertyMap::ENC_GENRE_TYPE:
+            {
+                // format genre name from numerical id if known
+                QString val = it.value().toString();
+                if (val.isEmpty())
+                    break;
+
+                const int genre = Kwave::GenreType::fromID3(val);
                 if (genre >= 0)
-                    str_val = Kwave::GenreType::name(genre, false);
-                // else: user defined genre type, take it as it is
+                    val = Kwave::GenreType::name(genre, false);
 
-                field->SetEncoding(ID3TE_UTF16);
-                field->Set(static_cast<const unicode_t *>(str_val.utf16()));
+                TagLib::ID3v2::TextIdentificationFrame *frame =
+                new(std::nothrow) TagLib::ID3v2::TextIdentificationFrame(
+                    frame_id, TagLib::String::UTF8);
+                if (!frame)
+                    break;
+
+                frame->setText(
+                    TagLib::String(val.toUtf8().constData(),
+                                   TagLib::String::UTF8));
+                tag.addFrame(frame);
                 break;
             }
-            case ID3_PropertyMap::ENC_LENGTH:
+            case TagLib_PropertyMap::ENC_TEXT_TIMESTAMP:
             {
-                // length in milliseconds
-                const double         rate    = info.rate();
-                const sample_index_t samples = info.length();
-                if ((rate > 0) && samples) {
-                    const sample_index_t ms = static_cast<sample_index_t>(
-                        (static_cast<double>(samples) * 1E3) / rate);
+                // format timestamp or year
+                const QString val = it.value().toString();
+                if (val.isEmpty())
+                    break;
 
-                    str_val = QString::number(ms);
-
-                    field->SetEncoding(ID3TE_UTF16);
-                    field->Set(static_cast<const unicode_t *>(str_val.utf16()));
-                } else
-                    ok = false;
-                break;
-            }
-            case ID3_PropertyMap::ENC_TEXT_TIMESTAMP:
-            {
-                // ISO 8601 timestamp: "yyyy-MM-ddTHH:mm:ss"
-                QString s = Kwave::string2date(str_val);
-
-                // if failed, try "yyyy" format (year only)
-                if (!s.length()) {
-                    int year = str_val.toInt();
-                    if ((year > 0) && (year < 9999)) {
-                        frame->SetID(ID3FID_YEAR);
-                        // -> re-get the field !
-                        // it has become invalid through "SetID()"
-                        field = frame->GetField(ID3FN_TEXT);
-                        if (!field) {
-                            qWarning("no field, frame id=%d",
-                                     static_cast<int>(id));
-                            ok = false;
-                            break;
-                        }
+                QString s = Kwave::string2date(val);
+                if (s.isEmpty())
+                {
+                    const int year = val.toInt();
+                    if ((year > 0) && (year < 9999))
                         s = _("%1").arg(year, 4, 10, QLatin1Char('0'));
-                    }
                 }
+                if (s.isEmpty())
+                    break;
 
-                if (s.length()) {
-                    field->SetEncoding(ID3TE_UTF16);
-                    field->Set(static_cast<const unicode_t *>(s.utf16()));
-                } else {
-                    // date is invalid, unknown format
-                    qWarning("MP3Encoder::encodeID3Tags(): invalid date: '%s'",
-                             DBG(str_val));
-                    ok = false;
-                }
+                TagLib::ID3v2::TextIdentificationFrame *frame =
+                new(std::nothrow) TagLib::ID3v2::TextIdentificationFrame(
+                    frame_id, TagLib::String::UTF8);
+                if (!frame)
+                    break;
+
+                frame->setText(
+                    TagLib::String(s.toUtf8().constData(),
+                                   TagLib::String::UTF8));
+                tag.addFrame(frame);
                 break;
             }
-            case ID3_PropertyMap::ENC_TEXT_SLASH: /* FALLTHROUGH */
-            case ID3_PropertyMap::ENC_TEXT_URL:   /* FALLTHROUGH */
-            case ID3_PropertyMap::ENC_TEXT:
-                field->SetEncoding(ID3TE_UTF16);
-                field->Set(static_cast<const unicode_t *>(str_val.utf16()));
-                break;
-            case ID3_PropertyMap::ENC_BINARY:
+            case TagLib_PropertyMap::ENC_TEXT_LIST:      /* FALLTHROUGH */
+            case TagLib_PropertyMap::ENC_TEXT_SLASH:
             {
-                QStringList frames = value.toStringList();
-                for (const QString &f : frames) {
-                    delete frame;
-                    frame = new(std::nothrow) ID3_Frame;
-                    Q_ASSERT(frame != nullptr);
-                    if (frame == nullptr) continue;
+                // create text identification frame with list of strings
+                const QStringList list = it.value().toStringList();
+                if (list.isEmpty())
+                    break;
 
-                    QByteArray raw = QByteArray::fromBase64(f.toLocal8Bit());
-                    QBuffer buffer(&raw);
-                    buffer.open(QIODevice::ReadOnly);
-                    Kwave::ID3_QIODeviceReader reader(buffer);
-                    if (!frame->Parse(reader)) {
-                        qWarning("MP3Encoder::encodeID3Tags(): "
-                        "parsing ENC_BINARY failed");
-                        ok = false;
+                TagLib::ID3v2::TextIdentificationFrame *frame =
+                new(std::nothrow) TagLib::ID3v2::TextIdentificationFrame(
+                    frame_id, TagLib::String::UTF8);
+                if (!frame)
+                    break;
+
+                TagLib::StringList taglib_list;
+                for (const QString &item : list)
+                {
+                    if (!item.isEmpty())
+                        taglib_list.append(
+                            TagLib::String(item.toUtf8().constData(),
+                                           TagLib::String::UTF8));
+                }
+                if (taglib_list.isEmpty())
+                {
+                    delete frame;
+                    break;
+                }
+
+                frame->setText(taglib_list);
+                tag.addFrame(frame);
+                break;
+            }
+            case TagLib_PropertyMap::ENC_TEXT:           /* FALLTHROUGH */
+            case TagLib_PropertyMap::ENC_TEXT_URL:
+            {
+                // create text identification frame
+                const QString val = it.value().toString();
+                if (val.isEmpty())
+                    break;
+
+                TagLib::ID3v2::TextIdentificationFrame *frame =
+                    new(std::nothrow) TagLib::ID3v2::TextIdentificationFrame(
+                        frame_id, TagLib::String::UTF8);
+                if (!frame)
+                    break;
+
+                frame->setText(
+                    TagLib::String(val.toUtf8().constData(),
+                                   TagLib::String::UTF8));
+                tag.addFrame(frame);
+                break;
+            }
+            case TagLib_PropertyMap::ENC_BINARY:
+            {
+                // add raw binary data frame(s) from base64 string list
+                const QStringList frames = it.value().toStringList();
+                for (const QString &f : frames)
+                {
+                    const QByteArray data = QByteArray::fromBase64(f.toLatin1());
+                    if (data.isEmpty())
                         continue;
-                    }
-                    qDebug("attaching custom ID3 frame '%s'",
-                           frame->GetDescription());
-                    if (tag.AttachFrame(frame)) {
-                        frame = nullptr;
-                        ok = true;
-                    } else {
-                        qWarning("MP3Encoder::encodeID3Tags(): "
-                        "attaching ENC_BINARY frame failed");
-                        ok = false;
+
+                    TagLib::ID3v2::UnknownFrame *frame =
+                        new(std::nothrow) TagLib::ID3v2::UnknownFrame(frame_id);
+                    if (!frame)
                         continue;
-                    }
+
+                    const unsigned int len =
+                        static_cast<unsigned int>(data.size());
+                    frame->setData(TagLib::ByteVector(data.constData(), len));
+                    tag.addFrame(frame);
                 }
                 break;
             }
-            case ID3_PropertyMap::ENC_NONE: /* FALLTHROUGH */
+            case TagLib_PropertyMap::ENC_TERMS_OF_USE:
+            {
+                // add terms of use text frame
+                const QString val = it.value().toString();
+                if (val.isEmpty())
+                    break;
+
+                TagLib::ID3v2::UnknownFrame *frame =
+                    new(std::nothrow) TagLib::ID3v2::UnknownFrame(frame_id);
+                if (!frame)
+                    break;
+
+                const QByteArray utf8 = val.toUtf8();
+                const unsigned int len =
+                    static_cast<unsigned int>(utf8.size());
+                TagLib::ByteVector payload;
+                payload.append('\x03');
+                payload.append(TagLib::ByteVector("eng", 3));
+                payload.append(TagLib::ByteVector(utf8.constData(), len));
+                frame->setData(payload);
+                tag.addFrame(frame);
+                break;
+            }
             default:
-                ok = false;
-                break; // ignore
+                break;
         }
-
-        if (frame && ok) tag.AttachFrame(frame);
-        if (!ok) delete frame;
-        frame = nullptr;
     }
-
-    tag.Strip();
-    tag.Update();
 }
 
 #define OPTION(__field__) \
@@ -329,13 +375,10 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
                                const Kwave::MetaDataList &meta_data)
 {
     bool result = true;
-    ID3_Tag id3_tag;
+    TagLib::ID3v2::Tag id3_tag;
     Kwave::MP3EncoderSettings settings;
 
     settings.load();
-
-    ID3_TagType id3_tag_type = ID3TT_ID3V2;
-    id3_tag.SetSpec(ID3V2_LATEST);
 
     const Kwave::FileInfo info(meta_data);
 
@@ -371,9 +414,11 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     m_dst  = &dst;
     m_params.clear();
 
-    // encode meta data into with id3lib
-    ID3_QIODeviceWriter id3_writer(dst);
+    // encode meta data with taglib and write id3v2 header to stream
     encodeID3Tags(meta_data, id3_tag);
+    const TagLib::ByteVector tag_data = id3_tag.render();
+    if (!tag_data.isEmpty())
+        dst.write(tag_data.data(), tag_data.size());
 
     OPTION(m_flags.m_prepend);          // optional parameters at the very start
 
@@ -487,10 +532,6 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
         m_process.waitForFinished();
         result = false;
     }
-
-    // if a ID3v2 tag is requested, the tag comes at the start
-    if (id3_tag_type == ID3TT_ID3V2)
-        id3_tag.Render(id3_writer, id3_tag_type);
 
     // MP3 supports only mono and stereo, prepare a mixer matrix
     // (not used in case of tracks <= 2)
@@ -615,10 +656,6 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
            m_program, stdError
         ));
     }
-
-    // if a ID3v1 tag is requested, the tag comes at the end
-    if (id3_tag_type != ID3TT_ID3V2)
-        id3_tag.Render(id3_writer, id3_tag_type);
 
     {
         QMutexLocker _lock(&m_lock);

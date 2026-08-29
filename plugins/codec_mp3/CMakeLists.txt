@@ -30,9 +30,6 @@ IF (WITH_MP3)
     PKG_CHECK_MODULES(MADLIB REQUIRED mad>=0.15.0)
     PKG_CHECK_MODULES(TAGLIB REQUIRED taglib>=2.0)
 
-    ### TODO legacy ###
-    find_library(ID3LIB NAMES id3 REQUIRED)
-
     SET(HAVE_MP3  ON CACHE BOOL "enable MP3 codec")
 
     INCLUDE_DIRECTORIES(
@@ -46,9 +43,6 @@ IF (WITH_MP3)
     )
 
     SET(plugin_codec_mp3_LIB_SRCS
-        ID3_PropertyMap.cpp
-        ID3_QIODeviceReader.cpp ### TODO legacy ###
-        ID3_QIODeviceWriter.cpp ### TODO legacy ###
         MP3CodecPlugin.cpp
         MP3Decoder.cpp
         MP3Encoder.cpp
@@ -56,9 +50,6 @@ IF (WITH_MP3)
         MP3EncoderSettings.cpp
         TagLib_PropertyMap.cpp
 
-        ID3_PropertyMap.h
-        ID3_QIODeviceReader.h ### TODO legacy ###
-        ID3_QIODeviceWriter.h ### TODO legacy ###
         MP3CodecPlugin.h
         MP3Decoder.h
         MP3Encoder.h
@@ -73,21 +64,8 @@ IF (WITH_MP3)
     )
 
     SET(plugin_codec_mp3_LIBS
-        ${MADLIB_LIBRARIES} ${ID3LIB} ${TAGLIB_LIBRARIES}
+        ${MADLIB_LIBRARIES} ${TAGLIB_LIBRARIES}
     )
-
-    ### TODO legacy ###
-    INCLUDE(CheckCXXCompilerFlag)
-    CHECK_CXX_COMPILER_FLAG("-Wno-non-virtual-dtor" HAVE_WNO_NON_VIRTUAL_DTOR)
-    IF (HAVE_WNO_NON_VIRTUAL_DTOR)
-        SET_SOURCE_FILES_PROPERTIES(
-            MP3Decoder.cpp
-            MP3Encoder.cpp
-            ID3_QIODeviceReader.cpp
-            ID3_QIODeviceWriter.cpp
-            PROPERTIES COMPILE_FLAGS "-Wno-non-virtual-dtor"
-        )
-    ENDIF (HAVE_WNO_NON_VIRTUAL_DTOR)
 
     KWAVE_PLUGIN(codec_mp3)
 

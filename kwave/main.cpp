@@ -117,11 +117,6 @@ static void addDataStrings(KAboutData &aboutdata)
         _("rob@mars.org"),
         i18n("http://www.mars.org/home/rob/proj/mpeg"));
     aboutdata.addCredit(
-        i18n("T.H.F. Klok and Cedric Tefft"),
-        i18n("Maintainers of the 'id3lib' library"),
-        QString(),
-        i18n("http://www.id3lib.org/"));
-    aboutdata.addCredit(
         i18n("Michael Pruett"),
         i18n("Author of the 'audiofile' library"),
         _("mpruett@sgi.com"),

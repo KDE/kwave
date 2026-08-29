@@ -22,15 +22,17 @@
 
 #include <climits>
 
+#include <taglib/id3v2tag.h>
+#include <taglib/tag.h>
+
 #include <QList>
 #include <QMutex>
 #include <QProcess>
 
 #include "libkwave/Encoder.h"
 
-#include "ID3_PropertyMap.h"
+#include "TagLib_PropertyMap.h"
 
-class ID3_Tag;
 class QIODevice;
 class QWidget;
 
@@ -88,12 +90,12 @@ namespace Kwave
          * @param tag the ID3 tag to receive the ID3 frames
          */
         void encodeID3Tags(const Kwave::MetaDataList &meta_data,
-                           ID3_Tag &tag);
+                           TagLib::ID3v2::Tag &tag);
 
     private:
 
         /** property - to - ID3 mapping */
-        ID3_PropertyMap m_property_map;
+        TagLib_PropertyMap m_property_map;
 
         /** lock for protecting m_dst and m_process */
         QMutex m_lock;

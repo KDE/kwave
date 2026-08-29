@@ -121,7 +121,8 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
         QVariant(info.get(Kwave::INF_VBR_QUALITY)).toInt() : -1;
 
     // force VBR mode for multi-channel audio (> 2 tracks)
-    // libvorbis Bitrate Management (ABR/CBR) does NOT support more than 2 channels.
+    // libvorbis Bitrate Management (ABR/CBR) does NOT support more
+    // than 2 channels.
     if (tracks > 2) {
         if (vbr_quality < 0) {
             KConfigGroup cfg = KSharedConfig::openConfig()->group(
@@ -166,7 +167,8 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     }
 
     // enforce minimum bitrate thresholds for ABR/CBR (Mono/Stereo)
-    // libvorbis requires at least ~45 kbit/s per channel at standard sample rates
+    // libvorbis requires at least ~45 kbit/s per channel at standard
+    // sample rates
     if ((vbr_quality < 0) && (bitrate_nominal > 0)) {
         int min_bitrate_floor = 45000 * tracks;
         if (bitrate_nominal < min_bitrate_floor) {

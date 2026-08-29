@@ -607,7 +607,8 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
             [buffer, in, length, tracks] () {
                 for (int frame = 0; frame < length; frame++) {
                     // scale, use some primitive noise shaping + clipping
-                    double   noise = (drand48() - double(0.5)) / double(SAMPLE_MAX);
+                    double   noise = (drand48() - double(0.5)) /
+                                      double(SAMPLE_MAX);
                     double   d     = static_cast<double>(in[frame * tracks]);
                     sample_t s     = qBound<sample_t>(
                         SAMPLE_MIN, double2sample(d + noise), SAMPLE_MAX

@@ -161,9 +161,11 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
                 if (val.isEmpty())
                     break;
 
-                if ((prop == Kwave::INF_TRACK) && info.contains(Kwave::INF_TRACKS))
+                if ((prop == Kwave::INF_TRACK) &&
+                     info.contains(Kwave::INF_TRACKS))
                 {
-                    const QString total = info.get(Kwave::INF_TRACKS).toString();
+                    const QString total =
+                        info.get(Kwave::INF_TRACKS).toString();
                     if (!total.isEmpty())
                         val += QLatin1Char('/') + total;
                 }
@@ -316,7 +318,8 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
                 const QStringList frames = it.value().toStringList();
                 for (const QString &f : frames)
                 {
-                    const QByteArray data = QByteArray::fromBase64(f.toLatin1());
+                    const QByteArray data =
+                        QByteArray::fromBase64(f.toLatin1());
                     if (data.isEmpty())
                         continue;
 

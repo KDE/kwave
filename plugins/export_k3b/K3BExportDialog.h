@@ -40,7 +40,8 @@ namespace Kwave
          * @param selection_only if true, save only the selection
          * @param have_selection if true, there is a selection
          * @param overwrite_policy overwrite existing files or use a new name
-         * @param url current file url, used to set the path for the file dialogs
+         * @param url current file url, used to set the path for the file
+         *            dialogs
          */
         K3BExportDialog(
             QWidget *parent,

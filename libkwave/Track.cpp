@@ -400,8 +400,9 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
             //        already checked above
             // partial stripe overlap
             sample_index_t ofs = (start < left) ? left : start;
-//          qDebug("deleting [%llu ... %llu] (start=%llu, ofs-start=%llu, len=%llu)",
-//              ofs, end, start, ofs-start, end - ofs + 1);
+//          qDebug("deleting [%llu ... %llu] (start=%llu, "
+//                 "ofs-start=%llu, len=%llu)",
+//                  ofs, end, start, ofs-start, end - ofs + 1);
 
             if (!make_gap ||
                 ((left <= start) && (right  < end)) ||

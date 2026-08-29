@@ -60,7 +60,8 @@ namespace Kwave
          * returns the frame ID of a property or an empty byte vector
          * if nothing found (reverse lookup).
          */
-        TagLib::ByteVector findProperty(const Kwave::FileProperty property) const;
+        TagLib::ByteVector findProperty(
+            const Kwave::FileProperty property) const;
 
         /** returns true if the map contains a given property */
         bool containsProperty(const Kwave::FileProperty property) const;

@@ -119,7 +119,8 @@ int Kwave::K3BExportPlugin::interpreteParameters(QStringList &params)
     m_selection_only = (v != 0);
 
     // export location
-    m_export_location = Kwave::URLfromUserInput(Kwave::Parser::unescape(params[3]));
+    m_export_location = Kwave::URLfromUserInput(
+        Kwave::Parser::unescape(params[3]));
     if (!m_export_location.isValid()) return -EINVAL;
 
     // overwrite policy

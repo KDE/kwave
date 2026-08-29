@@ -96,7 +96,8 @@ Kwave::FileDialog::FileDialog(
     if (!m_last_url.isEmpty() && (m_last_url.isLocalFile() || saving)) {
         QFileInfo file(m_last_url.toLocalFile());
         if (QFileInfo::exists(file.path()) || saving)
-            m_file_dialog->setDirectoryUrl(m_last_url.adjusted(QUrl::RemoveFilename));
+            m_file_dialog->setDirectoryUrl(
+                m_last_url.adjusted(QUrl::RemoveFilename));
         if (!file.isDir() && (file.exists() || saving))
             m_file_dialog->selectUrl(
                 QUrl::fromLocalFile(m_last_url.fileName()));
@@ -120,7 +121,8 @@ Kwave::FileDialog::FileDialog(
             // put filter together like QFileDialog expects it
             file_filter = f + "("_L1 + pattern + ")"_L1;
 
-            // keep track of the last filter that contains the last used extension
+            // keep track of the last filter that contains the last
+            // used extension
             if (m_last_ext.length() && pattern.contains(m_last_ext)) {
                 best_filter = file_filter;
             }
@@ -172,10 +174,14 @@ void Kwave::FileDialog::loadConfig(const QString &section)
 
     // get last dialog size (Kwave global config)
     cfg = KSharedConfig::openConfig()->group(u"FileDialog"_s);
-    int w = cfg.readEntry("dialog_width", m_file_dialog->sizeHint().width());
-    int h = cfg.readEntry("dialog_height", m_file_dialog->sizeHint().height());
-    if (w < m_file_dialog->minimumWidth())  w = m_file_dialog->sizeHint().width();
-    if (h < m_file_dialog->minimumHeight()) w = m_file_dialog->sizeHint().height();
+    int w = cfg.readEntry("dialog_width",
+                          m_file_dialog->sizeHint().width());
+    int h = cfg.readEntry("dialog_height",
+                          m_file_dialog->sizeHint().height());
+    if (w < m_file_dialog->minimumWidth())
+        w = m_file_dialog->sizeHint().width();
+    if (h < m_file_dialog->minimumHeight())
+        w = m_file_dialog->sizeHint().height();
     m_file_dialog->resize(w, h);
 }
 
@@ -247,11 +253,11 @@ QUrl Kwave::FileDialog::selectedUrl() const
 QUrl Kwave::FileDialog::baseUrl() const
 {
     // m_file_dialog->directoryUrl() is the obvious choice, but for some reason
-    // when using the flatpak portal and when in AcceptOpen mode, it just returned
-    // the directory used when it was last opened in AcceptSave mode.
+    // when using the flatpak portal and when in AcceptOpen mode, it just
+    // returned the directory used when it was last opened in AcceptSave mode.
     if (m_file_dialog->fileMode() == QFileDialog::Directory) {
-        // when choosing a directory, QFileDialog doesn't include a slash at the end
-        // so add one now
+        // when choosing a directory, QFileDialog doesn't include a slash
+        // at the end, so add one now
         return QUrl(selectedUrl().toString() + u"/"_s);
     }
     return selectedUrl().adjusted(QUrl::RemoveFilename);

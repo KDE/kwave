@@ -66,7 +66,8 @@ static unsigned int maxChannelsOf(int format_id)
             return 2;
 
         case AF_FILE_FLAC:
-            // FLAC specification limits channel count to 8 (3 bits in STREAMINFO)
+            // FLAC specification limits channel count to 8
+            // (3 bits in STREAMINFO)
             return 8;
 
         case AF_FILE_AIFF:  /* FALLTHROUGH */

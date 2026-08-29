@@ -461,14 +461,16 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
 
     // get the estimated length by the time in ms and the sample rate
     if (mpeg_file.audioProperties()) {
-        const TagLib::MPEG::Properties *properties = mpeg_file.audioProperties();
+        const TagLib::MPEG::Properties *properties =
+            mpeg_file.audioProperties();
         const double rate = properties->sampleRate();
         const double ms   = properties->lengthInMilliseconds();
         if (rate > 0) {
             Kwave::FileInfo info(metaData());
             sample_index_t length = static_cast<sample_index_t>(
                 (rate * ms) / 1000.0);
-            info.set(Kwave::INF_ESTIMATED_LENGTH, static_cast<quint64>(length));
+            info.set(Kwave::INF_ESTIMATED_LENGTH,
+                     static_cast<quint64>(length));
             metaData().replace(Kwave::MetaDataList(info));
         }
     }

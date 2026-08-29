@@ -86,7 +86,8 @@ Kwave::K3BExportDialog::K3BExportDialog(
 
     fileUrlRequester->setUrl(last_url);
     fileUrlRequester->setNameFilter(
-        i18nc("file type filter when exporting to K3b", "K3b project file (*.k3b)")
+        i18nc("file type filter when exporting to K3b",
+              "K3b project file (*.k3b)")
     );
 
     dirUrlRequester->setUrl(last_url.adjusted(QUrl::RemoveFilename));

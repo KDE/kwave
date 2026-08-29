@@ -414,7 +414,8 @@ void Kwave::App::saveRecentFiles()
 //***************************************************************************
 void Kwave::App::readConfig()
 {
-    const KConfigGroup cfg = KSharedConfig::openConfig()->group(u"Recent Files"_s);
+    const KConfigGroup cfg =
+        KSharedConfig::openConfig()->group(u"Recent Files"_s);
 
     for (unsigned int i = 0 ; i < MAX_RECENT_FILES; i++) {
         QString key = QString::number(i);        // generate number

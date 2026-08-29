@@ -267,7 +267,8 @@ QList< double > Kwave::RecordQt::detectSampleRates()
     };
 
     for (const int rate : known_rates) {
-        if (rate < info.minimumSampleRate() || rate > info.maximumSampleRate()) {
+        if ((rate < info.minimumSampleRate()) ||
+            (rate > info.maximumSampleRate())) {
             continue;
         }
 

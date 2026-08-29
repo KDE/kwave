@@ -59,23 +59,28 @@ Kwave::ZoomToolBar::ZoomToolBar(TopWidget *parent, const QString &name)
      m_zoomselect(nullptr)
 {
 
-    m_action_zoomselection = KStandardAction::zoom(this, &Kwave::ZoomToolBar::zoomSelection, this);
-    m_action_zoomselection->setText(i18n("Zoom to selection")); 
-    m_action_zoomselection->setToolTip(i18n("Zoom to selection")); 
+    m_action_zoomselection = KStandardAction::zoom(this,
+                                &Kwave::ZoomToolBar::zoomSelection, this);
+    m_action_zoomselection->setText(i18n("Zoom to selection"));
+    m_action_zoomselection->setToolTip(i18n("Zoom to selection"));
     addAction(m_action_zoomselection);
 
-    m_action_zoomin = KStandardAction::zoomIn(this, &Kwave::ZoomToolBar::zoomIn, this);
+    m_action_zoomin = KStandardAction::zoomIn(this,
+                           &Kwave::ZoomToolBar::zoomIn, this);
     addAction(m_action_zoomin);
 
-    m_action_zoomout = KStandardAction::zoomOut(this, &Kwave::ZoomToolBar::zoomOut, this);
+    m_action_zoomout = KStandardAction::zoomOut(this,
+                           &Kwave::ZoomToolBar::zoomOut, this);
     addAction(m_action_zoomout);
 
-    m_action_zoomnormal = KStandardAction::actualSize(this, &Kwave::ZoomToolBar::zoomNormal, this);
+    m_action_zoomnormal = KStandardAction::actualSize(this,
+                              &Kwave::ZoomToolBar::zoomNormal, this);
     m_action_zoomnormal->setText(i18n("Zoom to 100%"));
     m_action_zoomnormal->setToolTip(i18n("Zoom to 100%"));
     addAction(m_action_zoomnormal);
 
-    m_action_zoomall = KStandardAction::fitToPage(this, &Kwave::ZoomToolBar::zoomAll, this);
+    m_action_zoomall = KStandardAction::fitToPage(this,
+                           &Kwave::ZoomToolBar::zoomAll, this);
     m_action_zoomall->setText(i18n("Zoom to all"));
     m_action_zoomall->setToolTip(i18n("Zoom to all"));
     addAction(m_action_zoomall);

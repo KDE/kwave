@@ -53,7 +53,8 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(QWidget *parent,
     setupUi(this);
 
     KConfigGroup cfg = KSharedConfig::openConfig()->group(CFG_GROUP);
-    QUrl last_url = Kwave::URLfromUserInput(cfg.readEntry("last_url", filename.toDisplayString()));
+    QUrl last_url = Kwave::URLfromUserInput(cfg.readEntry("last_url",
+                        filename.toDisplayString()));
     QString last_ext = cfg.readEntry("last_ext", _(""));
 
     Kwave::FileInfo info;
@@ -81,7 +82,8 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(QWidget *parent,
     cbNumbering->setCurrentIndex(static_cast<int>(numbering_mode));
 
     // populate the extension combo box
-    const QStringList encodings = Kwave::CodecManager::encodingFilter().split(_("\n"));
+    const QStringList encodings =
+        Kwave::CodecManager::encodingFilter().split(_("\n"));
     for (auto e : encodings) {
         QStringList pattern;
         if (e.contains(_("|"))) {
@@ -214,7 +216,8 @@ void Kwave::SaveBlocksDialog::setNewExample(const QString &example)
 
 void Kwave::SaveBlocksDialog::emitUpdate()
 {
-    Q_EMIT sigSelectionChanged(m_filename, pattern(), numberingMode(), extension(), selectionOnly());
+    Q_EMIT sigSelectionChanged(m_filename, pattern(), numberingMode(),
+                               extension(), selectionOnly());
 }
 
 //***************************************************************************

@@ -248,7 +248,8 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
                              &event_loop, &QEventLoop::quit);
 
             // run the decoding process asynchronously in a worker thread
-            QFuture<bool> future = QtConcurrent::run([decoder, this, &writers]() {
+            QFuture<bool> future = QtConcurrent::run(
+                [decoder, this, &writers]() {
                 return decoder->decode(m_parent_widget, writers);
             });
             watcher.setFuture(future);

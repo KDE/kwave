@@ -128,7 +128,8 @@ Kwave::TagLib_PropertyMap::TagLib_PropertyMap()
 
 //***************************************************************************
 void Kwave::TagLib_PropertyMap::insert(const Kwave::FileProperty property,
-    const TagLib::ByteVector &id, const Kwave::TagLib_PropertyMap::Encoding encoding)
+    const TagLib::ByteVector &id,
+    const Kwave::TagLib_PropertyMap::Encoding encoding)
 {
     Kwave::TagLib_PropertyMap::Mapping mapping;
 

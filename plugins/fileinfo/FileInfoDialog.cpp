@@ -1026,9 +1026,9 @@ void Kwave::FileInfoDialog::autoGenerateKeywords()
             if (list.indexOf(token) == list.lastIndexOf(token2)) continue;
             if (token2.compare(token, Qt::CaseInsensitive) == 0) {
                 // take the one with less uppercase characters
-                unsigned int upper1 = std::count_if(token.begin(), token.end(),
+                size_t upper1 = std::count_if(token.begin(), token.end(),
                     [](QChar c) { return c.isUpper(); });
-                unsigned int upper2 = std::count_if(token2.begin(), token2.end(),
+                size_t upper2 = std::count_if(token2.begin(), token2.end(),
                     [](QChar c) { return c.isUpper(); });
                 if (upper2 < upper1) {
                     is_duplicate = true;

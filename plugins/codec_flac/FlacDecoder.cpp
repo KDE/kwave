@@ -104,8 +104,6 @@ Kwave::Decoder *Kwave::FlacDecoder::instance()
     if (!samples || !tracks)
         return FLAC__STREAM_DECODER_WRITE_STATUS_ABORT;
 
-    Kwave::SampleArray dst(samples);
-
     // expand the samples up to the correct number of bits
     int shift = SAMPLE_BITS - Kwave::FileInfo(metaData()).bits();
     if (shift < 0) shift = 0;

@@ -153,8 +153,6 @@ namespace Kwave
         /**
          * Receive input data, version without port.
          *
-         * @param port index of the input, use zero if only
-         *                    one input exists
          * @param data the sample data to process
          */
         virtual void input(Kwave::SampleArray &data);

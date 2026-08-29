@@ -41,7 +41,7 @@ namespace Kwave
      *
      * @param source a Kwave::SampleSource that produces data
      * @param sink a Kwave::SampleSink that can receive data
-     * @param input index of the input (optional, default is 0)
+     * @param port index of the input (optional, default is 0)
      * @return true if successful or false if either
      *         \li an invalid combination of single/multi track
      *             source/sink has been passed

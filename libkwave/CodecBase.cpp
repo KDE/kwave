@@ -149,7 +149,7 @@ QList<Kwave::SampleFormat::Format> Kwave::CodecBase::supportedSampleFormats(
 ) const
 {
     QList<Kwave::SampleFormat::Format> result;
-    Kwave::SampleFormat::Map sf;
+    Kwave::SampleFormat::Map sfm;
 
     bool ok = false;
     int c = info.get(Kwave::INF_COMPRESSION).toInt(&ok);
@@ -159,7 +159,7 @@ QList<Kwave::SampleFormat::Format> Kwave::CodecBase::supportedSampleFormats(
         QList<Kwave::SampleFormat> fmts = comp.sampleFormats();
         for (const Kwave::SampleFormat &sf : fmts)
             result.append(sf);
-    } else result = sf.allData();
+    } else result = sfm.allData();
 
     return result;
 }

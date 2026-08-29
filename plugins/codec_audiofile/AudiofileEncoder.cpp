@@ -86,7 +86,6 @@ static unsigned int maxChannelsOf(int format_id)
             // 32-bit container formats
             return ((1ULL << 31ULL) - 1);
     }
-    return 0;
 }
 
 /***************************************************************************/
@@ -353,7 +352,7 @@ void Kwave::AudiofileEncoder::prepareMetaData(
         }
     }
 
-    int nids = m_misc_chunks.count();
+    int nids = Kwave::toInt(m_misc_chunks.count());
     if (!nids || !setup) return;
 
     {
@@ -365,7 +364,8 @@ void Kwave::AudiofileEncoder::prepareMetaData(
 
     for (int i = 0; i < nids; ++i) {
         afInitMiscType(setup, i + 1, m_misc_chunks[i].type);
-        afInitMiscSize(setup, i + 1, m_misc_chunks[i].data.size());
+        afInitMiscSize(setup, i + 1, Kwave::toInt(
+            m_misc_chunks[i].data.size()));
     }
 }
 
@@ -375,9 +375,9 @@ void Kwave::AudiofileEncoder::prepareMarkers(
 {
     if (labels.empty()) return;
 
-    unsigned long int supported = supportedMarkers();
-    unsigned int used = labels.count();
-    unsigned int count = qMin(supported, used);
+    unsigned int supported = Kwave::toUint(supportedMarkers());
+    unsigned int used      = Kwave::toUint(labels.count());
+    unsigned int count     = qMin(supported, used);
     if (!count) return;
 
     QVarLengthArray<int, 16> ids(count);
@@ -420,7 +420,7 @@ void Kwave::AudiofileEncoder::writeMetaData(AFfilehandle fh)
     for (int i = 0; i < count; ++i) {
         afWriteMisc(fh, ids[i],
                     m_misc_chunks[i].data.constData(),
-                    m_misc_chunks[i].data.size());
+                    Kwave::toUint(m_misc_chunks[i].data.size()));
     }
 }
 
@@ -430,9 +430,9 @@ void Kwave::AudiofileEncoder::writeMarkers(
 {
     if (labels.empty()) return;
 
-    unsigned long int supported = supportedMarkers();
-    unsigned int used  = labels.count();
-    unsigned int count = qMin(supported, used);
+    unsigned int supported = Kwave::toUint(supportedMarkers());
+    unsigned int used      = Kwave::toInt(labels.count());
+    unsigned int count     = qMin(supported, used);
     if (!count) return;
 
     for (unsigned int i = 0; i < count; i++) {
@@ -564,14 +564,14 @@ bool Kwave::AudiofileEncoder::encode(QWidget *widget,
 
             (*reader) >> buffer;
 
-            const sample_t *src = buffer.constData();
-            sample_t       *dst = dst_buffer.data() + track;
+            const sample_t *b = buffer.constData();
+            sample_t       *d = dst_buffer.data() + track;
             for (unsigned int i = 0; i < len; ++i) {
-                sample_storage_t s = static_cast<sample_storage_t>(*src);
+                sample_storage_t s = static_cast<sample_storage_t>(*b);
                 if (shift) s <<= shift;
-                *dst = s;
-                dst += tracks;
-                src += 1;
+                *d = s;
+                d += tracks;
+                b += 1;
             }
         }
 

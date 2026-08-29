@@ -452,15 +452,15 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
                                          sizeof(hdr_buf));
             if (bytes_read > 0)
             {
-                struct mad_stream stream;
+                struct mad_stream hdr_stream;
                 struct mad_header header;
 
-                mad_stream_init(&stream);
+                mad_stream_init(&hdr_stream);
                 mad_header_init(&header);
 
-                mad_stream_buffer(&stream, hdr_buf,
+                mad_stream_buffer(&hdr_stream, hdr_buf,
                                   static_cast<unsigned long int>(bytes_read));
-                if (mad_header_decode(&header, &stream) == 0)
+                if (mad_header_decode(&header, &hdr_stream) == 0)
                 {
                     // private bit
                     if (header.private_bits)
@@ -496,7 +496,7 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
                 }
 
                 mad_header_finish(&header);
-                mad_stream_finish(&stream);
+                mad_stream_finish(&hdr_stream);
             }
         }
     }

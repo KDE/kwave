@@ -55,6 +55,8 @@
             "name": "taglib",
             "buildsystem": "cmake-ninja",
             "config-opts": [
+                "-DBUILD_BINDINGS=OFF",
+                "-DBUILD_TESTING=OFF",
                 "-DBUILD_SHARED_LIBS=ON",
                 "-DCMAKE_BUILD_TYPE=Release"
             ],
@@ -62,14 +64,26 @@
                 {
                     "type": "archive",
                     "url": "https://github.com/taglib/taglib/releases/download/v2.3.1/taglib-2.3.1.tar.gz",
-                    "sha256": "a19d90e6fd41d09a0281ec0fe762d51491d7a6ccffc923c4f7868c5e647ca230"
+                    "sha256": "a19d90e6fd41d09a0281ec0fe762d51491d7a6ccffc923c4f7868c5e647ca230",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 1982,
+                        "stable-only": true,
+                        "url-template": "https://github.com/taglib/taglib/releases/download/v$version/taglib-$version.tar.gz"
+                    }
                 }
+            ],
+            "cleanup": [
+                "/bin",
+                "/share/utf8cpp/cmake/"
             ]
         },
         {
             "name": "kwave",
             "buildsystem": "cmake-ninja",
             "config-opts": [
+                "-DWITH_DOC=OFF",
+                "-DBUILD_TESTING=OFF",
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
             ],
             "builddir": true,

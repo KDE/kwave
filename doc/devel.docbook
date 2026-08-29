@@ -142,12 +142,15 @@
 		<emphasis>hear</emphasis> the result of your work?)
 	    </para></listitem>
 	    <listitem><para>
-		KDE Frameworks 5.33 (KF5) or higher (at least the libraries,
+		KDE Frameworks (KF6) or higher (at least the libraries,
 		if you are using a different desktop, you can also run &kwave;
 		if the proper libraries are installed).
 	    </para></listitem>
 	    <listitem><para>
-		Qt-5.14 or higher (normally comes as a dependency of KF5)
+		Qt-6 or higher (normally comes as a dependency of KF5)
+	    </para></listitem>
+	    <listitem><para>
+		audiofile-0.3.0 or higher (for many legacy audio formats)
 	    </para></listitem>
 	    <listitem><para>
 		ALSA 1.0.14 or higher (for record/playback)
@@ -160,6 +163,9 @@
 	    </para></listitem>
 	    <listitem><para>
 		mad-0.15 or higher (optionally for MP3 import/export)
+	    </para></listitem>
+	    <listitem><para>
+		taglib-2.0 or higher (for ID3 tags)
 	    </para></listitem>
 	    <listitem><para>
 		flac-1.2.0 or higher (for FLAC import/export)
@@ -185,8 +191,7 @@
 		<ulink url="&url_cmake;">cmake</ulink>-3.16.0 or newer
 	    </para></listitem>
 	    <listitem><para>
-		A recent C/C++ compiler. GCC-4.x works fine, some older and any
-		newer version (like gcc-5.0) should work too.
+		A recent C/C++ compiler.
 	    </para></listitem>
 	    <listitem><para>
 		The glibc2 (libc-6) development environment. On SuSE systems
@@ -194,7 +199,7 @@
 		called "libc-devel".
 	    </para></listitem>
 	    <listitem><para>
-		Qt5 and KF5 development packages
+		Qt6 and KF6 development packages
 	    </para></listitem>
 	    <listitem><para>
 		pulseaudio-0.9.16 or newer

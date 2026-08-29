@@ -61,8 +61,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://taglib.github.io/releases/taglib-2.0.2.tar.gz",
-                    "sha256": "0de288d7fe34ba133199fd8512f19cc1100196826eafcb67a33b224ec3a59737"
+                    "url": "https://github.com/taglib/taglib/releases/download/v2.3.1/taglib-2.3.1.tar.gz",
+                    "sha256": "a19d90e6fd41d09a0281ec0fe762d51491d7a6ccffc923c4f7868c5e647ca230"
                 }
             ]
         },

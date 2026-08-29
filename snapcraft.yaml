@@ -28,7 +28,19 @@ slots:
     name: org.kde.kwave
     bus: session
 parts:
+  taglib:
+    plugin: cmake
+    source: https://github.com/taglib/taglib/releases/download/v2.3.1/taglib-2.3.1.tar.gz
+    source-checksum: sha256/a19d90e6fd41d09a0281ec0fe762d51491d7a6ccffc923c4f7868c5e647ca230
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DBUILD_SHARED_LIBS=ON
+      - -DBUILD_TESTING=OFF
+    build-packages:
+      - zlib1g-dev
   kwave:
+    after:
+      - taglib
     parse-info:
       - usr/share/metainfo/org.kde.kwave.appdata.xml
     plugin: cmake
@@ -57,7 +69,6 @@ parts:
       - libvorbis-dev
       - libfftw3-dev
       - libpulse0
-      - libtag1-dev
     stage-packages:
       - gstreamer1.0-alsa
       - gstreamer1.0-plugins-base
@@ -80,7 +91,6 @@ parts:
       - libopus0
       - libvorbis0a
       - libfftw3-bin
-      - libtag1v5
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release

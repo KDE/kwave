@@ -23,6 +23,7 @@
 #include <mad.h>                // needs libmad-devel package
 
 #include <taglib/mpegheader.h>
+#include <taglib/id3v1tag.h>
 #include <taglib/id3v2tag.h>
 
 #include <QString>
@@ -93,8 +94,11 @@ namespace Kwave
         bool parseMp3Header(const TagLib::MPEG::Header &header,
                             QWidget *widget);
 
-        /** parse all known ID3 tags */
-        bool parseID3Tags(TagLib::ID3v2::Tag *tag);
+        /** parse all known ID3v1 tags */
+        bool parseID3v1Tags(TagLib::ID3v1::Tag *tag);
+
+        /** parse all known ID3v2 tags */
+        bool parseID3v2Tags(TagLib::ID3v2::Tag *tag);
 
     private:
 

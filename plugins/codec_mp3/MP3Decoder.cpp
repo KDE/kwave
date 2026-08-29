@@ -26,7 +26,6 @@
 
 #include <taglib/commentsframe.h>
 #include <taglib/id3v2frame.h>
-#include <taglib/id3v2tag.h>
 #include <taglib/mpegfile.h>
 #include <taglib/mpegheader.h>
 #include <taglib/mpegproperties.h>
@@ -57,7 +56,13 @@
 #include "MP3Decoder.h"
 
 //***************************************************************************
-static inline QString parseId3Frame2String(const TagLib::ID3v2::Frame *frame)
+static inline QString parse_ID3v1_String(const TagLib::String &str)
+{
+    return QString::fromUtf8(str.to8Bit(true)).trimmed();
+}
+
+//***************************************************************************
+static inline QString parse_ID3v2_String(const TagLib::ID3v2::Frame *frame)
 {
     return QString::fromUtf8(frame->toString().to8Bit(true)).trimmed();
 }
@@ -185,7 +190,45 @@ bool Kwave::MP3Decoder::parseMp3Header(const TagLib::MPEG::Header &header,
 }
 
 //***************************************************************************
-bool Kwave::MP3Decoder::parseID3Tags(TagLib::ID3v2::Tag *tag)
+bool Kwave::MP3Decoder::parseID3v1Tags(TagLib::ID3v1::Tag *tag)
+{
+    if (!tag || tag->isEmpty())
+        return true;
+
+    Kwave::FileInfo info(metaData());
+
+    QString title = parse_ID3v1_String(tag->title());
+    if (!title.isEmpty())
+        info.set(Kwave::INF_NAME, QVariant(title));
+
+    QString artist = parse_ID3v1_String(tag->artist());
+    if (!artist.isEmpty())
+        info.set(Kwave::INF_AUTHOR, QVariant(artist));
+
+    QString album = parse_ID3v1_String(tag->album());
+    if (!album.isEmpty())
+        info.set(Kwave::INF_ALBUM, QVariant(album));
+
+    if (tag->year() > 0)
+        info.set(Kwave::INF_CREATION_DATE, QString::number(tag->year()));
+
+    QString comment = parse_ID3v1_String(tag->comment());
+    if (!comment.isEmpty())
+        info.set(Kwave::INF_ANNOTATION, QVariant(QStringList(comment)));
+
+    if (tag->track() > 0)
+        info.set(Kwave::INF_TRACK, QVariant(tag->track()));
+
+    QString genre = parse_ID3v1_String(tag->genre());
+    if (!genre.isEmpty())
+        info.set(Kwave::INF_GENRE, QVariant(genre));
+
+    metaData().replace(Kwave::MetaDataList(info));
+    return true;
+}
+
+//***************************************************************************
+bool Kwave::MP3Decoder::parseID3v2Tags(TagLib::ID3v2::Tag *tag)
 {
     if (!tag || tag->isEmpty()) return true; // nothing to do
 
@@ -210,7 +253,7 @@ bool Kwave::MP3Decoder::parseID3Tags(TagLib::ID3v2::Tag *tag)
         switch (encoding) {
             case TagLib_PropertyMap::ENC_TEXT_PARTINSET:
             {
-                QString s = parseId3Frame2String(frame);
+                QString s = parse_ID3v2_String(frame);
                 int cd  = 0;
                 int cds = 0;
                 if (s.contains(QLatin1Char('/'))) {
@@ -226,7 +269,7 @@ bool Kwave::MP3Decoder::parseID3Tags(TagLib::ID3v2::Tag *tag)
             }
             case TagLib_PropertyMap::ENC_TRACK_NUM:
             {
-                QString s = parseId3Frame2String(frame);
+                QString s = parse_ID3v2_String(frame);
                 int track  = 0;
                 int tracks = 0;
                 if (s.contains(QLatin1Char('/'))) {
@@ -244,7 +287,7 @@ bool Kwave::MP3Decoder::parseID3Tags(TagLib::ID3v2::Tag *tag)
             case TagLib_PropertyMap::ENC_COMMENT:
             {
                 // list of strings
-                QString s = parseId3Frame2String(frame);
+                QString s = parse_ID3v2_String(frame);
 
                 // optionally prepend language
                 const auto *comm_frame =
@@ -268,7 +311,7 @@ bool Kwave::MP3Decoder::parseID3Tags(TagLib::ID3v2::Tag *tag)
             }
             case TagLib_PropertyMap::ENC_GENRE_TYPE:
             {
-                QString s = parseId3Frame2String(frame);
+                QString s = parse_ID3v2_String(frame);
                 int genre = Kwave::GenreType::fromID3(s);
                 if (genre >= 0)
                     s = Kwave::GenreType::name(genre, false);
@@ -278,7 +321,7 @@ bool Kwave::MP3Decoder::parseID3Tags(TagLib::ID3v2::Tag *tag)
             case TagLib_PropertyMap::ENC_LENGTH:
             {
                 // length in ms -> convert this to samples
-                QString      s    = parseId3Frame2String(frame);
+                QString      s    = parse_ID3v2_String(frame);
                 const double rate = info.rate();
                 bool         ok   = false;
                 const double ms   = s.toDouble(&ok) + 0.5;
@@ -293,7 +336,7 @@ bool Kwave::MP3Decoder::parseID3Tags(TagLib::ID3v2::Tag *tag)
             case TagLib_PropertyMap::ENC_TEXT_TIMESTAMP:
             {
                 if (!creation_date.isValid()) {
-                    QString s = parseId3Frame2String(frame);
+                    QString s = parse_ID3v2_String(frame);
                     if (id == "TDRC") {
                         // should be an iso 8601 timestamp or similar
                         s = Kwave::string2date(s);
@@ -316,7 +359,7 @@ bool Kwave::MP3Decoder::parseID3Tags(TagLib::ID3v2::Tag *tag)
             case TagLib_PropertyMap::ENC_TEXT_SLASH:
             {
                 // append to already existing tag, separated by a slash
-                QString s = parseId3Frame2String(frame);
+                QString s = parse_ID3v2_String(frame);
                 if (info.contains(property))
                     s = info.get(property).toString() + _(" / ") + s;
                 info.set(property, QVariant(s));
@@ -324,7 +367,7 @@ bool Kwave::MP3Decoder::parseID3Tags(TagLib::ID3v2::Tag *tag)
             }
             case TagLib_PropertyMap::ENC_TEXT_URL: /* FALLTHROUGH */
             case TagLib_PropertyMap::ENC_TEXT:
-                info.set(property, QVariant(parseId3Frame2String(frame)));
+                info.set(property, QVariant(parse_ID3v2_String(frame)));
                 break;
             case TagLib_PropertyMap::ENC_NONE: /* FALLTHROUGH */
             default:
@@ -429,23 +472,28 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
             metaData().replace(Kwave::MetaDataList(info));
         }
     }
-    if (mpeg_file.hasID3v2Tag())
-        parseID3Tags(mpeg_file.ID3v2Tag());
 
-    if (mpeg_file.lastFrameOffset() > 0)
-    {
-        // calculate appended bytes after last mpeg frame
-        // (e.g. ID3v1 or APETag)
-        TagLib::offset_t last_frame_end = mpeg_file.lastFrameOffset() +
-            mp3hdr.frameLength();
-        if ((last_frame_end > 0) && (last_frame_end < src.size()))
-            m_appended_bytes = static_cast<size_t>(src.size() - last_frame_end);
-    }
+    // parse ID3v2 tags
+    if (mpeg_file.hasID3v2Tag())
+        parseID3v2Tags(mpeg_file.ID3v2Tag());
+
+    // parse ID3v1 tags as fallback/supplement
+    if (mpeg_file.hasID3v1Tag())
+        parseID3v1Tags(mpeg_file.ID3v1Tag());
+
+    // calculate appended bytes at end of file (supports VBR and ID3v1 fallback)
+    m_appended_bytes = 0;
+
+    // fallback for ID3v1 tags if lastFrameOffset failed to find audio end
+    if (!m_appended_bytes && mpeg_file.hasID3v1Tag())
+        m_appended_bytes = 128;
+
+    qDebug("prepended=%lu, appended=%lu", m_prepended_bytes, m_appended_bytes);
 
     // read missing data directly from first MPEG frame header
     Kwave::FileInfo info(metaData());
     {
-        unsigned char hdr_buf[MAD_BUFFER_MDLEN];
+        unsigned char hdr_buf[MAD_BUFFER_MDLEN + MAD_BUFFER_GUARD];
         if (src.seek(first_offset))
         {
             qint64 bytes_read = src.read(reinterpret_cast<char *>(hdr_buf),
@@ -493,6 +541,19 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
                         (header.layer == MAD_LAYER_III))
                         modeext += 4;
                     info.set(Kwave::INF_MPEG_MODEEXT, modeext);
+                } else if (hdr_stream.error == MAD_ERROR_BADCRC) {
+                    // handle CRC error
+                    if (Kwave::MessageBox::warningContinueCancel(widget,
+                        i18n("The file has an invalid checksum.\n"
+                             "Do you still want to continue?"),
+                             QString(), QString(), QString(),
+                             _("accept_mp3_invalid_checksum")) !=
+                             KMessageBox::Continue)
+                    {
+                        mad_header_finish(&header);
+                        mad_stream_finish(&hdr_stream);
+                        return false;
+                    }
                 }
 
                 mad_header_finish(&header);
@@ -553,7 +614,15 @@ enum mad_flow Kwave::MP3Decoder::handleError(void *data,
     Q_UNUSED(frame);
 
     if (m_failures >= 2) return MAD_FLOW_CONTINUE; // ignore errors
-    if (stream->error == MAD_ERROR_NONE) return MAD_FLOW_CONTINUE; // ???
+    if (stream->error == MAD_ERROR_NONE) return MAD_FLOW_CONTINUE;
+
+    // ignore lost sync at end of audio stream / eof
+    if ((stream->error == MAD_ERROR_LOSTSYNC) && m_source)
+    {
+        qint64 limit = m_source->size() - m_appended_bytes;
+        if (m_source->pos() >= limit)
+            return MAD_FLOW_CONTINUE;
+    }
 
     QString error;
     switch (stream->error) {

@@ -58,7 +58,7 @@ set (RELEASE_SERVICE_VERSION_MICRO "70")
 #############################################################################
 ### required versions                                                     ###
 
-CMAKE_MINIMUM_REQUIRED(VERSION 3.16.0 FATAL_ERROR)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.22...4.0 FATAL_ERROR)
 
 SET(QT_MIN_VERSION "6.6.0")
 SET(KF_MIN_VERSION "6.9.0")

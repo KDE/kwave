@@ -12,9 +12,9 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-28 00:45+0000\n"
-"PO-Revision-Date: 2026-08-22 06:45-0300\n"
+"PO-Revision-Date: 2026-08-28 07:31-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3973,14 +3973,10 @@ msgstr ""
 "'%1'"
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:467
-#, fuzzy, kde-format
-#| msgid ""
-#| "This file format supports only up to %1 channels, %2 channels are not "
-#| "supported."
+#, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
 msgstr ""
-"Este formato de arquivo suporta apenas até %1 canais; %2 canais não são "
-"suportados."
+"Este formato de arquivo suporta apenas mono; canais %1 não são suportados."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:471
 #: plugins/codec_flac/FlacEncoder.cpp:205
@@ -3993,16 +3989,14 @@ msgstr ""
 "suportados."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:478
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "Não foi possível abrir o arquivo para salvar."
+msgstr "Não foi possível abrir o dispositivo de destino para gravação."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:528
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "Não foi possível abrir o codificador de FLAC."
+msgstr "Não foi possível inicializar o codificador libaudiofile."
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format

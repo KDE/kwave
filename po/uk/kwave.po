@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-28 00:45+0000\n"
-"PO-Revision-Date: 2026-08-22 16:35+0300\n"
+"PO-Revision-Date: 2026-08-28 12:45+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -3977,14 +3977,11 @@ msgstr ""
 "«%1»"
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:467
-#, fuzzy, kde-format
-#| msgid ""
-#| "This file format supports only up to %1 channels, %2 channels are not "
-#| "supported."
+#, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
 msgstr ""
-"У цьому форматі файлів передбачено підтримку лише кількість каналів до %1. "
-"Підтримки %2 каналів не передбачено."
+"У цьому форматі файлів передбачено підтримку лише моно. Підтримки %1 каналів "
+"не передбачено."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:471
 #: plugins/codec_flac/FlacEncoder.cpp:205
@@ -3997,16 +3994,14 @@ msgstr ""
 "Підтримки %2 каналів не передбачено."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:478
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "Не вдалося відкрити файл для збереження даних."
+msgstr "Не вдалося відкрити пристрій призначення для записування даних."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:528
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "Не вдалося відкрити кодувальник FLAC."
+msgstr "Не вдалося ініціалізувати кодувальник libaudiofile."
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format

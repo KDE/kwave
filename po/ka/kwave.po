@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-28 00:45+0000\n"
-"PO-Revision-Date: 2026-08-22 06:14+0200\n"
+"PO-Revision-Date: 2026-08-28 07:04+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -3967,13 +3967,9 @@ msgstr ""
 "'%1'"
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:467
-#, fuzzy, kde-format
-#| msgid ""
-#| "This file format supports only up to %1 channels, %2 channels are not "
-#| "supported."
+#, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
-msgstr ""
-"ამ კოდეკს, მხოლოდ,%1-მდე არხის მხარდაჭერა გააჩნია. %2 არხი მხარდაჭერილი არაა."
+msgstr "ამ ფაილის ფორმატს აქვს, მხოლოდ მონოს, ან %1 არხის მხარდაჭერა."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:471
 #: plugins/codec_flac/FlacEncoder.cpp:205
@@ -3985,16 +3981,14 @@ msgstr ""
 "ამ კოდეკს, მხოლოდ,%1-მდე არხის მხარდაჭერა გააჩნია. %2 არხი მხარდაჭერილი არაა."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:478
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "შესანახი ფაილის გახსნის შეცდომა."
+msgstr "სამიზნე მოწყობილობის ჩასაწერად გახსნა შეუძლებელია."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:528
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "FLAC ენკოდერის გახსნა შეუძლებელია."
+msgstr "libaudiofile ენკოდერის გახსნა შეუძლებელია."
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format

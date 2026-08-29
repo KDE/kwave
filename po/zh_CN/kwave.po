@@ -3894,16 +3894,14 @@ msgid ""
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:478
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "无法打开文件进行保存。"
+msgstr ""
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:528
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "无法打开 FLAC 编码器。"
+msgstr ""
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format

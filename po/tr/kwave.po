@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-28 00:45+0000\n"
-"PO-Revision-Date: 2026-08-22 21:03+0300\n"
+"PO-Revision-Date: 2026-08-28 20:06+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.04.2\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3970,13 +3970,11 @@ msgstr ""
 "“%1”"
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:467
-#, fuzzy, kde-format
-#| msgid ""
-#| "This file format supports only up to %1 channels, %2 channels are not "
-#| "supported."
+#, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
 msgstr ""
-"Bu dosya biçimi yalnızca %1 kanala kadar destekler; %2 kanal desteklenmiyor."
+"Bu dosya biçimi yalnızca tek kanalı (mono) destekler; %1 kanal "
+"desteklenmiyor."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:471
 #: plugins/codec_flac/FlacEncoder.cpp:205
@@ -3988,16 +3986,14 @@ msgstr ""
 "Bu dosya biçimi yalnızca %1 kanala kadar destekler; %2 kanal desteklenmiyor."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:478
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "Dosyayı kaydetmek için açılamadı."
+msgstr "Hedef aygıt, yazmak için açılamıyor."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:528
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "FLAC kodlayıcısı açılamadı."
+msgstr "libaudiofile kodlayıcısı ilklendirilemedi."
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format

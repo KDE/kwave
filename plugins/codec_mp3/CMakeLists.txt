@@ -35,6 +35,16 @@ IF (WITH_MP3)
 
     SET(HAVE_MP3  ON CACHE BOOL "enable MP3 codec")
 
+    INCLUDE_DIRECTORIES(
+        ${MADLIB_INCLUDE_DIRS}
+        ${TAGLIB_INCLUDE_DIRS}
+    )
+
+    LINK_DIRECTORIES(
+        ${MADLIB_LIBRARY_DIRS}
+        ${TAGLIB_LIBRARY_DIRS}
+    )
+
     SET(plugin_codec_mp3_LIB_SRCS
         ID3_PropertyMap.cpp
         ID3_QIODeviceReader.cpp ### TODO legacy ###

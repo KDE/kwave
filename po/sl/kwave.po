@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-28 00:45+0000\n"
+"POT-Creation-Date: 2026-08-30 00:45+0000\n"
 "PO-Revision-Date: 2026-08-28 07:16+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -292,119 +292,104 @@ msgstr "http://www.mars.org/home/rob/proj/mpeg"
 
 #: kwave/main.cpp:120
 #, kde-format
-msgid "T.H.F. Klok and Cedric Tefft"
-msgstr "T.H.F. Klok in Cedric Tefft"
-
-#: kwave/main.cpp:121
-#, kde-format
-msgid "Maintainers of the 'id3lib' library"
-msgstr "Vzdrževalci knjižnice »id3lib«"
-
-#: kwave/main.cpp:123
-#, kde-format
-msgid "http://www.id3lib.org/"
-msgstr "http://www.id3lib.org/"
-
-#: kwave/main.cpp:125
-#, kde-format
 msgid "Michael Pruett"
 msgstr "Michael Pruett"
 
-#: kwave/main.cpp:126
+#: kwave/main.cpp:121
 #, kde-format
 msgid "Author of the 'audiofile' library"
 msgstr "Avtor knjižnice »audiofile«"
 
-#: kwave/main.cpp:128
+#: kwave/main.cpp:123
 #, kde-format
 msgid "http://www.68k.org/~michael/audiofile/"
 msgstr "http://www.68k.org/~michael/audiofile/"
 
-#: kwave/main.cpp:130
+#: kwave/main.cpp:125
 #, kde-format
 msgid "Carlos R."
 msgstr "Carlos R."
 
-#: kwave/main.cpp:131
+#: kwave/main.cpp:126
 #, kde-format
 msgid "Spanish translation"
 msgstr "Španski prevod"
 
-#: kwave/main.cpp:135
+#: kwave/main.cpp:130
 #, kde-format
 msgid "Erik de Castro Lopo"
 msgstr "Erik de Castro Lopo"
 
-#: kwave/main.cpp:136
+#: kwave/main.cpp:131
 #, kde-format
 msgid "Author of the 'sndfile' library"
 msgstr "Avtor knjižnice »sndfile«"
 
-#: kwave/main.cpp:138
+#: kwave/main.cpp:133
 #, kde-format
 msgid "http://www.mega-nerd.com/libsndfile/"
 msgstr "http://www.mega-nerd.com/libsndfile/"
 
-#: kwave/main.cpp:140
+#: kwave/main.cpp:135
 #, kde-format
 msgid "Pavel Fric"
 msgstr "Pavel Fric"
 
-#: kwave/main.cpp:141
+#: kwave/main.cpp:136
 #, kde-format
 msgid "Czech translation"
 msgstr "Češki prevod"
 
-#: kwave/main.cpp:143
+#: kwave/main.cpp:138
 #, kde-format
 msgid "http://fripohled.blogspot.com"
 msgstr "http://fripohled.blogspot.com"
 
-#: kwave/main.cpp:145
+#: kwave/main.cpp:140
 #, kde-format
 msgid "Panagiotis Papadopoulos"
 msgstr "Panagiotis Papadopoulos"
 
-#: kwave/main.cpp:146
+#: kwave/main.cpp:141
 #, kde-format
 msgid "String and i18n updates"
 msgstr "Posodobitve nizov in internacionalizacije"
 
-#: kwave/main.cpp:165
+#: kwave/main.cpp:160
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "Onemogočite zagonsko okno."
 
-#: kwave/main.cpp:169
+#: kwave/main.cpp:164
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "Zaženite ikonizirani Kwave."
 
-#: kwave/main.cpp:174
+#: kwave/main.cpp:169
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "Beleži vse ukaze v datoteko <file>."
 
-#: kwave/main.cpp:175
+#: kwave/main.cpp:170
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "datoteka"
 
-#: kwave/main.cpp:180
+#: kwave/main.cpp:175
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
 msgstr "Izberite vrsto grafičnega vmesnika: način SDI, MDI ali TAB."
 
-#: kwave/main.cpp:181
+#: kwave/main.cpp:176
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "sdi|mdi|tab"
 
-#: kwave/main.cpp:186
+#: kwave/main.cpp:181
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
@@ -413,23 +398,23 @@ msgstr ""
 "Seznam zvočnih datotek, datotek makra Kwave ali URL-jev Kwave za odpiranje "
 "(izbirno)"
 
-#: kwave/main.cpp:188
+#: kwave/main.cpp:183
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[datoteke...]"
 
-#: kwave/main.cpp:193
+#: kwave/main.cpp:188
 #, kde-format
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:195
+#: kwave/main.cpp:190
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "Urejevalnik zvoka, zgrajen na KDE Frameworks 5"
 
-#: kwave/main.cpp:197
+#: kwave/main.cpp:192
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016, Thomas Eschenbacher"
@@ -439,7 +424,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Seznam oznak Kwave"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1883
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1884
 #, kde-format
 msgid "Add Label"
 msgstr "Dodaj oznako"
@@ -1137,7 +1122,7 @@ msgstr "Razveljavi"
 msgid "Redo"
 msgstr "Ponovi"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:701
+#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:702
 #, kde-format
 msgid "Cut"
 msgstr "Izreži"
@@ -1194,10 +1179,10 @@ msgid "Loading file '%1'..."
 msgstr "Nalaganje datoteke »%1« ..."
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:103
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:504
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:505
 #: plugins/codec_flac/FlacEncoder.cpp:272
 #: plugins/codec_flac/FlacEncoder.cpp:290
-#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:583
+#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:634
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
 #: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:528
@@ -1324,111 +1309,111 @@ msgctxt "list menu entry of a label, without description, %1=index"
 msgid "#%1"
 msgstr "#%1"
 
-#: kwave/ZoomToolBar.cpp:63 kwave/ZoomToolBar.cpp:64
+#: kwave/ZoomToolBar.cpp:64 kwave/ZoomToolBar.cpp:65
 #, kde-format
 msgid "Zoom to selection"
 msgstr "Približaj izbrano"
 
-#: kwave/ZoomToolBar.cpp:74 kwave/ZoomToolBar.cpp:75
+#: kwave/ZoomToolBar.cpp:78 kwave/ZoomToolBar.cpp:79
 #, kde-format
 msgid "Zoom to 100%"
 msgstr "Približaj na 100 %"
 
-#: kwave/ZoomToolBar.cpp:79 kwave/ZoomToolBar.cpp:80
+#: kwave/ZoomToolBar.cpp:84 kwave/ZoomToolBar.cpp:85
 #, kde-format
 msgid "Zoom to all"
 msgstr "Približaj na vse"
 
-#: kwave/ZoomToolBar.cpp:85
+#: kwave/ZoomToolBar.cpp:90
 #, kde-format
 msgid "Select zoom factor"
 msgstr "Izberite faktor povečave"
 
-#: kwave/ZoomToolBar.cpp:91 kwave/ZoomToolBar.cpp:92 kwave/ZoomToolBar.cpp:93
+#: kwave/ZoomToolBar.cpp:96 kwave/ZoomToolBar.cpp:97 kwave/ZoomToolBar.cpp:98
 #, kde-format
 msgid "%1 ms"
 msgstr "%1 ms"
 
-#: kwave/ZoomToolBar.cpp:94 kwave/ZoomToolBar.cpp:95 kwave/ZoomToolBar.cpp:96
+#: kwave/ZoomToolBar.cpp:99 kwave/ZoomToolBar.cpp:100 kwave/ZoomToolBar.cpp:101
 #, kde-format
 msgid "%1 sec"
 msgstr "%1 s"
 
-#: kwave/ZoomToolBar.cpp:97 kwave/ZoomToolBar.cpp:98 kwave/ZoomToolBar.cpp:99
-#: kwave/ZoomToolBar.cpp:100 kwave/ZoomToolBar.cpp:101
-#: kwave/ZoomToolBar.cpp:102
+#: kwave/ZoomToolBar.cpp:102 kwave/ZoomToolBar.cpp:103
+#: kwave/ZoomToolBar.cpp:104 kwave/ZoomToolBar.cpp:105
+#: kwave/ZoomToolBar.cpp:106 kwave/ZoomToolBar.cpp:107
 #, kde-format
 msgid "%1 min"
 msgstr "%1 min"
 
-#: libgui/CurveWidget.cpp:79
+#: libgui/CurveWidget.cpp:85
 #, kde-format
 msgid "Interpolation"
 msgstr "Interpolacija"
 
-#: libgui/CurveWidget.cpp:84
+#: libgui/CurveWidget.cpp:90
 #, kde-format
 msgid "Transform"
 msgstr "Preoblikuj"
 
-#: libgui/CurveWidget.cpp:87
+#: libgui/CurveWidget.cpp:93
 #, kde-format
 msgid "Flip horizontal"
 msgstr "Prevrni vodoravno"
 
-#: libgui/CurveWidget.cpp:89
+#: libgui/CurveWidget.cpp:95
 #, kde-format
 msgid "Flip vertical"
 msgstr "Prevrni navpično"
 
-#: libgui/CurveWidget.cpp:92
+#: libgui/CurveWidget.cpp:98
 #, kde-format
 msgid "Into first half"
 msgstr "V prvo polovico"
 
-#: libgui/CurveWidget.cpp:94
+#: libgui/CurveWidget.cpp:100
 #, kde-format
 msgid "Into second half"
 msgstr "V drugo polovico"
 
-#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:728
+#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:729
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
 msgstr "Izbriši"
 
-#: libgui/CurveWidget.cpp:101
+#: libgui/CurveWidget.cpp:107
 #, kde-format
 msgid "Fit In"
 msgstr "Umeri"
 
-#: libgui/CurveWidget.cpp:105
+#: libgui/CurveWidget.cpp:111
 #, kde-format
 msgid "Presets"
 msgstr "Prednastavitve"
 
-#: libgui/CurveWidget.cpp:114
+#: libgui/CurveWidget.cpp:120
 #, kde-format
 msgid "Save Preset"
 msgstr "Shrani prednastavitev"
 
-#: libgui/CurveWidget.cpp:119
+#: libgui/CurveWidget.cpp:125
 #, kde-format
 msgid "Currently Selected Point"
 msgstr "Trenutno izbrana točka"
 
-#: libgui/CurveWidget.cpp:123
+#: libgui/CurveWidget.cpp:129
 #, kde-format
 msgid "Every Second Point"
 msgstr "Vsaka druga točka"
 
-#: libgui/CurveWidget.cpp:199
+#: libgui/CurveWidget.cpp:205
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
 msgstr "Prednastavitev krivulje za Kwave (*.curve)"
 
-#: libgui/CurveWidget.cpp:202
+#: libgui/CurveWidget.cpp:208
 #, kde-format
 msgid "Save Curve Preset"
 msgstr "Shrani prednastavitev krivulje"
@@ -1580,7 +1565,7 @@ msgstr "Izbira, leva obroba"
 msgid "Selection, right border"
 msgstr "Izbor, desna obroba"
 
-#: libgui/SelectionItem.cpp:87 libgui/SignalView.cpp:587
+#: libgui/SelectionItem.cpp:87 libgui/SignalView.cpp:593
 #, kde-format
 msgid "Drag and Drop"
 msgstr "Povleci in spusti"
@@ -3387,12 +3372,12 @@ msgstr "32-bitna plavajoča točka IEEE"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-bitna plavajoča vejica z dvojno natančnostjo IEEE"
 
-#: libkwave/SignalManager.cpp:359
+#: libkwave/SignalManager.cpp:360
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "Signal je prazen, ničesar ni mogoče shraniti."
 
-#: libkwave/SignalManager.cpp:388
+#: libkwave/SignalManager.cpp:389
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3404,118 +3389,118 @@ msgstr ""
 "%1\n"
 "Ali še vedno želite nadaljevati?"
 
-#: libkwave/SignalManager.cpp:425 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:426 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(zgrajeno z KDE Frameworks %1)"
 
-#: libkwave/SignalManager.cpp:482
+#: libkwave/SignalManager.cpp:483
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "Med shranjevanjem datoteke je prišlo do napake."
 
-#: libkwave/SignalManager.cpp:494
+#: libkwave/SignalManager.cpp:495
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "Datoteka je odrezana in je morda poškodovana."
 
-#: libkwave/SignalManager.cpp:503
+#: libkwave/SignalManager.cpp:504
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "Oprostite, vrsta datoteke ni podprta."
 
-#: libkwave/SignalManager.cpp:677
+#: libkwave/SignalManager.cpp:678
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "Vstavi odložišče na položaj"
 
-#: libkwave/SignalManager.cpp:687
+#: libkwave/SignalManager.cpp:688
 #, kde-format
 msgid "Paste"
 msgstr "Prilepi"
 
-#: libkwave/SignalManager.cpp:709
+#: libkwave/SignalManager.cpp:710
 #, kde-format
 msgid "Crop"
 msgstr "Obreži"
 
-#: libkwave/SignalManager.cpp:760
+#: libkwave/SignalManager.cpp:761
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "Razširi izbor na oznako"
 
-#: libkwave/SignalManager.cpp:789
+#: libkwave/SignalManager.cpp:790
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Izberi naslednje oznake"
 
-#: libkwave/SignalManager.cpp:827
+#: libkwave/SignalManager.cpp:828
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Izberi prejšnje oznake"
 
-#: libkwave/SignalManager.cpp:866
+#: libkwave/SignalManager.cpp:867
 #, kde-format
 msgid "Select All Tracks"
 msgstr "Izberi vse steze"
 
-#: libkwave/SignalManager.cpp:870
+#: libkwave/SignalManager.cpp:871
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "Prekliči izbor vseh stez"
 
-#: libkwave/SignalManager.cpp:874
+#: libkwave/SignalManager.cpp:875
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Preobrni izbor stez"
 
-#: libkwave/SignalManager.cpp:880
+#: libkwave/SignalManager.cpp:881
 #, kde-format
 msgid "Select Track"
 msgstr "Izberi stezo"
 
-#: libkwave/SignalManager.cpp:885
+#: libkwave/SignalManager.cpp:886
 #, kde-format
 msgid "Deselect Track"
 msgstr "Počisti izbor steze"
 
-#: libkwave/SignalManager.cpp:890
+#: libkwave/SignalManager.cpp:891
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Vključi/izključi izbor steze"
 
-#: libkwave/SignalManager.cpp:932
+#: libkwave/SignalManager.cpp:933
 #, kde-format
 msgid "Append Track"
 msgstr "Pripni stezo"
 
-#: libkwave/SignalManager.cpp:939 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:940 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Vstavi stezo"
 
-#: libkwave/SignalManager.cpp:962 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:963 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Izbriši stezo"
 
-#: libkwave/SignalManager.cpp:1115
+#: libkwave/SignalManager.cpp:1116
 #, kde-format
 msgid "Insert Space"
 msgstr "Vstavi praznino"
 
-#: libkwave/SignalManager.cpp:1387
+#: libkwave/SignalManager.cpp:1388
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "Ni dovolj pomnilnika za shranjevanje informacij o razveljavitvi."
 
-#: libkwave/SignalManager.cpp:1389
+#: libkwave/SignalManager.cpp:1390
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Ali želite nadaljevati brez možnosti razveljavitve?"
 
-#: libkwave/SignalManager.cpp:1391
+#: libkwave/SignalManager.cpp:1392
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3524,42 +3509,42 @@ msgstr ""
 "Namig: <b></b>lahko prilagodite količino pomnilnika<br>na voljo za "
 "razveljavitev pod »%1«/»%2«."
 
-#: libkwave/SignalManager.cpp:1393
+#: libkwave/SignalManager.cpp:1394
 #, kde-format
 msgid "Settings"
 msgstr "Nastavitve"
 
-#: libkwave/SignalManager.cpp:1394
+#: libkwave/SignalManager.cpp:1395
 #, kde-format
 msgid "Memory"
 msgstr "Pomnilnik"
 
-#: libkwave/SignalManager.cpp:1538 libkwave/SignalManager.cpp:1545
+#: libkwave/SignalManager.cpp:1539 libkwave/SignalManager.cpp:1546
 #, kde-format
 msgid "Last Action"
 msgstr "Zadnje dejanje"
 
-#: libkwave/SignalManager.cpp:1835
+#: libkwave/SignalManager.cpp:1836
 #, kde-format
 msgid "Modify File Info"
 msgstr "Spremeni podatke o datoteki"
 
-#: libkwave/SignalManager.cpp:1910
+#: libkwave/SignalManager.cpp:1911
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Izbriši vse oznake"
 
-#: libkwave/SignalManager.cpp:1929
+#: libkwave/SignalManager.cpp:1930
 #, kde-format
 msgid "Delete Label"
 msgstr "Izbriši oznako"
 
-#: libkwave/SignalManager.cpp:2027
+#: libkwave/SignalManager.cpp:2028
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Ročni izbor stez"
 
-#: libkwave/SignalManager.cpp:2030
+#: libkwave/SignalManager.cpp:2031
 #, kde-format
 msgid "Manual Selection"
 msgstr "Ročna izbor"
@@ -3967,12 +3952,12 @@ msgstr ""
 "Med odpiranjem datoteke je prišlo do napake:\n"
 "»%1«"
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:467
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:468
 #, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
 msgstr "Ta format datoteke podpira samo mono, %1 kanalov ni podprtih."
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:471
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:472
 #: plugins/codec_flac/FlacEncoder.cpp:205
 #, kde-format
 msgid ""
@@ -3980,12 +3965,12 @@ msgid ""
 "supported."
 msgstr "Ta format datoteke podpira samo do %1 kanalov, %2 kanalov ni podprtih."
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:478
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:479
 #, kde-format
 msgid "Unable to open the destination device for writing."
 msgstr "Ciljne naprave ni mogoče odpreti za pisanje."
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:528
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:529
 #, kde-format
 msgid "Unable to initialize libaudiofile encoder."
 msgstr "Inicializacija kodirnika libaudiofile ni mogoča."
@@ -3995,12 +3980,12 @@ msgstr "Inicializacija kodirnika libaudiofile ni mogoča."
 msgid "FLAC audio"
 msgstr "Zvok FLAC"
 
-#: plugins/codec_flac/FlacDecoder.cpp:293
+#: plugins/codec_flac/FlacDecoder.cpp:291
 #, kde-format
 msgid "Opening the FLAC bitstream failed."
 msgstr "Odpiranje bitnega toka FLAC ni uspelo."
 
-#: plugins/codec_flac/FlacDecoder.cpp:303
+#: plugins/codec_flac/FlacDecoder.cpp:301
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Napaka pri razčlenjevanju metapodatkov FLAC (%s)."
@@ -4030,7 +4015,19 @@ msgstr "Zvok MPEG layer II"
 msgid "MPEG layer I audio"
 msgstr "Zvok MPEG layer I"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:98
+#: plugins/codec_mp3/MP3Decoder.cpp:173
+#, fuzzy, kde-format
+#| msgid ""
+#| "The file contains an invalid channel mode 0x%1\n"
+#| "Assuming Mono..."
+msgid ""
+"The file contains an invalid channel mode (%1).\n"
+"Assuming Mono..."
+msgstr ""
+"Datoteka vsebuje neveljaven način kanala 0x%1\n"
+"Ob predpostavki mono ..."
+
+#: plugins/codec_mp3/MP3Decoder.cpp:549
 #, kde-format
 msgid ""
 "The file has an invalid checksum.\n"
@@ -4039,45 +4036,27 @@ msgstr ""
 "Datoteka ima neveljavno kontrolno vsoto.\n"
 "Ali še vedno želite nadaljevati?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:167
-#, kde-format
-msgid ""
-"The file contains an invalid channel mode 0x%1\n"
-"Assuming Mono..."
-msgstr ""
-"Datoteka vsebuje neveljaven način kanala 0x%1\n"
-"Ob predpostavki mono ..."
-
-#: plugins/codec_mp3/MP3Decoder.cpp:515
-#, kde-format
-msgid ""
-"The opened file is no MPEG file or it is damaged.\n"
-"No header information has been found."
-msgstr ""
-"Odprta datoteka ni datoteka MPEG ali je poškodovana.\n"
-"Informacije o glavi niso bile najdene."
-
-#: plugins/codec_mp3/MP3Decoder.cpp:586
+#: plugins/codec_mp3/MP3Decoder.cpp:637
 #, kde-format
 msgid "Checksum error"
 msgstr "Napaka kontrolne vsote"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:589
+#: plugins/codec_mp3/MP3Decoder.cpp:640
 #, kde-format
 msgid "Synchronization lost"
 msgstr "Sinhronizacija izgubljena"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:606
+#: plugins/codec_mp3/MP3Decoder.cpp:657
 #, kde-format
 msgid "File contains invalid data"
 msgstr "Datoteka vsebuje neveljavne podatke"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:611
+#: plugins/codec_mp3/MP3Decoder.cpp:662
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "Neznana napaka 0x%1. Ali je datoteka poškodovana?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:615
+#: plugins/codec_mp3/MP3Decoder.cpp:667
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4088,17 +4067,17 @@ msgstr ""
 "»%1«,\n"
 "na položaju %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:620
+#: plugins/codec_mp3/MP3Decoder.cpp:672
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "Ali še vedno želite nadaljevati?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:625
+#: plugins/codec_mp3/MP3Decoder.cpp:677
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Ali želite nadaljevati in prezreti vse naslednje napake?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:354
+#: plugins/codec_mp3/MP3Encoder.cpp:400
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4107,12 +4086,12 @@ msgstr ""
 "Izbrana vrsta datoteke podpira le mono ali stereo. Ta datoteka bo med "
 "shranjevanje mešana v stereo."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:367 plugins/codec_wav/WavEncoder.cpp:477
+#: plugins/codec_mp3/MP3Encoder.cpp:413 plugins/codec_wav/WavEncoder.cpp:477
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Datoteke ni mogoče odpreti za shranjevanje!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:614
+#: plugins/codec_mp3/MP3Encoder.cpp:658
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4749,7 +4728,7 @@ msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
 msgstr "Ta kodek podpira samo 1 ... 255 kanalov, %1 kanali niso podprti."
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:136
+#: plugins/codec_ogg/VorbisEncoder.cpp:137
 #, kde-format
 msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
@@ -4758,7 +4737,7 @@ msgstr ""
 "Ogg/Vorbis ne podpira načina ABR pri uporabi več kot dveh kanalov. Naj "
 "preklopim v način VBR z %1% in nadaljujem?"
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:157
+#: plugins/codec_ogg/VorbisEncoder.cpp:158
 #, kde-format
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
@@ -4767,7 +4746,7 @@ msgstr ""
 "Za kodiranje niste izbrali bitne hitrosti. Ali želite nadaljevati in "
 "kodirati z %1 kB/s ali preklicati in izbrati drugo bitno hitrost?"
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:222
+#: plugins/codec_ogg/VorbisEncoder.cpp:224
 #, kde-format
 msgid ""
 "One or more encoding parameters are not supported. Please change the "
@@ -4923,7 +4902,7 @@ msgstr "Opusti hierarhijo oken"
 msgid "Dump Meta Data"
 msgstr "Opusti metapodatke"
 
-#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:238
+#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:240
 #, kde-format
 msgid "Debug (%1)"
 msgstr "Razhrošči (%1)"
@@ -4936,18 +4915,18 @@ msgctxt ""
 msgid "(auto detect)"
 msgstr "(samodejno zaznaj)"
 
-#: plugins/export_k3b/K3BExportDialog.cpp:89
+#: plugins/export_k3b/K3BExportDialog.cpp:90
 #, kde-format
 msgctxt "file type filter when exporting to K3b"
 msgid "K3b project file (*.k3b)"
 msgstr "Projektne datoeke K3b (*.k3b)"
 
-#: plugins/export_k3b/K3BExportDialog.cpp:161
+#: plugins/export_k3b/K3BExportDialog.cpp:162
 #, kde-format
 msgid "Please choose a K3b project file name"
 msgstr "Izberite ime projektne datoteke K3b"
 
-#: plugins/export_k3b/K3BExportDialog.cpp:165
+#: plugins/export_k3b/K3BExportDialog.cpp:166
 #, kde-format
 msgid "Please choose where to export the audio files"
 msgstr "Izberite, kam želite izvoziti zvočne datoteke"
@@ -5084,12 +5063,12 @@ msgstr "Lokacija za izvoz zvočnih datotek"
 msgid "Export Location"
 msgstr "Mesto izvoza"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:280
+#: plugins/export_k3b/K3BExportPlugin.cpp:281
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
 msgstr "Izvozi v projekt K3b …"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:599
+#: plugins/export_k3b/K3BExportPlugin.cpp:600
 #, kde-format
 msgid ""
 "Only mono and stereo files can be used for an audio CD. You can either "
@@ -5100,7 +5079,7 @@ msgstr ""
 "lahko prekličete ali izvozite datoteko v drugi obliki datoteke, ki podpira "
 "samo mono in stereo (na primer FLAC) in poskusite znova."
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:662
+#: plugins/export_k3b/K3BExportPlugin.cpp:663
 #, kde-format
 msgid ""
 "A K3b project file has been created and audio files have been exported.\n"
@@ -6212,33 +6191,33 @@ msgstr "format ni podprt"
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Odpiranje večpredstavnostne naprave Qt »%1« ni uspelo"
 
-#: plugins/playback/PlayBackDialog.cpp:519
+#: plugins/playback/PlayBackDialog.cpp:520
 #, kde-format
 msgid "%1 Bytes"
 msgstr "%1 bajtov"
 
-#: plugins/playback/PlayBackDialog.cpp:521
+#: plugins/playback/PlayBackDialog.cpp:522
 #, kde-format
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/playback/PlayBackDialog.cpp:619
+#: plugins/playback/PlayBackDialog.cpp:620
 #, kde-format
 msgid "(mono)"
 msgstr "(mono)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/playback/PlayBackDialog.cpp:620 plugins/playback/PlayBackDlg.ui:350
+#: plugins/playback/PlayBackDialog.cpp:621 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
 msgstr "(stereo)"
 
-#: plugins/playback/PlayBackDialog.cpp:621
+#: plugins/playback/PlayBackDialog.cpp:622
 #, kde-format
 msgid "(quadro)"
 msgstr "(kvadrofonija)"
 
-#: plugins/playback/PlayBackDialog.cpp:651
+#: plugins/playback/PlayBackDialog.cpp:652
 #, kde-format
 msgid "Select Playback Device"
 msgstr "Izberite predvajalno napravo"
@@ -7114,7 +7093,7 @@ msgstr "Spremeni mero vzorčenja"
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "Spreminjanje mere vzorčenja iz %1 kHz na %2 kHz ..."
 
-#: plugins/saveblocks/SaveBlocksDialog.cpp:203
+#: plugins/saveblocks/SaveBlocksDialog.cpp:205
 #, kde-format
 msgid "Please choose where to save the files"
 msgstr "Izberite, kam želite shraniti datoteke"
@@ -7248,13 +7227,13 @@ msgstr "Shrani samo izbor"
 msgid "..."
 msgstr "..."
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:271
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:272
 #, kde-format
 msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr "To bi prepisalo naslednje datoteke: %1 Ali res želite nadaljevati?"
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:284
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:285
 #, kde-format
 msgid ""
 "The following directories do not exist: %1Do you want to create them and "
@@ -7604,6 +7583,22 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Tišina"
+
+#~ msgid "T.H.F. Klok and Cedric Tefft"
+#~ msgstr "T.H.F. Klok in Cedric Tefft"
+
+#~ msgid "Maintainers of the 'id3lib' library"
+#~ msgstr "Vzdrževalci knjižnice »id3lib«"
+
+#~ msgid "http://www.id3lib.org/"
+#~ msgstr "http://www.id3lib.org/"
+
+#~ msgid ""
+#~ "The opened file is no MPEG file or it is damaged.\n"
+#~ "No header information has been found."
+#~ msgstr ""
+#~ "Odprta datoteka ni datoteka MPEG ali je poškodovana.\n"
+#~ "Informacije o glavi niso bile najdene."
 
 #~ msgid ""
 #~ "Surround bitrate would be less than 32kBit/sec per channel, this file "

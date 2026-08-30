@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-28 00:45+0000\n"
+"POT-Creation-Date: 2026-08-30 00:45+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -292,119 +292,104 @@ msgstr "http://www.mars.org/home/rob/proj/mpeg इति ग्रन्थः"
 
 #: kwave/main.cpp:120
 #, kde-format
-msgid "T.H.F. Klok and Cedric Tefft"
-msgstr "टी.एच.एफ. क्लोक् तथा सेड्रिक् टेफ्ट्"
-
-#: kwave/main.cpp:121
-#, kde-format
-msgid "Maintainers of the 'id3lib' library"
-msgstr "'id3lib' पुस्तकालयस्य परिपालकाः"
-
-#: kwave/main.cpp:123
-#, kde-format
-msgid "http://www.id3lib.org/"
-msgstr "http://www.id3lib.org/ इति ग्रन्थः ।"
-
-#: kwave/main.cpp:125
-#, kde-format
 msgid "Michael Pruett"
 msgstr "माइकल प्रुएट्"
 
-#: kwave/main.cpp:126
+#: kwave/main.cpp:121
 #, kde-format
 msgid "Author of the 'audiofile' library"
 msgstr "'audiofile' पुस्तकालयस्य लेखकः"
 
-#: kwave/main.cpp:128
+#: kwave/main.cpp:123
 #, kde-format
 msgid "http://www.68k.org/~michael/audiofile/"
 msgstr "http://www.68k.org/~michael/audiofile/ इति ग्रन्थः ।"
 
-#: kwave/main.cpp:130
+#: kwave/main.cpp:125
 #, kde-format
 msgid "Carlos R."
 msgstr "कार्लोस आर."
 
-#: kwave/main.cpp:131
+#: kwave/main.cpp:126
 #, kde-format
 msgid "Spanish translation"
 msgstr "स्पेनिश अनुवाद"
 
-#: kwave/main.cpp:135
+#: kwave/main.cpp:130
 #, kde-format
 msgid "Erik de Castro Lopo"
 msgstr "एरिक डी कास्त्रो लोपो"
 
-#: kwave/main.cpp:136
+#: kwave/main.cpp:131
 #, kde-format
 msgid "Author of the 'sndfile' library"
 msgstr "'sndfile' पुस्तकालयस्य लेखकः"
 
-#: kwave/main.cpp:138
+#: kwave/main.cpp:133
 #, kde-format
 msgid "http://www.mega-nerd.com/libsndfile/"
 msgstr "http://www.mega-nerd.com/libsndfile/ इति ग्रन्थः ।"
 
-#: kwave/main.cpp:140
+#: kwave/main.cpp:135
 #, kde-format
 msgid "Pavel Fric"
 msgstr "पावेल फ्रिक"
 
-#: kwave/main.cpp:141
+#: kwave/main.cpp:136
 #, kde-format
 msgid "Czech translation"
 msgstr "चेक अनुवाद"
 
-#: kwave/main.cpp:143
+#: kwave/main.cpp:138
 #, kde-format
 msgid "http://fripohled.blogspot.com"
 msgstr "http://fripohled.blogspot.com इति ग्रन्थः"
 
-#: kwave/main.cpp:145
+#: kwave/main.cpp:140
 #, kde-format
 msgid "Panagiotis Papadopoulos"
 msgstr "पनागियोटिस पापडोपोलोस"
 
-#: kwave/main.cpp:146
+#: kwave/main.cpp:141
 #, kde-format
 msgid "String and i18n updates"
 msgstr "स्ट्रिंग् तथा i18n अपडेट्"
 
-#: kwave/main.cpp:165
+#: kwave/main.cpp:160
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "Splash Screen इत्येतत् निष्क्रियं कुर्वन्तु ।"
 
-#: kwave/main.cpp:169
+#: kwave/main.cpp:164
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "आरम्भः अस्य प्रतिरूपणं कृतम् अस्ति ।"
 
-#: kwave/main.cpp:174
+#: kwave/main.cpp:169
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "सर्वाणि आदेशानि <file> सञ्चिकायां लॉग् कुर्वन्तु ।"
 
-#: kwave/main.cpp:175
+#: kwave/main.cpp:170
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "सञ्चिका"
 
-#: kwave/main.cpp:180
+#: kwave/main.cpp:175
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
 msgstr "एकं GUI प्रकारं चिनोतु: SDI, MDI अथवा TAB मोड् ।"
 
-#: kwave/main.cpp:181
+#: kwave/main.cpp:176
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "स्दि|मदि|तब"
 
-#: kwave/main.cpp:186
+#: kwave/main.cpp:181
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
@@ -413,23 +398,23 @@ msgstr ""
 "उद्घाटयितुं श्रव्यसञ्चिकानां, Kwave मैक्रो सञ्चिकानां वा Kwave URLs इत्यस्य सूची "
 "(वैकल्पिकरूपेण)"
 
-#: kwave/main.cpp:188
+#: kwave/main.cpp:183
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[सञ्चिकाः...]"
 
-#: kwave/main.cpp:193
+#: kwave/main.cpp:188
 #, kde-format
 msgid "Kwave"
 msgstr "अभवत्"
 
-#: kwave/main.cpp:195
+#: kwave/main.cpp:190
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "KDE Frameworks 5 इत्यत्र निर्मितः ध्वनिसम्पादकः"
 
-#: kwave/main.cpp:197
+#: kwave/main.cpp:192
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(ग) २०१६, थॉमस एशेन्बकर"
@@ -439,7 +424,7 @@ msgstr "(ग) २०१६, थॉमस एशेन्बकर"
 msgid "Kwave label list"
 msgstr "इदं लेबलसूची अस्ति"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1883
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1884
 #, kde-format
 msgid "Add Label"
 msgstr "लेबल योजयतु"
@@ -1137,7 +1122,7 @@ msgstr "पूर्ववत"
 msgid "Redo"
 msgstr "पुनः करो"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:701
+#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:702
 #, kde-format
 msgid "Cut"
 msgstr "छिन्न"
@@ -1194,10 +1179,10 @@ msgid "Loading file '%1'..."
 msgstr "'%1' सञ्चिकां लोड् क्रियते..."
 
 #: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:103
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:504
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:505
 #: plugins/codec_flac/FlacEncoder.cpp:272
 #: plugins/codec_flac/FlacEncoder.cpp:290
-#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:583
+#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:634
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
 #: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:528
@@ -1326,111 +1311,111 @@ msgctxt "list menu entry of a label, without description, %1=index"
 msgid "#%1"
 msgstr "#%1"
 
-#: kwave/ZoomToolBar.cpp:63 kwave/ZoomToolBar.cpp:64
+#: kwave/ZoomToolBar.cpp:64 kwave/ZoomToolBar.cpp:65
 #, kde-format
 msgid "Zoom to selection"
 msgstr "चयनं प्रति जूम कुर्वन्तु"
 
-#: kwave/ZoomToolBar.cpp:74 kwave/ZoomToolBar.cpp:75
+#: kwave/ZoomToolBar.cpp:78 kwave/ZoomToolBar.cpp:79
 #, kde-format
 msgid "Zoom to 100%"
 msgstr "100% यावत् जूम कुर्वन्तु"
 
-#: kwave/ZoomToolBar.cpp:79 kwave/ZoomToolBar.cpp:80
+#: kwave/ZoomToolBar.cpp:84 kwave/ZoomToolBar.cpp:85
 #, kde-format
 msgid "Zoom to all"
 msgstr "सर्वेषां कृते जूम कुर्वन्तु"
 
-#: kwave/ZoomToolBar.cpp:85
+#: kwave/ZoomToolBar.cpp:90
 #, kde-format
 msgid "Select zoom factor"
 msgstr "जूम कारकं चिनोतु"
 
-#: kwave/ZoomToolBar.cpp:91 kwave/ZoomToolBar.cpp:92 kwave/ZoomToolBar.cpp:93
+#: kwave/ZoomToolBar.cpp:96 kwave/ZoomToolBar.cpp:97 kwave/ZoomToolBar.cpp:98
 #, kde-format
 msgid "%1 ms"
 msgstr "%1 ms"
 
-#: kwave/ZoomToolBar.cpp:94 kwave/ZoomToolBar.cpp:95 kwave/ZoomToolBar.cpp:96
+#: kwave/ZoomToolBar.cpp:99 kwave/ZoomToolBar.cpp:100 kwave/ZoomToolBar.cpp:101
 #, kde-format
 msgid "%1 sec"
 msgstr "%1 सेकण्ड्"
 
-#: kwave/ZoomToolBar.cpp:97 kwave/ZoomToolBar.cpp:98 kwave/ZoomToolBar.cpp:99
-#: kwave/ZoomToolBar.cpp:100 kwave/ZoomToolBar.cpp:101
-#: kwave/ZoomToolBar.cpp:102
+#: kwave/ZoomToolBar.cpp:102 kwave/ZoomToolBar.cpp:103
+#: kwave/ZoomToolBar.cpp:104 kwave/ZoomToolBar.cpp:105
+#: kwave/ZoomToolBar.cpp:106 kwave/ZoomToolBar.cpp:107
 #, kde-format
 msgid "%1 min"
 msgstr "%1 मि"
 
-#: libgui/CurveWidget.cpp:79
+#: libgui/CurveWidget.cpp:85
 #, kde-format
 msgid "Interpolation"
 msgstr "प्रक्षेपः"
 
-#: libgui/CurveWidget.cpp:84
+#: libgui/CurveWidget.cpp:90
 #, kde-format
 msgid "Transform"
 msgstr "परिवर्तनं कुरुत"
 
-#: libgui/CurveWidget.cpp:87
+#: libgui/CurveWidget.cpp:93
 #, kde-format
 msgid "Flip horizontal"
 msgstr "क्षैतिजं पलटन्तु"
 
-#: libgui/CurveWidget.cpp:89
+#: libgui/CurveWidget.cpp:95
 #, kde-format
 msgid "Flip vertical"
 msgstr "ऊर्ध्वाधर पलटना"
 
-#: libgui/CurveWidget.cpp:92
+#: libgui/CurveWidget.cpp:98
 #, kde-format
 msgid "Into first half"
 msgstr "प्रथमार्धे"
 
-#: libgui/CurveWidget.cpp:94
+#: libgui/CurveWidget.cpp:100
 #, kde-format
 msgid "Into second half"
 msgstr "द्वितीयार्धे"
 
-#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:728
+#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:729
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
 msgstr "लुप्"
 
-#: libgui/CurveWidget.cpp:101
+#: libgui/CurveWidget.cpp:107
 #, kde-format
 msgid "Fit In"
 msgstr "फिट् इन्"
 
-#: libgui/CurveWidget.cpp:105
+#: libgui/CurveWidget.cpp:111
 #, kde-format
 msgid "Presets"
 msgstr "पूर्वनिर्धारित"
 
-#: libgui/CurveWidget.cpp:114
+#: libgui/CurveWidget.cpp:120
 #, kde-format
 msgid "Save Preset"
 msgstr "पूर्वनिर्धारितं रक्षतु"
 
-#: libgui/CurveWidget.cpp:119
+#: libgui/CurveWidget.cpp:125
 #, kde-format
 msgid "Currently Selected Point"
 msgstr "सम्प्रति चयनितः बिन्दुः"
 
-#: libgui/CurveWidget.cpp:123
+#: libgui/CurveWidget.cpp:129
 #, kde-format
 msgid "Every Second Point"
 msgstr "प्रत्येकं द्वितीयं बिन्दुः"
 
-#: libgui/CurveWidget.cpp:199
+#: libgui/CurveWidget.cpp:205
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
 msgstr "क्वावे वक्र पूर्वनिर्धारित (*.curve)"
 
-#: libgui/CurveWidget.cpp:202
+#: libgui/CurveWidget.cpp:208
 #, kde-format
 msgid "Save Curve Preset"
 msgstr "वक्र पूर्वनिर्धारितं रक्षतु"
@@ -1580,7 +1565,7 @@ msgstr "चयन, वामसीमा"
 msgid "Selection, right border"
 msgstr "चयनम्, दक्षिणसीमा"
 
-#: libgui/SelectionItem.cpp:87 libgui/SignalView.cpp:587
+#: libgui/SelectionItem.cpp:87 libgui/SignalView.cpp:593
 #, kde-format
 msgid "Drag and Drop"
 msgstr "Drag and Drop इति"
@@ -3391,12 +3376,12 @@ msgstr "३२-बिट् आईईईई फ्लोटिंग्-पॉ�
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-बिट IEEE द्विगुण परिशुद्धता फ्लोटिंग-बिन्दु"
 
-#: libkwave/SignalManager.cpp:359
+#: libkwave/SignalManager.cpp:360
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "संकेतः रिक्तः अस्ति, किमपि रक्षितुं नास्ति।"
 
-#: libkwave/SignalManager.cpp:388
+#: libkwave/SignalManager.cpp:389
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3407,118 +3392,118 @@ msgstr ""
 "%1\n"
 "किं त्वं अद्यापि निरन्तरं कर्तुम् इच्छसि ?"
 
-#: libkwave/SignalManager.cpp:425 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:426 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(KDE Frameworks %1 इत्यनेन सह निर्मितम्)"
 
-#: libkwave/SignalManager.cpp:482
+#: libkwave/SignalManager.cpp:483
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "सञ्चिकां रक्षन् त्रुटिः अभवत् ।"
 
-#: libkwave/SignalManager.cpp:494
+#: libkwave/SignalManager.cpp:495
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "सञ्चिका च्छिन्ना अस्ति, दूषिता अपि भवितुम् अर्हति ।"
 
-#: libkwave/SignalManager.cpp:503
+#: libkwave/SignalManager.cpp:504
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "क्षम्यतां, सञ्चिकाप्रकारः समर्थितः नास्ति ।"
 
-#: libkwave/SignalManager.cpp:677
+#: libkwave/SignalManager.cpp:678
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "स्थाने Clipboard सम्मिलितं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:687
+#: libkwave/SignalManager.cpp:688
 #, kde-format
 msgid "Paste"
 msgstr "चिनोतु"
 
-#: libkwave/SignalManager.cpp:709
+#: libkwave/SignalManager.cpp:710
 #, kde-format
 msgid "Crop"
 msgstr "अन्नग्रह"
 
-#: libkwave/SignalManager.cpp:760
+#: libkwave/SignalManager.cpp:761
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "चयनं लेबलं प्रति विस्तारयन्तु"
 
-#: libkwave/SignalManager.cpp:789
+#: libkwave/SignalManager.cpp:790
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Next Labels इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:827
+#: libkwave/SignalManager.cpp:828
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Previous Labels इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:866
+#: libkwave/SignalManager.cpp:867
 #, kde-format
 msgid "Select All Tracks"
 msgstr "All Tracks इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:870
+#: libkwave/SignalManager.cpp:871
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "सर्वाणि पटलानि अचयनं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:874
+#: libkwave/SignalManager.cpp:875
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Track चयनं विपर्यययतु"
 
-#: libkwave/SignalManager.cpp:880
+#: libkwave/SignalManager.cpp:881
 #, kde-format
 msgid "Select Track"
 msgstr "Track इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:885
+#: libkwave/SignalManager.cpp:886
 #, kde-format
 msgid "Deselect Track"
 msgstr "Track इत्यस्य चयनं विच्छेदं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:890
+#: libkwave/SignalManager.cpp:891
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Track चयनं Toggle कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:932
+#: libkwave/SignalManager.cpp:933
 #, kde-format
 msgid "Append Track"
 msgstr "Append Track इति"
 
-#: libkwave/SignalManager.cpp:939 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:940 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Track सम्मिलित करें"
 
-#: libkwave/SignalManager.cpp:962 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:963 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Track विलोपयन्तु"
 
-#: libkwave/SignalManager.cpp:1115
+#: libkwave/SignalManager.cpp:1116
 #, kde-format
 msgid "Insert Space"
 msgstr "अन्तरिक्षं सम्मिलितं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:1387
+#: libkwave/SignalManager.cpp:1388
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "पूर्ववतसूचनायाः रक्षणार्थं पर्याप्तं स्मृतिः नास्ति ।"
 
-#: libkwave/SignalManager.cpp:1389
+#: libkwave/SignalManager.cpp:1390
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "किं भवन्तः पूर्ववतीकरणस्य सम्भावनां विना निरन्तरं कर्तुम् इच्छन्ति?"
 
-#: libkwave/SignalManager.cpp:1391
+#: libkwave/SignalManager.cpp:1392
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3527,42 +3512,42 @@ msgstr ""
 "<b>Hint</b> : स्मृतेः परिमाणं विन्यस्तुं शक्नुवन्ति<br> &#39;%1&#39;/&#39;%2&#39; इत्यस्य "
 "अन्तर्गतं पूर्ववतीकरणाय उपलब्धम् ।"
 
-#: libkwave/SignalManager.cpp:1393
+#: libkwave/SignalManager.cpp:1394
 #, kde-format
 msgid "Settings"
 msgstr "सेटिंग्स्"
 
-#: libkwave/SignalManager.cpp:1394
+#: libkwave/SignalManager.cpp:1395
 #, kde-format
 msgid "Memory"
 msgstr "स्मृति"
 
-#: libkwave/SignalManager.cpp:1538 libkwave/SignalManager.cpp:1545
+#: libkwave/SignalManager.cpp:1539 libkwave/SignalManager.cpp:1546
 #, kde-format
 msgid "Last Action"
 msgstr "अन्तिम कर्म"
 
-#: libkwave/SignalManager.cpp:1835
+#: libkwave/SignalManager.cpp:1836
 #, kde-format
 msgid "Modify File Info"
 msgstr "सञ्चिकासूचना परिवर्तयतु"
 
-#: libkwave/SignalManager.cpp:1910
+#: libkwave/SignalManager.cpp:1911
 #, kde-format
 msgid "Delete All Labels"
 msgstr "सर्वाणि लेबलानि विलोपयन्तु"
 
-#: libkwave/SignalManager.cpp:1929
+#: libkwave/SignalManager.cpp:1930
 #, kde-format
 msgid "Delete Label"
 msgstr "लेबलं विलोपयन्तु"
 
-#: libkwave/SignalManager.cpp:2027
+#: libkwave/SignalManager.cpp:2028
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "मैनुअल ट्रैक चयन"
 
-#: libkwave/SignalManager.cpp:2030
+#: libkwave/SignalManager.cpp:2031
 #, kde-format
 msgid "Manual Selection"
 msgstr "मैनुअल चयन"
@@ -3969,7 +3954,7 @@ msgstr ""
 "सञ्चिकां उद्घाटयन् त्रुटिः अभवत् :\n"
 "'%1' इति ।"
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:467
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:468
 #, fuzzy, kde-format
 #| msgid ""
 #| "This codec supports only mono or stereo files, %1 channels are not "
@@ -3978,7 +3963,7 @@ msgid "This file format supports only mono, %1 channels are not supported."
 msgstr ""
 "एषः कोडेकः केवलं मोनो अथवा स्टीरियो सञ्चिकाः समर्थयति, %1 चैनल्स् समर्थिताः न सन्ति ।"
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:471
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:472
 #: plugins/codec_flac/FlacEncoder.cpp:205
 #, fuzzy, kde-format
 #| msgid ""
@@ -3990,13 +3975,13 @@ msgid ""
 msgstr ""
 "एषः कोडेकः केवलं मोनो अथवा स्टीरियो सञ्चिकाः समर्थयति, %1 चैनल्स् समर्थिताः न सन्ति ।"
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:478
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:479
 #, fuzzy, kde-format
 #| msgid "Unable to open the file for saving."
 msgid "Unable to open the destination device for writing."
 msgstr "रक्षणार्थं सञ्चिकां उद्घाटयितुं असमर्थः ।"
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:528
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:529
 #, fuzzy, kde-format
 #| msgid "Unable to open the FLAC encoder."
 msgid "Unable to initialize libaudiofile encoder."
@@ -4007,12 +3992,12 @@ msgstr "FLAC एन्कोडरं उद्घाटयितुं अस�
 msgid "FLAC audio"
 msgstr "FLAC श्रव्य"
 
-#: plugins/codec_flac/FlacDecoder.cpp:293
+#: plugins/codec_flac/FlacDecoder.cpp:291
 #, kde-format
 msgid "Opening the FLAC bitstream failed."
 msgstr "FLAC बिटस्ट्रीम उद्घाटनं विफलम् अभवत् ।"
 
-#: plugins/codec_flac/FlacDecoder.cpp:303
+#: plugins/codec_flac/FlacDecoder.cpp:301
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "FLAC मेटाडाटा इत्यस्य विश्लेषणं कुर्वन् त्रुटिः । (%स)"
@@ -4042,7 +4027,19 @@ msgstr "MPEG स्तर द्वितीय श्रव्य"
 msgid "MPEG layer I audio"
 msgstr "MPEG स्तर I श्रव्य"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:98
+#: plugins/codec_mp3/MP3Decoder.cpp:173
+#, fuzzy, kde-format
+#| msgid ""
+#| "The file contains an invalid channel mode 0x%1\n"
+#| "Assuming Mono..."
+msgid ""
+"The file contains an invalid channel mode (%1).\n"
+"Assuming Mono..."
+msgstr ""
+"सञ्चिकायां अमान्यं चैनल् मोड् 0x%1 अस्ति\n"
+"मोनो इति कल्पयित्वा..."
+
+#: plugins/codec_mp3/MP3Decoder.cpp:549
 #, kde-format
 msgid ""
 "The file has an invalid checksum.\n"
@@ -4051,45 +4048,27 @@ msgstr ""
 "सञ्चिकायाः अमान्यः चेकसमः अस्ति ।\n"
 "किं त्वं अद्यापि निरन्तरं कर्तुम् इच्छसि ?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:167
-#, kde-format
-msgid ""
-"The file contains an invalid channel mode 0x%1\n"
-"Assuming Mono..."
-msgstr ""
-"सञ्चिकायां अमान्यं चैनल् मोड् 0x%1 अस्ति\n"
-"मोनो इति कल्पयित्वा..."
-
-#: plugins/codec_mp3/MP3Decoder.cpp:515
-#, kde-format
-msgid ""
-"The opened file is no MPEG file or it is damaged.\n"
-"No header information has been found."
-msgstr ""
-"उद्घाटिता सञ्चिका MPEG सञ्चिका नास्ति अथवा सा क्षतिग्रस्ता अस्ति ।\n"
-"शीर्षकसूचना न प्राप्ता ।"
-
-#: plugins/codec_mp3/MP3Decoder.cpp:586
+#: plugins/codec_mp3/MP3Decoder.cpp:637
 #, kde-format
 msgid "Checksum error"
 msgstr "चेकसम त्रुटिः"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:589
+#: plugins/codec_mp3/MP3Decoder.cpp:640
 #, kde-format
 msgid "Synchronization lost"
 msgstr "समन्वयः नष्टः"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:606
+#: plugins/codec_mp3/MP3Decoder.cpp:657
 #, kde-format
 msgid "File contains invalid data"
 msgstr "सञ्चिकायां अमान्यदत्तांशः अस्ति"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:611
+#: plugins/codec_mp3/MP3Decoder.cpp:662
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "अज्ञातदोषः 0x%1. क्षतिग्रस्ता सञ्चिका?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:615
+#: plugins/codec_mp3/MP3Decoder.cpp:667
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4100,17 +4079,17 @@ msgstr ""
 "'%1', ९.\n"
 "%2 स्थाने ।"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:620
+#: plugins/codec_mp3/MP3Decoder.cpp:672
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "किं त्वं अद्यापि निरन्तरं कर्तुम् इच्छसि ?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:625
+#: plugins/codec_mp3/MP3Decoder.cpp:677
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "किं भवन्तः निरन्तरं निम्नलिखितदोषाणां अवहेलनां कर्तुम् इच्छन्ति?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:354
+#: plugins/codec_mp3/MP3Encoder.cpp:400
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4119,12 +4098,12 @@ msgstr ""
 "भवता चयनितं सञ्चिकास्वरूपं केवलं मोनो अथवा स्टीरियो समर्थयति । रक्षणकाले एषा सञ्चिका "
 "स्टीरियो यावत् मिश्रिता भविष्यति ।"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:367 plugins/codec_wav/WavEncoder.cpp:477
+#: plugins/codec_mp3/MP3Encoder.cpp:413 plugins/codec_wav/WavEncoder.cpp:477
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "रक्षणार्थं सञ्चिकां उद्घाटयितुं असमर्थः!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:614
+#: plugins/codec_mp3/MP3Encoder.cpp:658
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4763,14 +4742,14 @@ msgid ""
 msgstr ""
 "एषः कोडेकः केवलं मोनो अथवा स्टीरियो सञ्चिकाः समर्थयति, %1 चैनल्स् समर्थिताः न सन्ति ।"
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:136
+#: plugins/codec_ogg/VorbisEncoder.cpp:137
 #, kde-format
 msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:157
+#: plugins/codec_ogg/VorbisEncoder.cpp:158
 #, kde-format
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
@@ -4779,7 +4758,7 @@ msgstr ""
 "भवता एन्कोडिंग् कृते किमपि बिटरेट् न चिनोति । किं भवान् %1 kBit/s इत्यनेन निरन्तरं एन्कोड् "
 "कर्तुम् इच्छति अथवा रद्दं कृत्वा भिन्नं बिटरेट् चिन्वतु?"
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:222
+#: plugins/codec_ogg/VorbisEncoder.cpp:224
 #, kde-format
 msgid ""
 "One or more encoding parameters are not supported. Please change the "
@@ -4935,7 +4914,7 @@ msgstr "डम्प विण्डो पदानुक्रम"
 msgid "Dump Meta Data"
 msgstr "मेटा डाटा डम्प करें"
 
-#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:238
+#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:240
 #, kde-format
 msgid "Debug (%1)"
 msgstr "त्रुटिनिवारण (%1) ."
@@ -4948,18 +4927,18 @@ msgctxt ""
 msgid "(auto detect)"
 msgstr "(स्वयम् अन्वेषणम्)"
 
-#: plugins/export_k3b/K3BExportDialog.cpp:89
+#: plugins/export_k3b/K3BExportDialog.cpp:90
 #, kde-format
 msgctxt "file type filter when exporting to K3b"
 msgid "K3b project file (*.k3b)"
 msgstr "K3b परियोजना सञ्चिका (*.k3b)"
 
-#: plugins/export_k3b/K3BExportDialog.cpp:161
+#: plugins/export_k3b/K3BExportDialog.cpp:162
 #, kde-format
 msgid "Please choose a K3b project file name"
 msgstr ""
 
-#: plugins/export_k3b/K3BExportDialog.cpp:165
+#: plugins/export_k3b/K3BExportDialog.cpp:166
 #, kde-format
 msgid "Please choose where to export the audio files"
 msgstr ""
@@ -5099,12 +5078,12 @@ msgstr ""
 msgid "Export Location"
 msgstr "निर्यातस्थानं :"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:280
+#: plugins/export_k3b/K3BExportPlugin.cpp:281
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
 msgstr "K3b परियोजनायां निर्यातं कुर्वन्तु..."
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:599
+#: plugins/export_k3b/K3BExportPlugin.cpp:600
 #, kde-format
 msgid ""
 "Only mono and stereo files can be used for an audio CD. You can either "
@@ -5115,7 +5094,7 @@ msgstr ""
 "अचयनं कर्तुं वा सञ्चिकां भिन्नसञ्चिकास्वरूपेण निर्यातयितुं शक्नोति यत् केवलं मोनो तथा स्टीरियो "
 "समर्थयति (उदाहरणार्थं FLAC) ततः पुनः प्रयासं कर्तुं शक्नोति ।"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:662
+#: plugins/export_k3b/K3BExportPlugin.cpp:663
 #, kde-format
 msgid ""
 "A K3b project file has been created and audio files have been exported.\n"
@@ -6213,33 +6192,33 @@ msgstr "प्रारूपं समर्थितम् नास्ति"
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Qt Multimedia उपकरणं '%1' उद्घाटयितुं विफलम्"
 
-#: plugins/playback/PlayBackDialog.cpp:519
+#: plugins/playback/PlayBackDialog.cpp:520
 #, kde-format
 msgid "%1 Bytes"
 msgstr "%1 बाइट्"
 
-#: plugins/playback/PlayBackDialog.cpp:521
+#: plugins/playback/PlayBackDialog.cpp:522
 #, kde-format
 msgid "%1 kB"
 msgstr "%1 केबी"
 
-#: plugins/playback/PlayBackDialog.cpp:619
+#: plugins/playback/PlayBackDialog.cpp:620
 #, kde-format
 msgid "(mono)"
 msgstr "(मोनो)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/playback/PlayBackDialog.cpp:620 plugins/playback/PlayBackDlg.ui:350
+#: plugins/playback/PlayBackDialog.cpp:621 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
 msgstr "(स्टीरियो)"
 
-#: plugins/playback/PlayBackDialog.cpp:621
+#: plugins/playback/PlayBackDialog.cpp:622
 #, kde-format
 msgid "(quadro)"
 msgstr "(आबन्ध)"
 
-#: plugins/playback/PlayBackDialog.cpp:651
+#: plugins/playback/PlayBackDialog.cpp:652
 #, kde-format
 msgid "Select Playback Device"
 msgstr "Playback Device इति चिनोतु"
@@ -7116,7 +7095,7 @@ msgstr "नमूनादरं परिवर्तयन्तु"
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "नमूनादरं %1 kHz तः %2 kHz यावत् परिवर्तयति..."
 
-#: plugins/saveblocks/SaveBlocksDialog.cpp:203
+#: plugins/saveblocks/SaveBlocksDialog.cpp:205
 #, kde-format
 msgid "Please choose where to save the files"
 msgstr ""
@@ -7251,14 +7230,14 @@ msgstr "केवलं चयनं रक्षतु"
 msgid "..."
 msgstr "..."
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:271
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:272
 #, kde-format
 msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr ""
 "एतेन निम्नलिखितसञ्चिका(सञ्चिकाः) अधिलिखिता: %1किं भवान् वास्तवमेव निरन्तरं कर्तुम् इच्छति?"
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:284
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:285
 #, kde-format
 msgid ""
 "The following directories do not exist: %1Do you want to create them and "
@@ -7605,6 +7584,22 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "शांति"
+
+#~ msgid "T.H.F. Klok and Cedric Tefft"
+#~ msgstr "टी.एच.एफ. क्लोक् तथा सेड्रिक् टेफ्ट्"
+
+#~ msgid "Maintainers of the 'id3lib' library"
+#~ msgstr "'id3lib' पुस्तकालयस्य परिपालकाः"
+
+#~ msgid "http://www.id3lib.org/"
+#~ msgstr "http://www.id3lib.org/ इति ग्रन्थः ।"
+
+#~ msgid ""
+#~ "The opened file is no MPEG file or it is damaged.\n"
+#~ "No header information has been found."
+#~ msgstr ""
+#~ "उद्घाटिता सञ्चिका MPEG सञ्चिका नास्ति अथवा सा क्षतिग्रस्ता अस्ति ।\n"
+#~ "शीर्षकसूचना न प्राप्ता ।"
 
 #~ msgid ""
 #~ "Surround bitrate would be less than 32kBit/sec per channel, this file "

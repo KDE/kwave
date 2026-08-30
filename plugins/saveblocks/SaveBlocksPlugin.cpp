@@ -228,11 +228,11 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     QList<Kwave::FileProperty> unsupported_properties;
     {
         QString mimetype = Kwave::CodecManager::mimeTypeOf(m_url);
-        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype);
+        Kwave::Encoder::Instance encoder =
+            Kwave::CodecManager::encoder(mimetype);
         if (encoder) {
             unsupported_properties = encoder->unsupportedProperties(
                 file_info.properties().keys());
-            delete encoder;
         }
     }
 

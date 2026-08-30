@@ -56,7 +56,7 @@ namespace Kwave
         ~AudiofileEncoder() override;
 
         /** Returns a new instance of the encoder */
-        Kwave::Encoder *instance() override;
+        Kwave::Encoder::Instance instance() override;
 
         /**
          * Encodes audio data from Kwave into a QIODevice via libaudiofile.

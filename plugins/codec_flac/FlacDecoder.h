@@ -50,7 +50,7 @@ namespace Kwave
         ~FlacDecoder() override;
 
         /** Returns a new instance of the decoder */
-        Kwave::Decoder *instance() override;
+        Kwave::Decoder::Instance instance() override;
 
         /**
          * Opens the source and decodes the header information.

@@ -42,7 +42,7 @@ namespace Kwave
         ~AsciiEncoder() override;
 
         /** Returns a new instance of the encoder */
-        Kwave::Encoder *instance() override;
+        Kwave::Encoder::Instance instance() override;
 
         /**
          * Encodes a signal into a stream of bytes.

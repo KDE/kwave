@@ -52,20 +52,20 @@ Kwave::AudiofileCodecPlugin::~AudiofileCodecPlugin()
 }
 
 /***************************************************************************/
-QList<Kwave::Decoder *> Kwave::AudiofileCodecPlugin::createDecoder()
+QList<Kwave::Decoder::Instance> Kwave::AudiofileCodecPlugin::createDecoder()
 {
     return singleDecoder<Kwave::AudiofileDecoder>();
 }
 
 /***************************************************************************/
-QList<Kwave::Encoder *> Kwave::AudiofileCodecPlugin::createEncoder()
+QList<Kwave::Encoder::Instance> Kwave::AudiofileCodecPlugin::createEncoder()
 {
-    QList<Kwave::Encoder *> list;
+    QList<Kwave::Encoder::Instance> list;
 
     #define addAfMimeType(m, d, e, t)                                  \
         if (audiofileSupports(t))                                      \
             list.append(                                               \
-                new(std::nothrow) Kwave::AudiofileEncoder(m, d, e, t))
+                std::make_shared<Kwave::AudiofileEncoder>(m, d, e, t))
     REGISTER_MIME_TYPES
     #undef addAfMimeType
 

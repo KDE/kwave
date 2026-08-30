@@ -172,7 +172,8 @@ bool Kwave::MimeData::encode(QWidget *widget,
                              const Kwave::MetaDataList &meta_data)
 {
     // use our default encoder
-    Kwave::Encoder *encoder = Kwave::CodecManager::encoder(_(WAVE_FORMAT_PCM));
+    Kwave::Encoder::Instance encoder =
+        Kwave::CodecManager::encoder(_(WAVE_FORMAT_PCM));
     Q_ASSERT(encoder);
     if (!encoder) return false;
 
@@ -200,8 +201,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
     // encode into the buffer
     m_buffer.close(); // discard old stuff
     encoder->encode(widget, src, m_buffer, new_meta_data);
-
-    delete encoder;
+    encoder.reset();
 
     // set the mime data into this mime data container
     bool succeeded = m_buffer.mapToByteArray();
@@ -233,7 +233,8 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
         // skip all non-supported formats
         if (!Kwave::CodecManager::canDecode(format)) continue;
 
-        Kwave::Decoder *decoder = Kwave::CodecManager::decoder(format);
+        Kwave::Decoder::Instance decoder =
+            Kwave::CodecManager::decoder(format);
         Q_ASSERT(decoder);
         if (!decoder) return 0;
 
@@ -243,7 +244,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
         // open the mime source and get header information
         bool ok = decoder->open(widget, src);
         if (!ok) {
-            delete decoder;
+            decoder.reset();
             continue;
         }
 
@@ -252,7 +253,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
         Q_ASSERT(decoded_length);
         Q_ASSERT(decoded_tracks);
         if (!decoded_length || !decoded_tracks) {
-            delete decoder;
+            decoder.reset();
             continue;
         }
 
@@ -283,7 +284,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
                 decoded_tracks);
             ok = (sig.tracks() == decoded_tracks);
             if (!ok) {
-                delete decoder;
+                decoder.reset();
                 continue;
             }
         }
@@ -377,7 +378,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
         // failed :-(
         Q_ASSERT(ok);
         if (!ok) {
-            delete decoder;
+            decoder.reset();
             decoded_length = 0;
             continue;
         }
@@ -400,7 +401,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
         // add the remaining meta data (e.g. labels etc)
         sig.metaData().add(meta_data);
 
-        delete decoder;
+        decoder.reset();
         break;
     }
 

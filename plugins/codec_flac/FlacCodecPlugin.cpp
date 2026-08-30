@@ -43,13 +43,13 @@ Kwave::FlacCodecPlugin::~FlacCodecPlugin()
 }
 
 /***************************************************************************/
-QList<Kwave::Decoder *> Kwave::FlacCodecPlugin::createDecoder()
+QList<Kwave::Decoder::Instance> Kwave::FlacCodecPlugin::createDecoder()
 {
     return singleDecoder<Kwave::FlacDecoder>();
 }
 
 /***************************************************************************/
-QList<Kwave::Encoder *> Kwave::FlacCodecPlugin::createEncoder()
+QList<Kwave::Encoder::Instance> Kwave::FlacCodecPlugin::createEncoder()
 {
     return singleEncoder<Kwave::FlacEncoder>();
 }

@@ -958,7 +958,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
         current_url = QUrl(signalName());
 
         QString what  = Kwave::CodecManager::mimeTypeOf(current_url);
-        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
+        Kwave::Encoder::Instance encoder(Kwave::CodecManager::encoder(what));
         QString extension; // = "*.wav";
         if (!encoder) {
             // no extension selected yet, use mime type from file info

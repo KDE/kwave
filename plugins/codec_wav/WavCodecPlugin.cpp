@@ -39,13 +39,13 @@ Kwave::WavCodecPlugin::~WavCodecPlugin()
 }
 
 /***************************************************************************/
-QList<Kwave::Decoder *> Kwave::WavCodecPlugin::createDecoder()
+QList<Kwave::Decoder::Instance> Kwave::WavCodecPlugin::createDecoder()
 {
     return singleDecoder<Kwave::WavDecoder>();
 }
 
 /***************************************************************************/
-QList<Kwave::Encoder *> Kwave::WavCodecPlugin::createEncoder()
+QList<Kwave::Encoder::Instance> Kwave::WavCodecPlugin::createEncoder()
 {
     return singleEncoder<Kwave::WavEncoder>();
 }

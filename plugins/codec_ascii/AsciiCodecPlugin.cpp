@@ -43,13 +43,13 @@ Kwave::AsciiCodecPlugin::~AsciiCodecPlugin()
 }
 
 /***************************************************************************/
-QList<Kwave::Decoder *> Kwave::AsciiCodecPlugin::createDecoder()
+QList<Kwave::Decoder::Instance> Kwave::AsciiCodecPlugin::createDecoder()
 {
     return singleDecoder<Kwave::AsciiDecoder>();
 }
 
 /***************************************************************************/
-QList<Kwave::Encoder *> Kwave::AsciiCodecPlugin::createEncoder()
+QList<Kwave::Encoder::Instance> Kwave::AsciiCodecPlugin::createEncoder()
 {
     return singleEncoder<Kwave::AsciiEncoder>();
 }

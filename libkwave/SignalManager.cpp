@@ -33,6 +33,7 @@
 #include <QFutureWatcher>
 #include <QMutableListIterator>
 #include <QMutexLocker>
+#include <QObject>
 #include <QUrl>
 #include <QVector>
 #include <QtConcurrent/QtConcurrentRun>
@@ -155,14 +156,15 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
     QString mimetype = Kwave::CodecManager::mimeTypeOf(url);
     qDebug("SignalManager::loadFile(%s) - [%s]",
            DBG(url.toDisplayString()), DBG(mimetype));
-    Kwave::Decoder *decoder = Kwave::CodecManager::decoder(mimetype);
+    Kwave::Decoder::Instance decoder = Kwave::CodecManager::decoder(mimetype);
     while (decoder) {
         // be sure that the current signal is really closed
         m_signal.close();
 
         // open the source file
         if (!(res = decoder->open(m_parent_widget, src))) {
-            qWarning("unable to open source: '%s'", DBG(url.toDisplayString()));
+            qWarning("unable to open source: '%s'",
+                     DBG(url.toDisplayString()));
             res = -EIO;
             break;
         }
@@ -223,7 +225,8 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
         {
             if (use_src_size) {
                 // use source size for progress / stream mode
-                QObject::connect(decoder, SIGNAL(sourceProcessed(quint64)),
+                QObject::connect(decoder.get(),
+                                 SIGNAL(sourceProcessed(quint64)),
                                  dialog,  SLOT(setBytePosition(quint64)));
                 QObject::connect(&writers, SIGNAL(written(quint64)),
                                  dialog,   SLOT(setLength(quint64)));
@@ -312,7 +315,7 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
         qWarning("unknown file type");
         res = -EINVAL;
     } else {
-        delete decoder;
+        decoder.reset();
     }
 
     // process any queued events of the writers, like "sigSamplesInserted"
@@ -366,7 +369,8 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
     qDebug("SignalManager::save(%s) - [%s] (%u bit, selection=%d)",
         DBG(url.toDisplayString()), DBG(mimetype_name), bits, selection);
 
-    Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype_name);
+    Kwave::Encoder::Instance encoder =
+        Kwave::CodecManager::encoder(mimetype_name);
     Kwave::FileInfo file_info(m_meta_data);
     if (encoder) {
 
@@ -397,7 +401,6 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
                 _("accept_lose_attributes_on_export")
                 ) != KMessageBox::Continue)
             {
-                delete encoder;
                 return -1;
             }
         }
@@ -484,8 +487,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
             res = -1;
         }
 
-        delete encoder;
-        encoder = nullptr;
+        encoder.reset();
 
         if (dialog) {
             qApp->processEvents();

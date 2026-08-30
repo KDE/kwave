@@ -44,7 +44,7 @@ namespace Kwave
         ~WavEncoder() override;
 
         /** Returns a new instance of the encoder */
-        Encoder *instance() override;
+        Encoder::Instance instance() override;
 
         /**
          * Encodes a signal into a stream of bytes.

@@ -107,10 +107,10 @@ Kwave::AudiofileEncoder::~AudiofileEncoder()
 }
 
 /***************************************************************************/
-Kwave::Encoder *Kwave::AudiofileEncoder::instance()
+Kwave::Encoder::Instance Kwave::AudiofileEncoder::instance()
 {
     const CodecBase::MimeType m = mimeTypes().constFirst();
-    return new(std::nothrow) Kwave::AudiofileEncoder(
+    return std::make_shared<Kwave::AudiofileEncoder>(
         UTF8(m.name),
         m.description,
         UTF8(m.patterns.join(QStringLiteral("; "))),

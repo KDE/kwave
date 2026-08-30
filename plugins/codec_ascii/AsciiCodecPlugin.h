@@ -42,10 +42,10 @@ namespace Kwave
         ~AsciiCodecPlugin() override;
 
         /** Creates a new decoder */
-        QList<Kwave::Decoder *> createDecoder() override;
+        QList<Kwave::Decoder::Instance> createDecoder() override;
 
         /** Creates a new encoder */
-        QList<Kwave::Encoder *> createEncoder() override;
+        QList<Kwave::Encoder::Instance> createEncoder() override;
 
     private:
         /** static codec container */

@@ -55,9 +55,9 @@ Kwave::FlacDecoder::~FlacDecoder()
 }
 
 //***************************************************************************
-Kwave::Decoder *Kwave::FlacDecoder::instance()
+Kwave::Decoder::Instance Kwave::FlacDecoder::instance()
 {
-    return new(std::nothrow) Kwave::FlacDecoder();
+    return std::make_shared<Kwave::FlacDecoder>();
 }
 
 //***************************************************************************

@@ -60,9 +60,9 @@ Kwave::FlacEncoder::~FlacEncoder()
 }
 
 /***************************************************************************/
-Kwave::Encoder *Kwave::FlacEncoder::instance()
+Kwave::Encoder::Instance Kwave::FlacEncoder::instance()
 {
-    return new(std::nothrow) Kwave::FlacEncoder();
+    return std::make_shared<Kwave::FlacEncoder>();
 }
 
 /***************************************************************************/

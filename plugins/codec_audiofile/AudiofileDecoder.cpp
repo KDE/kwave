@@ -65,9 +65,9 @@ Kwave::AudiofileDecoder::~AudiofileDecoder()
 }
 
 //***************************************************************************
-Kwave::Decoder *Kwave::AudiofileDecoder::instance()
+Kwave::Decoder::Instance Kwave::AudiofileDecoder::instance()
 {
-    return new(std::nothrow) Kwave::AudiofileDecoder();
+    return std::make_shared<Kwave::AudiofileDecoder>();
 }
 
 //***************************************************************************

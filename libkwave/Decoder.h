@@ -40,6 +40,8 @@ namespace Kwave
         Q_OBJECT
     public:
 
+        using Instance = std::shared_ptr<Kwave::Decoder>;
+
         /** Constructor */
         Decoder();
 
@@ -47,7 +49,7 @@ namespace Kwave
         ~Decoder() override;
 
         /** Returns a new instance of the decoder */
-        virtual Decoder *instance() = 0;
+        virtual Instance instance() = 0;
 
         /**
          * Opens the source and decodes the header information.

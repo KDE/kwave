@@ -156,7 +156,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
      */
     if (!file_name.isEmpty()) {
         QString mt = Kwave::CodecManager::mimeTypeOf(QUrl(file_name));
-        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mt);
+        Kwave::Encoder::Instance encoder = Kwave::CodecManager::encoder(mt);
         if (encoder) {
             // encoder does not support the file's mime type -> switch
             if (!encoder->supports(mt)) {
@@ -624,7 +624,8 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
     // switch by mime type:
     if (!mime_type.isEmpty()) {
         // mime type is present -> offer only matching compressions
-        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
+        Kwave::Encoder::Instance encoder =
+            Kwave::CodecManager::encoder(mime_type);
         if (encoder)
             supported_compressions = encoder->supportedCompressions(m_info);
     } else {
@@ -633,7 +634,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
 
         QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
         for (QString m : mime_types) {
-            Kwave::Encoder *encoder = Kwave::CodecManager::encoder(m);
+            Kwave::Encoder::Instance encoder = Kwave::CodecManager::encoder(m);
             if (!encoder) continue;
             QList<Kwave::Compression::Type> comps =
                 encoder->supportedCompressions(m_info);
@@ -702,7 +703,7 @@ void Kwave::FileInfoDialog::compressionChanged()
             // mime type
             QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
             for (const QString &mt : mime_types) {
-                Kwave::Encoder *encoder =
+                Kwave::Encoder::Instance encoder =
                     Kwave::CodecManager::encoder(mt);
                 if (!encoder) continue;
                 QList<Kwave::Compression::Type> comps =
@@ -746,10 +747,9 @@ void Kwave::FileInfoDialog::compressionChanged()
     Kwave::SampleFormat::Map sf; // default to "all known"
     QList<Kwave::SampleFormat::Format> formats = sf.allData();
     if (!mime_type.isEmpty()) {
-        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
-        if (encoder != nullptr) {
-            formats = encoder->supportedSampleFormats(m_info);
-        }
+        Kwave::Encoder::Instance encoder =
+            Kwave::CodecManager::encoder(mime_type);
+        if (encoder) formats = encoder->supportedSampleFormats(m_info);
     }
     cbSampleFormat->clear();
     for (const Kwave::SampleFormat::Format &f : formats) {
@@ -785,8 +785,9 @@ void Kwave::FileInfoDialog::sampleFormatChanged()
     QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
 
     if (!mime_type.isEmpty()) {
-        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
-        if (encoder != nullptr)
+        Kwave::Encoder::Instance encoder =
+            Kwave::CodecManager::encoder(mime_type);
+        if (encoder)
             supported = encoder->supportedBitsPerSample(m_info);
     }
     if (!supported.isEmpty()) {
@@ -813,8 +814,9 @@ void Kwave::FileInfoDialog::resolutionChanged(int bits)
     QList<unsigned int> supported;
     QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
     if (!mime_type.isEmpty()) {
-        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
-        if (encoder != nullptr)
+        Kwave::Encoder::Instance encoder =
+            Kwave::CodecManager::encoder(mime_type);
+        if (encoder)
             supported = encoder->supportedBitsPerSample(m_info);
     }
     if (!supported.isEmpty()) {

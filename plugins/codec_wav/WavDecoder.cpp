@@ -111,9 +111,9 @@ Kwave::WavDecoder::~WavDecoder()
 }
 
 //***************************************************************************
-Kwave::Decoder *Kwave::WavDecoder::instance()
+Kwave::Decoder::Instance Kwave::WavDecoder::instance()
 {
-    return new(std::nothrow) Kwave::WavDecoder();
+    return std::make_shared<Kwave::WavDecoder>();
 }
 
 //***************************************************************************

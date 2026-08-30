@@ -27,11 +27,11 @@
 #include <QString>
 #include <QStringList>
 
+#include "libkwave/Decoder.h"
+#include "libkwave/Encoder.h"
+
 namespace Kwave
 {
-
-    class Decoder;
-    class Encoder;
 
     class LIBKWAVE_EXPORT CodecManager: public QObject
     {
@@ -49,26 +49,26 @@ namespace Kwave
          * @param encoder a KwaveEncoder that will be used as template for
          *                creating new encoder instances (used as factory)
          */
-        static void registerEncoder(Kwave::Encoder &encoder);
+        static void registerEncoder(Kwave::Encoder::Instance encoder);
 
         /**
          * Un-registers an encoder previously registered with registerEncoder.
          * @param encoder a KwaveEncoder
          */
-        static void unregisterEncoder(Kwave::Encoder *encoder);
+        static void unregisterEncoder(Kwave::Encoder::Instance encoder);
 
         /**
          * Registers a new decoder.
          * @param decoder a KwaveDecoder that will be used as template for
          *                creating new decoder instances (used as factory)
          */
-        static void registerDecoder(Kwave::Decoder &decoder);
+        static void registerDecoder(Kwave::Decoder::Instance decoder);
 
         /**
          * Un-registers an decoder previously registered with registerDecoder.
          * @param decoder a KwaveDecoder
          */
-        static void unregisterDecoder(Kwave::Decoder *decoder);
+        static void unregisterDecoder(Kwave::Decoder::Instance decoder);
 
         /**
          * Returns true if a decoder for the given mime type is known.
@@ -82,14 +82,14 @@ namespace Kwave
          * @param mimetype_name name of the mime type
          * @return a new decoder for the mime type or null if none found.
          */
-        static Kwave::Decoder *decoder(const QString &mimetype_name);
+        static Kwave::Decoder::Instance decoder(const QString &mimetype_name);
 
         /**
          * Tries to find an encoder that matches to a given mime type.
          * @param mimetype_name name of the mime type of the destination
          * @return a new encoder for the mime type or null if none found.
          */
-        static Kwave::Encoder *encoder(const QString &mimetype_name);
+        static Kwave::Encoder::Instance encoder(const QString &mimetype_name);
 
         /**
          * Returns a string with a list of all file types that can be used
@@ -121,10 +121,10 @@ namespace Kwave
 
     private:
         /** list of all encoders */
-        static QList<Kwave::Encoder *> m_encoders;
+        static QList<Kwave::Encoder::Instance> m_encoders;
 
         /** list of decoders */
-        static QList<Kwave::Decoder *> m_decoders;
+        static QList<Kwave::Decoder::Instance> m_decoders;
     };
 }
 

@@ -62,9 +62,9 @@ Kwave::AsciiDecoder::~AsciiDecoder()
 }
 
 //***************************************************************************
-Kwave::Decoder *Kwave::AsciiDecoder::instance()
+Kwave::Decoder::Instance Kwave::AsciiDecoder::instance()
 {
-    return new(std::nothrow) Kwave::AsciiDecoder();
+    return std::make_shared<Kwave::AsciiDecoder>();
 }
 
 //***************************************************************************

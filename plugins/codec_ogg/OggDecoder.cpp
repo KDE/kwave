@@ -69,9 +69,9 @@ Kwave::OggDecoder::~OggDecoder()
 }
 
 //***************************************************************************
-Kwave::Decoder *Kwave::OggDecoder::instance()
+Kwave::Decoder::Instance Kwave::OggDecoder::instance()
 {
-    return new(std::nothrow) Kwave::OggDecoder();
+    return std::make_shared<Kwave::OggDecoder>();
 }
 
 //***************************************************************************

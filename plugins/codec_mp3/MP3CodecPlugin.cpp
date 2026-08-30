@@ -81,13 +81,13 @@ QStringList *Kwave::MP3CodecPlugin::setup(QStringList &previous_params)
 }
 
 /***************************************************************************/
-QList<Kwave::Decoder *> Kwave::MP3CodecPlugin::createDecoder()
+QList<Kwave::Decoder::Instance> Kwave::MP3CodecPlugin::createDecoder()
 {
     return singleDecoder<Kwave::MP3Decoder>();
 }
 
 /***************************************************************************/
-QList<Kwave::Encoder *> Kwave::MP3CodecPlugin::createEncoder()
+QList<Kwave::Encoder::Instance> Kwave::MP3CodecPlugin::createEncoder()
 {
     return singleEncoder<Kwave::MP3Encoder>();
 }

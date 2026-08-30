@@ -21,6 +21,8 @@
 #include "config.h"
 #include "libkwave_export.h"
 
+#include <memory>
+
 #include <QtGlobal>
 #include <QList>
 #include <QObject>
@@ -40,6 +42,9 @@ namespace Kwave
     {
         Q_OBJECT
     public:
+
+        using Instance = std::shared_ptr<Kwave::Encoder>;
+
         /** Constructor */
         Encoder();
 
@@ -47,7 +52,7 @@ namespace Kwave
         ~Encoder() override {}
 
         /** Returns a new instance of the encoder */
-        virtual Encoder *instance() = 0;
+        virtual Instance instance() = 0;
 
         /**
          * Encodes a signal into a stream of bytes.

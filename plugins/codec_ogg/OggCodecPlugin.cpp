@@ -41,13 +41,13 @@ Kwave::OggCodecPlugin::~OggCodecPlugin()
 }
 
 /***************************************************************************/
-QList<Kwave::Decoder *> Kwave::OggCodecPlugin::createDecoder()
+QList<Kwave::Decoder::Instance> Kwave::OggCodecPlugin::createDecoder()
 {
     return singleDecoder<Kwave::OggDecoder>();
 }
 
 /***************************************************************************/
-QList<Kwave::Encoder *> Kwave::OggCodecPlugin::createEncoder()
+QList<Kwave::Encoder::Instance> Kwave::OggCodecPlugin::createEncoder()
 {
     return singleEncoder<Kwave::OggEncoder>();
 }

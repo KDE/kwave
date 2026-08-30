@@ -104,9 +104,9 @@ Kwave::MP3Decoder::~MP3Decoder()
 }
 
 //***************************************************************************
-Kwave::Decoder *Kwave::MP3Decoder::instance()
+Kwave::Decoder::Instance Kwave::MP3Decoder::instance()
 {
-    return new(std::nothrow) MP3Decoder();
+    return std::make_shared<MP3Decoder>();
 }
 
 //***************************************************************************

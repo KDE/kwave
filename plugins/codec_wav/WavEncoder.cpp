@@ -58,9 +58,9 @@ Kwave::WavEncoder::~WavEncoder()
 }
 
 /***************************************************************************/
-Kwave::Encoder *Kwave::WavEncoder::instance()
+Kwave::Encoder::Instance Kwave::WavEncoder::instance()
 {
-    return new(std::nothrow) Kwave::WavEncoder();
+    return std::make_shared<Kwave::WavEncoder>();
 }
 
 /***************************************************************************/

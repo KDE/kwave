@@ -109,7 +109,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         Messages.sh                                     GPL2+
         README.md                                       GPL2+
         snapcraft.yaml                                  CC0-1.0
-        TODO                                            GPL2+
         .flatpak-manifest.json                          CC0-1.0
         .gitignore                                      (UNKNOWN / Laurent Montel <montel@kde.org>)
         .gitlab-ci.yml                                  CC0-1.0

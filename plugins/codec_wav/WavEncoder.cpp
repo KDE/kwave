@@ -190,15 +190,16 @@ void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
 }
 
 /***************************************************************************/
-void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
+bool Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
 {
     // create a list of chunk names and properties for the INFO chunk
     QMap<Kwave::FileProperty, QVariant> properties(info.properties());
-    QMap<QByteArray, QByteArray> info_chunks;
-    unsigned int info_size = 0;
+    QMap<QByteArray, QByteArray>        info_chunks;
+    unsigned int                        info_size = 0;
+    bool                                ok        = true;
 
     for (QMap<Kwave::FileProperty, QVariant>::Iterator it = properties.begin();
-         it != properties.end(); ++it)
+         (it != properties.end()); ++it)
     {
         Kwave::FileProperty property = it.key();
         if (!m_property_map.containsProperty(property)) continue;
@@ -224,56 +225,60 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
     }
 
     // if there are properties to save, create a LIST chunk
-    if (!info_chunks.isEmpty()) {
+    while (!info_chunks.isEmpty()) {
         quint32 size;
 
         // enlarge the main RIFF chunk by the size of the LIST chunk
         info_size += 4 + 4 + 4; // add the size of LIST(INFO)
-        dst.seek(4);
-        dst.read(reinterpret_cast<char *>(&size), 4);
+        ok &= dst.seek(4);
+        ok &= (dst.read(reinterpret_cast<char *>(&size), 4) == 4);
         size = qToLittleEndian<quint32>(
             qFromLittleEndian<quint32>(size) + info_size);
-        dst.seek(4);
-        dst.write(reinterpret_cast<char *>(&size), 4);
+        ok &= dst.seek(4);
+        ok &= (dst.write(reinterpret_cast<char *>(&size), 4) == 4);
 
         // add the LIST(INFO) chunk itself
-        dst.seek(dst.size());
-        if (dst.pos() & 1) dst.write("\000", 1); // padding
-        dst.write("LIST", 4);
+        ok &= dst.seek(dst.size());
+        if (dst.pos() & 1) ok &= (dst.write("\000", 1) == 1); // padding
+        ok &= (dst.write("LIST", 4) == 4);
         size = qToLittleEndian<quint32>(info_size - 8);
-        dst.write(reinterpret_cast<char *>(&size), 4);
-        dst.write("INFO", 4);
+        ok &= (dst.write(reinterpret_cast<char *>(&size), 4) == 4);
+        ok &= (dst.write("INFO", 4) == 4);
 
         // append the chunks to the end of the file
         for (QMap<QByteArray, QByteArray>::Iterator it = info_chunks.begin();
-             it != info_chunks.end(); ++it)
+             ok && (it != info_chunks.end()); ++it)
         {
             QByteArray name  = it.key();
             QByteArray value = it.value();
 
-            dst.write(name.data(), 4); // chunk name
+            ok &= (dst.write(name.data(), 4) == 4); // chunk name
             size = static_cast<quint32>(value.length()); // length of the chunk
             if (size & 0x01) size++;
             size = qToLittleEndian<quint32>(size);
-            dst.write(reinterpret_cast<char *>(&size), 4);
-            dst.write(value.data(), value.length());
+            ok &= (dst.write(reinterpret_cast<char *>(&size), 4) == 4);
+            ok &= (dst.write(value.data(), value.length()) == value.length());
             if (value.length() & 0x01) {
                 const char zero = 0;
-                dst.write(&zero, 1);
+                ok &= (dst.write(&zero, 1) == 1);
             }
         }
+        break;
     }
+
+    return ok;
 }
 
 /***************************************************************************/
-void Kwave::WavEncoder::writeLabels(QIODevice &dst,
+bool Kwave::WavEncoder::writeLabels(QIODevice &dst,
                                     const Kwave::LabelList &labels)
 {
     const quint32 labels_count = static_cast<quint32>(labels.count());
     quint32 size, additional_size = 0, index, data;
+    bool ok = true;
 
     // shortcut: nothing to do if no labels present
-    if (!labels_count) return;
+    if (!labels_count) return true;
 
     // easy things first: size of the cue list (has fixed record size)
     // without chunk name and chunk size
@@ -301,25 +306,25 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
     // enlarge the main RIFF chunk by the size of the cue chunks
     additional_size += 4 + 4 + size_of_cue_list; // add size of 'cue '
 
-    dst.seek(4);
-    dst.read(reinterpret_cast<char *>(&size), 4);
+    ok &= dst.seek(4);
+    ok &= (dst.read(reinterpret_cast<char *>(&size), 4) == 4);
     size = qToLittleEndian<quint32>(
         qFromLittleEndian<quint32>(size) + additional_size);
-    dst.seek(4);
-    dst.write(reinterpret_cast<char *>(&size), 4);
+    ok &= dst.seek(4);
+    ok &= (dst.write(reinterpret_cast<char *>(&size), 4) == 4);
 
     // seek to the end of the file
-    dst.seek(dst.size());
-    if (dst.pos() & 1) dst.write("\000", 1); // padding
+    ok &= dst.seek(dst.size());
+    if (dst.pos() & 1) ok &= (dst.write("\000", 1) == 1); // padding
 
     // add the 'cue ' list
-    dst.write("cue ", 4);
+    ok &= (dst.write("cue ", 4) == 4);
     size = qToLittleEndian<quint32>(size_of_cue_list);
-    dst.write(reinterpret_cast<char *>(&size), 4);
+    ok &= (dst.write(reinterpret_cast<char *>(&size), 4) == 4);
 
     // number of entries
     size = qToLittleEndian<quint32>(labels_count);
-    dst.write(reinterpret_cast<char *>(&size), 4);
+    ok &= (dst.write(reinterpret_cast<char *>(&size), 4) == 4);
 
     index = 0;
     for (const Kwave::Label &label : labels) {
@@ -335,23 +340,30 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
          * } cue_list_entry_t;
          */
         data = qToLittleEndian<quint32>(index);
-        dst.write(reinterpret_cast<char *>(&data), 4); // dwIdentifier
+        // dwIdentifier
+        ok &= (dst.write(reinterpret_cast<char *>(&data), 4) == 4);
         data = 0;
-        dst.write(reinterpret_cast<char *>(&data), 4); // dwPosition
-        dst.write("data", 4);        // fccChunk
-        dst.write(reinterpret_cast<char *>(&data), 4); // dwChunkStart
-        dst.write(reinterpret_cast<char *>(&data), 4); // dwBlockStart
+         // dwPosition
+        ok &= (dst.write(reinterpret_cast<char *>(&data), 4) == 4);
+        ok &= (dst.write("data", 4) == 4);        // fccChunk
+        // dwChunkStart
+        ok &= (dst.write(reinterpret_cast<char *>(&data), 4) == 4);
+        // dwBlockStart
+        ok &= (dst.write(reinterpret_cast<char *>(&data), 4) == 4);
         data = qToLittleEndian<quint32>(Kwave::toUint(label.pos()));
-        dst.write(reinterpret_cast<char *>(&data), 4); // dwSampleOffset
+        // dwSampleOffset
+        ok &= (dst.write(reinterpret_cast<char *>(&data), 4) == 4);
+
         index++;
+        if (!ok) break;
     }
 
     // add the LIST(adtl) chunk
     if (size_of_labels) {
-        dst.write("LIST", 4);
+        ok &= (dst.write("LIST", 4) == 4);
         size = qToLittleEndian<quint32>(size_of_labels);
-        dst.write(reinterpret_cast<char *>(&size), 4);
-        dst.write("adtl", 4);
+        ok &= (dst.write(reinterpret_cast<char *>(&size), 4) == 4);
+        ok &= (dst.write("adtl", 4) == 4);
         index = 0;
         for (const Kwave::Label &label : labels) {
             if (label.isNull()) continue;
@@ -366,26 +378,31 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
              * } label_list_entry_t;
              */
             if (name.size()) {
-                dst.write("labl", 4);                // dwChunkID
+                // dwChunkID
+                ok &= (dst.write("labl", 4) == 4);
                 data = qToLittleEndian<quint32>(
                     static_cast<quint32>(name.size()) + 4);
 
                 // dwChunkSize
-                dst.write(reinterpret_cast<char *>(&data), 4);
+                ok &=(dst.write(reinterpret_cast<char *>(&data), 4) == 4);
                 data = qToLittleEndian<quint32>(index);
 
                 // dwIdentifier
-                dst.write(reinterpret_cast<char *>(&data), 4);
-                dst.write(name.data(), name.size()); // dwText
+                ok &=(dst.write(reinterpret_cast<char *>(&data), 4) == 4);
+                ok &= (dst.write(name.data(), name.size()) == 4); // dwText
                 if (name.size() & 1) {
                     // padding if necessary
                     data = 0;
-                    dst.write(reinterpret_cast<char *>(&data), 1);
+                    ok &= (dst.write(reinterpret_cast<char *>(&data), 1) == 1);
                 }
             }
+
             index++;
+            if (!ok) break;
         }
     }
+
+    return ok;
 }
 
 /***************************************************************************/
@@ -394,6 +411,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
                                const Kwave::MetaDataList &meta_data)
 {
     Kwave::FileInfo info(meta_data);
+    bool ok = true;
 
     /* first get and check some header information */
     const unsigned int   tracks = info.tracks();
@@ -566,7 +584,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     // allocate a buffer for input data
     const unsigned int virtual_frame_size = Kwave::toUint(
             afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
-    const unsigned int buffer_frames = (8 * 1024);
+    const int buffer_frames = (8 * 1024);
     sample_storage_t *buffer = static_cast<sample_storage_t *>(
         malloc(buffer_frames * virtual_frame_size));
     if (!buffer) return false;
@@ -576,10 +594,11 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     while (rest) {
         // merge the tracks into the sample buffer
         sample_storage_t *p = buffer;
-        unsigned int count = buffer_frames;
-        if (rest < count) count = Kwave::toUint(rest);
+        int count = buffer_frames;
+        if (rest < static_cast<sample_index_t>(count))
+            count = Kwave::toUint(rest);
 
-        for (unsigned int pos = 0; pos < count; pos++) {
+        for (int pos = 0; pos < count; pos++) {
             for (unsigned int track = 0; track < tracks; track++) {
                 Kwave::SampleReader *stream = src[track];
                 sample_t sample = 0;
@@ -597,11 +616,13 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
         // write out through libaudiofile
         count = afWriteFrames(fh, AF_DEFAULT_TRACK, buffer, count);
 
-        // break if eof reached or disk full
-        Q_ASSERT(count);
-        if (!count) break;
-
-        Q_ASSERT(rest >= count);
+        // break if EOF reached or disk full
+        Q_ASSERT(count >= 1);
+        if (count < 1) {
+            ok = false;
+            break;
+        }
+        Q_ASSERT(rest >= static_cast<sample_index_t>(count));
         rest -= count;
 
         // abort if the user pressed cancel
@@ -622,12 +643,12 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     fixAudiofileBrokenHeaderBug(dst, info, (bits * tracks) >> 3);
 
     // put the properties into the INFO chunk
-    writeInfoChunk(dst, info);
+    ok &= writeInfoChunk(dst, info);
 
     // write the labels list
-    writeLabels(dst, Kwave::LabelList(meta_data));
+    ok &= writeLabels(dst, Kwave::LabelList(meta_data));
 
-    return true;
+    return ok;
 }
 
 /***************************************************************************/

@@ -93,16 +93,18 @@ namespace Kwave
          *
          * @param dst file or other source to receive a stream of bytes
          * @param info information about the file to be saved
+         * @return true if succeeded, false if failed
          */
-        void writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info);
+        bool writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info);
 
         /**
          * write the 'cue list' and the label names (if any)
          *
          * @param dst file or other source to receive a stream of bytes
          * @param labels a list of labels
+         * @return true if succeeded, false if failed
          */
-        void writeLabels(QIODevice &dst, const Kwave::LabelList &labels);
+        bool writeLabels(QIODevice &dst, const Kwave::LabelList &labels);
 
         /**
          * Fix the size of the "data" and the "RIFF" chunk, as libaudiofile

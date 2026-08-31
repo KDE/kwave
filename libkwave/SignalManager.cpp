@@ -1832,21 +1832,29 @@ void Kwave::SignalManager::enableModifiedChange(bool en)
 void Kwave::SignalManager::setFileInfo(const Kwave::FileInfo &new_info,
                                        bool with_undo)
 {
+    bool modified = false;
+
     if (m_undo_enabled && with_undo) {
-        /* save data for undo */
-        Kwave::UndoTransactionGuard undo_transaction(*this,
-                                                     i18n("Modify File Info"));
         Kwave::FileInfo old_inf(m_meta_data);
-        if (!registerUndoAction(
-            new(std::nothrow) Kwave::UndoModifyMetaDataAction(
-                Kwave::MetaDataList(old_inf))))
-            return;
+
+        if (old_inf != new_info) {
+            /* save data for undo */
+            Kwave::UndoTransactionGuard undo_transaction(
+                *this, i18n("Modify File Info"));
+            if (!registerUndoAction(
+                new(std::nothrow) Kwave::UndoModifyMetaDataAction(
+                    Kwave::MetaDataList(old_inf))))
+                return;
+            modified = true;
+        }
     }
 
-    m_meta_data.replace(Kwave::MetaDataList(new_info));
-    setModified(true);
-    emitUndoRedoInfo();
-    emit sigMetaDataChanged(m_meta_data);
+    if (modified) {
+        m_meta_data.replace(Kwave::MetaDataList(new_info));
+        setModified(true);
+        emitUndoRedoInfo();
+        emit sigMetaDataChanged(m_meta_data);
+    }
 }
 
 //***************************************************************************

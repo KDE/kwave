@@ -22,6 +22,7 @@
 
 #include <QObject>
 
+#include "libkwave/Encoder.h"
 #include "libkwave/FileInfo.h"
 #include "ui_FileInfoDlg.h"
 
@@ -125,6 +126,12 @@ namespace Kwave
     private:
 
         /**
+         * update the selection of the encoder, based on file name,
+         * mime type and compression
+         */
+        void updateEncoder();
+
+        /**
          * takes the content of an edit field or similar into the current
          * info or removes it if the text is zero-length
          */
@@ -214,6 +221,13 @@ namespace Kwave
 
         /** FileInfo to be edited */
         Kwave::FileInfo m_info;
+
+        /**
+         * encoder that would be used for saving with current settings,
+         * file name and mime type, or a nullptr in cases where it is
+         * not yet decided (e.g. after File/New...)
+         */
+        Kwave::Encoder::Instance m_encoder;
 
     };
 }

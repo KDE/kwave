@@ -66,7 +66,7 @@ using namespace Qt::StringLiterals;
 
 //***************************************************************************
 Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
-    :QDialog(parent), Ui::FileInfoDlg(), m_info(info)
+    :QDialog(parent), Ui::FileInfoDlg(), m_info(info), m_encoder(nullptr)
 {
     setupUi(this);
 
@@ -86,6 +86,8 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
     // open config for reading default settings
     KConfigGroup cfg = KSharedConfig::openConfig()->group(
         CONFIG_DEFAULT_SECTION);
+
+    updateEncoder();
 
     setupFileInfoTab(cfg);
     setupCompressionTab(cfg);
@@ -119,9 +121,14 @@ void Kwave::FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
                                      Kwave::FileProperty property)
 {
     if (label) label->setText(i18n(UTF8(m_info.name(property))) + _(":"));
-    if (widget) describeWidget(widget,
-                               i18n(UTF8(m_info.name(property))),
-                               i18n(UTF8(m_info.description(property))));
+    if (widget) {
+        describeWidget(widget,
+                       i18n(UTF8(m_info.name(property))),
+                       i18n(UTF8(m_info.description(property))));
+        bool enabled = (!m_encoder ||
+            m_encoder->supportedProperties().contains(property));
+        widget->setEnabled(enabled);
+    }
 }
 
 //***************************************************************************
@@ -133,6 +140,66 @@ void Kwave::FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
 }
 
 //***************************************************************************
+void Kwave::FileInfoDialog::updateEncoder()
+{
+    // get current mime type
+    QString mimetype = m_info.get(Kwave::INF_MIMETYPE).toString();
+    QString new_mt   = mimetype;
+    if (mimetype.isEmpty()) {
+        // fallback: determine mime type from the file name
+        QFileInfo fi(m_info.get(Kwave::INF_FILENAME).toString());
+        QString file_name = fi.fileName();
+        if (!file_name.isEmpty()) {
+            QString mt = Kwave::CodecManager::mimeTypeOf(QUrl(file_name));
+            m_encoder = Kwave::CodecManager::encoder(mt);
+            if (m_encoder) {
+                new_mt = mt;
+            }
+        } else
+            new_mt.clear(); // no mime type, no file name
+    }
+
+    if (mimetype != new_mt) {
+
+        if (!new_mt.isEmpty()) {
+            qDebug("switching mime type to '%s'", DBG(new_mt));
+            m_info.set(Kwave::INF_MIMETYPE, new_mt);
+        } else {
+            m_encoder.reset(); // no mime type -> no encoder
+        }
+        mimetype = new_mt;
+    }
+
+    // find a matching decoder if not yet done
+    if (!m_encoder && !mimetype.isEmpty())
+        m_encoder = Kwave::CodecManager::encoder(mimetype);
+
+    if (m_encoder) {
+        // if the encoder does not support the current compression -> switch
+        QList<Kwave::Compression::Type> comps =
+            m_encoder->supportedCompressions(m_info);
+        Kwave::Compression::Type comp = Kwave::Compression::fromInt(
+            m_info.get(Kwave::INF_COMPRESSION).toInt());
+        if (!comps.contains(comp)) {
+            Kwave::Compression comp_old(comp);
+            Kwave::Compression comp_new(!comps.isEmpty() ?
+            comps.last() : Kwave::Compression::NONE
+            );
+            qDebug("compression '%s' not supported: switch to '%s'",
+                    DBG(comp_old.name()), DBG(comp_new.name()));
+            m_info.set(Kwave::INF_COMPRESSION,
+                        Kwave::Compression(comp).toInt());
+        }
+    } else {
+        // we do not (yet) have an idea about our encoder
+        // -> select the default mime type
+        // and keep the encoder as nullptr
+        mimetype = _("audio/x-wav");
+        m_info.set(Kwave::INF_MIMETYPE, mimetype);
+    }
+}
+
+//***************************************************************************
 void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
 {
     /* filename */
@@ -141,70 +208,6 @@ void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
     QString file_name = fi.fileName();
     edFileName->setText(file_name);
     edFileName->setEnabled(!file_name.isEmpty());
-
-    /* mime type */
-    QString mimetype = m_info.get(Kwave::INF_MIMETYPE).toString();
-    if (mimetype.isEmpty())
-        mimetype = _("audio/x-wav"); // default mimetype
-
-    qDebug("mimetype = %s", DBG(mimetype));
-
-    /*
-     * Check if the file name, mime type and compression match. If not,
-     * we might be in the "SaveAs" mode and the compression belongs to
-     * the old file name
-     */
-    if (!file_name.isEmpty()) {
-        QString mt = Kwave::CodecManager::mimeTypeOf(QUrl(file_name));
-        Kwave::Encoder::Instance encoder = Kwave::CodecManager::encoder(mt);
-        if (encoder) {
-            // encoder does not support the file's mime type -> switch
-            if (!encoder->supports(mt)) {
-                qDebug("switching mime type to '%s'", DBG(mt));
-                m_info.set(Kwave::INF_MIMETYPE, mt);
-                mimetype = mt;
-            }
-
-            // encoder does not support compression -> switch
-            QList<Kwave::Compression::Type> comps =
-                encoder->supportedCompressions(m_info);
-            Kwave::Compression::Type comp = Kwave::Compression::fromInt(
-                m_info.get(Kwave::INF_COMPRESSION).toInt()
-            );
-            if (!comps.contains(comp)) {
-                Kwave::Compression comp_old(comp);
-                Kwave::Compression comp_new(!comps.isEmpty() ?
-                    comps.last() : Kwave::Compression::NONE
-                );
-                qDebug("compression '%s' not supported: switch to '%s'",
-                    DBG(comp_old.name()), DBG(comp_new.name()));
-                m_info.set(Kwave::INF_COMPRESSION,
-                    Kwave::Compression(comp).toInt());
-            }
-
-            // mime type does not match compression -> switch
-            QList<Kwave::Compression::Type> comps_found;
-            for (Kwave::Compression::Type c : comps) {
-                Kwave::Compression cmp(c);
-                if ((cmp.preferredMimeType() == mimetype) &&
-                     comps.contains(c))
-                {
-                    comps_found.append(c);
-                    break;
-                }
-            }
-            if (!comps_found.isEmpty() && !comps_found.contains(comp)) {
-                Kwave::Compression::Type cn = comps_found.first();
-                Kwave::Compression comp_old(comp);
-                Kwave::Compression comp_new(cn);
-                qDebug("mime type/compression mismatch: "
-                       "switch from '%s' to '%s'",
-                       DBG(comp_old.name()), DBG(comp_new.name()));
-                m_info.set(Kwave::INF_COMPRESSION, comp_new.toInt());
-            }
-        }
-    }
-    edFileFormat->setText(mimetype);
 
     /* file size in bytes */
     initInfo(lblFileSize, edFileSize, Kwave::INF_FILESIZE);
@@ -224,9 +227,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
         edFileSize->setEnabled(false);
     }
 
-    /* file format (from mime type) */
-
-    // use mimetype instead
+    /* mime type */
     initInfoText(lblFileFormat,   edFileFormat,   Kwave::INF_MIMETYPE);
 
     /* sample rate */
@@ -286,7 +287,8 @@ void Kwave::FileInfoDialog::setupFileInfoTab(KConfigGroup &cfg)
         // builtin default = signed int
         format = cfg.readEntry("default_sample_format",
             static_cast<int>(Kwave::SampleFormat::Signed));
-        m_info.set(Kwave::INF_SAMPLE_FORMAT, format);
+        if (format != 0)
+            m_info.set(Kwave::INF_SAMPLE_FORMAT, format);
     }
     // the rest is done later in compressionChanged(), called
     // from setupCompressionTab()
@@ -574,7 +576,9 @@ void Kwave::FileInfoDialog::setupMiscellaneousTab()
     }
     connect(lstKeywords, SIGNAL(autoGenerate()),
             this, SLOT(autoGenerateKeywords()));
-
+    bool enabled = (!m_encoder ||
+        m_encoder->supportedProperties().contains(Kwave::INF_KEYWORDS));
+    lstKeywords->setEnabled(enabled);
 }
 
 //***************************************************************************
@@ -616,28 +620,21 @@ void Kwave::FileInfoDialog::tracksChanged(int tracks)
 //***************************************************************************
 void Kwave::FileInfoDialog::updateAvailableCompressions()
 {
-    cbCompression->blockSignals(true);
-
     QList<Kwave::Compression::Type> supported_compressions;
-    QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
 
-    // switch by mime type:
-    if (!mime_type.isEmpty()) {
-        // mime type is present -> offer only matching compressions
-        Kwave::Encoder::Instance encoder =
-            Kwave::CodecManager::encoder(mime_type);
-        if (encoder)
-            supported_compressions = encoder->supportedCompressions(m_info);
+    updateEncoder();
+    if (m_encoder) {
+        supported_compressions = m_encoder->supportedCompressions(m_info);
     } else {
-        // no mime type -> allow all mimetypes suitable for encoding
+        // no encoder -> allow all mime types suitable for encoding
         supported_compressions.append(Kwave::Compression::NONE);
 
         QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
-        for (QString m : mime_types) {
-            Kwave::Encoder::Instance encoder = Kwave::CodecManager::encoder(m);
-            if (!encoder) continue;
+        for (const QString &m : mime_types) {
+            Kwave::Encoder::Instance enc = Kwave::CodecManager::encoder(m);
+            if (!enc) continue;
             QList<Kwave::Compression::Type> comps =
-                encoder->supportedCompressions(m_info);
+                enc->supportedCompressions(m_info);
             for (Kwave::Compression::Type c : comps)
                 if (!supported_compressions.contains(c))
                     supported_compressions.append(c);
@@ -649,12 +646,12 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
         supported_compressions.append(Kwave::Compression::NONE);
 
     // add supported compressions to the combo box
+    cbCompression->blockSignals(true);
     cbCompression->clear();
     for (Kwave::Compression::Type c : supported_compressions) {
         Kwave::Compression compression(c);
         cbCompression->addItem(compression.name(), compression.toInt());
     }
-
     cbCompression->blockSignals(false);
 
     // update the selection of the compression type
@@ -716,7 +713,7 @@ void Kwave::FileInfoDialog::compressionChanged()
         }
     }
 
-    // if mpeg mode selected -> select mpeg layer
+    // if MPEG mode selected -> select MPEG layer
     int mpeg_layer = -1;
     switch (compression)
     {
@@ -779,7 +776,8 @@ void Kwave::FileInfoDialog::sampleFormatChanged()
     Kwave::SampleFormat::Map sample_formats;
     int sample_format =
         cbSampleFormat->itemData(cbSampleFormat->currentIndex()).toInt();
-    m_info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(sample_format));
+    if (sample_format != 0)
+        m_info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(sample_format));
 
     QList<unsigned int> supported;
     QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
@@ -812,13 +810,11 @@ void Kwave::FileInfoDialog::sampleFormatChanged()
 void Kwave::FileInfoDialog::resolutionChanged(int bits)
 {
     QList<unsigned int> supported;
-    QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
-    if (!mime_type.isEmpty()) {
-        Kwave::Encoder::Instance encoder =
-            Kwave::CodecManager::encoder(mime_type);
-        if (encoder)
-            supported = encoder->supportedBitsPerSample(m_info);
-    }
+
+    updateEncoder();
+    if (m_encoder)
+        supported = m_encoder->supportedBitsPerSample(m_info);
+
     if (!supported.isEmpty()) {
         int current_bits = bits;
         sbResolution->blockSignals(true);
@@ -1105,7 +1101,8 @@ void Kwave::FileInfoDialog::accept()
     Kwave::SampleFormat::Map sample_formats;
     int sample_format =
         cbSampleFormat->itemData(cbSampleFormat->currentIndex()).toInt();
-    m_info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(sample_format));
+    if (sample_format != 0)
+        m_info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(sample_format));
 
     /* compression */
     Kwave::Compression::Type compression = Kwave::Compression::fromInt(

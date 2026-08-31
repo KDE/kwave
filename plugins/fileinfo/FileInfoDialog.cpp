@@ -88,6 +88,7 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
         CONFIG_DEFAULT_SECTION);
 
     updateEncoder();
+    updateAvailableCompressions();
 
     setupFileInfoTab(cfg);
     setupCompressionTab(cfg);
@@ -189,6 +190,7 @@ void Kwave::FileInfoDialog::updateEncoder()
                     DBG(comp_old.name()), DBG(comp_new.name()));
             m_info.set(Kwave::INF_COMPRESSION,
                         Kwave::Compression(comp).toInt());
+            updateAvailableCompressions();
         }
     } else {
         // we do not (yet) have an idea about our encoder
@@ -307,7 +309,6 @@ void Kwave::FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
      */
 
     /* compression */
-    updateAvailableCompressions();
     initInfo(lblCompression, cbCompression, Kwave::INF_COMPRESSION);
 
     // ABR or VBR mode
@@ -622,7 +623,6 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
 {
     QList<Kwave::Compression::Type> supported_compressions;
 
-    updateEncoder();
     if (m_encoder) {
         supported_compressions = m_encoder->supportedCompressions(m_info);
     } else {
@@ -652,7 +652,6 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
         Kwave::Compression compression(c);
         cbCompression->addItem(compression.name(), compression.toInt());
     }
-    cbCompression->blockSignals(false);
 
     // update the selection of the compression type
     int c = m_info.get(Kwave::INF_COMPRESSION).toInt();
@@ -663,6 +662,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
     if (new_index < 0)
         new_index = cbCompression->count() - 1;
 
+    cbCompression->blockSignals(false);
     cbCompression->setCurrentIndex(new_index);
     cbCompression->setEnabled(cbCompression->count() > 1);
 }
@@ -671,6 +671,8 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
 void Kwave::FileInfoDialog::compressionChanged()
 {
     if (!cbCompression || !edFileFormat) return;
+
+    cbCompression->setEnabled(true);
 
     Kwave::Compression::Type compression =
         Kwave::Compression::fromInt(cbCompression->itemData(
@@ -681,37 +683,7 @@ void Kwave::FileInfoDialog::compressionChanged()
                QVariant(Kwave::Compression(compression).toInt()) :
                QVariant());
 
-    const Kwave::Compression comp(compression);
-    const QString preferred_mime_type = comp.preferredMimeType();
-    QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
-
-    // selected compression -> mime type (edit field)
-
-    if (!preferred_mime_type.isEmpty()) {
-        // if a compression implies a specific mime type -> select it
-        edFileFormat->setText(preferred_mime_type);
-    } else {
-        // if mime type is given by file info -> keep it
-        // otherwise select one by evaluating the compression <-> encoder
-        if (mime_type.isEmpty()) {
-            // determine mime type from a matching encoder.
-            // This should work for compression types that are supported by
-            // only one single encoder which also supports only one single
-            // mime type
-            QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
-            for (const QString &mt : mime_types) {
-                Kwave::Encoder::Instance encoder =
-                    Kwave::CodecManager::encoder(mt);
-                if (!encoder) continue;
-                QList<Kwave::Compression::Type> comps =
-                    encoder->supportedCompressions(m_info);
-                if (comps.contains(compression)) {
-                    edFileFormat->setText(mt);
-                    break;
-                }
-            }
-        }
-    }
+    updateEncoder();
 
     // if MPEG mode selected -> select MPEG layer
     int mpeg_layer = -1;
@@ -728,6 +700,7 @@ void Kwave::FileInfoDialog::compressionChanged()
         cbMpegLayer->setCurrentIndex(mpeg_layer - 1);
 
     // enable/disable ABR/VBR controls, depending on mime type
+    const Kwave::Compression comp(compression);
     const bool abr = comp.hasABR();
     const bool lower = abr && m_info.contains(Kwave::INF_BITRATE_LOWER);
     const bool upper = abr && m_info.contains(Kwave::INF_BITRATE_UPPER);
@@ -741,13 +714,10 @@ void Kwave::FileInfoDialog::compressionChanged()
         compressionWidget->setMode(Kwave::CompressionWidget::VBR_MODE);
 
     // adjust the sample format selection, based on the compression
-    Kwave::SampleFormat::Map sf; // default to "all known"
-    QList<Kwave::SampleFormat::Format> formats = sf.allData();
-    if (!mime_type.isEmpty()) {
-        Kwave::Encoder::Instance encoder =
-            Kwave::CodecManager::encoder(mime_type);
-        if (encoder) formats = encoder->supportedSampleFormats(m_info);
-    }
+    Kwave::SampleFormat::Map sf; // default to "all known
+    QList<Kwave::SampleFormat::Format> formats = (m_encoder) ?
+        m_encoder->supportedSampleFormats(m_info) : sf.allData();
+
     cbSampleFormat->clear();
     for (const Kwave::SampleFormat::Format &f : formats) {
         int k = sf.findFromData(f);

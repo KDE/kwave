@@ -152,6 +152,9 @@ namespace Kwave
         /** Destructor */
         ~FileInfo() override;
 
+        /** compare operator */
+        bool operator == (const FileInfo &other) const;
+
         /** returns the identifier of the "type" of this meta data object */
         static QString metaDataType() {
             return QString::fromLatin1("FILE INFO");

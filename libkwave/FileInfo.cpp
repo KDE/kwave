@@ -470,6 +470,33 @@ static inline QString shortened(const QString &str)
 }
 
 /***************************************************************************/
+bool Kwave::FileInfo::operator == (const FileInfo &other) const
+{
+    const PropertyTypesMap &ma = m_property_map;
+    const PropertyTypesMap &mb = other.m_property_map;
+
+    const auto ka = ma.keys();
+    const auto kb = mb.keys();
+    if (ka.count() != kb.count())
+        return false;
+
+    for (const auto &k : ka) {
+        if (!kb.contains(k)) return false;
+        QVariant va = get(k);
+        QVariant vb = other.get(k);
+        if (va != vb) {
+//          qDebug("COMPARE: different values of '%s': '%s' <-> '%s'",
+//              DBG(ma.name(k)),
+//              DBG(va.toString()),
+//              DBG(vb.toString()));
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/***************************************************************************/
 void Kwave::FileInfo::dump() const
 {
     qDebug("--- dump of file info ---");

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:45+0000\n"
-"PO-Revision-Date: 2026-08-22 09:09+0200\n"
+"POT-Creation-Date: 2026-08-31 00:43+0000\n"
+"PO-Revision-Date: 2026-08-30 09:33+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -426,7 +426,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Llista d'etiquetes de Kwave"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1884
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1886
 #, kde-format
 msgid "Add Label"
 msgstr "Afig una etiqueta"
@@ -1124,7 +1124,7 @@ msgstr "Desfés"
 msgid "Redo"
 msgstr "Refés"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:702
+#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:704
 #, kde-format
 msgid "Cut"
 msgstr "Retalla"
@@ -1379,7 +1379,7 @@ msgstr "En la primera meitat"
 msgid "Into second half"
 msgstr "En la segona meitat"
 
-#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:729
+#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:731
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -1725,17 +1725,17 @@ msgstr "A les etiquetes següents"
 msgid "To Previous Labels"
 msgstr "A les etiquetes anteriors"
 
-#: libkwave/CodecManager.cpp:200
+#: libkwave/CodecManager.cpp:201
 #, kde-format
 msgid "Kwave Macro Files"
 msgstr "Fitxers de macros de Kwave"
 
-#: libkwave/CodecManager.cpp:204
+#: libkwave/CodecManager.cpp:205
 #, kde-format
 msgid "All Files"
 msgstr "Tots els fitxers"
 
-#: libkwave/CodecManager.cpp:206
+#: libkwave/CodecManager.cpp:207
 #, kde-format
 msgid "All Supported Files"
 msgstr "Tots els fitxers admesos"
@@ -3381,12 +3381,12 @@ msgstr "IEEE de 32 bits en coma flotant"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "IEEE de 64 bits en coma flotant de precisió doble"
 
-#: libkwave/SignalManager.cpp:360
+#: libkwave/SignalManager.cpp:363
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "El senyal està buit. No hi ha res que s'haja de guardar."
 
-#: libkwave/SignalManager.cpp:389
+#: libkwave/SignalManager.cpp:393
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3398,119 +3398,119 @@ msgstr ""
 "%1\n"
 "Voleu continuar?"
 
-#: libkwave/SignalManager.cpp:426 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:429 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(construït amb els Frameworks %1 de KDE)"
 
-#: libkwave/SignalManager.cpp:483
+#: libkwave/SignalManager.cpp:486
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "S'ha produït un error mentre es guardava el fitxer."
 
-#: libkwave/SignalManager.cpp:495
+#: libkwave/SignalManager.cpp:497
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "El fitxer s'ha truncat i podria estar corrupte."
 
-#: libkwave/SignalManager.cpp:504
+#: libkwave/SignalManager.cpp:506
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "Ho sentim, el tipus de fitxer no està permés."
 
-#: libkwave/SignalManager.cpp:678
+#: libkwave/SignalManager.cpp:680
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "Inserix el porta-retalls a la posició"
 
-#: libkwave/SignalManager.cpp:688
+#: libkwave/SignalManager.cpp:690
 #, kde-format
 msgid "Paste"
 msgstr "Apega"
 
-#: libkwave/SignalManager.cpp:710
+#: libkwave/SignalManager.cpp:712
 #, kde-format
 msgid "Crop"
 msgstr "Escapça"
 
-#: libkwave/SignalManager.cpp:761
+#: libkwave/SignalManager.cpp:763
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "Expandix la selecció a l'etiqueta"
 
-#: libkwave/SignalManager.cpp:790
+#: libkwave/SignalManager.cpp:792
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Tria les etiquetes següents"
 
-#: libkwave/SignalManager.cpp:828
+#: libkwave/SignalManager.cpp:830
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Tria les etiquetes anteriors"
 
-#: libkwave/SignalManager.cpp:867
+#: libkwave/SignalManager.cpp:869
 #, kde-format
 msgid "Select All Tracks"
 msgstr "Tria totes les pistes"
 
-#: libkwave/SignalManager.cpp:871
+#: libkwave/SignalManager.cpp:873
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "Desselecciona totes les pistes"
 
-#: libkwave/SignalManager.cpp:875
+#: libkwave/SignalManager.cpp:877
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Invertix la selecció de les pistes"
 
-#: libkwave/SignalManager.cpp:881
+#: libkwave/SignalManager.cpp:883
 #, kde-format
 msgid "Select Track"
 msgstr "Tria la pista"
 
-#: libkwave/SignalManager.cpp:886
+#: libkwave/SignalManager.cpp:888
 #, kde-format
 msgid "Deselect Track"
 msgstr "Desselecciona la pista"
 
-#: libkwave/SignalManager.cpp:891
+#: libkwave/SignalManager.cpp:893
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Canvia la selecció de les pistes"
 
-#: libkwave/SignalManager.cpp:933
+#: libkwave/SignalManager.cpp:935
 #, kde-format
 msgid "Append Track"
 msgstr "Afig una pista"
 
-#: libkwave/SignalManager.cpp:940 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Inserix una pista"
 
-#: libkwave/SignalManager.cpp:963 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:965 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Suprimix la pista"
 
-#: libkwave/SignalManager.cpp:1116
+#: libkwave/SignalManager.cpp:1118
 #, kde-format
 msgid "Insert Space"
 msgstr "Inserix un espai"
 
-#: libkwave/SignalManager.cpp:1388
+#: libkwave/SignalManager.cpp:1390
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr ""
 "No hi ha prou memòria per a guardar la informació que permeta desfer l'acció."
 
-#: libkwave/SignalManager.cpp:1390
+#: libkwave/SignalManager.cpp:1392
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Voleu continuar sense la possibilitat de desfer?"
 
-#: libkwave/SignalManager.cpp:1392
+#: libkwave/SignalManager.cpp:1394
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3519,42 +3519,42 @@ msgstr ""
 "<b>Consell</b>: podeu configurar la quantitat de memòria<br>disponible per a "
 "l'opció de desfer a «%1/%2»."
 
-#: libkwave/SignalManager.cpp:1394
+#: libkwave/SignalManager.cpp:1396
 #, kde-format
 msgid "Settings"
 msgstr "Configuració"
 
-#: libkwave/SignalManager.cpp:1395
+#: libkwave/SignalManager.cpp:1397
 #, kde-format
 msgid "Memory"
 msgstr "Memòria"
 
-#: libkwave/SignalManager.cpp:1539 libkwave/SignalManager.cpp:1546
+#: libkwave/SignalManager.cpp:1541 libkwave/SignalManager.cpp:1548
 #, kde-format
 msgid "Last Action"
 msgstr "Última acció"
 
-#: libkwave/SignalManager.cpp:1836
+#: libkwave/SignalManager.cpp:1838
 #, kde-format
 msgid "Modify File Info"
 msgstr "Modifica la informació del fitxer"
 
-#: libkwave/SignalManager.cpp:1911
+#: libkwave/SignalManager.cpp:1913
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Suprimix totes les etiquetes"
 
-#: libkwave/SignalManager.cpp:1930
+#: libkwave/SignalManager.cpp:1932
 #, kde-format
 msgid "Delete Label"
 msgstr "Suprimix l'etiqueta"
 
-#: libkwave/SignalManager.cpp:2028
+#: libkwave/SignalManager.cpp:2030
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Selecció manual de les pistes"
 
-#: libkwave/SignalManager.cpp:2031
+#: libkwave/SignalManager.cpp:2033
 #, kde-format
 msgid "Manual Selection"
 msgstr "Selecció manual"
@@ -3965,13 +3965,9 @@ msgstr ""
 "«%1»"
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:468
-#, fuzzy, kde-format
-#| msgid ""
-#| "This file format supports only up to %1 channels, %2 channels are not "
-#| "supported."
+#, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
-msgstr ""
-"Este format de fitxer només permet fins a %1 canals, no s'admeten %2 canals."
+msgstr "Este format de fitxer només permet mono, no s'admeten %1 canals."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:472
 #: plugins/codec_flac/FlacEncoder.cpp:205
@@ -3983,16 +3979,14 @@ msgstr ""
 "Este format de fitxer només permet fins a %1 canals, no s'admeten %2 canals."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:479
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "No s'ha pogut obrir el fitxer per a guardar-lo."
+msgstr "No s'ha pogut obrir el dispositiu de destinació per a escriptura."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:529
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "No s'ha pogut obrir el codificador FLAC."
+msgstr "No s'ha pogut restablir el codificador «libaudiofile»."
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
@@ -4035,15 +4029,12 @@ msgid "MPEG layer I audio"
 msgstr "Àudio en MPEG de capa I"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:173
-#, fuzzy, kde-format
-#| msgid ""
-#| "The file contains an invalid channel mode 0x%1\n"
-#| "Assuming Mono..."
+#, kde-format
 msgid ""
 "The file contains an invalid channel mode (%1).\n"
 "Assuming Mono..."
 msgstr ""
-"El fitxer conté un mode de canal no vàlid 0x%1\n"
+"El fitxer conté un mode de canal no vàlid (%1).\n"
 "S'assumix que és en mono…"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:549
@@ -5304,14 +5295,14 @@ msgstr "(estèreo)"
 msgid "(Quadro)"
 msgstr "(quadrifònica)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:946
-#: plugins/fileinfo/FileInfoDialog.cpp:952
+#: plugins/fileinfo/FileInfoDialog.cpp:948
+#: plugins/fileinfo/FileInfoDialog.cpp:954
 #, kde-format
 msgid "Yes"
 msgstr "Sí"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:946
-#: plugins/fileinfo/FileInfoDialog.cpp:952
+#: plugins/fileinfo/FileInfoDialog.cpp:948
+#: plugins/fileinfo/FileInfoDialog.cpp:954
 #, kde-format
 msgid "No"
 msgstr "No"
@@ -7623,19 +7614,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Silenci"
-
-#~ msgid "T.H.F. Klok and Cedric Tefft"
-#~ msgstr "T.H.F. Klok i Cedric Tefft"
-
-#~ msgid "Maintainers of the 'id3lib' library"
-#~ msgstr "Mantenidors de la biblioteca «id3lib»"
-
-#~ msgid "http://www.id3lib.org/"
-#~ msgstr "http://www.id3lib.org/"
-
-#~ msgid ""
-#~ "The opened file is no MPEG file or it is damaged.\n"
-#~ "No header information has been found."
-#~ msgstr ""
-#~ "El fitxer obert no és un fitxer MPEG o està malmés.\n"
-#~ "No s'ha trobat cap informació en la capçalera."

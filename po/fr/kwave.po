@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:45+0000\n"
-"PO-Revision-Date: 2026-08-23 14:52+0200\n"
+"POT-Creation-Date: 2026-08-31 00:43+0000\n"
+"PO-Revision-Date: 2026-08-29 08:49+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -431,7 +431,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Étiquettes KWave"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1884
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1886
 #, kde-format
 msgid "Add Label"
 msgstr "Ajouter une étiquette"
@@ -1129,7 +1129,7 @@ msgstr "Annuler"
 msgid "Redo"
 msgstr "Refaire"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:702
+#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:704
 #, kde-format
 msgid "Cut"
 msgstr "Couper"
@@ -1385,7 +1385,7 @@ msgstr "Dans la première moitié"
 msgid "Into second half"
 msgstr "Dans la seconde moitié"
 
-#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:729
+#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:731
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -1732,17 +1732,17 @@ msgstr "À l'étiquette suivante"
 msgid "To Previous Labels"
 msgstr "À l'étiquette précédente"
 
-#: libkwave/CodecManager.cpp:200
+#: libkwave/CodecManager.cpp:201
 #, kde-format
 msgid "Kwave Macro Files"
 msgstr "Fichiers de macro KWave"
 
-#: libkwave/CodecManager.cpp:204
+#: libkwave/CodecManager.cpp:205
 #, kde-format
 msgid "All Files"
 msgstr "Tous les fichiers"
 
-#: libkwave/CodecManager.cpp:206
+#: libkwave/CodecManager.cpp:207
 #, kde-format
 msgid "All Supported Files"
 msgstr "Tous les fichiers pris en charge"
@@ -3384,12 +3384,12 @@ msgstr "IEEE 32 bits à virgule flottante"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "IEEE 64 bits double précision à virgule flottante"
 
-#: libkwave/SignalManager.cpp:360
+#: libkwave/SignalManager.cpp:363
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "Le signal est vide, l'enregistrement est annulé."
 
-#: libkwave/SignalManager.cpp:389
+#: libkwave/SignalManager.cpp:393
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3400,122 +3400,122 @@ msgstr ""
 "%1\n"
 "Voulez-vous poursuivre malgré tout ?"
 
-#: libkwave/SignalManager.cpp:426 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:429 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(développé sous KDE Frameworks version %1)"
 
-#: libkwave/SignalManager.cpp:483
+#: libkwave/SignalManager.cpp:486
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "Une erreur est survenue lors de l'enregistrement du fichier."
 
-#: libkwave/SignalManager.cpp:495
+#: libkwave/SignalManager.cpp:497
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "Le fichier fut tronqué et pourrait être corrompu."
 
-#: libkwave/SignalManager.cpp:504
+#: libkwave/SignalManager.cpp:506
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "Désolé, ce format de fichier n'est pas pris en charge."
 
-#: libkwave/SignalManager.cpp:678
+#: libkwave/SignalManager.cpp:680
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "Insérer depuis le presse-papiers à la position"
 
-#: libkwave/SignalManager.cpp:688
+#: libkwave/SignalManager.cpp:690
 #, kde-format
 msgid "Paste"
 msgstr "Coller"
 
-#: libkwave/SignalManager.cpp:710
+#: libkwave/SignalManager.cpp:712
 #, kde-format
 msgid "Crop"
 msgstr "Rogner"
 
-#: libkwave/SignalManager.cpp:761
+#: libkwave/SignalManager.cpp:763
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "Étendre la sélection jusqu'à l'étiquette"
 
-#: libkwave/SignalManager.cpp:790
+#: libkwave/SignalManager.cpp:792
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Sélectionner les étiquettes suivantes"
 
-#: libkwave/SignalManager.cpp:828
+#: libkwave/SignalManager.cpp:830
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Sélectionner les étiquettes précédentes"
 
-#: libkwave/SignalManager.cpp:867
+#: libkwave/SignalManager.cpp:869
 #, kde-format
 msgid "Select All Tracks"
 msgstr "Sélectionner toutes les pistes"
 
-#: libkwave/SignalManager.cpp:871
+#: libkwave/SignalManager.cpp:873
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "Désélectionner toutes les pistes"
 
-#: libkwave/SignalManager.cpp:875
+#: libkwave/SignalManager.cpp:877
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Inverser la sélection des pistes"
 
-#: libkwave/SignalManager.cpp:881
+#: libkwave/SignalManager.cpp:883
 #, kde-format
 msgid "Select Track"
 msgstr "Sélectionner la piste"
 
-#: libkwave/SignalManager.cpp:886
+#: libkwave/SignalManager.cpp:888
 #, kde-format
 msgid "Deselect Track"
 msgstr "Désélectionner la piste"
 
-#: libkwave/SignalManager.cpp:891
+#: libkwave/SignalManager.cpp:893
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Basculer la sélection des pistes"
 
-#: libkwave/SignalManager.cpp:933
+#: libkwave/SignalManager.cpp:935
 #, kde-format
 msgid "Append Track"
 msgstr "Ajouter la piste"
 
-#: libkwave/SignalManager.cpp:940 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Insérer une piste"
 
-#: libkwave/SignalManager.cpp:963 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:965 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Supprimer la piste"
 
-#: libkwave/SignalManager.cpp:1116
+#: libkwave/SignalManager.cpp:1118
 #, kde-format
 msgid "Insert Space"
 msgstr "Insérer un espace"
 
-#: libkwave/SignalManager.cpp:1388
+#: libkwave/SignalManager.cpp:1390
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr ""
 "Il n'y a pas assez de mémoire pour enregistrer l'information de retour "
 "arrière."
 
-#: libkwave/SignalManager.cpp:1390
+#: libkwave/SignalManager.cpp:1392
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr ""
 "Voulez-vous poursuivre sans possibilité de retour arrière d'une "
 "modification ?"
 
-#: libkwave/SignalManager.cpp:1392
+#: libkwave/SignalManager.cpp:1394
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3524,42 +3524,42 @@ msgstr ""
 "<b>Astuce</b> : vous pouvez configurer la mémoire<br>disponible pour un "
 "retour arrière sous « %1 » / « %2 »."
 
-#: libkwave/SignalManager.cpp:1394
+#: libkwave/SignalManager.cpp:1396
 #, kde-format
 msgid "Settings"
 msgstr "Configuration"
 
-#: libkwave/SignalManager.cpp:1395
+#: libkwave/SignalManager.cpp:1397
 #, kde-format
 msgid "Memory"
 msgstr "Mémoire"
 
-#: libkwave/SignalManager.cpp:1539 libkwave/SignalManager.cpp:1546
+#: libkwave/SignalManager.cpp:1541 libkwave/SignalManager.cpp:1548
 #, kde-format
 msgid "Last Action"
 msgstr "Dernière action"
 
-#: libkwave/SignalManager.cpp:1836
+#: libkwave/SignalManager.cpp:1838
 #, kde-format
 msgid "Modify File Info"
 msgstr "Modifier l'information d'un fichier"
 
-#: libkwave/SignalManager.cpp:1911
+#: libkwave/SignalManager.cpp:1913
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Supprimer toutes les étiquettes"
 
-#: libkwave/SignalManager.cpp:1930
+#: libkwave/SignalManager.cpp:1932
 #, kde-format
 msgid "Delete Label"
 msgstr "Supprimer l'étiquette"
 
-#: libkwave/SignalManager.cpp:2028
+#: libkwave/SignalManager.cpp:2030
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Sélection manuelle des pistes"
 
-#: libkwave/SignalManager.cpp:2031
+#: libkwave/SignalManager.cpp:2033
 #, kde-format
 msgid "Manual Selection"
 msgstr "Sélection manuelle"
@@ -3969,14 +3969,11 @@ msgstr ""
 "« %1 »"
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:468
-#, fuzzy, kde-format
-#| msgid ""
-#| "This file format supports only up to %1 channels, %2 channels are not "
-#| "supported."
+#, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
 msgstr ""
-"Ce format de fichier ne prend en charge que %1 canaux. Les canaux %2 ne sont "
-"pas pris en charge."
+"Ce format de fichier ne prend en charge que l'audio mono. Les %1 canaux ne "
+"sont pas pris en charge."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:472
 #: plugins/codec_flac/FlacEncoder.cpp:205
@@ -3989,16 +3986,14 @@ msgstr ""
 "pas pris en charge."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:479
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "Impossible d'ouvrir le fichier pour l'enregistrement."
+msgstr "Impossible d'ouvrir le périphérique de destination pour l'écriture."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:529
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "Impossible d'ouvrir l'encodeur FLAC."
+msgstr "Impossible d'initialiser l'encodeur « libaudiofile »."
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
@@ -5305,14 +5300,14 @@ msgstr "(Stéréo)"
 msgid "(Quadro)"
 msgstr "(Quadriphonie)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:946
-#: plugins/fileinfo/FileInfoDialog.cpp:952
+#: plugins/fileinfo/FileInfoDialog.cpp:948
+#: plugins/fileinfo/FileInfoDialog.cpp:954
 #, kde-format
 msgid "Yes"
 msgstr "Oui"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:946
-#: plugins/fileinfo/FileInfoDialog.cpp:952
+#: plugins/fileinfo/FileInfoDialog.cpp:948
+#: plugins/fileinfo/FileInfoDialog.cpp:954
 #, kde-format
 msgid "No"
 msgstr "Non"

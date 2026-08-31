@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:45+0000\n"
+"POT-Creation-Date: 2026-08-31 00:43+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -424,7 +424,7 @@ msgstr "(ग) २०१६, थॉमस एशेन्बकर"
 msgid "Kwave label list"
 msgstr "इदं लेबलसूची अस्ति"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1884
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1886
 #, kde-format
 msgid "Add Label"
 msgstr "लेबल योजयतु"
@@ -1122,7 +1122,7 @@ msgstr "पूर्ववत"
 msgid "Redo"
 msgstr "पुनः करो"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:702
+#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:704
 #, kde-format
 msgid "Cut"
 msgstr "छिन्न"
@@ -1378,7 +1378,7 @@ msgstr "प्रथमार्धे"
 msgid "Into second half"
 msgstr "द्वितीयार्धे"
 
-#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:729
+#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:731
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -1721,17 +1721,17 @@ msgstr "To Next Labels इति"
 msgid "To Previous Labels"
 msgstr "पूर्वलेबल् प्रति"
 
-#: libkwave/CodecManager.cpp:200
+#: libkwave/CodecManager.cpp:201
 #, kde-format
 msgid "Kwave Macro Files"
 msgstr "इदं Macro Files इति अभवत्"
 
-#: libkwave/CodecManager.cpp:204
+#: libkwave/CodecManager.cpp:205
 #, kde-format
 msgid "All Files"
 msgstr "सर्वाणि सञ्चिकाः"
 
-#: libkwave/CodecManager.cpp:206
+#: libkwave/CodecManager.cpp:207
 #, kde-format
 msgid "All Supported Files"
 msgstr "सर्वाणि समर्थितसञ्चिकाः"
@@ -3376,12 +3376,12 @@ msgstr "३२-बिट् आईईईई फ्लोटिंग्-पॉ�
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-बिट IEEE द्विगुण परिशुद्धता फ्लोटिंग-बिन्दु"
 
-#: libkwave/SignalManager.cpp:360
+#: libkwave/SignalManager.cpp:363
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "संकेतः रिक्तः अस्ति, किमपि रक्षितुं नास्ति।"
 
-#: libkwave/SignalManager.cpp:389
+#: libkwave/SignalManager.cpp:393
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3392,118 +3392,118 @@ msgstr ""
 "%1\n"
 "किं त्वं अद्यापि निरन्तरं कर्तुम् इच्छसि ?"
 
-#: libkwave/SignalManager.cpp:426 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:429 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(KDE Frameworks %1 इत्यनेन सह निर्मितम्)"
 
-#: libkwave/SignalManager.cpp:483
+#: libkwave/SignalManager.cpp:486
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "सञ्चिकां रक्षन् त्रुटिः अभवत् ।"
 
-#: libkwave/SignalManager.cpp:495
+#: libkwave/SignalManager.cpp:497
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "सञ्चिका च्छिन्ना अस्ति, दूषिता अपि भवितुम् अर्हति ।"
 
-#: libkwave/SignalManager.cpp:504
+#: libkwave/SignalManager.cpp:506
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "क्षम्यतां, सञ्चिकाप्रकारः समर्थितः नास्ति ।"
 
-#: libkwave/SignalManager.cpp:678
+#: libkwave/SignalManager.cpp:680
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "स्थाने Clipboard सम्मिलितं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:688
+#: libkwave/SignalManager.cpp:690
 #, kde-format
 msgid "Paste"
 msgstr "चिनोतु"
 
-#: libkwave/SignalManager.cpp:710
+#: libkwave/SignalManager.cpp:712
 #, kde-format
 msgid "Crop"
 msgstr "अन्नग्रह"
 
-#: libkwave/SignalManager.cpp:761
+#: libkwave/SignalManager.cpp:763
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "चयनं लेबलं प्रति विस्तारयन्तु"
 
-#: libkwave/SignalManager.cpp:790
+#: libkwave/SignalManager.cpp:792
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Next Labels इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:828
+#: libkwave/SignalManager.cpp:830
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Previous Labels इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:867
+#: libkwave/SignalManager.cpp:869
 #, kde-format
 msgid "Select All Tracks"
 msgstr "All Tracks इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:871
+#: libkwave/SignalManager.cpp:873
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "सर्वाणि पटलानि अचयनं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:875
+#: libkwave/SignalManager.cpp:877
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Track चयनं विपर्यययतु"
 
-#: libkwave/SignalManager.cpp:881
+#: libkwave/SignalManager.cpp:883
 #, kde-format
 msgid "Select Track"
 msgstr "Track इति चिनोतु"
 
-#: libkwave/SignalManager.cpp:886
+#: libkwave/SignalManager.cpp:888
 #, kde-format
 msgid "Deselect Track"
 msgstr "Track इत्यस्य चयनं विच्छेदं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:891
+#: libkwave/SignalManager.cpp:893
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Track चयनं Toggle कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:933
+#: libkwave/SignalManager.cpp:935
 #, kde-format
 msgid "Append Track"
 msgstr "Append Track इति"
 
-#: libkwave/SignalManager.cpp:940 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Track सम्मिलित करें"
 
-#: libkwave/SignalManager.cpp:963 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:965 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Track विलोपयन्तु"
 
-#: libkwave/SignalManager.cpp:1116
+#: libkwave/SignalManager.cpp:1118
 #, kde-format
 msgid "Insert Space"
 msgstr "अन्तरिक्षं सम्मिलितं कुर्वन्तु"
 
-#: libkwave/SignalManager.cpp:1388
+#: libkwave/SignalManager.cpp:1390
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "पूर्ववतसूचनायाः रक्षणार्थं पर्याप्तं स्मृतिः नास्ति ।"
 
-#: libkwave/SignalManager.cpp:1390
+#: libkwave/SignalManager.cpp:1392
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "किं भवन्तः पूर्ववतीकरणस्य सम्भावनां विना निरन्तरं कर्तुम् इच्छन्ति?"
 
-#: libkwave/SignalManager.cpp:1392
+#: libkwave/SignalManager.cpp:1394
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3512,42 +3512,42 @@ msgstr ""
 "<b>Hint</b> : स्मृतेः परिमाणं विन्यस्तुं शक्नुवन्ति<br> &#39;%1&#39;/&#39;%2&#39; इत्यस्य "
 "अन्तर्गतं पूर्ववतीकरणाय उपलब्धम् ।"
 
-#: libkwave/SignalManager.cpp:1394
+#: libkwave/SignalManager.cpp:1396
 #, kde-format
 msgid "Settings"
 msgstr "सेटिंग्स्"
 
-#: libkwave/SignalManager.cpp:1395
+#: libkwave/SignalManager.cpp:1397
 #, kde-format
 msgid "Memory"
 msgstr "स्मृति"
 
-#: libkwave/SignalManager.cpp:1539 libkwave/SignalManager.cpp:1546
+#: libkwave/SignalManager.cpp:1541 libkwave/SignalManager.cpp:1548
 #, kde-format
 msgid "Last Action"
 msgstr "अन्तिम कर्म"
 
-#: libkwave/SignalManager.cpp:1836
+#: libkwave/SignalManager.cpp:1838
 #, kde-format
 msgid "Modify File Info"
 msgstr "सञ्चिकासूचना परिवर्तयतु"
 
-#: libkwave/SignalManager.cpp:1911
+#: libkwave/SignalManager.cpp:1913
 #, kde-format
 msgid "Delete All Labels"
 msgstr "सर्वाणि लेबलानि विलोपयन्तु"
 
-#: libkwave/SignalManager.cpp:1930
+#: libkwave/SignalManager.cpp:1932
 #, kde-format
 msgid "Delete Label"
 msgstr "लेबलं विलोपयन्तु"
 
-#: libkwave/SignalManager.cpp:2028
+#: libkwave/SignalManager.cpp:2030
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "मैनुअल ट्रैक चयन"
 
-#: libkwave/SignalManager.cpp:2031
+#: libkwave/SignalManager.cpp:2033
 #, kde-format
 msgid "Manual Selection"
 msgstr "मैनुअल चयन"
@@ -5280,14 +5280,14 @@ msgstr "(स्टीरियो)"
 msgid "(Quadro)"
 msgstr "(आबन्ध)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:946
-#: plugins/fileinfo/FileInfoDialog.cpp:952
+#: plugins/fileinfo/FileInfoDialog.cpp:948
+#: plugins/fileinfo/FileInfoDialog.cpp:954
 #, kde-format
 msgid "Yes"
 msgstr "आम्‌"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:946
-#: plugins/fileinfo/FileInfoDialog.cpp:952
+#: plugins/fileinfo/FileInfoDialog.cpp:948
+#: plugins/fileinfo/FileInfoDialog.cpp:954
 #, kde-format
 msgid "No"
 msgstr "नहि"

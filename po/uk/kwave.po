@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:45+0000\n"
-"PO-Revision-Date: 2026-08-28 12:45+0300\n"
+"POT-Creation-Date: 2026-08-31 00:43+0000\n"
+"PO-Revision-Date: 2026-08-30 15:42+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -425,7 +425,7 @@ msgstr "© Thomas Eschenbacher, 2016"
 msgid "Kwave label list"
 msgstr "Список міток Kwave"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1884
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1886
 #, kde-format
 msgid "Add Label"
 msgstr "Додавання мітки"
@@ -1123,7 +1123,7 @@ msgstr "Скасувати"
 msgid "Redo"
 msgstr "Повторити"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:702
+#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:704
 #, kde-format
 msgid "Cut"
 msgstr "Вирізати"
@@ -1377,7 +1377,7 @@ msgstr "У першу половину"
 msgid "Into second half"
 msgstr "У другу половину"
 
-#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:729
+#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:731
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -1723,17 +1723,17 @@ msgstr "До наступних міток"
 msgid "To Previous Labels"
 msgstr "До попередніх міток"
 
-#: libkwave/CodecManager.cpp:200
+#: libkwave/CodecManager.cpp:201
 #, kde-format
 msgid "Kwave Macro Files"
 msgstr "файли макросів Kwave"
 
-#: libkwave/CodecManager.cpp:204
+#: libkwave/CodecManager.cpp:205
 #, kde-format
 msgid "All Files"
 msgstr "усі файли"
 
-#: libkwave/CodecManager.cpp:206
+#: libkwave/CodecManager.cpp:207
 #, kde-format
 msgid "All Supported Files"
 msgstr "усі файли, що підтримуються"
@@ -3379,12 +3379,12 @@ msgstr "32-бітове дійсне значення IEEE"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-бітове дійсне значення подвійної точності IEEE"
 
-#: libkwave/SignalManager.cpp:360
+#: libkwave/SignalManager.cpp:363
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "Сигнал порожній, нічого зберігати."
 
-#: libkwave/SignalManager.cpp:389
+#: libkwave/SignalManager.cpp:393
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3396,118 +3396,118 @@ msgstr ""
 "%1\n"
 "Хочете продовжити дію зі збереження?"
 
-#: libkwave/SignalManager.cpp:426 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:429 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(зібрано з KDE Frameworks %1)"
 
-#: libkwave/SignalManager.cpp:483
+#: libkwave/SignalManager.cpp:486
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "Під час спроби зберегти файл сталася помилка."
 
-#: libkwave/SignalManager.cpp:495
+#: libkwave/SignalManager.cpp:497
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "Файл обрізано, його, ймовірно, пошкоджено."
 
-#: libkwave/SignalManager.cpp:504
+#: libkwave/SignalManager.cpp:506
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "Вибачте, підтримки цього типу файлів не передбачено."
 
-#: libkwave/SignalManager.cpp:678
+#: libkwave/SignalManager.cpp:680
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "Вставити вміст буфера у позицію"
 
-#: libkwave/SignalManager.cpp:688
+#: libkwave/SignalManager.cpp:690
 #, kde-format
 msgid "Paste"
 msgstr "Вставити"
 
-#: libkwave/SignalManager.cpp:710
+#: libkwave/SignalManager.cpp:712
 #, kde-format
 msgid "Crop"
 msgstr "Обрізати"
 
-#: libkwave/SignalManager.cpp:761
+#: libkwave/SignalManager.cpp:763
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "Розширити позначене до мітки"
 
-#: libkwave/SignalManager.cpp:790
+#: libkwave/SignalManager.cpp:792
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Позначити наступні мітки"
 
-#: libkwave/SignalManager.cpp:828
+#: libkwave/SignalManager.cpp:830
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Позначити попередні мітки"
 
-#: libkwave/SignalManager.cpp:867
+#: libkwave/SignalManager.cpp:869
 #, kde-format
 msgid "Select All Tracks"
 msgstr "Позначити всі доріжки"
 
-#: libkwave/SignalManager.cpp:871
+#: libkwave/SignalManager.cpp:873
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "Скасувати позначення всіх доріжок"
 
-#: libkwave/SignalManager.cpp:875
+#: libkwave/SignalManager.cpp:877
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Інвертувати позначення доріжки"
 
-#: libkwave/SignalManager.cpp:881
+#: libkwave/SignalManager.cpp:883
 #, kde-format
 msgid "Select Track"
 msgstr "Позначити доріжку"
 
-#: libkwave/SignalManager.cpp:886
+#: libkwave/SignalManager.cpp:888
 #, kde-format
 msgid "Deselect Track"
 msgstr "Скасувати позначення доріжок"
 
-#: libkwave/SignalManager.cpp:891
+#: libkwave/SignalManager.cpp:893
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Перемкнути позначення доріжок"
 
-#: libkwave/SignalManager.cpp:933
+#: libkwave/SignalManager.cpp:935
 #, kde-format
 msgid "Append Track"
 msgstr "Дописати доріжку"
 
-#: libkwave/SignalManager.cpp:940 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Вставити доріжку"
 
-#: libkwave/SignalManager.cpp:963 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:965 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Вилучити доріжку"
 
-#: libkwave/SignalManager.cpp:1116
+#: libkwave/SignalManager.cpp:1118
 #, kde-format
 msgid "Insert Space"
 msgstr "Вставити проміжок"
 
-#: libkwave/SignalManager.cpp:1388
+#: libkwave/SignalManager.cpp:1390
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "Недостатньо пам’яті для зберігання даних скасування дій."
 
-#: libkwave/SignalManager.cpp:1390
+#: libkwave/SignalManager.cpp:1392
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Хочете продовжити без можливості скасування результатів дій?"
 
-#: libkwave/SignalManager.cpp:1392
+#: libkwave/SignalManager.cpp:1394
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3516,42 +3516,42 @@ msgstr ""
 "<b>Підказка</b>: ви можете налаштувати об’єм пам’яті,<br>доступний для дій "
 "зі скасування тут: «%1»/«%2»."
 
-#: libkwave/SignalManager.cpp:1394
+#: libkwave/SignalManager.cpp:1396
 #, kde-format
 msgid "Settings"
 msgstr "Параметри"
 
-#: libkwave/SignalManager.cpp:1395
+#: libkwave/SignalManager.cpp:1397
 #, kde-format
 msgid "Memory"
 msgstr "Пам'ять"
 
-#: libkwave/SignalManager.cpp:1539 libkwave/SignalManager.cpp:1546
+#: libkwave/SignalManager.cpp:1541 libkwave/SignalManager.cpp:1548
 #, kde-format
 msgid "Last Action"
 msgstr "Остання дія"
 
-#: libkwave/SignalManager.cpp:1836
+#: libkwave/SignalManager.cpp:1838
 #, kde-format
 msgid "Modify File Info"
 msgstr "Змінити дані щодо файла"
 
-#: libkwave/SignalManager.cpp:1911
+#: libkwave/SignalManager.cpp:1913
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Вилучити усі мітки"
 
-#: libkwave/SignalManager.cpp:1930
+#: libkwave/SignalManager.cpp:1932
 #, kde-format
 msgid "Delete Label"
 msgstr "Вилучити мітку"
 
-#: libkwave/SignalManager.cpp:2028
+#: libkwave/SignalManager.cpp:2030
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Позначення доріжок вручну"
 
-#: libkwave/SignalManager.cpp:2031
+#: libkwave/SignalManager.cpp:2033
 #, kde-format
 msgid "Manual Selection"
 msgstr "Позначення вручну"
@@ -4029,15 +4029,12 @@ msgid "MPEG layer I audio"
 msgstr "Звук MPEG шар I"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:173
-#, fuzzy, kde-format
-#| msgid ""
-#| "The file contains an invalid channel mode 0x%1\n"
-#| "Assuming Mono..."
+#, kde-format
 msgid ""
 "The file contains an invalid channel mode (%1).\n"
 "Assuming Mono..."
 msgstr ""
-"У файлі вказано некоректний режим каналів 0x%1\n"
+"У файлі вказано некоректний режим каналів (%1).\n"
 "Припускаємо моно…"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:549
@@ -5302,14 +5299,14 @@ msgstr "(Стерео)"
 msgid "(Quadro)"
 msgstr "(Квадро)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:946
-#: plugins/fileinfo/FileInfoDialog.cpp:952
+#: plugins/fileinfo/FileInfoDialog.cpp:948
+#: plugins/fileinfo/FileInfoDialog.cpp:954
 #, kde-format
 msgid "Yes"
 msgstr "Так"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:946
-#: plugins/fileinfo/FileInfoDialog.cpp:952
+#: plugins/fileinfo/FileInfoDialog.cpp:948
+#: plugins/fileinfo/FileInfoDialog.cpp:954
 #, kde-format
 msgid "No"
 msgstr "Ні"

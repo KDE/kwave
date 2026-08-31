@@ -155,7 +155,7 @@ bool Kwave::MP3Decoder::parseMp3Header(const TagLib::MPEG::Header &header,
 
     /* bit rate */
     if (header.bitrate() > 0) info.set(Kwave::INF_BITRATE_NOMINAL,
-        QVariant(header.bitrate()));
+        QVariant(header.bitrate() * 1000));
 
     /* channel mode */
     unsigned int tracks = 0;

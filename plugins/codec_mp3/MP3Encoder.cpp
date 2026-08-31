@@ -90,7 +90,17 @@ QList<Kwave::SampleFormat::Format> Kwave::MP3Encoder::supportedSampleFormats(
 /***************************************************************************/
 QList<Kwave::FileProperty> Kwave::MP3Encoder::supportedProperties()
 {
-    return m_property_map.properties();
+    // properties from taglib (ID3 tags)
+    QList<Kwave::FileProperty> properties = m_property_map.properties();
+
+    // MP3 encoder internal properties
+    properties.append(Kwave::FileProperty::INF_MPEG_EMPHASIS);
+    properties.append(Kwave::FileProperty::INF_MPEG_LAYER);
+    properties.append(Kwave::FileProperty::INF_MPEG_MODEEXT);
+    properties.append(Kwave::FileProperty::INF_MPEG_VERSION);
+    properties.append(Kwave::FileProperty::INF_COPYRIGHTED);
+
+    return properties;
 }
 
 /***************************************************************************/

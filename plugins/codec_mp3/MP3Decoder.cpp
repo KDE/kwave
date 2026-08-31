@@ -566,7 +566,6 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
 
     /* accept the source */
     m_source = &src;
-    info.set(Kwave::INF_MIMETYPE, _("audio/mpeg"));
     metaData().replace(Kwave::MetaDataList(info));
 
     // allocate a transfer buffer with 128 kB

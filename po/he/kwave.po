@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-01 00:43+0000\n"
-"PO-Revision-Date: 2026-08-11 17:52+0300\n"
+"PO-Revision-Date: 2026-08-30 22:27+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -5966,7 +5966,7 @@ msgstr ""
 #: plugins/playback/PlayBackDialog.cpp:519
 #, kde-format
 msgid "%1 Bytes"
-msgstr ""
+msgstr "%1 בתים"
 
 #: plugins/playback/PlayBackDialog.cpp:521
 #, kde-format
@@ -5998,19 +5998,19 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:20
 #, kde-format
 msgid "Playback"
-msgstr ""
+msgstr "נגינה"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
 #: plugins/playback/PlayBackDlg.ui:38
 #, kde-format
 msgid "Playback Settings"
-msgstr ""
+msgstr "הגדרות נגינה"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbDevice)
 #: plugins/playback/PlayBackDlg.ui:64
 #, kde-format
 msgid "Playback device"
-msgstr ""
+msgstr "התקן נגינה"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbDevice)
 #: plugins/playback/PlayBackDlg.ui:67
@@ -6317,46 +6317,46 @@ msgstr ""
 #, kde-format
 msgid "one day "
 msgid_plural "%1 days "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "יום "
+msgstr[1] "יומיים "
+msgstr[2] "%1 ימים "
+msgstr[3] "%1 ימים "
 
 #: plugins/record/RecordDialog.cpp:1191
 #, kde-format
 msgid "one hour "
 msgid_plural "%1 hours "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "שעה "
+msgstr[1] "שעתיים "
+msgstr[2] "%1 שעות "
+msgstr[3] "%1 שעות "
 
 #: plugins/record/RecordDialog.cpp:1193
 #, kde-format
 msgid "one minute "
 msgid_plural "%1 minutes "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "דקה "
+msgstr[1] "שתי דקות "
+msgstr[2] "%1 דקות "
+msgstr[3] "%1 דקות "
 
 #: plugins/record/RecordDialog.cpp:1196
 #, kde-format
 msgid "and %1 second"
 msgid_plural "and %1 seconds"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "ושנייה"
+msgstr[1] "ושתי שניות"
+msgstr[2] "ו־%1 שניות"
+msgstr[3] "ו־%1 שניות"
 
 #: plugins/record/RecordDialog.cpp:1197
 #, kde-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "שנייה"
+msgstr[1] "שתי שניות"
+msgstr[2] "%1 שניות"
+msgstr[3] "%1 שניות"
 
 #: plugins/record/RecordDialog.cpp:1201
 #, kde-format
@@ -6372,7 +6372,7 @@ msgstr "אורך: %1"
 #: plugins/record/RecordDialog.cpp:1221
 #, kde-format
 msgid "(%1 samples)"
-msgstr ""
+msgstr "(%1 דגימות)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_record)
 #: plugins/record/RecordDlg.ui:54
@@ -6384,7 +6384,7 @@ msgstr "הקלטה"
 #: plugins/record/RecordDlg.ui:66
 #, kde-format
 msgid "Record Control"
-msgstr ""
+msgstr "בקרת הקלטה"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordPre)
 #: plugins/record/RecordDlg.ui:72
@@ -6412,7 +6412,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:91
 #, kde-format
 msgid "Limit the recording time"
-msgstr ""
+msgstr "הגבלת זמן ההקלטה"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:94
@@ -6452,7 +6452,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:172
 #, kde-format
 msgid "Stop Recording"
-msgstr ""
+msgstr "עצירת ההקלטה"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btPause)
 #: plugins/record/RecordDlg.ui:191

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-31 00:43+0000\n"
+"POT-Creation-Date: 2026-09-01 00:44+0000\n"
 "PO-Revision-Date: 2026-08-20 12:28+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -426,7 +426,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Kwave etiketa zerrenda"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1886
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1894
 #, kde-format
 msgid "Add Label"
 msgstr "Gehitu etiketa"
@@ -1183,10 +1183,10 @@ msgstr "'%1' fitxategia zamatzen..."
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:505
 #: plugins/codec_flac/FlacEncoder.cpp:272
 #: plugins/codec_flac/FlacEncoder.cpp:290
-#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:634
+#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:633
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:528
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -3528,27 +3528,27 @@ msgstr "Memoria"
 msgid "Last Action"
 msgstr "Azken ekintza"
 
-#: libkwave/SignalManager.cpp:1838
+#: libkwave/SignalManager.cpp:1843
 #, kde-format
 msgid "Modify File Info"
 msgstr "Aldatu fitxategi informazioa"
 
-#: libkwave/SignalManager.cpp:1913
+#: libkwave/SignalManager.cpp:1921
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Ezabatu etiketa guztiak"
 
-#: libkwave/SignalManager.cpp:1932
+#: libkwave/SignalManager.cpp:1940
 #, kde-format
 msgid "Delete Label"
 msgstr "Ezabatu etiketa"
 
-#: libkwave/SignalManager.cpp:2030
+#: libkwave/SignalManager.cpp:2038
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Aztarnak eskuz hautatzea"
 
-#: libkwave/SignalManager.cpp:2033
+#: libkwave/SignalManager.cpp:2041
 #, kde-format
 msgid "Manual Selection"
 msgstr "Eskuz hautatzea"
@@ -3911,43 +3911,43 @@ msgid "Creative Voice"
 msgstr "Creative Voice"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:100
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:524
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:542
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Formatua edo funtzioa ez dago inplementatua"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_wav/WavEncoder.cpp:531
+#: plugins/codec_wav/WavEncoder.cpp:549
 #, kde-format
 msgid "File header is damaged"
 msgstr "Fitxategi goiburua kaltetua dago"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:109
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:534
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:552
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Kodek mota baliogabea"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:112
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:538
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:556
 #, kde-format
 msgid "Opening the file failed"
 msgstr "Fitxategia irekitzea huts egin du"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:115
-#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:541
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:559
 #, kde-format
 msgid "Read access failed"
 msgstr "Irakurtze atzipenak huts egin du"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
-#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:544
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:562
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Lagin formatu baliogabea"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:124
-#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:550
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:568
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4048,27 +4048,27 @@ msgstr ""
 "Fitxategiak egiaztapen-batura baliogabea du.\n"
 "Hala ere jarraitu nahi duzu?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:637
+#: plugins/codec_mp3/MP3Decoder.cpp:636
 #, kde-format
 msgid "Checksum error"
 msgstr "Egiaztapen-batura errorea"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:640
+#: plugins/codec_mp3/MP3Decoder.cpp:639
 #, kde-format
 msgid "Synchronization lost"
 msgstr "Sinkronizatzea galdu da"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:657
+#: plugins/codec_mp3/MP3Decoder.cpp:656
 #, kde-format
 msgid "File contains invalid data"
 msgstr "Fitxategiak datu baliogabeak ditu"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:662
+#: plugins/codec_mp3/MP3Decoder.cpp:661
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "Errore ezezaguna 0x%1. Fitxategi kaltetua?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:667
+#: plugins/codec_mp3/MP3Decoder.cpp:666
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4079,17 +4079,17 @@ msgstr ""
 "'%1',\n"
 "%2 kokalekuan."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:672
+#: plugins/codec_mp3/MP3Decoder.cpp:671
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "Oraindik jarraitu nahi duzu?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:677
+#: plugins/codec_mp3/MP3Decoder.cpp:676
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Jarraitu nahi duzu eta ondoko errore guztiei ez-ikusi egin?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:400
+#: plugins/codec_mp3/MP3Encoder.cpp:410
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4098,12 +4098,12 @@ msgstr ""
 "Hautatu duzun fitxategi formatuak soilik mono eta estereo onartzen ditu. "
 "Fitxategi hau estereora behera nahastuko da gordetzean."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:413 plugins/codec_wav/WavEncoder.cpp:477
+#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:495
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Ezin da ireki fitxategia gordetzeko!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:658
+#: plugins/codec_mp3/MP3Encoder.cpp:668
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4853,7 +4853,7 @@ msgstr "fitxategiaren goiburua kaltetua dago"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "barneko libaudiofile errorea %1 zk.: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:430
+#: plugins/codec_wav/WavEncoder.cpp:448
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4862,17 +4862,17 @@ msgstr ""
 "Barkatu, une honetan hautatua dagoen konpresio mota ezin da erabili "
 "gordetzeko. Horren ordez G711 ULAW konpresioa erabili nahi duzu?"
 
-#: plugins/codec_wav/WavEncoder.cpp:433
+#: plugins/codec_wav/WavEncoder.cpp:451
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "&Bai, erabili G711"
 
-#: plugins/codec_wav/WavEncoder.cpp:434
+#: plugins/codec_wav/WavEncoder.cpp:452
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "E&z, biltegiratu konprimitzeke"
 
-#: plugins/codec_wav/WavEncoder.cpp:483 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:501 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "Fitxategi edo hautapen handiegia"
@@ -5177,29 +5177,29 @@ msgstr "Bit-emari nominala"
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:215
+#: plugins/fileinfo/FileInfoDialog.cpp:220
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 byte"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:217
+#: plugins/fileinfo/FileInfoDialog.cpp:222
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kB (%2 byte)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:220
+#: plugins/fileinfo/FileInfoDialog.cpp:225
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 MB (%2 byte)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
-#: plugins/fileinfo/FileInfoDialog.cpp:233 plugins/newsignal/NewSigDlg.ui:102
+#: plugins/fileinfo/FileInfoDialog.cpp:236 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
 msgstr "Lagin-emaria:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:236
+#: plugins/fileinfo/FileInfoDialog.cpp:239
 #, kde-format
 msgid ""
 "Here you can select one of the predefined\n"
@@ -5211,13 +5211,13 @@ msgstr ""
 "nahi duzun edozein lagin-emari sartu dezakezu."
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
-#: plugins/fileinfo/FileInfoDialog.cpp:242 plugins/newsignal/NewSigDlg.ui:206
+#: plugins/fileinfo/FileInfoDialog.cpp:245 plugins/newsignal/NewSigDlg.ui:206
 #: plugins/record/RecordDlg.ui:912
 #, kde-format
 msgid "Resolution:"
 msgstr "Bereizmena:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:245
+#: plugins/fileinfo/FileInfoDialog.cpp:248
 #, kde-format
 msgid ""
 "Select a resolution in bits in which the file\n"
@@ -5227,13 +5227,13 @@ msgstr ""
 "bitetan."
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/fileinfo/FileInfoDialog.cpp:252 plugins/newsignal/NewSigDlg.ui:196
+#: plugins/fileinfo/FileInfoDialog.cpp:255 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
 msgstr "Aztarnak:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:255
+#: plugins/fileinfo/FileInfoDialog.cpp:258
 #, kde-format
 msgid ""
 "Shows the number of tracks of the signal.\n"
@@ -5242,12 +5242,12 @@ msgstr ""
 "Erakutsi seinalearen aztarna kopurua.\n"
 "Aztarnak gehitu edo ezabatu ditzakezu Edit menuaren bidez."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:265
+#: plugins/fileinfo/FileInfoDialog.cpp:268
 #, kde-format
 msgid "Length:"
 msgstr "Iraupena:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:268
+#: plugins/fileinfo/FileInfoDialog.cpp:271
 #, kde-format
 msgid ""
 "Shows the length of the file in samples\n"
@@ -5256,44 +5256,44 @@ msgstr ""
 "Erakutsi fitxategi iraupena laginetan\n"
 "eta ahal bada denbora gisa."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:274
+#: plugins/fileinfo/FileInfoDialog.cpp:277
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 lagin)"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
-#: plugins/fileinfo/FileInfoDialog.cpp:278 plugins/record/RecordDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:281 plugins/record/RecordDialog.cpp:602
 #: plugins/record/RecordDlg.ui:1133
 #, no-c-format, kde-format
 msgid "%1 samples"
 msgstr "%1 lagin"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:607
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:605
+#: plugins/fileinfo/FileInfoDialog.cpp:610
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Estereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:608
+#: plugins/fileinfo/FileInfoDialog.cpp:613
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(Koadro)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:948
-#: plugins/fileinfo/FileInfoDialog.cpp:954
+#: plugins/fileinfo/FileInfoDialog.cpp:914
+#: plugins/fileinfo/FileInfoDialog.cpp:920
 #, kde-format
 msgid "Yes"
 msgstr "Bai"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:948
-#: plugins/fileinfo/FileInfoDialog.cpp:954
+#: plugins/fileinfo/FileInfoDialog.cpp:914
+#: plugins/fileinfo/FileInfoDialog.cpp:920
 #, kde-format
 msgid "No"
 msgstr "Ez"

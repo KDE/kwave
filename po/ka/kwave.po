@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-31 00:43+0000\n"
+"POT-Creation-Date: 2026-09-01 00:44+0000\n"
 "PO-Revision-Date: 2026-08-30 05:41+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -423,7 +423,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Kwave-ის ჭდეების სია"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1886
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1894
 #, kde-format
 msgid "Add Label"
 msgstr "ჭდის დამატება"
@@ -1181,10 +1181,10 @@ msgstr "ფაილის ჩატვირთვა: '%1'..."
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:505
 #: plugins/codec_flac/FlacEncoder.cpp:272
 #: plugins/codec_flac/FlacEncoder.cpp:290
-#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:634
+#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:633
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:528
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -3523,27 +3523,27 @@ msgstr "მეხსიერება"
 msgid "Last Action"
 msgstr "ბოლო ქმედება"
 
-#: libkwave/SignalManager.cpp:1838
+#: libkwave/SignalManager.cpp:1843
 #, kde-format
 msgid "Modify File Info"
 msgstr "ფაილის ინფორმაციის შეცვლა"
 
-#: libkwave/SignalManager.cpp:1913
+#: libkwave/SignalManager.cpp:1921
 #, kde-format
 msgid "Delete All Labels"
 msgstr "ყველა ჭდის წაშლა"
 
-#: libkwave/SignalManager.cpp:1932
+#: libkwave/SignalManager.cpp:1940
 #, kde-format
 msgid "Delete Label"
 msgstr "ჭდის წაშლა"
 
-#: libkwave/SignalManager.cpp:2030
+#: libkwave/SignalManager.cpp:2038
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "ტრეკის ხელით არჩევა"
 
-#: libkwave/SignalManager.cpp:2033
+#: libkwave/SignalManager.cpp:2041
 #, kde-format
 msgid "Manual Selection"
 msgstr "ხელით არჩევა"
@@ -3906,43 +3906,43 @@ msgid "Creative Voice"
 msgstr "Creative Voice ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:100
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:524
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:542
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "ფორმატი ან ფუნქცია განხორციელებული არაა"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_wav/WavEncoder.cpp:531
+#: plugins/codec_wav/WavEncoder.cpp:549
 #, kde-format
 msgid "File header is damaged"
 msgstr "ფაილის თავსართი დაზიანებულია"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:109
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:534
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:552
 #, kde-format
 msgid "Invalid codec type"
 msgstr "არასწორი კოდეკის ტიპი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:112
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:538
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:556
 #, kde-format
 msgid "Opening the file failed"
 msgstr "ფაილის გახსნა ჩავარდა"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:115
-#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:541
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:559
 #, kde-format
 msgid "Read access failed"
 msgstr "წაკითხვის წვდომა ჩავარდა"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
-#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:544
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:562
 #, kde-format
 msgid "Invalid sample format"
 msgstr "არასწორი სემპლის ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:124
-#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:550
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:568
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4033,27 +4033,27 @@ msgstr ""
 "ფაილის საკონტროლო ჯამი არასწორია.\n"
 "მაინც გნებავთ, გააგრძელოთ?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:637
+#: plugins/codec_mp3/MP3Decoder.cpp:636
 #, kde-format
 msgid "Checksum error"
 msgstr "საკონტროლო ჯამის შეცდომა"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:640
+#: plugins/codec_mp3/MP3Decoder.cpp:639
 #, kde-format
 msgid "Synchronization lost"
 msgstr "სინქრონიზაცია შეწყდა"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:657
+#: plugins/codec_mp3/MP3Decoder.cpp:656
 #, kde-format
 msgid "File contains invalid data"
 msgstr "ფაილი არასწორ მონაცემებს შეიცავს"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:662
+#: plugins/codec_mp3/MP3Decoder.cpp:661
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "უცნობი შეცდომა 0x%1. ფაილი დაზიანებულია?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:667
+#: plugins/codec_mp3/MP3Decoder.cpp:666
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4064,17 +4064,17 @@ msgstr ""
 "'%1',\n"
 "მდებარეობაზე %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:672
+#: plugins/codec_mp3/MP3Decoder.cpp:671
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "მაინც გსურთ გაგრძელება?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:677
+#: plugins/codec_mp3/MP3Decoder.cpp:676
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "გნებავთ გააგრძელოთ და გამოტოვოთ ყველა შემდეგი შეცდომა?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:400
+#: plugins/codec_mp3/MP3Encoder.cpp:410
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4083,12 +4083,12 @@ msgstr ""
 "ფაილის ფორმატს, რომელიც აირჩიეთ, მხოლოდ, მონოს და სტერეოს მხარდაჭერა "
 "გააჩნიათ. შენახვისას არხები სტერეოში შეირევა."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:413 plugins/codec_wav/WavEncoder.cpp:477
+#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:495
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "შესანახი ფაილის გახსნის შეცდომა!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:658
+#: plugins/codec_mp3/MP3Encoder.cpp:668
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4839,7 +4839,7 @@ msgstr "ფაილის თავსართი დაზიანებუ�
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "libaudiofile-ის შიდა შეცდომა #%1: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:430
+#: plugins/codec_wav/WavEncoder.cpp:448
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4848,17 +4848,17 @@ msgstr ""
 "უკაცრავად, ამჟამად არჩეული შეკუმშვის ტიპს შენახვისთვის ვერ გამოიყენებთ. "
 "გნებავთ, სამაგიეროდ, G711 ULAW გამოიყენოთ?"
 
-#: plugins/codec_wav/WavEncoder.cpp:433
+#: plugins/codec_wav/WavEncoder.cpp:451
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "&დიახ, გამოიყენე G711"
 
-#: plugins/codec_wav/WavEncoder.cpp:434
+#: plugins/codec_wav/WavEncoder.cpp:452
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&არა, შეიყვანე შეუკუმშავად"
 
-#: plugins/codec_wav/WavEncoder.cpp:483 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:501 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "ფაილი ან მონიშნული მეტისმეტად დიდია"
@@ -5163,29 +5163,29 @@ msgstr "ნომინალური ბიტური ჩქარე"
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:215
+#: plugins/fileinfo/FileInfoDialog.cpp:220
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 ბაიტი"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:217
+#: plugins/fileinfo/FileInfoDialog.cpp:222
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 კბ (%2 ბაიტი)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:220
+#: plugins/fileinfo/FileInfoDialog.cpp:225
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 მბ (%2 ბაიტი)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
-#: plugins/fileinfo/FileInfoDialog.cpp:233 plugins/newsignal/NewSigDlg.ui:102
+#: plugins/fileinfo/FileInfoDialog.cpp:236 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
 msgstr "სემპლის სიხშირე:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:236
+#: plugins/fileinfo/FileInfoDialog.cpp:239
 #, kde-format
 msgid ""
 "Here you can select one of the predefined\n"
@@ -5197,13 +5197,13 @@ msgstr ""
 "რომელიც თქვენ გნებავთ."
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
-#: plugins/fileinfo/FileInfoDialog.cpp:242 plugins/newsignal/NewSigDlg.ui:206
+#: plugins/fileinfo/FileInfoDialog.cpp:245 plugins/newsignal/NewSigDlg.ui:206
 #: plugins/record/RecordDlg.ui:912
 #, kde-format
 msgid "Resolution:"
 msgstr "გარჩევადობა:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:245
+#: plugins/fileinfo/FileInfoDialog.cpp:248
 #, kde-format
 msgid ""
 "Select a resolution in bits in which the file\n"
@@ -5213,13 +5213,13 @@ msgstr ""
 "ფაილის შენახვა მოხდება."
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/fileinfo/FileInfoDialog.cpp:252 plugins/newsignal/NewSigDlg.ui:196
+#: plugins/fileinfo/FileInfoDialog.cpp:255 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
 msgstr "&ტრეკები:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:255
+#: plugins/fileinfo/FileInfoDialog.cpp:258
 #, kde-format
 msgid ""
 "Shows the number of tracks of the signal.\n"
@@ -5228,12 +5228,12 @@ msgstr ""
 "აჩვენებს სიგნალის ტრეკების რაოდენობას.\n"
 "ტრეკების დამატება ან წაშლა ჩასწორების მენიუდან შეგიძლიათ."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:265
+#: plugins/fileinfo/FileInfoDialog.cpp:268
 #, kde-format
 msgid "Length:"
 msgstr "ხანგრძლივობა:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:268
+#: plugins/fileinfo/FileInfoDialog.cpp:271
 #, kde-format
 msgid ""
 "Shows the length of the file in samples\n"
@@ -5242,44 +5242,44 @@ msgstr ""
 "აჩვენებს ფაილის სიგრძეს სემპლებში.\n"
 "და თუ შესაძლებელია, დროსაც."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:274
+#: plugins/fileinfo/FileInfoDialog.cpp:277
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 სემპლი)"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
-#: plugins/fileinfo/FileInfoDialog.cpp:278 plugins/record/RecordDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:281 plugins/record/RecordDialog.cpp:602
 #: plugins/record/RecordDlg.ui:1133
 #, no-c-format, kde-format
 msgid "%1 samples"
 msgstr "%1 სემპლი"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:607
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(მონო)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:605
+#: plugins/fileinfo/FileInfoDialog.cpp:610
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(სტერეო)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:608
+#: plugins/fileinfo/FileInfoDialog.cpp:613
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(ქვატრო)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:948
-#: plugins/fileinfo/FileInfoDialog.cpp:954
+#: plugins/fileinfo/FileInfoDialog.cpp:914
+#: plugins/fileinfo/FileInfoDialog.cpp:920
 #, kde-format
 msgid "Yes"
 msgstr "დიახ"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:948
-#: plugins/fileinfo/FileInfoDialog.cpp:954
+#: plugins/fileinfo/FileInfoDialog.cpp:914
+#: plugins/fileinfo/FileInfoDialog.cpp:920
 #, kde-format
 msgid "No"
 msgstr "არა"

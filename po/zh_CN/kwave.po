@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-31 00:43+0000\n"
+"POT-Creation-Date: 2026-09-01 00:44+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -419,7 +419,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Kwave 标签列表"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1886
+#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1894
 #, kde-format
 msgid "Add Label"
 msgstr "添加标签"
@@ -1176,10 +1176,10 @@ msgstr "正在加载文件“%1”..."
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:505
 #: plugins/codec_flac/FlacEncoder.cpp:272
 #: plugins/codec_flac/FlacEncoder.cpp:290
-#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:634
+#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:633
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:528
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
@@ -3441,27 +3441,27 @@ msgstr "内存"
 msgid "Last Action"
 msgstr "最后的操作"
 
-#: libkwave/SignalManager.cpp:1838
+#: libkwave/SignalManager.cpp:1843
 #, kde-format
 msgid "Modify File Info"
 msgstr "修改文件信息"
 
-#: libkwave/SignalManager.cpp:1913
+#: libkwave/SignalManager.cpp:1921
 #, kde-format
 msgid "Delete All Labels"
 msgstr "删除所有标签"
 
-#: libkwave/SignalManager.cpp:1932
+#: libkwave/SignalManager.cpp:1940
 #, kde-format
 msgid "Delete Label"
 msgstr "删除标签"
 
-#: libkwave/SignalManager.cpp:2030
+#: libkwave/SignalManager.cpp:2038
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "手动轨道选择"
 
-#: libkwave/SignalManager.cpp:2033
+#: libkwave/SignalManager.cpp:2041
 #, kde-format
 msgid "Manual Selection"
 msgstr "手动选择"
@@ -3820,43 +3820,43 @@ msgid "Creative Voice"
 msgstr "创造性人声"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:100
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:524
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:542
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "格式或函数未实现"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_wav/WavEncoder.cpp:531
+#: plugins/codec_wav/WavEncoder.cpp:549
 #, kde-format
 msgid "File header is damaged"
 msgstr "文件头已损坏"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:109
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:534
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:552
 #, kde-format
 msgid "Invalid codec type"
 msgstr "无效的编码类型"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:112
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:538
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:556
 #, kde-format
 msgid "Opening the file failed"
 msgstr "打开文件失败"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:115
-#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:541
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:559
 #, kde-format
 msgid "Read access failed"
 msgstr "读取访问失败"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
-#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:544
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:562
 #, kde-format
 msgid "Invalid sample format"
 msgstr "无效的样本格式"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:124
-#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:550
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:568
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -3949,27 +3949,27 @@ msgstr ""
 "文件的校验和无效。\n"
 "您是否打算继续？"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:637
+#: plugins/codec_mp3/MP3Decoder.cpp:636
 #, kde-format
 msgid "Checksum error"
 msgstr "校验和错误"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:640
+#: plugins/codec_mp3/MP3Decoder.cpp:639
 #, kde-format
 msgid "Synchronization lost"
 msgstr "失去同步"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:657
+#: plugins/codec_mp3/MP3Decoder.cpp:656
 #, kde-format
 msgid "File contains invalid data"
 msgstr "文件包含无效数据"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:662
+#: plugins/codec_mp3/MP3Decoder.cpp:661
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "未知错误 0x%1。文件已损坏？"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:667
+#: plugins/codec_mp3/MP3Decoder.cpp:666
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -3980,29 +3980,29 @@ msgstr ""
 "“%1”，\n"
 "在位置 %2。"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:672
+#: plugins/codec_mp3/MP3Decoder.cpp:671
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "您仍然想要继续吗？"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:677
+#: plugins/codec_mp3/MP3Decoder.cpp:676
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "您是否想要忽略所有下列错误并继续？"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:400
+#: plugins/codec_mp3/MP3Encoder.cpp:410
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
 "be mixed down to stereo when saving."
 msgstr "您选择的文件格式只支持单声道或立体声。保存时，此文件将被混合为立体声。"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:413 plugins/codec_wav/WavEncoder.cpp:477
+#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:495
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "无法打开文件进行保存。"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:658
+#: plugins/codec_mp3/MP3Encoder.cpp:668
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4730,7 +4730,7 @@ msgstr "文件头已损坏"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "内部 libaudiofile 错误 #%1：“%2”"
 
-#: plugins/codec_wav/WavEncoder.cpp:430
+#: plugins/codec_wav/WavEncoder.cpp:448
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4739,17 +4739,17 @@ msgstr ""
 "抱歉，当前选择的压缩类型无法被用于保存。作为替代，您是否要使用 G711 ULAW 压"
 "缩？"
 
-#: plugins/codec_wav/WavEncoder.cpp:433
+#: plugins/codec_wav/WavEncoder.cpp:451
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "是，使用 G711 (&Y)"
 
-#: plugins/codec_wav/WavEncoder.cpp:434
+#: plugins/codec_wav/WavEncoder.cpp:452
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "不，存储未压缩的(&N)"
 
-#: plugins/codec_wav/WavEncoder.cpp:483 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:501 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "文件或选区太大"
@@ -5041,29 +5041,29 @@ msgstr "标称码率："
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:215
+#: plugins/fileinfo/FileInfoDialog.cpp:220
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 字节"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:217
+#: plugins/fileinfo/FileInfoDialog.cpp:222
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kB (%2 字节)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:220
+#: plugins/fileinfo/FileInfoDialog.cpp:225
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 MB (%2 字节)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
-#: plugins/fileinfo/FileInfoDialog.cpp:233 plugins/newsignal/NewSigDlg.ui:102
+#: plugins/fileinfo/FileInfoDialog.cpp:236 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
 msgstr "采样率："
 
-#: plugins/fileinfo/FileInfoDialog.cpp:236
+#: plugins/fileinfo/FileInfoDialog.cpp:239
 #, kde-format
 msgid ""
 "Here you can select one of the predefined\n"
@@ -5072,13 +5072,13 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
-#: plugins/fileinfo/FileInfoDialog.cpp:242 plugins/newsignal/NewSigDlg.ui:206
+#: plugins/fileinfo/FileInfoDialog.cpp:245 plugins/newsignal/NewSigDlg.ui:206
 #: plugins/record/RecordDlg.ui:912
 #, kde-format
 msgid "Resolution:"
 msgstr "分辨率："
 
-#: plugins/fileinfo/FileInfoDialog.cpp:245
+#: plugins/fileinfo/FileInfoDialog.cpp:248
 #, kde-format
 msgid ""
 "Select a resolution in bits in which the file\n"
@@ -5086,13 +5086,13 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/fileinfo/FileInfoDialog.cpp:252 plugins/newsignal/NewSigDlg.ui:196
+#: plugins/fileinfo/FileInfoDialog.cpp:255 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
 msgstr "音轨："
 
-#: plugins/fileinfo/FileInfoDialog.cpp:255
+#: plugins/fileinfo/FileInfoDialog.cpp:258
 #, kde-format
 msgid ""
 "Shows the number of tracks of the signal.\n"
@@ -5101,12 +5101,12 @@ msgstr ""
 "显示信号的音轨数。\n"
 "您可以通过编辑菜单添加或删除音轨。"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:265
+#: plugins/fileinfo/FileInfoDialog.cpp:268
 #, kde-format
 msgid "Length:"
 msgstr "长度："
 
-#: plugins/fileinfo/FileInfoDialog.cpp:268
+#: plugins/fileinfo/FileInfoDialog.cpp:271
 #, kde-format
 msgid ""
 "Shows the length of the file in samples\n"
@@ -5115,44 +5115,44 @@ msgstr ""
 "显示文件的长度，以采样数为单位\n"
 "如果可能的话，也显示以时间为单位的结果。"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:274
+#: plugins/fileinfo/FileInfoDialog.cpp:277
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 个采样)"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
-#: plugins/fileinfo/FileInfoDialog.cpp:278 plugins/record/RecordDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:281 plugins/record/RecordDialog.cpp:602
 #: plugins/record/RecordDlg.ui:1133
 #, no-c-format, kde-format
 msgid "%1 samples"
 msgstr "%1 个采样"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:607
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(单声道)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:605
+#: plugins/fileinfo/FileInfoDialog.cpp:610
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(立体声)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:608
+#: plugins/fileinfo/FileInfoDialog.cpp:613
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(四倍)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:948
-#: plugins/fileinfo/FileInfoDialog.cpp:954
+#: plugins/fileinfo/FileInfoDialog.cpp:914
+#: plugins/fileinfo/FileInfoDialog.cpp:920
 #, kde-format
 msgid "Yes"
 msgstr "是"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:948
-#: plugins/fileinfo/FileInfoDialog.cpp:954
+#: plugins/fileinfo/FileInfoDialog.cpp:914
+#: plugins/fileinfo/FileInfoDialog.cpp:920
 #, kde-format
 msgid "No"
 msgstr "否"

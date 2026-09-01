@@ -14,10 +14,11 @@ include:
 
 codespell:
   stage: validate
-  image: python:3.13-slim
+  image: debian:bookworm-slim
   tags:
     - Linux
+  interruptible: true
   before_script:
-    - pip install --no-cache-dir --break-system-packages codespell
+    - apt-get update && apt-get install -y --no-install-recommends codespell
   script:
     - codespell

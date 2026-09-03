@@ -27,6 +27,10 @@
  * playback via Qt:
    - moved processing into a separate thread
    - fixed wrong padding value (may have produced a click at playback end)
+ * recording via PulseAudio:
+   - fixed possible busy loop (100% CPU load)
+   - improved error handling
+   - fixed duplicate entries in sample format detection
 
 24.12.0 [2024-11-09]
 

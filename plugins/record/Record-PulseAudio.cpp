@@ -31,6 +31,7 @@
 #include <QFileInfo>
 #include <QLatin1Char>
 #include <QLocale>
+#include <QMutexLocker>
 #include <QString>
 #include <QVariant>
 #include <QtGlobal>
@@ -238,31 +239,63 @@ void Kwave::RecordPulseAudio::detectSupportedFormats(const QString &device)
     const pa_sample_spec     &sampleSpec = m_device_list[device].m_sample_spec;
     const pa_sample_format_t &formatSpec = sampleSpec.format;
 
-    // try all known formats
+    const Kwave::byte_order_t cpu_endian =
+        (QSysInfo::ByteOrder == QSysInfo::LittleEndian) ?
+        Kwave::LittleEndian : Kwave::BigEndian;
+
+    auto is_duplicate = [this](pa_sample_format_t fmt) {
+        for (const pa_sample_format_t &existing : m_supported_formats) {
+            if ((bits_of(existing) == bits_of(fmt)) &&
+                (sample_format_of(existing) == sample_format_of(fmt)) &&
+                (compression_of(existing) == compression_of(fmt)))
+                return true;
+        }
+        return false;
+    };
+
+    auto add_formats = [&](bool native_only) {
+        unsigned int i = 0;
+        for (const pa_sample_format_t &fmt : _known_formats) {
+            const unsigned int idx = i++;
+
+            if (formatSpec < fmt)
+                continue;
+
+            const Kwave::byte_order_t endian = endian_of(fmt);
+            const bool is_native = (endian == Kwave::CpuEndian) ||
+                                   (endian == cpu_endian);
+
+            if (native_only != is_native)
+                continue;
+
+            if (is_duplicate(fmt))
+                continue;
+
+            Kwave::Compression t(compression_of(fmt));
+            Kwave::SampleFormat::Map sf;
+            qDebug("#%2u, %2d bit [%d byte], %s, '%s', '%s'",
+                   idx,
+                   bits_of(fmt),
+                   (bits_of(fmt) + 7) >> 3,
+                   endian == Kwave::CpuEndian ? "CPU" :
+                   (endian == Kwave::LittleEndian ? "LE " : "BE "),
+                   DBG(sf.description(sf.findFromData(sample_format_of(fmt)),
+                                      true)),
+                   DBG(t.name())
+            );
+
+            m_supported_formats.append(fmt);
+        }
+    };
+
     qDebug("--- list of supported formats --- ");
-    for(unsigned int i = 0; i < ELEMENTS_OF(_known_formats); ++i) {
-        const pa_sample_format_t &fmt = _known_formats[i];
 
-        if (formatSpec < _known_formats[i])
-            continue;
+    // first pass: native / CPU endian formats
+    add_formats(true);
 
-        // TODO: avoid duplicate entries that differ only in endianness,
-        //       prefer our own (native) endianness
+    // second pass: non-native endian formats
+    add_formats(false);
 
-        Kwave::Compression t(compression_of(fmt));
-        Kwave::SampleFormat::Map sf;
-        qDebug("#%2u, %2d bit [%d byte], %s, '%s', '%s'",
-            i,
-            bits_of(fmt),
-            (bits_of(fmt) + 7) >> 3,
-            endian_of(fmt) == Kwave::CpuEndian ? "CPU" :
-            (endian_of(fmt) == Kwave::LittleEndian ? "LE " : "BE "),
-            DBG(sf.description(sf.findFromData(sample_format_of(fmt)), true)),
-            DBG(t.name())
-        );
-
-        m_supported_formats.append(fmt);
-    }
     qDebug("--------------------------------- ");
 }
 
@@ -387,9 +420,13 @@ pa_sample_format_t Kwave::RecordPulseAudio::mode2format(
     // compatible with the given compression, bits and sample format
     for (const pa_sample_format_t &fmt : m_supported_formats)
     {
-        if (compression_of(fmt) != compression) continue;
-        if (bits_of(fmt) != bits) continue;
-        if (!(sample_format_of(fmt) == sample_format)) continue;
+        if (compression_of(fmt)    != compression)    continue;
+        if (bits_of(fmt)           != bits)           continue;
+
+        // ignore sample format (signed/unsigned) for compressed streams
+        if ((compression == Kwave::Compression::NONE) &&
+            (sample_format_of(fmt) != sample_format))
+            continue;
 
         // mode is compatible
         // As the list of known formats is already sorted so that
@@ -437,7 +474,7 @@ QList<Kwave::SampleFormat::Format>
     // try all known sample formats
     for (const pa_sample_format_t &fmt : m_supported_formats)
     {
-        const Kwave::SampleFormat::Format sample_format = sample_format_of(fmt);
+        Kwave::SampleFormat::Format sample_format = sample_format_of(fmt);
 
         // only accept bits/sample if compression types
         // and bits per sample match
@@ -674,40 +711,50 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
         if (err < 0) return err;
     }
 
-    m_mainloop_lock.lock();
+    QMutexLocker locker(&m_mainloop_lock);
+
+    if (!m_pa_stream)
+        return -EIO;
+
+    if (pa_stream_get_state(m_pa_stream) != PA_STREAM_READY)
+        return -EIO;
+
+    size_t readableSize = pa_stream_readable_size(m_pa_stream);
+    if (!readableSize) {
+        // wait for pulse audio callbacks or timeout
+        m_mainloop_signal.wait(&m_mainloop_lock, 1000);
+
+        if (pa_stream_get_state(m_pa_stream) != PA_STREAM_READY)
+            return -EIO;
+
+        readableSize = pa_stream_readable_size(m_pa_stream);
+        if (!readableSize)
+            return -EAGAIN;
+    }
 
     size_t freeBytes = length - offset;
-    size_t readableSize = pa_stream_readable_size(m_pa_stream);
     if (readableSize > freeBytes) {
         size_t additional_size = readableSize - freeBytes;
         buffer.resize(length + additional_size);
     }
 
     size_t readLength = 0;
-    if (readableSize > 0) {
-        const void *audioBuffer = nullptr;
-        pa_stream_peek(m_pa_stream, &audioBuffer, &readLength);
+    const void *audioBuffer = nullptr;
+    if (pa_stream_peek(m_pa_stream, &audioBuffer, &readLength) < 0)
+        return -EIO;
 
-        if (offset + readLength > Kwave::toUint(buffer.length())) {
-            pa_stream_drop(m_pa_stream);
-            m_mainloop_lock.unlock();
-            return -EIO; // peek returned invalid length
-        }
-
-        char *data = buffer.data() + offset;
-        if (audioBuffer) {
-            MEMCPY(data, audioBuffer, readLength); // real data
-        } else {
-            memset(data, 0x00, readLength); // there was a gap
-        }
-
+    if (offset + readLength > Kwave::toUint(buffer.length())) {
         pa_stream_drop(m_pa_stream);
-
-    } else {
-        m_mainloop_lock.unlock();
-        return -EAGAIN;
+        return -EIO; // peek returned invalid length
     }
-    m_mainloop_lock.unlock();
+
+    char *data = buffer.data() + offset;
+    if (audioBuffer)
+        MEMCPY(data, audioBuffer, readLength); // real data
+    else
+        memset(data, 0x00, readLength); // there was a gap
+
+    pa_stream_drop(m_pa_stream);
 
     return Kwave::toInt(readLength);
 }
@@ -739,8 +786,8 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 
     pa_sample_spec sample_spec;
     sample_spec.channels = m_tracks;
-    sample_spec.format = fmt;
-    sample_spec.rate = static_cast<quint32>(m_rate);
+    sample_spec.format   = fmt;
+    sample_spec.rate     = static_cast<quint32>(m_rate);
 
     if(!pa_sample_spec_valid(&sample_spec)) {
         Kwave::SampleFormat::Map sf;

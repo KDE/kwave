@@ -56,7 +56,9 @@ SET(plugin_record_LIB_SRCS
     RecordPlugin.cpp
     RecordThread.cpp
     RecordTypesMap.cpp
+    SampleDecoderALaw.cpp
     SampleDecoderLinear.cpp
+    SampleDecoderULaw.cpp
     StatusWidget.cpp
 
     LevelMeter.h
@@ -66,7 +68,9 @@ SET(plugin_record_LIB_SRCS
     RecordPlugin.h
     RecordThread.h
     RecordTypesMap.h
+    SampleDecoderALaw.h
     SampleDecoderLinear.h
+    SampleDecoderULaw.h
     StatusWidget.h
     ${RECORD_SOURCES}
 )

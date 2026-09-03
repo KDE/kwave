@@ -58,7 +58,9 @@
 #include "RecordDialog.h"
 #include "RecordPlugin.h"
 #include "RecordThread.h"
+#include "SampleDecoderALaw.h"
 #include "SampleDecoderLinear.h"
+#include "SampleDecoderULaw.h"
 
 KWAVE_PLUGIN(record, RecordPlugin)
 
@@ -952,6 +954,12 @@ void Kwave::RecordPlugin::setupRecordThread()
                         i18n("The current sample format is not supported!")
                     );
             }
+            break;
+        case Kwave::Compression::G711_ALAW:
+            m_decoder = new(std::nothrow) Kwave::SampleDecoderALaw();
+            break;
+        case Kwave::Compression::G711_ULAW:
+            m_decoder = new(std::nothrow) Kwave::SampleDecoderULaw();
             break;
         default:
             notice(

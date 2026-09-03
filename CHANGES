@@ -24,6 +24,9 @@
     the bottleneck of signal/slot processing is no longer relevant.
  * fixed selection of compression, sample format and resolution (bits/sample)
    when saving (made it depend on file format / compression / sample format)
+ * playback via Qt:
+   - moved processing into a separate thread
+   - fixed wrong padding value (may have produced a click at playback end)
 
 24.12.0 [2024-11-09]
 

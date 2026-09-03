@@ -52,9 +52,12 @@ Kwave::PlayBackQt::PlayBackQt()
      m_output(nullptr),
      m_buffer_size(0),
      m_encoder(nullptr),
+     m_audio_thread(),
      m_buffer(),
      m_one_frame()
 {
+    // register metatype for queued cross-thread signal connections
+    qRegisterMetaType<QAudio::State>();
 }
 
 //***************************************************************************
@@ -160,14 +163,30 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
     Q_ASSERT(m_encoder);
     if (!m_encoder) return i18n("Out of memory");
 
+    // start audio thread if not running
+    if (!m_audio_thread.isRunning())
+        m_audio_thread.start();
+
+    // create buffer instance and move to audio thread
+    char silence = (format.sampleFormat() == QAudioFormat::UInt8) ?
+                        char(0x80) : char(0x00);
+    m_buffer = new(std::nothrow) Buffer(silence);
+    if (!m_buffer)
+        return i18n("Out of memory");
+    m_buffer->moveToThread(&m_audio_thread);
+
     // create a new Qt output device
     m_output = new(std::nothrow) QAudioSink(format, nullptr);
     Q_ASSERT(m_output);
     if (!m_output) return i18n("Out of memory");
 
+    // move audio output sink to worker thread
+    m_output->moveToThread(&m_audio_thread);
+
     // connect the state machine and the notification engine
     connect(m_output, SIGNAL(stateChanged(QAudio::State)),
-            this,     SLOT(stateChanged(QAudio::State)));
+            this,     SLOT(stateChanged(QAudio::State)),
+            Qt::QueuedConnection);
 
     // calculate the buffer size in bytes
     if (bufbase < 8) bufbase = 8;
@@ -200,8 +219,14 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
     qDebug("    timeout = %d ms", timeout);
 
     // open the output device for writing
-    m_buffer.start(m_buffer_size, timeout);
-    m_output->start(&m_buffer);
+    QMetaObject::invokeMethod(m_buffer, [this, timeout]() {
+        m_buffer->start(m_buffer_size, timeout);
+    }, Qt::BlockingQueuedConnection);
+
+    QMetaObject::invokeMethod(m_output, [this]() {
+        m_output->start(m_buffer);
+    }, Qt::BlockingQueuedConnection);
+
     qDebug("    QAudioSink buffer size = %lld", m_output->bufferSize());
 
     if (m_output->error() != QAudio::NoError) {
@@ -218,7 +243,7 @@ int Kwave::PlayBackQt::write(const Kwave::SampleArray &samples)
     {
         QMutexLocker _lock(&m_lock); // context: worker thread
 
-        if (!m_encoder || !m_output) return -EIO;
+        if (!m_encoder || !m_output || !m_buffer) return -EIO;
 
         int bytes_per_sample = m_encoder->rawBytesPerSample();
         int bytes_raw        = samples.size() * bytes_per_sample;
@@ -228,7 +253,7 @@ int Kwave::PlayBackQt::write(const Kwave::SampleArray &samples)
         m_encoder->encode(samples, samples.size(), m_one_frame);
     }
 
-    qint64 written = m_buffer.writeData(
+    qint64 written = m_buffer->writeData(
         m_one_frame.constData(), m_one_frame.size());
     return (written == m_one_frame.size()) ? 0 : -EAGAIN;
 }
@@ -298,35 +323,48 @@ int Kwave::PlayBackQt::close()
 
     QMutexLocker _lock(&m_lock); // context: main thread
 
-    if (m_output && m_encoder) {
-        // create padding data for exactly one frame, as we do not know
-        // the relationship between the buffer size used in our internal
-        // buffer object (which has been set up early) and the buffer used
-        // in Qt (which might have been adjusted after opening).
-        int bytes_per_frame = m_output->format().bytesPerFrame();
-        if (bytes_per_frame > 0) {
-            Kwave::SampleArray pad_samples(1);
-            pad_samples.fill(0);
-            QByteArray pad_bytes(bytes_per_frame, char(0));
-            m_encoder->encode(pad_samples, 1, pad_bytes);
-            m_buffer.drain(pad_bytes);
-        }
-        m_output->stop();
-        m_buffer.stop();
-
-        // stopping the engine might block, so we need to do this unlocked
+    if (m_output && m_encoder && m_buffer) {
         qDebug("Kwave::PlayBackQt::close() - flushing..., state=%d",
             m_output->state());
-        while (m_output && (m_output->state() != QAudio::StoppedState)) {
-            qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-        }
+
+        // stop output and buffer inside audio thread
+        QMetaObject::invokeMethod(m_output, [this]()
+        {
+            m_output->stop();
+        }, Qt::BlockingQueuedConnection);
+
+        QMetaObject::invokeMethod(m_buffer, [this]()
+        {
+            m_buffer->stop();
+        }, Qt::BlockingQueuedConnection);
+
         qDebug("Kwave::PlayBackQt::close() - flushing done.");
     }
 
-    if (m_output) {
-        // WARNING: QAudioOutput::~QAudioOutput() calls processEvents() !!!
+    // stop and wait for worker thread event loop
+    if (m_audio_thread.isRunning())
+    {
+        m_audio_thread.quit();
+        m_audio_thread.wait();
+    }
+
+    if (m_output)
+    {
         m_output->deleteLater();
         m_output = nullptr;
+    }
+
+    if (m_buffer)
+    {
+        m_buffer->deleteLater();
+        m_buffer = nullptr;
+    }
+
+    // stop and wait for worker thread
+    if (m_audio_thread.isRunning())
+    {
+        m_audio_thread.quit();
+        m_audio_thread.wait();
     }
 
     delete m_encoder;
@@ -457,7 +495,7 @@ int Kwave::PlayBackQt::detectChannels(const QString &device,
 //***************************************************************************
 
 //***************************************************************************
-Kwave::PlayBackQt::Buffer::Buffer()
+Kwave::PlayBackQt::Buffer::Buffer(char silence)
     :QIODevice(),
      m_lock(),
      m_sem_free(0),
@@ -466,8 +504,7 @@ Kwave::PlayBackQt::Buffer::Buffer()
      m_rp(0),
      m_wp(0),
      m_timeout(1000),
-     m_pad_data(),
-     m_pad_ofs(0)
+     m_silence(silence)
 {
 }
 
@@ -487,17 +524,8 @@ void Kwave::PlayBackQt::Buffer::start(unsigned int buf_size, int timeout)
     m_sem_free.acquire(m_sem_free.available());
     m_sem_free.release(buf_size);
     m_timeout = timeout;
-    m_pad_data.clear();
-    m_pad_ofs = 0;
 
     open(QIODevice::ReadOnly);
-}
-
-//***************************************************************************
-void Kwave::PlayBackQt::Buffer::drain(const QByteArray &padding)
-{
-    m_pad_data = padding;
-    m_pad_ofs  = 0;
 }
 
 //***************************************************************************
@@ -528,19 +556,12 @@ qint64 Kwave::PlayBackQt::Buffer::readData(char *data, qint64 len)
     }
 
     // if we are at the end of the stream: do some padding to satisfy Qt
-    const qsizetype padlen = m_pad_data.size();
     if (remaining) {
-        if (padlen)
-            qDebug("Kwave::PlayBackQt::Buffer::readData(...) -> "
-                "read=%lld/%lld, padding %lld",
-                len - remaining, len, remaining);
-        else
-            qDebug("Kwave::PlayBackQt::Buffer::readData(...) -> "
-                "read=%lld/%lld, UNDERRUN", len - remaining, len);
-
+        qDebug("Kwave::PlayBackQt::Buffer::readData(...) -> "
+            "read=%lld/%lld, UNDERRUN", len - remaining, len);
         do {
-            *(data++) = 0;
-            if (Q_UNLIKELY(++m_rp >= maxlen)) m_rp = 0;
+            // fallback if no padding data was set
+            *(data++) = m_silence;
         } while (--remaining);
     }
 
@@ -573,10 +594,7 @@ qint64 Kwave::PlayBackQt::Buffer::writeData(const char *data, qint64 len)
 //***************************************************************************
 qint64 Kwave::PlayBackQt::Buffer::bytesAvailable() const
 {
-    return QIODevice::bytesAvailable() +
-           m_sem_filled.available() +
-           m_pad_data.size() -
-           m_pad_ofs;
+    return QIODevice::bytesAvailable() + m_sem_filled.available();
 }
 
 #endif /* HAVE_QT_AUDIO_SUPPORT */

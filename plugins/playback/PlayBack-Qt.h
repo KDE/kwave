@@ -32,6 +32,7 @@
 #include <QRecursiveMutex>
 #include <QSemaphore>
 #include <QString>
+#include <QThread>
 
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"
@@ -146,8 +147,11 @@ namespace Kwave
         class Buffer : public QIODevice
         {
         public:
-            /** constructor */
-            Buffer();
+            /**
+             * Constructor
+             * @param silence value to use for silence (padding)
+             */
+            Buffer(char silence);
 
             /** destructor */
             ~Buffer() override;
@@ -158,13 +162,6 @@ namespace Kwave
              * @param timeout read/write timeout [ms]
              */
             void start(unsigned int buf_size, int timeout);
-
-            /**
-             * drain the sink, at the end of playback:
-             * provide padding to provide data for a full period
-             * @param padding array of bytes used for padding
-             */
-            void drain(const QByteArray &padding);
 
             /** stop filling the buffer */
             void stop();
@@ -212,11 +209,9 @@ namespace Kwave
             /** read timeout [ms] */
             int m_timeout;
 
-            /** buffer with padding data */
-            QByteArray m_pad_data;
+            /** value to use for silence (padding) */
+            char m_silence;
 
-            /** read pointer within m_pad_data */
-            int m_pad_ofs;
         };
 
     private:
@@ -243,8 +238,11 @@ namespace Kwave
         /** encoder for converting from samples to raw format */
         Kwave::SampleEncoder *m_encoder;
 
+        /** thread for running QAudioSink event loop */
+        QThread m_audio_thread;
+
         /** buffer object to use as interface to the qt playback thread */
-        Kwave::PlayBackQt::Buffer m_buffer;
+        Kwave::PlayBackQt::Buffer *m_buffer;
 
         /** internal buffer for encoding one frame */
         QByteArray m_one_frame;

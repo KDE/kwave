@@ -125,7 +125,8 @@ int Kwave::RecordParams::fromList(const QStringList &list)
 
     int sf;
     GET(sf, toInt)
-    Kwave::SampleFormat(sample_format).fromInt(sf);
+    Kwave::SampleFormat fmt;
+    sample_format = fmt.fromInt(sf);
 
     // buffer count and power of buffer size
     GET(buffer_count, toUInt)

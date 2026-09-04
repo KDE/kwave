@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-01 00:44+0000\n"
+"POT-Creation-Date: 2026-09-04 00:43+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -1181,9 +1181,9 @@ msgstr "正在加载文件“%1”..."
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
 #: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
-#: plugins/playback/PlayBack-Qt.cpp:161 plugins/playback/PlayBack-Qt.cpp:166
-#: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
-#: plugins/record/RecordPlugin.cpp:1050
+#: plugins/playback/PlayBack-Qt.cpp:164 plugins/playback/PlayBack-Qt.cpp:175
+#: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:973
+#: plugins/record/RecordPlugin.cpp:989 plugins/record/RecordPlugin.cpp:1058
 #, kde-format
 msgid "Out of memory"
 msgstr "内存不足"
@@ -3309,7 +3309,7 @@ msgstr ""
 "请问您是否仍要继续？"
 
 #: libkwave/SignalManager.cpp:429 plugins/about/AboutDialog.cpp:75
-#: plugins/record/RecordPlugin.cpp:1071
+#: plugins/record/RecordPlugin.cpp:1079
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(使用 KDE Frameworks %1 构建)"
@@ -3929,16 +3929,11 @@ msgid "MPEG layer I audio"
 msgstr "MPEG 第一层音频"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:173
-#, fuzzy, kde-format
-#| msgid ""
-#| "The file contains an invalid channel mode 0x%1\n"
-#| "Assuming Mono..."
+#, kde-format
 msgid ""
 "The file contains an invalid channel mode (%1).\n"
 "Assuming Mono..."
 msgstr ""
-"此文件包含无效的声道模式 0x%1\n"
-"假定为单声道..."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:549
 #, kde-format
@@ -4517,7 +4512,7 @@ msgctxt ""
 msgid "Error: No Codec for '%1' available"
 msgstr "错误：没有用于“%1”的编解码器可用"
 
-#: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:117
+#: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:120
 #, kde-format
 msgid "One or more invalid/out of range arguments."
 msgstr ""
@@ -5940,7 +5935,7 @@ msgstr "DMIX 插件"
 msgid "The device '%1' cannot be opened in the correct mode."
 msgstr "设备“%1”无法以正确的模式被打开。"
 
-#: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:150
+#: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:153
 #, kde-format
 msgid "%1 bits per sample are not supported"
 msgstr "不支持 %1 比特每采样"
@@ -6011,17 +6006,17 @@ msgstr "无法打开一个用于播放的 PulseAudio 流 (%1)。"
 msgid "(Use server default)"
 msgstr "(使用服务器默认值)"
 
-#: plugins/playback/PlayBack-Qt.cpp:129
+#: plugins/playback/PlayBack-Qt.cpp:132
 #, kde-format
 msgid "The audio device '%1' is unknown or no longer connected"
 msgstr ""
 
-#: plugins/playback/PlayBack-Qt.cpp:156
+#: plugins/playback/PlayBack-Qt.cpp:159
 #, kde-format
 msgid "format not supported"
 msgstr ""
 
-#: plugins/playback/PlayBack-Qt.cpp:209
+#: plugins/playback/PlayBack-Qt.cpp:234
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "打开 Qt 多媒体设备“%1”失败"
@@ -6278,7 +6273,7 @@ msgstr "OSS 录音设备 (dsp*)"
 msgid "ALSA recording device (adsp*)"
 msgstr "ALSA 录音设备 (adsp*)"
 
-#: plugins/record/Record-PulseAudio.cpp:216
+#: plugins/record/Record-PulseAudio.cpp:217
 #, kde-format
 msgid "Kwave record"
 msgstr "Kwave 录音"
@@ -6303,20 +6298,20 @@ msgstr "ALSA 录音设备 (adsp*)"
 msgid "Select Record Device"
 msgstr "选择录音设备"
 
-#: plugins/record/RecordDialog.cpp:717 plugins/record/RecordPlugin.cpp:544
-#: plugins/record/RecordPlugin.cpp:552
+#: plugins/record/RecordDialog.cpp:717 plugins/record/RecordPlugin.cpp:546
+#: plugins/record/RecordPlugin.cpp:554
 #, kde-format
 msgid "Mono"
 msgstr "单声道"
 
-#: plugins/record/RecordDialog.cpp:720 plugins/record/RecordPlugin.cpp:545
-#: plugins/record/RecordPlugin.cpp:553
+#: plugins/record/RecordDialog.cpp:720 plugins/record/RecordPlugin.cpp:547
+#: plugins/record/RecordPlugin.cpp:555
 #, kde-format
 msgid "Stereo"
 msgstr "立体声"
 
-#: plugins/record/RecordDialog.cpp:723 plugins/record/RecordPlugin.cpp:546
-#: plugins/record/RecordPlugin.cpp:554
+#: plugins/record/RecordDialog.cpp:723 plugins/record/RecordPlugin.cpp:548
+#: plugins/record/RecordPlugin.cpp:556
 #, kde-format
 msgid "Quadro"
 msgstr "四倍"
@@ -6708,109 +6703,109 @@ msgstr "缓冲区："
 msgid "Level:"
 msgstr "级别："
 
-#: plugins/record/RecordPlugin.cpp:455
+#: plugins/record/RecordPlugin.cpp:457
 #, kde-format
 msgid ""
 "Maybe your system lacks support for the corresponding hardware or the "
 "hardware is not connected."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:461
+#: plugins/record/RecordPlugin.cpp:463
 #, kde-format
 msgid ""
 "The audio device seems to be occupied by another application. Retrying..."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:467
+#: plugins/record/RecordPlugin.cpp:469
 #, kde-format
 msgid ""
 "Some unexpected error happened (%1). You may try an other recording method "
 "or recording device."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:482
+#: plugins/record/RecordPlugin.cpp:484
 #, kde-format
 msgctxt "%1 = a device name"
 msgid "Unable to open the recording device (%1)"
 msgstr "无法打开录音设备 (%1)"
 
-#: plugins/record/RecordPlugin.cpp:548 plugins/record/RecordPlugin.cpp:556
+#: plugins/record/RecordPlugin.cpp:550 plugins/record/RecordPlugin.cpp:558
 #, kde-format
 msgid "%1 channels"
 msgstr "%1 个声道"
 
-#: plugins/record/RecordPlugin.cpp:559
+#: plugins/record/RecordPlugin.cpp:561
 #, kde-format
 msgid "%1 is not supported, using %2"
 msgstr "不支持 %1，使用 %2"
 
-#: plugins/record/RecordPlugin.cpp:582
+#: plugins/record/RecordPlugin.cpp:584
 #, kde-format
 msgid "Recording with %1 channel(s) failed, using %2 channel(s)"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:627
+#: plugins/record/RecordPlugin.cpp:629
 #, kde-format
 msgid "%1 Hz is not supported, using %2 Hz"
 msgstr "%1 Hz 不支持，使用 %2 Hz"
 
-#: plugins/record/RecordPlugin.cpp:644
+#: plugins/record/RecordPlugin.cpp:646
 #, kde-format
 msgid "%1 Hz failed, using %2 Hz"
 msgstr "%1 Hz 失败，使用 %2 Hz"
 
-#: plugins/record/RecordPlugin.cpp:690
+#: plugins/record/RecordPlugin.cpp:692
 #, kde-format
 msgid "Compression '%1' not supported, using '%2'"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:703
+#: plugins/record/RecordPlugin.cpp:705
 #, kde-format
 msgid "Compression '%1' failed, using '%2'."
 msgstr "使用压缩方法“%1”失败，改用“%2”。"
 
-#: plugins/record/RecordPlugin.cpp:742
+#: plugins/record/RecordPlugin.cpp:744
 #, kde-format
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
 msgstr "每采样 %1 比特不支持，改用每采样 %2 比特"
 
-#: plugins/record/RecordPlugin.cpp:755
+#: plugins/record/RecordPlugin.cpp:757
 #, kde-format
 msgid "%1 bits per sample failed, using %2 bits per sample"
 msgstr "设置每采样 %1 比特失败，改用每采样 %2 比特"
 
-#: plugins/record/RecordPlugin.cpp:797
+#: plugins/record/RecordPlugin.cpp:799
 #, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
 msgstr "采样格式“%1”不支持，改用“%2”"
 
-#: plugins/record/RecordPlugin.cpp:813
+#: plugins/record/RecordPlugin.cpp:815
 #, kde-format
 msgid "Sample format '%1' failed, using '%2'"
 msgstr "设置采样格式“%1”失败，改用“%2”"
 
-#: plugins/record/RecordPlugin.cpp:952
+#: plugins/record/RecordPlugin.cpp:954
 #, kde-format
 msgid "The current sample format is not supported!"
 msgstr "当前采样格式不支持！"
 
-#: plugins/record/RecordPlugin.cpp:958
+#: plugins/record/RecordPlugin.cpp:966
 #, kde-format
 msgid "The current compression type is not supported!"
 msgstr "当前压缩类型不支持！"
 
-#: plugins/record/RecordPlugin.cpp:1095
+#: plugins/record/RecordPlugin.cpp:1103
 #, kde-format
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr "缓冲区溢出。请增加录音缓冲区的数量和/或大小。"
 
-#: plugins/record/RecordPlugin.cpp:1099
+#: plugins/record/RecordPlugin.cpp:1107
 #, kde-format
 msgid "The recording device seems to be busy."
 msgstr "录音设备似乎正处于繁忙之中。"
 
-#: plugins/record/RecordPlugin.cpp:1102
+#: plugins/record/RecordPlugin.cpp:1110
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr "从录音设备读取失败。错误号 = %1 (%2)"
@@ -7292,19 +7287,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "无声"
-
-#~ msgid "T.H.F. Klok and Cedric Tefft"
-#~ msgstr "T.H.F. Klok and Cedric Tefft"
-
-#~ msgid "Maintainers of the 'id3lib' library"
-#~ msgstr "id3lib 函数库维护者"
-
-#~ msgid "http://www.id3lib.org/"
-#~ msgstr "http://www.id3lib.org/"
-
-#~ msgid ""
-#~ "The opened file is no MPEG file or it is damaged.\n"
-#~ "No header information has been found."
-#~ msgstr ""
-#~ "打开的文件不是 MPEG 文件，或者它已损坏。\n"
-#~ "找到不到头部信息。"

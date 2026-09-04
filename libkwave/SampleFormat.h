@@ -71,7 +71,7 @@ namespace Kwave
         inline int toInt() const { return static_cast<int>(m_format); }
 
         /** conversion from int  (e.g. for use in plugin parameters) */
-        void fromInt(int i);
+        Format fromInt(int i);
 
     private:
 

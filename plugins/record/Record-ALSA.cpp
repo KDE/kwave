@@ -616,7 +616,8 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
     // handle all negative result codes
     if (r == -EAGAIN) {
         unsigned int timeout = (m_rate > 0) ?
-            (((1000 * samples) / 4) / Kwave::toUint(m_rate)) : 10U;
+            (((1000 * samples) / 4) / Kwave::toUint(m_rate)) : 0;
+        if (timeout < 10) timeout = 10;
         snd_pcm_wait(m_handle, timeout);
         return -EAGAIN;
     } else if (r == -EPIPE) {
@@ -1012,10 +1013,11 @@ void Kwave::RecordALSA::scanDevices()
         dev = -1;
         while (1) {
             unsigned int count;
-            if (snd_ctl_pcm_next_device(handle, &dev)<0)
+            if ((snd_ctl_pcm_next_device(handle, &dev) < 0) || (dev < 0)) {
                 qWarning("snd_ctl_pcm_next_device");
-            if (dev < 0)
                 break;
+            }
+
             snd_pcm_info_set_device(pcminfo, dev);
             snd_pcm_info_set_subdevice(pcminfo, 0);
             snd_pcm_info_set_stream(pcminfo, SND_PCM_STREAM_CAPTURE);

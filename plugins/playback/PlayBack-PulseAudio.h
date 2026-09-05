@@ -27,26 +27,21 @@
 #include <pulse/error.h>
 #include <pulse/gccmacro.h>
 #include <pulse/introspect.h>
-#include <pulse/mainloop.h>
+#include <pulse/thread-mainloop.h>
 #include <pulse/proplist.h>
 #include <pulse/stream.h>
 
 #include <QList>
 #include <QMap>
-#include <QMutex>
 #include <QString>
-#include <QWaitCondition>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/PlayBackDevice.h"
-#include "libkwave/Runnable.h"
 #include "libkwave/SampleArray.h"
-#include "libkwave/WorkerThread.h"
 
 namespace Kwave
 {
-    class PlayBackPulseAudio: public Kwave::PlayBackDevice,
-                              public Kwave::Runnable
+    class PlayBackPulseAudio: public Kwave::PlayBackDevice
     {
     public:
 
@@ -109,20 +104,10 @@ namespace Kwave
                                    unsigned int &min, unsigned int &max)
             override;
 
-        /**
-         * our own poll function, for timeout support
-         * @internal
-         */
-        int mainloopPoll(struct pollfd *ufds, unsigned long int nfds,
-                         int timeout);
-
     protected:
 
         /** Writes the output buffer to the device */
         int flush();
-
-        /** re-implementation of the threaded mainloop of PulseAudio */
-        void run_wrapper(const QVariant &params) override;
 
     private:
 
@@ -242,14 +227,6 @@ namespace Kwave
         } sink_info_t;
 
     private:
-        /** worker thread, running the event loop */
-        Kwave::WorkerThread m_mainloop_thread;
-
-        /** lock for the main loop */
-        QMutex m_mainloop_lock;
-
-        /** wait condition for mainloopWait/mainloopSignal */
-        QWaitCondition m_mainloop_signal;
 
         /** file info, for meta info like title, author, name etc. */
         Kwave::FileInfo m_info;
@@ -279,7 +256,7 @@ namespace Kwave
         pa_proplist *m_pa_proplist;
 
         /** pulse: main loop */
-        pa_mainloop *m_pa_mainloop;
+        pa_threaded_mainloop *m_pa_mainloop;
 
         /** pulse: context of the connection to the server */
         pa_context *m_pa_context;

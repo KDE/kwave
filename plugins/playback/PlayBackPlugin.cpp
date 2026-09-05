@@ -464,7 +464,7 @@ void Kwave::PlayBackPlugin::testPlayBack()
     // free the progress dialog
     delete progress;
 
-    // stop the worker thread through the Runnable API
+    // stop the worker thread
     stop();
 
     // remove hourglass

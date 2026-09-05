@@ -26,7 +26,6 @@
 #include <unistd.h>
 
 #include <QApplication>
-#include <QCursor>
 #include <QFileInfo>
 #include <QLatin1Char>
 #include <QLocale>
@@ -44,41 +43,42 @@
 #include "PlayBack-PulseAudio.h"
 
 /**
- * timeout for the device scan [ms]
- * @see scanDevices()
- */
-#define TIMEOUT_WAIT_DEVICE_SCAN 10000
-
-/**
- * timeout to wait for the connection to the server [ms]
- * @see connectToServer()
- */
-#define TIMEOUT_CONNECT_TO_SERVER 20000
-
-/**
- * timeout to wait for playback [ms]
- * @see open()
- */
-#define TIMEOUT_CONNECT_PLAYBACK 10000
-
-/**
  * minimum timeout for flush() [ms]
  * @see flush()
  */
 #define TIMEOUT_MIN_FLUSH 1000
 
-/**
- * minimum timeout for drain() [ms]
- * @see close()
- */
-#define TIMEOUT_MIN_DRAIN 3000
+namespace
+{
+    /**
+     * internal helper class, guard for locking the PulseAudio
+     * main loop
+     */
+    class PaLock
+    {
+    public:
+        explicit PaLock(pa_threaded_mainloop *mainloop)
+        : m_mainloop(mainloop)
+        {
+            if (m_mainloop)
+                pa_threaded_mainloop_lock(m_mainloop);
+        }
+
+        ~PaLock()
+        {
+            if (m_mainloop)
+                pa_threaded_mainloop_unlock(m_mainloop);
+        }
+
+    private:
+        pa_threaded_mainloop *m_mainloop;
+    };
+}
 
 //***************************************************************************
 Kwave::PlayBackPulseAudio::PlayBackPulseAudio(const Kwave::FileInfo &info)
     :Kwave::PlayBackDevice(),
-     m_mainloop_thread(this, QVariant()),
-     m_mainloop_lock(),
-     m_mainloop_signal(),
+
      m_info(info),
      m_rate(0),
      m_bytes_per_sample(0),
@@ -97,7 +97,8 @@ Kwave::PlayBackPulseAudio::PlayBackPulseAudio(const Kwave::FileInfo &info)
 //***************************************************************************
 Kwave::PlayBackPulseAudio::~PlayBackPulseAudio()
 {
-    close();
+    disconnectFromServer();
+    m_device_list.clear();
 }
 
 //***************************************************************************
@@ -153,35 +154,8 @@ void Kwave::PlayBackPulseAudio::pa_stream_success_cb(pa_stream *s,
 //***************************************************************************
 void Kwave::PlayBackPulseAudio::notifyContext(pa_context *c)
 {
-    Q_ASSERT(c == m_pa_context);
-    switch (pa_context_get_state(c))
-    {
-        case PA_CONTEXT_UNCONNECTED:
-//          qDebug("PlayBackPulseAudio: PA_CONTEXT_UNCONNECTED!?");
-            break;
-        case PA_CONTEXT_CONNECTING:
-//          qDebug("PlayBackPulseAudio: PA_CONTEXT_CONNECTING...");
-            break;
-        case PA_CONTEXT_AUTHORIZING:
-//          qDebug("PlayBackPulseAudio: PA_CONTEXT_AUTHORIZING...");
-            break;
-        case PA_CONTEXT_SETTING_NAME:
-//          qDebug("PlayBackPulseAudio: PA_CONTEXT_SETTING_NAME...");
-            break;
-        case PA_CONTEXT_READY:
-//          qDebug("PlayBackPulseAudio: PA_CONTEXT_READY.");
-            m_mainloop_signal.wakeAll();
-            break;
-        case PA_CONTEXT_TERMINATED:
-            qWarning("PlayBackPulseAudio: PA_CONTEXT_TERMINATED");
-            m_mainloop_signal.wakeAll();
-            break;
-        case PA_CONTEXT_FAILED:
-            qWarning("PlayBackPulseAudio: PA_CONTEXT_FAILED");
-            m_mainloop_signal.wakeAll();
-            break;
-        DEFAULT_IGNORE;
-    }
+    Q_UNUSED(c)
+    pa_threaded_mainloop_signal(m_pa_mainloop, 0);
 }
 
 //***************************************************************************
@@ -223,7 +197,7 @@ void Kwave::PlayBackPulseAudio::notifySinkInfo(pa_context *c,
         m_device_list[name] = i;
 
     } else {
-        m_mainloop_signal.wakeAll();
+        pa_threaded_mainloop_signal(m_pa_mainloop, 0);
     }
 }
 
@@ -231,49 +205,21 @@ void Kwave::PlayBackPulseAudio::notifySinkInfo(pa_context *c,
 void Kwave::PlayBackPulseAudio::notifyStreamState(pa_stream* stream)
 {
     Q_ASSERT(stream);
-    if (!stream || (stream != m_pa_stream)) return;
+    if (!stream || (stream != m_pa_stream))
+        return;
 
-    pa_stream_state_t state = pa_stream_get_state(stream);
-//     switch (state) {
-//      case PA_STREAM_UNCONNECTED:
-//          qDebug("    -> UNCONNECTED"); break;
-//      case PA_STREAM_CREATING:
-//          qDebug("    -> CREATING"); break;
-//      case PA_STREAM_READY:
-//          qDebug("    -> READY"); break;
-//      case PA_STREAM_FAILED:
-//          qDebug("    -> FAILED"); break;
-//      case PA_STREAM_TERMINATED:
-//          qDebug("    -> TERMINATED"); break;
-//      default:
-//          Q_ASSERT(0 && "?");
-//          qDebug("    -> ???"); break;
-//     }
-    switch (state) {
-        case PA_STREAM_UNCONNECTED:
-        case PA_STREAM_CREATING:
-            break;
-        case PA_STREAM_READY:
-        case PA_STREAM_FAILED:
-        case PA_STREAM_TERMINATED:
-            m_mainloop_signal.wakeAll();
-            break;
-        DEFAULT_IGNORE;
-    }
+    pa_threaded_mainloop_signal(m_pa_mainloop, 0);
 }
 
 //***************************************************************************
 void Kwave::PlayBackPulseAudio::notifyWrite(pa_stream *stream, size_t nbytes)
 {
-//     qDebug("PlayBackPulseAudio::notifyWrite(stream=%p, nbytes=%u)",
-//         static_cast<void *>(stream), nbytes);
     Q_UNUSED(nbytes)
-
     Q_ASSERT(stream);
-    Q_ASSERT(stream == m_pa_stream);
-    if (!stream || (stream != m_pa_stream)) return;
+    if (!stream || (stream != m_pa_stream))
+        return;
 
-    m_mainloop_signal.wakeAll();
+    pa_threaded_mainloop_signal(m_pa_mainloop, 0);
 }
 
 //***************************************************************************
@@ -287,40 +233,13 @@ void Kwave::PlayBackPulseAudio::notifySuccess(pa_stream* stream, int success)
     Q_ASSERT(stream == m_pa_stream);
     if (!stream || (stream != m_pa_stream)) return;
 
-    m_mainloop_signal.wakeAll();
-}
-
-//***************************************************************************
-static int poll_func(struct pollfd *ufds, unsigned long nfds,
-                     int timeout, void *userdata)
-{
-    Kwave::PlayBackPulseAudio *dev =
-        static_cast<Kwave::PlayBackPulseAudio *>(userdata);
-    Q_ASSERT(dev);
-    if (!dev) return -1;
-
-    return dev->mainloopPoll(ufds, nfds, timeout);
-}
-
-//***************************************************************************
-int Kwave::PlayBackPulseAudio::mainloopPoll(struct pollfd *ufds,
-                                            unsigned long int nfds,
-                                            int timeout)
-{
-    m_mainloop_lock.unlock();
-    int retval = poll(ufds, nfds, timeout);
-    m_mainloop_lock.lock();
-
-    return retval;
+    pa_threaded_mainloop_signal(m_pa_mainloop, 0);
 }
 
 //***************************************************************************
 bool Kwave::PlayBackPulseAudio::connectToServer()
 {
     if (m_pa_context) return true; // already connected
-
-    // set hourglass cursor, we are waiting...
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     // create a property list for this application
     m_pa_proplist = pa_proplist_new();
@@ -349,98 +268,84 @@ bool Kwave::PlayBackPulseAudio::connectToServer()
     signal(SIGPIPE, SIG_IGN);
 #endif
 
-    m_pa_mainloop = pa_mainloop_new();
+    m_pa_mainloop = pa_threaded_mainloop_new();
     Q_ASSERT(m_pa_mainloop);
-    pa_mainloop_set_poll_func(m_pa_mainloop, poll_func, this);
+    if (!m_pa_mainloop) {
+        disconnectFromServer();
+        return false;
+    }
 
     m_pa_context = pa_context_new_with_proplist(
-        pa_mainloop_get_api(m_pa_mainloop),
+        pa_threaded_mainloop_get_api(m_pa_mainloop),
         "Kwave",
         m_pa_proplist
     );
 
-    // set the callback for getting informed about the context state
-    pa_context_set_state_callback(m_pa_context, pa_context_notify_cb, this);
-
-    // connect to the pulse audio server server
-    bool failed = false;
-    int error = pa_context_connect(
-        m_pa_context,                       // context
-        nullptr,                          // server
-        static_cast<pa_context_flags_t>(0), // flags
-        nullptr                           // API
-    );
-    if (error < 0)
-    {
-        qWarning("PlayBackPulseAudio: pa_contect_connect failed (%s)",
-                 pa_strerror(pa_context_errno(m_pa_context)));
-        failed = true;
-    }
-
-    if (!failed) {
-        m_mainloop_lock.lock();
-        m_mainloop_thread.start();
-
-        // wait until the context state is either connected or failed
-        failed = true;
-        if ( m_mainloop_signal.wait(&m_mainloop_lock,
-                                    TIMEOUT_CONNECT_TO_SERVER) )
-        {
-            if (pa_context_get_state(m_pa_context) == PA_CONTEXT_READY) {
-                qDebug("PlayBackPulseAudio: context is ready :-)");
-                failed = false;
-            }
-        }
-        m_mainloop_lock.unlock();
-
-        if (failed) {
-            qWarning("PlayBackPulseAudio: context FAILED (%s) :-(",
-                     pa_strerror(pa_context_errno(m_pa_context)));
-        }
-    }
-
-    // if the connection failed, clean up...
-    if (failed) {
+    if (pa_threaded_mainloop_start(m_pa_mainloop) < 0) {
         disconnectFromServer();
+        return false;
     }
 
-    QApplication::restoreOverrideCursor();
+    bool connected = false;
+    {
+        // lock mainloop only during connection setup
+        PaLock lock(m_pa_mainloop);
 
-    return !failed;
+        pa_context_set_state_callback(m_pa_context, pa_context_notify_cb, this);
+
+        int error = pa_context_connect(
+            m_pa_context,                       // context
+            nullptr,                            // server
+            static_cast<pa_context_flags_t>(0), // flags
+            nullptr                             // API
+        );
+        if (error < 0)
+            qWarning("PlayBackPulseAudio: pa_context_connect failed (%s)",
+                     pa_strerror(pa_context_errno(m_pa_context)));
+        else {
+            pa_context_state_t state = pa_context_get_state(m_pa_context);
+            while ((state != PA_CONTEXT_READY)  &&
+                (state != PA_CONTEXT_FAILED) &&
+                (state != PA_CONTEXT_TERMINATED)) {
+                pa_threaded_mainloop_wait(m_pa_mainloop);
+                state = pa_context_get_state(m_pa_context);
+            }
+            if (state == PA_CONTEXT_READY)
+                connected = true;
+        }
+    }
+
+    // disconnect outside the lock to prevent deadlock
+    if (!connected) {
+        disconnectFromServer();
+        return false;
+    }
+
+    return true;
 }
 
 //***************************************************************************
 void Kwave::PlayBackPulseAudio::disconnectFromServer()
 {
-    // stop the main loop
-    m_mainloop_thread.requestInterruption();
-    if (m_pa_mainloop) {
-        m_mainloop_lock.lock();
-        pa_mainloop_quit(m_pa_mainloop, 0);
-        m_mainloop_lock.unlock();
-    }
-    m_mainloop_thread.stop();
+    close();
 
-    // disconnect the pulse context
     if (m_pa_context) {
+        PaLock lock(m_pa_mainloop);
         pa_context_disconnect(m_pa_context);
         pa_context_unref(m_pa_context);
         m_pa_context = nullptr;
     }
 
-    // stop and free the main loop
     if (m_pa_mainloop) {
-        pa_mainloop_free(m_pa_mainloop);
+        pa_threaded_mainloop_stop(m_pa_mainloop);
+        pa_threaded_mainloop_free(m_pa_mainloop);
         m_pa_mainloop = nullptr;
-        qDebug("PlayBackPulseAudio: mainloop freed");
     }
 
-    // release the property list
     if (m_pa_proplist) {
         pa_proplist_free(m_pa_proplist);
         m_pa_proplist = nullptr;
     }
-
 }
 
 //***************************************************************************
@@ -459,13 +364,15 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
         DBG(device.split(_("|")).at(0)), rate, channels,
         bits, bufbase);
 
+    Q_UNUSED(bits); // is SAMPLE_BITS (24) anyway...
+
     m_rate = rate;
 
     if (channels > 255)
         return i18n("%1 channels are not supported, maximum is 255", channels);
 
     // close the previous device
-    if (m_pa_stream) close();
+    close();
 
     // make sure that we are connected to the sound server
     if (!connectToServer()) {
@@ -522,7 +429,7 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
         name = i18n("playback...");
 
     // run with mainloop locked from here on...
-    m_mainloop_lock.lock();
+    PaLock lock(m_pa_mainloop);
 
     // create a new stream
     m_pa_stream = pa_stream_new_with_proplist(
@@ -534,7 +441,6 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
     pa_proplist_free(_proplist);
 
     if (!m_pa_stream) {
-        m_mainloop_lock.unlock();
         return i18n("Failed to create a PulseAudio stream (%1).",
                     QString::fromLocal8Bit(
                     pa_strerror(pa_context_errno(m_pa_context))));
@@ -548,7 +454,7 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
 
     // set buffer attributes
     if (m_bufbase < 10) m_bufbase = 10;
-    const int s = ((1 << m_bufbase) * m_bytes_per_sample) / m_bytes_per_sample;
+    const int s = (1 << m_bufbase) * m_bytes_per_sample;
     pa_buffer_attr attr;
     attr.fragsize  = -1;
     attr.maxlength =  s;
@@ -568,11 +474,14 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
         nullptr /* sync stream */ );
 
     if (result >= 0) {
-        m_mainloop_signal.wait(&m_mainloop_lock, TIMEOUT_CONNECT_PLAYBACK);
+        while (PA_STREAM_IS_GOOD(pa_stream_get_state(m_pa_stream))) {
+            if (pa_stream_get_state(m_pa_stream) == PA_STREAM_READY)
+                break;
+            pa_threaded_mainloop_wait(m_pa_mainloop);
+        }
         if (pa_stream_get_state(m_pa_stream) != PA_STREAM_READY)
             result = -1;
     }
-    m_mainloop_lock.unlock();
 
     if (result < 0) {
         pa_stream_unref(m_pa_stream);
@@ -590,7 +499,7 @@ int Kwave::PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
 {
     unsigned int bytes = m_bytes_per_sample;
 
-    // abort if byte per sample is unknown
+    // abort if bytes per sample is unknown
     Q_ASSERT(m_bytes_per_sample);
     Q_ASSERT(m_pa_mainloop);
     if (!m_bytes_per_sample || !m_pa_mainloop)
@@ -598,18 +507,20 @@ int Kwave::PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
 
     // check buffer existence and size changes
     size_t current_buffer_size = (1 << m_bufbase) * m_bytes_per_sample;
-    if (!m_buffer || (m_buffer_size != current_buffer_size)) {
-
-        // get a buffer from heap (malloc once at the start is fast enough)
-        m_buffer      = (m_buffer) ? realloc(m_buffer, current_buffer_size) :
-                                     malloc(current_buffer_size);
-        m_buffer_size = current_buffer_size;
+    if (m_buffer && (m_buffer_size != current_buffer_size)) {
+        free(m_buffer);
+        m_buffer      = nullptr;
+        m_buffer_size = 0;
+    }
+    if (!m_buffer) {
+        m_buffer = malloc(current_buffer_size);
+        m_buffer_used = 0;
     }
 
     // abort with out-of-memory if failed
     Q_ASSERT(m_buffer);
-    if (!m_buffer || !m_buffer_size)
-        return -ENOMEM;
+    if (!m_buffer) return -ENOMEM;
+    m_buffer_size = current_buffer_size;
 
     Q_ASSERT (m_buffer_used + bytes <= m_buffer_size);
     if (m_buffer_used + bytes > m_buffer_size) {
@@ -633,8 +544,7 @@ int Kwave::PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
 //***************************************************************************
 int Kwave::PlayBackPulseAudio::flush()
 {
-    if (!m_buffer || !m_buffer_size)
-        return 0;
+    if (!m_buffer || !m_buffer_size || !m_pa_stream) return 0;
 //     qDebug("PlayBackPulseAudio::flush(): using buffer %p (%u bytes)",
 //             m_buffer, m_buffer_size);
 
@@ -654,30 +564,37 @@ int Kwave::PlayBackPulseAudio::flush()
     // start with read pointer at the start of m_buffer
     void *buffer_ptr = m_buffer;
 
-    while (m_buffer_used && m_pa_mainloop) {
-        size_t len;
+    PaLock lock(m_pa_mainloop);
 
-        m_mainloop_lock.lock();
-        while (!(len = pa_stream_writable_size(m_pa_stream))) {
+    while (m_buffer_used && m_pa_mainloop) {
+        size_t len = pa_stream_writable_size(m_pa_stream);
+
+        // check for errors from pulse audio
+        if (static_cast<ssize_t>(len) < 0) {
+            qWarning("PlayBackPulseAudio::flush(): "
+                     "pa_stream_writable_size failed");
+            return -EIO;
+        }
+
+        // wait until space in buffer becomes available
+        while (!len) {
             if (!PA_CONTEXT_IS_GOOD(pa_context_get_state(m_pa_context)) ||
-                !PA_STREAM_IS_GOOD(pa_stream_get_state(m_pa_stream)) ||
-                (static_cast<ssize_t>(len) == -1) )
+                !PA_STREAM_IS_GOOD(pa_stream_get_state(m_pa_stream)))
             {
                 qWarning("PlayBackPulseAudio::flush(): bad stream state");
-                result = -1;
+                result = -EIO;
                 break;
             }
-            if (!m_mainloop_signal.wait(&m_mainloop_lock, timeout)) {
-                qWarning("PlayBackPulseAudio::flush(): timed out after %d ms",
-                         timeout);
-                result = -1;
+            pa_threaded_mainloop_wait(m_pa_mainloop);
+            len = pa_stream_writable_size(m_pa_stream);
+            if (static_cast<ssize_t>(len) < 0) {
+                qWarning("PlayBackPulseAudio::flush(): "
+                         "pa_stream_writable_size failed");
+                result =-EIO;
                 break;
             }
         }
-        if (result < 0) {
-            m_mainloop_lock.unlock();
-            break;
-        }
+        if (result < 0) break;
 
         if (len > m_buffer_used) len = m_buffer_used;
 
@@ -690,10 +607,10 @@ int Kwave::PlayBackPulseAudio::flush()
                 0,
                 PA_SEEK_RELATIVE
         );
-        m_mainloop_lock.unlock();
 
         if (result < 0) {
             qWarning("PlayBackPulseAudio::flush(): pa_stream_write failed");
+            m_buffer_used = 0;
             return -EIO;
         }
 
@@ -705,80 +622,34 @@ int Kwave::PlayBackPulseAudio::flush()
 
     // buffer is written out now
     m_buffer_used = 0;
-    m_buffer      = nullptr;
-
     return result;
-}
-
-//***************************************************************************
-void Kwave::PlayBackPulseAudio::run_wrapper(const QVariant &params)
-{
-    Q_UNUSED(params)
-    m_mainloop_lock.lock();
-    pa_mainloop_run(m_pa_mainloop, nullptr);
-    m_mainloop_lock.unlock();
 }
 
 //***************************************************************************
 int Kwave::PlayBackPulseAudio::close()
 {
-    // set hourglass cursor, we are waiting...
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    PaLock lock(m_pa_mainloop);
 
-    // flush the buffer
-    if (m_buffer_used) flush();
+    if (m_pa_stream) {
+        pa_stream_flush(m_pa_stream, nullptr, nullptr);
+        pa_stream_disconnect(m_pa_stream);
 
-    // release the allocated memory
-    if (m_buffer) {
-        free(m_buffer);
-        m_buffer = nullptr;
+        pa_stream_state_t state = pa_stream_get_state(m_pa_stream);
+        while ((state != PA_STREAM_TERMINATED) &&
+               (state != PA_STREAM_FAILED)) {
+            pa_threaded_mainloop_wait(m_pa_mainloop);
+            state = pa_stream_get_state(m_pa_stream);
+        }
+
+        pa_stream_unref(m_pa_stream);
+        m_pa_stream = nullptr;
     }
 
-    if (m_pa_mainloop && m_pa_stream) {
+    if (m_buffer) free(m_buffer);
+    m_buffer = nullptr;
+    m_buffer_size = 0;
+    m_buffer_used = 0;
 
-        m_mainloop_lock.lock();
-        pa_operation *op = pa_stream_drain(m_pa_stream,
-                                           pa_stream_success_cb, this);
-        Q_ASSERT(op);
-        if (!op) qWarning("pa_stream_drain() failed: '%s'", pa_strerror(
-            pa_context_errno(m_pa_context)));
-
-        // calculate a reasonable time for the timeout (16 buffers)
-        int samples_per_buffer = Kwave::toInt(
-            m_buffer_size / m_bytes_per_sample
-        );
-        int ms = (!qFuzzyIsNull(m_rate)) ?
-            Kwave::toInt((samples_per_buffer * 1000.0) / m_rate) : 0;
-        int timeout = (ms + 1) * 4;
-        if (timeout < TIMEOUT_MIN_DRAIN)
-            timeout = TIMEOUT_MIN_DRAIN;
-
-        qDebug("PlayBackPulseAudio::flush(): waiting for drain to finish...");
-        while (op && (pa_operation_get_state(op) != PA_OPERATION_DONE)) {
-            if (!PA_CONTEXT_IS_GOOD(pa_context_get_state(m_pa_context)) ||
-                !PA_STREAM_IS_GOOD(pa_stream_get_state(m_pa_stream))) {
-                qWarning("PlayBackPulseAudio::close(): bad stream state");
-                break;
-            }
-            if (!m_mainloop_signal.wait(&m_mainloop_lock, timeout)) {
-                qWarning("PlayBackPulseAudio::flush(): timed out after %d ms",
-                         timeout);
-                break;
-            }
-        }
-        m_mainloop_lock.unlock();
-
-        if (m_pa_stream) {
-            pa_stream_disconnect(m_pa_stream);
-            pa_stream_unref(m_pa_stream);
-            m_pa_stream = nullptr;
-        }
-    }
-
-    disconnectFromServer();
-    m_device_list.clear();
-
-    QApplication::restoreOverrideCursor();
     return 0;
 }
 
@@ -788,8 +659,9 @@ void Kwave::PlayBackPulseAudio::scanDevices()
     if (!m_pa_context) connectToServer();
     if (!m_pa_context) return;
 
+    PaLock lock(m_pa_mainloop);
+
     // fetch the device list from the PulseAudio server
-    m_mainloop_lock.lock();
     m_device_list.clear();
     const pa_operation *op_sink_info = pa_context_get_sink_info_list(
         m_pa_context,
@@ -798,9 +670,10 @@ void Kwave::PlayBackPulseAudio::scanDevices()
     );
     if (op_sink_info) {
         // set hourglass cursor, we have a long timeout...
-        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-        m_mainloop_signal.wait(&m_mainloop_lock, TIMEOUT_WAIT_DEVICE_SCAN);
-        QApplication::restoreOverrideCursor();
+        while ((pa_operation_get_state(op_sink_info) == PA_OPERATION_RUNNING) &&
+            PA_CONTEXT_IS_GOOD(pa_context_get_state(m_pa_context)))
+            pa_threaded_mainloop_wait(m_pa_mainloop);
+        pa_operation_unref(const_cast<pa_operation *>(op_sink_info));
     }
 
     // create a list with final names
@@ -865,7 +738,6 @@ void Kwave::PlayBackPulseAudio::scanDevices()
 
     m_device_list.clear();
     m_device_list = list;
-    m_mainloop_lock.unlock();
 }
 
 //***************************************************************************
@@ -896,17 +768,8 @@ QList<unsigned int> Kwave::PlayBackPulseAudio::supportedBits
     const QString &device
 )
 {
-    QList<unsigned int> list;
-
-    if ( m_device_list.isEmpty() || !m_device_list.contains(device) ||
-         !pa_sample_spec_valid(&m_device_list[device].m_sample_spec) )
-        return list;
-
-    list.append(Kwave::toUint(
-        pa_sample_size(&m_device_list[device].m_sample_spec) * 8)
-    );
-
-    return list;
+    Q_UNUSED(device);
+    return { SAMPLE_BITS };
 }
 
 //***************************************************************************
@@ -914,8 +777,9 @@ int Kwave::PlayBackPulseAudio::detectChannels(const QString &device,
                                               unsigned int &min,
                                               unsigned int &max)
 {
-    min = max = 0;
+    PaLock lock(m_pa_mainloop);
 
+    min = max = 0;
     if (m_device_list.isEmpty() || !m_device_list.contains(device))
         return -1;
 

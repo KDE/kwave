@@ -39,9 +39,6 @@
 /* support playback/recording via OSS */
 #cmakedefine HAVE_OSS_SUPPORT
 
-/* Define to 1 if you have the <signal.h> header file. */
-#cmakedefine HAVE_SIGNAL_H
-
 /* we can include <sys/times.h> */
 #cmakedefine HAVE_SYS_TIMES_H
 

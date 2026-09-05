@@ -263,11 +263,6 @@ bool Kwave::PlayBackPulseAudio::connectToServer()
 
     pa_proplist_sets(m_pa_proplist, PA_PROP_MEDIA_ROLE, "production");
 
-    // ignore SIGPIPE in this context
-#ifdef HAVE_SIGNAL_H
-    signal(SIGPIPE, SIG_IGN);
-#endif
-
     m_pa_mainloop = pa_threaded_mainloop_new();
     Q_ASSERT(m_pa_mainloop);
     if (!m_pa_mainloop) {

@@ -34,7 +34,6 @@
 #include <QString>
 #include <QStringList>
 
-#include "libkwave/Runnable.h"
 #include "libkwave/SampleFormat.h"
 
 #include "RecordDevice.h"

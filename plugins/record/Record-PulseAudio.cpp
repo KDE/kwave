@@ -27,7 +27,6 @@
 #include <pulse/thread-mainloop.h>
 
 #include <QApplication>
-#include <QCursor>
 #include <QFileInfo>
 #include <QLatin1Char>
 #include <QLocale>
@@ -46,33 +45,6 @@
 #include "libkwave/memcpy.h"
 
 #include "Record-PulseAudio.h"
-
-/** helper macro: returns the number of elements in an array */
-#define ELEMENTS_OF(__array__) (sizeof(__array__) / sizeof(__array__[0]))
-
-/**
- * timeout for the device scan [ms]
- * @see scanDevices()
- */
-#define TIMEOUT_WAIT_DEVICE_SCAN 10000
-
-/**
- * timeout to wait for the connection to the server [ms]
- * @see connectToServer()
- */
-#define TIMEOUT_CONNECT_TO_SERVER 20000
-
-/**
- * timeout to wait for record [ms]
- * @see open()
- */
-#define TIMEOUT_CONNECT_RECORD 10000
-
-/**
- * timeout to wait for disconnecting the recording stream [ms]
- * @see close()
- */
-#define TIMEOUT_DISCONNECT_STREAM 10000
 
 /**
  * Global list of all known sample formats.
@@ -197,11 +169,35 @@ static int bits_of(pa_sample_format_t fmt)
 }
 
 //***************************************************************************
+namespace {
+    /**
+     * internal helper class, guard for locking the PulseAudio
+     * main loop
+     */
+    class PaLock
+    {
+    public:
+        explicit PaLock(pa_threaded_mainloop *mainloop)
+            :m_mainloop(mainloop)
+        {
+            if (m_mainloop)
+                pa_threaded_mainloop_lock(m_mainloop);
+        }
+
+        ~PaLock()
+        {
+            if (m_mainloop)
+                pa_threaded_mainloop_unlock(m_mainloop);
+        }
+
+    private:
+        pa_threaded_mainloop *m_mainloop;
+    };
+}
+
+//***************************************************************************
 Kwave::RecordPulseAudio::RecordPulseAudio()
     :Kwave::RecordDevice(),
-    m_mainloop_thread(this, QVariant()),
-    m_mainloop_lock(),
-    m_mainloop_signal(),
     m_sample_format(Kwave::SampleFormat::Unknown),
     m_tracks(0),
     m_rate(0.0),
@@ -238,6 +234,7 @@ void Kwave::RecordPulseAudio::detectSupportedFormats(const QString &device)
 
     const pa_sample_spec     &sampleSpec = m_device_list[device].m_sample_spec;
     const pa_sample_format_t &formatSpec = sampleSpec.format;
+    m_supported_formats.push_back(formatSpec);
 
     const Kwave::byte_order_t cpu_endian =
         (QSysInfo::ByteOrder == QSysInfo::LittleEndian) ?
@@ -257,9 +254,6 @@ void Kwave::RecordPulseAudio::detectSupportedFormats(const QString &device)
         unsigned int i = 0;
         for (const pa_sample_format_t &fmt : _known_formats) {
             const unsigned int idx = i++;
-
-            if (formatSpec < fmt)
-                continue;
 
             const Kwave::byte_order_t endian = endian_of(fmt);
             const bool is_native = (endian == Kwave::CpuEndian) ||
@@ -314,10 +308,11 @@ void Kwave::RecordPulseAudio::notifyRead(pa_stream *stream, size_t nbytes)
 {
     Q_UNUSED(nbytes)
     Q_ASSERT(stream);
+    if (!stream || (stream != m_pa_stream))
+        return;
 
-    if (!stream || (stream != m_pa_stream)) return;
-
-    m_mainloop_signal.wakeAll();
+    // wake up threads waiting on main loop
+    pa_threaded_mainloop_signal(m_pa_mainloop, 0);
 }
 
 //***************************************************************************
@@ -333,36 +328,11 @@ void Kwave::RecordPulseAudio::pa_stream_state_cb(pa_stream *p, void *userdata)
 void Kwave::RecordPulseAudio::notifyStreamState(pa_stream* stream)
 {
     Q_ASSERT(stream);
-    if (!stream || (stream != m_pa_stream)) return;
+    if (!stream || (stream != m_pa_stream))
+        return;
 
-    pa_stream_state_t state = pa_stream_get_state(stream);
-
-#ifdef DEBUG
-    #define DBG_CASE(x) case x: qDebug("RecordPulseAudio -> " #x ); break
-    switch (state)
-    {
-        DBG_CASE(PA_STREAM_CREATING);
-        DBG_CASE(PA_STREAM_UNCONNECTED);
-        DBG_CASE(PA_STREAM_FAILED);
-        DBG_CASE(PA_STREAM_TERMINATED);
-        DBG_CASE(PA_STREAM_READY);
-    }
-    #undef DBG_CASE
-#endif /* DEBUG */
-
-    switch (state) {
-        case PA_STREAM_CREATING:
-            break;
-        case PA_STREAM_UNCONNECTED: /* FALLTHROUGH */
-        case PA_STREAM_FAILED:      /* FALLTHROUGH */
-        case PA_STREAM_TERMINATED:  /* FALLTHROUGH */
-        case PA_STREAM_READY:
-            m_mainloop_signal.wakeAll();
-            break;
-        default:
-            Q_ASSERT(0 && "?");
-            break;
-    }
+    // wake up threads waiting on main loop
+    pa_threaded_mainloop_signal(m_pa_mainloop, 0);
 }
 
 //***************************************************************************
@@ -378,48 +348,19 @@ void Kwave::RecordPulseAudio::pa_context_notify_cb(pa_context *c,
 //***************************************************************************
 void Kwave::RecordPulseAudio::notifyContext(pa_context *c)
 {
-    Q_ASSERT(c == m_pa_context);
-    const pa_context_state_t state = pa_context_get_state(c);
-
-#ifdef DEBUG
-    #define DBG_CASE(x) case x: qDebug("RecordPulseAudio -> " #x ); break
-    switch (state)
-    {
-        DBG_CASE(PA_CONTEXT_UNCONNECTED);
-        DBG_CASE(PA_CONTEXT_CONNECTING);
-        DBG_CASE(PA_CONTEXT_AUTHORIZING);
-        DBG_CASE(PA_CONTEXT_SETTING_NAME);
-        DBG_CASE(PA_CONTEXT_READY);
-        DBG_CASE(PA_CONTEXT_TERMINATED);
-        DBG_CASE(PA_CONTEXT_FAILED);
-    }
-    #undef DBG_CASE
-#endif /* DEBUG */
-
-    switch (state)
-    {
-        case PA_CONTEXT_UNCONNECTED: /* FALLTHROUGH */
-        case PA_CONTEXT_CONNECTING:  /* FALLTHROUGH */
-        case PA_CONTEXT_AUTHORIZING: /* FALLTHROUGH */
-        case PA_CONTEXT_SETTING_NAME:
-            break;
-        case PA_CONTEXT_READY:       /* FALLTHROUGH */
-        case PA_CONTEXT_TERMINATED:  /* FALLTHROUGH */
-        case PA_CONTEXT_FAILED:
-            m_mainloop_signal.wakeAll();
-            break;
-        DEFAULT_IGNORE;
-    }
+    Q_UNUSED(c)
+    // signal any thread waiting in pa_threaded_mainloop_wait
+    pa_threaded_mainloop_signal(m_pa_mainloop, 0);
 }
 
 //***************************************************************************
 pa_sample_format_t Kwave::RecordPulseAudio::mode2format(
-    int compression, int bits, Kwave::SampleFormat::Format sample_format)
+    Kwave::Compression::Type compression, int bits,
+    Kwave::SampleFormat::Format sample_format)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
-    for (const pa_sample_format_t &fmt : m_supported_formats)
-    {
+    for (const pa_sample_format_t &fmt : m_supported_formats) {
         if (compression_of(fmt)    != compression)    continue;
         if (bits_of(fmt)           != bits)           continue;
 
@@ -460,8 +401,8 @@ int Kwave::RecordPulseAudio::setSampleFormat(
 {
     if (m_sample_format == new_format)
         return 0;
-    close();
     m_sample_format = new_format;
+    close();
     return 0;
 }
 
@@ -472,8 +413,7 @@ QList<Kwave::SampleFormat::Format>
     QList<Kwave::SampleFormat::Format> list;
 
     // try all known sample formats
-    for (const pa_sample_format_t &fmt : m_supported_formats)
-    {
+    for (const pa_sample_format_t &fmt : m_supported_formats) {
         Kwave::SampleFormat::Format sample_format = sample_format_of(fmt);
 
         // only accept bits/sample if compression types
@@ -513,8 +453,7 @@ QList< unsigned int > Kwave::RecordPulseAudio::supportedBits()
     QList<unsigned int> list;
 
     // try all known sample formats
-    for (const pa_sample_format_t &fmt : m_supported_formats)
-    {
+    for (const pa_sample_format_t &fmt : m_supported_formats) {
         const unsigned int bits = bits_of(fmt);
 
         // 0  bits means invalid/does not apply
@@ -556,8 +495,7 @@ QList<Kwave::Compression::Type> Kwave::RecordPulseAudio::detectCompressions()
     QList<Kwave::Compression::Type> list;
 
     // try all known sample formats
-    for (const pa_sample_format_t &fmt : m_supported_formats)
-    {
+    for (const pa_sample_format_t &fmt : m_supported_formats) {
         Kwave::Compression::Type compression = compression_of(fmt);
 
         // do not produce duplicates
@@ -630,11 +568,8 @@ QList< double > Kwave::RecordPulseAudio::detectSampleRates()
 
     pa_sample_spec sampleSpec = m_device_list[m_device].m_sample_spec;
     uint32_t rate = sampleSpec.rate;
-    for (unsigned int i = 0; i < ELEMENTS_OF(known_rates); i++) {
-        if(known_rates[i] <= rate) {
-            list.append(known_rates[i]);
-        }
-    }
+    for (auto r : known_rates)
+        if(r <= rate) list.append(r);
 
     return list;
 }
@@ -678,21 +613,24 @@ int Kwave::RecordPulseAudio::detectTracks(unsigned int &min, unsigned int &max)
 //***************************************************************************
 int Kwave::RecordPulseAudio::close()
 {
+    PaLock lock(m_pa_mainloop);
+
     if (m_pa_stream) {
         pa_stream_drop(m_pa_stream);
-
-        m_mainloop_lock.lock();
         pa_stream_disconnect(m_pa_stream);
-        qDebug("RecordPulseAudio::close() - waiting for stream disconnect...");
-        m_mainloop_signal.wait(&m_mainloop_lock, TIMEOUT_DISCONNECT_STREAM);
-        m_mainloop_lock.unlock();
-        qDebug("RecordPulseAudio::close() - stream disconnect DONE");
+
+        // wait for stream disconnect
+        pa_stream_state_t state = pa_stream_get_state(m_pa_stream);
+        while ((state != PA_STREAM_TERMINATED) &&
+               (state != PA_STREAM_FAILED)) {
+            pa_threaded_mainloop_wait(m_pa_mainloop);
+            state = pa_stream_get_state(m_pa_stream);
+        }
 
         pa_stream_unref(m_pa_stream);
+        m_pa_stream = nullptr;
     }
-    m_pa_stream = nullptr;
 
-    // we need to re-initialize the next time
     m_initialized = false;
     return 0;
 }
@@ -701,17 +639,19 @@ int Kwave::RecordPulseAudio::close()
 int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
 {
     if (buffer.isNull() || buffer.isEmpty())
-        return 0; // no buffer, nothing to do
+        return 0;
+
+    PaLock lock(m_pa_mainloop);
 
     unsigned int length = static_cast<unsigned int>(buffer.size());
+    if (length < offset)
+        return -EAGAIN;
 
-    // we configure our device at a late stage, not on the fly like in OSS
     if (!m_initialized) {
         int err = initialize(length);
-        if (err < 0) return err;
+        if (err < 0)
+            return err;
     }
-
-    QMutexLocker locker(&m_mainloop_lock);
 
     if (!m_pa_stream)
         return -EIO;
@@ -721,8 +661,11 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
 
     size_t readableSize = pa_stream_readable_size(m_pa_stream);
     if (!readableSize) {
-        // wait for pulse audio callbacks or timeout
-        m_mainloop_signal.wait(&m_mainloop_lock, 1000);
+        // wait for pulse audio callback notification
+        pa_threaded_mainloop_wait(m_pa_mainloop);
+
+        if (!m_pa_stream)
+            return -EIO;
 
         if (pa_stream_get_state(m_pa_stream) != PA_STREAM_READY)
             return -EIO;
@@ -745,14 +688,14 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
 
     if (offset + readLength > Kwave::toUint(buffer.length())) {
         pa_stream_drop(m_pa_stream);
-        return -EIO; // peek returned invalid length
+        return -EIO;
     }
 
     char *data = buffer.data() + offset;
     if (audioBuffer)
-        MEMCPY(data, audioBuffer, readLength); // real data
+        MEMCPY(data, audioBuffer, readLength);
     else
-        memset(data, 0x00, readLength); // there was a gap
+        memset(data, 0x00, readLength);
 
     pa_stream_drop(m_pa_stream);
 
@@ -789,16 +732,11 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
     sample_spec.format   = fmt;
     sample_spec.rate     = static_cast<quint32>(m_rate);
 
-    if(!pa_sample_spec_valid(&sample_spec)) {
-        Kwave::SampleFormat::Map sf;
-
+    if (!pa_sample_spec_valid(&sample_spec)) {
         qWarning("no valid pulse audio format: %d, rate: %0.3g, channels: %d",
                  static_cast<int>(fmt), m_rate, m_tracks);
         return -EINVAL;
     }
-
-    // run with mainloop locked from here on...
-    m_mainloop_lock.lock();
 
     pa_channel_map channel_map;
     pa_channel_map_init_extend(&channel_map, sample_spec.channels,
@@ -816,7 +754,6 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
         &channel_map);
 
     if (!m_pa_stream) {
-        m_mainloop_lock.unlock();
         qWarning("Failed to create a PulseAudio stream %s",
                  pa_strerror(pa_context_errno(m_pa_context)));
         return -1;
@@ -841,12 +778,16 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
         static_cast<pa_stream_flags_t>(flags));
 
     if (result >= 0) {
-        m_mainloop_signal.wait(&m_mainloop_lock, TIMEOUT_CONNECT_RECORD);
-        if (pa_stream_get_state(m_pa_stream) != PA_STREAM_READY)
+        // wait for stream to reach ready state
+        pa_stream_state_t state = pa_stream_get_state(m_pa_stream);
+        while (state == PA_STREAM_CREATING) {
+            pa_threaded_mainloop_wait(m_pa_mainloop);
+            state = pa_stream_get_state(m_pa_stream);
+        }
+
+        if (state != PA_STREAM_READY)
             result = -1;
     }
-
-    m_mainloop_lock.unlock();
 
     if (result < 0) {
         pa_stream_unref(m_pa_stream);
@@ -899,46 +840,9 @@ QStringList Kwave::RecordPulseAudio::supportedDevices()
 }
 
 //***************************************************************************
-void Kwave::RecordPulseAudio::run_wrapper(const QVariant &params)
-{
-    Q_UNUSED(params)
-    m_mainloop_lock.lock();
-    pa_mainloop_run(m_pa_mainloop, nullptr);
-    m_mainloop_lock.unlock();
-    qDebug("RecordPulseAudio::run_wrapper - done.");
-}
-
-//***************************************************************************
-static int poll_func(struct pollfd *ufds, unsigned long nfds,
-                     int timeout, void *userdata)
-{
-    Kwave::RecordPulseAudio *dev =
-        static_cast<Kwave::RecordPulseAudio *>(userdata);
-    Q_ASSERT(dev);
-    if (!dev) return -1;
-
-    return dev->mainloopPoll(ufds, nfds, timeout);
-}
-
-//***************************************************************************
-int Kwave::RecordPulseAudio::mainloopPoll(struct pollfd *ufds,
-                                            unsigned long int nfds,
-                                            int timeout)
-{
-    m_mainloop_lock.unlock();
-    int retval = poll(ufds, nfds, timeout);
-    m_mainloop_lock.lock();
-
-    return retval;
-}
-
-//***************************************************************************
 bool Kwave::RecordPulseAudio::connectToServer()
 {
     if (m_pa_context) return true; // already connected
-
-    // set hourglass cursor, we are waiting...
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     // create a property list for this application
     m_pa_proplist = pa_proplist_new();
@@ -967,12 +871,22 @@ bool Kwave::RecordPulseAudio::connectToServer()
     signal(SIGPIPE, SIG_IGN);
 #endif
 
-    m_pa_mainloop = pa_mainloop_new();
+    // create the threaded mainloop and start its background thread
+    m_pa_mainloop = pa_threaded_mainloop_new();
     Q_ASSERT(m_pa_mainloop);
-    pa_mainloop_set_poll_func(m_pa_mainloop, poll_func, this);
+    if (!m_pa_mainloop)
+        return false;
+
+    if (pa_threaded_mainloop_start(m_pa_mainloop) < 0) {
+        pa_threaded_mainloop_free(m_pa_mainloop);
+        m_pa_mainloop = nullptr;
+        return false;
+    }
+
+    PaLock lock(m_pa_mainloop);
 
     m_pa_context = pa_context_new_with_proplist(
-        pa_mainloop_get_api(m_pa_mainloop),
+        pa_threaded_mainloop_get_api(m_pa_mainloop),
         "Kwave",
         m_pa_proplist
     );
@@ -980,50 +894,36 @@ bool Kwave::RecordPulseAudio::connectToServer()
     // set the callback for getting informed about the context state
     pa_context_set_state_callback(m_pa_context, pa_context_notify_cb, this);
 
-    // connect to the pulse audio server server
-    bool failed = false;
+    // connect to the pulse audio server
     int error = pa_context_connect(
         m_pa_context,                       // context
-        nullptr,                          // server
+        nullptr,                            // server
         static_cast<pa_context_flags_t>(0), // flags
-        nullptr                           // API
+        nullptr                             // API
     );
     if (error < 0)
     {
         qWarning("RecordPulseAudio: pa_contect_connect failed (%s)",
                   pa_strerror(pa_context_errno(m_pa_context)));
-        failed = true;
+        return false;
     }
 
-    if (!failed) {
-        m_mainloop_lock.lock();
-        m_mainloop_thread.start();
-
-        // wait until the context state is either connected or failed
-        failed = true;
-        if ( m_mainloop_signal.wait(&m_mainloop_lock,
-                                    TIMEOUT_CONNECT_TO_SERVER) )
-        {
-            if (pa_context_get_state(m_pa_context) == PA_CONTEXT_READY) {
-                failed = false;
-            }
-        }
-        m_mainloop_lock.unlock();
-
-        if (failed) {
-            qWarning("RecordPulseAudio: context FAILED (%s):-(",
-                     pa_strerror(pa_context_errno(m_pa_context)));
-        }
+    // wait until context reaches a final state
+    pa_context_state_t state = pa_context_get_state(m_pa_context);
+    while ((state != PA_CONTEXT_READY)  &&
+            (state != PA_CONTEXT_FAILED) &&
+            (state != PA_CONTEXT_TERMINATED)) {
+        pa_threaded_mainloop_wait(m_pa_mainloop);
+        state = pa_context_get_state(m_pa_context);
     }
 
-    // if the connection failed, clean up
-    if (failed) {
-        disconnectFromServer();
+    if (state != PA_CONTEXT_READY) {
+        qWarning("RecordPulseAudio: context FAILED (%s):-(",
+                 pa_strerror(pa_context_errno(m_pa_context)));
+        return false;
     }
 
-    QApplication::restoreOverrideCursor();
-
-    return !failed;
+    return true;
 }
 
 //***************************************************************************
@@ -1032,24 +932,20 @@ void Kwave::RecordPulseAudio::disconnectFromServer()
     close();
 
     // stop the main loop
-    m_mainloop_thread.isInterruptionRequested();
-    if (m_pa_mainloop) {
-        m_mainloop_lock.lock();
-        pa_mainloop_quit(m_pa_mainloop, 0);
-        m_mainloop_lock.unlock();
-    }
-    m_mainloop_thread.stop();
+    if (m_pa_mainloop)
+        pa_threaded_mainloop_stop(m_pa_mainloop);
 
     // disconnect the pulse context
     if (m_pa_context) {
+        PaLock lock(m_pa_mainloop);
         pa_context_disconnect(m_pa_context);
         pa_context_unref(m_pa_context);
-        m_pa_context  = nullptr;
+        m_pa_context = nullptr;
     }
 
     // stop and free the main loop
     if (m_pa_mainloop) {
-        pa_mainloop_free(m_pa_mainloop);
+        pa_threaded_mainloop_free(m_pa_mainloop);
         m_pa_mainloop = nullptr;
     }
 
@@ -1091,7 +987,8 @@ void Kwave::RecordPulseAudio::notifySourceInfo(pa_context *c,
         QString name    = QString::number(m_device_list.count());
         m_device_list[name] = i;
     } else {
-        m_mainloop_signal.wakeAll();
+        // wake up threads waiting on main loop
+        pa_threaded_mainloop_signal(m_pa_mainloop, 0);
     }
 }
 
@@ -1102,7 +999,8 @@ void Kwave::RecordPulseAudio::scanDevices()
     if (!m_pa_context) return;
 
     // fetch the device list from the PulseAudio server
-    m_mainloop_lock.lock();
+    PaLock lock(m_pa_mainloop);
+
     m_device_list.clear();
     const pa_operation *op_source_info = pa_context_get_source_info_list(
         m_pa_context,
@@ -1110,10 +1008,10 @@ void Kwave::RecordPulseAudio::scanDevices()
         this
     );
     if (op_source_info) {
-        // set hourglass cursor, we have a long timeout...
-        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-        m_mainloop_signal.wait(&m_mainloop_lock, TIMEOUT_WAIT_DEVICE_SCAN);
-        QApplication::restoreOverrideCursor();
+        while (pa_operation_get_state(op_source_info) == PA_OPERATION_RUNNING)
+            pa_threaded_mainloop_wait(m_pa_mainloop);
+
+        pa_operation_unref(const_cast<pa_operation *>(op_source_info));
     }
 
     // create a list with final names
@@ -1166,7 +1064,6 @@ void Kwave::RecordPulseAudio::scanDevices()
 
     m_device_list.clear();
     m_device_list = list;
-    m_mainloop_lock.unlock();
 }
 
 #endif /* HAVE_PULSEAUDIO_SUPPORT */

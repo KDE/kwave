@@ -21,12 +21,10 @@
 #include "config.h"
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 
-#include <poll.h>
-
 #include <pulse/context.h>
 #include <pulse/error.h>
 #include <pulse/introspect.h>
-#include <pulse/mainloop.h>
+#include <pulse/thread-mainloop.h>
 #include <pulse/proplist.h>
 #include <pulse/sample.h>
 #include <pulse/stream.h>
@@ -35,18 +33,16 @@
 #include <QMutex>
 #include <QString>
 #include <QStringList>
-#include <QWaitCondition>
 
 #include "libkwave/Runnable.h"
 #include "libkwave/SampleFormat.h"
-#include "libkwave/WorkerThread.h"
 
 #include "RecordDevice.h"
 
 namespace Kwave
 {
 
-    class RecordPulseAudio: public Kwave::RecordDevice, public Kwave::Runnable
+    class RecordPulseAudio: public Kwave::RecordDevice
     {
     public:
 
@@ -65,7 +61,7 @@ namespace Kwave
          * @retval QString(...) device specific error message
          *                      (already translated)
          */
-        QString open(const QString& dev) override;
+        QString open(const QString &dev) override;
 
         /** Returns the current endianness (big/little) */
         Kwave::byte_order_t endianness() override;
@@ -183,18 +179,6 @@ namespace Kwave
         /** return a string list with supported device names */
         QStringList supportedDevices() override;
 
-        /**
-         * our own poll function, for timeout support
-         * @internal
-         */
-        int mainloopPoll(struct pollfd *ufds, unsigned long int nfds,
-                         int timeout);
-
-    protected:
-
-        /** re-implementation of the threaded mainloop of PulseAudio */
-        void run_wrapper(const QVariant &params) override;
-
     private:
 
         /**
@@ -301,7 +285,9 @@ namespace Kwave
          * @return the best matching format within the list of known formats,
          *         or PA_SAMPLE_INVALID if no match was found
          */
-        pa_sample_format_t mode2format(int compression, int bits,
+        pa_sample_format_t mode2format(
+            Kwave::Compression::Type compression,
+            int bits,
             Kwave::SampleFormat::Format sample_format);
 
         /**
@@ -326,15 +312,6 @@ namespace Kwave
         } source_info_t;
 
     private:
-
-        /** worker thread, running the event loop */
-        Kwave::WorkerThread m_mainloop_thread;
-
-        /** lock for the main loop */
-        QMutex m_mainloop_lock;
-
-        /** wait condition for mainloopWait/mainloopSignal */
-        QWaitCondition m_mainloop_signal;
 
         /** sample format (signed int, unsigned int, float, ... */
         Kwave::SampleFormat::Format m_sample_format;
@@ -366,7 +343,7 @@ namespace Kwave
         pa_proplist *m_pa_proplist;
 
         /** pulse: main loop */
-        pa_mainloop *m_pa_mainloop;
+        pa_threaded_mainloop *m_pa_mainloop;
 
         /** pulse: context of the connection to the server */
         pa_context *m_pa_context;

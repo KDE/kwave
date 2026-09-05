@@ -861,10 +861,8 @@ void Kwave::RecordDialog::setSupportedBits(const QList<unsigned int> &bits)
     if (!sbFormatResolution) return;
 
     m_supported_resolutions = bits;
-    if (bits.count()) {
-        sbFormatResolution->setMinimum(bits.first());
-        sbFormatResolution->setMaximum(bits.last());
-    }
+    if (bits.count())
+        sbFormatResolution->setRange(bits.first(), bits.last());
 
     // enable only if there is a choice
     sbFormatResolution->setEnabled(bits.count() > 1);

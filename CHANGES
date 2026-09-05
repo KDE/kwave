@@ -35,6 +35,7 @@
  * record plugin:
    - added missing support for decoding sample formats G.711 A-Law/U-Law
      and IEEE Float (32 bit)
+   - improved error handling
 
 24.12.0 [2024-11-09]
 

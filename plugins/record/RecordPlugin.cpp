@@ -941,6 +941,7 @@ void Kwave::RecordPlugin::setupRecordThread()
     if (!paramsValid()) return;
 
     // create a decoder for the current sample format
+    QString reason_of_failure;
     switch (params.compression) {
         case Kwave::Compression::NONE:
             switch (params.sample_format) {
@@ -962,6 +963,7 @@ void Kwave::RecordPlugin::setupRecordThread()
                     notice(
                         i18n("The current sample format is not supported!")
                     );
+                    break;
             }
             break;
         case Kwave::Compression::G711_ALAW:
@@ -971,15 +973,17 @@ void Kwave::RecordPlugin::setupRecordThread()
             m_decoder = new(std::nothrow) Kwave::SampleDecoderULaw();
             break;
         default:
-            notice(
-                i18n("The current compression type is not supported!")
-            );
+            reason_of_failure =
+                i18n("The current compression type is not supported!");
             return;
     }
 
     Q_ASSERT(m_decoder);
     if (!m_decoder) {
-        Kwave::MessageBox::sorry(m_dialog, i18n("Out of memory"));
+        if (reason_of_failure.isEmpty())
+            reason_of_failure = i18n("Out of memory");
+        notice(reason_of_failure);
+        Kwave::MessageBox::sorry(m_dialog, reason_of_failure);
         return;
     }
 

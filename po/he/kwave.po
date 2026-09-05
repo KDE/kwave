@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-04 00:43+0000\n"
-"PO-Revision-Date: 2026-09-01 09:24+0300\n"
+"PO-Revision-Date: 2026-09-04 10:48+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -5028,7 +5028,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
-msgstr ""
+msgstr " רצועות:"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:258
 #, kde-format
@@ -5040,7 +5040,7 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDialog.cpp:268
 #, kde-format
 msgid "Length:"
-msgstr ""
+msgstr "משך:"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:271
 #, kde-format
@@ -5052,14 +5052,14 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDialog.cpp:277
 #, kde-format
 msgid "%1 (%2 samples)"
-msgstr ""
+msgstr "%1 (%2 דגימות)"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/fileinfo/FileInfoDialog.cpp:281 plugins/record/RecordDialog.cpp:602
 #: plugins/record/RecordDlg.ui:1133
 #, no-c-format, kde-format
 msgid "%1 samples"
-msgstr ""
+msgstr "%1  דגימות"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:607
 #: plugins/newsignal/NewSignalDialog.cpp:301
@@ -5083,25 +5083,25 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDialog.cpp:920
 #, kde-format
 msgid "Yes"
-msgstr ""
+msgstr "כן"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:914
 #: plugins/fileinfo/FileInfoDialog.cpp:920
 #, kde-format
 msgid "No"
-msgstr ""
+msgstr "לא"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, FileInfoDlg)
 #: plugins/fileinfo/FileInfoDlg.ui:20
 #, kde-format
 msgid "File Info"
-msgstr ""
+msgstr "פרטי קובץ"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_file)
 #: plugins/fileinfo/FileInfoDlg.ui:45
 #, kde-format
 msgid "File"
-msgstr ""
+msgstr "קובץ"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFileName)
 #. i18n: ectx: property (text), widget (QLabel, lblLength)
@@ -5164,92 +5164,92 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDlg.ui:2076
 #, kde-format
 msgid "#"
-msgstr ""
+msgstr "מס׳"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBits_2)
 #. i18n: ectx: property (text), widget (QLabel, lblBits)
 #: plugins/fileinfo/FileInfoDlg.ui:283 plugins/record/RecordDlg.ui:946
 #, kde-format
 msgid "bit"
-msgstr ""
+msgstr "סיביות"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:335 plugins/newsignal/NewSigDlg.ui:49
 #, kde-format
 msgid "8000"
-msgstr ""
+msgstr "8000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:340 plugins/newsignal/NewSigDlg.ui:54
 #, kde-format
 msgid "10000"
-msgstr ""
+msgstr "10000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:345 plugins/newsignal/NewSigDlg.ui:59
 #, kde-format
 msgid "11025"
-msgstr ""
+msgstr "11025"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:350 plugins/newsignal/NewSigDlg.ui:64
 #, kde-format
 msgid "12000"
-msgstr ""
+msgstr "12000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:355 plugins/newsignal/NewSigDlg.ui:69
 #, kde-format
 msgid "16000"
-msgstr ""
+msgstr "16000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:360 plugins/newsignal/NewSigDlg.ui:74
 #, kde-format
 msgid "22050"
-msgstr ""
+msgstr "22050"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:365 plugins/newsignal/NewSigDlg.ui:79
 #, kde-format
 msgid "32000"
-msgstr ""
+msgstr "32000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:370 plugins/newsignal/NewSigDlg.ui:84
 #, kde-format
 msgid "44100"
-msgstr ""
+msgstr "44100"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:375 plugins/newsignal/NewSigDlg.ui:89
 #, kde-format
 msgid "48000"
-msgstr ""
+msgstr "48000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:380 plugins/newsignal/NewSigDlg.ui:94
 #, kde-format
 msgid "96000"
-msgstr ""
+msgstr "96000"
 
 #. i18n: ectx: property (text), widget (QLabel, lblSamplesPerSecond_2)
 #: plugins/fileinfo/FileInfoDlg.ui:388
 #, kde-format
 msgid "samples per second"
-msgstr ""
+msgstr "דגימות לשנייה"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompression_2)
 #: plugins/fileinfo/FileInfoDlg.ui:698
 #, kde-format
 msgid "Encoding Mode:"
-msgstr ""
+msgstr "מצב הצפנה:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_mpeg)
 #: plugins/fileinfo/FileInfoDlg.ui:738
 #, kde-format
 msgid "MPEG"
-msgstr ""
+msgstr "MPEG"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegIntensityStereo)
 #: plugins/fileinfo/FileInfoDlg.ui:790
@@ -5268,37 +5268,37 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDlg.ui:806 plugins/fileinfo/FileInfoDlg.ui:908
 #, kde-format
 msgid "yes"
-msgstr ""
+msgstr "כן"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:853
 #, kde-format
 msgid "Bands 4 to 31"
-msgstr ""
+msgstr "רצועות 4 עד 31"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:858
 #, kde-format
 msgid "Bands 8 to 31"
-msgstr ""
+msgstr "רצועות 8 עד 31"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:863
 #, kde-format
 msgid "Bands 12 to 31"
-msgstr ""
+msgstr "רצועות 12 עד 31"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:868
 #, kde-format
 msgid "Bands 16 to 31"
-msgstr ""
+msgstr "רצועות 16 עד 31"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
 #: plugins/fileinfo/FileInfoDlg.ui:997
 #, kde-format
 msgid "CCIT J.17"
-msgstr ""
+msgstr "CCIT J.17"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegVersion)
 #: plugins/fileinfo/FileInfoDlg.ui:1006
@@ -5561,25 +5561,25 @@ msgstr ""
 #: plugins/newsignal/NewSigDlg.ui:360
 #, kde-format
 msgid "Samples"
-msgstr ""
+msgstr " דגימות"
 
 #. i18n: ectx: property (text), widget (QLabel, lblMaximumSize_2_2)
 #: plugins/newsignal/NewSigDlg.ui:492
 #, kde-format
 msgid "Minimum"
-msgstr ""
+msgstr "מזערי"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2_2)
 #: plugins/newsignal/NewSigDlg.ui:521
 #, kde-format
 msgid "(File Size)"
-msgstr ""
+msgstr "(גודל קובץ)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblMaximumSize_3)
 #: plugins/newsignal/NewSigDlg.ui:550
 #, kde-format
 msgid "Maximum"
-msgstr ""
+msgstr "מרבי"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slideLength)
 #: plugins/newsignal/NewSigDlg.ui:571
@@ -5590,13 +5590,13 @@ msgstr ""
 #: plugins/newsignal/NewSignalDialog.cpp:327
 #, kde-format
 msgid "(Resulting file size: %1 MB)"
-msgstr ""
+msgstr "(גודל הקובץ שיתקבל: %1 מ״ב)"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NoiseDlg)
 #: plugins/noise/NoiseDlg.ui:17 plugins/noise/NoisePlugin.cpp:135
 #, kde-format
 msgid "Add Noise"
-msgstr ""
+msgstr "הוספת רעש"
 
 #. i18n: ectx: property (title), widget (QGroupBox, ButtonGroup1)
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroup3)
@@ -5604,13 +5604,13 @@ msgstr ""
 #: plugins/volume/VolumeDlg.ui:43
 #, kde-format
 msgid "Mode"
-msgstr ""
+msgstr "מצב"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:54
 #, kde-format
 msgid "add a noise level by percentage"
-msgstr ""
+msgstr "הוספת רמת רעש באחוזים"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:58
@@ -5625,13 +5625,13 @@ msgstr ""
 #: plugins/noise/NoiseDlg.ui:61 plugins/volume/VolumeDlg.ui:91
 #, kde-format
 msgid "&Percentage"
-msgstr ""
+msgstr "&אחוזים"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbLogarithmic)
 #: plugins/noise/NoiseDlg.ui:77
 #, kde-format
 msgid "add a noise level in dB"
-msgstr ""
+msgstr "הוספת רמת רעש בדציבלים"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbLogarithmic)
 #: plugins/noise/NoiseDlg.ui:81
@@ -5645,7 +5645,7 @@ msgstr ""
 #: plugins/noise/NoiseDlg.ui:84 plugins/volume/VolumeDlg.ui:111
 #, kde-format
 msgid "&Logarithmic"
-msgstr ""
+msgstr "&לוגריתמי"
 
 #. i18n: ectx: property (toolTip), widget (Kwave::InvertableSpinBox, spinbox)
 #. i18n: ectx: property (windowTitle), widget (QDialog, VolumeDlg)
@@ -5655,23 +5655,23 @@ msgstr ""
 #: plugins/volume/VolumePlugin.cpp:135
 #, kde-format
 msgid "Volume"
-msgstr ""
+msgstr "עוצמת שמע"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slider)
 #: plugins/noise/NoiseDlg.ui:156
 #, kde-format
 msgid "Noise Level"
-msgstr ""
+msgstr "רמת רעש"
 
 #: plugins/normalize/NormalizePlugin.cpp:71
 #, kde-format
 msgid "Normalize"
-msgstr ""
+msgstr "נרמול"
 
 #: plugins/normalize/NormalizePlugin.cpp:92
 #, kde-format
 msgid "Analyzing volume level..."
-msgstr ""
+msgstr "רצת עוצמת השמע מנותחת…"
 
 #: plugins/normalize/NormalizePlugin.cpp:123
 #, kde-format
@@ -5710,7 +5710,7 @@ msgstr ""
 #: plugins/notch_filter/NotchFilterDlg.ui:141
 #, kde-format
 msgid "bandwidth"
-msgstr ""
+msgstr "רוחב פס"
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider_2)
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox_2)
@@ -5734,7 +5734,7 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftDlg.ui:98
 #, kde-format
 msgid "Frequency:"
-msgstr ""
+msgstr "תדירות:"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slFrequency)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, sbFrequency)
@@ -5759,7 +5759,7 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftDlg.ui:136
 #, kde-format
 msgid "Speed:"
-msgstr ""
+msgstr "מהירות:"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slSpeed)
 #. i18n: ectx: property (toolTip), widget (Kwave::InvertableSpinBox, sbSpeed)
@@ -5767,13 +5767,13 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftDlg.ui:196
 #, kde-format
 msgid "Speed"
-msgstr ""
+msgstr "מהירות"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:215
 #, kde-format
 msgid "change speed by percentage"
-msgstr ""
+msgstr "שינוי המהירות באחוזים"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:219
@@ -5787,13 +5787,13 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftDlg.ui:222
 #, kde-format
 msgid "by Percentage"
-msgstr ""
+msgstr "באחוזים"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:232
 #, kde-format
 msgid "change speed by a factor"
-msgstr ""
+msgstr "שינוי המהירות לפי מקדם"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:236
@@ -5807,18 +5807,18 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftDlg.ui:239
 #, kde-format
 msgid "by Factor"
-msgstr ""
+msgstr "לפי מקדם"
 
 #: plugins/playback/PlayBack-ALSA.cpp:51 plugins/playback/PlayBack-Qt.cpp:44
 #: plugins/record/Record-Qt.cpp:49
 #, kde-format
 msgid "Default device"
-msgstr ""
+msgstr "התקן ברירת מחדל"
 
 #: plugins/playback/PlayBack-ALSA.cpp:54
 #, kde-format
 msgid "Null device"
-msgstr ""
+msgstr "התקן מאופס (NULL)"
 
 #: plugins/playback/PlayBack-ALSA.cpp:573 plugins/playback/PlayBack-OSS.cpp:140
 #, kde-format
@@ -5827,6 +5827,9 @@ msgid ""
 "is not present in your kernel or it is not\n"
 "properly configured."
 msgstr ""
+"שגיאת קלט/פלט. אולי מנהל\n"
+"ההתקן לא קיים בליבה (קרנל) שלך או\n"
+"שאינו מוגדר כראוי."
 
 #: plugins/playback/PlayBack-ALSA.cpp:579 plugins/playback/PlayBack-OSS.cpp:146
 #, kde-format
@@ -5841,31 +5844,31 @@ msgstr ""
 #: plugins/playback/PlayBack-ALSA.cpp:587
 #, kde-format
 msgid "Opening the device '%1' failed: %2"
-msgstr ""
+msgstr "פתיחת ההתקן ‚%1’ נכשלה: %2"
 
 #: plugins/playback/PlayBack-ALSA.cpp:817
 #: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1059
 #: plugins/record/Record-ALSA.cpp:1072
 #, kde-format
 msgid "Card %1: "
-msgstr ""
+msgstr "כרטיס %1: "
 
 #: plugins/playback/PlayBack-ALSA.cpp:819
 #: plugins/playback/PlayBack-ALSA.cpp:833 plugins/record/Record-ALSA.cpp:1061
 #: plugins/record/Record-ALSA.cpp:1074
 #, kde-format
 msgid "Device %1: "
-msgstr ""
+msgstr "התקן %1: "
 
 #: plugins/playback/PlayBack-ALSA.cpp:821 plugins/record/Record-ALSA.cpp:1063
 #, kde-format
 msgid "Subdevice %1: "
-msgstr ""
+msgstr "תת־התקן %1: "
 
 #: plugins/playback/PlayBack-ALSA.cpp:851
 #, kde-format
 msgid "DMIX plugin"
-msgstr ""
+msgstr "תוסף DMIX"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -5875,17 +5878,17 @@ msgstr ""
 #: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:153
 #, kde-format
 msgid "%1 bits per sample are not supported"
-msgstr ""
+msgstr "אין תמיכה ב־%1 סיביות לדגימה"
 
 #: plugins/playback/PlayBack-OSS.cpp:193
 #, kde-format
 msgid "%1 channels playback is not supported"
-msgstr ""
+msgstr "אין תמיכה ב־%1 ערוצי נגינה"
 
 #: plugins/playback/PlayBack-OSS.cpp:200
 #, kde-format
 msgid "Playback rate %1 Hz is not supported"
-msgstr ""
+msgstr "קצב הנגינה %1 הרץ לא נתמך"
 
 #: plugins/playback/PlayBack-OSS.cpp:210
 #, kde-format
@@ -5895,18 +5898,18 @@ msgstr ""
 #: plugins/playback/PlayBack-OSS.cpp:404
 #, kde-format
 msgid "OSS playback device (dsp*)"
-msgstr ""
+msgstr "התקן נגינה OSS‏ (dsp*‎)"
 
 #: plugins/playback/PlayBack-OSS.cpp:407
 #, kde-format
 msgid "ALSA playback device (adsp*)"
-msgstr ""
+msgstr "התקן נגינה ALSA‏ (adsp*‎)"
 
 #: plugins/playback/PlayBack-OSS.cpp:410 plugins/record/Record-OSS.cpp:315
 #: plugins/record/RecordDialog.cpp:622
 #, kde-format
 msgid "Any device (*)"
-msgstr ""
+msgstr "כל התקן שהוא (*)"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:465
 #, kde-format
@@ -5916,7 +5919,7 @@ msgstr ""
 #: plugins/playback/PlayBack-PulseAudio.cpp:472
 #, kde-format
 msgid "Connecting to the PulseAudio server failed."
-msgstr ""
+msgstr "ההתחברות לשרת ה־PulseAudio נכשלה."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:478
 #, kde-format
@@ -5926,12 +5929,12 @@ msgstr ""
 #: plugins/playback/PlayBack-PulseAudio.cpp:522
 #, kde-format
 msgid "playback..."
-msgstr ""
+msgstr "נגינה…"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:538
 #, kde-format
 msgid "Failed to create a PulseAudio stream (%1)."
-msgstr ""
+msgstr "יצירת תזרים PulseAudio נכשלה (%1)."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:580
 #, kde-format
@@ -5951,7 +5954,7 @@ msgstr ""
 #: plugins/playback/PlayBack-Qt.cpp:159
 #, kde-format
 msgid "format not supported"
-msgstr ""
+msgstr "התבנית לא נתמכת"
 
 #: plugins/playback/PlayBack-Qt.cpp:234
 #, kde-format
@@ -5966,7 +5969,7 @@ msgstr "%1 בתים"
 #: plugins/playback/PlayBackDialog.cpp:522
 #, kde-format
 msgid "%1 kB"
-msgstr ""
+msgstr "%1 ק״ב"
 
 #: plugins/playback/PlayBackDialog.cpp:620
 #, kde-format
@@ -6704,7 +6707,7 @@ msgstr ""
 #: plugins/record/RecordPlugin.cpp:646
 #, kde-format
 msgid "%1 Hz failed, using %2 Hz"
-msgstr ""
+msgstr "%1 הרץ נכשל, משתמש ב־%2 הרץ"
 
 #: plugins/record/RecordPlugin.cpp:692
 #, kde-format
@@ -6729,12 +6732,12 @@ msgstr "%1 סיביות לדגימה נכשלה, נעשה שימוש ב־%2 סי
 #: plugins/record/RecordPlugin.cpp:799
 #, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
-msgstr ""
+msgstr "תבנית הדגימה ‚%1’ לא נתמכת, משתמש ב־‚%2’"
 
 #: plugins/record/RecordPlugin.cpp:815
 #, kde-format
 msgid "Sample format '%1' failed, using '%2'"
-msgstr ""
+msgstr "תבנית הדגימה ‚%1’ נכשלה, משתמש ב־‚%2’"
 
 #: plugins/record/RecordPlugin.cpp:954
 #, kde-format
@@ -6751,6 +6754,8 @@ msgstr "אין תמיכה בסוג הדחיסה הנוכחי!"
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
+"הצפת זיכרון חוצץ. נא להגדיל את המספר ו/או את גודל הזיכרונות החוצצים של "
+"ההקלטה."
 
 #: plugins/record/RecordPlugin.cpp:1107
 #, kde-format
@@ -6760,7 +6765,7 @@ msgstr "התקן ההקלטה כנראה עסוק."
 #: plugins/record/RecordPlugin.cpp:1110
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
-msgstr ""
+msgstr "קריאה מהתקן ההקלטה נכשלה. מספר שגיאה = %1 (%2)"
 
 #: plugins/reverse/ReversePlugin.cpp:77
 #: plugins/reverse/UndoReverseAction.cpp:44
@@ -6776,7 +6781,7 @@ msgstr "שינוי קצב דגימה"
 #: plugins/samplerate/SampleRatePlugin.cpp:161
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
-msgstr ""
+msgstr "קצב הדגימה משתנה מ־%1 קה״ץ ל־%2 קה״ץ…"
 
 #: plugins/saveblocks/SaveBlocksDialog.cpp:205
 #, kde-format
@@ -6847,7 +6852,7 @@ msgstr "סיומת:"
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:118
 #, kde-format
 msgid "Choose what encoding to save the blocks with."
-msgstr ""
+msgstr "נא לבחור באיזו הצפנה לשמור את המקטעים."
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, urlRequester)
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:131
@@ -6979,7 +6984,7 @@ msgstr ""
 #: plugins/sonagram/SonagramDlg.ui:90
 #, kde-format
 msgid "On modifications"
-msgstr ""
+msgstr "עם שינויים"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, cbFollowSelection)
 #: plugins/sonagram/SonagramDlg.ui:100

@@ -758,6 +758,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/record/SampleDecoder.h                  GPL2+
         plugins/record/SampleDecoderALaw.cpp            GPL2+
         plugins/record/SampleDecoderALaw.h              GPL2+
+        plugins/record/SampleDecoderFloat.cpp           GPL2+
+        plugins/record/SampleDecoderFloat.h             GPL2+
         plugins/record/SampleDecoderLinear.cpp          GPL2+
         plugins/record/SampleDecoderLinear.h            GPL2+
         plugins/record/SampleDecoderULaw.cpp            GPL2+

@@ -32,7 +32,9 @@
    - fixed possible busy loop (100% CPU load)
    - improved error handling
    - fixed duplicate entries in sample format detection
- * record plugin: added missing support for decoding G.711 A-Law/U-Law
+ * record plugin:
+   - added missing support for decoding sample formats G.711 A-Law/U-Law
+     and IEEE Float (32 bit)
 
 24.12.0 [2024-11-09]
 

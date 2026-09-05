@@ -57,6 +57,7 @@ SET(plugin_record_LIB_SRCS
     RecordThread.cpp
     RecordTypesMap.cpp
     SampleDecoderALaw.cpp
+    SampleDecoderFloat.cpp
     SampleDecoderLinear.cpp
     SampleDecoderULaw.cpp
     StatusWidget.cpp
@@ -69,6 +70,7 @@ SET(plugin_record_LIB_SRCS
     RecordThread.h
     RecordTypesMap.h
     SampleDecoderALaw.h
+    SampleDecoderFloat.h
     SampleDecoderLinear.h
     SampleDecoderULaw.h
     StatusWidget.h

@@ -35,7 +35,7 @@ static void decode_NULL(const quint8 *src, sample_t *dst, unsigned int count)
 }
 
 //***************************************************************************
-// this little function is provided as inline code to avaid a compiler
+// this little function is provided as inline code to avoid a compiler
 // warning about negative shift value when included directly
 static inline quint32 shl(const quint32 v, const int s)
 {

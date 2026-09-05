@@ -59,6 +59,7 @@
 #include "RecordPlugin.h"
 #include "RecordThread.h"
 #include "SampleDecoderALaw.h"
+#include "SampleDecoderFloat.h"
 #include "SampleDecoderLinear.h"
 #include "SampleDecoderULaw.h"
 
@@ -878,17 +879,20 @@ bool Kwave::RecordPlugin::paramsValid()
 
     // check for a valid/usable record device
     if (m_device_name.isNull()) return false;
-    if ( (m_device->sampleFormat() != Kwave::SampleFormat::Unsigned) &&
-         (m_device->sampleFormat() != Kwave::SampleFormat::Signed) )
-        return false;
+    Kwave::SampleFormat::Format fmt = m_device->sampleFormat();
+    if ( (fmt != Kwave::SampleFormat::Unsigned) &&
+         (fmt != Kwave::SampleFormat::Signed)   &&
+         (fmt != Kwave::SampleFormat::Float)) return false;
     if (m_device->bitsPerSample() < 1) return false;
     if (m_device->endianness() == Kwave::UnknownEndian) return false;
 
     // check for valid parameters in the dialog
     const Kwave::RecordParams &params = m_dialog->params();
     if (params.tracks < 1) return false;
-    if ( (params.sample_format != Kwave::SampleFormat::Unsigned) &&
-         (params.sample_format != Kwave::SampleFormat::Signed) ) return false;
+    fmt = params.sample_format;
+    if ( (fmt != Kwave::SampleFormat::Unsigned) &&
+         (fmt != Kwave::SampleFormat::Signed)   &&
+         (fmt != Kwave::SampleFormat::Float)) return false;
 
     return true;
 }
@@ -946,6 +950,11 @@ void Kwave::RecordPlugin::setupRecordThread()
                     m_decoder = new(std::nothrow) Kwave::SampleDecoderLinear(
                         m_device->sampleFormat(),
                         m_device->bitsPerSample(),
+                        m_device->endianness()
+                    );
+                    break;
+                case Kwave::SampleFormat::Float:
+                    m_decoder = new(std::nothrow) Kwave::SampleDecoderFloat(
                         m_device->endianness()
                     );
                     break;

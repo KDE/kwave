@@ -167,10 +167,10 @@ namespace Kwave
          * create a ALSA device format (enum) from parameters.
          * @param bits the number of bits per sample, related
          *        to the decoded stream
-         * @return the index of the best matching format within the list
-         *         of known formats, or -1 if no match was found
+         * @return the best matching format within the list of supported
+         *         formats, or SND_PCM_FORMAT_UNKNOWN if no match was found
          */
-        int mode2format(int bits);
+        snd_pcm_format_t mode2format(int bits);
 
     private:
 

@@ -67,6 +67,7 @@ SET(libkwave_LIB_SRCS
     Selection.cpp
     Signal.cpp
     SignalManager.cpp
+    SampleEncoderFloat.cpp
     SampleEncoderLinear.cpp
     SampleFIFO.cpp
     SampleFormat.cpp
@@ -125,6 +126,7 @@ SET(libkwave_LIB_SRCS
     Selection.h
     Signal.h
     SignalManager.h
+    SampleEncoderFloat.h
     SampleEncoderLinear.h
     SampleFIFO.h
     SampleFormat.h

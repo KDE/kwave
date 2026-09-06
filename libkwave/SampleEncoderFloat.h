@@ -1,7 +1,7 @@
 /*************************************************************************
-   SampleDecoderFloat.h  -  decoder for 32 bit IEEE float samples
+   SampleEncoderFloat.h  -  encoder for 32 bit IEEE float samples
                              -------------------
-    begin                : Thu Sep 04 2026
+    begin                : Sun Sep 06 2026
     copyright            : (C) 2026 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
@@ -15,16 +15,20 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef SAMPLE_DECODER_FLOAT_H
-#define SAMPLE_DECODER_FLOAT_H
+#ifndef SAMPLE_ENCODER_FLOAT_H
+#define SAMPLE_ENCODER_FLOAT_H
 
 #include "config.h"
+#include "libkwave_export.h"
+
+#include <QtGlobal>
+
 #include "libkwave/ByteOrder.h"
-#include "SampleDecoder.h"
+#include "libkwave/SampleEncoder.h"
 
 namespace Kwave
 {
-    class SampleDecoderFloat: public Kwave::SampleDecoder
+    class LIBKWAVE_EXPORT SampleEncoderFloat: public Kwave::SampleEncoder
     {
     public:
 
@@ -32,29 +36,32 @@ namespace Kwave
          * Constructor
          * @param endianness either Kwave::LittleEndian or Kwave::BigEndian
          */
-        SampleDecoderFloat(Kwave::byte_order_t endianness);
+        SampleEncoderFloat(Kwave::byte_order_t endianness);
 
-        /** destructor */
-        ~SampleDecoderFloat() override;
+        /** Destructor */
+        ~SampleEncoderFloat() override;
 
         /**
-         * decodes the given buffer with IEEE float samples
-         * @param raw_data array with raw undecoded audio data
-         * @param decoded array with decoded samples
+         * Encodes a buffer with samples into a buffer with raw data.
+         * @param samples array with samples
+         * @param count number of samples
+         * @param raw_data array with raw encoded audio data
          */
-        void decode(QByteArray &raw_data,
-                    Kwave::SampleArray &decoded) override;
+        virtual void encode(const Kwave::SampleArray &samples,
+                            unsigned int count,
+                            QByteArray &raw_data) override;
 
-        /** returns the number of bytes per sample in raw form */
+        /** Returns the number of bytes per sample in raw (encoded) form */
         unsigned int rawBytesPerSample() override;
 
     private:
-        /** true if byte swap needed */
+
+        /** true if byte swapping is needed */
         bool m_swap;
     };
 }
 
-#endif /* SAMPLE_DECODER_FLOAT_H */
+#endif /* SAMPLE_ENCODER_FLOAT_H */
 
 //***************************************************************************
 //***************************************************************************

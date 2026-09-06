@@ -33,7 +33,7 @@ namespace Kwave
          * Constructor
          * @param sample_format index of the sample format (signed/unsigned)
          * @param bits_per_sample number of bits per sample in the raw data
-         * @param endianness either SOURCE_LITTLE_ENDIAN or SOURCE_BIG_ENDIAN
+         * @param endianness either Kwave::LittleEndian or Kwave::BigEndian
          */
         SampleDecoderLinear(Kwave::SampleFormat::Format sample_format,
                             unsigned int bits_per_sample,

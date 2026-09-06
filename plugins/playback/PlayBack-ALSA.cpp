@@ -37,6 +37,7 @@
 #include <KLocalizedString>
 
 #include "libkwave/Compression.h"
+#include "libkwave/SampleEncoderFloat.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/String.h"
@@ -258,27 +259,50 @@ int Kwave::PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params,
     m_encoder = nullptr;
 
     // get a format that matches the number of bits
-    int format_index = mode2format(bits);
-    if (format_index < 0) {
+    snd_pcm_format_t format = mode2format(bits);
+    if (format == SND_PCM_FORMAT_UNKNOWN) {
         qWarning("PlayBackALSA::setFormat(): %u bit is not supported", bits);
         return -EINVAL;
     }
 
-    m_format = _known_formats[format_index];
-    m_bits = snd_pcm_format_width(m_format);
     m_bytes_per_sample =
-        ((snd_pcm_format_physical_width(m_format) + 7) >> 3) * m_channels;
+        ((snd_pcm_format_physical_width(format) + 7) >> 3) * m_channels;
 
-    m_encoder = new(std::nothrow) Kwave::SampleEncoderLinear(
-        sample_format_of(m_format),
-        m_bits,
-        endian_of(m_format)
-    );
-    Q_ASSERT(m_encoder);
-    if (!m_encoder) {
-        qWarning("PlayBackALSA: out of memory");
-        return -ENOMEM;
+    // create a decoder for the current sample format
+    int res = 0;
+    switch (compression_of(format)) {
+        case Kwave::Compression::NONE:
+            switch (sample_format_of(format)) {
+                case Kwave::SampleFormat::Unsigned: /* FALLTHROUGH */
+                case Kwave::SampleFormat::Signed:
+                    // decoder for all linear formats
+                    m_encoder = new(std::nothrow) Kwave::SampleEncoderLinear(
+                        sample_format_of(format),
+                        bits,
+                        endian_of(format)
+                    );
+                    break;
+                case Kwave::SampleFormat::Float:
+                    m_encoder = new(std::nothrow) Kwave::SampleEncoderFloat(
+                        endian_of(format));
+                    break;
+                default:
+                    res = -EINVAL;
+                    break;
+            }
+            break;
+        default:
+            res = -EINVAL;
+            break;
     }
+
+    if (!m_encoder) {
+        if (res == 0) res =-ENOMEM;
+        qWarning("PlayBack-ALSA: %s", strerror(-res));
+        return res;
+    }
+    m_format = format;
+    m_bits   = snd_pcm_format_width(format);
 
     // activate the settings
     Q_ASSERT(m_bits);
@@ -291,25 +315,23 @@ int Kwave::PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params,
 }
 
 //***************************************************************************
-int Kwave::PlayBackALSA::mode2format(int bits)
+snd_pcm_format_t Kwave::PlayBackALSA::mode2format(int bits)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
-    for (int index : m_supported_formats) {
-        const snd_pcm_format_t *fmt = &_known_formats[index];
-
-        if (snd_pcm_format_width(*fmt) != bits) continue;
+    for (const snd_pcm_format_t &fmt : m_supported_formats) {
+        if (int(bits_of(fmt)) != bits) continue;
 
         // mode is compatible
         // As the list of known formats is already sorted so that
         // the simplest formats come first, we don't have a lot
         // of work -> just take the first entry ;-)
 //      qDebug("PlayBackALSA::mode2format -> %d", index);
-        return index;
+        return fmt;
     }
 
-    qWarning("PlayBackALSA::mode2format -> no match found !?");
-    return -1;
+    qWarning("PlayBackALSA::mode2format(%d) -> no match found !?", bits);
+    return SND_PCM_FORMAT_UNKNOWN;
 }
 
 //***************************************************************************

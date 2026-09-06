@@ -978,10 +978,9 @@ void Kwave::RecordPlugin::setupRecordThread()
         default:
             reason_of_failure =
                 i18n("The current compression type is not supported!");
-            return;
+            break;;
     }
 
-    Q_ASSERT(m_decoder);
     if (!m_decoder) {
         if (reason_of_failure.isEmpty())
             reason_of_failure = i18n("Out of memory");

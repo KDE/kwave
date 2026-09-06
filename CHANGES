@@ -28,7 +28,9 @@
  * playback via Qt:
    - moved processing into a separate thread
    - fixed wrong padding value (may have produced a click at playback end)
- * recording via ALSA: improved timeout handling
+ * recording via ALSA:
+   - refactored device detection, made virtual devices available
+   - improved timeout handling
  * recording via PulseAudio:
    - refactored to use threadened API
    - fixed possible busy loop (100% CPU load)
@@ -37,6 +39,7 @@
  * record plugin:
    - added missing support for decoding sample formats G.711 A-Law/U-Law
      and IEEE Float (32 bit)
+   - suppress notice about changed sample format when switching to A-Law/U-Law
    - improved error handling
 
 24.12.0 [2024-11-09]

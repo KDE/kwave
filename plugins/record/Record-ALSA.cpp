@@ -195,6 +195,12 @@ static Kwave::Compression::Type compression_of(snd_pcm_format_t fmt)
 }
 
 //***************************************************************************
+static inline unsigned int bits_of(snd_pcm_format_t fmt)
+{
+    return snd_pcm_format_width(fmt);
+}
+
+//***************************************************************************
 Kwave::RecordALSA::RecordALSA()
     :Kwave::RecordDevice(), m_handle(nullptr), m_hw_params(nullptr),
      m_sw_params(nullptr), m_open_result(0), m_tracks(0),
@@ -231,9 +237,7 @@ void Kwave::RecordALSA::detectSupportedFormats()
 
     // try all known formats
 //     qDebug("--- list of supported formats --- ");
-    const unsigned int count =
-        sizeof(_known_formats) / sizeof(_known_formats[0]);
-    for (unsigned int i = 0; i < count; i++) {
+    for (unsigned int i = 0; i < ELEMENTS_OF(_known_formats); i++) {
         // test the sample format
         snd_pcm_format_t format = _known_formats[i];
         int err = snd_pcm_hw_params_test_format(m_handle, m_hw_params, format);
@@ -251,18 +255,11 @@ void Kwave::RecordALSA::detectSupportedFormats()
         }
         if (!fmt) continue;
 
-//      Kwave::Compression t;
-//      Kwave::SampleFormat::Map sf;
-//      qDebug("#%2u, %2d, %2u bit [%u byte], %s, '%s', '%s'",
-//          i,
-//          *fmt,
-//          snd_pcm_format_width(*fmt),
-//          (snd_pcm_format_physical_width(*fmt)+7) >> 3,
-//          endian_of(*fmt) == Kwave::CpuEndian ? "CPU" :
-//          (endian_of(*fmt) == Kwave::LittleEndian ? "LE " : "BE "),
-//          DBG(sf.description(sf.findFromData(sample_format_of(
-//          DBG(t.description(t.findFromData(compression_of(
-//              *fmt), true))));
+        qDebug("detected[%2u]: comp=%3d, bits=%2u, fmt=%3d", i,
+               int(compression_of(*fmt)),
+               bits_of(*fmt),
+               int(sample_format_of(*fmt))
+        );
 
         m_supported_formats.append(i);
     }
@@ -294,7 +291,7 @@ QString Kwave::RecordALSA::open(const QString &device)
     // open the device in case it's not already open
     m_open_result = snd_pcm_open(&m_handle, alsa_device.toLocal8Bit().data(),
                                  SND_PCM_STREAM_CAPTURE,
-                                 SND_PCM_NONBLOCK);
+                                 0);
     if (m_open_result < 0) {
         m_handle = nullptr;
         qWarning("RecordALSA::openDevice('%s') - failed, err=%d (%s)",
@@ -350,19 +347,19 @@ int Kwave::RecordALSA::initialize()
     snd_pcm_drop(m_handle);
 
     err = snd_output_stdio_attach(&output, stderr, 0);
-    if (err < 0) {
+    if (err < 0)
         qWarning("Output failed: %s", snd_strerror(err));
-    }
 
-    if ((err = snd_pcm_hw_params_any(m_handle, m_hw_params)) < 0) {
-        qWarning("Cannot initialize hardware parameters: %s",
-                 snd_strerror(err));
-        snd_output_close(output);
-        return -EIO;
+    err = snd_pcm_hw_params_any(m_handle, m_hw_params);
+    if (err < 0) {
+        qWarning("snd_pcm_hw_params_any failed (%s)", snd_strerror(err));
+        if (output)
+            snd_output_close(output);
+        return err;
     }
 
     err = snd_pcm_hw_params_set_access(m_handle, m_hw_params,
-         SND_PCM_ACCESS_RW_INTERLEAVED);
+                                       SND_PCM_ACCESS_RW_INTERLEAVED);
     if (err < 0) {
         qWarning("Cannot set access type: %s", snd_strerror(err));
         snd_output_close(output);
@@ -375,9 +372,9 @@ int Kwave::RecordALSA::initialize()
     if (format_index < 0) {
         Kwave::SampleFormat::Map sf;
 
-        qWarning("RecordkALSA::setFormat(): no matching format for "\
-                 "compression '%s', %u bits/sample, format '%s'",
-                 DBG(sf.description(sf.findFromData(m_sample_format), true)),
+        qWarning("RecordkALSA::setFormat(): no matching format for "
+        "compression '%s', %u bits/sample, format '%s'",
+        DBG(sf.description(sf.findFromData(m_sample_format), true)),
                  m_bits_per_sample,
                  DBG(Kwave::Compression(m_compression).name()));
 
@@ -388,75 +385,107 @@ int Kwave::RecordALSA::initialize()
     Q_ASSERT(format_index >= 0);
     snd_pcm_format_t alsa_format = _known_formats[format_index];
     m_bytes_per_sample = ((snd_pcm_format_physical_width(
-        _known_formats[format_index])+7) >> 3) * m_tracks;
+        _known_formats[format_index]) + 7) >> 3) * m_tracks;
 
-    err = snd_pcm_hw_params_test_format(m_handle, m_hw_params, alsa_format);
+    err = snd_pcm_hw_params_test_format(m_handle, m_hw_params,
+                                        alsa_format);
     if (err) {
-        qWarning("RecordkALSA::setFormat(): format %d is not supported",
-            static_cast<int>(alsa_format));
+        qWarning("RecordkALSA::setFormat(): format %d is not "
+        "supported", static_cast<int>(alsa_format));
         snd_output_close(output);
         return -EINVAL;
     }
 
     // activate the settings
-    err = snd_pcm_hw_params_set_format(m_handle, m_hw_params, alsa_format);
+    err = snd_pcm_hw_params_set_format(m_handle, m_hw_params,
+                                        alsa_format);
     if (err < 0) {
         qWarning("Cannot set sample format: %s", snd_strerror(err));
         snd_output_close(output);
         return -EINVAL;
     }
 
-    err = snd_pcm_hw_params_set_channels(m_handle, m_hw_params, m_tracks);
+    err = snd_pcm_hw_params_set_channels(m_handle, m_hw_params,
+                                            m_tracks);
     if (err < 0) {
         qWarning("Cannot set channel count: %s", snd_strerror(err));
         snd_output_close(output);
         return -EINVAL;
     }
 
-    unsigned int rrate = (m_rate > 0) ? Kwave::toUint(rint(m_rate)) : 0;
-    err = snd_pcm_hw_params_set_rate_near(m_handle, m_hw_params, &rrate,
-                                          nullptr);
+    unsigned int rrate = (m_rate > 0) ?
+    Kwave::toUint(rint(m_rate)) : 0;
+    err = snd_pcm_hw_params_set_rate_near(m_handle, m_hw_params,
+                                            &rrate, nullptr);
     if (err < 0) {
         qWarning("Cannot set sample rate: %s", snd_strerror(err));
         snd_output_close(output);
         return -EINVAL;
     }
 //     qDebug("   real rate = %u", rrate);
-    if (m_rate * 1.05 < rrate || m_rate * 0.95 > rrate) {
-        qWarning("rate is not accurate (requested = %iHz, got = %iHz)",
-                 Kwave::toInt(m_rate), Kwave::toInt(rrate));
-    }
+    if (m_rate * 1.05 < rrate || m_rate * 0.95 > rrate)
+        qWarning("rate is not accurate (requested = %iHz, "
+        "got = %iHz)", Kwave::toInt(m_rate),
+                    Kwave::toInt(rrate));
     m_rate = rrate;
 
-    err = snd_pcm_hw_params_get_buffer_time_max(m_hw_params, &buffer_time,
-                                                nullptr);
-    Q_ASSERT(err >= 0);
-    if (buffer_time > 500000) buffer_time = 500000;
+    // set custom buffer/period times only for actual hw devices
+    if (snd_pcm_type(m_handle) == SND_PCM_TYPE_HW) {
+        err = snd_pcm_hw_params_get_buffer_time_max(m_hw_params,
+                                                    &buffer_time,
+                                                    nullptr);
+    if (err >= 0) {
+        if (buffer_time > 500000)
+            buffer_time = 500000;
+        if (buffer_time > 0)
+            period_time = buffer_time / 4;
+        else
+            period_frames = buffer_frames / 4;
 
-    if (buffer_time > 0)
-        period_time = buffer_time / 4;
-    else
-        period_frames = buffer_frames / 4;
+        if (period_time > 0)
+            snd_pcm_hw_params_set_period_time_near(
+                m_handle, m_hw_params, &period_time,
+                nullptr);
+        else
+            snd_pcm_hw_params_set_period_size_near(
+                m_handle, m_hw_params, &period_frames,
+                nullptr);
 
-    if (period_time > 0) {
-        err = snd_pcm_hw_params_set_period_time_near(m_handle, m_hw_params,
-                                                     &period_time, nullptr);
-    } else {
-        err = snd_pcm_hw_params_set_period_size_near(m_handle, m_hw_params,
-                                                     &period_frames, nullptr);
+        if (buffer_time > 0)
+            snd_pcm_hw_params_set_buffer_time_near(
+                m_handle, m_hw_params, &buffer_time,
+                nullptr);
+        else
+            snd_pcm_hw_params_set_buffer_size_near(
+                m_handle, m_hw_params, &buffer_frames);
+        }
     }
-    Q_ASSERT(err >= 0);
-    if (buffer_time > 0) {
-        err = snd_pcm_hw_params_set_buffer_time_near(m_handle, m_hw_params,
-                                                     &buffer_time, nullptr);
-    } else {
-        err = snd_pcm_hw_params_set_buffer_size_near(m_handle, m_hw_params,
-                                                     &buffer_frames);
-    }
-    Q_ASSERT(err >= 0);
 
 //     qDebug("   setting hw_params");
+
+    // apply hardware parameters
     err = snd_pcm_hw_params(m_handle, m_hw_params);
+
+    // fallback for pipewire/virtual plugins if buffer setup failed
+    if (err < 0) {
+        qWarning("Custom buffer configuration failed (%s), "
+        "retrying with default buffer sizes...",
+        snd_strerror(err));
+
+        snd_pcm_hw_free(m_handle);
+        snd_pcm_hw_params_any(m_handle, m_hw_params);
+        snd_pcm_hw_params_set_access(m_handle, m_hw_params,
+                                        SND_PCM_ACCESS_RW_INTERLEAVED);
+        snd_pcm_hw_params_set_format(m_handle, m_hw_params,
+                                        alsa_format);
+        snd_pcm_hw_params_set_channels(m_handle, m_hw_params,
+                                        m_tracks);
+        snd_pcm_hw_params_set_rate_near(m_handle, m_hw_params,
+                                        &rrate, nullptr);
+
+        err = snd_pcm_hw_params(m_handle, m_hw_params);
+    }
+
     if (err < 0) {
         snd_pcm_dump(m_handle, output);
         snd_output_close(output);
@@ -464,11 +493,12 @@ int Kwave::RecordALSA::initialize()
         return err;
     }
 
-    snd_pcm_hw_params_get_period_size(m_hw_params, &m_chunk_size, nullptr);
+    snd_pcm_hw_params_get_period_size(m_hw_params, &m_chunk_size,
+                                        nullptr);
     snd_pcm_hw_params_get_buffer_size(m_hw_params, &buffer_size);
     if (m_chunk_size == buffer_size) {
-        qWarning("Can't use period equal to buffer size (%lu == %lu)",
-                 m_chunk_size, buffer_size);
+        qWarning("Can't use period equal to buffer size "
+            "(%lu == %lu)", m_chunk_size, buffer_size);
         snd_output_close(output);
         return -EIO;
     }
@@ -476,43 +506,58 @@ int Kwave::RecordALSA::initialize()
     /* set software parameters */
     err = snd_pcm_sw_params_current(m_handle, m_sw_params);
     if (err < 0) {
-        qWarning("Unable to determine current software parameters: %s",
-                 snd_strerror(err));
+        qWarning("Unable to determine current software "
+            "parameters: %s", snd_strerror(err));
         snd_output_close(output);
         return err;
     }
 
     /* err =*/ snd_pcm_sw_params_set_avail_min(m_handle, m_sw_params,
-                                               m_chunk_size);
+                                                m_chunk_size);
 
-    /* round up to closest transfer boundary */
-    start_threshold = qMax<snd_pcm_uframes_t>(1, buffer_size);
-    err = snd_pcm_sw_params_set_start_threshold(m_handle, m_sw_params,
+    /* round up to the closest multiple of the period size, */
+    /* not simply the full buffer size                      */
+    start_threshold = (buffer_size / m_chunk_size) * m_chunk_size;
+    err = snd_pcm_sw_params_set_start_threshold(m_handle,
+                                                m_sw_params,
                                                 start_threshold);
     Q_ASSERT(err >= 0);
     stop_threshold = buffer_size;
 
-    err = snd_pcm_sw_params_set_stop_threshold(m_handle, m_sw_params,
-                                               stop_threshold);
+    err = snd_pcm_sw_params_set_stop_threshold(m_handle,
+                                                m_sw_params,
+                                                stop_threshold);
     Q_ASSERT(err >= 0);
 
     // write the software parameters to the recording device
     err = snd_pcm_sw_params(m_handle, m_sw_params);
     if (err < 0) {
         qDebug("   activating snd_pcm_sw_params FAILED");
-        snd_pcm_dump(m_handle, output);
-        qWarning("Unable to set software parameters: %s", snd_strerror(err));
+            snd_pcm_dump(m_handle, output);
+        qWarning("Unable to set software parameters: %s",
+                    snd_strerror(err));
     }
 
     // prepare the device for recording
     if ((err = snd_pcm_prepare(m_handle)) < 0) {
         snd_pcm_dump(m_handle, output);
-        qWarning("cannot prepare interface for use: %s",snd_strerror(err));
+        qWarning("cannot prepare interface for use: %s",
+                    snd_strerror(err));
     }
+
+    // Switch to non-blocking mode only now, after hw/sw params
+    // have been negotiated successfully. Doing this earlier
+    // (e.g. already in snd_pcm_open()) can break hw_params
+    // negotiation with PipeWire's ALSA compat plugin, which
+    // needs a blocking round-trip to set up its stream node.
+    err = snd_pcm_nonblock(m_handle, 1);
+    if (err < 0)
+        qWarning("Cannot set non-block mode: %s",
+                    snd_strerror(err));
 
     if ((err = snd_pcm_start(m_handle)) < 0) {
         snd_pcm_dump(m_handle, output);
-        qWarning("cannot start interface: %s",snd_strerror(err));
+        qWarning("cannot start interface: %s", snd_strerror(err));
     }
 
     // resize our buffer and reset it
@@ -910,30 +955,14 @@ int Kwave::RecordALSA::bitsPerSample()
 QList<Kwave::SampleFormat::Format> Kwave::RecordALSA::detectSampleFormats()
 {
     QList<Kwave::SampleFormat::Format> list;
-
-    // try all known sample formats
-    for (int it : m_supported_formats)
+    for (int i : m_supported_formats)
     {
-        const snd_pcm_format_t *fmt = &(_known_formats[it]);
-        const Kwave::SampleFormat::Format sample_format =
-            sample_format_of(*fmt);
-
-        // only accept bits/sample if compression types
-        // and bits per sample match
-        if (compression_of(*fmt) != m_compression) continue;
-        if (snd_pcm_format_width(*fmt) != Kwave::toInt(m_bits_per_sample))
-            continue;
-
-        // do not produce duplicates
-        if (list.contains(sample_format)) continue;
-
-//      Kwave::SampleFormat::Map sf;
-//      qDebug("found sample format %u ('%s')", (int)sample_format,
-//              DBG(sf.name(sf.findFromData(sample_format))));
-
-        list.append(sample_format);
+        const snd_pcm_format_t &fmt = _known_formats[i];
+        if (compression_of(fmt) != m_compression)     continue;
+        if (bits_of(fmt)        != m_bits_per_sample) continue;
+        const Kwave::SampleFormat::Format f = sample_format_of(fmt);
+        if (!list.contains(f)) list.append(f);
     }
-
     return list;
 }
 
@@ -976,135 +1005,252 @@ QStringList Kwave::RecordALSA::supportedDevices()
 }
 
 //***************************************************************************
+/**
+ * Check whether a PCM hint name is a relevant candidate for capture.
+ * Filters out raw hw/plughw names (scanned separately above) and
+ * known non-capture / pure playback plugin names.
+ */
+static bool isRelevantCaptureHint(const QString &device_name)
+{
+    if (device_name.startsWith(_("hw:")) ||
+        device_name.startsWith(_("plughw:")))
+        return false; // already covered by the hardware scan above
+
+    static const QStringList exact_blacklist = {
+        _("null"), _("upmix"), _("vdownmix")
+    };
+    if (exact_blacklist.contains(device_name))
+        return false;
+
+    static const QStringList prefix_blacklist = {
+        _("dmix"), _("surround"), _("hdmi"), _("iec958"),
+        _("speex"), _("ladspa"), _("oss"), _("usbstream")
+    };
+    for (const QString &prefix : prefix_blacklist)
+        if (device_name.startsWith(prefix))
+            return false;
+
+    if (device_name.contains(_("rate")))
+        return false;
+
+    return true;
+}
+
+//***************************************************************************
+/**
+ * Try to open and configure a PCM device for capture with a
+ * minimal, realistic parameter set. A successful snd_pcm_open()
+ * alone is not enough: some PipeWire pseudo nodes (e.g. "default",
+ * "pipewire") open fine but have no real capture source behind
+ * them and fail later during hw_params negotiation. This weeds
+ * those out so they are never offered to the user in the first
+ * place.
+ */
+static bool probeCaptureDevice(const QString &device_name)
+{
+    snd_pcm_t *pcm = nullptr;
+    int err = snd_pcm_open(&pcm, device_name.toLocal8Bit().data(),
+                           SND_PCM_STREAM_CAPTURE,
+                           SND_PCM_NONBLOCK);
+
+    // device exists but is busy: assume it's usable, we simply
+    // cannot verify hw_params negotiation right now
+    if ((err == -EBUSY) || (err == -EAGAIN))
+        return true;
+
+    if (err < 0)
+        return false; // could not even open it -> not usable
+
+    snd_pcm_hw_params_t *hw = nullptr;
+    snd_pcm_hw_params_malloc(&hw);
+    bool usable = false;
+
+    if (hw && (snd_pcm_hw_params_any(pcm, hw) >= 0)) {
+        unsigned int rate = 44100;
+        snd_pcm_hw_params_set_access(pcm, hw,
+                                     SND_PCM_ACCESS_RW_INTERLEAVED);
+        snd_pcm_hw_params_set_format(pcm, hw,
+                                     SND_PCM_FORMAT_S16_LE);
+        snd_pcm_hw_params_set_channels(pcm, hw, 1);
+        snd_pcm_hw_params_set_rate_near(pcm, hw, &rate, nullptr);
+
+        // the real check: can these params actually be
+        // committed, or does the device only pretend to work?
+        usable = (snd_pcm_hw_params(pcm, hw) >= 0);
+    }
+
+    if (hw)
+        snd_pcm_hw_params_free(hw);
+    snd_pcm_close(pcm);
+
+    return usable;
+}
+
+//***************************************************************************
+/** build a human readable label for a virtual/plugin PCM device */
+static QString virtualDeviceLabel(const QString &description,
+                                  const QString &device_name)
+{
+    if (description.isEmpty())
+        return device_name;
+
+    QString desc = description;
+    desc.replace(_("\n"), _(" - "));
+    return QString(_("%1 (%2)")).arg(desc, device_name);
+}
+
+//***************************************************************************
 void Kwave::RecordALSA::scanDevices()
 {
     snd_ctl_t *handle = nullptr;
     int card, err, dev;
     int idx;
-    snd_ctl_card_info_t *info    = nullptr;
-    snd_pcm_info_t      *pcminfo = nullptr;
+    snd_ctl_card_info_t *info = nullptr;
+    snd_pcm_info_t *pcminfo = nullptr;
 
     m_device_list.clear();
 
+    // 1. scan physical hardware devices, build kwave ui tree
     card = -1;
-    if (snd_card_next(&card) < 0 || card < 0) {
+    if (snd_card_next(&card) < 0 || card < 0)
         qWarning("no soundcards found...");
-        return;
-    }
 
     snd_ctl_card_info_malloc(&info);
     snd_pcm_info_malloc(&pcminfo);
 
 //     qDebug("**** List of RECORD Hardware Devices ****");
     while (card >= 0) {
-        QString name;
-        name = _("hw:%1");
-        name = name.arg(card);
-        if ((err = snd_ctl_open(&handle, name.toLocal8Bit().data(), 0)) < 0) {
-            qWarning("control open (%i): %s", card, snd_strerror(err));
+        QString name = _("hw:%1").arg(card);
+        err = snd_ctl_open(&handle, name.toLocal8Bit().data(), 0);
+        if (err < 0) {
+            qWarning("control open (%i): %s", card,
+                     snd_strerror(err));
             goto next_card;
         }
+
         if ((err = snd_ctl_card_info(handle, info)) < 0) {
             qWarning("control hardware info (%i): %s",
                      card, snd_strerror(err));
             snd_ctl_close(handle);
             goto next_card;
         }
+
         dev = -1;
         while (1) {
             unsigned int count;
-            if ((snd_ctl_pcm_next_device(handle, &dev) < 0) || (dev < 0)) {
-                qWarning("snd_ctl_pcm_next_device");
+            if ((snd_ctl_pcm_next_device(handle, &dev) < 0) ||
+                (dev < 0))
                 break;
-            }
 
             snd_pcm_info_set_device(pcminfo, dev);
             snd_pcm_info_set_subdevice(pcminfo, 0);
-            snd_pcm_info_set_stream(pcminfo, SND_PCM_STREAM_CAPTURE);
+            snd_pcm_info_set_stream(pcminfo,
+                                    SND_PCM_STREAM_CAPTURE);
             if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
                 if (err != -ENOENT)
-                    qWarning("control digital audio info (%i): %s", card,
-                             snd_strerror(err));
+                    qWarning("control digital audio info (%i): "
+                             "%s", card, snd_strerror(err));
                 continue;
             }
+
             count = snd_pcm_info_get_subdevices_count(pcminfo);
-
-//          qDebug("card %i: %s [%s], device %i: %s [%s]",
-//              card,
-//              snd_ctl_card_info_get_id(info),
-//              snd_ctl_card_info_get_name(info),
-//              dev,
-//              snd_pcm_info_get_id(pcminfo),
-//              snd_pcm_info_get_name(pcminfo));
-
-            // add the device to the list
-            QString hw_device;
-            hw_device = _("hw:%1,%2");
-            hw_device = hw_device.arg(card).arg(dev);
-
-            QString card_name   = _(snd_ctl_card_info_get_name(info));
+            QString hw_device = _("hw:%1,%2").arg(card).arg(dev);
+            QString card_name = _(snd_ctl_card_info_get_name(info));
             QString device_name = _(snd_pcm_info_get_name(pcminfo));
 
-//          qDebug("  Subdevices: %i/%i\n",
-//              snd_pcm_info_get_subdevices_avail(pcminfo), count);
-            if (count > 1) {
-                for (idx = 0; idx < Kwave::toInt(count); idx++) {
-                    snd_pcm_info_set_subdevice(pcminfo, idx);
-                    if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
-                        qWarning("ctrl digital audio playback info (%i): %s",
-                                 card, snd_strerror(err));
-                    } else {
-                        QString hwdev = hw_device + _(",%1").arg(idx);
-                        QString subdevice_name = _(
-                            snd_pcm_info_get_subdevice_name(pcminfo));
-                        QString full_name =
-                            i18n("Card %1: ", card_name) +
-                            _("|sound_card||") +
-                            i18n("Device %1: ", device_name) +
-                            _("|sound_device||") +
-                            i18n("Subdevice %1: ", subdevice_name) +
-                            _("|sound_subdevice");
-                        qDebug("# '%s' -> '%s'", DBG(hwdev), DBG(full_name));
-                        m_device_list.insert(full_name, hwdev);
-                    }
-                }
-            } else {
-                // no sub-devices
-                QString full_name = QString(
+            if (count <= 1) {
+                QString full_name =
                     i18n("Card %1: ", card_name) +
                     _("|sound_card||") +
                     i18n("Device %1: ", device_name) +
-                    _("|sound_subdevice")
-                )/*.arg(card).arg(dev)*/;
-//              qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
+                    _("|sound_subdevice");
                 m_device_list.insert(full_name, hw_device);
+                continue;
+            }
+
+            for (idx = 0; idx < Kwave::toInt(count); idx++) {
+                snd_pcm_info_set_subdevice(pcminfo, idx);
+                if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
+                    qWarning("ctrl digital audio info (%i): %s",
+                             card, snd_strerror(err));
+                    continue;
+                }
+
+                QString hwdev = hw_device + _(",%1").arg(idx);
+                QString subdevice_name = _(
+                    snd_pcm_info_get_subdevice_name(pcminfo));
+                QString full_name =
+                    i18n("Card %1: ", card_name) +
+                    _("|sound_card||") +
+                    i18n("Device %1: ", device_name) +
+                    _("|sound_device||") +
+                    i18n("Subdevice %1: ", subdevice_name) +
+                    _("|sound_subdevice");
+                m_device_list.insert(full_name, hwdev);
             }
         }
 
         snd_ctl_close(handle);
 
-next_card:
-        if (snd_card_next(&card) < 0) {
-            qWarning("snd_card_next failed");
+        next_card:
+        if (snd_card_next(&card) < 0)
             break;
-        }
-    }
-
-    // per default: offer the dsnoop plugin if any slave devices exist
-    if (!m_device_list.isEmpty()) {
-        m_device_list.insert(DEFAULT_DEVICE, _("plug:dsnoop"));
     }
 
     snd_ctl_card_info_free(info);
     snd_pcm_info_free(pcminfo);
 
-    /*
-     * BUG: this call is allowed due to ALSA documentation, but causes
-     *      SIGSEGV when closing the record device. Somehow the internal
-     *      structures of the PCM devices get messed up :-(
-     *      (THE, 2009-07-18)
-     */
-    /* snd_config_update_free_global(); */
+    // 2. scan logical/virtual pcm devices under a dedicated
+    //    sub-tree, skipping anything that isn't actually usable
+    //    for capture
+    void **hints = nullptr;
+    if ((snd_device_name_hint(-1, "pcm", &hints) == 0) && hints) {
+        for (void **h = hints; *h != nullptr; ++h) {
+            char *name_raw = snd_device_name_get_hint(*h, "NAME");
+            char *desc_raw = snd_device_name_get_hint(*h, "DESC");
+            char *ioid_raw = snd_device_name_get_hint(*h, "IOID");
+
+            const QString device_name = name_raw ?
+                QString::fromLocal8Bit(name_raw) : QString();
+            const QString description = desc_raw ?
+                QString::fromLocal8Bit(desc_raw).trimmed() :
+                QString();
+            const QString io_direction = ioid_raw ?
+                QString::fromLocal8Bit(ioid_raw) : QString();
+
+            if (name_raw) free(name_raw);
+            if (desc_raw) free(desc_raw);
+            if (ioid_raw) free(ioid_raw);
+
+            // skip pure playback-only devices
+            if (io_direction == _("Output"))
+                continue;
+
+            if (device_name.isEmpty())
+                continue;
+
+            if (!isRelevantCaptureHint(device_name))
+                continue;
+
+            // opens fine but not really usable? skip it, so we
+            // never offer a device that would fail once selected
+            if (!probeCaptureDevice(device_name))
+                continue;
+
+            QString label = virtualDeviceLabel(description,
+                                               device_name);
+
+            // place virtual devices in a separate subtree node
+            QString full_name =
+                i18n("Virtual / ALSA Plugins") +
+                _("|sound_card||") +
+                label +
+                _("|sound_note");
+            m_device_list.insert(full_name, device_name);
+        }
+
+        snd_device_name_free_hint(hints);
+    }
 }
 
 //***************************************************************************

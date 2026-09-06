@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-04 00:43+0000\n"
+"POT-Creation-Date: 2026-09-06 00:44+0000\n"
 "PO-Revision-Date: 2026-08-30 14:03+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -1187,8 +1187,8 @@ msgstr "Bezig met laden van bestand '%1'..."
 #: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:164 plugins/playback/PlayBack-Qt.cpp:175
-#: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:973
-#: plugins/record/RecordPlugin.cpp:989 plugins/record/RecordPlugin.cpp:1058
+#: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:984
+#: plugins/record/RecordPlugin.cpp:1002 plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "Out of memory"
 msgstr "Onvoldoende geheugen"
@@ -3390,7 +3390,7 @@ msgstr ""
 "Wilt u toch doorgaan?"
 
 #: libkwave/SignalManager.cpp:429 plugins/about/AboutDialog.cpp:75
-#: plugins/record/RecordPlugin.cpp:1079
+#: plugins/record/RecordPlugin.cpp:1092
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(gebouwd met KDE Frameworks %1)"
@@ -6096,20 +6096,20 @@ msgid "Opening the device '%1' failed: %2"
 msgstr "Het apparaat '%1' openen is mislukt: %2"
 
 #: plugins/playback/PlayBack-ALSA.cpp:817
-#: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1059
-#: plugins/record/Record-ALSA.cpp:1072
+#: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1061
+#: plugins/record/Record-ALSA.cpp:1074
 #, kde-format
 msgid "Card %1: "
 msgstr "Kaart %1: "
 
 #: plugins/playback/PlayBack-ALSA.cpp:819
-#: plugins/playback/PlayBack-ALSA.cpp:833 plugins/record/Record-ALSA.cpp:1061
-#: plugins/record/Record-ALSA.cpp:1074
+#: plugins/playback/PlayBack-ALSA.cpp:833 plugins/record/Record-ALSA.cpp:1063
+#: plugins/record/Record-ALSA.cpp:1076
 #, kde-format
 msgid "Device %1: "
 msgstr "Apparaat %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:821 plugins/record/Record-ALSA.cpp:1063
+#: plugins/playback/PlayBack-ALSA.cpp:821 plugins/record/Record-ALSA.cpp:1065
 #, kde-format
 msgid "Subdevice %1: "
 msgstr "Subapparaat %1: "
@@ -6160,37 +6160,37 @@ msgstr "ALSA-afspeelapparaat (adsp*)"
 msgid "Any device (*)"
 msgstr "Elk apparaat (*)"
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:465
+#: plugins/playback/PlayBack-PulseAudio.cpp:367
 #, kde-format
 msgid "%1 channels are not supported, maximum is 255"
 msgstr "%1 kanalen wordt niet ondersteund, maximum is 255"
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:472
+#: plugins/playback/PlayBack-PulseAudio.cpp:374
 #, kde-format
 msgid "Connecting to the PulseAudio server failed."
 msgstr "Verbinden met de PulseAudio-server is mislukt."
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:478
+#: plugins/playback/PlayBack-PulseAudio.cpp:380
 #, kde-format
 msgid "The PulseAudio device '%1' is unknown or no longer connected"
 msgstr "Het PulseAudio-apparaat '%1' is onbekend of niet langer verbonden"
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:522
+#: plugins/playback/PlayBack-PulseAudio.cpp:424
 #, kde-format
 msgid "playback..."
 msgstr "afspelen..."
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:538
+#: plugins/playback/PlayBack-PulseAudio.cpp:439
 #, kde-format
 msgid "Failed to create a PulseAudio stream (%1)."
 msgstr "Aanmaken van een PulseAudio-stream (%1) is mislukt."
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:580
+#: plugins/playback/PlayBack-PulseAudio.cpp:484
 #, kde-format
 msgid "Failed to open a PulseAudio stream for playback (%1)."
 msgstr "Openen van een PulseAudio-stream voor afspelen is mislukt (%1)."
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:821
+#: plugins/playback/PlayBack-PulseAudio.cpp:689
 #, kde-format
 msgid "(Use server default)"
 msgstr "(Standaard van server gebruiken)"
@@ -6503,7 +6503,7 @@ msgstr "OSS-opnameapparaat (dsp*)"
 msgid "ALSA recording device (adsp*)"
 msgstr "ALSA-opnameapparaat (adsp*)"
 
-#: plugins/record/Record-PulseAudio.cpp:217
+#: plugins/record/Record-PulseAudio.cpp:213
 #, kde-format
 msgid "Kwave record"
 msgstr "Kwave-opname"
@@ -6528,20 +6528,20 @@ msgstr "ALSA-opnameapparaat (adsp*)"
 msgid "Select Record Device"
 msgstr "Opnameapparaat selecteren"
 
-#: plugins/record/RecordDialog.cpp:717 plugins/record/RecordPlugin.cpp:546
-#: plugins/record/RecordPlugin.cpp:554
+#: plugins/record/RecordDialog.cpp:717 plugins/record/RecordPlugin.cpp:547
+#: plugins/record/RecordPlugin.cpp:555
 #, kde-format
 msgid "Mono"
 msgstr "Mono"
 
-#: plugins/record/RecordDialog.cpp:720 plugins/record/RecordPlugin.cpp:547
-#: plugins/record/RecordPlugin.cpp:555
+#: plugins/record/RecordDialog.cpp:720 plugins/record/RecordPlugin.cpp:548
+#: plugins/record/RecordPlugin.cpp:556
 #, kde-format
 msgid "Stereo"
 msgstr "Stereo"
 
-#: plugins/record/RecordDialog.cpp:723 plugins/record/RecordPlugin.cpp:548
-#: plugins/record/RecordPlugin.cpp:556
+#: plugins/record/RecordDialog.cpp:723 plugins/record/RecordPlugin.cpp:549
+#: plugins/record/RecordPlugin.cpp:557
 #, kde-format
 msgid "Quadro"
 msgstr "Quadro"
@@ -6556,98 +6556,98 @@ msgstr "%1 tracks"
 msgid "%1 Hz"
 msgstr "%1 Hz"
 
-#: plugins/record/RecordDialog.cpp:888
+#: plugins/record/RecordDialog.cpp:886
 #, kde-format
 msgid "%1 bit"
 msgstr "%1 bits"
 
-#: plugins/record/RecordDialog.cpp:1004
+#: plugins/record/RecordDialog.cpp:1002
 #, kde-format
 msgid "Please check the source device settings..."
 msgstr "De apparaatinstellingen van de bron controleren..."
 
-#: plugins/record/RecordDialog.cpp:1016
+#: plugins/record/RecordDialog.cpp:1014
 #, kde-format
 msgid "(empty)"
 msgstr "(leeg)"
 
-#: plugins/record/RecordDialog.cpp:1027
+#: plugins/record/RecordDialog.cpp:1025
 #, kde-format
 msgid "Buffering..."
 msgstr "Aan het bufferen..."
 
-#: plugins/record/RecordDialog.cpp:1038
+#: plugins/record/RecordDialog.cpp:1036
 #, kde-format
 msgid "Prerecording..."
 msgstr "Bezig vooraf opnemen..."
 
-#: plugins/record/RecordDialog.cpp:1049 plugins/record/RecordDialog.cpp:1205
+#: plugins/record/RecordDialog.cpp:1047 plugins/record/RecordDialog.cpp:1203
 #, kde-format
 msgid "Waiting for trigger..."
 msgstr "Wacht op startsignaal..."
 
-#: plugins/record/RecordDialog.cpp:1060
+#: plugins/record/RecordDialog.cpp:1058
 #, kde-format
 msgid "Recording..."
 msgstr "Bezig met opnemen..."
 
-#: plugins/record/RecordDialog.cpp:1078
+#: plugins/record/RecordDialog.cpp:1076
 #, kde-format
 msgid "Paused"
 msgstr "Gepauzeerd"
 
-#: plugins/record/RecordDialog.cpp:1089
+#: plugins/record/RecordDialog.cpp:1087
 #, kde-format
 msgid "Done"
 msgstr "Gereed"
 
-#: plugins/record/RecordDialog.cpp:1189
+#: plugins/record/RecordDialog.cpp:1187
 #, kde-format
 msgid "one day "
 msgid_plural "%1 days "
 msgstr[0] "één dag "
 msgstr[1] "%1 dagen "
 
-#: plugins/record/RecordDialog.cpp:1191
+#: plugins/record/RecordDialog.cpp:1189
 #, kde-format
 msgid "one hour "
 msgid_plural "%1 hours "
 msgstr[0] "één uur "
 msgstr[1] "%1 uren "
 
-#: plugins/record/RecordDialog.cpp:1193
+#: plugins/record/RecordDialog.cpp:1191
 #, kde-format
 msgid "one minute "
 msgid_plural "%1 minutes "
 msgstr[0] "één minuut"
 msgstr[1] "%1 minuten "
 
-#: plugins/record/RecordDialog.cpp:1196
+#: plugins/record/RecordDialog.cpp:1194
 #, kde-format
 msgid "and %1 second"
 msgid_plural "and %1 seconds"
 msgstr[0] "en %1 seconde"
 msgstr[1] "en %1 seconden"
 
-#: plugins/record/RecordDialog.cpp:1197
+#: plugins/record/RecordDialog.cpp:1195
 #, kde-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
 msgstr[0] "%1 seconde"
 msgstr[1] "%1 seconden"
 
-#: plugins/record/RecordDialog.cpp:1201
+#: plugins/record/RecordDialog.cpp:1199
 #, kde-format
 msgctxt "%1=days; %2=hours; %3=minutes; %4=seconds"
 msgid "Waiting for start in %1%2%3%4..."
 msgstr "Wacht op het starten na %1%2%3%4..."
 
-#: plugins/record/RecordDialog.cpp:1220
+#: plugins/record/RecordDialog.cpp:1218
 #, kde-format
 msgid "Length: %1"
 msgstr "Lengte: %1"
 
-#: plugins/record/RecordDialog.cpp:1221
+#: plugins/record/RecordDialog.cpp:1219
 #, kde-format
 msgid "(%1 samples)"
 msgstr "(%1 samples)"
@@ -6974,7 +6974,7 @@ msgstr "Buffer:"
 msgid "Level:"
 msgstr "Niveau:"
 
-#: plugins/record/RecordPlugin.cpp:457
+#: plugins/record/RecordPlugin.cpp:458
 #, kde-format
 msgid ""
 "Maybe your system lacks support for the corresponding hardware or the "
@@ -6983,7 +6983,7 @@ msgstr ""
 "Misschien ontbreekt ondersteuning in uw systeem voor de overeenkomstige "
 "hardware of de hardware is niet verbonden."
 
-#: plugins/record/RecordPlugin.cpp:463
+#: plugins/record/RecordPlugin.cpp:464
 #, kde-format
 msgid ""
 "The audio device seems to be occupied by another application. Retrying..."
@@ -6991,7 +6991,7 @@ msgstr ""
 "Het audioapparaat lijkt bezet te zijn door een andere toepassing. Opnieuw "
 "proberen..."
 
-#: plugins/record/RecordPlugin.cpp:469
+#: plugins/record/RecordPlugin.cpp:470
 #, kde-format
 msgid ""
 "Some unexpected error happened (%1). You may try an other recording method "
@@ -7000,92 +7000,92 @@ msgstr ""
 "Een was een onverwachte fout (%1). U zou een andere opnamemethode of een "
 "ander opnameapparaat kunnen proberen."
 
-#: plugins/record/RecordPlugin.cpp:484
+#: plugins/record/RecordPlugin.cpp:485
 #, kde-format
 msgctxt "%1 = a device name"
 msgid "Unable to open the recording device (%1)"
 msgstr "Opnameapparaat (%1) openen lukt niet"
 
-#: plugins/record/RecordPlugin.cpp:550 plugins/record/RecordPlugin.cpp:558
+#: plugins/record/RecordPlugin.cpp:551 plugins/record/RecordPlugin.cpp:559
 #, kde-format
 msgid "%1 channels"
 msgstr "%1 kanalen"
 
-#: plugins/record/RecordPlugin.cpp:561
+#: plugins/record/RecordPlugin.cpp:562
 #, kde-format
 msgid "%1 is not supported, using %2"
 msgstr "%1 wordt niet ondersteund, %2 wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:584
+#: plugins/record/RecordPlugin.cpp:585
 #, kde-format
 msgid "Recording with %1 channel(s) failed, using %2 channel(s)"
 msgstr ""
 "Opnemen met %1 kana(a)l(en) is mislukt, %2 kana(a)l(en) word(t)(en) gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:629
+#: plugins/record/RecordPlugin.cpp:630
 #, kde-format
 msgid "%1 Hz is not supported, using %2 Hz"
 msgstr "%1 Hz wordt niet ondersteund, %2 Hz wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:646
+#: plugins/record/RecordPlugin.cpp:647
 #, kde-format
 msgid "%1 Hz failed, using %2 Hz"
 msgstr "%1 Hz is mislukt, %2 Hz wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:692
+#: plugins/record/RecordPlugin.cpp:693
 #, kde-format
 msgid "Compression '%1' not supported, using '%2'"
 msgstr "Compressie '%1' wordt niet ondersteund, '%2' wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:705
+#: plugins/record/RecordPlugin.cpp:706
 #, kde-format
 msgid "Compression '%1' failed, using '%2'."
 msgstr "Compressie '%1' is mislukt, '%2' wordt gebruikt."
 
-#: plugins/record/RecordPlugin.cpp:744
+#: plugins/record/RecordPlugin.cpp:745
 #, kde-format
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
 msgstr ""
 "%1 bits per sample wordt niet ondersteund, %2 bits per sample wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:757
+#: plugins/record/RecordPlugin.cpp:758
 #, kde-format
 msgid "%1 bits per sample failed, using %2 bits per sample"
 msgstr "%1 bits per sample is mislukt, %2 bits per sample wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:799
+#: plugins/record/RecordPlugin.cpp:800
 #, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
 msgstr "Sampleformaat '%1' wordt niet ondersteund, '%2' wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:815
+#: plugins/record/RecordPlugin.cpp:816
 #, kde-format
 msgid "Sample format '%1' failed, using '%2'"
 msgstr "Sampleformaat '%1' is mislukt, '%2' wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:954
+#: plugins/record/RecordPlugin.cpp:964
 #, kde-format
 msgid "The current sample format is not supported!"
 msgstr "Het huidige sampleformaat wordt niet ondersteund!"
 
-#: plugins/record/RecordPlugin.cpp:966
+#: plugins/record/RecordPlugin.cpp:977
 #, kde-format
 msgid "The current compression type is not supported!"
 msgstr "Het huidige compressietype wordt niet ondersteund!"
 
-#: plugins/record/RecordPlugin.cpp:1103
+#: plugins/record/RecordPlugin.cpp:1116
 #, kde-format
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 "Buffer-overrun. Verhoog het aantal en/of de grootte van de opnamebuffers."
 
-#: plugins/record/RecordPlugin.cpp:1107
+#: plugins/record/RecordPlugin.cpp:1120
 #, kde-format
 msgid "The recording device seems to be busy."
 msgstr "Het opnameapparaat lijkt bezet te zijn."
 
-#: plugins/record/RecordPlugin.cpp:1110
+#: plugins/record/RecordPlugin.cpp:1123
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr "Lezen van het opnameapparaat is mislukt. Foutnummer = %1 (%2)"

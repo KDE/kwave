@@ -24,55 +24,76 @@
 #include "libkwave/SampleFormat.h"
 #include "libkwave/Utils.h"
 
-
 namespace {
     /**
-     * convert a 24-bit Kwave sample_t to an 8-bit G.711 A-law byte
-     * @param sample input sample_t (24-bit)
-     * @return encoded A-law byte
+     * calculate A-Law byte from 16-bit PCM input
+     * @param pcm16 signed 16-bit PCM input
+     * @return encoded A-Law byte
      */
-    inline static quint8 sample_to_alaw(sample_t sample) {
-        // scale 24-bit sample_t to 13-bit linear pcm
-        int pcm = static_cast<int>(sample >> (SAMPLE_BITS - 13));
-        int mask = 0;
+    static quint8 calc_alaw_entry(int16_t pcm16)
+    {
+        int pcm = static_cast<int>(pcm16);
+        int mask = 0xD5;
 
-        // ITU-T G.711 A-Law sign bit logic and even bits inversion (0x55)
-        if (pcm >= 0) {
-            mask = 0xD5;
-        } else {
+        if (pcm < 0) {
             mask = 0x55;
             pcm = ((-pcm) - 1);
-            if (pcm < 0) {
+            if (pcm < 0)
                 pcm = 0;
-            }
         }
 
-        // clip pcm to 13-bit maximum
-        if (pcm > 4095) {
-            pcm = 4095;
-        }
+        // convert 16-bit PCM to 13-bit magnitude
+        int pcm13 = (pcm >> 3);
+        if (pcm13 > 4095)
+            pcm13 = 4095;
 
-        // convert 13-bit pcm to 8-bit a-law byte
+        // convert 13-bit PCM to 8-bit A-Law byte (ITU-T G.711)
         quint8 aval = 0;
-        if (pcm < 32) {
-            aval = static_cast<quint8>(pcm >> 1);
-        } else if (pcm < 64) {
-            aval = static_cast<quint8>(0x20 | ((pcm >> 1) & 0x0F));
-        } else if (pcm < 128) {
-            aval = static_cast<quint8>(0x20 | ((pcm >> 2) & 0x0F));
-        } else if (pcm < 256) {
-            aval = static_cast<quint8>(0x30 | ((pcm >> 3) & 0x0F));
-        } else if (pcm < 512) {
-            aval = static_cast<quint8>(0x40 | ((pcm >> 4) & 0x0F));
-        } else if (pcm < 1024) {
-            aval = static_cast<quint8>(0x50 | ((pcm >> 5) & 0x0F));
-        } else if (pcm < 2048) {
-            aval = static_cast<quint8>(0x60 | ((pcm >> 6) & 0x0F));
-        } else {
-            aval = static_cast<quint8>(0x70 | ((pcm >> 7) & 0x0F));
-        }
+        if (pcm13 < 32)
+            aval = static_cast<quint8>(pcm13 >> 1);
+        else if (pcm13 < 64)
+            aval = static_cast<quint8>(0x10 | ((pcm13 >> 1) & 0x0F));
+        else if (pcm13 < 128)
+            aval = static_cast<quint8>(0x20 | ((pcm13 >> 2) & 0x0F));
+        else if (pcm13 < 256)
+            aval = static_cast<quint8>(0x30 | ((pcm13 >> 3) & 0x0F));
+        else if (pcm13 < 512)
+            aval = static_cast<quint8>(0x40 | ((pcm13 >> 4) & 0x0F));
+        else if (pcm13 < 1024)
+            aval = static_cast<quint8>(0x50 | ((pcm13 >> 5) & 0x0F));
+        else if (pcm13 < 2048)
+            aval = static_cast<quint8>(0x60 | ((pcm13 >> 6) & 0x0F));
+        else
+            aval = static_cast<quint8>(0x70 | ((pcm13 >> 7) & 0x0F));
 
         return static_cast<quint8>(aval ^ mask);
+    }
+
+    /**
+     * struct holding 64 KiB lookup table for A-Law
+     */
+    struct ALawLUT {
+        quint8 table[65536];
+
+        ALawLUT()
+        {
+            for (int i = 0; (i < 65536); ++i) {
+                int16_t pcm16 = static_cast<int16_t>(i);
+                table[i] = calc_alaw_entry(pcm16);
+            }
+        }
+    };
+
+    /**
+     * fast A-Law encoder using 64 KiB lookup table
+     * @param sample input sample_t (24 bit)
+     * @return encoded A-Law byte
+     */
+    inline static quint8 sample_to_alaw(sample_t sample)
+    {
+        static const ALawLUT alaw_lut;
+        int16_t pcm16 = static_cast<int16_t>(sample >> (SAMPLE_BITS - 16));
+        return alaw_lut.table[static_cast<uint16_t>(pcm16)];
     }
 }
 
@@ -97,7 +118,7 @@ void Kwave::SampleEncoderALaw::encode(const Kwave::SampleArray &samples,
     const sample_t *src = samples.constData();
     quint8 *dst = reinterpret_cast<quint8 *>(raw_data.data());
 
-    // convert samples to a-law bytes
+    // convert samples to A-Law bytes
     for (unsigned int i = 0; i < count; ++i)
         *dst++ = sample_to_alaw(*src++);
 }

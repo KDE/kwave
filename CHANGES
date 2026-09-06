@@ -31,6 +31,7 @@
  * recording via ALSA:
    - refactored device detection, made virtual devices available
    - improved timeout handling
+   - fixed recording in A-Law and U-Law
  * recording via PulseAudio:
    - refactored to use threadened API
    - fixed possible busy loop (100% CPU load)

@@ -157,7 +157,10 @@ static Kwave::SampleFormat::Format sample_format_of(snd_pcm_format_t fmt)
             return Kwave::SampleFormat::Signed;
         else if (snd_pcm_format_unsigned(fmt) == 1)
             return Kwave::SampleFormat::Unsigned;
-    }
+    } else if (fmt == SND_PCM_FORMAT_A_LAW)
+        return Kwave::SampleFormat::Unsigned;
+    else if (fmt == SND_PCM_FORMAT_MU_LAW)
+        return Kwave::SampleFormat::Unsigned;
 
     return Kwave::SampleFormat::Unknown;
 }
@@ -182,12 +185,6 @@ static Kwave::Compression::Type compression_of(snd_pcm_format_t fmt)
             c = Kwave::Compression::G711_ULAW;    break;
         case SND_PCM_FORMAT_A_LAW:
             c = Kwave::Compression::G711_ALAW;    break;
-        case SND_PCM_FORMAT_IMA_ADPCM:
-            c = Kwave::Compression::MS_ADPCM;     break;
-        case SND_PCM_FORMAT_MPEG:
-            c = Kwave::Compression::MPEG_LAYER_I; break;
-        case SND_PCM_FORMAT_GSM:
-            c = Kwave::Compression::GSM;          break;
         default:
             break;
     }

@@ -116,6 +116,18 @@ static const snd_pcm_format_t _known_formats[] =
     SND_PCM_FORMAT_S32, SND_PCM_FORMAT_S32_LE, SND_PCM_FORMAT_S32_BE,
     SND_PCM_FORMAT_U32, SND_PCM_FORMAT_U32_LE, SND_PCM_FORMAT_U32_BE,
 
+    /* float, 32 bit */
+    SND_PCM_FORMAT_FLOAT, SND_PCM_FORMAT_FLOAT_LE, SND_PCM_FORMAT_FLOAT_BE,
+
+    /* float, 64 bit */
+    SND_PCM_FORMAT_FLOAT64,
+    SND_PCM_FORMAT_FLOAT64_LE, SND_PCM_FORMAT_FLOAT64_BE,
+
+    /* G711 ULAW */
+    SND_PCM_FORMAT_MU_LAW,
+
+    /* G711 ALAW */
+    SND_PCM_FORMAT_A_LAW,
 };
 
 //***************************************************************************

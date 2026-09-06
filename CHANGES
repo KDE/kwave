@@ -25,6 +25,7 @@
  * fixed selection of compression, sample format and resolution (bits/sample)
    when saving (made it depend on file format / compression / sample format)
  * playback via ALSA:
+   - added sample formats G.711 A-Law/U-Law and IEEE Float
    - refactored device detection, made virtual devices available
    - removed hardcoded default device
    - always add "null" device to the list
@@ -36,7 +37,7 @@
    - refactored device detection, made virtual devices available
    - improved timeout handling
    - removed default device "DSNOOP"
-   - fixed recording in A-Law and U-Law
+   - added sample formats G.711 A-Law/U-Law and IEEE Float
  * recording via PulseAudio:
    - refactored to use threadened API
    - fixed possible busy loop (100% CPU load)

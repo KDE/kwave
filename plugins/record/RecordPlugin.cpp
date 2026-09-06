@@ -796,7 +796,10 @@ void Kwave::RecordPlugin::changeSampleFormat(
         Kwave::SampleFormat::Map sf;
         const QString s1 = sf.description(sf.findFromData(new_format), true);
         const QString s2 = sf.description(sf.findFromData(format), true);
-        if (!(new_format == -1) && !(new_format == format)) {
+        Kwave::Compression::Type compression = m_device->compression();
+        if (!(new_format == -1) && !(new_format == format) &&
+             (compression == Kwave::Compression::NONE) )
+        {
             notice(i18n("Sample format '%1' is not supported, "\
                         "using '%2'", s1, s2));
         }

@@ -79,7 +79,7 @@ namespace Kwave
 
         /**
          * Gets a list of supported sample formats.
-         * @note this depends on the current setting of the compression!
+         * @note this depends on the current compression and bits/sample!
          */
         virtual QList<Kwave::SampleFormat::Format> detectSampleFormats()
             override;

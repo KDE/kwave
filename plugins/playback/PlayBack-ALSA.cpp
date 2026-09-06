@@ -367,7 +367,7 @@ void Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
         int err = snd_pcm_hw_params_test_format(pcm, p, fmt);
         if (err < 0) continue;
 
-        // eliminate duplicate ALSE sample formats
+        // eliminate duplicate ALSA sample formats
         if (m_supported_formats.contains(fmt))
             continue;
 

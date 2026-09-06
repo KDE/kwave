@@ -230,35 +230,26 @@ void Kwave::RecordALSA::detectSupportedFormats()
     if (snd_pcm_hw_params_any(m_handle, m_hw_params) < 0) return;
 
     // try all known formats
-//     qDebug("--- list of supported formats --- ");
-    for (unsigned int i = 0; i < ELEMENTS_OF(_known_formats); i++) {
+    qDebug("--- list of supported formats --- ");
+    for (const snd_pcm_format_t &fmt : _known_formats) {
         // test the sample format
-        snd_pcm_format_t format = _known_formats[i];
-        int err = snd_pcm_hw_params_test_format(m_handle, m_hw_params, format);
+        int err = snd_pcm_hw_params_test_format(m_handle, m_hw_params, fmt);
         if (err < 0) continue;
 
-        const snd_pcm_format_t *fmt = &(_known_formats[i]);
+        // eliminate duplicate ALSA sample formats
+        if (m_supported_formats.contains(fmt))
+            continue;
 
-        // eliminate duplicate alsa sample formats (e.g. BE/LE)
-        for (int it : m_supported_formats) {
-            const snd_pcm_format_t *f = &_known_formats[it];
-            if (*f == *fmt) {
-                fmt = nullptr;
-                break;
-            }
-        }
-        if (!fmt) continue;
-
-        qDebug("detected[%2u]: comp=%3d, bits=%2u, fmt=%3d", i,
-               int(compression_of(*fmt)),
-               bits_of(*fmt),
-               int(sample_format_of(*fmt))
+        qDebug("detected[%3d]: comp=%3d, bits=%2u, fmt=%3d",
+               int(fmt),
+               int(compression_of(fmt)),
+               bits_of(fmt),
+               int(sample_format_of(fmt))
         );
 
-        m_supported_formats.append(i);
+        m_supported_formats.append(fmt);
     }
-//     qDebug("--------------------------------- ");
-
+    qDebug("--------------------------------- ");
 }
 
 //***************************************************************************
@@ -360,27 +351,24 @@ int Kwave::RecordALSA::initialize()
         return -EIO;
     }
 
-    int format_index = mode2format(m_compression, m_bits_per_sample,
-                                   m_sample_format);
-    Q_ASSERT(format_index >= 0);
-    if (format_index < 0) {
+    snd_pcm_format_t alsa_format = mode2format(
+        m_compression, m_bits_per_sample, m_sample_format);
+    if (alsa_format == SND_PCM_FORMAT_UNKNOWN) {
         Kwave::SampleFormat::Map sf;
 
         qWarning("RecordkALSA::setFormat(): no matching format for "
-        "compression '%s', %u bits/sample, format '%s'",
-        DBG(sf.description(sf.findFromData(m_sample_format), true)),
-                 m_bits_per_sample,
-                 DBG(Kwave::Compression(m_compression).name()));
+            "compression '%s', %u bits/sample, format '%s'",
+            DBG(sf.description(sf.findFromData(m_sample_format), true)),
+            m_bits_per_sample,
+            DBG(Kwave::Compression(m_compression).name()));
 
         snd_output_close(output);
         return -EINVAL;
     }
 
-    Q_ASSERT(format_index >= 0);
-    snd_pcm_format_t alsa_format = _known_formats[format_index];
-    m_bytes_per_sample = ((snd_pcm_format_physical_width(
-        _known_formats[format_index]) + 7) >> 3) * m_tracks;
-
+    Q_ASSERT(alsa_format != SND_PCM_FORMAT_UNKNOWN);
+    m_bytes_per_sample = (
+        (snd_pcm_format_physical_width(alsa_format) + 7) >> 3) * m_tracks;
     err = snd_pcm_hw_params_test_format(m_handle, m_hw_params,
                                         alsa_format);
     if (err) {
@@ -841,30 +829,29 @@ double Kwave::RecordALSA::sampleRate()
 }
 
 //***************************************************************************
-int Kwave::RecordALSA::mode2format(Kwave::Compression::Type compression,
-                                   int bits,
-                                   Kwave::SampleFormat::Format sample_format)
+snd_pcm_format_t Kwave::RecordALSA::mode2format(
+    Kwave::Compression::Type compression,
+    int bits,
+    Kwave::SampleFormat::Format sample_format)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
-    for (int index : m_supported_formats)
+    for (const snd_pcm_format_t &fmt : m_supported_formats)
     {
-        const snd_pcm_format_t *fmt = &_known_formats[index];
-
-        if (compression_of(*fmt) != compression) continue;
-        if (snd_pcm_format_width(*fmt) != bits) continue;
-        if (!(sample_format_of(*fmt) == sample_format)) continue;
+        if (compression_of(fmt)       != compression)   continue;
+        if (snd_pcm_format_width(fmt) != bits)          continue;
+        if (sample_format_of(fmt)     != sample_format) continue;
 
         // mode is compatible
         // As the list of known formats is already sorted so that
         // the simplest formats come first, we don't have a lot
         // of work -> just take the first entry ;-)
 //      qDebug("RecordALSA::mode2format -> %d", index);
-        return index;
+        return fmt;
     }
 
     qWarning("RecordALSA::mode2format -> no match found !?");
-    return -1;
+    return SND_PCM_FORMAT_UNKNOWN;
 }
 
 //***************************************************************************
@@ -873,10 +860,9 @@ QList<Kwave::Compression::Type> Kwave::RecordALSA::detectCompressions()
     QList<Kwave::Compression::Type> list;
 
     // try all known sample formats
-    for (int it : m_supported_formats)
+    for (const snd_pcm_format_t &fmt : m_supported_formats)
     {
-        const snd_pcm_format_t *fmt = &(_known_formats[it]);
-        Kwave::Compression::Type comp = compression_of(*fmt);
+        Kwave::Compression::Type comp = compression_of(fmt);
 
         // do not produce duplicates
         if (list.contains(comp)) continue;
@@ -910,16 +896,15 @@ QList<unsigned int> Kwave::RecordALSA::supportedBits()
     QList<unsigned int> list;
 
     // try all known sample formats
-    for (int it : m_supported_formats)
+    for (const snd_pcm_format_t &fmt : m_supported_formats)
     {
-        const snd_pcm_format_t *fmt = &(_known_formats[it]);
-        const unsigned int bits = snd_pcm_format_width(*fmt);
+        const unsigned int bits = snd_pcm_format_width(fmt);
 
         // 0  bits means invalid/does not apply
         if (!bits) continue;
 
         // only accept bits/sample if compression matches
-        if (compression_of(*fmt) != m_compression) continue;
+        if (compression_of(fmt) != m_compression) continue;
 
         // do not produce duplicates
         if (list.contains(bits)) continue;
@@ -949,9 +934,8 @@ int Kwave::RecordALSA::bitsPerSample()
 QList<Kwave::SampleFormat::Format> Kwave::RecordALSA::detectSampleFormats()
 {
     QList<Kwave::SampleFormat::Format> list;
-    for (int i : m_supported_formats)
+    for (const snd_pcm_format_t &fmt : m_supported_formats)
     {
-        const snd_pcm_format_t &fmt = _known_formats[i];
         if (compression_of(fmt) != m_compression)     continue;
         if (bits_of(fmt)        != m_bits_per_sample) continue;
         const Kwave::SampleFormat::Format f = sample_format_of(fmt);
@@ -977,9 +961,10 @@ Kwave::SampleFormat::Format Kwave::RecordALSA::sampleFormat()
 //***************************************************************************
 Kwave::byte_order_t Kwave::RecordALSA::endianness()
 {
-    int index = mode2format(m_compression, m_bits_per_sample, m_sample_format);
-    return (index >= 0) ?
-        endian_of(_known_formats[index]) : Kwave::UnknownEndian;
+    snd_pcm_format_t fmt =
+        mode2format(m_compression, m_bits_per_sample, m_sample_format);
+    return (fmt != SND_PCM_FORMAT_UNKNOWN) ?
+        endian_of(fmt) : Kwave::UnknownEndian;
 }
 
 //***************************************************************************

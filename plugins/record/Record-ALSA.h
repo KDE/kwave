@@ -196,11 +196,13 @@ namespace Kwave
          *        to the decoded stream
          * @param sample_format the sample format, as defined in
          *        libaudiofile (signed or unsigned)
-         * @return the index of the best matching format within the list
-         *         of known formats, or -1 if no match was found
+         * @return the best matching format within the list of known
+         *         formats, or SND_PCM_FORMAT_UNKNOWN if no match was found
          */
-        int mode2format(Kwave::Compression::Type compression, int bits,
-                        Kwave::SampleFormat::Format sample_format);
+        snd_pcm_format_t mode2format(
+            Kwave::Compression::Type compression,
+            int bits,
+            Kwave::SampleFormat::Format sample_format);
 
         /** scan all ALSA devices, re-creates m_device_list */
         void scanDevices();
@@ -255,12 +257,12 @@ namespace Kwave
         Kwave::SampleFormat::Format m_sample_format;
 
         /**
-         * list of supported formats of the current device, indices in
-         * the global list of known formats.
-         * Only valid after a successful call to "open()",
-         * otherwise empty
+         * list of supported formats of the current device, native enum
+         * values from ALSA.
+         * @note only valid after a successful call to "open()",
+         *       otherwise empty
          */
-        QList<int> m_supported_formats;
+        QList<snd_pcm_format_t> m_supported_formats;
 
         /** true if initialize() has been successfully been run */
         bool m_initialized;

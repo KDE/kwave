@@ -1130,7 +1130,7 @@ recording. Depending on the compilation options you can select one of the follow
                <item row="1" column="0">
                 <widget class="QLabel" name="txtSourceBuffer">
                  <property name="text">
-                  <string>%1 samples</string>
+                  <string>0</string>
                  </property>
                  <property name="wordWrap">
                   <bool>false</bool>

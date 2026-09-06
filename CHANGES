@@ -26,6 +26,7 @@
    when saving (made it depend on file format / compression / sample format)
  * libkwave:
    - implemented SampleEncoderFloat
+   - implemented SampleEncoderALaw
  * playback via ALSA:
    - added sample formats G.711 A-Law/U-Law and IEEE Float
    - refactored device detection, made virtual devices available

@@ -37,6 +37,7 @@
 #include <KLocalizedString>
 
 #include "libkwave/Compression.h"
+#include "libkwave/SampleEncoderALaw.h"
 #include "libkwave/SampleEncoderFloat.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/SampleFormat.h"
@@ -290,6 +291,9 @@ int Kwave::PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params,
                     res = -EINVAL;
                     break;
             }
+            break;
+        case Kwave::Compression::G711_ALAW:
+            m_encoder = new(std::nothrow) Kwave::SampleEncoderALaw();
             break;
         default:
             res = -EINVAL;

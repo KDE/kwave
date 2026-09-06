@@ -474,6 +474,26 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 
     qDebug("   setting hw_params");
     err = snd_pcm_hw_params(m_handle, hw_params);
+
+    // fallback for pipewire/virtual plugins if buffer setup failed
+    if (err < 0) {
+        qWarning("Custom buffer configuration failed (%s), "
+                 "retrying with default buffer sizes...",
+                 snd_strerror(err));
+
+        snd_pcm_hw_free(m_handle);
+        snd_pcm_hw_params_any(m_handle, hw_params);
+        snd_pcm_hw_params_set_access(m_handle, hw_params,
+                                     SND_PCM_ACCESS_RW_INTERLEAVED);
+        err = setFormat(hw_params, bits);
+        if (err >= 0) {
+            snd_pcm_hw_params_set_channels(m_handle, hw_params,
+                                           channels);
+            snd_pcm_hw_params_set_rate_near(m_handle, hw_params,
+                                            &rrate, nullptr);
+            err = snd_pcm_hw_params(m_handle, hw_params);
+        }
+    }
     if (err < 0) {
         snd_pcm_dump(m_handle, output);
         snd_output_close(output);

@@ -271,7 +271,7 @@ QString Kwave::RecordALSA::open(const QString &device)
     // open the device in case it's not already open
     m_open_result = snd_pcm_open(&m_handle, alsa_device.toLocal8Bit().data(),
                                  SND_PCM_STREAM_CAPTURE,
-                                 0);
+                                 SND_PCM_NONBLOCK);
     if (m_open_result < 0) {
         m_handle = nullptr;
         qWarning("RecordALSA::openDevice('%s') - failed, err=%d (%s)",
@@ -521,16 +521,6 @@ int Kwave::RecordALSA::initialize()
         qWarning("cannot prepare interface for use: %s",
                     snd_strerror(err));
     }
-
-    // Switch to non-blocking mode only now, after hw/sw params
-    // have been negotiated successfully. Doing this earlier
-    // (e.g. already in snd_pcm_open()) can break hw_params
-    // negotiation with PipeWire's ALSA compat plugin, which
-    // needs a blocking round-trip to set up its stream node.
-    err = snd_pcm_nonblock(m_handle, 1);
-    if (err < 0)
-        qWarning("Cannot set non-block mode: %s",
-                    snd_strerror(err));
 
     if ((err = snd_pcm_start(m_handle)) < 0) {
         snd_pcm_dump(m_handle, output);

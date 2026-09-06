@@ -112,23 +112,23 @@ QList<Kwave::SampleFormat::Format> Kwave::RecordQt::detectSampleFormats()
     if (info.isNull()) return list;
 
     // add sample formats compatible with current bit per sample
-    auto supported_formats = info.supportedSampleFormats();
+    const auto supported = info.supportedSampleFormats();
     switch (Kwave::toInt(m_bits_per_sample)) {
         case 8:
-            if (supported_formats.contains(QAudioFormat::UInt8)) {
+            if (supported.contains(QAudioFormat::UInt8)) {
                 list.append(Kwave::SampleFormat::Unsigned);
             }
             break;
         case 16:
-            if (supported_formats.contains(QAudioFormat::Int16)) {
+            if (supported.contains(QAudioFormat::Int16)) {
                 list.append(Kwave::SampleFormat::Signed);
             }
             break;
         case 32:
-            if (supported_formats.contains(QAudioFormat::Int32)) {
+            if (supported.contains(QAudioFormat::Int32)) {
                 list.append(Kwave::SampleFormat::Signed);
             }
-            if (supported_formats.contains(QAudioFormat::Float)) {
+            if (supported.contains(QAudioFormat::Float)) {
                 list.append(Kwave::SampleFormat::Float);
             }
             break;
@@ -142,7 +142,11 @@ QList<Kwave::SampleFormat::Format> Kwave::RecordQt::detectSampleFormats()
 //***************************************************************************
 Kwave::byte_order_t Kwave::RecordQt::endianness()
 {
-    return Kwave::CpuEndian;
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
+    return Kwave::BigEndian;
+#else
+    return Kwave::LittleEndian;
+#endif
 }
 
 //***************************************************************************
@@ -173,22 +177,14 @@ QList< unsigned int > Kwave::RecordQt::supportedBits()
     if (info.isNull()) return list;
 
     // iterate over all supported bits per sample
-    unsigned int bits = 0;
     for (QAudioFormat::SampleFormat format : info.supportedSampleFormats()) {
+        unsigned int bits = 0;
         switch (format) {
-            case QAudioFormat::UInt8:
-                bits = 8;
-                break;
-            case QAudioFormat::Int16:
-                bits = 16;
-                break;
-            case QAudioFormat::Int32:
-            case QAudioFormat::Float:
-                bits = 32;
-                break;
-            default:
-                bits = 0;
-                break;
+            case QAudioFormat::UInt8: bits =  8; break;
+            case QAudioFormat::Int16: bits = 16; break;
+            case QAudioFormat::Int32: bits = 32; break;
+            case QAudioFormat::Float: bits = 32; break;
+            default:                  bits =  0; break;
         }
         if (!list.contains(bits) && (bits > 0))
             list.append(bits);
@@ -454,15 +450,18 @@ int Kwave::RecordQt::initialize(unsigned int buffer_size)
     switch (Kwave::toInt(m_bits_per_sample)) {
         case 8:
             format.setSampleFormat(QAudioFormat::UInt8);
+            m_sample_format = Kwave::SampleFormat::Unsigned;
             break;
         case 16:
             format.setSampleFormat(QAudioFormat::Int16);
+            m_sample_format = Kwave::SampleFormat::Signed;
             break;
         case 32:
-            if (format.sampleFormat() == QAudioFormat::Float) {
-                break;
+            if (m_sample_format == Kwave::SampleFormat::Float) {
+                format.setSampleFormat(QAudioFormat::Float);
             } else {
                 format.setSampleFormat(QAudioFormat::Int32);
+                m_sample_format = Kwave::SampleFormat::Signed;
             }
             break;
         default:
@@ -477,7 +476,6 @@ int Kwave::RecordQt::initialize(unsigned int buffer_size)
         qWarning("format not supported");
         return -EIO;
     }
-
 
     // create a new Qt output device
     if (QThread::currentThread() == qApp->thread())
@@ -513,12 +511,14 @@ void Kwave::RecordQt::scanDevices()
     m_device_name_map.clear();
 
     // get the list of available audio output devices from Qt
+    qDebug("RecordQt::scanDevices():");
+    qDebug("-------------------------");
     for (const QAudioDevice &device : QMediaDevices::audioInputs())
     {
         QByteArray qt_name = device.id();
 
         // for debugging: list all devices
-//      qDebug("    name='%s'", DBG(qt_name));
+        qDebug("    name='%s'", qt_name.data());
 
         // device name not available ?
         if (!qt_name.length()) {
@@ -537,6 +537,7 @@ void Kwave::RecordQt::scanDevices()
         m_available_devices.append(device);
         m_device_name_map[gui_name] = qt_name;
     }
+    qDebug("-------------------------");
 }
 
 #endif /* HAVE_QT_AUDIO_SUPPORT */

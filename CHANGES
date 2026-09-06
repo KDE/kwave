@@ -47,6 +47,9 @@
    - fixed possible busy loop (100% CPU load)
    - improved error handling
    - fixed duplicate entries in sample format detection
+ * recording via Qt Multimedia:
+   - fixed recording in 32 bit signed format
+   - fixed recording in IEEE float format
  * record plugin:
    - added missing support for decoding sample formats G.711 A-Law/U-Law
      and IEEE Float (32 bit)

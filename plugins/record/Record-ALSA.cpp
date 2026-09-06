@@ -32,9 +32,6 @@
 /** initializer for the list of devices */
 QMap<QString, QString> Kwave::RecordALSA::m_device_list;
 
-/** gui name of the default device */
-#define DEFAULT_DEVICE (i18n("DSNOOP plugin") + _("|sound_note"))
-
 /** helper macro: returns the number of elements in an array */
 #define ELEMENTS_OF(__array__) (sizeof(__array__) / sizeof(__array__[0]))
 
@@ -992,11 +989,6 @@ QStringList Kwave::RecordALSA::supportedDevices()
     scanDevices();
 
     QStringList list = m_device_list.keys();
-
-    // move the default device to the start of the list
-    if (list.contains(DEFAULT_DEVICE))
-        list.move(list.indexOf(DEFAULT_DEVICE), 0);
-
     list.append(_("#TREE#"));
     return list;
 }

@@ -492,12 +492,12 @@ void Kwave::RecordOSS::format2mode(int format,
         case AFMT_MU_LAW:
             compression   = Kwave::Compression::G711_ULAW;
             sample_format = Kwave::SampleFormat::Signed;
-            bits          = 16;
+            bits          = 8;
             break;
         case AFMT_A_LAW:
             compression   = Kwave::Compression::G711_ALAW;
-            sample_format = Kwave::SampleFormat::Unsigned;
-            bits          = 16;
+            sample_format = Kwave::SampleFormat::Signed;
+            bits          = 8;
             break;
         case AFMT_IMA_ADPCM:
             compression   = Kwave::Compression::MS_ADPCM;

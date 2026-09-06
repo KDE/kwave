@@ -124,11 +124,9 @@ QList<unsigned int> Kwave::WavEncoder::supportedBitsPerSample(
                 case Kwave::SampleFormat::Double:   return {               64};
                 default:                            return {8, 16, 24, 32    };
             }
-        case Kwave::Compression::G711_ALAW: /* FALLTHROUGH */
-        case Kwave::Compression::G711_ULAW:
-            return {16};
-        default:
-            return {};
+        case Kwave::Compression::G711_ALAW:         return {8                };
+        case Kwave::Compression::G711_ULAW:         return {8                };
+        default:                                    return {                 };
     }
 }
 
@@ -472,12 +470,12 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     if ((compression == Kwave::Compression::G711_ULAW) ||
         (compression == Kwave::Compression::G711_ALAW))
     {
-        if ((format != Kwave::SampleFormat::Signed) || (bits != 16)) {
+        if ((format != Kwave::SampleFormat::Signed) || (bits != 8)) {
             format.assign(Kwave::SampleFormat::Signed);
-            bits = 16;
+            bits = 8;
             info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(format.toInt()));
-            info.setBits(16);
-            qDebug("auto-switching to 16 bit signed format");
+            info.setBits(8);
+            qDebug("auto-switching to 8 bit signed format");
         }
     } else if ((bits <= 8) && (format != Kwave::SampleFormat::Unsigned)) {
         format.assign(Kwave::SampleFormat::Unsigned);

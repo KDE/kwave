@@ -151,9 +151,9 @@ static Kwave::SampleFormat::Format sample_format_of(snd_pcm_format_t fmt)
         else if (snd_pcm_format_unsigned(fmt) == 1)
             return Kwave::SampleFormat::Unsigned;
     } else if (fmt == SND_PCM_FORMAT_A_LAW)
-        return Kwave::SampleFormat::Unsigned;
+        return Kwave::SampleFormat::Signed;
     else if (fmt == SND_PCM_FORMAT_MU_LAW)
-        return Kwave::SampleFormat::Unsigned;
+        return Kwave::SampleFormat::Signed;
 
     return Kwave::SampleFormat::Unknown;
 }

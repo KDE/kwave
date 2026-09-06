@@ -97,7 +97,7 @@ static Kwave::SampleFormat::Format sample_format_of(pa_sample_format_t fmt)
             sampleFormat = Kwave::SampleFormat::Float;
             break;
         case PA_SAMPLE_U8:
-            sampleFormat = Kwave::SampleFormat::Unsigned;
+            sampleFormat = Kwave::SampleFormat::Signed;
             break;
         default:
             sampleFormat = Kwave::SampleFormat::Signed;

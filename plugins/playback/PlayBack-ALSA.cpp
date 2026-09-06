@@ -742,6 +742,101 @@ int Kwave::PlayBackALSA::close()
 }
 
 //***************************************************************************
+/**
+ * Check whether a PCM hint name is a relevant candidate for playback.
+ * Filters out raw hw/plughw names (scanned separately above) and
+ * names that are added manually further down (dmix, default, null),
+ * to avoid duplicate or redundant entries.
+ */
+static bool isRelevantPlaybackHint(const QString &device_name)
+{
+    if (device_name.startsWith(_("hw:")) ||
+        device_name.startsWith(_("plughw:")))
+        return false; // already covered by the hardware scan above
+
+    static const QStringList exact_blacklist = {
+        _("null"), _("upmix"), _("vdownmix")
+    };
+    if (exact_blacklist.contains(device_name))
+        return false; // added manually below, or not useful here
+
+    static const QStringList prefix_blacklist = {
+        _("dsnoop"), _("surround"), _("hdmi"), _("iec958"),
+        _("speex"), _("ladspa"), _("oss"), _("usbstream")
+    };
+    for (const QString &prefix : prefix_blacklist)
+        if (device_name.startsWith(prefix))
+            return false;
+
+    if (device_name.contains(_("rate")))
+        return false;
+
+    return true;
+}
+
+//***************************************************************************
+/**
+ * Try to open and configure a PCM device for playback with a
+ * minimal, realistic parameter set. A successful snd_pcm_open()
+ * alone is not enough: some PipeWire pseudo nodes open fine but
+ * have no real sink behind them and fail later during hw_params
+ * negotiation. This weeds those out so they are never offered to
+ * the user in the first place.
+ */
+static bool probePlaybackDevice(const QString &device_name)
+{
+    snd_pcm_t *pcm = nullptr;
+    int err = snd_pcm_open(&pcm, device_name.toLocal8Bit().data(),
+                           SND_PCM_STREAM_PLAYBACK,
+                           SND_PCM_NONBLOCK);
+
+    // device exists but is busy: assume it's usable, we simply
+    // cannot verify hw_params negotiation right now
+    if ((err == -EBUSY) || (err == -EAGAIN))
+        return true;
+
+    if (err < 0)
+        return false; // could not even open it -> not usable
+
+    snd_pcm_hw_params_t *hw = nullptr;
+    snd_pcm_hw_params_malloc(&hw);
+    bool usable = false;
+
+    if (hw && (snd_pcm_hw_params_any(pcm, hw) >= 0)) {
+        unsigned int rate = 44100;
+        snd_pcm_hw_params_set_access(pcm, hw,
+                                     SND_PCM_ACCESS_RW_INTERLEAVED);
+        snd_pcm_hw_params_set_format(pcm, hw,
+                                     SND_PCM_FORMAT_S16_LE);
+        snd_pcm_hw_params_set_channels(pcm, hw, 2);
+        snd_pcm_hw_params_set_rate_near(pcm, hw, &rate, nullptr);
+
+        // the real check: can these params actually be
+        // committed, or does the device only pretend to work?
+        usable = (snd_pcm_hw_params(pcm, hw) >= 0);
+    }
+
+    if (hw)
+        snd_pcm_hw_params_free(hw);
+    snd_pcm_close(pcm);
+
+    return usable;
+}
+
+//***************************************************************************
+/** build a human readable label for a virtual/plugin PCM device */
+static QString virtualPlaybackLabel(const QString &description,
+                                    const QString &device_name)
+{
+    if (description.isEmpty())
+        return device_name;
+
+    QString desc = description;
+    desc.replace(_("\n"), _(" - "));
+    return QString(_("%1 (%2)")).arg(desc, device_name);
+}
+
+//***************************************************************************
 void Kwave::PlayBackALSA::scanDevices()
 {
     snd_ctl_t *handle;
@@ -752,19 +847,19 @@ void Kwave::PlayBackALSA::scanDevices()
 
     m_device_list.clear();
 
+    // 1. scan physical hardware devices, build kwave ui tree
     card = -1;
-    if (snd_card_next(&card) < 0 || card < 0) {
+    if (snd_card_next(&card) < 0 || card < 0)
         qWarning("no soundcards found...");
-        return;
-    }
 
-//     qDebug("**** List of PLAYBACK Hardware Devices ****");
     while (card >= 0) {
         QString name;
         name = _("hw:%1");
         name = name.arg(card);
-        if ((err = snd_ctl_open(&handle, name.toLocal8Bit().data(), 0)) < 0) {
-            qWarning("control open (%i): %s", card, snd_strerror(err));
+        if ((err = snd_ctl_open(&handle, name.toLocal8Bit().data(),
+                                0)) < 0) {
+            qWarning("control open (%i): %s", card,
+                     snd_strerror(err));
             goto next_card;
         }
         if ((err = snd_ctl_card_info(handle, info)) < 0) {
@@ -776,62 +871,30 @@ void Kwave::PlayBackALSA::scanDevices()
         dev = -1;
         while (1) {
             unsigned int count;
-            if (snd_ctl_pcm_next_device(handle, &dev)<0)
+            if (snd_ctl_pcm_next_device(handle, &dev) < 0)
                 qWarning("snd_ctl_pcm_next_device");
             if (dev < 0)
                 break;
             snd_pcm_info_set_device(pcminfo, dev);
             snd_pcm_info_set_subdevice(pcminfo, 0);
-            snd_pcm_info_set_stream(pcminfo, SND_PCM_STREAM_PLAYBACK);
+            snd_pcm_info_set_stream(pcminfo,
+                                    SND_PCM_STREAM_PLAYBACK);
             if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
                 if (err != -ENOENT)
-                    qWarning("control digital audio info (%i): %s", card,
-                             snd_strerror(err));
+                    qWarning("control digital audio info (%i): "
+                             "%s", card, snd_strerror(err));
                 continue;
             }
             count = snd_pcm_info_get_subdevices_count(pcminfo);
 
-//          qDebug("card %i: %s [%s], device %i: %s [%s]",
-//              card,
-//              snd_ctl_card_info_get_id(info),
-//              snd_ctl_card_info_get_name(info),
-//              dev,
-//              snd_pcm_info_get_id(pcminfo),
-//              snd_pcm_info_get_name(pcminfo));
-
-            // add the device to the list
             QString hw_device;
             hw_device = _("plughw:%1,%2");
             hw_device = hw_device.arg(card).arg(dev);
 
-            QString card_name   = _(snd_ctl_card_info_get_name(info));
+            QString card_name = _(snd_ctl_card_info_get_name(info));
             QString device_name = _(snd_pcm_info_get_name(pcminfo));
 
-//          qDebug("  Subdevices: %i/%i\n",
-//              snd_pcm_info_get_subdevices_avail(pcminfo), count);
-            if (count > 1) {
-                for (idx = 0; idx < Kwave::toInt(count); idx++) {
-                    snd_pcm_info_set_subdevice(pcminfo, idx);
-                    if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
-                        qWarning("ctrl digital audio playback info (%i): %s",
-                                 card, snd_strerror(err));
-                    } else {
-                        QString hwdev = hw_device + _(",%1").arg(idx);
-                        QString subdevice_name =
-                            _(snd_pcm_info_get_subdevice_name(pcminfo));
-                        QString full_name = QString(
-                            i18n("Card %1: ", card) + card_name +
-                            _("|sound_card||") +
-                            i18n("Device %1: ", dev) + device_name +
-                            _("|sound_device||") +
-                            i18n("Subdevice %1: ", idx) + subdevice_name +
-                            _("|sound_subdevice")
-                        );
-                        qDebug("# '%s' -> '%s'", DBG(hwdev), DBG(full_name));
-                        m_device_list.insert(full_name, hwdev);
-                    }
-                }
-            } else {
+            if (count <= 1) {
                 // no sub-devices
                 QString full_name = QString(
                     i18n("Card %1: ", card) +
@@ -839,8 +902,29 @@ void Kwave::PlayBackALSA::scanDevices()
                     i18n("Device %1: ", dev) +
                           device_name + _("|sound_subdevice")
                 );
-//              qDebug("# '%s' -> '%s'", DBG(hw_device), DBG(name));
                 m_device_list.insert(full_name, hw_device);
+                continue;
+            }
+
+            for (idx = 0; idx < Kwave::toInt(count); idx++) {
+                snd_pcm_info_set_subdevice(pcminfo, idx);
+                if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
+                    qWarning("ctrl digital audio playback info "
+                             "(%i): %s", card, snd_strerror(err));
+                    continue;
+                }
+                QString hwdev = hw_device + _(",%1").arg(idx);
+                QString subdevice_name =
+                    _(snd_pcm_info_get_subdevice_name(pcminfo));
+                QString full_name = QString(
+                    i18n("Card %1: ", card) + card_name +
+                    _("|sound_card||") +
+                    i18n("Device %1: ", dev) + device_name +
+                    _("|sound_device||") +
+                    i18n("Subdevice %1: ", idx) + subdevice_name +
+                    _("|sound_subdevice")
+                );
+                m_device_list.insert(full_name, hwdev);
             }
         }
         snd_ctl_close(handle);
@@ -851,17 +935,57 @@ next_card:
         }
     }
 
-    // per default: offer the dmix plugin and the default device
-    // if slave devices exist
-    if (!m_device_list.isEmpty()) {
-        m_device_list.insert(i18n("DMIX plugin") +
-                             _("|sound_note"),
-                             _("plug:dmix"));
-        m_device_list.insert(DEFAULT_DEVICE, _("default"));
-    } else {
-        m_device_list.insert(NULL_DEVICE, _("null"));
-    }
+    // 2. scan logical/virtual pcm devices under a dedicated
+    //    sub-tree, skipping anything that isn't actually usable
+    //    for playback
+    void **hints = nullptr;
+    if ((snd_device_name_hint(-1, "pcm", &hints) == 0) && hints) {
+        for (void **h = hints; *h != nullptr; ++h) {
+            char *name_raw = snd_device_name_get_hint(*h, "NAME");
+            char *desc_raw = snd_device_name_get_hint(*h, "DESC");
+            char *ioid_raw = snd_device_name_get_hint(*h, "IOID");
 
+            const QString device_name = name_raw ?
+                QString::fromLocal8Bit(name_raw) : QString();
+            const QString description = desc_raw ?
+                QString::fromLocal8Bit(desc_raw).trimmed() :
+                QString();
+            const QString io_direction = ioid_raw ?
+                QString::fromLocal8Bit(ioid_raw) : QString();
+
+            if (name_raw) free(name_raw);
+            if (desc_raw) free(desc_raw);
+            if (ioid_raw) free(ioid_raw);
+
+            // skip pure capture-only devices
+            if (io_direction == _("Input"))
+                continue;
+
+            if (device_name.isEmpty())
+                continue;
+
+            if (!isRelevantPlaybackHint(device_name))
+                continue;
+
+            // opens fine but not really usable? skip it, so we
+            // never offer a device that would fail once selected
+            if (!probePlaybackDevice(device_name))
+                continue;
+
+            QString label = virtualPlaybackLabel(description,
+                                                 device_name);
+
+            // place virtual devices in a separate subtree node
+            QString full_name =
+                i18n("Virtual / ALSA Plugins") +
+                _("|sound_card||") +
+                label +
+                _("|sound_device");
+            m_device_list.insert(full_name, device_name);
+        }
+
+        snd_device_name_free_hint(hints);
+    }
 }
 
 //***************************************************************************

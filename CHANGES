@@ -24,6 +24,9 @@
     the bottleneck of signal/slot processing is no longer relevant.
  * fixed selection of compression, sample format and resolution (bits/sample)
    when saving (made it depend on file format / compression / sample format)
+ * playback via ALSA:
+   - refactored device detection, made virtual devices available
+   - removed hardcoded default devices
  * playback via PulseAudio: refactored to use threadened API
  * playback via Qt:
    - moved processing into a separate thread

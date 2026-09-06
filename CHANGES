@@ -26,7 +26,8 @@
    when saving (made it depend on file format / compression / sample format)
  * playback via ALSA:
    - refactored device detection, made virtual devices available
-   - removed hardcoded default devices
+   - removed hardcoded default device
+   - always add "null" device to the list
  * playback via PulseAudio: refactored to use threadened API
  * playback via Qt:
    - moved processing into a separate thread

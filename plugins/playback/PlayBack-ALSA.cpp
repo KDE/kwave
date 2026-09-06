@@ -47,9 +47,6 @@
 
 QMap<QString, QString> Kwave::PlayBackALSA::m_device_list;
 
-/** gui name of the default device */
-#define DEFAULT_DEVICE (i18n("Default device") + _("|sound_note"))
-
 /** gui name of the null device */
 #define NULL_DEVICE (i18n("Null device") + _("|sound_note"))
 
@@ -390,24 +387,6 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
                             SND_PCM_NONBLOCK);
     if (err < 0) return err;
 
-#if 0
-    // this would be very nice if it works, but currently (alsa-1.0.8)
-    // it causes only a segfault :-(
-    err = snd_spcm_init(m_handle,
-        (unsigned int)m_rate,
-        m_channels,
-        SND_PCM_FORMAT_S16_LE,
-        SND_PCM_SUBFORMAT_STD,
-        SND_SPCM_LATENCY_MEDIUM,
-        SND_PCM_ACCESS_RW_INTERLEAVED,
-        SND_SPCM_XRUN_IGNORE
-        );
-    if (err < 0) {
-        qWarning("Cannot initialize '%s': %s",
-                 device.local8Bit().data(), snd_strerror(err));
-        return err;
-    }
-#else
     if ((err = snd_pcm_hw_params_any(m_handle, hw_params)) < 0) {
         qWarning("Cannot initialize hardware parameters: %s",
                  snd_strerror(err));
@@ -529,7 +508,6 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
         snd_pcm_dump(m_handle, output);
         qWarning("Unable to set software parameters: %s", snd_strerror(err));
     }
-#endif
 
     snd_pcm_dump(m_handle, output);
     snd_output_close(output);
@@ -986,6 +964,8 @@ next_card:
 
         snd_device_name_free_hint(hints);
     }
+
+    m_device_list.insert(NULL_DEVICE, _("null"));
 }
 
 //***************************************************************************
@@ -1026,8 +1006,6 @@ QStringList Kwave::PlayBackALSA::supportedDevices()
     // move "default" or "null" to the start of the list
     if (list.contains(NULL_DEVICE))
         list.move(list.indexOf(NULL_DEVICE), 0);
-    if (list.contains(DEFAULT_DEVICE))
-        list.move(list.indexOf(DEFAULT_DEVICE), 0);
 
     if (!list.isEmpty()) list.append(_("#TREE#"));
 

@@ -70,6 +70,7 @@ SET(libkwave_LIB_SRCS
     SampleEncoderALaw.cpp
     SampleEncoderFloat.cpp
     SampleEncoderLinear.cpp
+    SampleEncoderULaw.cpp
     SampleFIFO.cpp
     SampleFormat.cpp
     SampleReader.cpp
@@ -130,6 +131,7 @@ SET(libkwave_LIB_SRCS
     SampleEncoderALaw.h
     SampleEncoderFloat.h
     SampleEncoderLinear.h
+    SampleEncoderULaw.h
     SampleFIFO.h
     SampleFormat.h
     SampleReader.h

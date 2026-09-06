@@ -27,6 +27,7 @@
  * libkwave:
    - implemented SampleEncoderFloat
    - implemented SampleEncoderALaw
+   - implemented SampleEncoderULaw
  * playback via ALSA:
    - added sample formats G.711 A-Law/U-Law and IEEE Float
    - refactored device detection, made virtual devices available

@@ -391,6 +391,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libkwave/SampleEncoderFloat.h                   GPL2+
         libkwave/SampleEncoderLinear.cpp                GPL2+
         libkwave/SampleEncoderLinear.h                  GPL2+
+        libkwave/SampleEncoderULaw.cpp                  GPL2+
+        libkwave/SampleEncoderULaw.h                    GPL2+
         libkwave/SampleFIFO.cpp                         GPL2+
         libkwave/SampleFIFO.h                           GPL2+
         libkwave/SampleFormat.cpp                       GPL2+

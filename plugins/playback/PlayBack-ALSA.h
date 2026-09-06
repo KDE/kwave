@@ -161,7 +161,7 @@ namespace Kwave
          * Walk through the list of all known formats and collect the
          * ones that are supported into "m_supported_formats".
          */
-        QList<int> detectSupportedFormats(const QString &device);
+        void detectSupportedFormats(const QString &device);
 
         /**
          * create a ALSA device format (enum) from parameters.
@@ -226,7 +226,7 @@ namespace Kwave
          * Only valid after a successful call to "open()",
          * otherwise empty
          */
-        QList<int> m_supported_formats;
+        QList<snd_pcm_format_t> m_supported_formats;
 
         /** encoder for conversion from samples to raw */
         Kwave::SampleEncoder *m_encoder;

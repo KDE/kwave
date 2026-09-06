@@ -135,13 +135,15 @@ static Kwave::SampleFormat::Format sample_format_of(snd_pcm_format_t fmt)
             return Kwave::SampleFormat::Signed;
         else if (snd_pcm_format_unsigned(fmt) == 1)
             return Kwave::SampleFormat::Unsigned;
-    }
+    } else if (fmt == SND_PCM_FORMAT_A_LAW)
+        return Kwave::SampleFormat::Unsigned;
+    else if (fmt == SND_PCM_FORMAT_MU_LAW)
+        return Kwave::SampleFormat::Unsigned;
 
     return Kwave::SampleFormat::Unknown;
 }
 
 //***************************************************************************
-/** find out the endianness of an ALSA format */
 static Kwave::byte_order_t endian_of(snd_pcm_format_t fmt)
 {
     if (snd_pcm_format_little_endian(fmt) == 1)
@@ -149,6 +151,27 @@ static Kwave::byte_order_t endian_of(snd_pcm_format_t fmt)
     if (snd_pcm_format_big_endian(fmt) == 1)
         return Kwave::BigEndian;
     return Kwave::CpuEndian;
+}
+
+//***************************************************************************
+static Kwave::Compression::Type compression_of(snd_pcm_format_t fmt)
+{
+    Kwave::Compression::Type c = Kwave::Compression::NONE;
+    switch (fmt) {
+        case SND_PCM_FORMAT_MU_LAW:
+            c = Kwave::Compression::G711_ULAW;    break;
+        case SND_PCM_FORMAT_A_LAW:
+            c = Kwave::Compression::G711_ALAW;    break;
+        default:
+            break;
+    }
+    return c;
+}
+
+//***************************************************************************
+static inline unsigned int bits_of(snd_pcm_format_t fmt)
+{
+    return snd_pcm_format_width(fmt);
 }
 
 //***************************************************************************
@@ -281,63 +304,46 @@ int Kwave::PlayBackALSA::mode2format(int bits)
 }
 
 //***************************************************************************
-QList<int> Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
+void Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
 {
     // start with an empty list
-    QList<int> supported_formats;
+    m_supported_formats.clear();
 
     ALSA_MALLOC_WRAPPER(snd_pcm_hw_params) p;
 
-    if (!p) return supported_formats;
+    if (!p) return;
 
     snd_pcm_t *pcm = openDevice(device);
-    if (!pcm) return supported_formats;
+    if (!pcm) return;
 
     if (snd_pcm_hw_params_any(pcm, p) < 0) {
         if (pcm != m_handle) snd_pcm_close(pcm);
-        return supported_formats;
+        return;
     }
 
     // try all known formats
-//     qDebug("--- list of supported formats --- ");
-    const unsigned int count =
-        sizeof(_known_formats) / sizeof(_known_formats[0]);
-    for (unsigned int i=0; i < count; i++) {
+    qDebug("--- list of supported formats --- ");
+    for (const snd_pcm_format_t &fmt : _known_formats) {
         // test the sample format
-        snd_pcm_format_t format = _known_formats[i];
-        int err = snd_pcm_hw_params_test_format(pcm, p, format);
+        int err = snd_pcm_hw_params_test_format(pcm, p, fmt);
         if (err < 0) continue;
 
-        const snd_pcm_format_t *fmt = &(_known_formats[i]);
+        // eliminate duplicate ALSE sample formats
+        if (m_supported_formats.contains(fmt))
+            continue;
 
-        // eliminate duplicate alsa sample formats (e.g. BE/LE)
-        for (int index : m_supported_formats) {
-            const snd_pcm_format_t *f = &_known_formats[index];
-            if (*f == *fmt) {
-                fmt = nullptr;
-                break;
-            }
-        }
-        if (!fmt) continue;
+        qDebug("detected[%3d]: comp=%3d, bits=%2u, fmt=%3d",
+               int(fmt),
+               int(compression_of(fmt)),
+               bits_of(fmt),
+               int(sample_format_of(fmt))
+        );
 
-//      Kwave::Compression t;
-//      Kwave::SampleFormat::Map sf;
-//      qDebug("#%2u, %2d, %2u bit [%u byte], %s, '%s'",
-//          i,
-//          *fmt,
-//          snd_pcm_format_width(*fmt),
-//          (snd_pcm_format_physical_width(*fmt)+7) >> 3,
-//          endian_of(*fmt) == Kwave::CpuEndian ? "CPU" :
-//          (endian_of(*fmt) == Kwave::LittleEndian ? "LE " : "BE "),
-//          sf.description(sf.findFromData(sample_format_of(
-//              *fmt), true)).local8Bit().data());
-
-        supported_formats.append(i);
+        m_supported_formats.append(fmt);
     }
-//     qDebug("--------------------------------- ");
+    qDebug("--------------------------------- ");
 
     if (pcm != m_handle) snd_pcm_close(pcm);
-    return supported_formats;
 }
 
 //***************************************************************************
@@ -560,7 +566,7 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
     m_encoder = nullptr;
 
     // initialize the list of supported formats
-    m_supported_formats = detectSupportedFormats(device);
+    detectSupportedFormats(device);
 
     int err = openDevice(device, Kwave::toUint(rate), channels, bits);
     if (err) {
@@ -944,14 +950,12 @@ snd_pcm_t *Kwave::PlayBackALSA::openDevice(const QString &device)
 //***************************************************************************
 QList<unsigned int> Kwave::PlayBackALSA::supportedBits(const QString &device)
 {
-    QList<unsigned int> list;
-    QList<int> supported_formats;
+    detectSupportedFormats(device);
 
     // try all known sample formats
-    supported_formats = detectSupportedFormats(device);
-    for (int index : supported_formats) {
-        const snd_pcm_format_t *fmt = &(_known_formats[index]);
-        const unsigned int bits = snd_pcm_format_width(*fmt);
+    QList<unsigned int> list;
+    for (const snd_pcm_format_t &fmt : m_supported_formats) {
+        const unsigned int bits = snd_pcm_format_width(fmt);
 
         // 0  bits means invalid/does not apply
         if (!bits) continue;
@@ -959,10 +963,8 @@ QList<unsigned int> Kwave::PlayBackALSA::supportedBits(const QString &device)
         // do not produce duplicates
         if (list.contains(bits)) continue;
 
-//      qDebug("found bits/sample %u", bits);
         list.append(bits);
     }
-
     return list;
 }
 

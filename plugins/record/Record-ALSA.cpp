@@ -32,9 +32,6 @@
 /** initializer for the list of devices */
 QMap<QString, QString> Kwave::RecordALSA::m_device_list;
 
-/** helper macro: returns the number of elements in an array */
-#define ELEMENTS_OF(__array__) (sizeof(__array__) / sizeof(__array__[0]))
-
 //***************************************************************************
 
 /* define some endian dependent symbols that are missing in ALSA */
@@ -141,7 +138,6 @@ static const snd_pcm_format_t _known_formats[] =
 };
 
 //***************************************************************************
-/** find out the SampleFormat of an ALSA format */
 static Kwave::SampleFormat::Format sample_format_of(snd_pcm_format_t fmt)
 {
     if (snd_pcm_format_float(fmt)) {
@@ -163,7 +159,6 @@ static Kwave::SampleFormat::Format sample_format_of(snd_pcm_format_t fmt)
 }
 
 //***************************************************************************
-/** find out the endianness of an ALSA format */
 static Kwave::byte_order_t endian_of(snd_pcm_format_t fmt)
 {
     if (snd_pcm_format_little_endian(fmt) == 1)
@@ -795,9 +790,7 @@ QList<double> Kwave::RecordALSA::detectSampleRates()
     };
 
     // try all known sample rates
-    for (unsigned int i = 0; i < ELEMENTS_OF(known_rates); i++) {
-        unsigned int rate = known_rates[i];
-
+    for (unsigned int rate : known_rates) {
         int err = snd_pcm_hw_params_test_rate(m_handle, m_hw_params, rate, 0);
         if (err < 0) continue;
 

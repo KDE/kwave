@@ -953,7 +953,7 @@
 >-display</literal
 > per a iniciar el &kwave; en una pantalla diferent. </para>
 	    <para
->Per exemple, l'ordre següent inicia una finestra del &kwave; amb una amplada inicial de 600 píxels i una alçada de 400 píxels, amb la vora dreta ubicada a 30 píxels de la dreta i 0 píxels de la part superior de la pantalla. <screen
+>Per exemple, l'ordre següent inicia una finestra del &kwave; amb una amplada inicial de 600 píxels i una altura de 400 píxels, amb la vora dreta ubicada a 30 píxels de la dreta i 0 píxels de la part superior de la pantalla. <screen
 ><prompt
 >% </prompt
 ><command
@@ -6530,12 +6530,12 @@
 >, <replaceable
 >amplada</replaceable
 >, <replaceable
->alçada</replaceable
+>altura</replaceable
 > )</title>
 	    <para
 >Canvia la mida d'una finestra, identificada pel seu nom de <replaceable
 >classe</replaceable
-> a una amplada i alçada nova. El canvi només s'aplicarà a la primera finestra que tingui el nom de la classe indicada, per tant, haureu d'assegurar-vos que només teniu una instància de la finestra indicada quan s'executi aquesta ordre. </para>
+> a una amplada i altura nova. El canvi només s'aplicarà a la primera finestra que tingui el nom de la classe indicada, per tant, haureu d'assegurar-vos que només teniu una instància de la finestra indicada quan s'executi aquesta ordre. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -6562,10 +6562,10 @@
 	    <row
 ><entry
 ><parameter
->alçada</parameter
+>altura</parameter
 >:</entry>
 		<entry
->l'alçada nova de la finestra (en píxels)</entry
+>l'altura nova de la finestra (en píxels)</entry
 ></row>
 	</tbody
 ></tgroup

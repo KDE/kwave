@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-06 00:44+0000\n"
+"POT-Creation-Date: 2026-09-07 00:44+0000\n"
 "PO-Revision-Date: 2026-08-31 09:38+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
@@ -1194,11 +1194,11 @@ msgstr "Chargement du fichier « %1 »…"
 #: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:633
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:544
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:164 plugins/playback/PlayBack-Qt.cpp:175
-#: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:984
-#: plugins/record/RecordPlugin.cpp:1002 plugins/record/RecordPlugin.cpp:1071
+#: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:986
+#: plugins/record/RecordPlugin.cpp:1004 plugins/record/RecordPlugin.cpp:1073
 #, kde-format
 msgid "Out of memory"
 msgstr "Mémoire insuffisante"
@@ -3401,7 +3401,7 @@ msgstr ""
 "Voulez-vous poursuivre malgré tout ?"
 
 #: libkwave/SignalManager.cpp:429 plugins/about/AboutDialog.cpp:75
-#: plugins/record/RecordPlugin.cpp:1092
+#: plugins/record/RecordPlugin.cpp:1094
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(développé sous KDE Frameworks version %1)"
@@ -3923,43 +3923,43 @@ msgid "Creative Voice"
 msgstr "Creative Voice"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:100
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:542
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:540
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Ce format ou cette fonction n'est pas implémenté"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_wav/WavEncoder.cpp:549
+#: plugins/codec_wav/WavEncoder.cpp:547
 #, kde-format
 msgid "File header is damaged"
 msgstr "L'en-tête du fichier est endommagé"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:109
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:552
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:550
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Type de codec non valable"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:112
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:556
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:554
 #, kde-format
 msgid "Opening the file failed"
 msgstr "L'ouverture du fichier a échoué"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:115
-#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:559
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:557
 #, kde-format
 msgid "Read access failed"
 msgstr "Échec d'accès en lecture"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
-#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:562
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:560
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Format d'échantillon non valable"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:124
-#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:568
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:566
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4103,7 +4103,7 @@ msgstr ""
 "Le format du fichier sélectionné prend en charge uniquement mono et stéréo. "
 "Une conversion en mode stéréo aura lieux lors de l'enregistrement."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:495
+#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:493
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Impossible d'ouvrir le fichier pour l'enregistrement !"
@@ -4863,7 +4863,7 @@ msgstr "l'en-tête du fichier est endommagé"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "erreur interne de libaudiofile #%1 : « %2 »"
 
-#: plugins/codec_wav/WavEncoder.cpp:448
+#: plugins/codec_wav/WavEncoder.cpp:446
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4872,17 +4872,17 @@ msgstr ""
 "Désolé, vous ne pouvez pas enregistrer avec ce type de compression. Voulez-"
 "vous utiliser la compression « G711 uLaw » plutôt ?"
 
-#: plugins/codec_wav/WavEncoder.cpp:451
+#: plugins/codec_wav/WavEncoder.cpp:449
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "&Oui, utiliser G711"
 
-#: plugins/codec_wav/WavEncoder.cpp:452
+#: plugins/codec_wav/WavEncoder.cpp:450
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&Non, enregistrer sans compression"
 
-#: plugins/codec_wav/WavEncoder.cpp:501 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:499 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "Le fichier ou la sélection est trop volumineux"
@@ -5272,10 +5272,8 @@ msgstr ""
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 échantillons)"
 
-#. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/fileinfo/FileInfoDialog.cpp:281 plugins/record/RecordDialog.cpp:602
-#: plugins/record/RecordDlg.ui:1133
-#, no-c-format, kde-format
+#, kde-format
 msgid "%1 samples"
 msgstr "%1 échantillons"
 
@@ -6068,18 +6066,12 @@ msgstr ""
 msgid "by Factor"
 msgstr "d'un coefficient"
 
-#: plugins/playback/PlayBack-ALSA.cpp:51 plugins/playback/PlayBack-Qt.cpp:44
-#: plugins/record/Record-Qt.cpp:49
-#, kde-format
-msgid "Default device"
-msgstr "Périphérique par défaut"
-
 #: plugins/playback/PlayBack-ALSA.cpp:54
 #, kde-format
 msgid "Null device"
 msgstr "Périphérique nul"
 
-#: plugins/playback/PlayBack-ALSA.cpp:573 plugins/playback/PlayBack-OSS.cpp:140
+#: plugins/playback/PlayBack-ALSA.cpp:619 plugins/playback/PlayBack-OSS.cpp:140
 #, kde-format
 msgid ""
 "I/O error. Maybe the driver\n"
@@ -6090,7 +6082,7 @@ msgstr ""
 "est absent dans le noyau système ou n'est pas\n"
 "correctement configuré."
 
-#: plugins/playback/PlayBack-ALSA.cpp:579 plugins/playback/PlayBack-OSS.cpp:146
+#: plugins/playback/PlayBack-ALSA.cpp:625 plugins/playback/PlayBack-OSS.cpp:146
 #, kde-format
 msgid ""
 "The device is busy. Maybe some other application is\n"
@@ -6104,34 +6096,34 @@ msgstr ""
 "(Astuce: vous pouvez déterminer le nom et l'identifiant numérique du\n"
 "programme avec la commande : « fuser -v %1 »). "
 
-#: plugins/playback/PlayBack-ALSA.cpp:587
+#: plugins/playback/PlayBack-ALSA.cpp:633
 #, kde-format
 msgid "Opening the device '%1' failed: %2"
 msgstr "Ouverture du périphérique « %1 » a échoué : %2"
 
-#: plugins/playback/PlayBack-ALSA.cpp:817
-#: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1061
-#: plugins/record/Record-ALSA.cpp:1074
+#: plugins/playback/PlayBack-ALSA.cpp:940
+#: plugins/playback/PlayBack-ALSA.cpp:960 plugins/record/Record-ALSA.cpp:1120
+#: plugins/record/Record-ALSA.cpp:1140
 #, kde-format
 msgid "Card %1: "
 msgstr "Carte %1 :"
 
-#: plugins/playback/PlayBack-ALSA.cpp:819
-#: plugins/playback/PlayBack-ALSA.cpp:833 plugins/record/Record-ALSA.cpp:1063
-#: plugins/record/Record-ALSA.cpp:1076
+#: plugins/playback/PlayBack-ALSA.cpp:942
+#: plugins/playback/PlayBack-ALSA.cpp:962 plugins/record/Record-ALSA.cpp:1122
+#: plugins/record/Record-ALSA.cpp:1142
 #, kde-format
 msgid "Device %1: "
 msgstr "Périphérique %1 :"
 
-#: plugins/playback/PlayBack-ALSA.cpp:821 plugins/record/Record-ALSA.cpp:1065
+#: plugins/playback/PlayBack-ALSA.cpp:964 plugins/record/Record-ALSA.cpp:1144
 #, kde-format
 msgid "Subdevice %1: "
 msgstr "Sous-périphérique %1 :"
 
-#: plugins/playback/PlayBack-ALSA.cpp:851
+#: plugins/playback/PlayBack-ALSA.cpp:1020 plugins/record/Record-ALSA.cpp:1202
 #, kde-format
-msgid "DMIX plugin"
-msgstr "Module externe DMIX"
+msgid "Virtual / ALSA Plugins"
+msgstr ""
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6209,6 +6201,11 @@ msgstr "Échec d'ouverture d'un flux PulseAudio pour la lecture (%1)."
 #, kde-format
 msgid "(Use server default)"
 msgstr "(Utilise le serveur par défaut)"
+
+#: plugins/playback/PlayBack-Qt.cpp:44 plugins/record/Record-Qt.cpp:49
+#, kde-format
+msgid "Default device"
+msgstr "Périphérique par défaut"
 
 #: plugins/playback/PlayBack-Qt.cpp:132
 #, kde-format
@@ -6501,11 +6498,6 @@ msgstr ""
 #, kde-format
 msgid "%1 dB"
 msgstr "%1 dB"
-
-#: plugins/record/Record-ALSA.cpp:36
-#, kde-format
-msgid "DSNOOP plugin"
-msgstr "Module externe DSNOOP"
 
 #: plugins/record/Record-OSS.cpp:306
 #, kde-format
@@ -6981,6 +6973,13 @@ msgstr ""
 msgid "Selec&t..."
 msgstr "Sélec&tionner..."
 
+#. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
+#: plugins/record/RecordDlg.ui:1133
+#, fuzzy, kde-format
+#| msgid "0%"
+msgid "0"
+msgstr "0 %"
+
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
 #, kde-format
@@ -7079,29 +7078,29 @@ msgid "%1 bits per sample failed, using %2 bits per sample"
 msgstr ""
 "Échec de %1 bits par échantillon, utilisation de %2 bits par échantillon"
 
-#: plugins/record/RecordPlugin.cpp:800
+#: plugins/record/RecordPlugin.cpp:803
 #, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
 msgstr ""
 "Le format d'échantillon « %1 » n'est pas pris en charge, utilisation de "
 "« %2 »"
 
-#: plugins/record/RecordPlugin.cpp:816
+#: plugins/record/RecordPlugin.cpp:819
 #, kde-format
 msgid "Sample format '%1' failed, using '%2'"
 msgstr "Échec du format d'échantillon « %1 », utilisation de « %2 »"
 
-#: plugins/record/RecordPlugin.cpp:964
+#: plugins/record/RecordPlugin.cpp:967
 #, kde-format
 msgid "The current sample format is not supported!"
 msgstr "Le format d'échantillon actuel n'est pas pris en charge !"
 
-#: plugins/record/RecordPlugin.cpp:977
+#: plugins/record/RecordPlugin.cpp:980
 #, kde-format
 msgid "The current compression type is not supported!"
 msgstr "Le type de compression actuel n'est pas pris en charge !"
 
-#: plugins/record/RecordPlugin.cpp:1116
+#: plugins/record/RecordPlugin.cpp:1118
 #, kde-format
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
@@ -7109,12 +7108,12 @@ msgstr ""
 "Dépassement de tampon. Augmenter le nombre ou la taille des tampons "
 "d'enregistrement."
 
-#: plugins/record/RecordPlugin.cpp:1120
+#: plugins/record/RecordPlugin.cpp:1122
 #, kde-format
 msgid "The recording device seems to be busy."
 msgstr "Le périphérique d'enregistrement semble en cours d'utilisation."
 
-#: plugins/record/RecordPlugin.cpp:1123
+#: plugins/record/RecordPlugin.cpp:1125
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr ""
@@ -7633,6 +7632,12 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Silence"
+
+#~ msgid "DMIX plugin"
+#~ msgstr "Module externe DMIX"
+
+#~ msgid "DSNOOP plugin"
+#~ msgstr "Module externe DSNOOP"
 
 #~ msgid "T.H.F. Klok and Cedric Tefft"
 #~ msgstr "T.H.F. Klok et Cedric Tefft"

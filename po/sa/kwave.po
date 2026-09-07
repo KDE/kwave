@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-06 00:44+0000\n"
+"POT-Creation-Date: 2026-09-07 00:44+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1185,11 +1185,11 @@ msgstr "'%1' सञ्चिकां लोड् क्रियते..."
 #: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:633
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:544
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:164 plugins/playback/PlayBack-Qt.cpp:175
-#: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:984
-#: plugins/record/RecordPlugin.cpp:1002 plugins/record/RecordPlugin.cpp:1071
+#: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:986
+#: plugins/record/RecordPlugin.cpp:1004 plugins/record/RecordPlugin.cpp:1073
 #, kde-format
 msgid "Out of memory"
 msgstr "स्मृतेः बहिः"
@@ -3393,7 +3393,7 @@ msgstr ""
 "किं त्वं अद्यापि निरन्तरं कर्तुम् इच्छसि ?"
 
 #: libkwave/SignalManager.cpp:429 plugins/about/AboutDialog.cpp:75
-#: plugins/record/RecordPlugin.cpp:1092
+#: plugins/record/RecordPlugin.cpp:1094
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(KDE Frameworks %1 इत्यनेन सह निर्मितम्)"
@@ -3909,43 +3909,43 @@ msgid "Creative Voice"
 msgstr "सृजनात्मक स्वर"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:100
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:542
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:540
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "प्रारूपं वा कार्यं वा कार्यान्वितं न भवति"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_wav/WavEncoder.cpp:549
+#: plugins/codec_wav/WavEncoder.cpp:547
 #, kde-format
 msgid "File header is damaged"
 msgstr "सञ्चिकाशीर्षकं क्षतिग्रस्तम् अस्ति"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:109
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:552
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:550
 #, kde-format
 msgid "Invalid codec type"
 msgstr "अमान्यः कोडेकप्रकारः"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:112
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:556
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:554
 #, kde-format
 msgid "Opening the file failed"
 msgstr "सञ्चिकां उद्घाटयितुं असफलम् अभवत्"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:115
-#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:559
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:557
 #, kde-format
 msgid "Read access failed"
 msgstr "पठनप्रवेशः विफलः अभवत्"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
-#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:562
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:560
 #, kde-format
 msgid "Invalid sample format"
 msgstr "अमान्य नमूना प्रारूप"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:124
-#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:568
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:566
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4098,7 +4098,7 @@ msgstr ""
 "भवता चयनितं सञ्चिकास्वरूपं केवलं मोनो अथवा स्टीरियो समर्थयति । रक्षणकाले एषा सञ्चिका "
 "स्टीरियो यावत् मिश्रिता भविष्यति ।"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:495
+#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:493
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "रक्षणार्थं सञ्चिकां उद्घाटयितुं असमर्थः!"
@@ -4849,7 +4849,7 @@ msgstr "सञ्चिकाशीर्षकं क्षतिग्रस�
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "आन्तरिक libaudiofile त्रुटि #%1: '%2'."
 
-#: plugins/codec_wav/WavEncoder.cpp:448
+#: plugins/codec_wav/WavEncoder.cpp:446
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4858,17 +4858,17 @@ msgstr ""
 "क्षम्यतां, वर्तमानकाले चयनितः संपीडनप्रकारः रक्षणार्थं उपयोक्तुं न शक्यते । किं भवान् तस्य "
 "स्थाने G711 ULAW संपीडनस्य उपयोगं कर्तुम् इच्छति?"
 
-#: plugins/codec_wav/WavEncoder.cpp:451
+#: plugins/codec_wav/WavEncoder.cpp:449
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "&आम्, G711 इत्यस्य उपयोगं कुर्वन्तु"
 
-#: plugins/codec_wav/WavEncoder.cpp:452
+#: plugins/codec_wav/WavEncoder.cpp:450
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&न, असंपीडितः भण्डारः"
 
-#: plugins/codec_wav/WavEncoder.cpp:501 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:499 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "सञ्चिका अथवा चयनम् अतिविशालम्"
@@ -5255,10 +5255,8 @@ msgstr ""
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 नमूनानि)"
 
-#. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/fileinfo/FileInfoDialog.cpp:281 plugins/record/RecordDialog.cpp:602
-#: plugins/record/RecordDlg.ui:1133
-#, no-c-format, kde-format
+#, kde-format
 msgid "%1 samples"
 msgstr "%1 नमूनानि"
 
@@ -6035,18 +6033,12 @@ msgstr ""
 msgid "by Factor"
 msgstr "कारक द्वारा"
 
-#: plugins/playback/PlayBack-ALSA.cpp:51 plugins/playback/PlayBack-Qt.cpp:44
-#: plugins/record/Record-Qt.cpp:49
-#, kde-format
-msgid "Default device"
-msgstr "पूर्वनिर्धारितयन्त्रम्"
-
 #: plugins/playback/PlayBack-ALSA.cpp:54
 #, kde-format
 msgid "Null device"
 msgstr "शून्यं यन्त्रम्"
 
-#: plugins/playback/PlayBack-ALSA.cpp:573 plugins/playback/PlayBack-OSS.cpp:140
+#: plugins/playback/PlayBack-ALSA.cpp:619 plugins/playback/PlayBack-OSS.cpp:140
 #, kde-format
 msgid ""
 "I/O error. Maybe the driver\n"
@@ -6057,7 +6049,7 @@ msgstr ""
 "भवतः कर्नेल् मध्ये नास्ति अथवा नास्ति\n"
 "सम्यक् विन्यस्तम्।"
 
-#: plugins/playback/PlayBack-ALSA.cpp:579 plugins/playback/PlayBack-OSS.cpp:146
+#: plugins/playback/PlayBack-ALSA.cpp:625 plugins/playback/PlayBack-OSS.cpp:146
 #, kde-format
 msgid ""
 "The device is busy. Maybe some other application is\n"
@@ -6072,34 +6064,34 @@ msgstr ""
 "कार्यक्रमं आह्वयित्वा: \"fuser -v %1\" इति।\n"
 "आदेशपङ्क्तौ ।)"
 
-#: plugins/playback/PlayBack-ALSA.cpp:587
+#: plugins/playback/PlayBack-ALSA.cpp:633
 #, kde-format
 msgid "Opening the device '%1' failed: %2"
 msgstr "'%1' इति यन्त्रं उद्घाटयितुं विफलम्: %2"
 
-#: plugins/playback/PlayBack-ALSA.cpp:817
-#: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1061
-#: plugins/record/Record-ALSA.cpp:1074
+#: plugins/playback/PlayBack-ALSA.cpp:940
+#: plugins/playback/PlayBack-ALSA.cpp:960 plugins/record/Record-ALSA.cpp:1120
+#: plugins/record/Record-ALSA.cpp:1140
 #, kde-format
 msgid "Card %1: "
 msgstr "कार्ड %1: . "
 
-#: plugins/playback/PlayBack-ALSA.cpp:819
-#: plugins/playback/PlayBack-ALSA.cpp:833 plugins/record/Record-ALSA.cpp:1063
-#: plugins/record/Record-ALSA.cpp:1076
+#: plugins/playback/PlayBack-ALSA.cpp:942
+#: plugins/playback/PlayBack-ALSA.cpp:962 plugins/record/Record-ALSA.cpp:1122
+#: plugins/record/Record-ALSA.cpp:1142
 #, kde-format
 msgid "Device %1: "
 msgstr "यन्त्रम् %1: . "
 
-#: plugins/playback/PlayBack-ALSA.cpp:821 plugins/record/Record-ALSA.cpp:1065
+#: plugins/playback/PlayBack-ALSA.cpp:964 plugins/record/Record-ALSA.cpp:1144
 #, kde-format
 msgid "Subdevice %1: "
 msgstr "उपयन्त्रम् %1: . "
 
-#: plugins/playback/PlayBack-ALSA.cpp:851
+#: plugins/playback/PlayBack-ALSA.cpp:1020 plugins/record/Record-ALSA.cpp:1202
 #, kde-format
-msgid "DMIX plugin"
-msgstr "DMIX प्लगइन"
+msgid "Virtual / ALSA Plugins"
+msgstr ""
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6176,6 +6168,11 @@ msgstr "प्लेबैक् कृते PulseAudio धारा उद्�
 #, kde-format
 msgid "(Use server default)"
 msgstr "(सर्वर पूर्वनिर्धारितस्य उपयोगं कुर्वन्तु)"
+
+#: plugins/playback/PlayBack-Qt.cpp:44 plugins/record/Record-Qt.cpp:49
+#, kde-format
+msgid "Default device"
+msgstr "पूर्वनिर्धारितयन्त्रम्"
 
 #: plugins/playback/PlayBack-Qt.cpp:132
 #, kde-format
@@ -6473,11 +6470,6 @@ msgstr ""
 #, kde-format
 msgid "%1 dB"
 msgstr "%1 dB"
-
-#: plugins/record/Record-ALSA.cpp:36
-#, kde-format
-msgid "DSNOOP plugin"
-msgstr "DSNOOP प्लगइन"
 
 #: plugins/record/Record-OSS.cpp:306
 #, kde-format
@@ -6950,6 +6942,13 @@ msgstr ""
 msgid "Selec&t..."
 msgstr "विचि..."
 
+#. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
+#: plugins/record/RecordDlg.ui:1133
+#, fuzzy, kde-format
+#| msgid "0%"
+msgid "0"
+msgstr "०%"
+
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
 #, kde-format
@@ -7043,38 +7042,38 @@ msgstr "%1 बिट् प्रति नमूना समर्थितम
 msgid "%1 bits per sample failed, using %2 bits per sample"
 msgstr "प्रतिनमूना %1 बिट् विफलम्, प्रतिनमूना %2 बिट् इत्यस्य उपयोगेन"
 
-#: plugins/record/RecordPlugin.cpp:800
+#: plugins/record/RecordPlugin.cpp:803
 #, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
 msgstr "नमूनास्वरूपं '%1' समर्थितं नास्ति, '%2' इत्यस्य उपयोगेन ।"
 
-#: plugins/record/RecordPlugin.cpp:816
+#: plugins/record/RecordPlugin.cpp:819
 #, kde-format
 msgid "Sample format '%1' failed, using '%2'"
 msgstr "नमूनास्वरूपं '%1' विफलम्, '%2' इत्यस्य उपयोगेन ।"
 
-#: plugins/record/RecordPlugin.cpp:964
+#: plugins/record/RecordPlugin.cpp:967
 #, kde-format
 msgid "The current sample format is not supported!"
 msgstr "वर्तमान नमूनास्वरूपं समर्थितं नास्ति!"
 
-#: plugins/record/RecordPlugin.cpp:977
+#: plugins/record/RecordPlugin.cpp:980
 #, kde-format
 msgid "The current compression type is not supported!"
 msgstr "वर्तमानसंपीडनप्रकारः समर्थितः नास्ति!"
 
-#: plugins/record/RecordPlugin.cpp:1116
+#: plugins/record/RecordPlugin.cpp:1118
 #, kde-format
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr "बफर ओवररन। कृपया अभिलेखबफरानाम् संख्यां/आकारं वा वर्धयन्तु ।"
 
-#: plugins/record/RecordPlugin.cpp:1120
+#: plugins/record/RecordPlugin.cpp:1122
 #, kde-format
 msgid "The recording device seems to be busy."
 msgstr "रिकार्डिङ्गयन्त्रं व्यस्तं दृश्यते।"
 
-#: plugins/record/RecordPlugin.cpp:1123
+#: plugins/record/RecordPlugin.cpp:1125
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr "रिकार्डिङ्गयन्त्रात् पठनं विफलम् अभवत् । त्रुटिसङ्ख्या = %1 (%2)"
@@ -7584,6 +7583,12 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "शांति"
+
+#~ msgid "DMIX plugin"
+#~ msgstr "DMIX प्लगइन"
+
+#~ msgid "DSNOOP plugin"
+#~ msgstr "DSNOOP प्लगइन"
 
 #~ msgid "T.H.F. Klok and Cedric Tefft"
 #~ msgstr "टी.एच.एफ. क्लोक् तथा सेड्रिक् टेफ्ट्"

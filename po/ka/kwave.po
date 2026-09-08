@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-07 00:44+0000\n"
-"PO-Revision-Date: 2026-08-30 05:41+0200\n"
+"PO-Revision-Date: 2026-09-07 04:53+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -6095,7 +6095,7 @@ msgstr "ქვემოწყობილობა %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:1020 plugins/record/Record-ALSA.cpp:1202
 #, kde-format
 msgid "Virtual / ALSA Plugins"
-msgstr ""
+msgstr "ვირტუალური / ALSA-ის დამატებები"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6932,10 +6932,9 @@ msgstr "არჩ&ევა..."
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0%"
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181

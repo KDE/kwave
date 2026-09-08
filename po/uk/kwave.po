@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-07 00:44+0000\n"
-"PO-Revision-Date: 2026-08-30 15:42+0300\n"
+"PO-Revision-Date: 2026-09-07 14:11+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -6124,7 +6124,7 @@ msgstr "Підпристрій %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:1020 plugins/record/Record-ALSA.cpp:1202
 #, kde-format
 msgid "Virtual / ALSA Plugins"
-msgstr ""
+msgstr "Віртуальні додатки / Додатки ALSA"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6980,10 +6980,9 @@ msgstr "Ви&брати…"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0%"
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181

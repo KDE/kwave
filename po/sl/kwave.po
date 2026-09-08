@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-07 00:44+0000\n"
-"PO-Revision-Date: 2026-08-30 08:57+0200\n"
+"PO-Revision-Date: 2026-09-07 10:22+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -1469,12 +1469,12 @@ msgstr "Nov"
 #: libgui/LabelItem.cpp:112
 #, kde-format
 msgid "&Delete"
-msgstr "&Izbriši"
+msgstr "Izbriši"
 
 #: libgui/LabelItem.cpp:118
 #, kde-format
 msgid "&Properties..."
-msgstr "&Lastnosti ..."
+msgstr "Lastnosti ..."
 
 #: libgui/LabelItem.cpp:158
 #, kde-format
@@ -1594,7 +1594,7 @@ msgstr "izberite po številu vzorcev"
 #: libgui/SelectTimeWidgetBase.ui:41
 #, kde-format
 msgid "&Samples"
-msgstr "&Vzorci"
+msgstr "Vzorci"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbTime)
 #: libgui/SelectTimeWidgetBase.ui:54
@@ -3805,7 +3805,7 @@ msgstr "U&stavi"
 #: plugins/pitch_shift/PitchShiftDlg.ui:63
 #, kde-format
 msgid "&Listen"
-msgstr "&Poslušaj"
+msgstr "Poslušaj"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, BandPassDlg)
 #: plugins/band_pass/BandPassDlg.ui:14 plugins/band_pass/BandPassPlugin.cpp:127
@@ -4185,7 +4185,7 @@ msgstr "ročno poiščite kodirnik"
 #: plugins/fileinfo/FileInfoDlg.ui:1273 plugins/playback/PlayBackDlg.ui:98
 #, kde-format
 msgid "&Select..."
-msgstr "Iz&beri ..."
+msgstr "Izberi ..."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbProgram)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:66
@@ -4203,7 +4203,7 @@ msgstr "samodejno zaznaj nameščen kodirnik"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:92
 #, kde-format
 msgid "&Auto Detect..."
-msgstr "&Samodejno zaznaj ..."
+msgstr "Samodejno zaznaj ..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:101
@@ -4794,7 +4794,7 @@ msgstr "Samodejno popravilo Kwave"
 #: plugins/codec_wav/WavDecoder.cpp:182
 #, kde-format
 msgid "&Repair"
-msgstr "&Popravi"
+msgstr "Popravi"
 
 #: plugins/codec_wav/WavDecoder.cpp:247
 #, kde-format
@@ -5551,7 +5551,7 @@ msgstr "Nastavite datum na današnji dan."
 #: plugins/fileinfo/FileInfoDlg.ui:1298
 #, kde-format
 msgid "&Today"
-msgstr "&Danes"
+msgstr "Danes"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -5629,7 +5629,7 @@ msgstr ""
 #: plugins/fileinfo/KeywordWidgetBase.ui:69
 #, kde-format
 msgid "A&uto"
-msgstr "S&amodejno"
+msgstr "Samodejno"
 
 #. i18n: ectx: property (toolTip), widget (QListWidget, lstKeywords)
 #: plugins/fileinfo/KeywordWidgetBase.ui:82
@@ -6087,7 +6087,7 @@ msgstr "Podnaprava %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:1020 plugins/record/Record-ALSA.cpp:1202
 #, kde-format
 msgid "Virtual / ALSA Plugins"
-msgstr ""
+msgstr "Vtičniki Virtual / ALSA"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6432,7 +6432,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:464
 #, kde-format
 msgid "&Test..."
-msgstr "&Preizkusi …"
+msgstr "Preizkusi …"
 
 #: plugins/playback/PlayBackPlugin.cpp:392
 #, kde-format
@@ -6481,7 +6481,7 @@ msgstr "Snemanje Kwave"
 #: plugins/record/RecordDialog.cpp:309
 #, kde-format
 msgid "&Done"
-msgstr "&Končano"
+msgstr "Končano"
 
 #: plugins/record/RecordDialog.cpp:620
 #, kde-format
@@ -6754,7 +6754,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:359
 #, kde-format
 msgid "Start &at:"
-msgstr "Pri&čni pri:"
+msgstr "Prični pri:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_level)
 #. i18n: ectx: property (title), widget (QGroupBox, grpLevel)
@@ -6797,7 +6797,7 @@ msgstr "Pojemanje"
 #: plugins/record/RecordDlg.ui:621
 #, kde-format
 msgid "For&mat"
-msgstr "O&blika"
+msgstr "Oblika"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbFormatSampleRate)
 #: plugins/record/RecordDlg.ui:655
@@ -6933,14 +6933,13 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1078
 #, kde-format
 msgid "Selec&t..."
-msgstr "Izbe&ri ..."
+msgstr "Izberi ..."
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0%"
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
@@ -7436,12 +7435,12 @@ msgstr "&Sonagram"
 #: plugins/sonagram/SonagramWindow.cpp:128
 #, kde-format
 msgid "&Export to Bitmap..."
-msgstr "&Izvozi v bitno sliko …"
+msgstr "Izvozi v bitno sliko …"
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
 msgid "&Close"
-msgstr "&Zapri"
+msgstr "Zapri"
 
 #: plugins/sonagram/SonagramWindow.cpp:146
 #, kde-format

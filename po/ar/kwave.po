@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-07 00:44+0000\n"
-"PO-Revision-Date: 2026-08-30 17:49+0400\n"
+"PO-Revision-Date: 2026-09-09 17:58+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -6073,7 +6073,7 @@ msgstr "جهاز فرعي %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:1020 plugins/record/Record-ALSA.cpp:1202
 #, kde-format
 msgid "Virtual / ALSA Plugins"
-msgstr ""
+msgstr "الملحقات الافتراضية/ALSA"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6922,10 +6922,9 @@ msgstr "ا&ختر..."
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0%"
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181

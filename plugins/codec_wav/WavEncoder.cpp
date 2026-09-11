@@ -387,7 +387,9 @@ bool Kwave::WavEncoder::writeLabels(QIODevice &dst,
 
                 // dwIdentifier
                 ok &=(dst.write(reinterpret_cast<char *>(&data), 4) == 4);
-                ok &= (dst.write(name.data(), name.size()) == 4); // dwText
+
+                // dwText
+                ok &= (dst.write(name.data(), name.size()) == name.size());
                 if (name.size() & 1) {
                     // padding if necessary
                     data = 0;

@@ -146,7 +146,7 @@ namespace Kwave
          *
          * @param metadata the meta data object that should be added
          */
-        void add(const MetaData &metadata);
+        virtual void add(const MetaData &metadata) final;
 
         /**
          * Adds a list of meta data objects to the list. Old versions of
@@ -154,7 +154,7 @@ namespace Kwave
          *
          * @param list list of meta data objects that should be added
          */
-        void add(const MetaDataList &list);
+        virtual void add(const MetaDataList &list) final;
 
         /**
          * Removes one meta data object from the list (if it exists).

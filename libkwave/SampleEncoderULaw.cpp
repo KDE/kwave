@@ -109,6 +109,8 @@ void Kwave::SampleEncoderULaw::encode(const Kwave::SampleArray &samples,
 
     const sample_t *src = samples.constData();
     quint8         *dst = reinterpret_cast<quint8 *>(raw_data.data());
+    Q_CHECK_PTR(src);
+    Q_CHECK_PTR(dst);
 
     // convert samples to u-law bytes
     for (unsigned int i = 0; i < count; ++i)

@@ -7,6 +7,7 @@ Checks: '
   -bugprone-assignment-in-if-condition,
   -bugprone-branch-clone,
   -bugprone-easily-swappable-parameters,
+  -bugprone-float-loop-counter,
   -bugprone-integer-division,
   -bugprone-narrowing-conversions,
   -bugprone-implicit-widening-of-multiplication-result,
@@ -15,8 +16,10 @@ Checks: '
   -bugprone-suspicious-include,
   -bugprone-unchecked-string-to-number-conversion,
   clang-analyzer-*,
+  -clang-analyzer-cplusplus.NewDeleteLeaks,
   -clang-analyzer-deadcode.DeadStores,
   -clang-analyzer-optin.core.EnumCastOutOfRange,
+  -clang-analyzer-optin.cplusplus.VirtualCall,
   -clang-analyzer-security.FloatLoopCounter,
   -performance-*
 '

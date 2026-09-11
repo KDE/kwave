@@ -1449,7 +1449,7 @@ msgstr " h"
 #: libgui/HMSTimeWidgetBase.ui:36
 #, kde-format
 msgid " min"
-msgstr " m"
+msgstr " min"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbSeconds)
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelFadeOut)

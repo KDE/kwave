@@ -6679,10 +6679,9 @@ msgstr "选择(&T)..."
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0%"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
@@ -7286,9 +7285,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "无声"
-
-#~ msgid "DMIX plugin"
-#~ msgstr "DMIX 插件"
-
-#~ msgid "DSNOOP plugin"
-#~ msgstr "DSNOOP 插件"

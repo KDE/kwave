@@ -308,7 +308,7 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
         sample_index_t selection_ofs = m_selection.offset();
         quint64        scale         = m_scale;
         synchronizer.addFuture(QtConcurrent::run(
-            [&reader, selection_ofs, scale, &min, &max, count, &state]
+            [reader, selection_ofs, scale, min, max, count, state]
             () {
             for (unsigned int ofs = 0; ofs < count; ++ofs) {
                 if (state[ofs] == Valid)  continue;

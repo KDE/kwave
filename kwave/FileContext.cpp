@@ -787,17 +787,17 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
         if (result)
             qDebug(">>> '%s' - result=%d", DBG(line), result);
 
+        // Do not process events after quit: this may destroy this context.
+        if (parser.command() == _("quit")) {
+            result = ECANCELED;
+            break;
+        }
+
         qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
         // synchronize after the command
         if (m_plugin_manager)
             m_plugin_manager->sync();
-
-        // special handling of the "quit" command
-        if (parser.command() == _("quit")) {
-            result = ECANCELED;
-            break;
-        }
     }
 
     if (label.length()) {

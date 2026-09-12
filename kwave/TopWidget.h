@@ -356,7 +356,7 @@ namespace Kwave
          * MDI area, parent of all MDI child windows (only used in MDI and
          * TAB gui mode, null for SDI)
          */
-        QMdiArea *m_mdi_area = nullptr;
+        QPointer<QMdiArea> m_mdi_area = nullptr;
 
         /** action of the "file save" toolbar button */
         QAction *m_action_save = nullptr;

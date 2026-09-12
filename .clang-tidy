@@ -7,7 +7,6 @@ Checks: '
   -bugprone-assignment-in-if-condition,
   -bugprone-branch-clone,
   -bugprone-easily-swappable-parameters,
-  -bugprone-float-loop-counter,
   -bugprone-integer-division,
   -bugprone-narrowing-conversions,
   -bugprone-implicit-widening-of-multiplication-result,

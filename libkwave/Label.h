@@ -54,7 +54,7 @@ namespace Kwave
         Label(sample_index_t position, const QString &name);
 
         /** destructor */
-        ~Label() override;
+        ~Label() override = default;
 
         /** returns the identifier of the "type" of this meta data object */
         static QString metaDataType() { return _("Label"); }

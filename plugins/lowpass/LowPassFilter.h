@@ -40,7 +40,7 @@ namespace Kwave
         LowPassFilter();
 
         /** Destructor */
-        ~LowPassFilter() override;
+        ~LowPassFilter() override = default;
 
         /** @see TransmissionFunction::at() */
         double at(double f) override;

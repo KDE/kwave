@@ -63,11 +63,6 @@ Kwave::AboutContainer::AboutContainer(QWidget *parent)
 }
 
 //***************************************************************************
-Kwave::AboutContainer::~AboutContainer()
-{
-}
-
-//***************************************************************************
 QSize Kwave::AboutContainer::sizeHint() const
 {
     //
@@ -186,11 +181,6 @@ Kwave::AboutContributor::AboutContributor(QWidget *_parent,
 
     fontChange(font());
     updateLayout();
-}
-
-//***************************************************************************
-Kwave::AboutContributor::~AboutContributor()
-{
 }
 
 //***************************************************************************

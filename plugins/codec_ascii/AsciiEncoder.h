@@ -39,7 +39,7 @@ namespace Kwave
         AsciiEncoder();
 
         /** Destructor */
-        ~AsciiEncoder() override;
+        ~AsciiEncoder() override = default;
 
         /** Returns a new instance of the encoder */
         Kwave::Encoder::Instance instance() override;

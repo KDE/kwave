@@ -55,11 +55,6 @@ Kwave::FlacEncoder::FlacEncoder()
 }
 
 /***************************************************************************/
-Kwave::FlacEncoder::~FlacEncoder()
-{
-}
-
-/***************************************************************************/
 Kwave::Encoder::Instance Kwave::FlacEncoder::instance()
 {
     return std::make_shared<Kwave::FlacEncoder>();

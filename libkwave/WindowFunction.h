@@ -55,7 +55,7 @@ namespace Kwave
         explicit WindowFunction(window_function_t type);
 
         /** Destructor */
-        virtual ~WindowFunction();
+        virtual ~WindowFunction() = default;
 
         /**
          * Returns the coefficients of a window function with

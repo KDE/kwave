@@ -46,7 +46,7 @@ namespace Kwave
         BandPassPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~BandPassPlugin() override;
+        ~BandPassPlugin() override = default;
 
         /** Creates the setup dialog and connects it's signals */
         Kwave::PluginSetupDialog *createDialog(QWidget *parent) override;

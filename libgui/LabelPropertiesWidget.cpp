@@ -51,11 +51,6 @@ Kwave::LabelPropertiesWidget::LabelPropertiesWidget(QWidget *parent)
 }
 
 //***************************************************************************
-Kwave::LabelPropertiesWidget::~LabelPropertiesWidget()
-{
-}
-
-//***************************************************************************
 void Kwave::LabelPropertiesWidget::setLabelIndex(unsigned int index)
 {
     Q_ASSERT(lblIndex);

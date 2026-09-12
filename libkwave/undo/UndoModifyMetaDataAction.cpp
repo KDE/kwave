@@ -31,11 +31,6 @@ Kwave::UndoModifyMetaDataAction::UndoModifyMetaDataAction(
 }
 
 //***************************************************************************
-Kwave::UndoModifyMetaDataAction::~UndoModifyMetaDataAction()
-{
-}
-
-//***************************************************************************
 QString Kwave::UndoModifyMetaDataAction::description()
 {
     // sanity check: list should not be empty

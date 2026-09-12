@@ -128,11 +128,6 @@ Kwave::PlayBackDialog::PlayBackDialog(
 }
 
 //***************************************************************************
-Kwave::PlayBackDialog::~PlayBackDialog()
-{
-}
-
-//***************************************************************************
 void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
 {
     Kwave::playback_method_t old_method = m_playback_params.method;

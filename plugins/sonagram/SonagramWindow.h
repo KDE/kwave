@@ -56,7 +56,7 @@ namespace Kwave
         /**
          * Destructor.
          */
-        ~SonagramWindow() override;
+        ~SonagramWindow() override = default;
 
         /**
          * Sets a new sonagram image to display.

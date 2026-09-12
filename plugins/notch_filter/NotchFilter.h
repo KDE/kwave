@@ -43,7 +43,7 @@ namespace Kwave
         NotchFilter();
 
         /** Destructor */
-        ~NotchFilter() override;
+        ~NotchFilter() override = default;
 
         /** does the calculation */
         void goOn() override;

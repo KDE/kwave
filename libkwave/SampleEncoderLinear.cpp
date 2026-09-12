@@ -162,11 +162,6 @@ Kwave::SampleEncoderLinear::SampleEncoderLinear(
 }
 
 //***************************************************************************
-Kwave::SampleEncoderLinear::~SampleEncoderLinear()
-{
-}
-
-//***************************************************************************
 void Kwave::SampleEncoderLinear::encode(const Kwave::SampleArray &samples,
                                         unsigned int count,
                                         QByteArray &raw_data)

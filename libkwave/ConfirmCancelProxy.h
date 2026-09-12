@@ -52,7 +52,7 @@ namespace Kwave
                            QObject *receiver, const char *slot);
 
         /** Destructor */
-        ~ConfirmCancelProxy() override;
+        ~ConfirmCancelProxy() override = default;
 
     public slots:
 

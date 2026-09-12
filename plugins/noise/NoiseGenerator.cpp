@@ -32,11 +32,6 @@ Kwave::NoiseGenerator::NoiseGenerator(QObject *parent)
 }
 
 //***************************************************************************
-Kwave::NoiseGenerator::~NoiseGenerator()
-{
-}
-
-//***************************************************************************
 void Kwave::NoiseGenerator::goOn()
 {
     output(m_buffer);

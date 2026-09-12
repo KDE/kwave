@@ -52,7 +52,7 @@ namespace Kwave
         /**
          * Constructor
          */
-        Logger();
+        Logger() = default;
 
         /** Destructor. */
         virtual ~Logger();

@@ -123,11 +123,6 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
 }
 
 //***************************************************************************
-Kwave::UndoAddMetaDataAction::~UndoAddMetaDataAction()
-{
-}
-
-//***************************************************************************
 QString Kwave::UndoAddMetaDataAction::description()
 {
     return m_description;

@@ -43,7 +43,7 @@ namespace Kwave
         GotoPluginBase(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~GotoPluginBase() override;
+        ~GotoPluginBase() override = default;
 
         /**
          * Shows a dialog for selecting the range and emits a command

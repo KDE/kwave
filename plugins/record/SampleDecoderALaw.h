@@ -31,7 +31,7 @@ namespace Kwave
         SampleDecoderALaw();
 
         /** destructor */
-        ~SampleDecoderALaw() override;
+        ~SampleDecoderALaw() override = default;
 
         /**
          * decodes the given buffer with A-Law compressed samples

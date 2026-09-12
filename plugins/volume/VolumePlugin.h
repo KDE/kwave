@@ -42,7 +42,7 @@ namespace Kwave
         VolumePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~VolumePlugin() override;
+        ~VolumePlugin() override = default;
 
         /**
          * Shows a dialog for selecting a volume.

@@ -45,7 +45,7 @@ namespace Kwave
         Mul();
 
         /** Destructor */
-        ~Mul() override;
+        ~Mul() override = default;
 
         /** does nothing, work is done automatically in multiply() */
         void goOn() override;

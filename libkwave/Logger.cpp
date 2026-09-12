@@ -41,11 +41,6 @@ static Kwave::Logger g_logger;
 #define ELEMENTS_OF(__array__) (sizeof(__array__) / sizeof(__array__[0]))
 
 //***************************************************************************
-Kwave::Logger::Logger()
-{
-}
-
-//***************************************************************************
 Kwave::Logger::~Logger()
 {
     if (m_logfile) {

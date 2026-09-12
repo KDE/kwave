@@ -96,11 +96,6 @@ Kwave::SampleEncoderULaw::SampleEncoderULaw()
 }
 
 //***************************************************************************
-Kwave::SampleEncoderULaw::~SampleEncoderULaw()
-{
-}
-
-//***************************************************************************
 void Kwave::SampleEncoderULaw::encode(const Kwave::SampleArray &samples,
                                       unsigned int count,
                                       QByteArray &raw_data)

@@ -41,11 +41,6 @@ Kwave::SampleReader::SampleReader(Kwave::ReaderMode mode,
 }
 
 //***************************************************************************
-Kwave::SampleReader::~SampleReader()
-{
-}
-
-//***************************************************************************
 void Kwave::SampleReader::reset()
 {
     m_src_position = m_first;

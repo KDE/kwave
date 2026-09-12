@@ -30,11 +30,6 @@ Kwave::Selection::Selection(const Kwave::Selection &other)
 }
 
 //***************************************************************************
-Kwave::Selection::~Selection()
-{
-}
-
-//***************************************************************************
 void Kwave::Selection::select(sample_index_t offset, sample_index_t length)
 {
     m_offset = offset;

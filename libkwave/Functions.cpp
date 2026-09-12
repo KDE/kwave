@@ -101,16 +101,6 @@ void Kwave::Functions::FunctionTypesMap::fill()
 }
 
 //***************************************************************************
-Kwave::Functions::Functions()
-{
-}
-
-//***************************************************************************
-Kwave::Functions::~Functions()
-{
-}
-
-//***************************************************************************
 QString Kwave::Functions::name(unsigned int index)
 {
     Q_ASSERT(index < m_functions_map.count());

@@ -34,11 +34,6 @@ Kwave::Drag::Drag(QWidget *dragSource)
 }
 
 //***************************************************************************
-Kwave::Drag::~Drag()
-{
-}
-
-//***************************************************************************
 bool Kwave::Drag::canDecode(const QMimeData *data)
 {
     if (!data) return false;

@@ -33,11 +33,6 @@ Kwave::HMSTimeWidget::HMSTimeWidget(QWidget *parent)
 }
 
 //***************************************************************************
-Kwave::HMSTimeWidget::~HMSTimeWidget()
-{
-}
-
-//***************************************************************************
 int Kwave::HMSTimeWidget::value()
 {
     return m_time;

@@ -42,11 +42,6 @@ Kwave::NewSignalPlugin::NewSignalPlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::NewSignalPlugin::~NewSignalPlugin()
-{
-}
-
-//***************************************************************************
 int Kwave::NewSignalPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;

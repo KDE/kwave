@@ -162,11 +162,6 @@ Kwave::MimeData::MimeData()
 }
 
 //***************************************************************************
-Kwave::MimeData::~MimeData()
-{
-}
-
-//***************************************************************************
 bool Kwave::MimeData::encode(QWidget *widget,
                              Kwave::MultiTrackReader &src,
                              const Kwave::MetaDataList &meta_data)

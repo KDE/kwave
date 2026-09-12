@@ -43,7 +43,7 @@ namespace Kwave
         SelectRangePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~SelectRangePlugin() override;
+        ~SelectRangePlugin() override = default;
 
         /**
          * Shows a dialog for selecting the range and emits a command

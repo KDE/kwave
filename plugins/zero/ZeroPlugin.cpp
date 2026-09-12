@@ -46,11 +46,6 @@ Kwave::ZeroPlugin::ZeroPlugin(QObject *parent, const QVariantList &args)
 }
 
 //***************************************************************************
-Kwave::ZeroPlugin::~ZeroPlugin()
-{
-}
-
-//***************************************************************************
 void Kwave::ZeroPlugin::run(QStringList params)
 {
     QVector<unsigned int> tracks;

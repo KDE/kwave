@@ -41,11 +41,6 @@ Kwave::SelectionItem::SelectionItem(
 }
 
 //***************************************************************************
-Kwave::SelectionItem::~SelectionItem()
-{
-}
-
-//***************************************************************************
 Kwave::ViewItem::Flags Kwave::SelectionItem::flags() const
 {
     return Kwave::ViewItem::CanDragAndDrop;

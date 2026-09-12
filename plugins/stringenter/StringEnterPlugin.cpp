@@ -43,11 +43,6 @@ Kwave::StringEnterPlugin::StringEnterPlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::StringEnterPlugin::~StringEnterPlugin()
-{
-}
-
-//***************************************************************************
 void Kwave::StringEnterPlugin::load(QStringList &params)
 {
     Q_UNUSED(params)

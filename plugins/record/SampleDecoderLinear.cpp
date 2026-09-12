@@ -158,11 +158,6 @@ Kwave::SampleDecoderLinear::SampleDecoderLinear(
 }
 
 //***************************************************************************
-Kwave::SampleDecoderLinear::~SampleDecoderLinear()
-{
-}
-
-//***************************************************************************
 void Kwave::SampleDecoderLinear::decode(QByteArray &raw_data,
                                         Kwave::SampleArray &decoded)
 {

@@ -30,11 +30,6 @@ Kwave::ViewItem::ViewItem(Kwave::SignalView &view,
 }
 
 //***************************************************************************
-Kwave::ViewItem::~ViewItem()
-{
-}
-
-//***************************************************************************
 Kwave::ViewItem::Flags Kwave::ViewItem::flags() const
 {
     return Kwave::ViewItem::None;

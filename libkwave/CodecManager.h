@@ -39,7 +39,7 @@ namespace Kwave
     public:
 
         /** Constructor */
-        CodecManager();
+        CodecManager() = default;
 
         /** Destructor */
         ~CodecManager() override;

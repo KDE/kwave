@@ -66,11 +66,6 @@ Kwave::CompressionWidget::CompressionWidget(QWidget *parent)
 }
 
 //***************************************************************************
-Kwave::CompressionWidget::~CompressionWidget()
-{
-}
-
-//***************************************************************************
 void Kwave::CompressionWidget::init(Kwave::FileInfo &info)
 {
     initInfo(lblCompressionNominalBitrate, abrBitrate,

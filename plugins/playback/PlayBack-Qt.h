@@ -152,7 +152,7 @@ namespace Kwave
             Buffer(char silence);
 
             /** destructor */
-            ~Buffer() override;
+            ~Buffer() override = default;
 
             /**
              * start filling the buffer

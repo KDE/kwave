@@ -51,11 +51,6 @@ Kwave::LabelList::LabelList(const Kwave::MetaDataList &meta_data_list)
 }
 
 //***************************************************************************
-Kwave::LabelList::~LabelList()
-{
-}
-
-//***************************************************************************
 static bool compare_labels(const Kwave::Label &a, const Kwave::Label &b)
 {
     return (a < b);

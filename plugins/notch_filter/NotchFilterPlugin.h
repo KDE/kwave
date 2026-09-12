@@ -46,7 +46,7 @@ namespace Kwave
         NotchFilterPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~NotchFilterPlugin() override;
+        ~NotchFilterPlugin() override = default;
 
         /** Creates the setup dialog and connects it's signals */
         Kwave::PluginSetupDialog *createDialog(QWidget *parent) override;

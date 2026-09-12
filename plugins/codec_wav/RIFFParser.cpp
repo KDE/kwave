@@ -69,11 +69,6 @@ Kwave::RIFFParser::RIFFParser(QIODevice &device,
 }
 
 //***************************************************************************
-Kwave::RIFFParser::~RIFFParser()
-{
-}
-
-//***************************************************************************
 bool Kwave::RIFFParser::isValidName(const char *name)
 {
     int i;

@@ -34,11 +34,6 @@ Kwave::GotoPlugin::GotoPlugin(QObject *parent, const QVariantList &args)
 }
 
 //***************************************************************************
-Kwave::GotoPlugin::~GotoPlugin()
-{
-}
-
-//***************************************************************************
 QString Kwave::GotoPlugin::command() const
 {
     return _("goto");

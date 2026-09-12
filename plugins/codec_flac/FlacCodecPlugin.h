@@ -39,7 +39,7 @@ namespace Kwave
         FlacCodecPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~FlacCodecPlugin() override;
+        ~FlacCodecPlugin() override = default;
 
         /** Creates a new decoder */
         QList<Kwave::Decoder::Instance> createDecoder() override;

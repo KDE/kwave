@@ -509,11 +509,6 @@ Kwave::PlayBackQt::Buffer::Buffer(char silence)
 }
 
 //***************************************************************************
-Kwave::PlayBackQt::Buffer::~Buffer()
-{
-}
-
-//***************************************************************************
 void Kwave::PlayBackQt::Buffer::start(unsigned int buf_size, int timeout)
 {
     QMutexLocker _lock(&m_lock); // context: main thread

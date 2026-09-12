@@ -37,7 +37,7 @@ namespace Kwave
         explicit BitrateWidget(QWidget *parent);
 
         /** Destructor */
-        ~BitrateWidget() override;
+        ~BitrateWidget() override = default;
 
         /** sets a new current value */
         virtual void setValue(int bitrate);

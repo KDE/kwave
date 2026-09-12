@@ -37,7 +37,7 @@ namespace Kwave
         MouseMark();
 
         /** Destructor */
-        virtual ~MouseMark();
+        virtual ~MouseMark() = default;
 
         /**
          * Sets the selection to a new range.

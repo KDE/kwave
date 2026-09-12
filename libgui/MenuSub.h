@@ -56,7 +56,7 @@ namespace Kwave
                 const QString &uid);
 
         /** Destructor */
-        ~MenuSub() override;
+        ~MenuSub() override = default;
 
         /**
          * Always returns true, as the nodes of this type are branches.

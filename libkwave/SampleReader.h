@@ -51,7 +51,7 @@ namespace Kwave
         SampleReader(Kwave::ReaderMode mode, Kwave::Stripe::List stripes);
 
         /** Destructor */
-        ~SampleReader() override;
+        ~SampleReader() override = default;
 
         /** Resets the stream to it's start */
         void reset();

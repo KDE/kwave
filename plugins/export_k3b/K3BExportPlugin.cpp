@@ -90,11 +90,6 @@ Kwave::K3BExportPlugin::K3BExportPlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::K3BExportPlugin::~K3BExportPlugin()
-{
-}
-
-//***************************************************************************
 int Kwave::K3BExportPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;

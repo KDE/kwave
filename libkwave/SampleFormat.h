@@ -88,7 +88,7 @@ namespace Kwave
             explicit Map();
 
             /** Destructor */
-            ~Map() override;
+            ~Map() override = default;
 
             /** fills the list */
             void fill() final;

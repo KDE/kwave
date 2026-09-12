@@ -27,11 +27,6 @@ Kwave::MouseMark::MouseMark()
 }
 
 //****************************************************************************
-Kwave::MouseMark::~MouseMark()
-{
-}
-
-//****************************************************************************
 void Kwave::MouseMark::set(sample_index_t l, sample_index_t r)
 {
     m_initial = l;

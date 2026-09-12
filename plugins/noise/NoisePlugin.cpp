@@ -46,11 +46,6 @@ Kwave::NoisePlugin::NoisePlugin(QObject *parent, const QVariantList &args)
 }
 
 //***************************************************************************
-Kwave::NoisePlugin::~NoisePlugin()
-{
-}
-
-//***************************************************************************
 int Kwave::NoisePlugin::interpreteParameters(QStringList &params)
 {
     bool ok;

@@ -34,11 +34,6 @@ QList<Kwave::Encoder::Instance> Kwave::CodecManager::m_encoders;
 QList<Kwave::Decoder::Instance> Kwave::CodecManager::m_decoders;
 
 //***************************************************************************
-Kwave::CodecManager::CodecManager()
-{
-}
-
-//***************************************************************************
 Kwave::CodecManager::~CodecManager()
 {
     Q_ASSERT(m_encoders.isEmpty());

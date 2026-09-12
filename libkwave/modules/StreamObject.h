@@ -47,7 +47,7 @@ namespace Kwave
         explicit StreamObject(QObject *parent = nullptr);
 
         /** Destructor */
-        ~StreamObject() override;
+        ~StreamObject() override = default;
 
         /**
          * Returns the default number of tracks that the source provides

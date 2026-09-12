@@ -47,7 +47,7 @@ namespace Kwave
         LowPassPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~LowPassPlugin() override;
+        ~LowPassPlugin() override = default;
 
         /** Creates the setup dialog and connects it's signals */
         Kwave::PluginSetupDialog *createDialog(QWidget *parent) override;

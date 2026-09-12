@@ -51,11 +51,6 @@ Kwave::ReversePlugin::ReversePlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::ReversePlugin::~ReversePlugin()
-{
-}
-
-//***************************************************************************
 void Kwave::ReversePlugin::run(QStringList params)
 {
     Kwave::SignalManager &signal_manager = signalManager();

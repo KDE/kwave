@@ -47,7 +47,7 @@ namespace Kwave
         UndoDeleteTrack(Kwave::Signal &signal, unsigned int track);
 
         /** Destructor */
-        ~UndoDeleteTrack() override;
+        ~UndoDeleteTrack() override = default;
 
         /**
          * Returns a verbose short description of the action.

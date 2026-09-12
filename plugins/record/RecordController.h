@@ -35,7 +35,7 @@ namespace Kwave
         RecordController();
 
         /** Destructor */
-        ~RecordController() override;
+        ~RecordController() override = default;
 
         /** returns the name of a state */
         const char *stateName(const Kwave::RecordState state);

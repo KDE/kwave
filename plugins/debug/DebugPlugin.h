@@ -48,7 +48,7 @@ namespace Kwave
         DebugPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~DebugPlugin() override;
+        ~DebugPlugin() override = default;
 
         /** @see Kwave::Plugin::load() */
         void load(QStringList &params) override;

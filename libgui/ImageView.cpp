@@ -34,11 +34,6 @@ Kwave::ImageView::ImageView(QWidget *parent, bool fit_width, bool fit_height)
 }
 
 //****************************************************************************
-Kwave::ImageView::~ImageView()
-{
-}
-
-//****************************************************************************
 void Kwave::ImageView::mouseMoveEvent(QMouseEvent *e)
 {
     Q_ASSERT(e);

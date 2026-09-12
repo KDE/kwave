@@ -51,11 +51,6 @@ Kwave::SampleRatePlugin::SampleRatePlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::SampleRatePlugin::~SampleRatePlugin()
-{
-}
-
-//***************************************************************************
 int Kwave::SampleRatePlugin::interpreteParameters(QStringList &params)
 {
     bool ok = false;

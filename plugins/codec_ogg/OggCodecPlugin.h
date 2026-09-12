@@ -39,7 +39,7 @@ namespace Kwave
         OggCodecPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~OggCodecPlugin() override;
+        ~OggCodecPlugin() override = default;
 
         /** Creates a new decoder */
         QList<Kwave::Decoder::Instance> createDecoder() override;

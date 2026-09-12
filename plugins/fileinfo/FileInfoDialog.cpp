@@ -103,11 +103,6 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
 }
 
 //***************************************************************************
-Kwave::FileInfoDialog::~FileInfoDialog()
-{
-}
-
-//***************************************************************************
 void Kwave::FileInfoDialog::describeWidget(QWidget *widget,
                                            const QString &name,
                                            const QString &description)

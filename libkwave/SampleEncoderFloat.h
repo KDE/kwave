@@ -39,7 +39,7 @@ namespace Kwave
         SampleEncoderFloat(Kwave::byte_order_t endianness);
 
         /** Destructor */
-        ~SampleEncoderFloat() override;
+        ~SampleEncoderFloat() override = default;
 
         /**
          * Encodes a buffer with samples into a buffer with raw data.

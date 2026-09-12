@@ -59,7 +59,7 @@ namespace Kwave
         ViewItem(Kwave::SignalView &view, Kwave::SignalManager &signal_manager);
 
         /** Destructor */
-        ~ViewItem() override;
+        ~ViewItem() override = default;
 
         /**
          * Returns flags describing the possible interactions with this object

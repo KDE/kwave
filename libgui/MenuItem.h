@@ -54,7 +54,7 @@ namespace Kwave
                  const QString &uid);
 
         /** virtual destructor */
-        ~MenuItem() override;
+        ~MenuItem() override = default;
 
         /**
          * Called to notify the item that it has been selected.

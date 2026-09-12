@@ -196,11 +196,6 @@ void Kwave::SonagramDialog::setBoxPoints(int num)
 }
 
 //***************************************************************************
-Kwave::SonagramDialog::~SonagramDialog ()
-{
-}
-
-//***************************************************************************
 void Kwave::SonagramDialog::invokeHelp()
 {
     KHelpClient::invokeHelp(_("plugin_sect_sonagram"));

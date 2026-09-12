@@ -69,7 +69,7 @@ namespace Kwave
                           sample_index_t signal_length);
 
         /** Destructor */
-        ~SelectTimeWidget() override;
+        ~SelectTimeWidget() override = default;
 
         /** Sets a new selection mode */
         void setMode(Mode new_mode);

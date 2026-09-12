@@ -39,11 +39,6 @@ Kwave::ConfirmCancelProxy::ConfirmCancelProxy(QWidget *widget,
 }
 
 //***************************************************************************
-Kwave::ConfirmCancelProxy::~ConfirmCancelProxy()
-{
-}
-
-//***************************************************************************
 void Kwave::ConfirmCancelProxy::cancel()
 {
     if (Kwave::MessageBox::questionYesNo(m_widget,

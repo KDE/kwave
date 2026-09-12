@@ -53,11 +53,6 @@ Kwave::AmplifyFreePlugin::AmplifyFreePlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::AmplifyFreePlugin::~AmplifyFreePlugin()
-{
-}
-
-//***************************************************************************
 int Kwave::AmplifyFreePlugin::interpreteParameters(QStringList &params)
 {
     // store last parameters

@@ -41,9 +41,9 @@ namespace Kwave
         CurveStreamAdapter(Kwave::Curve &curve, sample_index_t length);
 
         /** Destructor */
-        ~CurveStreamAdapter() override;
+        ~CurveStreamAdapter() override = default;
 
-        /** @see Kwave::KwaveSampleSource */
+        /** @see Kwave::SampleSource */
         void goOn() override;
 
     private:

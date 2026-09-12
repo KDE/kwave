@@ -39,7 +39,7 @@ namespace Kwave
         SelectDateDialog(QWidget *parent, QDate &date);
 
         /** Destructor */
-        ~SelectDateDialog() override;
+        ~SelectDateDialog() override = default;
 
         /** Returns the selected date */
         virtual QDate date();

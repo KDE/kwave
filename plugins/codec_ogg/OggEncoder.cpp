@@ -56,11 +56,6 @@ Kwave::OggEncoder::OggEncoder()
 }
 
 /***************************************************************************/
-Kwave::OggEncoder::~OggEncoder()
-{
-}
-
-/***************************************************************************/
 Kwave::Encoder::Instance Kwave::OggEncoder::instance()
 {
     return std::make_shared<Kwave::OggEncoder>();

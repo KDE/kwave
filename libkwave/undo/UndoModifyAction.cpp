@@ -35,11 +35,6 @@ Kwave::UndoModifyAction::UndoModifyAction(unsigned int track,
 }
 
 //***************************************************************************
-Kwave::UndoModifyAction::~UndoModifyAction()
-{
-}
-
-//***************************************************************************
 QString Kwave::UndoModifyAction::description()
 {
     return i18n("Modify Samples");

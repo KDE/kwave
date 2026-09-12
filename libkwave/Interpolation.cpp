@@ -54,11 +54,6 @@ Kwave::Interpolation::Interpolation(interpolation_t type)
 }
 
 //***************************************************************************
-Kwave::Interpolation::~Interpolation()
-{
-}
-
-//***************************************************************************
 QStringList Kwave::Interpolation::descriptions(bool localized)
 {
     QStringList list;

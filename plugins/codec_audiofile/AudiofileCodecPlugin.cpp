@@ -47,11 +47,6 @@ Kwave::AudiofileCodecPlugin::AudiofileCodecPlugin(QObject *parent,
 }
 
 /***************************************************************************/
-Kwave::AudiofileCodecPlugin::~AudiofileCodecPlugin()
-{
-}
-
-/***************************************************************************/
 QList<Kwave::Decoder::Instance> Kwave::AudiofileCodecPlugin::createDecoder()
 {
     return singleDecoder<Kwave::AudiofileDecoder>();

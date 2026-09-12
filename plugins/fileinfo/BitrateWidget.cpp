@@ -45,11 +45,6 @@ Kwave::BitrateWidget::BitrateWidget(QWidget *parent)
 }
 
 /***************************************************************************/
-Kwave::BitrateWidget::~BitrateWidget()
-{
-}
-
-/***************************************************************************/
 void Kwave::BitrateWidget::setValue(int bitrate)
 {
     slider->setValue(bitrate);

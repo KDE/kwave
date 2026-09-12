@@ -41,7 +41,7 @@ namespace Kwave
         WavEncoder();
 
         /** Destructor */
-        ~WavEncoder() override;
+        ~WavEncoder() override = default;
 
         /** Returns a new instance of the encoder */
         Encoder::Instance instance() override;

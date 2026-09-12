@@ -34,11 +34,6 @@ Kwave::InsertAtPlugin::InsertAtPlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::InsertAtPlugin::~InsertAtPlugin()
-{
-}
-
-//***************************************************************************
 QString Kwave::InsertAtPlugin::command() const
 {
     return _("insert_at");

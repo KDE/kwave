@@ -18,6 +18,7 @@ Checks: '
   -clang-analyzer-deadcode.DeadStores,
   -clang-analyzer-optin.core.EnumCastOutOfRange,
   -clang-analyzer-security.FloatLoopCounter,
+  modernize-use-equals-default,
   -performance-*
 '
 

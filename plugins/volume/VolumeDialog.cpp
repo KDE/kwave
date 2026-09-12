@@ -86,11 +86,6 @@ Kwave::VolumeDialog::VolumeDialog(QWidget *parent,
 }
 
 //***************************************************************************
-Kwave::VolumeDialog::~VolumeDialog()
-{
-}
-
-//***************************************************************************
 void Kwave::VolumeDialog::setMode(Mode mode)
 {
     double value = m_factor;

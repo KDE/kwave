@@ -31,11 +31,6 @@ Kwave::CodecPlugin::CodecPlugin(QObject *parent,
 }
 
 /***************************************************************************/
-Kwave::CodecPlugin::~CodecPlugin()
-{
-}
-
-/***************************************************************************/
 void Kwave::CodecPlugin::load(QStringList &/* params */)
 {
     use();

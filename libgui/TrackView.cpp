@@ -130,11 +130,6 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
 }
 
 //***************************************************************************
-Kwave::TrackView::~TrackView()
-{
-}
-
-//***************************************************************************
 void Kwave::TrackView::refresh()
 {
 //     qDebug("Kwave::TrackView[%d]::refresh()", track());

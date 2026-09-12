@@ -36,11 +36,6 @@ Kwave::OggCodecPlugin::OggCodecPlugin(QObject *parent,
 }
 
 /***************************************************************************/
-Kwave::OggCodecPlugin::~OggCodecPlugin()
-{
-}
-
-/***************************************************************************/
 QList<Kwave::Decoder::Instance> Kwave::OggCodecPlugin::createDecoder()
 {
     return singleDecoder<Kwave::OggDecoder>();

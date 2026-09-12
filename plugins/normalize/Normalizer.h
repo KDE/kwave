@@ -41,7 +41,7 @@ namespace Kwave
         Normalizer();
 
         /** Destructor */
-        ~Normalizer() override;
+        ~Normalizer() override = default;
 
         /** does the calculation */
         void goOn() override;

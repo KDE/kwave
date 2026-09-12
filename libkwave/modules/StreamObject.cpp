@@ -39,11 +39,6 @@ Kwave::StreamObject::StreamObject(QObject *parent)
 }
 
 //***************************************************************************
-Kwave::StreamObject::~StreamObject()
-{
-}
-
-//***************************************************************************
 Kwave::StreamObject *Kwave::StreamObject::in(unsigned int track)
 {
     return (track == 0) ?

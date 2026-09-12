@@ -40,11 +40,6 @@ Kwave::FileInfoPlugin::FileInfoPlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::FileInfoPlugin::~FileInfoPlugin()
-{
-}
-
-//***************************************************************************
 QStringList *Kwave::FileInfoPlugin::setup(QStringList &)
 {
     Kwave::FileInfo oldInfo(signalManager().metaData());

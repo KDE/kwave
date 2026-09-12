@@ -40,11 +40,6 @@ Kwave::SelectionBorderItem::SelectionBorderItem(
 }
 
 //***************************************************************************
-Kwave::SelectionBorderItem::~SelectionBorderItem()
-{
-}
-
-//***************************************************************************
 Kwave::ViewItem::Flags Kwave::SelectionBorderItem::flags() const
 {
     return Kwave::ViewItem::CanGrabAndMove;

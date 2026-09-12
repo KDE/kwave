@@ -59,11 +59,6 @@ int Kwave::MessageBox::retval() const
 }
 
 //***************************************************************************
-Kwave::MessageBox::~MessageBox()
-{
-}
-
-//***************************************************************************
 int Kwave::MessageBox::questionYesNo(QWidget *parent,
     const QString &message,   const QString &caption,
     const QString &buttonYes, const QString &buttonNo,

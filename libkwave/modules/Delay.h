@@ -42,7 +42,7 @@ namespace Kwave
             Delay();
 
             /** Destructor */
-            ~Delay() override;
+            ~Delay() override = default;
 
             /** does the calculation */
             void goOn() override;

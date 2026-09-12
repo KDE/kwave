@@ -33,7 +33,7 @@ namespace Kwave
         StandardBitrates();
 
         /** Destructor */
-        virtual ~StandardBitrates();
+        virtual ~StandardBitrates() = default;
 
         /** returns a const reference to the list of bitrates */
         static const StandardBitrates &instance();

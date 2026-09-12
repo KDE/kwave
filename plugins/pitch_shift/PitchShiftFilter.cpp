@@ -41,11 +41,6 @@ Kwave::PitchShiftFilter::PitchShiftFilter()
 }
 
 //***************************************************************************
-Kwave::PitchShiftFilter::~PitchShiftFilter()
-{
-}
-
-//***************************************************************************
 void Kwave::PitchShiftFilter::goOn()
 {
     output(m_buffer);

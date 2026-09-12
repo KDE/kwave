@@ -146,11 +146,6 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(QWidget *parent,
 }
 
 //***************************************************************************
-Kwave::SaveBlocksDialog::~SaveBlocksDialog()
-{
-}
-
-//***************************************************************************
 QString Kwave::SaveBlocksDialog::pattern()
 {
     Q_ASSERT(cbPattern);

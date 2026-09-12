@@ -60,11 +60,6 @@ Kwave::KeywordWidget::KeywordWidget(QWidget *parent)
 }
 
 //***************************************************************************
-Kwave::KeywordWidget::~KeywordWidget()
-{
-}
-
-//***************************************************************************
 bool Kwave::KeywordWidget::contained(const QString &item)
 {
     if (!item.length()) return false;

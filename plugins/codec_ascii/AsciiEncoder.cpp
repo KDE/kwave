@@ -51,11 +51,6 @@ Kwave::AsciiEncoder::AsciiEncoder()
 }
 
 /***************************************************************************/
-Kwave::AsciiEncoder::~AsciiEncoder()
-{
-}
-
-/***************************************************************************/
 Kwave::Encoder::Instance Kwave::AsciiEncoder::instance()
 {
     return std::make_shared<Kwave::AsciiEncoder>();

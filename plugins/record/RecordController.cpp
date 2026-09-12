@@ -34,11 +34,6 @@ Kwave::RecordController::RecordController()
 }
 
 //***************************************************************************
-Kwave::RecordController::~RecordController()
-{
-}
-
-//***************************************************************************
 void Kwave::RecordController::setInitialized(bool initialized)
 {
     if (initialized) {

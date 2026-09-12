@@ -86,7 +86,7 @@ namespace Kwave
         explicit Compression(const Kwave::Compression &other);
 
         /** destructor */
-        virtual ~Compression() {}
+        virtual ~Compression();
 
         /** assignment operator from sample_format_t */
         inline void assign(Type t) { m_type = t; }
@@ -153,7 +153,7 @@ namespace Kwave
             Info();
 
             /** copy constructor */
-            Info(const Info &other);
+            Info(const Info &other) = default;
 
             /**
              * Constructor
@@ -172,7 +172,7 @@ namespace Kwave
             );
 
             /** destructor */
-            virtual ~Info();
+            virtual ~Info() = default;
 
         public:
 

@@ -42,6 +42,9 @@ Kwave::Compression::Compression(const Type value)
 }
 
 //***************************************************************************
+Kwave::Compression::~Compression() = default;
+
+//***************************************************************************
 QString Kwave::Compression::name() const
 {
     return (m_map.contains(m_type)) ?
@@ -354,21 +357,6 @@ Kwave::Compression::Info::Info()
      m_sample_formats(),
      m_has_abr(false),
      m_has_vbr(false)
-{
-}
-
-//***************************************************************************
-Kwave::Compression::Info::Info(const Kwave::Compression::Info &other)
-    :m_name(other.m_name),
-     m_mime_type(other.m_mime_type),
-     m_sample_formats(other.m_sample_formats),
-     m_has_abr(other.m_has_abr),
-     m_has_vbr(other.m_has_vbr)
-{
-}
-
-//***************************************************************************
-Kwave::Compression::Info::~Info()
 {
 }
 

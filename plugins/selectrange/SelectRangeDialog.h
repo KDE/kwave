@@ -56,7 +56,7 @@ namespace Kwave
                         sample_index_t offset, sample_index_t signal_length);
 
         /** Destructor */
-        ~SelectRangeDialog() override;
+        ~SelectRangeDialog() override = default;
 
         /**
          * Returns the current selection mode for the start position

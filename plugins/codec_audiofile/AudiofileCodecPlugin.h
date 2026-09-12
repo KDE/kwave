@@ -37,7 +37,7 @@ namespace Kwave
         AudiofileCodecPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~AudiofileCodecPlugin() override;
+        ~AudiofileCodecPlugin() override = default;
 
         /** Creates a new decoder */
         QList<Kwave::Decoder::Instance> createDecoder() override;

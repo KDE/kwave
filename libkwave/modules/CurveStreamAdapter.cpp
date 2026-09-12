@@ -28,11 +28,6 @@ Kwave::CurveStreamAdapter::CurveStreamAdapter(Kwave::Curve &curve,
 }
 
 /***************************************************************************/
-Kwave::CurveStreamAdapter::~CurveStreamAdapter()
-{
-}
-
-/***************************************************************************/
 void Kwave::CurveStreamAdapter::goOn()
 {
     unsigned int offset;

@@ -63,11 +63,6 @@ Kwave::SelectRangeDialog::SelectRangeDialog(QWidget *widget,
 }
 
 //***************************************************************************
-Kwave::SelectRangeDialog::~SelectRangeDialog()
-{
-}
-
-//***************************************************************************
 void Kwave::SelectRangeDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
 {
     if (select_range) select_range->setMode(new_mode);

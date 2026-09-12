@@ -78,7 +78,7 @@ namespace Kwave
                      QVBoxLayout *upper_dock, QVBoxLayout *lower_dock);
 
         /** Destructor */
-        ~SignalWidget() override;
+        ~SignalWidget() override = default;
 
         /**
          * sets new zoom factor and offset

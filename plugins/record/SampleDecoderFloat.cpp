@@ -41,11 +41,6 @@ Kwave::SampleDecoderFloat::SampleDecoderFloat(Kwave::byte_order_t endianness)
 }
 
 //***************************************************************************
-Kwave::SampleDecoderFloat::~SampleDecoderFloat()
-{
-}
-
-//***************************************************************************
 void Kwave::SampleDecoderFloat::decode(QByteArray &raw_data,
                                        Kwave::SampleArray &decoded)
 {

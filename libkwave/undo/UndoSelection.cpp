@@ -41,11 +41,6 @@ Kwave::UndoSelection::UndoSelection(Kwave::SignalManager &manager,
 }
 
 //***************************************************************************
-Kwave::UndoSelection::~UndoSelection()
-{
-}
-
-//***************************************************************************
 QString Kwave::UndoSelection::description()
 {
     return i18n("Selection");

@@ -45,7 +45,7 @@ namespace Kwave
         explicit FrequencyResponseWidget(QWidget *parent);
 
         /** Destructor */
-        ~FrequencyResponseWidget() override;
+        ~FrequencyResponseWidget() override = default;
 
         /**
          * Initialize the widget dimensions.

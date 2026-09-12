@@ -49,7 +49,7 @@ namespace Kwave
         ReversePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~ReversePlugin() override;
+        ~ReversePlugin() override = default;
 
         /**
          * reverses the selection

@@ -34,11 +34,6 @@ Kwave::BitrateSpinBox::BitrateSpinBox(QWidget *parent)
 }
 
 /***************************************************************************/
-Kwave::BitrateSpinBox::~BitrateSpinBox()
-{
-}
-
-/***************************************************************************/
 void Kwave::BitrateSpinBox::snapIn(int value)
 {
     int index     = nearestIndex(value);

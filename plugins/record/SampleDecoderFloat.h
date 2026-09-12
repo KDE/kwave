@@ -35,7 +35,7 @@ namespace Kwave
         SampleDecoderFloat(Kwave::byte_order_t endianness);
 
         /** destructor */
-        ~SampleDecoderFloat() override;
+        ~SampleDecoderFloat() override = default;
 
         /**
          * decodes the given buffer with IEEE float samples

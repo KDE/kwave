@@ -53,7 +53,7 @@ namespace Kwave
         OpusEncoder();
 
         /** Destructor */
-        ~OpusEncoder() override;
+        ~OpusEncoder() override = default;
 
         /**
          * parse the header of the stream and initialize the decoder

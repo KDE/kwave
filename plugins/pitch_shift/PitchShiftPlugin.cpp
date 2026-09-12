@@ -42,11 +42,6 @@ Kwave::PitchShiftPlugin::PitchShiftPlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::PitchShiftPlugin::~PitchShiftPlugin()
-{
-}
-
-//***************************************************************************
 int Kwave::PitchShiftPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;

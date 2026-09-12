@@ -38,11 +38,6 @@ Kwave::AsciiCodecPlugin::AsciiCodecPlugin(QObject *parent,
 }
 
 /***************************************************************************/
-Kwave::AsciiCodecPlugin::~AsciiCodecPlugin()
-{
-}
-
-/***************************************************************************/
 QList<Kwave::Decoder::Instance> Kwave::AsciiCodecPlugin::createDecoder()
 {
     return singleDecoder<Kwave::AsciiDecoder>();

@@ -47,11 +47,6 @@ Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,
 }
 
 //*****************************************************************************
-Kwave::MenuItem::~MenuItem()
-{
-}
-
-//*****************************************************************************
 void Kwave::MenuItem::actionTriggered(bool checked)
 {
     Q_UNUSED(checked)

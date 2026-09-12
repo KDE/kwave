@@ -150,7 +150,7 @@ namespace Kwave
         explicit FileInfo(const Kwave::MetaDataList &meta_data_list);
 
         /** Destructor */
-        ~FileInfo() override;
+        ~FileInfo() override = default;
 
         /** compare operator */
         bool operator == (const FileInfo &other) const;

@@ -42,11 +42,6 @@ Kwave::MenuSub::MenuSub(Kwave::MenuNode *parent,
     if (act) act->setText(i18nc(UTF8(_("menu: ") + path()), UTF8(name)));
 }
 
-//***************************************************************************
-Kwave::MenuSub::~MenuSub()
-{
-}
-
 //*****************************************************************************
 void Kwave::MenuSub::setVisible(bool visible)
 {

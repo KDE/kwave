@@ -33,11 +33,6 @@ Kwave::LowPassFilter::LowPassFilter()
 }
 
 //***************************************************************************
-Kwave::LowPassFilter::~LowPassFilter()
-{
-}
-
-//***************************************************************************
 void Kwave::LowPassFilter::goOn()
 {
     output(m_buffer);

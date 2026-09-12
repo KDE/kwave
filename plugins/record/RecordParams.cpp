@@ -44,11 +44,6 @@ Kwave::RecordParams::RecordParams()
 {
 }
 
-//***************************************************************************
-Kwave::RecordParams::~RecordParams()
-{
-}
-
 #define GET(value,func) \
         value = list[index++].func(&ok); \
         Q_ASSERT(ok); \

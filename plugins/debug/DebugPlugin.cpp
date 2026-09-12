@@ -74,11 +74,6 @@ Kwave::DebugPlugin::DebugPlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::DebugPlugin::~DebugPlugin()
-{
-}
-
-//***************************************************************************
 void Kwave::DebugPlugin::load(QStringList &params)
 {
     Q_UNUSED(params)

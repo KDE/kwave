@@ -48,7 +48,7 @@ namespace Kwave
         ClipBoard();
 
         /** Destructor */
-        ~ClipBoard() override;
+        ~ClipBoard() override = default;
 
         /** returns the static instance of the clipboard */
         static ClipBoard &instance();

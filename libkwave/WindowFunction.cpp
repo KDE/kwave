@@ -52,11 +52,6 @@ Kwave::WindowFunction::WindowFunction(Kwave::window_function_t type)
 }
 
 //***************************************************************************
-Kwave::WindowFunction::~WindowFunction()
-{
-}
-
-//***************************************************************************
 QVector<double> Kwave::WindowFunction::points(unsigned int len) const
 {
     QVector<double> out(len);

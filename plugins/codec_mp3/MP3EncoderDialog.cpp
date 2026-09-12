@@ -363,11 +363,6 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
 }
 
 /***************************************************************************/
-Kwave::MP3EncoderDialog::~MP3EncoderDialog()
-{
-}
-
-/***************************************************************************/
 void Kwave::MP3EncoderDialog::load()
 {
     // cbProgram

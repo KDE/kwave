@@ -39,11 +39,6 @@ Kwave::SampleEncoderFloat::SampleEncoderFloat(Kwave::byte_order_t endianness)
 }
 
 //***************************************************************************
-Kwave::SampleEncoderFloat::~SampleEncoderFloat()
-{
-}
-
-//***************************************************************************
 void Kwave::SampleEncoderFloat::encode(const Kwave::SampleArray &samples,
                                        unsigned int count,
                                        QByteArray &raw_data)

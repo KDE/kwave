@@ -68,11 +68,6 @@ Kwave::SampleDecoderULaw::SampleDecoderULaw()
 }
 
 //***************************************************************************
-Kwave::SampleDecoderULaw::~SampleDecoderULaw()
-{
-}
-
-//***************************************************************************
 void Kwave::SampleDecoderULaw::decode(QByteArray &raw_data,
                                       Kwave::SampleArray &decoded)
 {

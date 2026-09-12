@@ -26,11 +26,6 @@ Kwave::SampleFormat::Map::Map()
 }
 
 //***************************************************************************
-Kwave::SampleFormat::Map::~Map()
-{
-}
-
-//***************************************************************************
 void Kwave::SampleFormat::Map::fill()
 {
     append(0, Kwave::SampleFormat::Signed,   _("SIGNED"),

@@ -394,11 +394,6 @@ Kwave::SelectionTracker::Undo::Undo(Kwave::SelectionTracker *selection)
 }
 
 //***************************************************************************
-Kwave::SelectionTracker::Undo::~Undo()
-{
-}
-
-//***************************************************************************
 QString Kwave::SelectionTracker::Undo::description()
 {
     return QString();

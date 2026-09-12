@@ -37,7 +37,7 @@ namespace Kwave
         NewSignalPlugin(QObject *parent, const QVariantList &args);
 
         /** virtual Destructor */
-        ~NewSignalPlugin() override;
+        ~NewSignalPlugin() override = default;
 
         /**
          * Shows a dialog for creating a new signal and emits sigCommand if

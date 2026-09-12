@@ -49,7 +49,7 @@ namespace Kwave
         MP3Encoder();
 
         /** Destructor */
-        ~MP3Encoder() override;
+        ~MP3Encoder() override = default;
 
         /** Returns a new instance of the encoder */
         Kwave::Encoder::Instance instance() override;

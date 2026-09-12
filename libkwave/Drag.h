@@ -56,7 +56,7 @@ namespace Kwave
         explicit Drag(QWidget *dragSource = nullptr);
 
         /** Destructor */
-        ~Drag() override;
+        ~Drag() override = default;
 
         /**
          * Encodes wave data received from a MultiTrackReader into a byte

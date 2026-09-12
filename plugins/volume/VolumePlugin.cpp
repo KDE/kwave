@@ -48,11 +48,6 @@ Kwave::VolumePlugin::VolumePlugin(QObject *parent, const QVariantList &args)
 }
 
 //***************************************************************************
-Kwave::VolumePlugin::~VolumePlugin()
-{
-}
-
-//***************************************************************************
 int Kwave::VolumePlugin::interpreteParameters(QStringList &params)
 {
     bool ok;

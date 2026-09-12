@@ -24,11 +24,6 @@ Kwave::TreeWidgetWrapper::TreeWidgetWrapper(QWidget *widget)
 }
 
 //***************************************************************************
-Kwave::TreeWidgetWrapper::~TreeWidgetWrapper()
-{
-}
-
-//***************************************************************************
 void Kwave::TreeWidgetWrapper::focusOutEvent(QFocusEvent *event)
 {
     QTreeWidget::focusOutEvent(event);

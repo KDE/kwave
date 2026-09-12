@@ -52,7 +52,7 @@ namespace Kwave
         /**
          * Destructor
          */
-        ~ImageView() override;
+        ~ImageView() override = default;
 
         /**
          * Returns the position and size of the current image, packed

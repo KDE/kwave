@@ -43,7 +43,7 @@ namespace Kwave
         BandPass();
 
         /** Destructor */
-        ~BandPass() override;
+        ~BandPass() override = default;
 
         /** does the calculation */
         void goOn() override;

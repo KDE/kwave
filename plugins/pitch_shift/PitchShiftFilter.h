@@ -45,7 +45,7 @@ namespace Kwave
         PitchShiftFilter();
 
         /** Destructor */
-        ~PitchShiftFilter() override;
+        ~PitchShiftFilter() override = default;
 
         /** does the calculation */
         void goOn() override;

@@ -45,7 +45,7 @@ namespace Kwave
         explicit LabelPropertiesWidget(QWidget *parent);
 
         /** Destructor */
-        ~LabelPropertiesWidget() override;
+        ~LabelPropertiesWidget() override = default;
 
         /**
          * sets the index of the label (read-only property)

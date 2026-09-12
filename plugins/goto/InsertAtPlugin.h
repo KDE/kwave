@@ -41,7 +41,7 @@ namespace Kwave
         InsertAtPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~InsertAtPlugin() override;
+        ~InsertAtPlugin() override = default;
 
     protected:
 

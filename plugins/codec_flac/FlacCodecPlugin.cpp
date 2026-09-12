@@ -38,11 +38,6 @@ Kwave::FlacCodecPlugin::FlacCodecPlugin(QObject *parent,
 }
 
 /***************************************************************************/
-Kwave::FlacCodecPlugin::~FlacCodecPlugin()
-{
-}
-
-/***************************************************************************/
 QList<Kwave::Decoder::Instance> Kwave::FlacCodecPlugin::createDecoder()
 {
     return singleDecoder<Kwave::FlacDecoder>();

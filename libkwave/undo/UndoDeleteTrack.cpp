@@ -35,11 +35,6 @@ Kwave::UndoDeleteTrack::UndoDeleteTrack(Kwave::Signal &signal,
 }
 
 //***************************************************************************
-Kwave::UndoDeleteTrack::~UndoDeleteTrack()
-{
-}
-
-//***************************************************************************
 QString Kwave::UndoDeleteTrack::description()
 {
     return i18n("Delete Track");

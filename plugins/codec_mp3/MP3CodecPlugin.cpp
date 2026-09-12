@@ -40,11 +40,6 @@ Kwave::MP3CodecPlugin::MP3CodecPlugin(QObject *parent,
 }
 
 /***************************************************************************/
-Kwave::MP3CodecPlugin::~MP3CodecPlugin()
-{
-}
-
-/***************************************************************************/
 void Kwave::MP3CodecPlugin::load(QStringList &params)
 {
     emitCommand(_("menu (plugin:setup(codec_mp3), Settings/%1)").arg(

@@ -60,11 +60,6 @@ Kwave::NormalizePlugin::NormalizePlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::NormalizePlugin::~NormalizePlugin()
-{
-}
-
-//***************************************************************************
 void Kwave::NormalizePlugin::run(QStringList params)
 {
     Q_UNUSED(params)

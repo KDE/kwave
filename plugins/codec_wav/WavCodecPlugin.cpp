@@ -34,11 +34,6 @@ Kwave::WavCodecPlugin::WavCodecPlugin(QObject *parent,
 }
 
 /***************************************************************************/
-Kwave::WavCodecPlugin::~WavCodecPlugin()
-{
-}
-
-/***************************************************************************/
 QList<Kwave::Decoder::Instance> Kwave::WavCodecPlugin::createDecoder()
 {
     return singleDecoder<Kwave::WavDecoder>();

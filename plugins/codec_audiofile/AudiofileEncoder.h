@@ -53,7 +53,7 @@ namespace Kwave
                          int format_id);
 
         /** Destructor */
-        ~AudiofileEncoder() override;
+        ~AudiofileEncoder() override = default;
 
         /** Returns a new instance of the encoder */
         Kwave::Encoder::Instance instance() override;

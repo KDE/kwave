@@ -48,7 +48,7 @@ namespace Kwave
         FlacEncoder();
 
         /** Destructor */
-        ~FlacEncoder() override;
+        ~FlacEncoder() override = default;
 
         /** Returns a new instance of the encoder */
         Kwave::Encoder::Instance instance() override;

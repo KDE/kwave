@@ -54,7 +54,7 @@ namespace Kwave
         NormalizePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~NormalizePlugin() override;
+        ~NormalizePlugin() override = default;
 
         /**
          * normalizes the volume

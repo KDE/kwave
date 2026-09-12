@@ -60,7 +60,7 @@ namespace Kwave
         RecordParams();
 
         /** Destructor */
-        virtual ~RecordParams();
+        virtual ~RecordParams() = default;
 
         /**
          * Parse from a QStringList

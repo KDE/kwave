@@ -41,11 +41,6 @@ Kwave::LowPassPlugin::LowPassPlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::LowPassPlugin::~LowPassPlugin()
-{
-}
-
-//***************************************************************************
 int Kwave::LowPassPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;

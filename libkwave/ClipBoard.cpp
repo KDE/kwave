@@ -48,12 +48,6 @@ Kwave::ClipBoard::ClipBoard()
 }
 
 //***************************************************************************
-Kwave::ClipBoard::~ClipBoard()
-{
-    // clear() must have been before, e.g. in the application's destructor !
-}
-
-//***************************************************************************
 void Kwave::ClipBoard::slotChanged(QClipboard::Mode mode)
 {
     if (mode != QClipboard::Clipboard) return;

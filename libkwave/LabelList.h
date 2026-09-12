@@ -47,7 +47,7 @@ namespace Kwave
         explicit LabelList(const Kwave::MetaDataList &meta_data_list);
 
         /** Destructor */
-        virtual ~LabelList();
+        virtual ~LabelList() = default;
 
         /** sorts the list by ascending position */
         virtual void sort() final;

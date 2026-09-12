@@ -42,11 +42,6 @@ Kwave::BandPassPlugin::BandPassPlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::BandPassPlugin::~BandPassPlugin()
-{
-}
-
-//***************************************************************************
 int Kwave::BandPassPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;

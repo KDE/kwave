@@ -55,11 +55,6 @@ Kwave::StandardBitrates::StandardBitrates()
 }
 
 //***************************************************************************
-Kwave::StandardBitrates::~StandardBitrates()
-{
-}
-
-//***************************************************************************
 const Kwave::StandardBitrates &Kwave::StandardBitrates::instance()
 {
     return g_bitrates;

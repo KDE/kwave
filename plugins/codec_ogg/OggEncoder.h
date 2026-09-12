@@ -37,7 +37,7 @@ namespace Kwave
         OggEncoder();
 
         /** Destructor */
-        ~OggEncoder() override;
+        ~OggEncoder() override = default;
 
         /** Returns a new instance of the encoder */
         Kwave::Encoder::Instance instance() override;

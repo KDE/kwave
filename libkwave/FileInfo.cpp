@@ -350,11 +350,6 @@ Kwave::FileInfo::FileInfo(const Kwave::MetaDataList &meta_data_list)
 }
 
 /***************************************************************************/
-Kwave::FileInfo::~FileInfo()
-{
-}
-
-/***************************************************************************/
 bool Kwave::FileInfo::contains(Kwave::FileProperty key) const
 {
     if (!m_property_map.keys().contains(key))

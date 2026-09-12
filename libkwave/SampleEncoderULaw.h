@@ -38,7 +38,7 @@ namespace Kwave
         SampleEncoderULaw();
 
         /** Destructor */
-        ~SampleEncoderULaw() override;
+        ~SampleEncoderULaw() override = default;
 
         /**
          * Encodes a buffer with samples into a buffer with raw data.

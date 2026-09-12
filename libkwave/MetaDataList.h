@@ -57,7 +57,7 @@ namespace Kwave
         explicit MetaDataList(const MetaData &meta);
 
         /** Destructor */
-        virtual ~MetaDataList();
+        virtual ~MetaDataList() = default;
 
         /**
          * Create a simple list of meta data items, sorted by the position

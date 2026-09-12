@@ -52,7 +52,7 @@ namespace Kwave
         explicit Interpolation(Kwave::interpolation_t type = INTPOL_LINEAR);
 
         /** Destructor. */
-        virtual ~Interpolation();
+        virtual ~Interpolation() = default;
 
         bool prepareInterpolation(const Kwave::Curve &points);
 

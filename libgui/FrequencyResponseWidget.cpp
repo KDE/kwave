@@ -36,11 +36,6 @@ Kwave::FrequencyResponseWidget::FrequencyResponseWidget(QWidget *widget)
 }
 
 //***************************************************************************
-Kwave::FrequencyResponseWidget::~FrequencyResponseWidget()
-{
-}
-
-//***************************************************************************
 void Kwave::FrequencyResponseWidget::init(double freq, int db_min, int db_max)
 {
     const int base = 10;

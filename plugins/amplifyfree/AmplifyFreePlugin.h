@@ -45,7 +45,7 @@ namespace Kwave
         AmplifyFreePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~AmplifyFreePlugin() override;
+        ~AmplifyFreePlugin() override = default;
 
         /**
          * Shows a dialog for editing the amplification curve and emits a

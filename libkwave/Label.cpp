@@ -41,11 +41,6 @@ Kwave::Label::Label(sample_index_t position, const QString &name)
 }
 
 //***************************************************************************
-Kwave::Label::~Label()
-{
-}
-
-//***************************************************************************
 void Kwave::Label::moveTo(sample_index_t position)
 {
     if (isNull()) setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());

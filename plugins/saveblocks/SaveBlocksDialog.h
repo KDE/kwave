@@ -52,7 +52,7 @@ namespace Kwave
         );
 
         /** Destructor */
-        ~SaveBlocksDialog() override;
+        ~SaveBlocksDialog() override = default;
 
         /** returns the file name pattern */
         QString pattern();

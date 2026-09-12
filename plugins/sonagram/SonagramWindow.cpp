@@ -505,11 +505,6 @@ void Kwave::SonagramWindow::updateScaleWidgets()
 }
 
 //***************************************************************************
-Kwave::SonagramWindow::~SonagramWindow()
-{
-}
-
-//***************************************************************************
 void Kwave::SonagramWindow::setColorMode(int mode)
 {
     Q_ASSERT(mode >= 0);

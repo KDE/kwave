@@ -35,11 +35,6 @@ Kwave::SelectDateDialog::SelectDateDialog(QWidget *parent, QDate &date)
 }
 
 //***************************************************************************
-Kwave::SelectDateDialog::~SelectDateDialog()
-{
-}
-
-//***************************************************************************
 QDate Kwave::SelectDateDialog::date()
 {
     return m_date;

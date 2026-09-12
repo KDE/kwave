@@ -37,11 +37,6 @@ Kwave::MetaDataList::MetaDataList(const Kwave::MetaData &meta)
 }
 
 //***************************************************************************
-Kwave::MetaDataList::~MetaDataList()
-{
-}
-
-//***************************************************************************
 static bool isLessThan(const Kwave::MetaData &m1, const Kwave::MetaData &m2)
 {
      return m1.firstSample() < m2.firstSample();

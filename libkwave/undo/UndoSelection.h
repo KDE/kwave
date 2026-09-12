@@ -58,7 +58,7 @@ namespace Kwave
                       sample_index_t length);
 
         /** virtual destructor */
-        ~UndoSelection() override;
+        ~UndoSelection() override = default;
 
         /** @see UndoAction::description() */
         QString description() override;

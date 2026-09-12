@@ -44,7 +44,7 @@ namespace Kwave
         SaveBlocksPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~SaveBlocksPlugin() override;
+        ~SaveBlocksPlugin() override = default;
 
         /**
          * Shows a file saving dialog and emits a command for saving the blocks

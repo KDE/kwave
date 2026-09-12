@@ -41,7 +41,7 @@ namespace Kwave
         GotoPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~GotoPlugin() override;
+        ~GotoPlugin() override = default;
 
     protected:
 

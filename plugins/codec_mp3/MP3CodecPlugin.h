@@ -39,7 +39,7 @@ namespace Kwave
         MP3CodecPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~MP3CodecPlugin() override;
+        ~MP3CodecPlugin() override = default;
 
         /** @see Kwave::Plugin::load() */
         void load(QStringList &params) override;

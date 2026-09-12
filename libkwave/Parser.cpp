@@ -104,11 +104,6 @@ Kwave::Parser::Parser (const QString &init)
 }
 
 //***************************************************************************
-Kwave::Parser::~Parser ()
-{
-}
-
-//***************************************************************************
 QStringList Kwave::Parser::splitCommands(QString &line)
 {
     // split a line into commands

@@ -34,11 +34,6 @@ Kwave::UndoInsertTrack::UndoInsertTrack(Kwave::Signal &signal,
 }
 
 //***************************************************************************
-Kwave::UndoInsertTrack::~UndoInsertTrack()
-{
-}
-
-//***************************************************************************
 QString Kwave::UndoInsertTrack::description()
 {
     return i18n("Insert Track");

@@ -41,10 +41,7 @@ Kwave::MetaData::MetaData()
 }
 
 //***************************************************************************
-Kwave::MetaData::MetaData(const Kwave::MetaData &other)
-    :m_data(other.m_data)
-{
-}
+Kwave::MetaData::MetaData(const Kwave::MetaData &other) = default;
 
 //***************************************************************************
 Kwave::MetaData::MetaData(Scope scope)
@@ -252,17 +249,10 @@ Kwave::MetaData::MetaDataPriv::MetaDataPriv()
 
 //***************************************************************************
 Kwave::MetaData::MetaDataPriv::MetaDataPriv(const MetaDataPriv &other)
-    :QSharedData(other),
-     m_id(other.m_id),
-     m_scope(other.m_scope),
-     m_properties(other.m_properties)
-{
-}
+    = default;
 
 //***************************************************************************
-Kwave::MetaData::MetaDataPriv::~MetaDataPriv()
-{
-}
+Kwave::MetaData::MetaDataPriv::~MetaDataPriv() = default;
 
 //***************************************************************************
 QString Kwave::MetaData::MetaDataPriv::newUid()

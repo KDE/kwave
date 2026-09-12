@@ -219,7 +219,7 @@ namespace Kwave
             explicit Undo(Kwave::SelectionTracker *selection);
 
             /** Destructor */
-            ~Undo() override;
+            ~Undo() override = default;
 
             /**
              * Returns a verbose short description of the action.

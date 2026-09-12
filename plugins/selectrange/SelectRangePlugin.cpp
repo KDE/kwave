@@ -46,11 +46,6 @@ Kwave::SelectRangePlugin::SelectRangePlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::SelectRangePlugin::~SelectRangePlugin()
-{
-}
-
-//***************************************************************************
 QStringList *Kwave::SelectRangePlugin::setup(QStringList &previous_params)
 {
     // try to interpret the previous parameters

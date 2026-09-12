@@ -44,11 +44,6 @@ Kwave::GotoPluginBase::GotoPluginBase(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::GotoPluginBase::~GotoPluginBase()
-{
-}
-
-//***************************************************************************
 QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
 {
     // try to interpret the previous parameters

@@ -55,11 +55,6 @@ Kwave::AmplifyFreeDialog::AmplifyFreeDialog(QWidget *parent)
 }
 
 //***************************************************************************
-Kwave::AmplifyFreeDialog::~AmplifyFreeDialog()
-{
-}
-
-//***************************************************************************
 QString Kwave::AmplifyFreeDialog::getCommand()
 {
     QString cmd;

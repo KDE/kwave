@@ -60,11 +60,6 @@ Kwave::SaveBlocksPlugin::SaveBlocksPlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::SaveBlocksPlugin::~SaveBlocksPlugin()
-{
-}
-
-//***************************************************************************
 QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 {
     // try to interpret the previous parameters

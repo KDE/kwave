@@ -42,7 +42,7 @@ namespace Kwave
         Parser(const QString &init);
 
         /** Destructor. */
-        virtual ~Parser();
+        virtual ~Parser() = default;
 
         /** Returns the command part of the line */
         inline QString command() {

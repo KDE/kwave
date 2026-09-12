@@ -145,11 +145,6 @@ void Kwave::SelectTimeWidget::init(Mode mode, quint64 range,
 }
 
 //***************************************************************************
-Kwave::SelectTimeWidget::~SelectTimeWidget()
-{
-}
-
-//***************************************************************************
 void Kwave::SelectTimeWidget::connect()
 {
     // connect the time controls

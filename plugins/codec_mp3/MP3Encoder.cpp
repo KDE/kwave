@@ -68,11 +68,6 @@ Kwave::MP3Encoder::MP3Encoder()
 }
 
 /***************************************************************************/
-Kwave::MP3Encoder::~MP3Encoder()
-{
-}
-
-/***************************************************************************/
 Kwave::Encoder::Instance Kwave::MP3Encoder::instance()
 {
     return std::make_shared<MP3Encoder>();

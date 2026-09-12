@@ -49,7 +49,7 @@ namespace Kwave
         explicit SampleArray(unsigned int size);
 
         /** Destructor */
-        virtual ~SampleArray();
+        virtual ~SampleArray() = default;
 
         /** returns a const pointer to the raw data (non-mutable) */
         inline const sample_t * constData() const

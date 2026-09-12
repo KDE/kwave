@@ -39,11 +39,6 @@ Kwave::SampleArray::SampleArray(unsigned int size)
 }
 
 //***************************************************************************
-Kwave::SampleArray::~SampleArray()
-{
-}
-
-//***************************************************************************
 void Kwave::SampleArray::fill(sample_t value)
 {
     if (!m_storage) return;

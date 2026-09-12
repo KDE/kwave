@@ -53,7 +53,7 @@ namespace Kwave
         );
 
         /** Destructor */
-        ~K3BExportDialog() override;
+        ~K3BExportDialog() override = default;
 
         /** returns the title/artist detection pattern (as is, not escaped) */
         QString pattern() const;

@@ -44,7 +44,7 @@ namespace Kwave
                       Kwave::SignalManager &signal_manager);
 
         /** Destructor */
-        ~SelectionItem() override;
+        ~SelectionItem() override = default;
 
         /**
          * Returns flags describing the possible interactions with this object

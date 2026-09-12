@@ -38,7 +38,7 @@ namespace Kwave
         Osc();
 
         /** Destructor */
-        ~Osc() override;
+        ~Osc() override = default;
 
         /** does the calculation */
         void goOn() override;

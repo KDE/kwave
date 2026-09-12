@@ -44,7 +44,7 @@ namespace Kwave
                             Kwave::byte_order_t endianness);
 
         /** Destructor */
-        ~SampleEncoderLinear() override;
+        ~SampleEncoderLinear() override = default;
 
         /**
          * Encodes a buffer with samples into a buffer with raw data.

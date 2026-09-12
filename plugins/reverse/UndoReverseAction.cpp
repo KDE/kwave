@@ -34,11 +34,6 @@ Kwave::UndoReverseAction::UndoReverseAction(
 }
 
 //***************************************************************************
-Kwave::UndoReverseAction::~UndoReverseAction()
-{
-}
-
-//***************************************************************************
 QString Kwave::UndoReverseAction::description()
 {
     return i18n("Reverse");

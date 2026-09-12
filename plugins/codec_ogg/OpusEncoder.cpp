@@ -117,11 +117,6 @@ Kwave::OpusEncoder::OpusEncoder()
 }
 
 /***************************************************************************/
-Kwave::OpusEncoder::~OpusEncoder()
-{
-}
-
-/***************************************************************************/
 bool Kwave::OpusEncoder::setupBitrate(QWidget *widget, unsigned int tracks)
 {
     int bitrate_nominal = m_info.contains(Kwave::INF_BITRATE_NOMINAL) ?

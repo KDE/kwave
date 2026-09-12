@@ -51,7 +51,7 @@ namespace Kwave
         ScaleWidget(QWidget *parent, int low, int high, const QString &unit);
 
         /** Destructor */
-        ~ScaleWidget() override;
+        ~ScaleWidget() override = default;
 
         /**
          * Sets the border values.

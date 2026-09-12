@@ -102,11 +102,6 @@ Kwave::AudiofileEncoder::AudiofileEncoder(const char *name,
 }
 
 /***************************************************************************/
-Kwave::AudiofileEncoder::~AudiofileEncoder()
-{
-}
-
-/***************************************************************************/
 Kwave::Encoder::Instance Kwave::AudiofileEncoder::instance()
 {
     const CodecBase::MimeType m = mimeTypes().constFirst();

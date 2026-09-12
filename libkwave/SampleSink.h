@@ -40,7 +40,7 @@ namespace Kwave
         explicit SampleSink(QObject *parent = nullptr);
 
         /** Destructor */
-        ~SampleSink() override;
+        ~SampleSink() override = default;
 
         /**
          * Returns true if the end of the destination has been reached,

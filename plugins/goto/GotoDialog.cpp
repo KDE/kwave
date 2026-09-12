@@ -48,11 +48,6 @@ Kwave::GotoDialog::GotoDialog(QWidget *widget, Mode mode, sample_index_t pos,
 }
 
 //***************************************************************************
-Kwave::GotoDialog::~GotoDialog()
-{
-}
-
-//***************************************************************************
 void Kwave::GotoDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
 {
     if (select_pos) select_pos->setMode(new_mode);

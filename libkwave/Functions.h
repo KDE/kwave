@@ -38,10 +38,10 @@ namespace Kwave
         typedef double(periodic_function_t)(double);
 
         /** Constructor */
-        Functions();
+        Functions() = default;
 
         /** Destructor */
-        virtual ~Functions();
+        virtual ~Functions() = default;
 
         /** Returns the number of functions */
         unsigned int count() const;

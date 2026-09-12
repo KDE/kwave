@@ -41,11 +41,6 @@ Kwave::NotchFilterPlugin::NotchFilterPlugin(QObject *parent,
 }
 
 //***************************************************************************
-Kwave::NotchFilterPlugin::~NotchFilterPlugin()
-{
-}
-
-//***************************************************************************
 int Kwave::NotchFilterPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;

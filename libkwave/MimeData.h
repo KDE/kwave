@@ -47,7 +47,7 @@ namespace Kwave
             MimeData();
 
             /** Destructor */
-            ~MimeData() override;
+            ~MimeData() override = default;
 
             /**
              * Encodes wave data received from a MultiTrackReader into a byte

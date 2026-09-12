@@ -49,7 +49,7 @@ namespace Kwave
                             sample_index_t pos);
 
         /** Destructor */
-        ~SelectionBorderItem() override;
+        ~SelectionBorderItem() override = default;
 
         /**
          * Returns flags describing the possible interactions with this object

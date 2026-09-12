@@ -33,11 +33,6 @@ Kwave::NotchFilter::NotchFilter()
 }
 
 //***************************************************************************
-Kwave::NotchFilter::~NotchFilter()
-{
-}
-
-//***************************************************************************
 void Kwave::NotchFilter::goOn()
 {
     output(m_buffer);

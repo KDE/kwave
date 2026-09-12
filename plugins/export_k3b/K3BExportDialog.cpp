@@ -100,11 +100,6 @@ Kwave::K3BExportDialog::K3BExportDialog(
 }
 
 //***************************************************************************
-Kwave::K3BExportDialog::~K3BExportDialog()
-{
-}
-
-//***************************************************************************
 QString Kwave::K3BExportDialog::pattern() const
 {
     Q_ASSERT(cbLabelPattern);

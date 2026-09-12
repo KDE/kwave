@@ -46,11 +46,6 @@ Kwave::ScaleWidget::ScaleWidget(QWidget *parent, int low, int high,
 }
 
 //***************************************************************************
-Kwave::ScaleWidget::~ScaleWidget()
-{
-}
-
-//***************************************************************************
 void Kwave::ScaleWidget::setUnit(const QString &text)
 {
     m_unittext = text;

@@ -128,11 +128,6 @@ Kwave::SignalWidget::SignalWidget(QWidget *parent,
 }
 
 //***************************************************************************
-Kwave::SignalWidget::~SignalWidget()
-{
-}
-
-//***************************************************************************
 void Kwave::SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
 {
     Q_ASSERT(zoom >= 0.0);

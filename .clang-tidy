@@ -18,7 +18,6 @@ Checks: '
   clang-analyzer-*,
   -clang-analyzer-deadcode.DeadStores,
   -clang-analyzer-optin.core.EnumCastOutOfRange,
-  -clang-analyzer-optin.cplusplus.VirtualCall,
   -clang-analyzer-security.FloatLoopCounter,
   -performance-*
 '

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-07 00:44+0000\n"
+"POT-Creation-Date: 2026-09-12 00:44+0000\n"
 "PO-Revision-Date: 2020-10-01 21:36+0200\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -1184,7 +1184,7 @@ msgstr "Načítavam súbor '%1'..."
 #: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:633
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:544
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:164 plugins/playback/PlayBack-Qt.cpp:175
 #: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:986
@@ -3905,43 +3905,43 @@ msgid "Creative Voice"
 msgstr "Creative Voice"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:100
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:540
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:542
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Formát alebo funkcia nie je implementovaná"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_wav/WavEncoder.cpp:547
+#: plugins/codec_wav/WavEncoder.cpp:549
 #, kde-format
 msgid "File header is damaged"
 msgstr "Hlavička súboru je poškodená"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:109
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:550
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:552
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Neplatný typ kodeku"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:112
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:554
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:556
 #, kde-format
 msgid "Opening the file failed"
 msgstr "Otvorenie súboru zlyhalo"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:115
-#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:557
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:559
 #, kde-format
 msgid "Read access failed"
 msgstr "Prístup na čítanie zlyhal"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
-#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:560
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:562
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Neplatný formát vzorky"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:124
-#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:566
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:568
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4096,7 +4096,7 @@ msgstr ""
 "Súborový formát, ktorý ste vybrali, podporuje iba mono alebo stereo. Pri "
 "ukladaní sa tento súbor zmieša na stereo."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:493
+#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:495
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Nepodarilo sa otvoriť súbor na uloženie!"
@@ -4852,7 +4852,7 @@ msgstr "hlavička súboru je poškodená"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "interná chyba libaudiofile #%1: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:446
+#: plugins/codec_wav/WavEncoder.cpp:448
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4861,17 +4861,17 @@ msgstr ""
 "Prepáčte, ale momentálne vybraný typ kompresie nie je možné použiť na "
 "uloženie. Chcete namiesto toho použiť kompresiu G711 ULAW?"
 
-#: plugins/codec_wav/WavEncoder.cpp:449
+#: plugins/codec_wav/WavEncoder.cpp:451
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "Áno, použiť G711"
 
-#: plugins/codec_wav/WavEncoder.cpp:450
+#: plugins/codec_wav/WavEncoder.cpp:452
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&Nie, uložiť nekomprimované"
 
-#: plugins/codec_wav/WavEncoder.cpp:499 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:501 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "Súbor alebo výber je príliš veľký"

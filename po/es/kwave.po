@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-07 00:44+0000\n"
+"POT-Creation-Date: 2026-09-12 00:44+0000\n"
 "PO-Revision-Date: 2026-08-29 17:26+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -1187,7 +1187,7 @@ msgstr "Cargando el archivo «%1»…"
 #: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:633
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:544
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:164 plugins/playback/PlayBack-Qt.cpp:175
 #: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:986
@@ -3913,43 +3913,43 @@ msgid "Creative Voice"
 msgstr "Voz de Creative"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:100
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:540
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:542
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Formato o función sin implementar"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_wav/WavEncoder.cpp:547
+#: plugins/codec_wav/WavEncoder.cpp:549
 #, kde-format
 msgid "File header is damaged"
 msgstr "La cabecera del archivo está dañada"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:109
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:550
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:552
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Tipo de códec no válido"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:112
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:554
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:556
 #, kde-format
 msgid "Opening the file failed"
 msgstr "La apertura del archivo ha fallado"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:115
-#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:557
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:559
 #, kde-format
 msgid "Read access failed"
 msgstr "Fallo de lectura"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
-#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:560
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:562
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Formato de muestra no válido"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:124
-#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:566
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:568
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4094,7 +4094,7 @@ msgstr ""
 "El formato del archivo que ha escogido solo permite mono o estéreo. Este "
 "archivo será transformado a estéreo cuando lo guarde."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:493
+#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:495
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "No ha sido posible abrir el archivo para guardar."
@@ -4857,7 +4857,7 @@ msgstr "la cabecera del archivo está dañada"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "error interno de libaudiofile #%1: «%2»"
 
-#: plugins/codec_wav/WavEncoder.cpp:446
+#: plugins/codec_wav/WavEncoder.cpp:448
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4866,17 +4866,17 @@ msgstr ""
 "Lo sentimos: el tipo de compresión seleccionado no se puede usar al guardar. "
 "¿Desea usar la compresión G711 ULAW en su lugar?"
 
-#: plugins/codec_wav/WavEncoder.cpp:449
+#: plugins/codec_wav/WavEncoder.cpp:451
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "&Sí, usar G711"
 
-#: plugins/codec_wav/WavEncoder.cpp:450
+#: plugins/codec_wav/WavEncoder.cpp:452
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&No, guardar sin comprimir"
 
-#: plugins/codec_wav/WavEncoder.cpp:499 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:501 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "Archivo o selección demasiado grande"

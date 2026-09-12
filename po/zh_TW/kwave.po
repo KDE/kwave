@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-07 00:44+0000\n"
+"POT-Creation-Date: 2026-09-12 00:44+0000\n"
 "PO-Revision-Date: 2024-08-09 03:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1183,7 +1183,7 @@ msgstr "載入檔案 '%1' 中..."
 #: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:633
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
 #: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:544
+#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:164 plugins/playback/PlayBack-Qt.cpp:175
 #: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:986
@@ -3907,43 +3907,43 @@ msgid "Creative Voice"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:100
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:540
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:542
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "格式或功能未實作"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_wav/WavEncoder.cpp:547
+#: plugins/codec_wav/WavEncoder.cpp:549
 #, kde-format
 msgid "File header is damaged"
 msgstr "檔案標頭已損毀"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:109
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:550
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:552
 #, kde-format
 msgid "Invalid codec type"
 msgstr "無效的編碼器型態"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:112
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:554
+#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:556
 #, kde-format
 msgid "Opening the file failed"
 msgstr "開啟檔案失敗"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:115
-#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:557
+#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:559
 #, kde-format
 msgid "Read access failed"
 msgstr "讀取存取失敗"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
-#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:560
+#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:562
 #, kde-format
 msgid "Invalid sample format"
 msgstr "無效的樣本格式"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:124
-#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:566
+#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:568
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4081,7 +4081,7 @@ msgid ""
 "be mixed down to stereo when saving."
 msgstr ""
 
-#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:493
+#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:495
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr ""
@@ -4826,24 +4826,24 @@ msgstr "檔案標頭已損毀"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "內部 libaudiofile 錯誤 #%1：「%2」"
 
-#: plugins/codec_wav/WavEncoder.cpp:446
+#: plugins/codec_wav/WavEncoder.cpp:448
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
 "you want to use G711 ULAW compression instead?"
 msgstr ""
 
-#: plugins/codec_wav/WavEncoder.cpp:449
+#: plugins/codec_wav/WavEncoder.cpp:451
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "是，使用 G711(&Y)"
 
-#: plugins/codec_wav/WavEncoder.cpp:450
+#: plugins/codec_wav/WavEncoder.cpp:452
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "否，不壓縮直接儲存(&N)"
 
-#: plugins/codec_wav/WavEncoder.cpp:499 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:501 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "檔案或選取範圍太大"

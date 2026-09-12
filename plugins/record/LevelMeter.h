@@ -54,33 +54,33 @@ namespace Kwave
     public slots:
 
         /** sets the number of tracks that the display should use */
-        virtual void setTracks(unsigned int tracks);
+        void setTracks(unsigned int tracks);
 
         /**
          * sets the sample rate for interpreting the samples used
          * for updating the display.
          */
-        virtual void setSampleRate(double rate);
+        void setSampleRate(double rate);
 
         /**
          * Updates a apecific track
          * @param track index of the track
          * @param buffer array with samples
          */
-        virtual void updateTrack(unsigned int track,
-                                 const Kwave::SampleArray &buffer);
+        void updateTrack(unsigned int track,
+                         const Kwave::SampleArray &buffer);
 
         /**
          * Resets all meters to zero
          */
-        virtual void reset();
+        void reset();
 
         /**
          * Redraws the whole widget
          * @author (original idea taken from) Rik Hemsley (rikkus) <rik@kde.org>
          *          Copyright 2002
          */
-        virtual void drawContents();
+        void drawContents();
 
     protected slots:
 

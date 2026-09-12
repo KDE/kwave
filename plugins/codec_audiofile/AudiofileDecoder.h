@@ -66,7 +66,7 @@ namespace Kwave
         /**
          * Closes the source.
          */
-        void close() override;
+        void close() final;
 
     private:
 

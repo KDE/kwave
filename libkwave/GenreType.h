@@ -35,12 +35,12 @@ namespace Kwave
     private:
 
         /** private constructor */
-        GenreType();
+        GenreType() = default;
 
     public:
 
         /** Destructor */
-        virtual ~GenreType() {}
+        virtual ~GenreType() = default;
 
         /**
          * get the localized name from the id

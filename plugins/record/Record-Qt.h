@@ -159,11 +159,10 @@ namespace Kwave
          * @param max receives the highest supported number of tracks
          * @return zero or positive if ok, negative error number if failed
          */
-        virtual int detectTracks(unsigned int& min, unsigned int& max)
-            override;
+        int detectTracks(unsigned int& min, unsigned int& max) override;
 
         /** Close the device */
-        int close() override;
+        int close() final;
 
         /**
          * Read the raw audio data from the record device.
@@ -172,8 +171,7 @@ namespace Kwave
          * @param offset offset in bytes within the buffer
          * @return number of bytes read, zero or negative if failed
          */
-        virtual int read(QByteArray& buffer, unsigned int offset)
-            override;
+        int read(QByteArray& buffer, unsigned int offset) override;
 
         /** return a string list with supported device names */
         QStringList supportedDevices() override;

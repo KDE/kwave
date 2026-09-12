@@ -50,7 +50,7 @@ namespace Kwave
         virtual ~LabelList();
 
         /** sorts the list by ascending position */
-        virtual void sort();
+        virtual void sort() final;
 
         /**
         * returns the content of this list as a list of Kwave::MetaData objects

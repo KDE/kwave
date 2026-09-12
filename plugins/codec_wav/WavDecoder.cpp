@@ -321,7 +321,6 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     header.min.blockalign  = qFromLittleEndian<quint16>(header.min.blockalign);
     header.min.bitwidth    = qFromLittleEndian<quint16>(header.min.bitwidth);
 
-    unsigned int tracks = header.min.channels;
     rate = header.min.samplerate;
     bits = header.min.bitwidth;
 
@@ -406,7 +405,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     AFframecount length = afGetFrameCount(fh, AF_DEFAULT_TRACK);
-    tracks = afGetVirtualChannels(fh, AF_DEFAULT_TRACK);
+    unsigned int tracks = afGetVirtualChannels(fh, AF_DEFAULT_TRACK);
 
     int af_sample_format;
     afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &af_sample_format,
@@ -632,6 +631,7 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 
     unsigned int frame_size = Kwave::toUint(
         afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
+    if (!frame_size) return false;
 
     // allocate a buffer for input data
     const unsigned int buffer_frames = (64 * 1024);

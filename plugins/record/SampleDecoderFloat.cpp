@@ -51,6 +51,7 @@ void Kwave::SampleDecoderFloat::decode(QByteArray &raw_data,
 {
     unsigned int samples = static_cast<unsigned int>(raw_data.size() / 4);
     sample_t     *dst = decoded.data();
+    Q_CHECK_PTR(dst);
 
     Q_ASSERT(decoded.size() >= samples);
     static_assert(sizeof(float) == 4, "float must be 32-bit");
@@ -60,6 +61,7 @@ void Kwave::SampleDecoderFloat::decode(QByteArray &raw_data,
         // aligned 32-bit integer reads with hardware byte swap
         const quint32 *src = reinterpret_cast<const quint32 *>(
             raw_data.constData());
+        Q_CHECK_PTR(src);
         for (unsigned int i = 0; i < samples; ++i)
         {
             quint32 raw_int = qbswap(*src++);
@@ -72,6 +74,7 @@ void Kwave::SampleDecoderFloat::decode(QByteArray &raw_data,
         // direct aligned float read
         const float *src_float = reinterpret_cast<const float *>(
             raw_data.constData());
+        Q_ASSERT(src_float);
         for (unsigned int i = 0; i < samples; ++i)
             *dst++ = float2sample(*src_float++);
     }

@@ -272,7 +272,7 @@ namespace Kwave
             }
 
             /** fills the list */
-            void fill() override;
+            void fill() final;
 
             /** returns a list of all properties */
             virtual QList<FileProperty> all() const;

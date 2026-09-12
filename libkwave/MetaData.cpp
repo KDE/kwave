@@ -252,7 +252,7 @@ Kwave::MetaData::MetaDataPriv::MetaDataPriv()
 
 //***************************************************************************
 Kwave::MetaData::MetaDataPriv::MetaDataPriv(const MetaDataPriv &other)
-    :QSharedData(),
+    :QSharedData(other),
      m_id(other.m_id),
      m_scope(other.m_scope),
      m_properties(other.m_properties)

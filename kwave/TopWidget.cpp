@@ -39,6 +39,7 @@
 #include <QMenuBar>
 #include <QMutableMapIterator>
 #include <QPixmap>
+#include <QScopedPointer>
 #include <QSizePolicy>
 #include <QStatusBar>
 #include <QStringList>
@@ -1088,18 +1089,16 @@ int Kwave::TopWidget::openRecent(const QString &str)
 int Kwave::TopWidget::openFile()
 {
     QString filter = Kwave::CodecManager::decodingFilter();
-    QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
+    QScopedPointer<Kwave::FileDialog> dlg(new(std::nothrow) Kwave::FileDialog(
         _("kfiledialog:///kwave_open_dir"),
         Kwave::FileDialog::OpenFile, filter, this
-    );
+    ));
     if (!dlg) return -1;
     dlg->setWindowTitle(i18n("Open"));
     if (dlg->exec() == QDialog::Accepted) {
         QUrl url = dlg->selectedUrl();
-        delete dlg;
         return loadFile(url);
     } else {
-        delete dlg;
         return -1;
     }
 }

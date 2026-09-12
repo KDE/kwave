@@ -1921,7 +1921,7 @@ void Kwave::SignalManager::deleteLabel(int index, bool with_undo)
         if (with_undo) startUndoTransaction(i18n("Delete All Labels"));
 
         for (index = count - 1; index >= 0; --index) {
-            Kwave::MetaData label(labels.at(index));
+            const Kwave::MetaData &label = labels.at(index);
             if (with_undo) {
                 if (!registerUndoAction(new(std::nothrow)
                     UndoDeleteMetaDataAction(Kwave::MetaDataList(label))))
@@ -1933,7 +1933,7 @@ void Kwave::SignalManager::deleteLabel(int index, bool with_undo)
         // delete a single label
         if ((index < 0) || (index >= count)) return;
 
-        Kwave::MetaData label(labels.at(index));
+        const Kwave::MetaData &label = labels.at(index);
 
         // register the undo action
         if (with_undo) {

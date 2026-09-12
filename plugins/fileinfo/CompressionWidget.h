@@ -58,10 +58,10 @@ namespace Kwave
          * @param lowest checks/unchecks the lowest bitrate setting checkbox
          * @param highest checks/unchecks the highest bitrate setting checkbox
          */
-        virtual void enableABR(bool enable, bool lowest, bool highest);
+        void enableABR(bool enable, bool lowest, bool highest);
 
         /** Enable or disable VBR mode */
-        virtual void enableVBR(bool enable);
+        void enableVBR(bool enable);
 
 
         /**

@@ -109,6 +109,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         Messages.sh                                     GPL2+
         README.md                                       GPL2+
         snapcraft.yaml                                  CC0-1.0
+        .clang-tidy                                     GPL2+
         .flatpak-manifest.json                          CC0-1.0
         .gitignore                                      (UNKNOWN / Laurent Montel <montel@kde.org>)
         .gitlab-ci.yml                                  CC0-1.0
@@ -127,6 +128,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         bin/update-plugin-xref.pl                       GPL2+
 
         cmake/CheckIncludeFilesCXX.cmake                BSD (3 clause)
+        cmake/ClangTidy.cmake                           BSD (3 clause)
         cmake/COPYING-CMAKE-SCRIPTS                     BSD (3 clause)
         cmake/Copyright.txt                             Kitware (cmake)
         cmake/FindRequiredProgram.cmake                 BSD (3 clause)

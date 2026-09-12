@@ -263,14 +263,14 @@ namespace Kwave
          * @param mouse the coordinates of the mouse cursor,
          *              relative to this widget [pixel]
          */
-        virtual void showPosition(const QString &text, sample_index_t pos,
-                                  const QPoint &mouse);
+        void showPosition(const QString &text, sample_index_t pos,
+                          const QPoint &mouse);
 
         /**
          * Hide the current position marker
          * @see showPosition
          */
-        virtual void hidePosition() {
+        void hidePosition() {
             showPosition(QString(), 0, QPoint(-1,-1));
         }
 

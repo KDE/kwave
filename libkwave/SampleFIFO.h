@@ -50,7 +50,7 @@ namespace Kwave
          * Reset the FIFO. This destroys the content and sets
          * all pointers to their initial value.
          */
-        virtual void flush();
+        virtual void flush() final;
 
         /**
          * puts samples into the FIFO

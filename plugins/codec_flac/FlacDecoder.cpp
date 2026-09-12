@@ -115,12 +115,15 @@ Kwave::Decoder::Instance Kwave::FlacDecoder::instance()
         if (!writer) continue;
 
         const FLAC__int32 *buf = buffer[track];
+        Q_CHECK_PTR(buf);
 
         synchronizer.addFuture(QtConcurrent::run(
             [buf, samples, shift, mul, writer]() {
                 Kwave::SampleArray dst(samples);
                 sample_t *d = dst.data();
                 const FLAC__int32 *src = buf;
+
+                Q_CHECK_PTR(d != nullptr);
 
                 for (unsigned int sample = 0; sample < samples; ++sample) {
                     // the following cast is only necessary if

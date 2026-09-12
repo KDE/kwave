@@ -158,7 +158,7 @@ namespace Kwave
          * Stops any threads and is called from the close() function and
          * the plugin's destructor.
          */
-        virtual int stop();
+        virtual int stop() final;
 
         /**
          * Gets called from the plugin's execute function and should be
@@ -317,14 +317,14 @@ namespace Kwave
          * dialog and also has confirmed the cancel confirmation
          * message box.
          */
-        virtual void cancel();
+        virtual void cancel() final;
 
         /**
          * Called to close the plugin. This will be called from the plugin
          * manager and can as well be used from inside the plugin if it
          * wishes to close itself.
          */
-        virtual void close();
+        virtual void close() final;
 
         /** decrements the usage counter */
         void release();

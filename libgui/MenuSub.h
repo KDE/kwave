@@ -100,7 +100,7 @@ namespace Kwave
                                             const QString &uid) override;
 
         /** Returns the corresponding menu action */
-        QAction *action() override {
+        QAction *action() final {
             return (m_menu) ? m_menu->menuAction() : nullptr;
         }
 

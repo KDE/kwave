@@ -86,13 +86,13 @@ void Kwave::Normalizer::input(Kwave::SampleArray &data)
 }
 
 //***************************************************************************
-void Kwave::Normalizer::setGain(const QVariant g)
+void Kwave::Normalizer::setGain(const QVariant &g)
 {
     m_gain = QVariant(g).toDouble();
 }
 
 //***************************************************************************
-void Kwave::Normalizer::setLimiterLevel(const QVariant l)
+void Kwave::Normalizer::setLimiterLevel(const QVariant &l)
 {
     m_limit = QVariant(l).toDouble();
 }

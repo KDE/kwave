@@ -52,10 +52,10 @@ namespace Kwave
     public slots:
 
         /** set the time, given as a number in seconds */
-        virtual void setValue(int value);
+        void setValue(int value);
 
         /** sets the maximum time in seconds */
-        virtual void setLimit(unsigned int limit);
+        void setLimit(unsigned int limit);
 
     protected slots:
 

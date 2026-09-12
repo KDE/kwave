@@ -690,13 +690,14 @@ int Kwave::PlayBackALSA::flush()
     Q_ASSERT(m_channels);
     Q_ASSERT(m_bytes_per_sample);
     if (!m_channels || !m_bytes_per_sample) return -EINVAL;
+    if (m_buffer_used < m_bytes_per_sample) return 0;
 
     if (m_handle) {
         snd_pcm_uframes_t samples = m_buffer_used / m_bytes_per_sample;
         unsigned int buffer_samples = m_buffer_size / m_bytes_per_sample;
-        unsigned int timeout = (m_rate > 0) ?
-            3 * ((1000 * buffer_samples) /
-            Kwave::toUint(m_rate)) : 1000U;
+        unsigned int rate = Kwave::toUint(m_rate);
+        unsigned int timeout = (rate > 0) ?
+            3 * ((1000 * buffer_samples) / rate) : 1000U;
         quint8 *p = reinterpret_cast<quint8 *>(m_buffer.data());
 
         // pad the buffer with silence if necessary

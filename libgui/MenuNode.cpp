@@ -49,7 +49,7 @@ Kwave::MenuNode::~MenuNode()
     }
 
     // remove all children
-    clear();
+    Kwave::MenuNode::clear();
 
     // de-register from our parent
     if (m_parentNode) m_parentNode->removeChild(this);
@@ -398,7 +398,8 @@ void Kwave::MenuNode::joinGroup(const QString &group,
 //*****************************************************************************
 void Kwave::MenuNode::leaveGroup(const QString &group)
 {
-    QHash<QString, Kwave::MenuGroup *> &group_list = groupList();
+    QHash<QString, Kwave::MenuGroup *> &group_list =
+        Kwave::MenuNode::groupList();
     Kwave::MenuGroup *grp = (group_list.contains(group)) ?
         group_list.value(group) : nullptr;
 

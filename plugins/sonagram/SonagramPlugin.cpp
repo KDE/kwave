@@ -73,7 +73,7 @@ Kwave::SonagramPlugin::SonagramPlugin(QObject *parent,
 {
     i18n("Sonagram");
 
-    // connect the output ouf the sonagram worker thread
+    // connect the output of the sonagram worker thread
     connect(this, SIGNAL(sliceAvailable(Kwave::SonagramPlugin::Slice*)),
             this, SLOT(insertSlice(Kwave::SonagramPlugin::Slice*)),
             Qt::QueuedConnection);

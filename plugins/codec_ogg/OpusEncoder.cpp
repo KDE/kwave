@@ -278,7 +278,7 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
 
     // determine channel mapping and coupling
     quint8 force_narrow = 0x00;
-    if (tracks <= 8) {
+    if ((tracks > 1) && (tracks <= 8)) {
         /* apply a mapping as done in opusenc.c from opus-tools-0.1.5 */
         static const quint8 opusenc_streams[8][10]= {
             /*       Coupled,   NB_bitmap, mapping...*/

@@ -124,7 +124,7 @@ namespace Kwave
          * @param metadata the object to search
          * @return true if found, otherwise false
          */
-        virtual bool contains(const MetaData &metadata) const;
+        bool contains(const MetaData &metadata) const;
 
         /**
          * Replaces all meta data objects that have the same type as one
@@ -136,7 +136,7 @@ namespace Kwave
          * @note affects only objects with a type that was found in the
          *       passed list
          */
-        virtual void replace(const MetaDataList &list);
+        void replace(const MetaDataList &list);
 
         /**
          * Adds a single meta data object to the list. If it is already
@@ -146,7 +146,7 @@ namespace Kwave
          *
          * @param metadata the meta data object that should be added
          */
-        virtual void add(const MetaData &metadata);
+        void add(const MetaData &metadata);
 
         /**
          * Adds a list of meta data objects to the list. Old versions of
@@ -154,21 +154,21 @@ namespace Kwave
          *
          * @param list list of meta data objects that should be added
          */
-        virtual void add(const MetaDataList &list);
+        void add(const MetaDataList &list);
 
         /**
          * Removes one meta data object from the list (if it exists).
          *
          * @param metadata the object that should be removed
          */
-        virtual void remove(const MetaData &metadata);
+        void remove(const MetaData &metadata);
 
         /**
          * Removes a list of meta data objects from this list (if they exist).
          *
          * @param list the list of meta data objects to remove
          */
-        virtual void remove(const MetaDataList &list);
+        void remove(const MetaDataList &list);
 
         /**
          * Crops this list to a given range of samples. All position aware
@@ -178,7 +178,7 @@ namespace Kwave
          * @param first index of the first sample
          * @param last  index of the last sample
          */
-        virtual void cropByRange(sample_index_t first, sample_index_t last);
+        void cropByRange(sample_index_t first, sample_index_t last);
 
         /**
          * copy elements from the meta data list that overlap a given

@@ -539,6 +539,9 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 
     } while (m_loop_mode && !m_thread.isInterruptionRequested());
 
+    delete mixer;
+    mixer = nullptr;
+
     // playback is done
     emit sigDevicePlaybackDone();
 //     qDebug("PlaybackController::run() done.");

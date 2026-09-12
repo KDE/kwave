@@ -161,12 +161,6 @@ Kwave::AboutDialog::AboutDialog(
     kwave_url_label->setOpenExternalLinks(true);
     kwave_url_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 
-    /* the frame containing the translators */
-    Kwave::AboutContainer *trans =
-        new(std::nothrow) Kwave::AboutContainer(this);
-    Q_ASSERT(trans);
-    if (!trans) return;
-
     QList<KAboutPerson> translators = about_data.translators();
 
     /* ----------- begin workaround KDE #345320 ----------- */
@@ -190,6 +184,12 @@ Kwave::AboutDialog::AboutDialog(
         (translators.first().name() == _(NAME_OF_TRANSLATORS))) ) {
         tabwidget->removeTab(4);
     } else {
+        /* the frame containing the translators */
+        Kwave::AboutContainer *trans =
+            new(std::nothrow) Kwave::AboutContainer(this);
+        Q_ASSERT(trans);
+        if (!trans) return;
+
         for (const KAboutPerson &translator : translators) {
             QString website = translator.webAddress();
 

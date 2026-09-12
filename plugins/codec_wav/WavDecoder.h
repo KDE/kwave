@@ -72,11 +72,11 @@ namespace Kwave
         /**
          * Closes the source.
          */
-        void close() override;
+        void close() final;
 
     protected:
         /**
-         * Fix all inconsistencies and create a repar list.
+         * Fix all inconsistencies and create a repair list.
          * @internal
          */
         bool repair(QList<Kwave::RecoverySource *> *repair_list,

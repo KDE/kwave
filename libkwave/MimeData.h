@@ -113,7 +113,7 @@ namespace Kwave
                  * Closes the buffer and frees the memory
                  * (calling multiple times is allowed)
                  */
-                void close() override;
+                void close() final;
 
             protected:
                 /**

@@ -23,7 +23,7 @@
 #include <QApplication>
 #include <QFile>
 #include <QLocale>
-#include <QPointer>
+#include <QScopedPointer>
 #include <QTextStream>
 #include <QMdiSubWindow>
 #include <QStandardPaths>
@@ -984,21 +984,19 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
         }
 
         QString filter = Kwave::CodecManager::encodingFilter();
-        QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
+        QScopedPointer<Kwave::FileDialog> dlg(new(std::nothrow)Kwave::FileDialog(
             _("kfiledialog:///kwave_save_as"),
             Kwave::FileDialog::SaveFile,
             filter, m_top_widget, current_url, extension
-        );
+        ));
         if (!dlg) return 0;
         dlg->setWindowTitle(i18n("Save As"));
         if (dlg->exec() != QDialog::Accepted) {
-            delete dlg;
             return -1;
         }
 
         url = dlg->selectedUrl();
         if (url.isEmpty()) {
-            delete dlg;
             return 0;
         }
 
@@ -1014,8 +1012,6 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
             path.setFile(new_name);
             url.setPath(new_name);
         }
-
-        delete dlg;
     }
 
     name = url.path();

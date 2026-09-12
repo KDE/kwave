@@ -54,12 +54,12 @@ namespace Kwave
         /**
          * Sets the gain of the amplifier [0...1]
          */
-        void setGain(const QVariant g);
+        void setGain(const QVariant &g);
 
         /**
          * Sets the limiter level [linear, 0...1]
          */
-        void setLimiterLevel(const QVariant l);
+        void setLimiterLevel(const QVariant &l);
 
     private:
 

@@ -72,7 +72,7 @@ namespace Kwave
          * Closes the output device.
          * @see PlayBackDevice::close
          */
-        int close() override;
+        int close() final;
 
         /** return a string list with supported device names */
         QStringList supportedDevices() override;

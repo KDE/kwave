@@ -100,6 +100,7 @@ SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 #############################################################################
 ### cmake includes                                                        ###
 
+INCLUDE(ClangTidy)
 INCLUDE(CheckIncludeFiles)
 INCLUDE(CheckIncludeFilesCXX)
 INCLUDE(CheckCCompilerFlag)
@@ -236,6 +237,9 @@ OPTION(DEBUG "enable the debug plugin in the menu [default=off]" OFF)
 IF (DEBUG)
     SET(HAVE_DEBUG_PLUGIN  ON CACHE BOOL "enable debug plugin in the menu")
 ENDIF (DEBUG)
+
+# force qt assertions and pointer checks even in release builds
+ADD_COMPILE_DEFINITIONS(QT_FORCE_ASSERTS)
 
 #############################################################################
 ### subdirs                                                               ###

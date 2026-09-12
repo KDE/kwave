@@ -15,9 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-
-#include <math.h>
-#include <stdlib.h>
+#include <cstdlib>
+#include <cmath>
 
 #include <QBrush>
 #include <QPainter>
@@ -94,6 +93,7 @@ void Kwave::FrequencyResponseWidget::paintEvent(QPaintEvent*)
         // calculate the filter function's output at the given frequency
         f = (f / m_f_max) * M_PI;
         double a = (m_function) ? m_function->at(f): 1.0;
+        if (!std::isfinite(a)) a = 1.0;
 
         // limit to upper and lower margins
         if (a < min) a = min;

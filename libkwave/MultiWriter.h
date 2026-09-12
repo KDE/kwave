@@ -55,7 +55,7 @@ namespace Kwave
         virtual void flush();
 
         /** @see Kwave::MultiTrackSink<Kwave::Writer>::clear() */
-        void clear() override;
+        void clear() final;
 
         /** @see Kwave::MultiTrackSink<Kwave::Writer>::insert() */
         virtual bool insert(unsigned int track, Kwave::Writer *writer)

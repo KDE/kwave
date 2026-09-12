@@ -54,7 +54,7 @@ namespace Kwave
          * @param db_min lowest amplitude in decibel
          * @param db_max highest amplitude in decibel
          */
-        virtual void init(double freq, int db_min, int db_max);
+        void init(double freq, int db_min, int db_max);
 
         /** Set a new transmission function and update the display */
         virtual void setFilter(Kwave::TransmissionFunction *func);

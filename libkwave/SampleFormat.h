@@ -91,7 +91,7 @@ namespace Kwave
             ~Map() override;
 
             /** fills the list */
-            void fill() override;
+            void fill() final;
         };
 
     };

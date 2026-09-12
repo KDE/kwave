@@ -245,7 +245,8 @@ void Kwave::FileProgress::fitUrlLabel()
 
 //***************************************************************************
 QLabel *Kwave::FileProgress::addInfoLabel(QGridLayout *layout,
-                                          const QString text, int row, int col)
+                                          const QString &text,
+                                          int row, int col)
 {
     QLabel *label = new(std::nothrow) QLabel(this);
     Q_ASSERT(label);

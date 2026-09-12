@@ -225,7 +225,7 @@ int Kwave::Plugin::stop()
         qWarning("Kwave::Plugin::stop(): plugin '%s' called stop() from "
                  "within it's own worker thread (from run() ?). "
                  "This would produce a deadlock, PLEASE FIX THIS !",
-                 DBG(name()));
+                 DBG(m_name));
 
 #ifdef DEBUG
         qDebug("pthread_self()=%p, tid=%p",

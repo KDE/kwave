@@ -62,13 +62,13 @@ namespace Kwave
          * add a menu node to the group
          * @param node a MenuNode to join, must not be NULL
          */
-        virtual void join(Kwave::MenuNode *node);
+        void join(Kwave::MenuNode *node);
 
         /**
          * remove a menu node from the group
          * @param node a MenuNode to remove, must not be NULL
          */
-        virtual void leave(Kwave::MenuNode *node);
+        void leave(Kwave::MenuNode *node);
 
         /**
          * Enables/disables all members of the group.
@@ -99,7 +99,7 @@ namespace Kwave
          * De-registers all child nodes from us and removes them from
          * our internal list of child nodes.
          */
-        virtual void clear();
+        void clear();
 
     private:
 

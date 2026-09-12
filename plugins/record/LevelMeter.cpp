@@ -113,6 +113,8 @@ void Kwave::LevelMeter::updateTrack(unsigned int track,
     const unsigned int samples = buffer.size();
     const unsigned int samples_per_update = Kwave::toUint(
         rintf(ceilf(m_sample_rate / UPDATES_PER_SECOND)));
+    if (!samples_per_update) return;
+
     unsigned int next_fraction = samples_per_update;
     const unsigned int queue_depth = ((samples / samples_per_update) + 2);
 

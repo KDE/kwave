@@ -123,8 +123,7 @@ Kwave::ZoomToolBar::ZoomToolBar(TopWidget *parent, const QString &name)
 
     int h = m_zoomselect->sizeHint().height();
     m_zoomselect->setMinimumWidth(h * 5);
-    m_zoomselect->setFocusPolicy(Qt::FocusPolicy(Qt::ClickFocus |
-                                                 Qt::TabFocus));
+    m_zoomselect->setFocusPolicy(Qt::StrongFocus);
 
     m_zoomselect->clearFocus();
 }

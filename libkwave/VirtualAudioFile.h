@@ -59,7 +59,7 @@ namespace Kwave
          * @note This has not necessarily to be called, it will closed
          *       automatically in the destructor.
          */
-        virtual void close();
+        virtual void close() final;
 
         /** Returns the handle for use in libaudiofile */
         inline AFfilehandle &handle() { return m_file_handle; }

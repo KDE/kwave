@@ -73,7 +73,7 @@ namespace Kwave
         int read(QByteArray &buffer, unsigned int offset) override;
 
         /** Close the device */
-        int close() override;
+        int close() final;
 
         /** return a string list with supported device names */
         QStringList supportedDevices() override;

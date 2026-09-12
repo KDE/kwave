@@ -127,7 +127,7 @@ namespace Kwave
         QVariant property(const QString &p) const;
 
         /** Same as above, for using through the [] operator */
-        inline QVariant operator [] (const QString p) const
+        inline QVariant operator [] (const QString &p) const
         {
             return property(p);
         }
@@ -141,7 +141,7 @@ namespace Kwave
         QVariant &property(const QString &p);
 
         /** Same as above, for using through the [] operator */
-        inline QVariant &operator [] (const QString p)
+        inline QVariant &operator [] (const QString &p)
         {
             return property(p);
         }

@@ -78,7 +78,7 @@ namespace Kwave
         /**
          * finished the encoding, clean up
          */
-        void close() override;
+        void close() final;
 
     private:
 

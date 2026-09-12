@@ -277,7 +277,7 @@ void Kwave::SonagramWindow::load()
 }
 
 //****************************************************************************
-void Kwave::SonagramWindow::setImage(QImage image)
+void Kwave::SonagramWindow::setImage(const QImage &image)
 {
     Q_ASSERT(m_view);
     if (!m_view) return;

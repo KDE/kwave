@@ -57,7 +57,7 @@ namespace Kwave
         /**
          * Sets the conversion ratio, ((new rate) / (old rate))
          */
-        void setRatio(const QVariant r);
+        void setRatio(const QVariant &r);
 
     private:
 

@@ -256,7 +256,7 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-void Kwave::RecordPlugin::notice(QString message)
+void Kwave::RecordPlugin::notice(const QString &message)
 {
     Q_ASSERT(m_dialog);
     if (m_dialog) m_dialog->message(message);

@@ -90,7 +90,7 @@ unsigned int Kwave::Filter::resize(unsigned int newnum)
 
     // initialize the new entries
     while (oldnum < newnum) {
-        m_delay[oldnum] = oldnum;
+        m_delay[oldnum] = Kwave::toInt(oldnum);
         m_coeff[oldnum] = 0.0;
         oldnum++;
     }
@@ -130,7 +130,7 @@ unsigned int Kwave::Filter::delay(unsigned int index)
 void Kwave::Filter::setDelay(unsigned int index, unsigned int newval)
 {
     Q_ASSERT(Kwave::toInt(index) < m_delay.count());
-    m_delay[index] = newval;
+    m_delay[index] = Kwave::toInt(newval);
 }
 
 //***************************************************************************
@@ -198,7 +198,7 @@ void Kwave::Filter::load(const QString &filename)
 
         qsizetype spacepos = line.indexOf(QLatin1Char(' '));
         ok = true;
-        m_delay[i] = line.left(spacepos).toUInt(&ok);
+        m_delay[i] = line.left(spacepos).toInt(&ok);
         line.remove(0, spacepos);
         if (ok) m_coeff[i] = line.toDouble(&ok);
 

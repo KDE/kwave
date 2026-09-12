@@ -63,6 +63,8 @@ void Kwave::SampleDecoderALaw::decode(QByteArray &raw_data,
     unsigned int samples = static_cast<unsigned int>(raw_data.size());
     const quint8 *src = reinterpret_cast<const quint8 *>(raw_data.constData());
     sample_t     *dst = decoded.data();
+    Q_CHECK_PTR(src);
+    Q_CHECK_PTR(dst);
 
     const int shift = (SAMPLE_BITS - 16);
     while (samples--) {

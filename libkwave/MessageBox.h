@@ -41,46 +41,52 @@ namespace Kwave
 
         /** @see KMessageBox::questionYesNo */
         static int questionYesNo(QWidget *widget,
-            QString message, QString caption = QString(),
-            const QString buttonYes = QString(),
-            const QString buttonNo  = QString(),
+            const QString &message,
+            const QString &caption   = QString(),
+            const QString &buttonYes = QString(),
+            const QString &buttonNo  = QString(),
             const QString &dontAskAgainName = QString());
 
         /** @see KMessageBox::questionYesNoCancel */
         static int questionYesNoCancel(QWidget *widget,
-            QString message, QString caption = QString(),
-            const QString buttonYes = QString(),
-            const QString buttonNo = QString(),
+            const QString &message,
+            const QString &caption   = QString(),
+            const QString &buttonYes = QString(),
+            const QString &buttonNo  = QString(),
             const QString &dontAskAgainName = QString());
 
         /** @see KMessageBox::error */
         static int sorry(QWidget *widget,
-            QString message, QString caption = QString());
+            const QString &message, const QString &caption = QString());
 
         /** @see KMessageBox::warningYesNo */
         static int warningYesNo(QWidget *widget,
-            QString message, QString caption = QString(),
-            const QString buttonYes = QString(),
-            const QString buttonNo = QString(),
+            const QString &message,
+            const QString &caption   = QString(),
+            const QString &buttonYes = QString(),
+            const QString &buttonNo  = QString(),
             const QString &dontAskAgainName = QString());
 
         /** @see KMessageBox::warningYesNoCancel */
         static int warningYesNoCancel(QWidget *widget,
-            QString message, QString caption = QString(),
-            const QString buttonYes = QString(),
-            const QString buttonNo = QString(),
+            const QString &message,
+            const QString &caption   = QString(),
+            const QString &buttonYes = QString(),
+            const QString &buttonNo  = QString(),
             const QString &dontAskAgainName = QString());
 
         /** @see KMessageBox::warningContinueCancel */
         static int warningContinueCancel(QWidget *widget,
-            QString message, QString caption = QString(),
-            const QString buttonContinue = QString(),
-            const QString buttonCancel = QString(),
+            const QString &message,
+            const QString &caption        = QString(),
+            const QString &buttonContinue = QString(),
+            const QString &buttonCancel   = QString(),
             const QString &dontAskAgainName = QString());
 
         /** @see KMessageBox::error */
         static int error(QWidget *widget,
-            QString message, QString caption = QString());
+            const QString &message,
+            const QString &caption = QString());
 
     private:
 
@@ -98,7 +104,7 @@ namespace Kwave
          * @param dontAskAgainName tag name for "do not ask again"
          */
         MessageBox(KMessageBox::DialogType mode, QWidget *parent,
-            QString message, QString caption,
+            const QString &message, const QString &caption,
             const QString &button1 = QString(),
             const QString &button2 = QString(),
             const QString &dontAskAgainName = QString());
@@ -124,7 +130,7 @@ namespace Kwave
          * @return the result of the call to KMessageBox::xxx or -1
          */
         static int exec(KMessageBox::DialogType mode, QWidget *parent,
-            QString message, QString caption = QString(),
+            const QString &message, const QString &caption = QString(),
             const QString &button1 = QString(),
             const QString &button2 = QString(),
             const QString &dontAskAgainName = QString());

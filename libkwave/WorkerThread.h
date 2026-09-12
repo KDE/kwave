@@ -39,7 +39,8 @@ namespace Kwave
     public:
 
         /** Constructor */
-        explicit WorkerThread(Kwave::Runnable *runnable, QVariant params);
+        explicit WorkerThread(Kwave::Runnable *runnable,
+                              const QVariant &params);
 
         /** Destructor, calls stop() if the thread is still running. */
         ~WorkerThread() override;
@@ -51,7 +52,7 @@ namespace Kwave
          * @return zero if successful or an error code if failed
          * @see errno.h
          */
-        virtual int stop(unsigned int timeout = 10000);
+        virtual int stop(unsigned int timeout = 10000) final;
 
         /**
          * A wrapper for the run() function, calls the run_wrapper(...)

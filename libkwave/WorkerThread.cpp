@@ -47,7 +47,8 @@ void _dummy_SIGHUP_handler(int)
 }
 
 //***************************************************************************
-Kwave::WorkerThread::WorkerThread(Kwave::Runnable *runnable, QVariant params)
+Kwave::WorkerThread::WorkerThread(Kwave::Runnable *runnable,
+                                  const QVariant &params)
     :QThread(nullptr),
      m_runnable(runnable),
      m_params(params),
@@ -111,7 +112,7 @@ int Kwave::WorkerThread::stop(unsigned int timeout)
 
     // try to stop cooperatively
     if (!isRunning()) return 0;
-    wait(timeout/10);
+    wait(timeout / 10);
     if (!isRunning()) return 0;
 
     // try to interrupt by HUP signal
@@ -124,7 +125,7 @@ int Kwave::WorkerThread::stop(unsigned int timeout)
                 pthread_kill(m_tid, SIGHUP);
         }
         if (!isRunning()) return 0;
-        wait(timeout/10);
+        wait(timeout / 10);
         if (!isRunning()) return 0;
     }
 

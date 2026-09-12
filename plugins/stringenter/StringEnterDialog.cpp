@@ -27,7 +27,7 @@
 #include "StringEnterDialog.h"
 
 /** group for loading/saving the configuration */
-#define CONFIG_GROUP QLatin1StringView(metaObject()->className())
+#define CONFIG_GROUP _("Kwave::StringEnterDialog")
 
 /** entry for loading/saving the width in the configuration */
 #define CONFIG_WIDTH "width"

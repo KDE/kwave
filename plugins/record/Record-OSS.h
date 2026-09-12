@@ -53,11 +53,10 @@ namespace Kwave
          * @param offset offset in bytes within the buffer
          * @return number of bytes read, zero or negative if failed
          */
-        virtual int read(QByteArray &buffer, unsigned int offset)
-            override;
+        int read(QByteArray &buffer, unsigned int offset) override;
 
         /** Close the device */
-        int close() override;
+        int close() final;
 
         /** return a string list with supported device names */
         QStringList supportedDevices() override;
@@ -108,8 +107,7 @@ namespace Kwave
          * Gets a list of supported compression types. If no compression is
          * supported, the list might be empty.
          */
-        virtual QList<Kwave::Compression::Type> detectCompressions()
-            override;
+        QList<Kwave::Compression::Type> detectCompressions() override;
 
         /**
          * Try to set a new compression type.
@@ -117,8 +115,7 @@ namespace Kwave
          * @return zero on success, negative error code if failed
          * @see class Compression
          */
-        virtual int setCompression(Kwave::Compression::Type new_compression)
-            override;
+        int setCompression(Kwave::Compression::Type new_compression) override;
 
         /** Returns the current compression type (0==none) */
         Kwave::Compression::Type compression() override;
@@ -146,8 +143,7 @@ namespace Kwave
          * Gets a list of supported sample formats.
          * @note this depends on the current setting of the compression!
          */
-        virtual QList<Kwave::SampleFormat::Format> detectSampleFormats()
-            override;
+        QList<Kwave::SampleFormat::Format> detectSampleFormats() override;
 
         /**
          * Try to set a new sample format (signed/unsigned)
@@ -155,8 +151,7 @@ namespace Kwave
          * @return zero on success, negative error code if failed
          * @see class SampleFormat
          */
-        virtual int setSampleFormat(Kwave::SampleFormat::Format new_format)
-            override;
+        int setSampleFormat(Kwave::SampleFormat::Format new_format) override;
 
         /** Returns the current sample format (signed/unsigned) */
         Kwave::SampleFormat::Format sampleFormat() override;

@@ -44,7 +44,7 @@ Kwave::MultiTrackReader::MultiTrackReader(
     for (unsigned int track : track_list) {
         Kwave::SampleReader *s = signal_manager.openReader(
             mode, track, first, last);
-        if (!s) break;
+        if (s == nullptr) break;
         insert(index++, s);
         Q_ASSERT(index == tracks());
     }

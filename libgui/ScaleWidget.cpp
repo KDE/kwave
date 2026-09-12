@@ -169,15 +169,14 @@ void Kwave::ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
     p.setPen(palette().text().color());
 
     int a, x;
-    double ofs;
-    double t = w - 1;
+    int t  = w - 1;
     int h2 = h;
 
     // print the lines
     while ((t / 10 > 1) && (h2 > 0)) {
-        for (ofs = 0; ofs < w - 1; ofs += t) {
+        for (int ofs = 0; ofs < (w - 1); ofs += t) {
             for (a = 0; a < 4; ++a) {
-                x = Kwave::toInt(ofs + (t * a / 4));
+                x = Kwave::toInt(double(ofs) + (double(t) * a / 4.0));
                 p.drawLine (dir * x, dir * 1, dir * x, dir * (h2 - 2));
             }
         }

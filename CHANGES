@@ -1,4 +1,5 @@
 26.11.70 [2026-08-25]
+ * added support for building with clang-tidy (optional, per default OFF)
  * codec_audiofile:
    - parallelized decoding
    - implemented support for importing labels

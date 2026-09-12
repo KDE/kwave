@@ -31,8 +31,8 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QPoint>
-#include <QPointer>
 #include <QResizeEvent>
+#include <QScopedPointer>
 #include <QScrollBar>
 #include <QTextStream>
 #include <QWheelEvent>
@@ -927,18 +927,17 @@ int Kwave::MainWidget::loadLabels(const QString &filename)
 
     QUrl url;
     if (!filename.length()) {
-        QPointer<Kwave::FileDialog> dlg = new (std::nothrow)Kwave::FileDialog(
-        _("kfiledialog:///kwave_label_dir"),
-        Kwave::FileDialog::OpenFile, LABEL_LIST_FILTER, this,
-        QUrl(), LABEL_LIST_EXT);
+        QScopedPointer<Kwave::FileDialog> dlg(
+            new (std::nothrow)Kwave::FileDialog(
+            _("kfiledialog:///kwave_label_dir"),
+            Kwave::FileDialog::OpenFile, LABEL_LIST_FILTER, this,
+            QUrl(), LABEL_LIST_EXT));
         if (!dlg) return -1;
         dlg->setWindowTitle(i18n("Load Labels"));
         if (dlg->exec() != QDialog::Accepted) {
-            delete dlg;
             return 0;
         } else {
             url = dlg->selectedUrl();
-            delete dlg;
         }
     } else {
         url = Kwave::URLfromUserInput(filename);
@@ -963,22 +962,20 @@ int Kwave::MainWidget::saveLabels(const QString &filename)
     if (!filename.length()) {
         QString name(filename);
 
-        QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
+        QScopedPointer<Kwave::FileDialog> dlg(
+            new(std::nothrow)Kwave::FileDialog(
             _("kfiledialog:///kwave_label_dir"),
             Kwave::FileDialog::SaveFile, LABEL_LIST_FILTER,
-            this, url, LABEL_LIST_EXT);
+            this, url, LABEL_LIST_EXT));
         if (!dlg) return 0;
         dlg->setWindowTitle(i18n("Save Labels"));
         if (dlg->exec() != QDialog::Accepted) {
-            delete dlg;
             return -1;
         }
         url = dlg->selectedUrl();
         if (url.isEmpty()) {
-            delete dlg;
             return 0;
         }
-        delete dlg;
 
         // add an extension if necessary
         name = url.path();

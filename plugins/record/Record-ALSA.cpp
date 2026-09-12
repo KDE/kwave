@@ -627,8 +627,9 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
 
     // handle all negative result codes
     if (r == -EAGAIN) {
-        unsigned int timeout = (m_rate > 0) ?
-            (((1000 * samples) / 4) / Kwave::toUint(m_rate)) : 0;
+        unsigned int rate = Kwave::toUint(m_rate);
+        unsigned int timeout = (rate > 0) ?
+            (((1000 * samples) / 4) / rate) : 0;
         if (timeout < 10) timeout = 10;
         snd_pcm_wait(m_handle, timeout);
         return -EAGAIN;

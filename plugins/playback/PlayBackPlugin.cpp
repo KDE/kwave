@@ -31,7 +31,7 @@
 #include <QLatin1Char>
 #include <QMutex>
 #include <QMutexLocker>
-#include <QPointer>
+#include <QScopedPointer>
 #include <QProgressDialog>
 #include <QString>
 #include <QTimer>
@@ -411,8 +411,8 @@ void Kwave::PlayBackPlugin::testPlayBack()
     m_playback_sink->setInteractive(true);
 
     // show a progress dialog
-    QPointer<QProgressDialog> progress =
-        new(std::nothrow) QProgressDialog(m_dialog);
+    QScopedPointer<QProgressDialog> progress(
+        new(std::nothrow) QProgressDialog(m_dialog));
     Q_ASSERT(progress);
     if (progress) {
         progress->setWindowTitle(i18n("Playback Test"));
@@ -430,12 +430,13 @@ void Kwave::PlayBackPlugin::testPlayBack()
                     Kwave::toInt(PLAYBACK_TEST_FREQUENCY)) +
             _("</p></html>")
         );
-        connect(progress, SIGNAL(canceled()), this, SLOT(cancel()),
+        connect(progress.data(), SIGNAL(canceled()), this, SLOT(cancel()),
                 Qt::QueuedConnection);
-        connect(this, SIGNAL(sigDone(Kwave::Plugin*)), progress, SLOT(close()),
+        connect(this,            SIGNAL(sigDone(Kwave::Plugin*)),
+                progress.data(), SLOT(close()),
                 Qt::QueuedConnection);
         connect(this, SIGNAL(sigTestProgress(int)),
-                progress, SLOT(setValue(int)),
+                progress.data(), SLOT(setValue(int)),
                 Qt::QueuedConnection);
 
         QStringList params;
@@ -460,9 +461,6 @@ void Kwave::PlayBackPlugin::testPlayBack()
     m_playback_sink->setInteractive(false);
     delete m_playback_sink;
     m_playback_sink = nullptr;
-
-    // free the progress dialog
-    delete progress;
 
     // stop the worker thread
     stop();

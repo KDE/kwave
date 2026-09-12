@@ -51,12 +51,14 @@ void Kwave::SampleEncoderFloat::encode(const Kwave::SampleArray &samples,
     raw_data.resize(count * rawBytesPerSample());
 
     const sample_t *src = samples.constData();
+    Q_CHECK_PTR(src);
     static_assert(sizeof(float) == 4, "float must be 32-bit");
 
     if (m_swap)
     {
         // aligned 32-bit integer writes with hardware byte swap
         quint32 *dst_int = reinterpret_cast<quint32 *>(raw_data.data());
+        Q_CHECK_PTR(dst_int);
         for (unsigned int i = 0; i < count; ++i)
         {
             float val = sample2float(*src++);

@@ -129,7 +129,7 @@ Kwave::Decoder::Instance Kwave::CodecManager::decoder(
 Kwave::Encoder::Instance Kwave::CodecManager::encoder(
     const QString &mimetype_name)
 {
-    for (Kwave::Encoder::Instance e : m_encoders)
+    for (Kwave::Encoder::Instance &e : m_encoders)
         if (e && e->supports(mimetype_name)) return e->instance();
     return nullptr;
 }

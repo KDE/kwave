@@ -260,10 +260,10 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
 
     // set up the combo box with all presets
     cbProgram->clear();
-    for (unsigned int i = 0; i < ELEMENTS_OF(g_predefined_settings); i++) {
-        QString name    = g_predefined_settings[i].m_name;
-        QString path    = searchPath(g_predefined_settings[i].m_path);
-        QString param   = g_predefined_settings[i].m_info.m_version;
+    for (const auto &s : g_predefined_settings) {
+        QString name    = s.m_name;
+        QString path    = searchPath(s.m_path);
+        QString param   = s.m_info.m_version;
         QString version = encoderVersion(path, param);
         if (version.length() >= name.length())
             cbProgram->addItem(version);
@@ -749,12 +749,13 @@ void Kwave::MP3EncoderDialog::updateEncoderInfo()
     int index = cbProgram->currentIndex();
     QString title;
 
-    if (index >= Kwave::toInt(ELEMENTS_OF(g_predefined_settings))) {
+    if (index >= int(ELEMENTS_OF(g_predefined_settings))) {
         title = PRESET_NAME_USER_DEFINED;
+        index = ELEMENTS_OF(g_predefined_settings) - 1;
     }
 
     // detect by using the currently selected path
-    if (!title.length()) {
+    if (title.isEmpty()) {
         // first try with user defined full path
         QString name    = g_predefined_settings[index].m_name;
         QString program = QFileInfo(edPath->text().simplified()).filePath();

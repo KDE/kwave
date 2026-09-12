@@ -36,7 +36,7 @@ Kwave::UndoSelection::UndoSelection(Kwave::SignalManager &manager,
                                     sample_index_t length)
     :UndoAction(),
      m_manager(manager), m_offset(offset), m_length(length),
-     m_selected_tracks(selected_tracks)
+     m_selected_tracks(std::move(selected_tracks))
 {
 }
 

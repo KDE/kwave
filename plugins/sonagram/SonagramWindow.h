@@ -62,7 +62,7 @@ namespace Kwave
          * Sets a new sonagram image to display.
          * @param image the bitmap with the sonagram
          */
-        void setImage(QImage image);
+        void setImage(const QImage &image);
 
         /**
          * Sets a new overview bitmap for the signal space

@@ -50,7 +50,7 @@ qint64 Kwave::RepairVirtualAudioFile::read(char *data, unsigned int nbytes)
     if (!nbytes) return 0;
     if (!data) return 0;
 
-    bzero(data, nbytes);
+    memset(data, 0x00, nbytes);
     qint64 read_bytes = 0;
     for (Kwave::RecoverySource *src : *m_repair_list) {
         Q_ASSERT(src);

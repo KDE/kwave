@@ -163,7 +163,7 @@ namespace Kwave
             override;
 
         /** Close the device */
-        int close() override;
+        int close() final;
 
         /**
          * Read the raw audio data from the record device.

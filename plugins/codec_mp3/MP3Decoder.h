@@ -74,7 +74,7 @@ namespace Kwave
         /**
          * Closes the source.
          */
-        void close() override;
+        void close() final;
 
         /** Callback for filling libmad's input buffer */
         enum mad_flow fillInput(struct mad_stream *stream);

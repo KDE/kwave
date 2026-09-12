@@ -156,7 +156,7 @@ void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
     char chunk_name[5];
     memset(chunk_name, 0x00, sizeof(chunk_name));
     dst.read(&chunk_name[0], 4);
-    if (strncmp("data", chunk_name, sizeof(chunk_name))) {
+    if (strncmp("data", chunk_name, sizeof(chunk_name)) != 0) {
         qWarning("WARNING: unexpected wav header format, check disabled");
         return;
     }
@@ -205,7 +205,7 @@ bool Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
         QByteArray chunk_id = m_property_map.findProperty(property);
 
         QStringList list = properties[property].toStringList();
-        for (QString s : list)
+        for (const QString &s : list)
         {
             QByteArray raw = s.toUtf8();
             info_size += raw.length();
@@ -247,8 +247,8 @@ bool Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
         for (QMap<QByteArray, QByteArray>::Iterator it = info_chunks.begin();
              ok && (it != info_chunks.end()); ++it)
         {
-            QByteArray name  = it.key();
-            QByteArray value = it.value();
+            const QByteArray &name  = it.key();
+            const QByteArray &value = it.value();
 
             ok &= (dst.write(name.data(), 4) == 4); // chunk name
             size = static_cast<quint32>(value.length()); // length of the chunk
@@ -584,6 +584,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     // allocate a buffer for input data
     const unsigned int virtual_frame_size = Kwave::toUint(
             afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
+    if (!virtual_frame_size) return false;
     const int buffer_frames = (8 * 1024);
     sample_storage_t *buffer = static_cast<sample_storage_t *>(
         malloc(buffer_frames * virtual_frame_size));

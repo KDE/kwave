@@ -182,7 +182,7 @@ namespace Kwave
          * e.g. if something is not supported and has been substituted
          * @param message the notice that should pop up
          */
-        void notice(QString message);
+        void notice(const QString &message);
 
         /** set up the recorder thread and record device (again) */
         void setupRecordThread();

@@ -293,6 +293,7 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
 
     unsigned int frame_size = Kwave::toUint(
         afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
+    if (!frame_size) return false;
 
     // allocate a buffer for input data
     const unsigned int buffer_frames = (64 * 1024);

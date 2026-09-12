@@ -125,7 +125,7 @@ namespace Kwave
         /**
          * Returns a pointer to the list of groups
          */
-        QHash<QString, Kwave::MenuGroup *> &groupList() override;
+        QHash<QString, Kwave::MenuGroup *> &groupList() final;
 
         /**
          * replacement for QObject::deleteLater(...), which does not work

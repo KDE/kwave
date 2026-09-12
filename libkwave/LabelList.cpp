@@ -56,7 +56,7 @@ Kwave::LabelList::~LabelList()
 }
 
 //***************************************************************************
-static bool compare_labels(Kwave::Label a, Kwave::Label b)
+static bool compare_labels(const Kwave::Label &a, const Kwave::Label &b)
 {
     return (a < b);
 }

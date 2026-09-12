@@ -63,8 +63,8 @@ void Kwave::RateConverter::input(Kwave::SampleArray &data)
     m_converter_in.resize(in_len);
     float          *f_in = m_converter_in.data();
     const sample_t *s_in = data.constData();
-    Q_ASSERT(f_in);
-    Q_ASSERT(s_in);
+    Q_CHECK_PTR(f_in);
+    Q_CHECK_PTR(s_in);
 
     // work blockwise to allow loop unrolling
     unsigned int remaining = in_len;
@@ -128,7 +128,7 @@ void Kwave::RateConverter::input(Kwave::SampleArray &data)
 }
 
 //***************************************************************************
-void Kwave::RateConverter::setRatio(const QVariant ratio)
+void Kwave::RateConverter::setRatio(const QVariant &ratio)
 {
     m_ratio = QVariant(ratio).toDouble();
 }

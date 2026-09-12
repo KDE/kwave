@@ -130,8 +130,8 @@ namespace Kwave
          * @return the label if successful, 0 if failed
          * @internal
          */
-        QLabel *addInfoLabel(QGridLayout *layout, const QString text,
-            int row, int column);
+        QLabel *addInfoLabel(QGridLayout *layout, const QString &text,
+                             int row, int column);
 
         /**
          * Updates the statistics of the transferred bytes and

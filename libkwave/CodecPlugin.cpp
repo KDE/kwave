@@ -45,13 +45,13 @@ void Kwave::CodecPlugin::load(QStringList &/* params */)
     {
         m_codec.m_encoder = createEncoder();
         if (!m_codec.m_encoder.isEmpty()) {
-            for (Kwave::Encoder::Instance enc : m_codec.m_encoder)
+            for (const Kwave::Encoder::Instance &enc : m_codec.m_encoder)
                 if (enc) Kwave::CodecManager::registerEncoder(enc);
         }
 
         m_codec.m_decoder = createDecoder();
         if (!m_codec.m_decoder.isEmpty()) {
-            for (Kwave::Decoder::Instance dec : m_codec.m_decoder)
+            for (const Kwave::Decoder::Instance &dec : m_codec.m_decoder)
                 Kwave::CodecManager::registerDecoder(dec);
         }
     }

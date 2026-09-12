@@ -324,6 +324,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
         if (topwidget != top) {
             it.remove();
             delete topwidget;
+            topwidget = nullptr;
         }
     }
 
@@ -358,6 +359,8 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
                                          "TopWidget failed");
                                 delete top_widget;
                                 delete context;
+                                top_widget = nullptr;
+                                context    = nullptr;
                                 break;
                             }
                             m_top_widgets.append(top_widget);

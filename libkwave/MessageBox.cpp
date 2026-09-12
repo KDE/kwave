@@ -29,7 +29,7 @@
 
 //***************************************************************************
 Kwave::MessageBox::MessageBox(KMessageBox::DialogType mode, QWidget *parent,
-    QString message, QString caption,
+    const QString &message, const QString &caption,
     const QString &button1, const QString &button2,
     const QString &dontAskAgainName)
     :QObject(nullptr), m_semaphore(0), m_retval(-1),
@@ -65,8 +65,8 @@ Kwave::MessageBox::~MessageBox()
 
 //***************************************************************************
 int Kwave::MessageBox::questionYesNo(QWidget *parent,
-    QString message, QString caption,
-    const QString buttonYes, const QString buttonNo,
+    const QString &message,   const QString &caption,
+    const QString &buttonYes, const QString &buttonNo,
     const QString &dontAskAgainName)
 {
     return Kwave::MessageBox::exec(KMessageBox::QuestionTwoActions,
@@ -76,8 +76,8 @@ int Kwave::MessageBox::questionYesNo(QWidget *parent,
 
 //***************************************************************************
 int Kwave::MessageBox::questionYesNoCancel(QWidget *parent,
-    QString message, QString caption,
-    const QString buttonYes, const QString buttonNo,
+    const QString &message,   const QString &caption,
+    const QString &buttonYes, const QString &buttonNo,
     const QString &dontAskAgainName)
 {
     return Kwave::MessageBox::exec(KMessageBox::QuestionTwoActionsCancel,
@@ -87,7 +87,7 @@ int Kwave::MessageBox::questionYesNoCancel(QWidget *parent,
 
 //***************************************************************************
 int Kwave::MessageBox::sorry(QWidget *parent,
-    QString message, QString caption)
+    const QString &message, const QString &caption)
 {
     return Kwave::MessageBox::exec(KMessageBox::Error,
         parent, message, caption);
@@ -95,8 +95,8 @@ int Kwave::MessageBox::sorry(QWidget *parent,
 
 //***************************************************************************
 int Kwave::MessageBox::warningYesNo(QWidget *parent,
-    QString message, QString caption,
-    const QString buttonYes, const QString buttonNo,
+    const QString &message,   const QString &caption,
+    const QString &buttonYes, const QString &buttonNo,
     const QString &dontAskAgainName)
 {
     return Kwave::MessageBox::exec(KMessageBox::WarningTwoActions,
@@ -106,8 +106,8 @@ int Kwave::MessageBox::warningYesNo(QWidget *parent,
 
 //***************************************************************************
 int Kwave::MessageBox::warningYesNoCancel(QWidget *parent,
-    QString message, QString caption,
-    const QString buttonYes, const QString buttonNo,
+    const QString &message,   const QString &caption,
+    const QString &buttonYes, const QString &buttonNo,
     const QString &dontAskAgainName)
 {
     return Kwave::MessageBox::exec(KMessageBox::WarningTwoActionsCancel,
@@ -117,8 +117,8 @@ int Kwave::MessageBox::warningYesNoCancel(QWidget *parent,
 
 //***************************************************************************
 int Kwave::MessageBox::warningContinueCancel(QWidget *parent,
-    QString message, QString caption,
-    const QString buttonContinue, const QString buttonCancel,
+    const QString &message,        const QString &caption,
+    const QString &buttonContinue, const QString &buttonCancel,
     const QString &dontAskAgainName)
 {
     return Kwave::MessageBox::exec(KMessageBox::WarningContinueCancel,
@@ -128,7 +128,7 @@ int Kwave::MessageBox::warningContinueCancel(QWidget *parent,
 
 //***************************************************************************
 int Kwave::MessageBox::error(QWidget *parent,
-    QString message, QString caption)
+    const QString &message, const QString &caption)
 {
     return Kwave::MessageBox::exec(KMessageBox::Error,
         parent, message, caption);
@@ -136,7 +136,7 @@ int Kwave::MessageBox::error(QWidget *parent,
 
 //***************************************************************************
 int Kwave::MessageBox::exec(KMessageBox::DialogType mode, QWidget *parent,
-    QString message, QString caption,
+    const QString &message, const QString &caption,
     const QString &button1, const QString &button2,
     const QString &dontAskAgainName)
 {

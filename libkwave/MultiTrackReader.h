@@ -89,7 +89,7 @@ namespace Kwave
 
         /** @see QList::insert() */
         virtual bool insert(unsigned int track, Kwave::SampleReader *reader)
-            override;
+            final;
 
         /** Skips a number of samples. */
         virtual void skip(sample_index_t count);

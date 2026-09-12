@@ -346,5 +346,3 @@ const char *Kwave::RecordController::stateName(const Kwave::RecordState state)
 
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_RecordController.cpp"

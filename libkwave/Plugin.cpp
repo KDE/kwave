@@ -553,5 +553,3 @@ void Kwave::Plugin::setPluginManager(Kwave::PluginManager *new_plugin_manager)
 
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_Plugin.cpp"

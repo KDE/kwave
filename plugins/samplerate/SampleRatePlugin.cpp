@@ -234,5 +234,3 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 #include "SampleRatePlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_SampleRatePlugin.cpp"

@@ -29,6 +29,7 @@
 namespace Kwave
 {
     class SampleArray;
+    class SampleReader;
 
     /**
      * @class ReversePlugin

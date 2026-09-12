@@ -71,5 +71,3 @@ QList<Kwave::Encoder::Instance> Kwave::AudiofileCodecPlugin::createEncoder()
 #include "AudiofileCodecPlugin.moc"
 /***************************************************************************/
 /***************************************************************************/
-
-#include "moc_AudiofileCodecPlugin.cpp"

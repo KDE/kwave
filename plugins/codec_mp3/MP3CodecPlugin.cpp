@@ -91,5 +91,3 @@ QList<Kwave::Encoder::Instance> Kwave::MP3CodecPlugin::createEncoder()
 #include "MP3CodecPlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_MP3CodecPlugin.cpp"

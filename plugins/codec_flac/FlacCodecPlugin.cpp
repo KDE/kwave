@@ -53,5 +53,3 @@ QList<Kwave::Encoder::Instance> Kwave::FlacCodecPlugin::createEncoder()
 #include "FlacCodecPlugin.moc"
 /***************************************************************************/
 /***************************************************************************/
-
-#include "moc_FlacCodecPlugin.cpp"

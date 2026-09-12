@@ -49,5 +49,3 @@ QString Kwave::InsertAtPlugin::title() const
 #include "InsertAtPlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_InsertAtPlugin.cpp"

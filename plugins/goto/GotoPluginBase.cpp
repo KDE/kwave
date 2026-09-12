@@ -145,5 +145,3 @@ int Kwave::GotoPluginBase::interpreteParameters(QStringList &params)
 
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_GotoPluginBase.cpp"

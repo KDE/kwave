@@ -212,5 +212,3 @@ bool Kwave::KeywordWidget::eventFilter(QObject *sender, QEvent *event)
 
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_KeywordWidget.cpp"

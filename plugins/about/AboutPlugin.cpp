@@ -60,5 +60,3 @@ int Kwave::AboutPlugin::start(QStringList& params)
 #include "AboutPlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_AboutPlugin.cpp"

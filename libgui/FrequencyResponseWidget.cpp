@@ -111,5 +111,3 @@ void Kwave::FrequencyResponseWidget::paintEvent(QPaintEvent*)
 
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_FrequencyResponseWidget.cpp"

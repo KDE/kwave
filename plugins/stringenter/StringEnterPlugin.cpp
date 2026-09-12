@@ -87,5 +87,3 @@ QStringList *Kwave::StringEnterPlugin::setup(QStringList &previous_params)
 #include "StringEnterPlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_StringEnterPlugin.cpp"

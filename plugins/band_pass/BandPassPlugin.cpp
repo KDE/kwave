@@ -138,5 +138,3 @@ void Kwave::BandPassPlugin::setBwValue(double bw)
 #include "BandPassPlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_BandPassPlugin.cpp"

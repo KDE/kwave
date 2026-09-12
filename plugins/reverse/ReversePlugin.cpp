@@ -221,5 +221,3 @@ void Kwave::ReversePlugin::updateProgress(qreal progress)
 #include "ReversePlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_ReversePlugin.cpp"

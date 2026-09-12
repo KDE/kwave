@@ -358,5 +358,3 @@ unsigned int Kwave::SampleReader::readSamples(sample_index_t offset,
 
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_SampleReader.cpp"

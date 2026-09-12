@@ -34,11 +34,6 @@ Kwave::ShortcutWrapper::ShortcutWrapper(QWidget *parent,
 }
 
 //***************************************************************************
-Kwave::ShortcutWrapper::~ShortcutWrapper()
-{
-}
-
-//***************************************************************************
 void Kwave::ShortcutWrapper::triggered()
 {
     emit activated(m_id);
@@ -46,5 +41,3 @@ void Kwave::ShortcutWrapper::triggered()
 
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_ShortcutWrapper.cpp"

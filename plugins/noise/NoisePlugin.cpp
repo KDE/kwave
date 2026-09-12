@@ -140,5 +140,3 @@ void Kwave::NoisePlugin::setNoiseLevel(double level)
 #include "NoisePlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_NoisePlugin.cpp"

@@ -116,5 +116,3 @@ void Kwave::LowPassPlugin::setValue(double frequency)
 #include "LowPassPlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_LowPassPlugin.cpp"

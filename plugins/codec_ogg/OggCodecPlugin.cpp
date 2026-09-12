@@ -51,5 +51,3 @@ QList<Kwave::Encoder::Instance> Kwave::OggCodecPlugin::createEncoder()
 #include "OggCodecPlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_OggCodecPlugin.cpp"

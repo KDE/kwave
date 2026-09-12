@@ -335,5 +335,3 @@ QString Kwave::FileDialog::guessFilterFromFileExt(const QString &pattern,
 
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_FileDialog.cpp"

@@ -118,5 +118,3 @@ void Kwave::FileInfoPlugin::apply(Kwave::FileInfo &new_info)
 #include "FileInfoPlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_FileInfoPlugin.cpp"

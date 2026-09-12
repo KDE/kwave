@@ -121,5 +121,3 @@ QStringList *Kwave::NewSignalPlugin::setup(QStringList &previous_params)
 #include "NewSignalPlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_NewSignalPlugin.cpp"

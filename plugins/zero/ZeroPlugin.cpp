@@ -152,5 +152,3 @@ void Kwave::ZeroPlugin::run(QStringList params)
 #include "ZeroPlugin.moc"
 //***************************************************************************
 //***************************************************************************
-
-#include "moc_ZeroPlugin.cpp"

@@ -116,8 +116,8 @@ namespace Kwave
         }
 
         /** receives a block with index + input data */
-        virtual void input(unsigned int port,
-                           Kwave::SampleArray &data) override;
+        void input(unsigned int port,
+               Kwave::SampleArray &data) override;
 
     private:
 

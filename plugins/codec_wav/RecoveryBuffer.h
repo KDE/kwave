@@ -41,8 +41,7 @@ namespace Kwave
         ~RecoveryBuffer() override {}
 
         /** implementation of RecoverySource::read */
-        virtual qint64 read(quint64 offset, char *data, unsigned int bytes)
-            override;
+        qint64 read(quint64 offset, char *data, unsigned int bytes) override;
 
     private:
 

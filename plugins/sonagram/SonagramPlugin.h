@@ -74,8 +74,7 @@ namespace Kwave
         ~SonagramPlugin() override;
 
         /** @see Kwave::Plugin::setup() */
-        virtual QStringList *setup(QStringList &previous_params)
-            override;
+        QStringList *setup(QStringList &previous_params) override;
 
         /** @see Kwave::Plugin::start() */
         int start(QStringList &params) override;

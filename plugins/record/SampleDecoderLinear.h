@@ -49,8 +49,8 @@ namespace Kwave
          * @param raw_data array with raw undecoded audio data
          * @param decoded array with decoded samples
          */
-        virtual void decode(QByteArray &raw_data,
-                            Kwave::SampleArray &decoded) override;
+        void decode(QByteArray &raw_data,
+                    Kwave::SampleArray &decoded) override;
 
         /** Returns the number of bytes per sample in raw (not encoded) form */
         unsigned int rawBytesPerSample() override;

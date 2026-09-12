@@ -70,8 +70,7 @@ namespace Kwave
          * Shows a dialog for setting up the filter plugin
          * @see Kwave::Plugin::setup
          */
-        virtual QStringList *setup(QStringList &previous_params)
-            override;
+        QStringList *setup(QStringList &previous_params) override;
 
         /**
          * Does the filter operation and/or pre-listen

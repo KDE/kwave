@@ -51,8 +51,7 @@ namespace Kwave
          * when OK has been pressed.
          * @see Kwave::Plugin::setup
          */
-        virtual QStringList *setup(QStringList &previous_params)
-            override;
+        QStringList *setup(QStringList &previous_params) override;
 
         /**
          * Saves the files, using the settings made in "setup()"

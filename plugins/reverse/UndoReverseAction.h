@@ -77,7 +77,7 @@ namespace Kwave
          *       undo/redo. You have to check for this when deleting an
          *       UndoAction object after undo.
          */
-        virtual UndoAction *undo(Kwave::SignalManager &manager, bool with_redo)
+        UndoAction *undo(Kwave::SignalManager &manager, bool with_redo)
             override;
 
     private:

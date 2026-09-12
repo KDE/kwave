@@ -64,8 +64,7 @@ namespace Kwave
         void unload() override;
 
         /** @see Kwave::Plugin::setup() */
-        virtual QStringList *setup(QStringList &previous_params)
-            override;
+        QStringList *setup(QStringList &previous_params) override;
 
         /**
          * Starts a playback test sequence
@@ -100,7 +99,7 @@ namespace Kwave
          * @param method a playback_method_t (aRts, ALSA, OSS...)
          * @return a new PlayBackDevice or 0 if failed
          */
-        virtual Kwave::PlayBackDevice *createDevice(
+        Kwave::PlayBackDevice *createDevice(
             Kwave::playback_method_t method) override;
 
         /**
@@ -108,8 +107,7 @@ namespace Kwave
          * @return list of all supported playback methods, should not contain
          *         "any" or "invalid"
          */
-        virtual QList<Kwave::playback_method_t> supportedMethods()
-            override;
+        QList<Kwave::playback_method_t> supportedMethods() override;
 
     private:
 

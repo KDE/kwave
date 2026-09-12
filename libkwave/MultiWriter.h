@@ -58,8 +58,7 @@ namespace Kwave
         void clear() final;
 
         /** @see Kwave::MultiTrackSink<Kwave::Writer>::insert() */
-        virtual bool insert(unsigned int track, Kwave::Writer *writer)
-            override;
+        bool insert(unsigned int track, Kwave::Writer *writer) override;
 
     signals:
 

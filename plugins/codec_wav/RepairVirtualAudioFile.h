@@ -50,8 +50,7 @@ namespace Kwave
         qint64 length() override;
 
         /** writes a block of data */
-        virtual qint64 write(const char *data, unsigned int nbytes)
-            override;
+        qint64 write(const char *data, unsigned int nbytes) override;
 
         /** seek to a file position */
         qint64 seek(qint64 offset, bool is_relative) override;

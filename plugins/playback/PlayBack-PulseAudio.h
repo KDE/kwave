@@ -58,9 +58,9 @@ namespace Kwave
          * Opens the device for playback.
          * @see PlayBackDevice::open
          */
-        virtual QString open(const QString &device, double rate,
-                             unsigned int channels, unsigned int bits,
-                             unsigned int bufbase) override;
+        QString open(const QString &device, double rate,
+                     unsigned int channels, unsigned int bits,
+                     unsigned int bufbase) override;
 
         /**
          * Writes an array of samples to the output device.
@@ -87,8 +87,7 @@ namespace Kwave
          * @param device filename of the device
          * @return list of supported bits per sample, or empty on errors
          */
-        virtual QList<unsigned int> supportedBits(const QString &device)
-            override;
+        QList<unsigned int> supportedBits(const QString &device) override;
 
         /**
          * Detect the minimum and maximum number of channels.
@@ -100,9 +99,8 @@ namespace Kwave
          * @return zero or positive number if ok,
          *         negative error number if failed
          */
-        virtual int detectChannels(const QString &device,
-                                   unsigned int &min, unsigned int &max)
-            override;
+        int detectChannels(const QString &device,
+                           unsigned int &min, unsigned int &max) override;
 
     protected:
 

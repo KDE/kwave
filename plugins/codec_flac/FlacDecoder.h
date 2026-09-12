@@ -68,8 +68,7 @@ namespace Kwave
          * @param dst MultiWriter that receives the audio data
          * @return true if succeeded, false on errors
          */
-        virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst)
-            override;
+        bool decode(QWidget *widget, Kwave::MultiWriter &dst) override;
 
         /**
          * Closes the source.
@@ -102,7 +101,7 @@ namespace Kwave
          *        can be modified
          * @return read state
          */
-        virtual ::FLAC__StreamDecoderReadStatus read_callback(
+        ::FLAC__StreamDecoderReadStatus read_callback(
             FLAC__byte buffer[], size_t *bytes) override;
 
         /**
@@ -112,7 +111,7 @@ namespace Kwave
          * @param buffer a buffer that contains the decoded samples
          * @return FLAC stream decoder write state
          */
-        virtual ::FLAC__StreamDecoderWriteStatus write_callback(
+        ::FLAC__StreamDecoderWriteStatus write_callback(
             const ::FLAC__Frame *frame,
             const FLAC__int32 *const buffer[]) override;
 
@@ -121,16 +120,14 @@ namespace Kwave
          *
          * @param metadata the FLAC meta data to be parsed
          */
-        virtual void metadata_callback(const ::FLAC__StreamMetadata *metadata)
-            override;
+        void metadata_callback(const ::FLAC__StreamMetadata *metadata) override;
 
         /**
          * FLAC decoder interface: error callback.
          *
          * @param status the FLAC status
          */
-        virtual void error_callback(::FLAC__StreamDecoderErrorStatus status)
-            override;
+        void error_callback(::FLAC__StreamDecoderErrorStatus status) override;
 
     private:
 

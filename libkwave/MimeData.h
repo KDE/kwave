@@ -123,8 +123,7 @@ namespace Kwave
                  * @param maxlen maximum number of bytes to read
                  * @return number of bytes read or -1 if failed
                  */
-                virtual qint64 readData(char *data, qint64 maxlen)
-                    override;
+                qint64 readData(char *data, qint64 maxlen) override;
 
                 /**
                  * write a block of data, internally increments the buffer
@@ -134,8 +133,7 @@ namespace Kwave
                  * @param len number of bytes to write
                  * @return number of bytes written or -1 if failed
                  */
-                virtual qint64 writeData(const char *data, qint64 len)
-                    override;
+                qint64 writeData(const char *data, qint64 len) override;
 
             private:
                 /** block of memory */

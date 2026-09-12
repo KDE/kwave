@@ -68,8 +68,7 @@ namespace Kwave
          * @param zoom the new zoom factor in pixels/sample
          * @param offset the index of the first visible sample
          */
-        virtual void setZoomAndOffset(double zoom, sample_index_t offset)
-            override;
+        void setZoomAndOffset(double zoom, sample_index_t offset) override;
 
         /**
          * sets new vertical zoom factor
@@ -98,16 +97,14 @@ namespace Kwave
          * @return the nearest ViewObject in range
          *         or a null pointer if nothing found
          */
-        virtual QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos)
-            override;
+        QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos) override;
 
         /**
          * Called when the context menu has been activated over this view
          * @param pos a position in pixel within this widget
          * @param menu pointer to the context menu
          */
-        virtual void handleContextMenu(const QPoint &pos, QMenu *menu)
-            override;
+        void handleContextMenu(const QPoint &pos, QMenu *menu) override;
 
     public slots:
 
@@ -115,8 +112,7 @@ namespace Kwave
          * requests a repaint, as soon as the repaint timer elapsed
          * @param pos current position of the cursor
          */
-        virtual void showCursor(sample_index_t pos = SAMPLE_INDEX_MAX)
-            override;
+        void showCursor(sample_index_t pos = SAMPLE_INDEX_MAX) override;
 
     private slots:
 

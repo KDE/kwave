@@ -65,11 +65,11 @@ namespace Kwave
          * @param shortcut keyboard shortcut, 0 if unused
          * @param uid unique id string (might be 0)
          */
-        virtual void insertNode(const QString &name,
-                                const QString &position,
-                                const QString &command,
-                                const QKeySequence &shortcut,
-                                const QString &uid) override;
+        void insertNode(const QString &name,
+                const QString &position,
+                const QString &command,
+                const QKeySequence &shortcut,
+                const QString &uid) override;
 
         /**
          * Inserts a new branch node into the menu structure.
@@ -86,11 +86,10 @@ namespace Kwave
          * @param uid unique id string (might be 0)
          * @return pointer to the new branch node
          */
-        virtual Kwave::MenuSub *insertBranch(const QString &name,
-                                             const QString &command,
-                                             const QKeySequence &shortcut,
-                                             const QString &uid)
-                                             override;
+        Kwave::MenuSub *insertBranch(const QString &name,
+                         const QString &command,
+                         const QKeySequence &shortcut,
+                         const QString &uid) override;
 
         /**
          * Inserts a new leaf node into the menu structure. The new node
@@ -102,11 +101,10 @@ namespace Kwave
          * @param uid unique id string (might be 0)
          * @return pointer to the new leaf node
          */
-        virtual Kwave::MenuNode *insertLeaf(const QString &name,
-                                            const QString &command,
-                                            const QKeySequence &shortcut,
-                                            const QString &uid)
-                                            override;
+        Kwave::MenuNode *insertLeaf(const QString &name,
+                        const QString &command,
+                        const QKeySequence &shortcut,
+                        const QString &uid) override;
 
         /**
          * Removes a child node of the current node. If the child

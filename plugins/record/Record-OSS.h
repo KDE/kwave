@@ -72,8 +72,7 @@ namespace Kwave
          * @return zero or positive number if ok,
          *         negative error number if failed
          */
-        virtual int detectTracks(unsigned int &min, unsigned int &max)
-            override;
+        int detectTracks(unsigned int &min, unsigned int &max) override;
 
         /**
          * Try to set a new number of tracks.

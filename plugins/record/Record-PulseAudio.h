@@ -74,15 +74,13 @@ namespace Kwave
          * @return zero on success, negative error code if failed
          * @see class SampleFormat
          */
-        virtual int setSampleFormat(Kwave::SampleFormat::Format new_format)
-            override;
+        int setSampleFormat(Kwave::SampleFormat::Format new_format) override;
 
         /**
          * Gets a list of supported sample formats.
          * @note this depends on the current compression and bits/sample!
          */
-        virtual QList<Kwave::SampleFormat::Format> detectSampleFormats()
-            override;
+        QList<Kwave::SampleFormat::Format> detectSampleFormats() override;
 
         /**
          * Returns the current resolution in bits per sample or a negative
@@ -113,15 +111,13 @@ namespace Kwave
          * @return zero on success, negative error code if failed
          * @see class Compression
          */
-        virtual int setCompression(Kwave::Compression::Type new_compression)
-            override;
+        int setCompression(Kwave::Compression::Type new_compression) override;
 
         /**
          * Gets a list of supported compression types. If no compression is
          * supported, the list might be empty.
          */
-        virtual QList<Kwave::Compression::Type> detectCompressions()
-            override;
+        QList<Kwave::Compression::Type> detectCompressions() override;
 
         /** Returns the current sample rate of the device */
         double sampleRate() override;
@@ -159,8 +155,7 @@ namespace Kwave
          * @return zero or positive number if ok,
          *         negative error number if failed
          */
-        virtual int detectTracks(unsigned int& min, unsigned int& max)
-            override;
+        int detectTracks(unsigned int& min, unsigned int& max) override;
 
         /** Close the device */
         int close() final;
@@ -172,8 +167,7 @@ namespace Kwave
          * @param offset offset in bytes within the buffer
          * @return number of bytes read, zero or negative if failed
          */
-        virtual int read(QByteArray& buffer, unsigned int offset)
-            override;
+        int read(QByteArray& buffer, unsigned int offset) override;
 
         /** return a string list with supported device names */
         QStringList supportedDevices() override;

@@ -94,7 +94,7 @@ namespace Kwave
          * @param current_frame index of the current frame
          * @return FLAC stream encoder write status
          */
-        virtual ::FLAC__StreamEncoderWriteStatus write_callback(
+        ::FLAC__StreamEncoderWriteStatus write_callback(
             const FLAC__byte buffer[], size_t bytes,
             unsigned samples, unsigned current_frame) override;
 
@@ -104,8 +104,7 @@ namespace Kwave
          * @param metadata pointer to a FLAC metadata structure that will
          *        be filled
          */
-        virtual void metadata_callback(const ::FLAC__StreamMetadata *metadata)
-            override;
+        void metadata_callback(const ::FLAC__StreamMetadata *metadata) override;
 
         /**
          * Encode all Kwave file info into FLAC meta data

@@ -51,8 +51,7 @@ namespace Kwave
          * @return a string list with all parameters or null if the
          *         setup (dialog) has been canceled
          */
-        virtual QStringList *setup(QStringList &previous_params)
-            override;
+        QStringList *setup(QStringList &previous_params) override;
 
         /** Creates a new decoder */
         QList<Kwave::Decoder::Instance> createDecoder() override;

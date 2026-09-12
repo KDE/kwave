@@ -73,8 +73,8 @@ namespace Kwave
          *              will be internally set to zero if successful
          * @return true if successful, false if failed (e.g. out of memory)
          */
-        virtual bool write(Kwave::SampleArray &buffer,
-                           unsigned int &count) override;
+        bool write(Kwave::SampleArray &buffer,
+               unsigned int &count) override;
 
     private:
 

@@ -79,8 +79,8 @@ namespace Kwave
          * @param dst a QIODevice that receives the raw data
          * @return true if succeeded, false if failed
          */
-        virtual bool encode(Kwave::MultiTrackReader &src,
-                            QIODevice &dst) override;
+        bool encode(Kwave::MultiTrackReader &src,
+                    QIODevice &dst) override;
 
         /**
          * finished the encoding, clean up

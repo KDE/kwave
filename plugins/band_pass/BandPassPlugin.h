@@ -49,16 +49,14 @@ namespace Kwave
         ~BandPassPlugin() override;
 
         /** Creates the setup dialog and connects it's signals */
-        virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent)
-            override;
+        Kwave::PluginSetupDialog *createDialog(QWidget *parent) override;
 
         /**
          * Creates a multi-track filter with the given number of tracks
          * @param tracks number of tracks that the filter should have
          * @return pointer to the filter or null if failed
          */
-        virtual Kwave::SampleSource *createFilter(unsigned int tracks)
-            override;
+        Kwave::SampleSource *createFilter(unsigned int tracks) override;
 
         /**
          * Returns true if the parameters have changed during pre-listen.
@@ -72,8 +70,8 @@ namespace Kwave
          *               same one as created with createFilter()
          * @param force if true, even update if no settings have changed
          */
-        virtual void updateFilter(Kwave::SampleSource *filter,
-                                  bool force = false) override;
+        void updateFilter(Kwave::SampleSource *filter,
+                          bool force = false) override;
 
         /**
          * Returns a verbose name of the performed action. Used for giving

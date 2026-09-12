@@ -73,10 +73,10 @@ namespace Kwave
          * @param uid unique id string (might be 0)
          * @return pointer to the new leaf node
          */
-        virtual Kwave::MenuNode *insertLeaf(const QString &name,
-                                            const QString &command,
-                                            const QKeySequence &shortcut,
-                                            const QString &uid) override;
+        Kwave::MenuNode *insertLeaf(const QString &name,
+                        const QString &command,
+                        const QKeySequence &shortcut,
+                        const QString &uid) override;
 
     };
 }

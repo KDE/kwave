@@ -50,8 +50,7 @@ namespace Kwave
         /** does nothing, work is done automatically in multiply() */
         void goOn() override;
 
-        virtual void input(unsigned int port,
-                           Kwave::SampleArray &data) override
+        void input(unsigned int port, Kwave::SampleArray &data) override
         {
             switch (port)
             {

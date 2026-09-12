@@ -52,8 +52,7 @@ namespace Kwave
          * command for applying the curve if OK has been pressed.
          * @see Kwave::Plugin::setup
          */
-        virtual QStringList *setup(QStringList &previous_params)
-        override;
+        QStringList *setup(QStringList &previous_params) override;
 
         /**
          * Does the fade operation

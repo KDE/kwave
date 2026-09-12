@@ -63,8 +63,7 @@ namespace Kwave
         ~RecordPlugin() override;
 
         /** @see Kwave::Plugin::setup() */
-        virtual QStringList *setup(QStringList &previous_params)
-            override;
+        QStringList *setup(QStringList &previous_params) override;
 
     signals:
 

@@ -16,7 +16,6 @@ Checks: '
   -bugprone-suspicious-include,
   -bugprone-unchecked-string-to-number-conversion,
   clang-analyzer-*,
-  -clang-analyzer-cplusplus.NewDeleteLeaks,
   -clang-analyzer-deadcode.DeadStores,
   -clang-analyzer-optin.core.EnumCastOutOfRange,
   -clang-analyzer-optin.cplusplus.VirtualCall,

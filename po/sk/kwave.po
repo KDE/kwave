@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-12 00:44+0000\n"
+"POT-Creation-Date: 2026-09-13 00:44+0000\n"
 "PO-Revision-Date: 2020-10-01 21:36+0200\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Save As"
 msgstr "Uložiť ako"
 
-#: kwave/FileContext.cpp:1034 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1030 kwave/MainWidget.cpp:992
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -115,7 +115,7 @@ msgstr ""
 "Súbor '%1' už existuje.\n"
 "Chcete ho prepísať?"
 
-#: kwave/FileContext.cpp:1102
+#: kwave/FileContext.cpp:1098
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -428,7 +428,7 @@ msgstr "Zoznam štítkov Kwave"
 msgid "Add Label"
 msgstr "Pridať popis"
 
-#: kwave/MainWidget.cpp:935 kwave/MainWidget.cpp:948
+#: kwave/MainWidget.cpp:936 kwave/MainWidget.cpp:947
 #, kde-format
 msgid "Load Labels"
 msgstr "Načítať štítky"
@@ -438,7 +438,7 @@ msgstr "Načítať štítky"
 msgid "Save Labels"
 msgstr "Uložiť štítky"
 
-#: kwave/MainWidget.cpp:1078
+#: kwave/MainWidget.cpp:1075
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
@@ -447,7 +447,7 @@ msgstr ""
 "Na mieste, ktoré ste si vybrali, už je štítok.\n"
 "Chcete ho nahradiť?"
 
-#: kwave/MainWidget.cpp:1105
+#: kwave/MainWidget.cpp:1102
 #, kde-format
 msgid "Modify Label"
 msgstr "Zmeniť štítok"
@@ -1076,82 +1076,82 @@ msgctxt "%1=Version number"
 msgid "v%1"
 msgstr "v%1"
 
-#: kwave/TopWidget.cpp:254
+#: kwave/TopWidget.cpp:255
 #, kde-format
 msgid "Loading main menu..."
 msgstr "Načítavanie hlavnej ponuky..."
 
-#: kwave/TopWidget.cpp:328
+#: kwave/TopWidget.cpp:329
 #, kde-format
 msgid "Initializing toolbar..."
 msgstr "Inicializuje sa panel nástrojov..."
 
-#: kwave/TopWidget.cpp:337
+#: kwave/TopWidget.cpp:338
 #, kde-format
 msgid "Create a new empty file"
 msgstr "Vytvoriť nový prázdny súbor"
 
-#: kwave/TopWidget.cpp:342
+#: kwave/TopWidget.cpp:343
 #, kde-format
 msgid "Open an existing file"
 msgstr "Otvorí existujúci súbor"
 
-#: kwave/TopWidget.cpp:347
+#: kwave/TopWidget.cpp:348
 #, kde-format
 msgid "Save the current file"
 msgstr "Uložiť aktuálny súbor"
 
-#: kwave/TopWidget.cpp:352
+#: kwave/TopWidget.cpp:353
 #, kde-format
 msgid "Save the current file under a different name or file format..."
 msgstr "Uložiť aktuálny súbor pod iným názvom alebo súborovým formátom..."
 
-#: kwave/TopWidget.cpp:357
+#: kwave/TopWidget.cpp:358
 #, kde-format
 msgid "Close the current file"
 msgstr "Zatvoriť aktuálny súbor"
 
-#: kwave/TopWidget.cpp:368
+#: kwave/TopWidget.cpp:369
 #, kde-format
 msgid "Undo"
 msgstr "Späť"
 
-#: kwave/TopWidget.cpp:373
+#: kwave/TopWidget.cpp:374
 #, kde-format
 msgid "Redo"
 msgstr "Znovu"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:704
+#: kwave/TopWidget.cpp:379 libkwave/SignalManager.cpp:704
 #, kde-format
 msgid "Cut"
 msgstr "Vystrihnúť"
 
-#: kwave/TopWidget.cpp:383
+#: kwave/TopWidget.cpp:384
 #, kde-format
 msgid "Copy"
 msgstr "Kopírovať"
 
-#: kwave/TopWidget.cpp:388 libkwave/undo/UndoInsertAction.cpp:46
+#: kwave/TopWidget.cpp:389 libkwave/undo/UndoInsertAction.cpp:46
 #, kde-format
 msgid "Insert"
 msgstr "Vložiť"
 
-#: kwave/TopWidget.cpp:396
+#: kwave/TopWidget.cpp:397
 #, kde-format
 msgid "Mute selection"
 msgstr "Stlmiť výber"
 
-#: kwave/TopWidget.cpp:401
+#: kwave/TopWidget.cpp:402
 #, kde-format
 msgid "Delete selection"
 msgstr "Vymazať výber"
 
-#: kwave/TopWidget.cpp:749
+#: kwave/TopWidget.cpp:750
 #, kde-format
 msgid "Reset the toolbar to default settings?"
 msgstr "Obnoviť predvolené nastavenia panela nástrojov?"
 
-#: kwave/TopWidget.cpp:774
+#: kwave/TopWidget.cpp:775
 #, kde-format
 msgid ""
 "Re-enable all disabled notifications?\n"
@@ -1162,29 +1162,29 @@ msgstr ""
 "Všetky správy, ktoré ste predtým vypli aktiváciou zaškrtávacieho pola "
 "\"Znovu sa už nepýtať\", sa potom znova povolia."
 
-#: kwave/TopWidget.cpp:1008
+#: kwave/TopWidget.cpp:1009
 #, kde-format
 msgid "Executing command '%1'..."
 msgstr "Vykonávanie príkazu '%1'..."
 
-#: kwave/TopWidget.cpp:1028
+#: kwave/TopWidget.cpp:1029
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
 msgstr "Vykonávanie súbor skriptu Kwave '%1'..."
 
-#: kwave/TopWidget.cpp:1038
+#: kwave/TopWidget.cpp:1039
 #, kde-format
 msgid "Loading file '%1'..."
 msgstr "Načítavam súbor '%1'..."
 
-#: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:103
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:505
-#: plugins/codec_flac/FlacEncoder.cpp:272
-#: plugins/codec_flac/FlacEncoder.cpp:290
-#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:633
+#: kwave/TopWidget.cpp:1051 plugins/codec_audiofile/AudiofileDecoder.cpp:103
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:500
+#: plugins/codec_flac/FlacEncoder.cpp:267
+#: plugins/codec_flac/FlacEncoder.cpp:285
+#: plugins/codec_flac/FlacEncoder.cpp:300 plugins/codec_mp3/MP3Decoder.cpp:633
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
-#: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
+#: plugins/codec_ogg/OpusEncoder.cpp:313 plugins/codec_ogg/OpusEncoder.cpp:366
+#: plugins/codec_wav/WavDecoder.cpp:375 plugins/codec_wav/WavEncoder.cpp:541
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:164 plugins/playback/PlayBack-Qt.cpp:175
 #: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:986
@@ -1193,35 +1193,35 @@ msgstr "Načítavam súbor '%1'..."
 msgid "Out of memory"
 msgstr "Nedostatok pamäte"
 
-#: kwave/TopWidget.cpp:1054
+#: kwave/TopWidget.cpp:1055
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
 msgstr "Nepodarilo sa otvoriť '%1'"
 
-#: kwave/TopWidget.cpp:1058
+#: kwave/TopWidget.cpp:1059
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
 msgstr "Neplatný alebo neznámy typ súboru: '%1'"
 
-#: kwave/TopWidget.cpp:1096
+#: kwave/TopWidget.cpp:1097
 #, kde-format
 msgid "Open"
 msgstr "Otvoriť"
 
-#: kwave/TopWidget.cpp:1149
+#: kwave/TopWidget.cpp:1148
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr "Dĺžka: %1 (%2 vzoriek)"
 
-#: kwave/TopWidget.cpp:1160
+#: kwave/TopWidget.cpp:1159
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Režim: %1 kHz @ %2 Bit"
 
-#: kwave/TopWidget.cpp:1206
+#: kwave/TopWidget.cpp:1205
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -1229,7 +1229,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "Vybrané: %1...%2 (%3 vzoriek)"
 
-#: kwave/TopWidget.cpp:1218
+#: kwave/TopWidget.cpp:1217
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -1237,72 +1237,72 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3)"
 msgstr "Vybrané: %1...%2 (%3)"
 
-#: kwave/TopWidget.cpp:1237
+#: kwave/TopWidget.cpp:1236
 #, kde-format
 msgid "Position: %1"
 msgstr "Pozícia: %1"
 
-#: kwave/TopWidget.cpp:1263
+#: kwave/TopWidget.cpp:1262
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
 msgstr "Späť (%1)"
 
-#: kwave/TopWidget.cpp:1265
+#: kwave/TopWidget.cpp:1264
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Späť"
 
-#: kwave/TopWidget.cpp:1274
+#: kwave/TopWidget.cpp:1273
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
 msgstr "Znovu (%1)"
 
-#: kwave/TopWidget.cpp:1276
+#: kwave/TopWidget.cpp:1275
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "Znovu"
 
-#: kwave/TopWidget.cpp:1286
+#: kwave/TopWidget.cpp:1285
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr "Späť (%1)"
 
-#: kwave/TopWidget.cpp:1287
+#: kwave/TopWidget.cpp:1286
 #, kde-format
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
 msgstr "Späť"
 
-#: kwave/TopWidget.cpp:1293
+#: kwave/TopWidget.cpp:1292
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr "Znovu (%1)"
 
-#: kwave/TopWidget.cpp:1294
+#: kwave/TopWidget.cpp:1293
 #, kde-format
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr "Znovu"
 
-#: kwave/TopWidget.cpp:1410
+#: kwave/TopWidget.cpp:1409
 #, kde-format
 msgctxt "special entry in the list of labels to delete all"
 msgid "(All)"
 msgstr "(Všetko)"
 
-#: kwave/TopWidget.cpp:1419
+#: kwave/TopWidget.cpp:1418
 #, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
 msgstr "#%1 (%2)"
 
-#: kwave/TopWidget.cpp:1422
+#: kwave/TopWidget.cpp:1421
 #, kde-format
 msgctxt "list menu entry of a label, without description, %1=index"
 msgid "#%1"
@@ -1455,12 +1455,12 @@ msgctxt "tooltip of a label, without description, %1=index"
 msgid "Label #%1"
 msgstr "Štítok #%1"
 
-#: libgui/LabelItem.cpp:93 libgui/TrackView.cpp:272
+#: libgui/LabelItem.cpp:93 libgui/TrackView.cpp:267
 #, kde-format
 msgid "Label"
 msgstr "Štítok"
 
-#: libgui/LabelItem.cpp:104 libgui/TrackView.cpp:279
+#: libgui/LabelItem.cpp:104 libgui/TrackView.cpp:274
 #, kde-format
 msgid "New"
 msgstr "Nové"
@@ -1554,17 +1554,17 @@ msgstr ""
 "Nižší index znamená 'vľavo', vyšší index znamená 'vpravo'. Nemôžete zmeniť "
 "samotný index, ale môžete zmeniť pozíciu štítku."
 
-#: libgui/SelectionBorderItem.cpp:65
+#: libgui/SelectionBorderItem.cpp:60
 #, kde-format
 msgid "Selection, left border"
 msgstr "Výber, ľavé ohraničenie"
 
-#: libgui/SelectionBorderItem.cpp:68
+#: libgui/SelectionBorderItem.cpp:63
 #, kde-format
 msgid "Selection, right border"
 msgstr "Výber, pravé ohraničenie"
 
-#: libgui/SelectionItem.cpp:87 libgui/SignalView.cpp:593
+#: libgui/SelectionItem.cpp:82 libgui/SignalView.cpp:593
 #, kde-format
 msgid "Drag and Drop"
 msgstr "Pretiahnuť "
@@ -1670,152 +1670,152 @@ msgstr "100%"
 msgid "sets the selection by the percentage of the whole signal"
 msgstr "nastaví výber podľa percenta celého signálu"
 
-#: libgui/SignalWidget.cpp:196
+#: libgui/SignalWidget.cpp:191
 #, kde-format
 msgid "&Undo"
 msgstr "&Späť"
 
-#: libgui/SignalWidget.cpp:208
+#: libgui/SignalWidget.cpp:203
 #, kde-format
 msgid "&Redo"
 msgstr "Zn&ovu"
 
-#: libgui/SignalWidget.cpp:221
+#: libgui/SignalWidget.cpp:216
 #, kde-format
 msgid "Cu&t"
 msgstr "Vys&trihnúť"
 
-#: libgui/SignalWidget.cpp:227
+#: libgui/SignalWidget.cpp:222
 #, kde-format
 msgid "&Copy"
 msgstr "&Kopírovať"
 
-#: libgui/SignalWidget.cpp:233
+#: libgui/SignalWidget.cpp:228
 #, kde-format
 msgid "&Paste"
 msgstr "V&ložiť"
 
-#: libgui/SignalWidget.cpp:251 libkwave/undo/UndoSelection.cpp:51
+#: libgui/SignalWidget.cpp:246 libkwave/undo/UndoSelection.cpp:46
 #, kde-format
 msgid "Selection"
 msgstr "Výber"
 
-#: libgui/SignalWidget.cpp:258
+#: libgui/SignalWidget.cpp:253
 #, kde-format
 msgid "&Save..."
 msgstr "Uložiť..."
 
-#: libgui/SignalWidget.cpp:265
+#: libgui/SignalWidget.cpp:260
 #, kde-format
 msgid "&Expand to Labels"
 msgstr "Roztiahnuť na štítky"
 
-#: libgui/SignalWidget.cpp:275
+#: libgui/SignalWidget.cpp:270
 #, kde-format
 msgid "To Next Labels"
 msgstr "Na nasledujúce štítky"
 
-#: libgui/SignalWidget.cpp:285
+#: libgui/SignalWidget.cpp:280
 #, kde-format
 msgid "To Previous Labels"
 msgstr "Na predchádzajúce štítky"
 
-#: libkwave/CodecManager.cpp:201
+#: libkwave/CodecManager.cpp:196
 #, kde-format
 msgid "Kwave Macro Files"
 msgstr "Makro súbory Kwave"
 
-#: libkwave/CodecManager.cpp:205
+#: libkwave/CodecManager.cpp:200
 #, kde-format
 msgid "All Files"
 msgstr "Všetky súbory"
 
-#: libkwave/CodecManager.cpp:207
+#: libkwave/CodecManager.cpp:202
 #, kde-format
 msgid "All Supported Files"
 msgstr "Všetky podporované súbory"
 
-#: libkwave/Compression.cpp:104
+#: libkwave/Compression.cpp:107
 msgid "No Compression"
 msgstr "Bez kompresie"
 
-#: libkwave/Compression.cpp:111
+#: libkwave/Compression.cpp:114
 msgid "CCITT G.711 u-law"
 msgstr "CCITT G.711 u-law"
 
-#: libkwave/Compression.cpp:115
+#: libkwave/Compression.cpp:118
 msgid "CCITT G.711 A-law"
 msgstr "CCITT G.711 A-law"
 
-#: libkwave/Compression.cpp:119
+#: libkwave/Compression.cpp:122
 msgid "MS ADPCM"
 msgstr "MS ADPCM"
 
-#: libkwave/Compression.cpp:123
+#: libkwave/Compression.cpp:126
 msgid "GSM"
 msgstr "GSM"
 
-#: libkwave/Compression.cpp:129
+#: libkwave/Compression.cpp:132
 msgid "G722"
 msgstr "G722"
 
-#: libkwave/Compression.cpp:133
+#: libkwave/Compression.cpp:136
 msgid "Apple ACE2"
 msgstr "Apple ACE2"
 
-#: libkwave/Compression.cpp:137
+#: libkwave/Compression.cpp:140
 msgid "Apple ACE8"
 msgstr "Apple ACE8"
 
-#: libkwave/Compression.cpp:141
+#: libkwave/Compression.cpp:144
 msgid "Apple MAC3"
 msgstr "Apple MAC3"
 
-#: libkwave/Compression.cpp:145
+#: libkwave/Compression.cpp:148
 msgid "Apple MAC6"
 msgstr "Apple MAC6"
 
-#: libkwave/Compression.cpp:149
+#: libkwave/Compression.cpp:152
 msgid "G726"
 msgstr "G726"
 
-#: libkwave/Compression.cpp:153
+#: libkwave/Compression.cpp:156
 msgid "DVI Audio / IMA"
 msgstr "DVI Audio / IMA"
 
-#: libkwave/Compression.cpp:157
+#: libkwave/Compression.cpp:160
 msgid "FS1016"
 msgstr "FS1016"
 
-#: libkwave/Compression.cpp:161
+#: libkwave/Compression.cpp:164
 msgid "DV"
 msgstr "DV"
 
-#: libkwave/Compression.cpp:168
+#: libkwave/Compression.cpp:171
 msgid "MPEG Layer I"
 msgstr "MPEG Layer I"
 
-#: libkwave/Compression.cpp:172
+#: libkwave/Compression.cpp:175
 msgid "MPEG Layer II"
 msgstr "MPEG Layer II"
 
-#: libkwave/Compression.cpp:176
+#: libkwave/Compression.cpp:179
 msgid "MPEG Layer III"
 msgstr "MPEG Layer III"
 
-#: libkwave/Compression.cpp:184
+#: libkwave/Compression.cpp:187
 msgid "FLAC"
 msgstr "FLAC"
 
-#: libkwave/Compression.cpp:192
+#: libkwave/Compression.cpp:195
 msgid "Ogg Vorbis"
 msgstr "Ogg Vorbis"
 
-#: libkwave/Compression.cpp:200
+#: libkwave/Compression.cpp:203
 msgid "Ogg Opus"
 msgstr "Ogg Opus"
 
-#: libkwave/ConfirmCancelProxy.cpp:50
+#: libkwave/ConfirmCancelProxy.cpp:45
 #, kde-format
 msgid "Do you really want to abort the current action?"
 msgstr "Naozaj chcete prerušiť súčasnú akciu?"
@@ -2454,13 +2454,13 @@ msgstr "4 (quadro)"
 msgid "Do you really want to abort the operation?"
 msgstr "Naozaj chcete prerušiť operáciu?"
 
-#: libkwave/FileProgress.cpp:280
+#: libkwave/FileProgress.cpp:281
 #, kde-format
 msgctxt "file progress dialog, %1=transfer rate, %2=remaining duration"
 msgid "%1 kB/s (%2 remaining)"
 msgstr "%1 kB/s (%2 zostávajúce)"
 
-#: libkwave/FileProgress.cpp:289
+#: libkwave/FileProgress.cpp:290
 #, kde-format
 msgctxt ""
 "file progress dialog, %1=number of loaded/saved megabytes, %2=number of "
@@ -2468,13 +2468,13 @@ msgctxt ""
 msgid "%1 MB of %2 MB done"
 msgstr "%1 MB z %2 MB hotových"
 
-#: libkwave/FileProgress.cpp:335
+#: libkwave/FileProgress.cpp:336
 #, kde-format
 msgctxt "%1=Progress in percentage, %2=path to file"
 msgid "(%1%) %2"
 msgstr "(%1%) %2"
 
-#: libkwave/FileProgress.cpp:368
+#: libkwave/FileProgress.cpp:369
 #, kde-format
 msgctxt "file progress dialog, %1=a number of samples"
 msgid "%1 samples"
@@ -2508,775 +2508,775 @@ msgstr "Štvorcový sínus"
 msgid "Cubic Sinus"
 msgstr "Kubický sínus"
 
-#: libkwave/GenreType.cpp:102
+#: libkwave/GenreType.cpp:98
 msgid "Blues"
 msgstr "Blues"
 
-#: libkwave/GenreType.cpp:103
+#: libkwave/GenreType.cpp:99
 msgid "Classic Rock"
 msgstr "Klasický rock"
 
-#: libkwave/GenreType.cpp:104
+#: libkwave/GenreType.cpp:100
 msgid "Country"
 msgstr "Country"
 
-#: libkwave/GenreType.cpp:105
+#: libkwave/GenreType.cpp:101
 msgid "Dance"
 msgstr "Dance"
 
-#: libkwave/GenreType.cpp:106
+#: libkwave/GenreType.cpp:102
 msgid "Disco"
 msgstr "Disco"
 
-#: libkwave/GenreType.cpp:107
+#: libkwave/GenreType.cpp:103
 msgid "Funk"
 msgstr "Funk"
 
-#: libkwave/GenreType.cpp:108
+#: libkwave/GenreType.cpp:104
 msgid "Grunge"
 msgstr "Grunge"
 
-#: libkwave/GenreType.cpp:109
+#: libkwave/GenreType.cpp:105
 msgid "Hip-Hop"
 msgstr "Hip-Hop"
 
-#: libkwave/GenreType.cpp:110
+#: libkwave/GenreType.cpp:106
 msgid "Jazz"
 msgstr "Jazz"
 
-#: libkwave/GenreType.cpp:111
+#: libkwave/GenreType.cpp:107
 msgid "Metal"
 msgstr "Metal"
 
-#: libkwave/GenreType.cpp:112
+#: libkwave/GenreType.cpp:108
 msgid "New Age"
 msgstr "New Age"
 
-#: libkwave/GenreType.cpp:113
+#: libkwave/GenreType.cpp:109
 msgid "Oldies"
 msgstr "Oldies"
 
-#: libkwave/GenreType.cpp:114
+#: libkwave/GenreType.cpp:110
 msgid "Other"
 msgstr "Iné"
 
-#: libkwave/GenreType.cpp:115
+#: libkwave/GenreType.cpp:111
 msgid "Pop"
 msgstr "Pop"
 
-#: libkwave/GenreType.cpp:116
+#: libkwave/GenreType.cpp:112
 msgid "Rhythm and Blues"
 msgstr "Rhythm and Blues"
 
-#: libkwave/GenreType.cpp:117
+#: libkwave/GenreType.cpp:113
 msgid "Rap"
 msgstr "Rap"
 
-#: libkwave/GenreType.cpp:118
+#: libkwave/GenreType.cpp:114
 msgid "Reggae"
 msgstr "Reggae"
 
-#: libkwave/GenreType.cpp:119
+#: libkwave/GenreType.cpp:115
 msgid "Rock"
 msgstr "Rock"
 
-#: libkwave/GenreType.cpp:120
+#: libkwave/GenreType.cpp:116
 msgid "Techno"
 msgstr "Techno"
 
-#: libkwave/GenreType.cpp:121
+#: libkwave/GenreType.cpp:117
 msgid "Industrial"
 msgstr "Industrial"
 
-#: libkwave/GenreType.cpp:122
+#: libkwave/GenreType.cpp:118
 msgid "Alternative"
 msgstr "Alternatívne"
 
-#: libkwave/GenreType.cpp:123
+#: libkwave/GenreType.cpp:119
 msgid "Ska"
 msgstr "Ska"
 
-#: libkwave/GenreType.cpp:124
+#: libkwave/GenreType.cpp:120
 msgid "Death Metal"
 msgstr "Death Metal"
 
-#: libkwave/GenreType.cpp:125
+#: libkwave/GenreType.cpp:121
 msgid "Pranks"
 msgstr "Pranks"
 
-#: libkwave/GenreType.cpp:126
+#: libkwave/GenreType.cpp:122
 msgid "Soundtrack"
 msgstr "Soundtrack"
 
-#: libkwave/GenreType.cpp:127
+#: libkwave/GenreType.cpp:123
 msgid "Euro-Techno"
 msgstr "Euro-Techno"
 
-#: libkwave/GenreType.cpp:128
+#: libkwave/GenreType.cpp:124
 msgid "Ambient"
 msgstr "Ambient"
 
-#: libkwave/GenreType.cpp:129
+#: libkwave/GenreType.cpp:125
 msgid "Trip-Hop"
 msgstr "Trip-Hop"
 
-#: libkwave/GenreType.cpp:130
+#: libkwave/GenreType.cpp:126
 msgid "Vocal"
 msgstr "Vokálna"
 
-#: libkwave/GenreType.cpp:131
+#: libkwave/GenreType.cpp:127
 msgid "Jazz & Funk"
 msgstr "Jazz & Funk"
 
-#: libkwave/GenreType.cpp:132
+#: libkwave/GenreType.cpp:128
 msgid "Fusion"
 msgstr "Fusion"
 
-#: libkwave/GenreType.cpp:133
+#: libkwave/GenreType.cpp:129
 msgid "Trance"
 msgstr "Trance"
 
-#: libkwave/GenreType.cpp:134
+#: libkwave/GenreType.cpp:130
 msgid "Classical"
 msgstr "Klasika"
 
-#: libkwave/GenreType.cpp:135
+#: libkwave/GenreType.cpp:131
 msgid "Instrumental"
 msgstr "Inštrumentálna"
 
-#: libkwave/GenreType.cpp:136
+#: libkwave/GenreType.cpp:132
 msgid "Acid"
 msgstr "Acid"
 
-#: libkwave/GenreType.cpp:137
+#: libkwave/GenreType.cpp:133
 msgid "House"
 msgstr "House"
 
-#: libkwave/GenreType.cpp:138
+#: libkwave/GenreType.cpp:134
 msgid "Game"
 msgstr "Hra"
 
-#: libkwave/GenreType.cpp:139
+#: libkwave/GenreType.cpp:135
 msgid "Sound Clip"
 msgstr "Zvukový klip"
 
-#: libkwave/GenreType.cpp:140
+#: libkwave/GenreType.cpp:136
 msgid "Gospel"
 msgstr "Gospel"
 
-#: libkwave/GenreType.cpp:141
+#: libkwave/GenreType.cpp:137
 msgid "Noise"
 msgstr "Noise"
 
-#: libkwave/GenreType.cpp:142
+#: libkwave/GenreType.cpp:138
 msgid "Alternative Rock"
 msgstr "Alternatívny Rock"
 
-#: libkwave/GenreType.cpp:143
+#: libkwave/GenreType.cpp:139
 msgid "Bass"
 msgstr "Bass"
 
-#: libkwave/GenreType.cpp:144
+#: libkwave/GenreType.cpp:140
 msgid "Soul"
 msgstr "Soul"
 
-#: libkwave/GenreType.cpp:145
+#: libkwave/GenreType.cpp:141
 msgid "Punk"
 msgstr "Punk"
 
-#: libkwave/GenreType.cpp:146
+#: libkwave/GenreType.cpp:142
 msgid "Space"
 msgstr "Space"
 
-#: libkwave/GenreType.cpp:147
+#: libkwave/GenreType.cpp:143
 msgid "Meditative"
 msgstr "Meditatívna"
 
-#: libkwave/GenreType.cpp:148
+#: libkwave/GenreType.cpp:144
 msgid "Instrumental Pop"
 msgstr "Inštrumentálny Pop"
 
-#: libkwave/GenreType.cpp:149
+#: libkwave/GenreType.cpp:145
 msgid "Instrumental Rock"
 msgstr "Inštrumentálny Rock"
 
-#: libkwave/GenreType.cpp:150
+#: libkwave/GenreType.cpp:146
 msgid "Ethnic"
 msgstr "Etnická"
 
-#: libkwave/GenreType.cpp:151
+#: libkwave/GenreType.cpp:147
 msgid "Gothic"
 msgstr "Gotická"
 
-#: libkwave/GenreType.cpp:152
+#: libkwave/GenreType.cpp:148
 msgid "Darkwave"
 msgstr "Darkwave"
 
-#: libkwave/GenreType.cpp:153
+#: libkwave/GenreType.cpp:149
 msgid "Techno-Industrial"
 msgstr "Techno-Industrial"
 
-#: libkwave/GenreType.cpp:154
+#: libkwave/GenreType.cpp:150
 msgid "Electronic"
 msgstr "Elektronická"
 
-#: libkwave/GenreType.cpp:155
+#: libkwave/GenreType.cpp:151
 msgid "Pop-Folk"
 msgstr "Pop-Folk"
 
-#: libkwave/GenreType.cpp:156
+#: libkwave/GenreType.cpp:152
 msgid "Eurodance"
 msgstr "Eurodance"
 
-#: libkwave/GenreType.cpp:157
+#: libkwave/GenreType.cpp:153
 msgid "Dream"
 msgstr "Dream"
 
-#: libkwave/GenreType.cpp:158
+#: libkwave/GenreType.cpp:154
 msgid "Southern Rock"
 msgstr "Južanský rock"
 
-#: libkwave/GenreType.cpp:159
+#: libkwave/GenreType.cpp:155
 msgid "Comedy"
 msgstr "Komédia"
 
-#: libkwave/GenreType.cpp:160
+#: libkwave/GenreType.cpp:156
 msgid "Cult"
 msgstr "Kult"
 
-#: libkwave/GenreType.cpp:161
+#: libkwave/GenreType.cpp:157
 msgid "Gangsta"
 msgstr "Gangsta"
 
-#: libkwave/GenreType.cpp:162
+#: libkwave/GenreType.cpp:158
 msgid "Top 40"
 msgstr "Top 40"
 
-#: libkwave/GenreType.cpp:163
+#: libkwave/GenreType.cpp:159
 msgid "Christian Rap"
 msgstr "Kresťanský rap"
 
-#: libkwave/GenreType.cpp:164
+#: libkwave/GenreType.cpp:160
 msgid "Pop/Funk"
 msgstr "Pop/Funk"
 
-#: libkwave/GenreType.cpp:165
+#: libkwave/GenreType.cpp:161
 msgid "Jungle"
 msgstr "Jungle"
 
-#: libkwave/GenreType.cpp:166
+#: libkwave/GenreType.cpp:162
 msgid "Native American"
 msgstr "Native American"
 
-#: libkwave/GenreType.cpp:167
+#: libkwave/GenreType.cpp:163
 msgid "Cabaret"
 msgstr "Kabaret"
 
-#: libkwave/GenreType.cpp:168
+#: libkwave/GenreType.cpp:164
 msgid "New Wave"
 msgstr "Nová vlna"
 
-#: libkwave/GenreType.cpp:169
+#: libkwave/GenreType.cpp:165
 msgid "Psychedelic"
 msgstr "Psychedelická"
 
-#: libkwave/GenreType.cpp:170
+#: libkwave/GenreType.cpp:166
 msgid "Rave"
 msgstr "Rave"
 
-#: libkwave/GenreType.cpp:171
+#: libkwave/GenreType.cpp:167
 msgid "Showtunes"
 msgstr "Showtunes"
 
-#: libkwave/GenreType.cpp:172
+#: libkwave/GenreType.cpp:168
 msgid "Trailer"
 msgstr "Trailer"
 
-#: libkwave/GenreType.cpp:173
+#: libkwave/GenreType.cpp:169
 msgid "Lo-Fi"
 msgstr "Lo-Fi"
 
-#: libkwave/GenreType.cpp:174
+#: libkwave/GenreType.cpp:170
 msgid "Tribal"
 msgstr "Tribal"
 
-#: libkwave/GenreType.cpp:175
+#: libkwave/GenreType.cpp:171
 msgid "Acid Punk"
 msgstr "Acid Punk"
 
-#: libkwave/GenreType.cpp:176
+#: libkwave/GenreType.cpp:172
 msgid "Acid Jazz"
 msgstr "Acid Jazz"
 
-#: libkwave/GenreType.cpp:177
+#: libkwave/GenreType.cpp:173
 msgid "Polka"
 msgstr "Polka"
 
-#: libkwave/GenreType.cpp:178
+#: libkwave/GenreType.cpp:174
 msgid "Retro"
 msgstr "Retro"
 
-#: libkwave/GenreType.cpp:179
+#: libkwave/GenreType.cpp:175
 msgid "Musical"
 msgstr "Muzikál"
 
-#: libkwave/GenreType.cpp:180
+#: libkwave/GenreType.cpp:176
 msgid "Rock 'n' Roll"
 msgstr "Rock 'n' Roll"
 
-#: libkwave/GenreType.cpp:181
+#: libkwave/GenreType.cpp:177
 msgid "Hard Rock"
 msgstr "Hard Rock"
 
-#: libkwave/GenreType.cpp:184
+#: libkwave/GenreType.cpp:180
 msgid "Folk"
 msgstr "Folk"
 
-#: libkwave/GenreType.cpp:185
+#: libkwave/GenreType.cpp:181
 msgid "Folk-Rock"
 msgstr "Folk-Rock"
 
-#: libkwave/GenreType.cpp:186
+#: libkwave/GenreType.cpp:182
 msgid "National Folk"
 msgstr "Národný folk"
 
-#: libkwave/GenreType.cpp:187
+#: libkwave/GenreType.cpp:183
 msgid "Swing"
 msgstr "Swing"
 
-#: libkwave/GenreType.cpp:188
+#: libkwave/GenreType.cpp:184
 msgid "Fast Fusion"
 msgstr "Fast Fusion"
 
-#: libkwave/GenreType.cpp:189
+#: libkwave/GenreType.cpp:185
 msgid "Bebop"
 msgstr "Bebop"
 
-#: libkwave/GenreType.cpp:190
+#: libkwave/GenreType.cpp:186
 msgid "Latin"
 msgstr "Latinská"
 
-#: libkwave/GenreType.cpp:191
+#: libkwave/GenreType.cpp:187
 msgid "Revival"
 msgstr "Revival"
 
-#: libkwave/GenreType.cpp:192
+#: libkwave/GenreType.cpp:188
 msgid "Celtic"
 msgstr "Keltský"
 
-#: libkwave/GenreType.cpp:193
+#: libkwave/GenreType.cpp:189
 msgid "Bluegrass"
 msgstr "Bluegrass"
 
-#: libkwave/GenreType.cpp:194
+#: libkwave/GenreType.cpp:190
 msgid "Avantgarde"
 msgstr "Avantgardná"
 
-#: libkwave/GenreType.cpp:195
+#: libkwave/GenreType.cpp:191
 msgid "Gothic Rock"
 msgstr "Gotický rock"
 
-#: libkwave/GenreType.cpp:196
+#: libkwave/GenreType.cpp:192
 msgid "Progressive Rock"
 msgstr "Progresívny rock"
 
-#: libkwave/GenreType.cpp:197
+#: libkwave/GenreType.cpp:193
 msgid "Psychedelic Rock"
 msgstr "Psychedelický rock"
 
-#: libkwave/GenreType.cpp:198
+#: libkwave/GenreType.cpp:194
 msgid "Symphonic Rock"
 msgstr "Symfonický rock"
 
-#: libkwave/GenreType.cpp:199
+#: libkwave/GenreType.cpp:195
 msgid "Slow Rock"
 msgstr "Slow Rock"
 
-#: libkwave/GenreType.cpp:200
+#: libkwave/GenreType.cpp:196
 msgid "Big Band"
 msgstr "Big Band"
 
-#: libkwave/GenreType.cpp:201
+#: libkwave/GenreType.cpp:197
 msgid "Chorus"
 msgstr "Zbor"
 
-#: libkwave/GenreType.cpp:202
+#: libkwave/GenreType.cpp:198
 msgid "Easy Listening"
 msgstr "Ľahké počúvanie"
 
-#: libkwave/GenreType.cpp:203
+#: libkwave/GenreType.cpp:199
 msgid "Acoustic"
 msgstr "Acoustic"
 
-#: libkwave/GenreType.cpp:204
+#: libkwave/GenreType.cpp:200
 msgid "Humour"
 msgstr "Humor"
 
-#: libkwave/GenreType.cpp:205
+#: libkwave/GenreType.cpp:201
 msgid "Speech"
 msgstr "Reč"
 
-#: libkwave/GenreType.cpp:206
+#: libkwave/GenreType.cpp:202
 msgid "Chanson"
 msgstr "Šansón"
 
-#: libkwave/GenreType.cpp:207
+#: libkwave/GenreType.cpp:203
 msgid "Opera"
 msgstr "Opera"
 
-#: libkwave/GenreType.cpp:208
+#: libkwave/GenreType.cpp:204
 msgid "Chamber Music"
 msgstr "Komorná hudba"
 
-#: libkwave/GenreType.cpp:209
+#: libkwave/GenreType.cpp:205
 msgid "Sonata"
 msgstr "Sonata"
 
-#: libkwave/GenreType.cpp:210
+#: libkwave/GenreType.cpp:206
 msgid "Symphony"
 msgstr "Symfónia"
 
-#: libkwave/GenreType.cpp:211
+#: libkwave/GenreType.cpp:207
 msgid "Booty Bass"
 msgstr "Booty Bass"
 
-#: libkwave/GenreType.cpp:212
+#: libkwave/GenreType.cpp:208
 msgid "Primus"
 msgstr "Primus"
 
-#: libkwave/GenreType.cpp:213
+#: libkwave/GenreType.cpp:209
 msgid "Porn Groove"
 msgstr "Porn Groove"
 
-#: libkwave/GenreType.cpp:214
+#: libkwave/GenreType.cpp:210
 msgid "Satire"
 msgstr "Satira"
 
-#: libkwave/GenreType.cpp:215
+#: libkwave/GenreType.cpp:211
 msgid "Slow Jam"
 msgstr "Slow Jam"
 
-#: libkwave/GenreType.cpp:216
+#: libkwave/GenreType.cpp:212
 msgid "Club"
 msgstr "Klubová"
 
-#: libkwave/GenreType.cpp:217
+#: libkwave/GenreType.cpp:213
 msgid "Tango"
 msgstr "Tango"
 
-#: libkwave/GenreType.cpp:218
+#: libkwave/GenreType.cpp:214
 msgid "Samba"
 msgstr "Samba"
 
-#: libkwave/GenreType.cpp:219
+#: libkwave/GenreType.cpp:215
 msgid "Folklore"
 msgstr "Folklór"
 
-#: libkwave/GenreType.cpp:220
+#: libkwave/GenreType.cpp:216
 msgid "Ballad"
 msgstr "Balada"
 
-#: libkwave/GenreType.cpp:221
+#: libkwave/GenreType.cpp:217
 msgid "Power Ballad"
 msgstr "Power Ballad"
 
-#: libkwave/GenreType.cpp:222
+#: libkwave/GenreType.cpp:218
 msgid "Rhythmic Soul"
 msgstr "Rytmický soul"
 
-#: libkwave/GenreType.cpp:223
+#: libkwave/GenreType.cpp:219
 msgid "Freestyle"
 msgstr "Freestyle"
 
-#: libkwave/GenreType.cpp:224
+#: libkwave/GenreType.cpp:220
 msgid "Duet"
 msgstr "Duet"
 
-#: libkwave/GenreType.cpp:225
+#: libkwave/GenreType.cpp:221
 msgid "Punk Rock"
 msgstr "Punk Rock"
 
-#: libkwave/GenreType.cpp:226
+#: libkwave/GenreType.cpp:222
 msgid "Drum Solo"
 msgstr "Bubnové sólo"
 
-#: libkwave/GenreType.cpp:227
+#: libkwave/GenreType.cpp:223
 msgid "A Cappella"
 msgstr "A Cappella"
 
-#: libkwave/GenreType.cpp:228
+#: libkwave/GenreType.cpp:224
 msgid "Euro-House"
 msgstr "Euro-House"
 
-#: libkwave/GenreType.cpp:229
+#: libkwave/GenreType.cpp:225
 msgid "Dance Hall"
 msgstr "Dance Hall"
 
-#: libkwave/GenreType.cpp:230
+#: libkwave/GenreType.cpp:226
 msgid "Goa"
 msgstr "Goa"
 
-#: libkwave/GenreType.cpp:231
+#: libkwave/GenreType.cpp:227
 msgid "Drum & Bass"
 msgstr "Drum & Bass"
 
-#: libkwave/GenreType.cpp:232
+#: libkwave/GenreType.cpp:228
 msgid "Club-House"
 msgstr "Club-House"
 
-#: libkwave/GenreType.cpp:233
+#: libkwave/GenreType.cpp:229
 msgid "Hardcore Techno"
 msgstr "Hardcore Techno"
 
-#: libkwave/GenreType.cpp:234
+#: libkwave/GenreType.cpp:230
 msgid "Terror"
 msgstr "Terror"
 
-#: libkwave/GenreType.cpp:235
+#: libkwave/GenreType.cpp:231
 msgid "Indie"
 msgstr "Indie"
 
-#: libkwave/GenreType.cpp:236
+#: libkwave/GenreType.cpp:232
 msgid "BritPop"
 msgstr "BritPop"
 
-#: libkwave/GenreType.cpp:237
+#: libkwave/GenreType.cpp:233
 msgid "Negerpunk"
 msgstr "Negerpunk"
 
-#: libkwave/GenreType.cpp:238
+#: libkwave/GenreType.cpp:234
 msgid "Polsk Punk"
 msgstr "Polsk Punk"
 
-#: libkwave/GenreType.cpp:239
+#: libkwave/GenreType.cpp:235
 msgid "Beat"
 msgstr "Beat"
 
-#: libkwave/GenreType.cpp:240
+#: libkwave/GenreType.cpp:236
 msgid "Christian Gangsta Rap"
 msgstr "Kresťanský gangsta rap"
 
-#: libkwave/GenreType.cpp:241
+#: libkwave/GenreType.cpp:237
 msgid "Heavy Metal"
 msgstr "Heavy Metal"
 
-#: libkwave/GenreType.cpp:242
+#: libkwave/GenreType.cpp:238
 msgid "Black Metal"
 msgstr "Black Metal"
 
-#: libkwave/GenreType.cpp:243
+#: libkwave/GenreType.cpp:239
 msgid "Crossover"
 msgstr "Crossover"
 
-#: libkwave/GenreType.cpp:244
+#: libkwave/GenreType.cpp:240
 msgid "Contemporary Christian"
 msgstr "Súčasná kresťanská"
 
-#: libkwave/GenreType.cpp:245
+#: libkwave/GenreType.cpp:241
 msgid "Christian Rock"
 msgstr "Kresťanský rock"
 
-#: libkwave/GenreType.cpp:248
+#: libkwave/GenreType.cpp:244
 msgid "Merengue"
 msgstr "Merengue"
 
-#: libkwave/GenreType.cpp:249
+#: libkwave/GenreType.cpp:245
 msgid "Salsa"
 msgstr "Salsa"
 
-#: libkwave/GenreType.cpp:250
+#: libkwave/GenreType.cpp:246
 msgid "Thrash Metal"
 msgstr "Thrash Metal"
 
-#: libkwave/GenreType.cpp:251
+#: libkwave/GenreType.cpp:247
 msgid "Anime"
 msgstr "Anime"
 
-#: libkwave/GenreType.cpp:252
+#: libkwave/GenreType.cpp:248
 msgid "JPop"
 msgstr "JPop"
 
-#: libkwave/GenreType.cpp:253
+#: libkwave/GenreType.cpp:249
 msgid "SynthPop"
 msgstr "SynthPop"
 
-#: libkwave/GenreType.cpp:256
+#: libkwave/GenreType.cpp:252
 msgid "Abstract"
 msgstr "Abstraktné"
 
-#: libkwave/GenreType.cpp:257
+#: libkwave/GenreType.cpp:253
 msgid "Art Rock"
 msgstr "Art Rock"
 
-#: libkwave/GenreType.cpp:258
+#: libkwave/GenreType.cpp:254
 msgid "Baroque"
 msgstr "Baroko"
 
-#: libkwave/GenreType.cpp:259
+#: libkwave/GenreType.cpp:255
 msgid "Bhangra"
 msgstr "Bhangra"
 
-#: libkwave/GenreType.cpp:260
+#: libkwave/GenreType.cpp:256
 msgid "Big Beat"
 msgstr "Big Beat"
 
-#: libkwave/GenreType.cpp:261
+#: libkwave/GenreType.cpp:257
 msgid "Breakbeat"
 msgstr "Breakbeat"
 
-#: libkwave/GenreType.cpp:262
+#: libkwave/GenreType.cpp:258
 msgid "Chillout"
 msgstr "Chillout"
 
-#: libkwave/GenreType.cpp:263
+#: libkwave/GenreType.cpp:259
 msgid "Downtempo"
 msgstr "Downtempo"
 
-#: libkwave/GenreType.cpp:264
+#: libkwave/GenreType.cpp:260
 msgid "Dub"
 msgstr "Dub"
 
-#: libkwave/GenreType.cpp:265
+#: libkwave/GenreType.cpp:261
 msgid "EBM"
 msgstr "EBM"
 
-#: libkwave/GenreType.cpp:266
+#: libkwave/GenreType.cpp:262
 msgid "Eclectic"
 msgstr "Eclectic"
 
-#: libkwave/GenreType.cpp:267
+#: libkwave/GenreType.cpp:263
 msgid "Electro"
 msgstr "Electro"
 
-#: libkwave/GenreType.cpp:268
+#: libkwave/GenreType.cpp:264
 msgid "Electroclash"
 msgstr "Electroclash"
 
-#: libkwave/GenreType.cpp:269
+#: libkwave/GenreType.cpp:265
 msgid "Emo"
 msgstr "Emo"
 
-#: libkwave/GenreType.cpp:270
+#: libkwave/GenreType.cpp:266
 msgid "Experimental"
 msgstr "Experimentálne"
 
-#: libkwave/GenreType.cpp:271
+#: libkwave/GenreType.cpp:267
 msgid "Garage"
 msgstr "Garage"
 
-#: libkwave/GenreType.cpp:272
+#: libkwave/GenreType.cpp:268
 msgid "Global"
 msgstr "Globálne"
 
-#: libkwave/GenreType.cpp:273
+#: libkwave/GenreType.cpp:269
 msgid "IDM"
 msgstr "IDM"
 
-#: libkwave/GenreType.cpp:274
+#: libkwave/GenreType.cpp:270
 msgid "Illbient"
 msgstr "Illbient"
 
-#: libkwave/GenreType.cpp:275
+#: libkwave/GenreType.cpp:271
 msgid "Industro-Goth"
 msgstr "Industro-Goth"
 
-#: libkwave/GenreType.cpp:276
+#: libkwave/GenreType.cpp:272
 msgid "Jam Band"
 msgstr "Jam Band"
 
-#: libkwave/GenreType.cpp:277
+#: libkwave/GenreType.cpp:273
 msgid "Krautrock"
 msgstr "Krautrock"
 
-#: libkwave/GenreType.cpp:278
+#: libkwave/GenreType.cpp:274
 msgid "Leftfield"
 msgstr "Leftfield"
 
-#: libkwave/GenreType.cpp:279
+#: libkwave/GenreType.cpp:275
 msgid "Lounge"
 msgstr "Lounge"
 
-#: libkwave/GenreType.cpp:280
+#: libkwave/GenreType.cpp:276
 msgid "Math Rock"
 msgstr "Math Rock"
 
-#: libkwave/GenreType.cpp:281
+#: libkwave/GenreType.cpp:277
 msgid "New Romantic"
 msgstr "Novoromantizmus"
 
-#: libkwave/GenreType.cpp:282
+#: libkwave/GenreType.cpp:278
 msgid "Nu-Breakz"
 msgstr "Nu-Breakz"
 
-#: libkwave/GenreType.cpp:283
+#: libkwave/GenreType.cpp:279
 msgid "Post-Punk"
 msgstr "Post-Punk"
 
-#: libkwave/GenreType.cpp:284
+#: libkwave/GenreType.cpp:280
 msgid "Post-Rock"
 msgstr "Post-Rock"
 
-#: libkwave/GenreType.cpp:285
+#: libkwave/GenreType.cpp:281
 msgid "Psytrance"
 msgstr "Psytrance"
 
-#: libkwave/GenreType.cpp:286
+#: libkwave/GenreType.cpp:282
 msgid "Shoegaze"
 msgstr "Shoegaze"
 
-#: libkwave/GenreType.cpp:287
+#: libkwave/GenreType.cpp:283
 msgid "Space Rock"
 msgstr "Space Rock"
 
-#: libkwave/GenreType.cpp:288
+#: libkwave/GenreType.cpp:284
 msgid "Trop Rock"
 msgstr "Trop Rock"
 
-#: libkwave/GenreType.cpp:289
+#: libkwave/GenreType.cpp:285
 msgid "World Music"
 msgstr "World Music"
 
-#: libkwave/GenreType.cpp:290
+#: libkwave/GenreType.cpp:286
 msgid "Neoclassical"
 msgstr "Neoklasika"
 
-#: libkwave/GenreType.cpp:291
+#: libkwave/GenreType.cpp:287
 msgid "Audiobook"
 msgstr "Audiokniha"
 
-#: libkwave/GenreType.cpp:292
+#: libkwave/GenreType.cpp:288
 msgid "Audio Theatre"
 msgstr "Zvukové divadlo"
 
-#: libkwave/GenreType.cpp:293
+#: libkwave/GenreType.cpp:289
 msgid "Neue Deutsche Welle"
 msgstr "Neue Deutsche Welle"
 
-#: libkwave/GenreType.cpp:294
+#: libkwave/GenreType.cpp:290
 msgid "Podcast"
 msgstr "Podcast"
 
-#: libkwave/GenreType.cpp:295
+#: libkwave/GenreType.cpp:291
 msgid "Indie Rock"
 msgstr "Indie Rock"
 
-#: libkwave/GenreType.cpp:296
+#: libkwave/GenreType.cpp:292
 msgid "G-Funk"
 msgstr "G-Funk"
 
-#: libkwave/GenreType.cpp:297
+#: libkwave/GenreType.cpp:293
 msgid "Dubstep"
 msgstr "Dubstep"
 
-#: libkwave/GenreType.cpp:298
+#: libkwave/GenreType.cpp:294
 msgid "Garage Rock"
 msgstr "Garage Rock"
 
-#: libkwave/GenreType.cpp:299
+#: libkwave/GenreType.cpp:295
 msgid "Psybient"
 msgstr "Psybient"
 
-#: libkwave/GenreType.cpp:305
+#: libkwave/GenreType.cpp:302
 msgid "Unknown"
 msgstr "Neznáme"
 
@@ -3308,12 +3308,12 @@ msgstr "Polynóm 7. stupňa"
 msgid "Sample and Hold"
 msgstr "Vzorkovať a podržať"
 
-#: libkwave/Logger.cpp:81
+#: libkwave/Logger.cpp:75
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
 msgstr "Nepodarilo sa otvoriť súbor záznamu '%1' na zápis"
 
-#: libkwave/PlaybackController.cpp:667
+#: libkwave/PlaybackController.cpp:670
 #, kde-format
 msgid "Unable to open '%1'"
 msgstr "Nepodarilo sa otvoriť '%1'"
@@ -3354,19 +3354,19 @@ msgstr "Chyba pri načítaní zásuvného modulu"
 msgid "Loading plugin %1..."
 msgstr "Načítavanie zásuvného modulu %1..."
 
-#: libkwave/SampleFormat.cpp:37
+#: libkwave/SampleFormat.cpp:32
 msgid "Linear Two's Complement"
 msgstr "Lineárny dvojkový doplnok"
 
-#: libkwave/SampleFormat.cpp:39
+#: libkwave/SampleFormat.cpp:34
 msgid "Unsigned Integer"
 msgstr "Neznamienkový integer"
 
-#: libkwave/SampleFormat.cpp:41
+#: libkwave/SampleFormat.cpp:36
 msgid "32-bit IEEE Floating-Point"
 msgstr "32-bitové reálne číslo IEEE"
 
-#: libkwave/SampleFormat.cpp:43
+#: libkwave/SampleFormat.cpp:38
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-bitové reálne číslo IEEE s dvojitou presnosťou"
 
@@ -3472,12 +3472,12 @@ msgstr "Prepnúť výber stôp"
 msgid "Append Track"
 msgstr "Pripojiť stopu"
 
-#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoInsertTrack.cpp:39
 #, kde-format
 msgid "Insert Track"
 msgstr "Vložiť stopu"
 
-#: libkwave/SignalManager.cpp:965 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:965 libkwave/undo/UndoDeleteTrack.cpp:40
 #, kde-format
 msgid "Delete Track"
 msgstr "Vymazať stopu"
@@ -3571,13 +3571,13 @@ msgstr "Vložiť %1 %2 objektov"
 msgid "Insert Meta Data"
 msgstr "Vložiť metadáta"
 
-#: libkwave/undo/UndoDeleteMetaDataAction.cpp:60
+#: libkwave/undo/UndoDeleteMetaDataAction.cpp:55
 #, kde-format
 msgctxt "name of the undo action for deleting a meta data object"
 msgid "Delete %1"
 msgstr "Vymazať %1"
 
-#: libkwave/undo/UndoDeleteMetaDataAction.cpp:79
+#: libkwave/undo/UndoDeleteMetaDataAction.cpp:74
 #, kde-format
 msgctxt ""
 "name of the undo action for deleting multiple meta data objects of the same "
@@ -3585,23 +3585,23 @@ msgctxt ""
 msgid "Delete %1 %2 objects"
 msgstr "Vymazať %1 %2 objektov"
 
-#: libkwave/undo/UndoDeleteMetaDataAction.cpp:83
+#: libkwave/undo/UndoDeleteMetaDataAction.cpp:78
 #, kde-format
 msgid "Delete Meta Data"
 msgstr "Vymazať metadáta"
 
-#: libkwave/undo/UndoModifyAction.cpp:45
+#: libkwave/undo/UndoModifyAction.cpp:40
 #, kde-format
 msgid "Modify Samples"
 msgstr "Zmeniť vzorky"
 
-#: libkwave/undo/UndoModifyMetaDataAction.cpp:57
+#: libkwave/undo/UndoModifyMetaDataAction.cpp:52
 #, kde-format
 msgctxt "name of the undo action for modifying a meta data object"
 msgid "Modify %1"
 msgstr "Zmeniť %1"
 
-#: libkwave/undo/UndoModifyMetaDataAction.cpp:76
+#: libkwave/undo/UndoModifyMetaDataAction.cpp:71
 #, kde-format
 msgctxt ""
 "name of the undo action for modifying multiple meta data objects of the same "
@@ -3609,7 +3609,7 @@ msgctxt ""
 msgid "Modify %1 %2 objects"
 msgstr "Zmeniť %1 %2 objekty"
 
-#: libkwave/undo/UndoModifyMetaDataAction.cpp:81
+#: libkwave/undo/UndoModifyMetaDataAction.cpp:76
 #, kde-format
 msgid "Modify Meta Data"
 msgstr "Zmeniť metadáta"
@@ -3740,7 +3740,7 @@ msgstr "%"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, AmplifyFreeDlg)
 #: plugins/amplifyfree/AmplifyFreeDlg.ui:15
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:72
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:67
 #, kde-format
 msgid "Amplify Free"
 msgstr "Zosilniť voľne"
@@ -3779,7 +3779,7 @@ msgstr "Hz"
 #: plugins/band_pass/BandPassDialog.cpp:68 plugins/lowpass/LowPassDialog.cpp:66
 #: plugins/noise/NoiseDialog.cpp:277
 #: plugins/notch_filter/NotchFilterDialog.cpp:70
-#: plugins/volume/VolumeDialog.cpp:264
+#: plugins/volume/VolumeDialog.cpp:259
 #, kde-format
 msgid "dB"
 msgstr "dB"
@@ -3805,7 +3805,7 @@ msgid "&Listen"
 msgstr "Počúvať"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, BandPassDlg)
-#: plugins/band_pass/BandPassDlg.ui:14 plugins/band_pass/BandPassPlugin.cpp:127
+#: plugins/band_pass/BandPassDlg.ui:14 plugins/band_pass/BandPassPlugin.cpp:122
 #, kde-format
 msgid "Band Pass"
 msgstr "Pásmový priepust"
@@ -3848,8 +3848,8 @@ msgstr ""
 msgid "ASCII encoded audio"
 msgstr "Zvuk kódovaný v ASCII"
 
-#: plugins/codec_ascii/AsciiEncoder.cpp:92
-#: plugins/codec_flac/FlacEncoder.cpp:239 plugins/codec_ogg/OggEncoder.cpp:139
+#: plugins/codec_ascii/AsciiEncoder.cpp:87
+#: plugins/codec_flac/FlacEncoder.cpp:234 plugins/codec_ogg/OggEncoder.cpp:134
 #, kde-format
 msgid "Unable to open the file for saving."
 msgstr "Nepodarilo sa otvoriť súbor na uloženie."
@@ -3905,43 +3905,43 @@ msgid "Creative Voice"
 msgstr "Creative Voice"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:100
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:542
+#: plugins/codec_wav/WavDecoder.cpp:371 plugins/codec_wav/WavEncoder.cpp:537
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Formát alebo funkcia nie je implementovaná"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_wav/WavEncoder.cpp:549
+#: plugins/codec_wav/WavEncoder.cpp:544
 #, kde-format
 msgid "File header is damaged"
 msgstr "Hlavička súboru je poškodená"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:109
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:552
+#: plugins/codec_wav/WavDecoder.cpp:381 plugins/codec_wav/WavEncoder.cpp:547
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Neplatný typ kodeku"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:112
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:556
+#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:551
 #, kde-format
 msgid "Opening the file failed"
 msgstr "Otvorenie súboru zlyhalo"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:115
-#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:559
+#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:554
 #, kde-format
 msgid "Read access failed"
 msgstr "Prístup na čítanie zlyhal"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
-#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:562
+#: plugins/codec_wav/WavDecoder.cpp:391 plugins/codec_wav/WavEncoder.cpp:557
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Neplatný formát vzorky"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:124
-#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:568
+#: plugins/codec_wav/WavDecoder.cpp:400 plugins/codec_wav/WavEncoder.cpp:563
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -3950,7 +3950,7 @@ msgstr ""
 "Pri otváraní súboru sa vyskytla chyba:\n"
 "'%1'"
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:468
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:463
 #, fuzzy, kde-format
 #| msgid ""
 #| "This codec supports only mono or stereo files, %1 channels are not "
@@ -3960,8 +3960,8 @@ msgstr ""
 "Tento kodek podporuje iba mono alebo stereo súbory, %1 kanály nie sú "
 "podporované."
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:472
-#: plugins/codec_flac/FlacEncoder.cpp:205
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:467
+#: plugins/codec_flac/FlacEncoder.cpp:200
 #, fuzzy, kde-format
 #| msgid ""
 #| "This codec supports only mono or stereo files, %1 channels are not "
@@ -3973,13 +3973,13 @@ msgstr ""
 "Tento kodek podporuje iba mono alebo stereo súbory, %1 kanály nie sú "
 "podporované."
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:479
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:474
 #, fuzzy, kde-format
 #| msgid "Unable to open the file for saving."
 msgid "Unable to open the destination device for writing."
 msgstr "Nepodarilo sa otvoriť súbor na uloženie."
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:529
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:524
 #, fuzzy, kde-format
 #| msgid "Unable to open the FLAC encoder."
 msgid "Unable to initialize libaudiofile encoder."
@@ -3990,37 +3990,37 @@ msgstr "Nepodarilo sa otvoriť kódovač FLAC."
 msgid "FLAC audio"
 msgstr "FLAC audio"
 
-#: plugins/codec_flac/FlacDecoder.cpp:291
+#: plugins/codec_flac/FlacDecoder.cpp:294
 #, kde-format
 msgid "Opening the FLAC bitstream failed."
 msgstr "Otvorenie bitového toku FLAC zlyhalo."
 
-#: plugins/codec_flac/FlacDecoder.cpp:301
+#: plugins/codec_flac/FlacDecoder.cpp:304
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Chyba pri analýze metadát FLAC. (%s)"
 
-#: plugins/codec_flac/FlacEncoder.cpp:249
+#: plugins/codec_flac/FlacEncoder.cpp:244
 #, kde-format
 msgid "Unable to open the FLAC encoder."
 msgstr "Nepodarilo sa otvoriť kódovač FLAC."
 
-#: plugins/codec_mp3/MP3CodecPlugin.cpp:52
+#: plugins/codec_mp3/MP3CodecPlugin.cpp:47
 msgctxt "menu: /Settings/MP3 Encoder Setup"
 msgid "MP3 Encoder Setup"
 msgstr "Nastavenie kódovača MP3"
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:74
+#: plugins/codec_mp3/MP3CodecPlugin.h:73
 #, kde-format
 msgid "MPEG layer III audio"
 msgstr "MPEG layer III audio"
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:80
+#: plugins/codec_mp3/MP3CodecPlugin.h:79
 #, kde-format
 msgid "MPEG layer II audio"
 msgstr "MPEG layer II audio"
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:86
+#: plugins/codec_mp3/MP3CodecPlugin.h:85
 #, kde-format
 msgid "MPEG layer I audio"
 msgstr "MPEG layer I audio"
@@ -4087,7 +4087,7 @@ msgstr "Stále chcete pokračovať?"
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Chcete pokračovať a ignorovať všetky nasledujúce chyby?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:410
+#: plugins/codec_mp3/MP3Encoder.cpp:405
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4096,12 +4096,12 @@ msgstr ""
 "Súborový formát, ktorý ste vybrali, podporuje iba mono alebo stereo. Pri "
 "ukladaní sa tento súbor zmieša na stereo."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:495
+#: plugins/codec_mp3/MP3Encoder.cpp:418 plugins/codec_wav/WavEncoder.cpp:490
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Nepodarilo sa otvoriť súbor na uloženie!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:668
+#: plugins/codec_mp3/MP3Encoder.cpp:663
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4163,12 +4163,12 @@ msgstr ""
 "parameter pre priemernú bitovú rýchlosť v bitoch/sek\n"
 "(ako zástupný znak použite %1)"
 
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:603
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:598
 #, kde-format
 msgid "Select MP3 Encoder"
 msgstr "Vybrať MP3 kódovač"
 
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:657
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:652
 #, kde-format
 msgid "Congratulation, the test was successful!"
 msgstr "Gratulujeme, test bol úspešný!"
@@ -4620,7 +4620,7 @@ msgstr "Chyba: Kodek nie je podporovaný"
 msgid "Corrupt or missing data in bitstream. Continuing."
 msgstr "Poškodené alebo chýbajúce dáta v bitovom toku. Pokračovanie."
 
-#: plugins/codec_ogg/OggEncoder.cpp:127
+#: plugins/codec_ogg/OggEncoder.cpp:122
 #, kde-format
 msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
@@ -4678,13 +4678,13 @@ msgstr "Tento bitový tok Ogg neobsahuje platné zvukové dáta Opus."
 msgid "Opus decoder failed"
 msgstr "Dekodér Opus zlyhal"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:150
+#: plugins/codec_ogg/OpusEncoder.cpp:145
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
 msgstr "Bitová rýchlosť %1 kBit/sek je mimo rozsahu, obmedzená na %2 kBit/sek"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:202
+#: plugins/codec_ogg/OpusEncoder.cpp:197
 #, kde-format
 msgctxt "%1=requested sample rate, %2=lowest supported, %3=highest supported"
 msgid ""
@@ -4694,27 +4694,27 @@ msgstr ""
 "Vzorkovacia frekvencia %1 vzoriek/sek je mimo rozsahu,\n"
 "podporované sú %2 ... %3 vzoriek/sek."
 
-#: plugins/codec_ogg/OpusEncoder.cpp:341 plugins/codec_ogg/OpusEncoder.cpp:360
+#: plugins/codec_ogg/OpusEncoder.cpp:336 plugins/codec_ogg/OpusEncoder.cpp:355
 #, kde-format
 msgid "Opus encoder failed"
 msgstr "Kódovač Opus zlyhal"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:396
+#: plugins/codec_ogg/OpusEncoder.cpp:391
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
 msgstr "Kódovaču Opus sa nepodarilo nastaviť bitovú rýchlosť: '%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:408
+#: plugins/codec_ogg/OpusEncoder.cpp:403
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
 msgstr "Kódovač Opus zlyhal pri konfigurácii režimu VBR: '%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:418
+#: plugins/codec_ogg/OpusEncoder.cpp:413
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
 msgstr "Kódovač Opus zlyhal pri konfigurácii obmedzenia VBR: '%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:512
+#: plugins/codec_ogg/OpusEncoder.cpp:507
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr "Kódovaču Opus sa nepodarilo získať hodnotu lookahead: '%1'"
@@ -4770,17 +4770,17 @@ msgstr ""
 "Jeden alebo viac parametrov kódovania nie je podporovaných. Prosím, zmeňte "
 "nastavenia a skúste to znova."
 
-#: plugins/codec_wav/RIFFParser.cpp:122
+#: plugins/codec_wav/RIFFParser.cpp:117
 #, kde-format
 msgid "Detecting endianness (standard search)..."
 msgstr "Zisťovanie endianity (štandardné hľadanie)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:151
+#: plugins/codec_wav/RIFFParser.cpp:146
 #, kde-format
 msgid "Detecting endianness (statistic search)..."
 msgstr "Zisťovanie endianity (štatistické hľadanie)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:547
+#: plugins/codec_wav/RIFFParser.cpp:542
 #, kde-format
 msgid "Searching for missing chunk '%1'..."
 msgstr "Hľadá sa chýbajúca časť '%1'..."
@@ -4842,17 +4842,17 @@ msgstr ""
 "Kwave použije iba prvé a ostatné bude\n"
 "ignorovať. To môže viesť k strate dát."
 
-#: plugins/codec_wav/WavDecoder.cpp:379
+#: plugins/codec_wav/WavDecoder.cpp:378
 #, kde-format
 msgid "file header is damaged"
 msgstr "hlavička súboru je poškodená"
 
-#: plugins/codec_wav/WavDecoder.cpp:395
+#: plugins/codec_wav/WavDecoder.cpp:394
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "interná chyba libaudiofile #%1: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:448
+#: plugins/codec_wav/WavEncoder.cpp:443
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4861,17 +4861,17 @@ msgstr ""
 "Prepáčte, ale momentálne vybraný typ kompresie nie je možné použiť na "
 "uloženie. Chcete namiesto toho použiť kompresiu G711 ULAW?"
 
-#: plugins/codec_wav/WavEncoder.cpp:451
+#: plugins/codec_wav/WavEncoder.cpp:446
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "Áno, použiť G711"
 
-#: plugins/codec_wav/WavEncoder.cpp:452
+#: plugins/codec_wav/WavEncoder.cpp:447
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&Nie, uložiť nekomprimované"
 
-#: plugins/codec_wav/WavEncoder.cpp:501 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:496 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "Súbor alebo výber je príliš veľký"
@@ -4881,43 +4881,43 @@ msgstr "Súbor alebo výber je príliš veľký"
 msgid "WAV audio"
 msgstr "WAV audio"
 
-#: plugins/debug/DebugPlugin.cpp:89
+#: plugins/debug/DebugPlugin.cpp:84
 msgid "Generate 50% DC Level"
 msgstr "Generovať 50% úroveň DC"
 
-#: plugins/debug/DebugPlugin.cpp:91
+#: plugins/debug/DebugPlugin.cpp:86
 msgid "Generate 100% DC Level"
 msgstr "Generovať 100% úroveň DC"
 
-#: plugins/debug/DebugPlugin.cpp:93
+#: plugins/debug/DebugPlugin.cpp:88
 msgid "MinMax Pattern"
 msgstr "Vzor MinMax"
 
-#: plugins/debug/DebugPlugin.cpp:95
+#: plugins/debug/DebugPlugin.cpp:90
 msgid "Generate Sawtooth Pattern"
 msgstr "Generovať pílovitý vzor"
 
-#: plugins/debug/DebugPlugin.cpp:97
+#: plugins/debug/DebugPlugin.cpp:92
 msgid "Verify Sawtooth Pattern"
 msgstr "Overiť pílovitý vzor"
 
-#: plugins/debug/DebugPlugin.cpp:99
+#: plugins/debug/DebugPlugin.cpp:94
 msgid "FM Sweep"
 msgstr "Rozmetanie FM"
 
-#: plugins/debug/DebugPlugin.cpp:109
+#: plugins/debug/DebugPlugin.cpp:104
 msgid "Labels at Stripe borders"
 msgstr "Štítky na hraniciach pruhov"
 
-#: plugins/debug/DebugPlugin.cpp:113
+#: plugins/debug/DebugPlugin.cpp:108
 msgid "Dump Window Hierarchy"
 msgstr "Vypísať hierarchiu okien"
 
-#: plugins/debug/DebugPlugin.cpp:117
+#: plugins/debug/DebugPlugin.cpp:112
 msgid "Dump Meta Data"
 msgstr "Vypísať metadáta"
 
-#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:240
+#: plugins/debug/DebugPlugin.cpp:122 plugins/debug/DebugPlugin.cpp:235
 #, kde-format
 msgid "Debug (%1)"
 msgstr "Ladenie (%1)"
@@ -4936,12 +4936,12 @@ msgctxt "file type filter when exporting to K3b"
 msgid "K3b project file (*.k3b)"
 msgstr "Súbor projektu K3b (*.k3b)"
 
-#: plugins/export_k3b/K3BExportDialog.cpp:162
+#: plugins/export_k3b/K3BExportDialog.cpp:157
 #, kde-format
 msgid "Please choose a K3b project file name"
 msgstr "Please choose a K3b project file name"
 
-#: plugins/export_k3b/K3BExportDialog.cpp:166
+#: plugins/export_k3b/K3BExportDialog.cpp:161
 #, kde-format
 msgid "Please choose where to export the audio files"
 msgstr "Please choose where to export zvuk files"
@@ -5078,12 +5078,12 @@ msgstr "Location to export zvuk files to"
 msgid "Export Location"
 msgstr "Umiestnenie exportu:"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:281
+#: plugins/export_k3b/K3BExportPlugin.cpp:276
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
 msgstr "Export do projektu K3b..."
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:600
+#: plugins/export_k3b/K3BExportPlugin.cpp:595
 #, kde-format
 msgid ""
 "Only mono and stereo files can be used for an audio CD. You can either "
@@ -5094,7 +5094,7 @@ msgstr ""
 "niektorých kanálov alebo exportovať súbor v inom formáte, ktorý podporuje "
 "iba mono a stereo (napríklad FLAC), a potom skúsiť znova."
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:663
+#: plugins/export_k3b/K3BExportPlugin.cpp:658
 #, kde-format
 msgid ""
 "A K3b project file has been created and audio files have been exported.\n"
@@ -5175,29 +5175,29 @@ msgstr "Nominálna bitová rýchlosť"
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:220
+#: plugins/fileinfo/FileInfoDialog.cpp:215
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 bajtov"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:222
+#: plugins/fileinfo/FileInfoDialog.cpp:217
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kB (%2 bajt)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:225
+#: plugins/fileinfo/FileInfoDialog.cpp:220
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 MB (%2 bajt)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
-#: plugins/fileinfo/FileInfoDialog.cpp:236 plugins/newsignal/NewSigDlg.ui:102
+#: plugins/fileinfo/FileInfoDialog.cpp:231 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
 msgstr "Vzorkovacia frekvencia:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:239
+#: plugins/fileinfo/FileInfoDialog.cpp:234
 #, kde-format
 msgid ""
 "Here you can select one of the predefined\n"
@@ -5209,13 +5209,13 @@ msgstr ""
 "zadať ľubovoľnú vzorkovaciu frekvenciu sami."
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
-#: plugins/fileinfo/FileInfoDialog.cpp:245 plugins/newsignal/NewSigDlg.ui:206
+#: plugins/fileinfo/FileInfoDialog.cpp:240 plugins/newsignal/NewSigDlg.ui:206
 #: plugins/record/RecordDlg.ui:912
 #, kde-format
 msgid "Resolution:"
 msgstr "Rozlíšenie:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:248
+#: plugins/fileinfo/FileInfoDialog.cpp:243
 #, kde-format
 msgid ""
 "Select a resolution in bits in which the file\n"
@@ -5225,13 +5225,13 @@ msgstr ""
 "uloží súbor."
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/fileinfo/FileInfoDialog.cpp:255 plugins/newsignal/NewSigDlg.ui:196
+#: plugins/fileinfo/FileInfoDialog.cpp:250 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
 msgstr "Stopy:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:258
+#: plugins/fileinfo/FileInfoDialog.cpp:253
 #, kde-format
 msgid ""
 "Shows the number of tracks of the signal.\n"
@@ -5240,12 +5240,12 @@ msgstr ""
 "Zobrazuje počet stôp signálu.\n"
 "Stopy môžete pridávať alebo mazať cez ponuku Upraviť."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:268
+#: plugins/fileinfo/FileInfoDialog.cpp:263
 #, kde-format
 msgid "Length:"
 msgstr "Dĺžka:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:271
+#: plugins/fileinfo/FileInfoDialog.cpp:266
 #, kde-format
 msgid ""
 "Shows the length of the file in samples\n"
@@ -5254,42 +5254,42 @@ msgstr ""
 "Zobrazuje dĺžku súboru vo vzorkách\n"
 "a podľa možnosti aj ako čas."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:277
+#: plugins/fileinfo/FileInfoDialog.cpp:272
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 vzoriek)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:281 plugins/record/RecordDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:276 plugins/record/RecordDialog.cpp:602
 #, kde-format
 msgid "%1 samples"
 msgstr "%1 vzoriek"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:607
+#: plugins/fileinfo/FileInfoDialog.cpp:602
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:610
+#: plugins/fileinfo/FileInfoDialog.cpp:605
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:613
+#: plugins/fileinfo/FileInfoDialog.cpp:608
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(Quadro)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:914
-#: plugins/fileinfo/FileInfoDialog.cpp:920
+#: plugins/fileinfo/FileInfoDialog.cpp:909
+#: plugins/fileinfo/FileInfoDialog.cpp:915
 #, kde-format
 msgid "Yes"
 msgstr "Áno"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:914
-#: plugins/fileinfo/FileInfoDialog.cpp:920
+#: plugins/fileinfo/FileInfoDialog.cpp:909
+#: plugins/fileinfo/FileInfoDialog.cpp:915
 #, kde-format
 msgid "No"
 msgstr "Nie"
@@ -5589,7 +5589,7 @@ msgstr "Autor/Copyright"
 msgid "Miscellaneous"
 msgstr "Rôzne"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:85
+#: plugins/fileinfo/FileInfoPlugin.cpp:80
 #, kde-format
 msgid ""
 "You have changed the sample rate. Do you want to convert the whole file to "
@@ -5602,12 +5602,12 @@ msgstr ""
 "cieľom opraviť poškodený súbor? Poznámka: iba zmena vzorkovacej frekvencie "
 "môže spôsobiť efekty \"Mickey Mouse\"."
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:91
+#: plugins/fileinfo/FileInfoPlugin.cpp:86
 #, kde-format
 msgid "&Convert"
 msgstr "Previesť"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:92
+#: plugins/fileinfo/FileInfoPlugin.cpp:87
 #, kde-format
 msgid "&Set Rate"
 msgstr "Na&staviť frekvenciu"
@@ -5666,18 +5666,18 @@ msgstr "Vybrať dátum"
 msgid "Go to Position"
 msgstr "Prejsť na pozíciu"
 
-#: plugins/goto/GotoPlugin.cpp:50
+#: plugins/goto/GotoPlugin.cpp:45
 #, kde-format
 msgid "Goto..."
 msgstr "Prejsť na..."
 
-#: plugins/goto/InsertAtPlugin.cpp:50
+#: plugins/goto/InsertAtPlugin.cpp:45
 #, kde-format
 msgid "Insert At..."
 msgstr "Vložiť na..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LowPassDlg)
-#: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:111
+#: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:106
 #, kde-format
 msgid "Low Pass"
 msgstr "Dolný priepust"
@@ -5814,7 +5814,7 @@ msgid "(Resulting file size: %1 MB)"
 msgstr "(Výsledná veľkosť súboru: %1)"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NoiseDlg)
-#: plugins/noise/NoiseDlg.ui:17 plugins/noise/NoisePlugin.cpp:135
+#: plugins/noise/NoiseDlg.ui:17 plugins/noise/NoisePlugin.cpp:130
 #, kde-format
 msgid "Add Noise"
 msgstr "Pridať šum"
@@ -5878,7 +5878,7 @@ msgstr "Logaritmická"
 #. i18n: ectx: property (toolTip), widget (QSlider, slider)
 #: plugins/noise/NoiseDlg.ui:143 plugins/volume/VolumeDlg.ui:17
 #: plugins/volume/VolumeDlg.ui:208 plugins/volume/VolumeDlg.ui:269
-#: plugins/volume/VolumePlugin.cpp:135
+#: plugins/volume/VolumePlugin.cpp:130
 #, kde-format
 msgid "Volume"
 msgstr "Hlasitosť"
@@ -5889,24 +5889,24 @@ msgstr "Hlasitosť"
 msgid "Noise Level"
 msgstr "Úroveň šumu"
 
-#: plugins/normalize/NormalizePlugin.cpp:71
+#: plugins/normalize/NormalizePlugin.cpp:66
 #, kde-format
 msgid "Normalize"
 msgstr "Normalizovať"
 
-#: plugins/normalize/NormalizePlugin.cpp:92
+#: plugins/normalize/NormalizePlugin.cpp:87
 #, kde-format
 msgid "Analyzing volume level..."
 msgstr "Analyzuje sa úroveň hlasitosti..."
 
-#: plugins/normalize/NormalizePlugin.cpp:123
+#: plugins/normalize/NormalizePlugin.cpp:118
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
 msgstr "Normalizácia (%1 dB) ..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NotchFilterDlg)
 #: plugins/notch_filter/NotchFilterDlg.ui:14
-#: plugins/notch_filter/NotchFilterPlugin.cpp:124
+#: plugins/notch_filter/NotchFilterPlugin.cpp:119
 #, kde-format
 msgid "Notch Filter"
 msgstr "Zárezový filter"
@@ -5957,7 +5957,7 @@ msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PitchShiftDlg)
 #: plugins/pitch_shift/PitchShiftDlg.ui:20
-#: plugins/pitch_shift/PitchShiftPlugin.cpp:128
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:123
 #, kde-format
 msgid "Pitch Shift"
 msgstr "Posun výšky"
@@ -6084,26 +6084,26 @@ msgstr ""
 msgid "Opening the device '%1' failed: %2"
 msgstr "Otvorenie zariadenia '%1' zlyhalo: %2"
 
-#: plugins/playback/PlayBack-ALSA.cpp:940
-#: plugins/playback/PlayBack-ALSA.cpp:960 plugins/record/Record-ALSA.cpp:1120
-#: plugins/record/Record-ALSA.cpp:1140
+#: plugins/playback/PlayBack-ALSA.cpp:941
+#: plugins/playback/PlayBack-ALSA.cpp:961 plugins/record/Record-ALSA.cpp:1121
+#: plugins/record/Record-ALSA.cpp:1141
 #, kde-format
 msgid "Card %1: "
 msgstr "Karta %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:942
-#: plugins/playback/PlayBack-ALSA.cpp:962 plugins/record/Record-ALSA.cpp:1122
-#: plugins/record/Record-ALSA.cpp:1142
+#: plugins/playback/PlayBack-ALSA.cpp:943
+#: plugins/playback/PlayBack-ALSA.cpp:963 plugins/record/Record-ALSA.cpp:1123
+#: plugins/record/Record-ALSA.cpp:1143
 #, kde-format
 msgid "Device %1: "
 msgstr "Zariadenie %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:964 plugins/record/Record-ALSA.cpp:1144
+#: plugins/playback/PlayBack-ALSA.cpp:965 plugins/record/Record-ALSA.cpp:1145
 #, kde-format
 msgid "Subdevice %1: "
 msgstr "Podzariadenie %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:1020 plugins/record/Record-ALSA.cpp:1202
+#: plugins/playback/PlayBack-ALSA.cpp:1021 plugins/record/Record-ALSA.cpp:1203
 #, kde-format
 msgid "Virtual / ALSA Plugins"
 msgstr ""
@@ -6204,33 +6204,33 @@ msgstr "Chyba: Kodek nie je podporovaný"
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Otvorenie Qt multimediálneho zariadenia '%1' zlyhalo"
 
-#: plugins/playback/PlayBackDialog.cpp:520
+#: plugins/playback/PlayBackDialog.cpp:515
 #, kde-format
 msgid "%1 Bytes"
 msgstr "%1 bajtov"
 
-#: plugins/playback/PlayBackDialog.cpp:522
+#: plugins/playback/PlayBackDialog.cpp:517
 #, kde-format
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/playback/PlayBackDialog.cpp:620
+#: plugins/playback/PlayBackDialog.cpp:615
 #, kde-format
 msgid "(mono)"
 msgstr "(mono)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/playback/PlayBackDialog.cpp:621 plugins/playback/PlayBackDlg.ui:350
+#: plugins/playback/PlayBackDialog.cpp:616 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
 msgstr "(stereo)"
 
-#: plugins/playback/PlayBackDialog.cpp:622
+#: plugins/playback/PlayBackDialog.cpp:617
 #, kde-format
 msgid "(quadro)"
 msgstr "(quadro)"
 
-#: plugins/playback/PlayBackDialog.cpp:652
+#: plugins/playback/PlayBackDialog.cpp:647
 #, kde-format
 msgid "Select Playback Device"
 msgstr "Vybrať prehrávacie zariadenie"
@@ -6474,7 +6474,7 @@ msgstr ""
 "alebo výpadky, prosím, zvýšte <br/>veľkosť vyrovnávacej pamäte a skúste "
 "znova)"
 
-#: plugins/record/LevelMeter.cpp:278 plugins/record/LevelMeter.cpp:302
+#: plugins/record/LevelMeter.cpp:280 plugins/record/LevelMeter.cpp:304
 #, kde-format
 msgid "%1 dB"
 msgstr "%1 dB"
@@ -7093,23 +7093,23 @@ msgstr "Nahrávacie zariadenie sa zdá byť zaneprázdnené."
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr "Čítanie z nahrávacieho zariadenia zlyhalo. Číslo chyby = %1 (%2)"
 
-#: plugins/reverse/ReversePlugin.cpp:77
-#: plugins/reverse/UndoReverseAction.cpp:44
+#: plugins/reverse/ReversePlugin.cpp:72
+#: plugins/reverse/UndoReverseAction.cpp:39
 #, kde-format
 msgid "Reverse"
 msgstr "Otočiť"
 
-#: plugins/samplerate/SampleRatePlugin.cpp:100
+#: plugins/samplerate/SampleRatePlugin.cpp:95
 #, kde-format
 msgid "Change sample rate"
 msgstr "Zmeniť vzorkovaciu frekvenciu"
 
-#: plugins/samplerate/SampleRatePlugin.cpp:161
+#: plugins/samplerate/SampleRatePlugin.cpp:156
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "Mením vzorkovaciu frekvenciu z %1 kHz na %2 kHz..."
 
-#: plugins/saveblocks/SaveBlocksDialog.cpp:205
+#: plugins/saveblocks/SaveBlocksDialog.cpp:200
 #, kde-format
 msgid "Please choose where to save the files"
 msgstr "Vyberte, kam uložiť súbory"
@@ -7238,18 +7238,18 @@ msgstr "Príklad:"
 msgid "Save selection only"
 msgstr "Uložiť iba výber"
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:169
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:164
 #, kde-format
 msgid "..."
 msgstr "..."
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:272
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:267
 #, kde-format
 msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr "Týmto by sa prepísal nasledujúci súbor(y): %1Naozaj chcete pokračovať?"
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:285
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:280
 #, kde-format
 msgid ""
 "The following directories do not exist: %1Do you want to create them and "
@@ -7263,7 +7263,7 @@ msgstr "Spustiť"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectRangeDlg)
 #: plugins/selectrange/SelectRangeDlg.ui:15
-#: plugins/selectrange/SelectRangePlugin.cpp:121
+#: plugins/selectrange/SelectRangePlugin.cpp:116
 #, kde-format
 msgid "Select Range"
 msgstr "Vybrať rozsah"
@@ -7442,7 +7442,7 @@ msgid "?:"
 msgstr "?:"
 
 #: plugins/sonagram/SonagramPlugin.cpp:74
-#: plugins/sonagram/SonagramWindow.cpp:529
+#: plugins/sonagram/SonagramWindow.cpp:524
 #, kde-format
 msgid "Sonagram"
 msgstr "Sonagram"
@@ -7497,22 +7497,22 @@ msgstr "Amplitúda: 0 %"
 msgid "Save Sonagram"
 msgstr "Uložiť sonagram"
 
-#: plugins/sonagram/SonagramWindow.cpp:528
+#: plugins/sonagram/SonagramWindow.cpp:523
 #, kde-format
 msgid "Sonagram of %1"
 msgstr "Sonagram %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:552
+#: plugins/sonagram/SonagramWindow.cpp:547
 #, kde-format
 msgid "Time: %1"
 msgstr "Čas: %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:556
+#: plugins/sonagram/SonagramWindow.cpp:551
 #, kde-format
 msgid "Frequency: %1 Hz"
 msgstr "Frekvencia: %1 Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:565
+#: plugins/sonagram/SonagramWindow.cpp:560
 #, kde-format
 msgid "Amplitude: %1%"
 msgstr "Amplitúda: %1%"
@@ -7535,7 +7535,7 @@ msgstr "Zadať príkaz:"
 msgid "please enter a text command here..."
 msgstr "sem zadajte textový príkaz..."
 
-#: plugins/stringenter/StringEnterPlugin.cpp:58
+#: plugins/stringenter/StringEnterPlugin.cpp:53
 msgctxt "menu: /Settings/Enter Command"
 msgid "Enter Command"
 msgstr "Zadať príkaz"
@@ -7594,7 +7594,7 @@ msgstr ""
 "Zvýši alebo zníži hlasitosť v logaritmickej mierke (decibel).\n"
 "Napríklad: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 
-#: plugins/zero/ZeroPlugin.cpp:61
+#: plugins/zero/ZeroPlugin.cpp:56
 #, kde-format
 msgid "Silence"
 msgstr "Ticho"

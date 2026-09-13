@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-12 00:44+0000\n"
+"POT-Creation-Date: 2026-09-13 00:44+0000\n"
 "PO-Revision-Date: 2024-12-15 19:37+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -105,14 +105,14 @@ msgstr ""
 msgid "Save As"
 msgstr "के रूप रक्षित करें"
 
-#: kwave/FileContext.cpp:1034 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1030 kwave/MainWidget.cpp:992
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
 "Do you really want to overwrite it?"
 msgstr "फ़ाइल '%1' पहले से मौजूद है। क्या आप वाकई इसे ओवरराइट करना चाहते हैं?"
 
-#: kwave/FileContext.cpp:1102
+#: kwave/FileContext.cpp:1098
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -421,7 +421,7 @@ msgstr "यह एक लेबल सूची है"
 msgid "Add Label"
 msgstr "लेबल जोड़ें"
 
-#: kwave/MainWidget.cpp:935 kwave/MainWidget.cpp:948
+#: kwave/MainWidget.cpp:936 kwave/MainWidget.cpp:947
 #, kde-format
 msgid "Load Labels"
 msgstr "लेबल लोड करें"
@@ -431,7 +431,7 @@ msgstr "लेबल लोड करें"
 msgid "Save Labels"
 msgstr "लेबल सहेजें"
 
-#: kwave/MainWidget.cpp:1078
+#: kwave/MainWidget.cpp:1075
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
@@ -439,7 +439,7 @@ msgid ""
 msgstr ""
 "आपके द्वारा चुनी गई जगह पर पहले से ही एक लेबल मौजूद है। क्या आप इसे बदलना चाहते हैं?"
 
-#: kwave/MainWidget.cpp:1105
+#: kwave/MainWidget.cpp:1102
 #, kde-format
 msgid "Modify Label"
 msgstr "लेबल संशोधित करें"
@@ -1068,82 +1068,82 @@ msgctxt "%1=Version number"
 msgid "v%1"
 msgstr "v%1"
 
-#: kwave/TopWidget.cpp:254
+#: kwave/TopWidget.cpp:255
 #, kde-format
 msgid "Loading main menu..."
 msgstr "मुख्य मेनू लोड हो रहा है..."
 
-#: kwave/TopWidget.cpp:328
+#: kwave/TopWidget.cpp:329
 #, kde-format
 msgid "Initializing toolbar..."
 msgstr "टूलबार आरंभ किया जा रहा है..."
 
-#: kwave/TopWidget.cpp:337
+#: kwave/TopWidget.cpp:338
 #, kde-format
 msgid "Create a new empty file"
 msgstr "एक नई खाली फ़ाइल बनाएँ"
 
-#: kwave/TopWidget.cpp:342
+#: kwave/TopWidget.cpp:343
 #, kde-format
 msgid "Open an existing file"
 msgstr "मौजूदा फ़ाइल खोलें"
 
-#: kwave/TopWidget.cpp:347
+#: kwave/TopWidget.cpp:348
 #, kde-format
 msgid "Save the current file"
 msgstr "वर्तमान फ़ाइल सहेजें"
 
-#: kwave/TopWidget.cpp:352
+#: kwave/TopWidget.cpp:353
 #, kde-format
 msgid "Save the current file under a different name or file format..."
 msgstr "वर्तमान फ़ाइल को किसी भिन्न नाम या फ़ाइल स्वरूप में सहेजें..."
 
-#: kwave/TopWidget.cpp:357
+#: kwave/TopWidget.cpp:358
 #, kde-format
 msgid "Close the current file"
 msgstr "वर्तमान फ़ाइल बंद करें"
 
-#: kwave/TopWidget.cpp:368
+#: kwave/TopWidget.cpp:369
 #, kde-format
 msgid "Undo"
 msgstr "पूर्ववत"
 
-#: kwave/TopWidget.cpp:373
+#: kwave/TopWidget.cpp:374
 #, kde-format
 msgid "Redo"
 msgstr "फिर से करना"
 
-#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:704
+#: kwave/TopWidget.cpp:379 libkwave/SignalManager.cpp:704
 #, kde-format
 msgid "Cut"
 msgstr "काटना"
 
-#: kwave/TopWidget.cpp:383
+#: kwave/TopWidget.cpp:384
 #, kde-format
 msgid "Copy"
 msgstr "प्रतिलिपि"
 
-#: kwave/TopWidget.cpp:388 libkwave/undo/UndoInsertAction.cpp:46
+#: kwave/TopWidget.cpp:389 libkwave/undo/UndoInsertAction.cpp:46
 #, kde-format
 msgid "Insert"
 msgstr "डालना"
 
-#: kwave/TopWidget.cpp:396
+#: kwave/TopWidget.cpp:397
 #, kde-format
 msgid "Mute selection"
 msgstr "चयन म्यूट करें"
 
-#: kwave/TopWidget.cpp:401
+#: kwave/TopWidget.cpp:402
 #, kde-format
 msgid "Delete selection"
 msgstr "चयन हटाएं"
 
-#: kwave/TopWidget.cpp:749
+#: kwave/TopWidget.cpp:750
 #, kde-format
 msgid "Reset the toolbar to default settings?"
 msgstr "टूलबार को डिफ़ॉल्ट सेटिंग्स पर रीसेट करें?"
 
-#: kwave/TopWidget.cpp:774
+#: kwave/TopWidget.cpp:775
 #, kde-format
 msgid ""
 "Re-enable all disabled notifications?\n"
@@ -1154,29 +1154,29 @@ msgstr ""
 "\"दोबारा न पूछें\" चेकबॉक्स को सक्रिय करके आपने पहले जो संदेश बंद किए थे, वे पुनः सक्षम हो "
 "जाएँगे।"
 
-#: kwave/TopWidget.cpp:1008
+#: kwave/TopWidget.cpp:1009
 #, kde-format
 msgid "Executing command '%1'..."
 msgstr "आदेश '%1' निष्पादित किया जा रहा है..."
 
-#: kwave/TopWidget.cpp:1028
+#: kwave/TopWidget.cpp:1029
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
 msgstr "निष्पादित हो रहा है स्क्रिप्ट फ़ाइल '%1' है..."
 
-#: kwave/TopWidget.cpp:1038
+#: kwave/TopWidget.cpp:1039
 #, kde-format
 msgid "Loading file '%1'..."
 msgstr "फ़ाइल '%1' लोड हो रही है..."
 
-#: kwave/TopWidget.cpp:1050 plugins/codec_audiofile/AudiofileDecoder.cpp:103
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:505
-#: plugins/codec_flac/FlacEncoder.cpp:272
-#: plugins/codec_flac/FlacEncoder.cpp:290
-#: plugins/codec_flac/FlacEncoder.cpp:305 plugins/codec_mp3/MP3Decoder.cpp:633
+#: kwave/TopWidget.cpp:1051 plugins/codec_audiofile/AudiofileDecoder.cpp:103
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:500
+#: plugins/codec_flac/FlacEncoder.cpp:267
+#: plugins/codec_flac/FlacEncoder.cpp:285
+#: plugins/codec_flac/FlacEncoder.cpp:300 plugins/codec_mp3/MP3Decoder.cpp:633
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:387
-#: plugins/codec_ogg/OpusEncoder.cpp:318 plugins/codec_ogg/OpusEncoder.cpp:371
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:546
+#: plugins/codec_ogg/OpusEncoder.cpp:313 plugins/codec_ogg/OpusEncoder.cpp:366
+#: plugins/codec_wav/WavDecoder.cpp:375 plugins/codec_wav/WavEncoder.cpp:541
 #: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:164 plugins/playback/PlayBack-Qt.cpp:175
 #: plugins/playback/PlayBack-Qt.cpp:181 plugins/record/RecordPlugin.cpp:986
@@ -1185,35 +1185,35 @@ msgstr "फ़ाइल '%1' लोड हो रही है..."
 msgid "Out of memory"
 msgstr "स्मृति से बाहर"
 
-#: kwave/TopWidget.cpp:1054
+#: kwave/TopWidget.cpp:1055
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
 msgstr "'%1' खोलने में असमर्थ"
 
-#: kwave/TopWidget.cpp:1058
+#: kwave/TopWidget.cpp:1059
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
 msgstr "अमान्य या अज्ञात फ़ाइल प्रकार: '%1'"
 
-#: kwave/TopWidget.cpp:1096
+#: kwave/TopWidget.cpp:1097
 #, kde-format
 msgid "Open"
 msgstr "खुला"
 
-#: kwave/TopWidget.cpp:1149
+#: kwave/TopWidget.cpp:1148
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr "लंबाई: %1 (%2 नमूने)"
 
-#: kwave/TopWidget.cpp:1160
+#: kwave/TopWidget.cpp:1159
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "मोड: %1 kHz @ %2 बिट"
 
-#: kwave/TopWidget.cpp:1206
+#: kwave/TopWidget.cpp:1205
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -1221,7 +1221,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "चयनित: %1...%2 (%3 नमूने)"
 
-#: kwave/TopWidget.cpp:1218
+#: kwave/TopWidget.cpp:1217
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -1229,72 +1229,72 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3)"
 msgstr "चयनित: %1...%2 (%3)"
 
-#: kwave/TopWidget.cpp:1237
+#: kwave/TopWidget.cpp:1236
 #, kde-format
 msgid "Position: %1"
 msgstr "स्थिति: %1"
 
-#: kwave/TopWidget.cpp:1263
+#: kwave/TopWidget.cpp:1262
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
 msgstr "पूर्ववत करें (%1)"
 
-#: kwave/TopWidget.cpp:1265
+#: kwave/TopWidget.cpp:1264
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "पूर्ववत"
 
-#: kwave/TopWidget.cpp:1274
+#: kwave/TopWidget.cpp:1273
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
 msgstr "फिर से करें (%1)"
 
-#: kwave/TopWidget.cpp:1276
+#: kwave/TopWidget.cpp:1275
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "फिर से करना"
 
-#: kwave/TopWidget.cpp:1286
+#: kwave/TopWidget.cpp:1285
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr "पूर्ववत करें (%1)"
 
-#: kwave/TopWidget.cpp:1287
+#: kwave/TopWidget.cpp:1286
 #, kde-format
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
 msgstr "पूर्ववत"
 
-#: kwave/TopWidget.cpp:1293
+#: kwave/TopWidget.cpp:1292
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr "फिर से करें (%1)"
 
-#: kwave/TopWidget.cpp:1294
+#: kwave/TopWidget.cpp:1293
 #, kde-format
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr "फिर से करना"
 
-#: kwave/TopWidget.cpp:1410
+#: kwave/TopWidget.cpp:1409
 #, kde-format
 msgctxt "special entry in the list of labels to delete all"
 msgid "(All)"
 msgstr "(सभी)"
 
-#: kwave/TopWidget.cpp:1419
+#: kwave/TopWidget.cpp:1418
 #, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
 msgstr "#%1 (%2)"
 
-#: kwave/TopWidget.cpp:1422
+#: kwave/TopWidget.cpp:1421
 #, fuzzy, kde-format
 #| msgctxt "list menue entry of a label, without description, %1=index"
 #| msgid "#%1"
@@ -1449,12 +1449,12 @@ msgctxt "tooltip of a label, without description, %1=index"
 msgid "Label #%1"
 msgstr "लेबल #%1"
 
-#: libgui/LabelItem.cpp:93 libgui/TrackView.cpp:272
+#: libgui/LabelItem.cpp:93 libgui/TrackView.cpp:267
 #, kde-format
 msgid "Label"
 msgstr "लेबल"
 
-#: libgui/LabelItem.cpp:104 libgui/TrackView.cpp:279
+#: libgui/LabelItem.cpp:104 libgui/TrackView.cpp:274
 #, kde-format
 msgid "New"
 msgstr "नया"
@@ -1547,17 +1547,17 @@ msgstr ""
 "अर्थ है &#39;दाएं&#39;। आप सूचकांक को स्वयं नहीं बदल सकते, लेकिन लेबल की स्थिति बदल सकते "
 "हैं।"
 
-#: libgui/SelectionBorderItem.cpp:65
+#: libgui/SelectionBorderItem.cpp:60
 #, kde-format
 msgid "Selection, left border"
 msgstr "चयन, बायाँ किनारा"
 
-#: libgui/SelectionBorderItem.cpp:68
+#: libgui/SelectionBorderItem.cpp:63
 #, kde-format
 msgid "Selection, right border"
 msgstr "चयन, दायाँ बॉर्डर"
 
-#: libgui/SelectionItem.cpp:87 libgui/SignalView.cpp:593
+#: libgui/SelectionItem.cpp:82 libgui/SignalView.cpp:593
 #, kde-format
 msgid "Drag and Drop"
 msgstr "खींचें और छोड़ें"
@@ -1663,152 +1663,152 @@ msgstr "100%"
 msgid "sets the selection by the percentage of the whole signal"
 msgstr "संपूर्ण सिग्नल के प्रतिशत के आधार पर चयन सेट करता है"
 
-#: libgui/SignalWidget.cpp:196
+#: libgui/SignalWidget.cpp:191
 #, kde-format
 msgid "&Undo"
 msgstr "&पूर्ववत करें"
 
-#: libgui/SignalWidget.cpp:208
+#: libgui/SignalWidget.cpp:203
 #, kde-format
 msgid "&Redo"
 msgstr "&फिर से करें"
 
-#: libgui/SignalWidget.cpp:221
+#: libgui/SignalWidget.cpp:216
 #, kde-format
 msgid "Cu&t"
 msgstr "साथ&टी"
 
-#: libgui/SignalWidget.cpp:227
+#: libgui/SignalWidget.cpp:222
 #, kde-format
 msgid "&Copy"
 msgstr "&कॉपी करें"
 
-#: libgui/SignalWidget.cpp:233
+#: libgui/SignalWidget.cpp:228
 #, kde-format
 msgid "&Paste"
 msgstr "&पेस्ट करें"
 
-#: libgui/SignalWidget.cpp:251 libkwave/undo/UndoSelection.cpp:51
+#: libgui/SignalWidget.cpp:246 libkwave/undo/UndoSelection.cpp:46
 #, kde-format
 msgid "Selection"
 msgstr "चयन"
 
-#: libgui/SignalWidget.cpp:258
+#: libgui/SignalWidget.cpp:253
 #, kde-format
 msgid "&Save..."
 msgstr "&बचाना..."
 
-#: libgui/SignalWidget.cpp:265
+#: libgui/SignalWidget.cpp:260
 #, kde-format
 msgid "&Expand to Labels"
 msgstr "&लेबल तक विस्तृत करें"
 
-#: libgui/SignalWidget.cpp:275
+#: libgui/SignalWidget.cpp:270
 #, kde-format
 msgid "To Next Labels"
 msgstr "अगले लेबल पर जाएं"
 
-#: libgui/SignalWidget.cpp:285
+#: libgui/SignalWidget.cpp:280
 #, kde-format
 msgid "To Previous Labels"
 msgstr "पिछले लेबल पर जाएँ"
 
-#: libkwave/CodecManager.cpp:201
+#: libkwave/CodecManager.cpp:196
 #, kde-format
 msgid "Kwave Macro Files"
 msgstr "यह मैक्रो फ़ाइलें रही हैं"
 
-#: libkwave/CodecManager.cpp:205
+#: libkwave/CodecManager.cpp:200
 #, kde-format
 msgid "All Files"
 msgstr "सभी फाइलें"
 
-#: libkwave/CodecManager.cpp:207
+#: libkwave/CodecManager.cpp:202
 #, kde-format
 msgid "All Supported Files"
 msgstr "सभी समर्थित फ़ाइलें"
 
-#: libkwave/Compression.cpp:104
+#: libkwave/Compression.cpp:107
 msgid "No Compression"
 msgstr "कोई संपीड़न नहीं"
 
-#: libkwave/Compression.cpp:111
+#: libkwave/Compression.cpp:114
 msgid "CCITT G.711 u-law"
 msgstr "CCITT G.711 यू-कानून"
 
-#: libkwave/Compression.cpp:115
+#: libkwave/Compression.cpp:118
 msgid "CCITT G.711 A-law"
 msgstr "CCITT G.711 ए-कानून"
 
-#: libkwave/Compression.cpp:119
+#: libkwave/Compression.cpp:122
 msgid "MS ADPCM"
 msgstr "एमएस एडीपीसीएम"
 
-#: libkwave/Compression.cpp:123
+#: libkwave/Compression.cpp:126
 msgid "GSM"
 msgstr "जीएसएम"
 
-#: libkwave/Compression.cpp:129
+#: libkwave/Compression.cpp:132
 msgid "G722"
 msgstr "जी722"
 
-#: libkwave/Compression.cpp:133
+#: libkwave/Compression.cpp:136
 msgid "Apple ACE2"
 msgstr "एप्पल ACE2"
 
-#: libkwave/Compression.cpp:137
+#: libkwave/Compression.cpp:140
 msgid "Apple ACE8"
 msgstr "एप्पल ACE8"
 
-#: libkwave/Compression.cpp:141
+#: libkwave/Compression.cpp:144
 msgid "Apple MAC3"
 msgstr "एप्पल मैक3"
 
-#: libkwave/Compression.cpp:145
+#: libkwave/Compression.cpp:148
 msgid "Apple MAC6"
 msgstr "एप्पल मैक6"
 
-#: libkwave/Compression.cpp:149
+#: libkwave/Compression.cpp:152
 msgid "G726"
 msgstr "जी726"
 
-#: libkwave/Compression.cpp:153
+#: libkwave/Compression.cpp:156
 msgid "DVI Audio / IMA"
 msgstr "डीवीआई ऑडियो / है"
 
-#: libkwave/Compression.cpp:157
+#: libkwave/Compression.cpp:160
 msgid "FS1016"
 msgstr "एफएस1016"
 
-#: libkwave/Compression.cpp:161
+#: libkwave/Compression.cpp:164
 msgid "DV"
 msgstr "डीवी"
 
-#: libkwave/Compression.cpp:168
+#: libkwave/Compression.cpp:171
 msgid "MPEG Layer I"
 msgstr "एमपीईजी परत I"
 
-#: libkwave/Compression.cpp:172
+#: libkwave/Compression.cpp:175
 msgid "MPEG Layer II"
 msgstr "एमपीईजी परत II"
 
-#: libkwave/Compression.cpp:176
+#: libkwave/Compression.cpp:179
 msgid "MPEG Layer III"
 msgstr "एमपीईजी परत III"
 
-#: libkwave/Compression.cpp:184
+#: libkwave/Compression.cpp:187
 msgid "FLAC"
 msgstr "एफएलएसी"
 
-#: libkwave/Compression.cpp:192
+#: libkwave/Compression.cpp:195
 msgid "Ogg Vorbis"
 msgstr "ऑग वॉर्बिस"
 
-#: libkwave/Compression.cpp:200
+#: libkwave/Compression.cpp:203
 msgid "Ogg Opus"
 msgstr "ऑग ओपस"
 
-#: libkwave/ConfirmCancelProxy.cpp:50
+#: libkwave/ConfirmCancelProxy.cpp:45
 #, kde-format
 msgid "Do you really want to abort the current action?"
 msgstr "क्या आप सचमुच वर्तमान कार्रवाई को निरस्त करना चाहते हैं?"
@@ -2421,13 +2421,13 @@ msgstr "4 (फ़्रेम)"
 msgid "Do you really want to abort the operation?"
 msgstr "क्या आप सचमुच ऑपरेशन रद्द करना चाहते हैं?"
 
-#: libkwave/FileProgress.cpp:280
+#: libkwave/FileProgress.cpp:281
 #, kde-format
 msgctxt "file progress dialog, %1=transfer rate, %2=remaining duration"
 msgid "%1 kB/s (%2 remaining)"
 msgstr "%1 kB/s (%2 शेष)"
 
-#: libkwave/FileProgress.cpp:289
+#: libkwave/FileProgress.cpp:290
 #, kde-format
 msgctxt ""
 "file progress dialog, %1=number of loaded/saved megabytes, %2=number of "
@@ -2435,13 +2435,13 @@ msgctxt ""
 msgid "%1 MB of %2 MB done"
 msgstr "%2 MB में से %1 MB कार्य सम्पन्न"
 
-#: libkwave/FileProgress.cpp:335
+#: libkwave/FileProgress.cpp:336
 #, kde-format
 msgctxt "%1=Progress in percentage, %2=path to file"
 msgid "(%1%) %2"
 msgstr "(%1%) %2"
 
-#: libkwave/FileProgress.cpp:368
+#: libkwave/FileProgress.cpp:369
 #, kde-format
 msgctxt "file progress dialog, %1=a number of samples"
 msgid "%1 samples"
@@ -2475,775 +2475,775 @@ msgstr "स्क्वायर साइनस"
 msgid "Cubic Sinus"
 msgstr "क्यूबिक साइनस"
 
-#: libkwave/GenreType.cpp:102
+#: libkwave/GenreType.cpp:98
 msgid "Blues"
 msgstr "ब्लूज़"
 
-#: libkwave/GenreType.cpp:103
+#: libkwave/GenreType.cpp:99
 msgid "Classic Rock"
 msgstr "क्लासिक रॉक"
 
-#: libkwave/GenreType.cpp:104
+#: libkwave/GenreType.cpp:100
 msgid "Country"
 msgstr "देश"
 
-#: libkwave/GenreType.cpp:105
+#: libkwave/GenreType.cpp:101
 msgid "Dance"
 msgstr "नृत्य"
 
-#: libkwave/GenreType.cpp:106
+#: libkwave/GenreType.cpp:102
 msgid "Disco"
 msgstr "डिस्को"
 
-#: libkwave/GenreType.cpp:107
+#: libkwave/GenreType.cpp:103
 msgid "Funk"
 msgstr "दुर्गंध"
 
-#: libkwave/GenreType.cpp:108
+#: libkwave/GenreType.cpp:104
 msgid "Grunge"
 msgstr "ग्रंज"
 
-#: libkwave/GenreType.cpp:109
+#: libkwave/GenreType.cpp:105
 msgid "Hip-Hop"
 msgstr "हिप-हॉप"
 
-#: libkwave/GenreType.cpp:110
+#: libkwave/GenreType.cpp:106
 msgid "Jazz"
 msgstr "जाज"
 
-#: libkwave/GenreType.cpp:111
+#: libkwave/GenreType.cpp:107
 msgid "Metal"
 msgstr "धातु"
 
-#: libkwave/GenreType.cpp:112
+#: libkwave/GenreType.cpp:108
 msgid "New Age"
 msgstr "नया जमाना"
 
-#: libkwave/GenreType.cpp:113
+#: libkwave/GenreType.cpp:109
 msgid "Oldies"
 msgstr "ओल्डीज़"
 
-#: libkwave/GenreType.cpp:114
+#: libkwave/GenreType.cpp:110
 msgid "Other"
 msgstr "अन्य"
 
-#: libkwave/GenreType.cpp:115
+#: libkwave/GenreType.cpp:111
 msgid "Pop"
 msgstr "जल्दी से आना"
 
-#: libkwave/GenreType.cpp:116
+#: libkwave/GenreType.cpp:112
 msgid "Rhythm and Blues"
 msgstr "ताल और ब्लूज़"
 
-#: libkwave/GenreType.cpp:117
+#: libkwave/GenreType.cpp:113
 msgid "Rap"
 msgstr "खटखटाना"
 
-#: libkwave/GenreType.cpp:118
+#: libkwave/GenreType.cpp:114
 msgid "Reggae"
 msgstr "रेग"
 
-#: libkwave/GenreType.cpp:119
+#: libkwave/GenreType.cpp:115
 msgid "Rock"
 msgstr "चट्टान"
 
-#: libkwave/GenreType.cpp:120
+#: libkwave/GenreType.cpp:116
 msgid "Techno"
 msgstr "तकनीकी"
 
-#: libkwave/GenreType.cpp:121
+#: libkwave/GenreType.cpp:117
 msgid "Industrial"
 msgstr "औद्योगिक"
 
-#: libkwave/GenreType.cpp:122
+#: libkwave/GenreType.cpp:118
 msgid "Alternative"
 msgstr "विकल्प"
 
-#: libkwave/GenreType.cpp:123
+#: libkwave/GenreType.cpp:119
 msgid "Ska"
 msgstr "इच्छा"
 
-#: libkwave/GenreType.cpp:124
+#: libkwave/GenreType.cpp:120
 msgid "Death Metal"
 msgstr "मौत धातु"
 
-#: libkwave/GenreType.cpp:125
+#: libkwave/GenreType.cpp:121
 msgid "Pranks"
 msgstr "धृष्टतायाँ"
 
-#: libkwave/GenreType.cpp:126
+#: libkwave/GenreType.cpp:122
 msgid "Soundtrack"
 msgstr "साउंडट्रैक"
 
-#: libkwave/GenreType.cpp:127
+#: libkwave/GenreType.cpp:123
 msgid "Euro-Techno"
 msgstr "यूरो टेक्नो"
 
-#: libkwave/GenreType.cpp:128
+#: libkwave/GenreType.cpp:124
 msgid "Ambient"
 msgstr "व्यापक"
 
-#: libkwave/GenreType.cpp:129
+#: libkwave/GenreType.cpp:125
 msgid "Trip-Hop"
 msgstr "ट्रिप-हॉप"
 
-#: libkwave/GenreType.cpp:130
+#: libkwave/GenreType.cpp:126
 msgid "Vocal"
 msgstr "स्वर"
 
-#: libkwave/GenreType.cpp:131
+#: libkwave/GenreType.cpp:127
 msgid "Jazz & Funk"
 msgstr "जैज़ और फंक"
 
-#: libkwave/GenreType.cpp:132
+#: libkwave/GenreType.cpp:128
 msgid "Fusion"
 msgstr "विलय"
 
-#: libkwave/GenreType.cpp:133
+#: libkwave/GenreType.cpp:129
 msgid "Trance"
 msgstr "ट्रांस"
 
-#: libkwave/GenreType.cpp:134
+#: libkwave/GenreType.cpp:130
 msgid "Classical"
 msgstr "क्लासिक"
 
-#: libkwave/GenreType.cpp:135
+#: libkwave/GenreType.cpp:131
 msgid "Instrumental"
 msgstr "सहायक"
 
-#: libkwave/GenreType.cpp:136
+#: libkwave/GenreType.cpp:132
 msgid "Acid"
 msgstr "अम्ल"
 
-#: libkwave/GenreType.cpp:137
+#: libkwave/GenreType.cpp:133
 msgid "House"
 msgstr "घर"
 
-#: libkwave/GenreType.cpp:138
+#: libkwave/GenreType.cpp:134
 msgid "Game"
 msgstr "खेल"
 
-#: libkwave/GenreType.cpp:139
+#: libkwave/GenreType.cpp:135
 msgid "Sound Clip"
 msgstr "ध्वनि क्लिप"
 
-#: libkwave/GenreType.cpp:140
+#: libkwave/GenreType.cpp:136
 msgid "Gospel"
 msgstr "इंजील"
 
-#: libkwave/GenreType.cpp:141
+#: libkwave/GenreType.cpp:137
 msgid "Noise"
 msgstr "शोर"
 
-#: libkwave/GenreType.cpp:142
+#: libkwave/GenreType.cpp:138
 msgid "Alternative Rock"
 msgstr "वैकल्पिक रॉक"
 
-#: libkwave/GenreType.cpp:143
+#: libkwave/GenreType.cpp:139
 msgid "Bass"
 msgstr "बास"
 
-#: libkwave/GenreType.cpp:144
+#: libkwave/GenreType.cpp:140
 msgid "Soul"
 msgstr "आत्मा"
 
-#: libkwave/GenreType.cpp:145
+#: libkwave/GenreType.cpp:141
 msgid "Punk"
 msgstr "गुंडा"
 
-#: libkwave/GenreType.cpp:146
+#: libkwave/GenreType.cpp:142
 msgid "Space"
 msgstr "अंतरिक्ष"
 
-#: libkwave/GenreType.cpp:147
+#: libkwave/GenreType.cpp:143
 msgid "Meditative"
 msgstr "ध्येय"
 
-#: libkwave/GenreType.cpp:148
+#: libkwave/GenreType.cpp:144
 msgid "Instrumental Pop"
 msgstr "वाद्य पॉप"
 
-#: libkwave/GenreType.cpp:149
+#: libkwave/GenreType.cpp:145
 msgid "Instrumental Rock"
 msgstr "वाद्य संगीत रॉक"
 
-#: libkwave/GenreType.cpp:150
+#: libkwave/GenreType.cpp:146
 msgid "Ethnic"
 msgstr "जातीय"
 
-#: libkwave/GenreType.cpp:151
+#: libkwave/GenreType.cpp:147
 msgid "Gothic"
 msgstr "गोथिक"
 
-#: libkwave/GenreType.cpp:152
+#: libkwave/GenreType.cpp:148
 msgid "Darkwave"
 msgstr "अंधेरे की लहर"
 
-#: libkwave/GenreType.cpp:153
+#: libkwave/GenreType.cpp:149
 msgid "Techno-Industrial"
 msgstr "तकनीकी औद्योगिक"
 
-#: libkwave/GenreType.cpp:154
+#: libkwave/GenreType.cpp:150
 msgid "Electronic"
 msgstr "इलेक्ट्रॉनिक"
 
-#: libkwave/GenreType.cpp:155
+#: libkwave/GenreType.cpp:151
 msgid "Pop-Folk"
 msgstr "पॉप लोक"
 
-#: libkwave/GenreType.cpp:156
+#: libkwave/GenreType.cpp:152
 msgid "Eurodance"
 msgstr "यूरोडांस"
 
-#: libkwave/GenreType.cpp:157
+#: libkwave/GenreType.cpp:153
 msgid "Dream"
 msgstr "सपना"
 
-#: libkwave/GenreType.cpp:158
+#: libkwave/GenreType.cpp:154
 msgid "Southern Rock"
 msgstr "दक्षिणी रॉक"
 
-#: libkwave/GenreType.cpp:159
+#: libkwave/GenreType.cpp:155
 msgid "Comedy"
 msgstr "कॉमेडी"
 
-#: libkwave/GenreType.cpp:160
+#: libkwave/GenreType.cpp:156
 msgid "Cult"
 msgstr "पंथ"
 
-#: libkwave/GenreType.cpp:161
+#: libkwave/GenreType.cpp:157
 msgid "Gangsta"
 msgstr "गैंगस्टा"
 
-#: libkwave/GenreType.cpp:162
+#: libkwave/GenreType.cpp:158
 msgid "Top 40"
 msgstr "शीर्ष 40"
 
-#: libkwave/GenreType.cpp:163
+#: libkwave/GenreType.cpp:159
 msgid "Christian Rap"
 msgstr "क्रिश्चियन रैप"
 
-#: libkwave/GenreType.cpp:164
+#: libkwave/GenreType.cpp:160
 msgid "Pop/Funk"
 msgstr "पॉप/फंक"
 
-#: libkwave/GenreType.cpp:165
+#: libkwave/GenreType.cpp:161
 msgid "Jungle"
 msgstr "JUNGLE"
 
-#: libkwave/GenreType.cpp:166
+#: libkwave/GenreType.cpp:162
 msgid "Native American"
 msgstr "मूल अमेरिकी"
 
-#: libkwave/GenreType.cpp:167
+#: libkwave/GenreType.cpp:163
 msgid "Cabaret"
 msgstr "काबरे"
 
-#: libkwave/GenreType.cpp:168
+#: libkwave/GenreType.cpp:164
 msgid "New Wave"
 msgstr "नई लहर"
 
-#: libkwave/GenreType.cpp:169
+#: libkwave/GenreType.cpp:165
 msgid "Psychedelic"
 msgstr "साइकेडेलिक"
 
-#: libkwave/GenreType.cpp:170
+#: libkwave/GenreType.cpp:166
 msgid "Rave"
 msgstr "पागल होना"
 
-#: libkwave/GenreType.cpp:171
+#: libkwave/GenreType.cpp:167
 msgid "Showtunes"
 msgstr "धुन दिखाओ"
 
-#: libkwave/GenreType.cpp:172
+#: libkwave/GenreType.cpp:168
 msgid "Trailer"
 msgstr "ट्रेलर"
 
-#: libkwave/GenreType.cpp:173
+#: libkwave/GenreType.cpp:169
 msgid "Lo-Fi"
 msgstr "लो-फाई"
 
-#: libkwave/GenreType.cpp:174
+#: libkwave/GenreType.cpp:170
 msgid "Tribal"
 msgstr "जनजातीय"
 
-#: libkwave/GenreType.cpp:175
+#: libkwave/GenreType.cpp:171
 msgid "Acid Punk"
 msgstr "एसिड पंक"
 
-#: libkwave/GenreType.cpp:176
+#: libkwave/GenreType.cpp:172
 msgid "Acid Jazz"
 msgstr "एसिड जैज़"
 
-#: libkwave/GenreType.cpp:177
+#: libkwave/GenreType.cpp:173
 msgid "Polka"
 msgstr "पोल्का"
 
-#: libkwave/GenreType.cpp:178
+#: libkwave/GenreType.cpp:174
 msgid "Retro"
 msgstr "रेट्रो"
 
-#: libkwave/GenreType.cpp:179
+#: libkwave/GenreType.cpp:175
 msgid "Musical"
 msgstr "संगीत"
 
-#: libkwave/GenreType.cpp:180
+#: libkwave/GenreType.cpp:176
 msgid "Rock 'n' Roll"
 msgstr "रॉक एन रोल"
 
-#: libkwave/GenreType.cpp:181
+#: libkwave/GenreType.cpp:177
 msgid "Hard Rock"
 msgstr "कड़ी चट्टान"
 
-#: libkwave/GenreType.cpp:184
+#: libkwave/GenreType.cpp:180
 msgid "Folk"
 msgstr "लोक"
 
-#: libkwave/GenreType.cpp:185
+#: libkwave/GenreType.cpp:181
 msgid "Folk-Rock"
 msgstr "लोक रॉक"
 
-#: libkwave/GenreType.cpp:186
+#: libkwave/GenreType.cpp:182
 msgid "National Folk"
 msgstr "राष्ट्रीय लोग"
 
-#: libkwave/GenreType.cpp:187
+#: libkwave/GenreType.cpp:183
 msgid "Swing"
 msgstr "झूला"
 
-#: libkwave/GenreType.cpp:188
+#: libkwave/GenreType.cpp:184
 msgid "Fast Fusion"
 msgstr "फास्ट फ्यूजन"
 
-#: libkwave/GenreType.cpp:189
+#: libkwave/GenreType.cpp:185
 msgid "Bebop"
 msgstr "बिहॉप"
 
-#: libkwave/GenreType.cpp:190
+#: libkwave/GenreType.cpp:186
 msgid "Latin"
 msgstr "लैटिन"
 
-#: libkwave/GenreType.cpp:191
+#: libkwave/GenreType.cpp:187
 msgid "Revival"
 msgstr "पुनः प्रवर्तन"
 
-#: libkwave/GenreType.cpp:192
+#: libkwave/GenreType.cpp:188
 msgid "Celtic"
 msgstr "केल्टिक"
 
-#: libkwave/GenreType.cpp:193
+#: libkwave/GenreType.cpp:189
 msgid "Bluegrass"
 msgstr "ब्लूग्रास"
 
-#: libkwave/GenreType.cpp:194
+#: libkwave/GenreType.cpp:190
 msgid "Avantgarde"
 msgstr "हरावल"
 
-#: libkwave/GenreType.cpp:195
+#: libkwave/GenreType.cpp:191
 msgid "Gothic Rock"
 msgstr "गॉथिक रॉक"
 
-#: libkwave/GenreType.cpp:196
+#: libkwave/GenreType.cpp:192
 msgid "Progressive Rock"
 msgstr "प्रगतिशील रॉक"
 
-#: libkwave/GenreType.cpp:197
+#: libkwave/GenreType.cpp:193
 msgid "Psychedelic Rock"
 msgstr "साइकेडेलिक रॉक"
 
-#: libkwave/GenreType.cpp:198
+#: libkwave/GenreType.cpp:194
 msgid "Symphonic Rock"
 msgstr "सिम्फोनिक रॉक"
 
-#: libkwave/GenreType.cpp:199
+#: libkwave/GenreType.cpp:195
 msgid "Slow Rock"
 msgstr "धीमी रॉक"
 
-#: libkwave/GenreType.cpp:200
+#: libkwave/GenreType.cpp:196
 msgid "Big Band"
 msgstr "बड़ा बैंड"
 
-#: libkwave/GenreType.cpp:201
+#: libkwave/GenreType.cpp:197
 msgid "Chorus"
 msgstr "कोरस"
 
-#: libkwave/GenreType.cpp:202
+#: libkwave/GenreType.cpp:198
 msgid "Easy Listening"
 msgstr "आसानी से सुनना"
 
-#: libkwave/GenreType.cpp:203
+#: libkwave/GenreType.cpp:199
 msgid "Acoustic"
 msgstr "ध्वनिक"
 
-#: libkwave/GenreType.cpp:204
+#: libkwave/GenreType.cpp:200
 msgid "Humour"
 msgstr "हास्य"
 
-#: libkwave/GenreType.cpp:205
+#: libkwave/GenreType.cpp:201
 msgid "Speech"
 msgstr "भाषण"
 
-#: libkwave/GenreType.cpp:206
+#: libkwave/GenreType.cpp:202
 msgid "Chanson"
 msgstr "गाना"
 
-#: libkwave/GenreType.cpp:207
+#: libkwave/GenreType.cpp:203
 msgid "Opera"
 msgstr "ओपेरा"
 
-#: libkwave/GenreType.cpp:208
+#: libkwave/GenreType.cpp:204
 msgid "Chamber Music"
 msgstr "चेम्बर संगीत"
 
-#: libkwave/GenreType.cpp:209
+#: libkwave/GenreType.cpp:205
 msgid "Sonata"
 msgstr "सोनाटा"
 
-#: libkwave/GenreType.cpp:210
+#: libkwave/GenreType.cpp:206
 msgid "Symphony"
 msgstr "स्वर की समता"
 
-#: libkwave/GenreType.cpp:211
+#: libkwave/GenreType.cpp:207
 msgid "Booty Bass"
 msgstr "बूटी बास"
 
-#: libkwave/GenreType.cpp:212
+#: libkwave/GenreType.cpp:208
 msgid "Primus"
 msgstr "सब से बड़ा"
 
-#: libkwave/GenreType.cpp:213
+#: libkwave/GenreType.cpp:209
 msgid "Porn Groove"
 msgstr "पोर्न ग्रूव"
 
-#: libkwave/GenreType.cpp:214
+#: libkwave/GenreType.cpp:210
 msgid "Satire"
 msgstr "हास्य व्यंग्य"
 
-#: libkwave/GenreType.cpp:215
+#: libkwave/GenreType.cpp:211
 msgid "Slow Jam"
 msgstr "धीमी गति से जाम"
 
-#: libkwave/GenreType.cpp:216
+#: libkwave/GenreType.cpp:212
 msgid "Club"
 msgstr "क्लब"
 
-#: libkwave/GenreType.cpp:217
+#: libkwave/GenreType.cpp:213
 msgid "Tango"
 msgstr "निकालना"
 
-#: libkwave/GenreType.cpp:218
+#: libkwave/GenreType.cpp:214
 msgid "Samba"
 msgstr "सांबा"
 
-#: libkwave/GenreType.cpp:219
+#: libkwave/GenreType.cpp:215
 msgid "Folklore"
 msgstr "लोक-साहित्य"
 
-#: libkwave/GenreType.cpp:220
+#: libkwave/GenreType.cpp:216
 msgid "Ballad"
 msgstr "गाथागीत"
 
-#: libkwave/GenreType.cpp:221
+#: libkwave/GenreType.cpp:217
 msgid "Power Ballad"
 msgstr "पावर बैलाड"
 
-#: libkwave/GenreType.cpp:222
+#: libkwave/GenreType.cpp:218
 msgid "Rhythmic Soul"
 msgstr "लयबद्ध आत्मा"
 
-#: libkwave/GenreType.cpp:223
+#: libkwave/GenreType.cpp:219
 msgid "Freestyle"
 msgstr "फ्री स्टाइल"
 
-#: libkwave/GenreType.cpp:224
+#: libkwave/GenreType.cpp:220
 msgid "Duet"
 msgstr "युगल"
 
-#: libkwave/GenreType.cpp:225
+#: libkwave/GenreType.cpp:221
 msgid "Punk Rock"
 msgstr "पुंक रॉक"
 
-#: libkwave/GenreType.cpp:226
+#: libkwave/GenreType.cpp:222
 msgid "Drum Solo"
 msgstr "ड्रम सोलो"
 
-#: libkwave/GenreType.cpp:227
+#: libkwave/GenreType.cpp:223
 msgid "A Cappella"
 msgstr "चैपल"
 
-#: libkwave/GenreType.cpp:228
+#: libkwave/GenreType.cpp:224
 msgid "Euro-House"
 msgstr "यूरो-हाउस"
 
-#: libkwave/GenreType.cpp:229
+#: libkwave/GenreType.cpp:225
 msgid "Dance Hall"
 msgstr "नृत्य हाल"
 
-#: libkwave/GenreType.cpp:230
+#: libkwave/GenreType.cpp:226
 msgid "Goa"
 msgstr "गोवा"
 
-#: libkwave/GenreType.cpp:231
+#: libkwave/GenreType.cpp:227
 msgid "Drum & Bass"
 msgstr "ड्रम और बास"
 
-#: libkwave/GenreType.cpp:232
+#: libkwave/GenreType.cpp:228
 msgid "Club-House"
 msgstr "क्लब हाउस"
 
-#: libkwave/GenreType.cpp:233
+#: libkwave/GenreType.cpp:229
 msgid "Hardcore Techno"
 msgstr "हार्डकोर टेक्नो"
 
-#: libkwave/GenreType.cpp:234
+#: libkwave/GenreType.cpp:230
 msgid "Terror"
 msgstr "आतंक"
 
-#: libkwave/GenreType.cpp:235
+#: libkwave/GenreType.cpp:231
 msgid "Indie"
 msgstr "इंडी"
 
-#: libkwave/GenreType.cpp:236
+#: libkwave/GenreType.cpp:232
 msgid "BritPop"
 msgstr "ब्रिटपॉप"
 
-#: libkwave/GenreType.cpp:237
+#: libkwave/GenreType.cpp:233
 msgid "Negerpunk"
 msgstr "नीग्रो पंक"
 
-#: libkwave/GenreType.cpp:238
+#: libkwave/GenreType.cpp:234
 msgid "Polsk Punk"
 msgstr "पोलिश पंक"
 
-#: libkwave/GenreType.cpp:239
+#: libkwave/GenreType.cpp:235
 msgid "Beat"
 msgstr "मारो"
 
-#: libkwave/GenreType.cpp:240
+#: libkwave/GenreType.cpp:236
 msgid "Christian Gangsta Rap"
 msgstr "क्रिश्चियन गैंगस्टा रैप"
 
-#: libkwave/GenreType.cpp:241
+#: libkwave/GenreType.cpp:237
 msgid "Heavy Metal"
 msgstr "भारी धातु"
 
-#: libkwave/GenreType.cpp:242
+#: libkwave/GenreType.cpp:238
 msgid "Black Metal"
 msgstr "काले धातु"
 
-#: libkwave/GenreType.cpp:243
+#: libkwave/GenreType.cpp:239
 msgid "Crossover"
 msgstr "विदेशी"
 
-#: libkwave/GenreType.cpp:244
+#: libkwave/GenreType.cpp:240
 msgid "Contemporary Christian"
 msgstr "समकालीन ईसाई"
 
-#: libkwave/GenreType.cpp:245
+#: libkwave/GenreType.cpp:241
 msgid "Christian Rock"
 msgstr "क्रिश्चियन रॉक"
 
-#: libkwave/GenreType.cpp:248
+#: libkwave/GenreType.cpp:244
 msgid "Merengue"
 msgstr "मेरेंग्यू"
 
-#: libkwave/GenreType.cpp:249
+#: libkwave/GenreType.cpp:245
 msgid "Salsa"
 msgstr "साल्सा"
 
-#: libkwave/GenreType.cpp:250
+#: libkwave/GenreType.cpp:246
 msgid "Thrash Metal"
 msgstr "धातु पिटाई"
 
-#: libkwave/GenreType.cpp:251
+#: libkwave/GenreType.cpp:247
 msgid "Anime"
 msgstr "एनिमे"
 
-#: libkwave/GenreType.cpp:252
+#: libkwave/GenreType.cpp:248
 msgid "JPop"
 msgstr "जेपीओपी"
 
-#: libkwave/GenreType.cpp:253
+#: libkwave/GenreType.cpp:249
 msgid "SynthPop"
 msgstr "सिंथपॉप"
 
-#: libkwave/GenreType.cpp:256
+#: libkwave/GenreType.cpp:252
 msgid "Abstract"
 msgstr "अमूर्त"
 
-#: libkwave/GenreType.cpp:257
+#: libkwave/GenreType.cpp:253
 msgid "Art Rock"
 msgstr "कला रॉक"
 
-#: libkwave/GenreType.cpp:258
+#: libkwave/GenreType.cpp:254
 msgid "Baroque"
 msgstr "बरोक"
 
-#: libkwave/GenreType.cpp:259
+#: libkwave/GenreType.cpp:255
 msgid "Bhangra"
 msgstr "Bhangra"
 
-#: libkwave/GenreType.cpp:260
+#: libkwave/GenreType.cpp:256
 msgid "Big Beat"
 msgstr "बिग बीट"
 
-#: libkwave/GenreType.cpp:261
+#: libkwave/GenreType.cpp:257
 msgid "Breakbeat"
 msgstr "ब्रेकबीट"
 
-#: libkwave/GenreType.cpp:262
+#: libkwave/GenreType.cpp:258
 msgid "Chillout"
 msgstr "मज़े करें"
 
-#: libkwave/GenreType.cpp:263
+#: libkwave/GenreType.cpp:259
 msgid "Downtempo"
 msgstr "डाउनटेम्पो"
 
-#: libkwave/GenreType.cpp:264
+#: libkwave/GenreType.cpp:260
 msgid "Dub"
 msgstr "प्रहार"
 
-#: libkwave/GenreType.cpp:265
+#: libkwave/GenreType.cpp:261
 msgid "EBM"
 msgstr "ईबीएम"
 
-#: libkwave/GenreType.cpp:266
+#: libkwave/GenreType.cpp:262
 msgid "Eclectic"
 msgstr "उदार"
 
-#: libkwave/GenreType.cpp:267
+#: libkwave/GenreType.cpp:263
 msgid "Electro"
 msgstr "इलेक्ट्रो"
 
-#: libkwave/GenreType.cpp:268
+#: libkwave/GenreType.cpp:264
 msgid "Electroclash"
 msgstr "इलेक्ट्रोक्लैश"
 
-#: libkwave/GenreType.cpp:269
+#: libkwave/GenreType.cpp:265
 msgid "Emo"
 msgstr "भावनाएं"
 
-#: libkwave/GenreType.cpp:270
+#: libkwave/GenreType.cpp:266
 msgid "Experimental"
 msgstr "प्रयोगात्मक"
 
-#: libkwave/GenreType.cpp:271
+#: libkwave/GenreType.cpp:267
 msgid "Garage"
 msgstr "गैरेज"
 
-#: libkwave/GenreType.cpp:272
+#: libkwave/GenreType.cpp:268
 msgid "Global"
 msgstr "वैश्विक"
 
-#: libkwave/GenreType.cpp:273
+#: libkwave/GenreType.cpp:269
 msgid "IDM"
 msgstr "आईडीएम"
 
-#: libkwave/GenreType.cpp:274
+#: libkwave/GenreType.cpp:270
 msgid "Illbient"
 msgstr "इल्बिएंट"
 
-#: libkwave/GenreType.cpp:275
+#: libkwave/GenreType.cpp:271
 msgid "Industro-Goth"
 msgstr "इंडस्ट्रो-गोथ"
 
-#: libkwave/GenreType.cpp:276
+#: libkwave/GenreType.cpp:272
 msgid "Jam Band"
 msgstr "Jam Band"
 
-#: libkwave/GenreType.cpp:277
+#: libkwave/GenreType.cpp:273
 msgid "Krautrock"
 msgstr "क्राउटरॉक"
 
-#: libkwave/GenreType.cpp:278
+#: libkwave/GenreType.cpp:274
 msgid "Leftfield"
 msgstr "लेफ्टफील्ड"
 
-#: libkwave/GenreType.cpp:279
+#: libkwave/GenreType.cpp:275
 msgid "Lounge"
 msgstr "विश्राम कक्ष"
 
-#: libkwave/GenreType.cpp:280
+#: libkwave/GenreType.cpp:276
 msgid "Math Rock"
 msgstr "मैथ रॉक"
 
-#: libkwave/GenreType.cpp:281
+#: libkwave/GenreType.cpp:277
 msgid "New Romantic"
 msgstr "नया रोमांटिक"
 
-#: libkwave/GenreType.cpp:282
+#: libkwave/GenreType.cpp:278
 msgid "Nu-Breakz"
 msgstr "नु-ब्रेक्ज़"
 
-#: libkwave/GenreType.cpp:283
+#: libkwave/GenreType.cpp:279
 msgid "Post-Punk"
 msgstr "पंक पोस्ट करें"
 
-#: libkwave/GenreType.cpp:284
+#: libkwave/GenreType.cpp:280
 msgid "Post-Rock"
 msgstr "रॉक संगीत की उपशैली"
 
-#: libkwave/GenreType.cpp:285
+#: libkwave/GenreType.cpp:281
 msgid "Psytrance"
 msgstr "साइट्रान्स"
 
-#: libkwave/GenreType.cpp:286
+#: libkwave/GenreType.cpp:282
 msgid "Shoegaze"
 msgstr "शूगेज़"
 
-#: libkwave/GenreType.cpp:287
+#: libkwave/GenreType.cpp:283
 msgid "Space Rock"
 msgstr "स्पेस रॉक"
 
-#: libkwave/GenreType.cpp:288
+#: libkwave/GenreType.cpp:284
 msgid "Trop Rock"
 msgstr "बहुत रॉक"
 
-#: libkwave/GenreType.cpp:289
+#: libkwave/GenreType.cpp:285
 msgid "World Music"
 msgstr "विश्व संगीत"
 
-#: libkwave/GenreType.cpp:290
+#: libkwave/GenreType.cpp:286
 msgid "Neoclassical"
 msgstr "नवशास्त्रीय"
 
-#: libkwave/GenreType.cpp:291
+#: libkwave/GenreType.cpp:287
 msgid "Audiobook"
 msgstr "ऑडियोबुक"
 
-#: libkwave/GenreType.cpp:292
+#: libkwave/GenreType.cpp:288
 msgid "Audio Theatre"
 msgstr "ऑडियो थियेटर"
 
-#: libkwave/GenreType.cpp:293
+#: libkwave/GenreType.cpp:289
 msgid "Neue Deutsche Welle"
 msgstr "नई जर्मन लहर"
 
-#: libkwave/GenreType.cpp:294
+#: libkwave/GenreType.cpp:290
 msgid "Podcast"
 msgstr "पॉडकास्ट"
 
-#: libkwave/GenreType.cpp:295
+#: libkwave/GenreType.cpp:291
 msgid "Indie Rock"
 msgstr "इंडी रॉक"
 
-#: libkwave/GenreType.cpp:296
+#: libkwave/GenreType.cpp:292
 msgid "G-Funk"
 msgstr "जी-फंक"
 
-#: libkwave/GenreType.cpp:297
+#: libkwave/GenreType.cpp:293
 msgid "Dubstep"
 msgstr "डबस्टेप"
 
-#: libkwave/GenreType.cpp:298
+#: libkwave/GenreType.cpp:294
 msgid "Garage Rock"
 msgstr "गैराज रॉक"
 
-#: libkwave/GenreType.cpp:299
+#: libkwave/GenreType.cpp:295
 msgid "Psybient"
 msgstr "साइबिएंट"
 
-#: libkwave/GenreType.cpp:305
+#: libkwave/GenreType.cpp:302
 msgid "Unknown"
 msgstr "अज्ञात"
 
@@ -3275,12 +3275,12 @@ msgstr "पॉलीनोम, 7वीं डिग्री"
 msgid "Sample and Hold"
 msgstr "नमूना और पकड़"
 
-#: libkwave/Logger.cpp:81
+#: libkwave/Logger.cpp:75
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
 msgstr "लॉग फ़ाइल '%1' को लिखने के लिए खोलने में विफल"
 
-#: libkwave/PlaybackController.cpp:667
+#: libkwave/PlaybackController.cpp:670
 #, kde-format
 msgid "Unable to open '%1'"
 msgstr "'%1' खोलने में असमर्थ"
@@ -3321,19 +3321,19 @@ msgstr "प्लगइन लोड करते समय त्रुटि"
 msgid "Loading plugin %1..."
 msgstr "प्लगइन %1 लोड हो रहा है..."
 
-#: libkwave/SampleFormat.cpp:37
+#: libkwave/SampleFormat.cpp:32
 msgid "Linear Two's Complement"
 msgstr "रैखिक दो का पूरक"
 
-#: libkwave/SampleFormat.cpp:39
+#: libkwave/SampleFormat.cpp:34
 msgid "Unsigned Integer"
 msgstr "अहस्ताक्षरित पूर्णांक"
 
-#: libkwave/SampleFormat.cpp:41
+#: libkwave/SampleFormat.cpp:36
 msgid "32-bit IEEE Floating-Point"
 msgstr "32-बिट IEEE फ़्लोटिंग-पॉइंट"
 
-#: libkwave/SampleFormat.cpp:43
+#: libkwave/SampleFormat.cpp:38
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-बिट IEEE डबल प्रिसिजन फ्लोटिंग-पॉइंट"
 
@@ -3439,12 +3439,12 @@ msgstr "ट्रैक चयन टॉगल करें"
 msgid "Append Track"
 msgstr "ट्रैक जोड़ें"
 
-#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoInsertTrack.cpp:39
 #, kde-format
 msgid "Insert Track"
 msgstr "ट्रैक डालें"
 
-#: libkwave/SignalManager.cpp:965 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:965 libkwave/undo/UndoDeleteTrack.cpp:40
 #, kde-format
 msgid "Delete Track"
 msgstr "ट्रैक हटाएं"
@@ -3538,13 +3538,13 @@ msgstr "%1 %2ऑब्जेक्ट्सप्रविष्ट करें
 msgid "Insert Meta Data"
 msgstr "मेटा डेटा डालें"
 
-#: libkwave/undo/UndoDeleteMetaDataAction.cpp:60
+#: libkwave/undo/UndoDeleteMetaDataAction.cpp:55
 #, kde-format
 msgctxt "name of the undo action for deleting a meta data object"
 msgid "Delete %1"
 msgstr "%1 मिटाएँ"
 
-#: libkwave/undo/UndoDeleteMetaDataAction.cpp:79
+#: libkwave/undo/UndoDeleteMetaDataAction.cpp:74
 #, kde-format
 msgctxt ""
 "name of the undo action for deleting multiple meta data objects of the same "
@@ -3552,23 +3552,23 @@ msgctxt ""
 msgid "Delete %1 %2 objects"
 msgstr "%1 %2ऑब्जेक्टहटाएँ"
 
-#: libkwave/undo/UndoDeleteMetaDataAction.cpp:83
+#: libkwave/undo/UndoDeleteMetaDataAction.cpp:78
 #, kde-format
 msgid "Delete Meta Data"
 msgstr "मेटा डेटा हटाएं"
 
-#: libkwave/undo/UndoModifyAction.cpp:45
+#: libkwave/undo/UndoModifyAction.cpp:40
 #, kde-format
 msgid "Modify Samples"
 msgstr "नमूने संशोधित करें"
 
-#: libkwave/undo/UndoModifyMetaDataAction.cpp:57
+#: libkwave/undo/UndoModifyMetaDataAction.cpp:52
 #, kde-format
 msgctxt "name of the undo action for modifying a meta data object"
 msgid "Modify %1"
 msgstr "संशोधित करें%1"
 
-#: libkwave/undo/UndoModifyMetaDataAction.cpp:76
+#: libkwave/undo/UndoModifyMetaDataAction.cpp:71
 #, kde-format
 msgctxt ""
 "name of the undo action for modifying multiple meta data objects of the same "
@@ -3576,7 +3576,7 @@ msgctxt ""
 msgid "Modify %1 %2 objects"
 msgstr "%1 %2ऑब्जेक्टसंशोधितकरें"
 
-#: libkwave/undo/UndoModifyMetaDataAction.cpp:81
+#: libkwave/undo/UndoModifyMetaDataAction.cpp:76
 #, kde-format
 msgid "Modify Meta Data"
 msgstr "मेटा डेटा संशोधित करें"
@@ -3706,7 +3706,7 @@ msgstr "%"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, AmplifyFreeDlg)
 #: plugins/amplifyfree/AmplifyFreeDlg.ui:15
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:72
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:67
 #, kde-format
 msgid "Amplify Free"
 msgstr "एम्पलीफाई फ्री"
@@ -3745,7 +3745,7 @@ msgstr "हर्ट्ज"
 #: plugins/band_pass/BandPassDialog.cpp:68 plugins/lowpass/LowPassDialog.cpp:66
 #: plugins/noise/NoiseDialog.cpp:277
 #: plugins/notch_filter/NotchFilterDialog.cpp:70
-#: plugins/volume/VolumeDialog.cpp:264
+#: plugins/volume/VolumeDialog.cpp:259
 #, kde-format
 msgid "dB"
 msgstr "डीबी"
@@ -3771,7 +3771,7 @@ msgid "&Listen"
 msgstr "&सुनना"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, BandPassDlg)
-#: plugins/band_pass/BandPassDlg.ui:14 plugins/band_pass/BandPassPlugin.cpp:127
+#: plugins/band_pass/BandPassDlg.ui:14 plugins/band_pass/BandPassPlugin.cpp:122
 #, kde-format
 msgid "Band Pass"
 msgstr "बैंड पास"
@@ -3813,8 +3813,8 @@ msgstr ""
 msgid "ASCII encoded audio"
 msgstr "ASCII एनकोडेड ऑडियो"
 
-#: plugins/codec_ascii/AsciiEncoder.cpp:92
-#: plugins/codec_flac/FlacEncoder.cpp:239 plugins/codec_ogg/OggEncoder.cpp:139
+#: plugins/codec_ascii/AsciiEncoder.cpp:87
+#: plugins/codec_flac/FlacEncoder.cpp:234 plugins/codec_ogg/OggEncoder.cpp:134
 #, kde-format
 msgid "Unable to open the file for saving."
 msgstr "फ़ाइल को सहेजने के लिए खोलने में असमर्थ."
@@ -3870,43 +3870,43 @@ msgid "Creative Voice"
 msgstr "रचनात्मक आवाज़"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:100
-#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:542
+#: plugins/codec_wav/WavDecoder.cpp:371 plugins/codec_wav/WavEncoder.cpp:537
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "प्रारूप या फ़ंक्शन कार्यान्वित नहीं है"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:106
-#: plugins/codec_wav/WavEncoder.cpp:549
+#: plugins/codec_wav/WavEncoder.cpp:544
 #, kde-format
 msgid "File header is damaged"
 msgstr "फ़ाइल हेडर क्षतिग्रस्त है"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:109
-#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:552
+#: plugins/codec_wav/WavDecoder.cpp:381 plugins/codec_wav/WavEncoder.cpp:547
 #, kde-format
 msgid "Invalid codec type"
 msgstr "अमान्य कोडेक प्रकार"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:112
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:556
+#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:551
 #, kde-format
 msgid "Opening the file failed"
 msgstr "फ़ाइल खोलना विफल रहा"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:115
-#: plugins/codec_wav/WavDecoder.cpp:389 plugins/codec_wav/WavEncoder.cpp:559
+#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:554
 #, kde-format
 msgid "Read access failed"
 msgstr "पढ़ने की पहुँच विफल"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:118
-#: plugins/codec_wav/WavDecoder.cpp:392 plugins/codec_wav/WavEncoder.cpp:562
+#: plugins/codec_wav/WavDecoder.cpp:391 plugins/codec_wav/WavEncoder.cpp:557
 #, kde-format
 msgid "Invalid sample format"
 msgstr "अमान्य नमूना प्रारूप"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:124
-#: plugins/codec_wav/WavDecoder.cpp:401 plugins/codec_wav/WavEncoder.cpp:568
+#: plugins/codec_wav/WavDecoder.cpp:400 plugins/codec_wav/WavEncoder.cpp:563
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -3915,7 +3915,7 @@ msgstr ""
 "फ़ाइल खोलते समय एक त्रुटि हुई:\n"
 "'%1'"
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:468
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:463
 #, fuzzy, kde-format
 #| msgid ""
 #| "This codec supports only mono or stereo files, %1 channels are not "
@@ -3924,8 +3924,8 @@ msgid "This file format supports only mono, %1 channels are not supported."
 msgstr ""
 "यह कोडेक केवल मोनो या स्टीरियो फ़ाइलों का समर्थन करता है, %1 चैनल समर्थित नहीं हैं।"
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:472
-#: plugins/codec_flac/FlacEncoder.cpp:205
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:467
+#: plugins/codec_flac/FlacEncoder.cpp:200
 #, fuzzy, kde-format
 #| msgid ""
 #| "This codec supports only mono or stereo files, %1 channels are not "
@@ -3936,13 +3936,13 @@ msgid ""
 msgstr ""
 "यह कोडेक केवल मोनो या स्टीरियो फ़ाइलों का समर्थन करता है, %1 चैनल समर्थित नहीं हैं।"
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:479
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:474
 #, fuzzy, kde-format
 #| msgid "Unable to open the file for saving."
 msgid "Unable to open the destination device for writing."
 msgstr "फ़ाइल को सहेजने के लिए खोलने में असमर्थ."
 
-#: plugins/codec_audiofile/AudiofileEncoder.cpp:529
+#: plugins/codec_audiofile/AudiofileEncoder.cpp:524
 #, fuzzy, kde-format
 #| msgid "Unable to open the FLAC encoder."
 msgid "Unable to initialize libaudiofile encoder."
@@ -3953,37 +3953,37 @@ msgstr "FLAC एनकोडर खोलने में असमर्थ."
 msgid "FLAC audio"
 msgstr "एफ़एलएसी ऑडियो"
 
-#: plugins/codec_flac/FlacDecoder.cpp:291
+#: plugins/codec_flac/FlacDecoder.cpp:294
 #, kde-format
 msgid "Opening the FLAC bitstream failed."
 msgstr "FLAC बिटस्ट्रीम खोलना असफल रहा."
 
-#: plugins/codec_flac/FlacDecoder.cpp:301
+#: plugins/codec_flac/FlacDecoder.cpp:304
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "FLAC मेटाडेटा पार्स करते समय त्रुटि. (%s)"
 
-#: plugins/codec_flac/FlacEncoder.cpp:249
+#: plugins/codec_flac/FlacEncoder.cpp:244
 #, kde-format
 msgid "Unable to open the FLAC encoder."
 msgstr "FLAC एनकोडर खोलने में असमर्थ."
 
-#: plugins/codec_mp3/MP3CodecPlugin.cpp:52
+#: plugins/codec_mp3/MP3CodecPlugin.cpp:47
 msgctxt "menu: /Settings/MP3 Encoder Setup"
 msgid "MP3 Encoder Setup"
 msgstr "एमपी3 एनकोडर सेटअप"
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:74
+#: plugins/codec_mp3/MP3CodecPlugin.h:73
 #, kde-format
 msgid "MPEG layer III audio"
 msgstr "एमपीईजी परत III ऑडियो"
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:80
+#: plugins/codec_mp3/MP3CodecPlugin.h:79
 #, kde-format
 msgid "MPEG layer II audio"
 msgstr "एमपीईजी परत II ऑडियो"
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:86
+#: plugins/codec_mp3/MP3CodecPlugin.h:85
 #, kde-format
 msgid "MPEG layer I audio"
 msgstr "एमपीईजी परत I ऑडियो"
@@ -4048,7 +4048,7 @@ msgstr "क्या आप अभी भी जारी रखना चाह
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "क्या आप आगे बढ़ना चाहते हैं और सभी निम्न त्रुटियों को अनदेखा करना चाहते हैं?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:410
+#: plugins/codec_mp3/MP3Encoder.cpp:405
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4057,12 +4057,12 @@ msgstr ""
 "आपने जो फ़ाइल फ़ॉर्मेट चुना है वह सिर्फ़ मोनो या स्टीरियो को सपोर्ट करता है। सेव करते समय "
 "यह फ़ाइल स्टीरियो में मिक्स हो जाएगी।"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:423 plugins/codec_wav/WavEncoder.cpp:495
+#: plugins/codec_mp3/MP3Encoder.cpp:418 plugins/codec_wav/WavEncoder.cpp:490
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "फ़ाइल को सहेजने के लिए खोलने में असमर्थ!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:668
+#: plugins/codec_mp3/MP3Encoder.cpp:663
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -4124,12 +4124,12 @@ msgstr ""
 "बिट्स/सेकंड में औसत बिटरेट के लिए पैरामीटर\n"
 "(प्लेसहोल्डर के रूप में %1 का उपयोग करें)"
 
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:603
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:598
 #, kde-format
 msgid "Select MP3 Encoder"
 msgstr "MP3 एनकोडर चुनें"
 
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:657
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:652
 #, kde-format
 msgid "Congratulation, the test was successful!"
 msgstr "बधाई हो, परीक्षण सफल रहा!"
@@ -4577,7 +4577,7 @@ msgstr "त्रुटि: कोडेक समर्थित नहीं �
 msgid "Corrupt or missing data in bitstream. Continuing."
 msgstr "बिटस्ट्रीम में डेटा दूषित या गायब है। जारी है।"
 
-#: plugins/codec_ogg/OggEncoder.cpp:127
+#: plugins/codec_ogg/OggEncoder.cpp:122
 #, kde-format
 msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
@@ -4635,13 +4635,13 @@ msgstr "इस Ogg बिटस्ट्रीम में मान्य Opus
 msgid "Opus decoder failed"
 msgstr "ओपस डिकोडर विफल"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:150
+#: plugins/codec_ogg/OpusEncoder.cpp:145
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
 msgstr "बिटरेट %1 kBit/sec सीमा से बाहर है, %2 kBit/sec तक सीमित है"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:202
+#: plugins/codec_ogg/OpusEncoder.cpp:197
 #, kde-format
 msgctxt "%1=requested sample rate, %2=lowest supported, %3=highest supported"
 msgid ""
@@ -4651,27 +4651,27 @@ msgstr ""
 "नमूना दर %1 नमूने/सेकंड सीमा से बाहर है,\n"
 "समर्थित हैं %2 ... %3 नमूने/सेकंड।"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:341 plugins/codec_ogg/OpusEncoder.cpp:360
+#: plugins/codec_ogg/OpusEncoder.cpp:336 plugins/codec_ogg/OpusEncoder.cpp:355
 #, kde-format
 msgid "Opus encoder failed"
 msgstr "ओपस एनकोडर विफल"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:396
+#: plugins/codec_ogg/OpusEncoder.cpp:391
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
 msgstr "ओपस एनकोडर बिटरेट सेट करने में विफल रहा: '%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:408
+#: plugins/codec_ogg/OpusEncoder.cpp:403
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
 msgstr "Opus एनकोडर VBR मोड कॉन्फ़िगर करने में विफल रहा: '%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:418
+#: plugins/codec_ogg/OpusEncoder.cpp:413
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
 msgstr "Opus एनकोडर VBR बाधा कॉन्फ़िगर करने में विफल रहा: '%1'"
 
-#: plugins/codec_ogg/OpusEncoder.cpp:512
+#: plugins/codec_ogg/OpusEncoder.cpp:507
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr "ओपस एनकोडर लुकअहेड मान प्राप्त करने में विफल रहा: '%1'"
@@ -4725,17 +4725,17 @@ msgid ""
 msgstr ""
 "एक या अधिक एन्कोडिंग पैरामीटर समर्थित नहीं हैं। कृपया सेटिंग बदलें और पुनः प्रयास करें।"
 
-#: plugins/codec_wav/RIFFParser.cpp:122
+#: plugins/codec_wav/RIFFParser.cpp:117
 #, kde-format
 msgid "Detecting endianness (standard search)..."
 msgstr "एंडियननेस का पता लगाना (मानक खोज)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:151
+#: plugins/codec_wav/RIFFParser.cpp:146
 #, kde-format
 msgid "Detecting endianness (statistic search)..."
 msgstr "एंडियननेस का पता लगाना (सांख्यिकी खोज)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:547
+#: plugins/codec_wav/RIFFParser.cpp:542
 #, kde-format
 msgid "Searching for missing chunk '%1'..."
 msgstr "लुप्त खंड '%1' की खोज की जा रही है..."
@@ -4797,17 +4797,17 @@ msgstr ""
 "Kwave केवल पहले वाले का उपयोग करेगा और बाकी को अनदेखा करेगा। इससे डेटा की हानि हो "
 "सकती है।"
 
-#: plugins/codec_wav/WavDecoder.cpp:379
+#: plugins/codec_wav/WavDecoder.cpp:378
 #, kde-format
 msgid "file header is damaged"
 msgstr "फ़ाइल हेडर क्षतिग्रस्त है"
 
-#: plugins/codec_wav/WavDecoder.cpp:395
+#: plugins/codec_wav/WavDecoder.cpp:394
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "आंतरिक libaudiofile त्रुटि #%1: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:448
+#: plugins/codec_wav/WavEncoder.cpp:443
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4816,17 +4816,17 @@ msgstr ""
 "क्षमा करें, वर्तमान में चयनित संपीड़न प्रकार को सहेजने के लिए उपयोग नहीं किया जा सकता है। "
 "क्या आप इसके बजाय G711 ULAW संपीड़न का उपयोग करना चाहते हैं?"
 
-#: plugins/codec_wav/WavEncoder.cpp:451
+#: plugins/codec_wav/WavEncoder.cpp:446
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "&हां, G711 का उपयोग करें"
 
-#: plugins/codec_wav/WavEncoder.cpp:452
+#: plugins/codec_wav/WavEncoder.cpp:447
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&नहीं, असंपीड़ित संग्रहित करें"
 
-#: plugins/codec_wav/WavEncoder.cpp:501 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:496 plugins/sonagram/SonagramPlugin.cpp:203
 #, kde-format
 msgid "File or selection too large"
 msgstr "फ़ाइल या चयन बहुत बड़ा है"
@@ -4836,43 +4836,43 @@ msgstr "फ़ाइल या चयन बहुत बड़ा है"
 msgid "WAV audio"
 msgstr "WAV ऑडियो"
 
-#: plugins/debug/DebugPlugin.cpp:89
+#: plugins/debug/DebugPlugin.cpp:84
 msgid "Generate 50% DC Level"
 msgstr "50% डीसी स्तर उत्पन्न करें"
 
-#: plugins/debug/DebugPlugin.cpp:91
+#: plugins/debug/DebugPlugin.cpp:86
 msgid "Generate 100% DC Level"
 msgstr "100% डीसी स्तर उत्पन्न करें"
 
-#: plugins/debug/DebugPlugin.cpp:93
+#: plugins/debug/DebugPlugin.cpp:88
 msgid "MinMax Pattern"
 msgstr "न्यूनतम अधिकतम पैटर्न"
 
-#: plugins/debug/DebugPlugin.cpp:95
+#: plugins/debug/DebugPlugin.cpp:90
 msgid "Generate Sawtooth Pattern"
 msgstr "सॉटूथ पैटर्न उत्पन्न करें"
 
-#: plugins/debug/DebugPlugin.cpp:97
+#: plugins/debug/DebugPlugin.cpp:92
 msgid "Verify Sawtooth Pattern"
 msgstr "सॉटूथ पैटर्न सत्यापित करें"
 
-#: plugins/debug/DebugPlugin.cpp:99
+#: plugins/debug/DebugPlugin.cpp:94
 msgid "FM Sweep"
 msgstr "एफएम स्वीप"
 
-#: plugins/debug/DebugPlugin.cpp:109
+#: plugins/debug/DebugPlugin.cpp:104
 msgid "Labels at Stripe borders"
 msgstr "धारीदार बॉर्डर पर लेबल"
 
-#: plugins/debug/DebugPlugin.cpp:113
+#: plugins/debug/DebugPlugin.cpp:108
 msgid "Dump Window Hierarchy"
 msgstr "डंप विंडो पदानुक्रम"
 
-#: plugins/debug/DebugPlugin.cpp:117
+#: plugins/debug/DebugPlugin.cpp:112
 msgid "Dump Meta Data"
 msgstr "मेटा डेटा डंप करें"
 
-#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:240
+#: plugins/debug/DebugPlugin.cpp:122 plugins/debug/DebugPlugin.cpp:235
 #, kde-format
 msgid "Debug (%1)"
 msgstr "डीबग (%1)"
@@ -4891,12 +4891,12 @@ msgctxt "file type filter when exporting to K3b"
 msgid "K3b project file (*.k3b)"
 msgstr "K3b प्रोजेक्ट फ़ाइल (*.k3b)"
 
-#: plugins/export_k3b/K3BExportDialog.cpp:162
+#: plugins/export_k3b/K3BExportDialog.cpp:157
 #, kde-format
 msgid "Please choose a K3b project file name"
 msgstr ""
 
-#: plugins/export_k3b/K3BExportDialog.cpp:166
+#: plugins/export_k3b/K3BExportDialog.cpp:161
 #, kde-format
 msgid "Please choose where to export the audio files"
 msgstr ""
@@ -5036,12 +5036,12 @@ msgstr ""
 msgid "Export Location"
 msgstr "निर्यात स्थान:"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:281
+#: plugins/export_k3b/K3BExportPlugin.cpp:276
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
 msgstr "K3b प्रोजेक्ट में निर्यात करें..."
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:600
+#: plugins/export_k3b/K3BExportPlugin.cpp:595
 #, kde-format
 msgid ""
 "Only mono and stereo files can be used for an audio CD. You can either "
@@ -5053,7 +5053,7 @@ msgstr ""
 "हैं जो केवल मोनो और स्टीरियो का समर्थन करता है (उदाहरण के लिए FLAC) और फिर पुनः "
 "प्रयास करें।"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:663
+#: plugins/export_k3b/K3BExportPlugin.cpp:658
 #, kde-format
 msgid ""
 "A K3b project file has been created and audio files have been exported.\n"
@@ -5132,29 +5132,29 @@ msgstr "नाममात्र बिटरेट"
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:220
+#: plugins/fileinfo/FileInfoDialog.cpp:215
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 बाइट्स"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:222
+#: plugins/fileinfo/FileInfoDialog.cpp:217
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 केबी (%2 बाइट)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:225
+#: plugins/fileinfo/FileInfoDialog.cpp:220
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 एमबी (%2 बाइट्स)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
-#: plugins/fileinfo/FileInfoDialog.cpp:236 plugins/newsignal/NewSigDlg.ui:102
+#: plugins/fileinfo/FileInfoDialog.cpp:231 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
 msgstr "नमूना दर:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:239
+#: plugins/fileinfo/FileInfoDialog.cpp:234
 #, kde-format
 msgid ""
 "Here you can select one of the predefined\n"
@@ -5165,13 +5165,13 @@ msgstr ""
 "भी नमूना दर दर्ज कर सकते हैं।"
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
-#: plugins/fileinfo/FileInfoDialog.cpp:245 plugins/newsignal/NewSigDlg.ui:206
+#: plugins/fileinfo/FileInfoDialog.cpp:240 plugins/newsignal/NewSigDlg.ui:206
 #: plugins/record/RecordDlg.ui:912
 #, kde-format
 msgid "Resolution:"
 msgstr "संकल्प:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:248
+#: plugins/fileinfo/FileInfoDialog.cpp:243
 #, kde-format
 msgid ""
 "Select a resolution in bits in which the file\n"
@@ -5179,13 +5179,13 @@ msgid ""
 msgstr "बिट्स में एक रिज़ॉल्यूशन चुनें जिसमें फ़ाइल सहेजी जाएगी।"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/fileinfo/FileInfoDialog.cpp:255 plugins/newsignal/NewSigDlg.ui:196
+#: plugins/fileinfo/FileInfoDialog.cpp:250 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
 msgstr "ट्रैक:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:258
+#: plugins/fileinfo/FileInfoDialog.cpp:253
 #, kde-format
 msgid ""
 "Shows the number of tracks of the signal.\n"
@@ -5193,12 +5193,12 @@ msgid ""
 msgstr ""
 "सिग्नल के ट्रैक की संख्या दिखाता है। आप संपादन मेनू के माध्यम से ट्रैक जोड़ या हटा सकते हैं।"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:268
+#: plugins/fileinfo/FileInfoDialog.cpp:263
 #, kde-format
 msgid "Length:"
 msgstr "लंबाई:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:271
+#: plugins/fileinfo/FileInfoDialog.cpp:266
 #, kde-format
 msgid ""
 "Shows the length of the file in samples\n"
@@ -5207,42 +5207,42 @@ msgstr ""
 "नमूनों में फ़ाइल की लंबाई दिखाता है\n"
 "और यदि संभव हो तो समय के रूप में भी।"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:277
+#: plugins/fileinfo/FileInfoDialog.cpp:272
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 नमूने)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:281 plugins/record/RecordDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:276 plugins/record/RecordDialog.cpp:602
 #, kde-format
 msgid "%1 samples"
 msgstr "%1 नमूने"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:607
+#: plugins/fileinfo/FileInfoDialog.cpp:602
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(मोनो)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:610
+#: plugins/fileinfo/FileInfoDialog.cpp:605
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(स्टीरियो)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:613
+#: plugins/fileinfo/FileInfoDialog.cpp:608
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(चौखटा)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:914
-#: plugins/fileinfo/FileInfoDialog.cpp:920
+#: plugins/fileinfo/FileInfoDialog.cpp:909
+#: plugins/fileinfo/FileInfoDialog.cpp:915
 #, kde-format
 msgid "Yes"
 msgstr "हाँ"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:914
-#: plugins/fileinfo/FileInfoDialog.cpp:920
+#: plugins/fileinfo/FileInfoDialog.cpp:909
+#: plugins/fileinfo/FileInfoDialog.cpp:915
 #, kde-format
 msgid "No"
 msgstr "नहीं"
@@ -5542,7 +5542,7 @@ msgstr "लेखक/कॉपीराइट"
 msgid "Miscellaneous"
 msgstr "मिश्रित"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:85
+#: plugins/fileinfo/FileInfoPlugin.cpp:80
 #, kde-format
 msgid ""
 "You have changed the sample rate. Do you want to convert the whole file to "
@@ -5554,12 +5554,12 @@ msgstr ""
 "क्षतिग्रस्त फ़ाइल को ठीक करने के लिए दर जानकारी सेट करना चाहते हैं? नोट: केवल सैंपल दर "
 "बदलने से \"मिकी माउस\" प्रभाव हो सकता है।"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:91
+#: plugins/fileinfo/FileInfoPlugin.cpp:86
 #, kde-format
 msgid "&Convert"
 msgstr "&बदलना"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:92
+#: plugins/fileinfo/FileInfoPlugin.cpp:87
 #, kde-format
 msgid "&Set Rate"
 msgstr "&दर निर्धारित करें"
@@ -5617,18 +5617,18 @@ msgstr "तारीख़ चुनें"
 msgid "Go to Position"
 msgstr "स्थिति पर जाएँ"
 
-#: plugins/goto/GotoPlugin.cpp:50
+#: plugins/goto/GotoPlugin.cpp:45
 #, kde-format
 msgid "Goto..."
 msgstr "जाओ..."
 
-#: plugins/goto/InsertAtPlugin.cpp:50
+#: plugins/goto/InsertAtPlugin.cpp:45
 #, kde-format
 msgid "Insert At..."
 msgstr "सम्मिलित करें..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LowPassDlg)
-#: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:111
+#: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:106
 #, kde-format
 msgid "Low Pass"
 msgstr "कम उत्तीर्ण"
@@ -5763,7 +5763,7 @@ msgid "(Resulting file size: %1 MB)"
 msgstr "(परिणामी फ़ाइल का आकार: %1 MB)"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NoiseDlg)
-#: plugins/noise/NoiseDlg.ui:17 plugins/noise/NoisePlugin.cpp:135
+#: plugins/noise/NoiseDlg.ui:17 plugins/noise/NoisePlugin.cpp:130
 #, kde-format
 msgid "Add Noise"
 msgstr "शोर जोड़ना"
@@ -5826,7 +5826,7 @@ msgstr "&लघुगणक"
 #. i18n: ectx: property (toolTip), widget (QSlider, slider)
 #: plugins/noise/NoiseDlg.ui:143 plugins/volume/VolumeDlg.ui:17
 #: plugins/volume/VolumeDlg.ui:208 plugins/volume/VolumeDlg.ui:269
-#: plugins/volume/VolumePlugin.cpp:135
+#: plugins/volume/VolumePlugin.cpp:130
 #, kde-format
 msgid "Volume"
 msgstr "आयतन"
@@ -5837,24 +5837,24 @@ msgstr "आयतन"
 msgid "Noise Level"
 msgstr "शोर स्तर"
 
-#: plugins/normalize/NormalizePlugin.cpp:71
+#: plugins/normalize/NormalizePlugin.cpp:66
 #, kde-format
 msgid "Normalize"
 msgstr "सामान्य"
 
-#: plugins/normalize/NormalizePlugin.cpp:92
+#: plugins/normalize/NormalizePlugin.cpp:87
 #, kde-format
 msgid "Analyzing volume level..."
 msgstr "वॉल्यूम स्तर का विश्लेषण किया जा रहा है..."
 
-#: plugins/normalize/NormalizePlugin.cpp:123
+#: plugins/normalize/NormalizePlugin.cpp:118
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
 msgstr "सामान्यीकरण (%1 dB) ..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NotchFilterDlg)
 #: plugins/notch_filter/NotchFilterDlg.ui:14
-#: plugins/notch_filter/NotchFilterPlugin.cpp:124
+#: plugins/notch_filter/NotchFilterPlugin.cpp:119
 #, kde-format
 msgid "Notch Filter"
 msgstr "नोच फिल्टर"
@@ -5901,7 +5901,7 @@ msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PitchShiftDlg)
 #: plugins/pitch_shift/PitchShiftDlg.ui:20
-#: plugins/pitch_shift/PitchShiftPlugin.cpp:128
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:123
 #, kde-format
 msgid "Pitch Shift"
 msgstr "पिच पारी"
@@ -6025,26 +6025,26 @@ msgstr ""
 msgid "Opening the device '%1' failed: %2"
 msgstr "डिवाइस '%1' खोलने में असफल: %2"
 
-#: plugins/playback/PlayBack-ALSA.cpp:940
-#: plugins/playback/PlayBack-ALSA.cpp:960 plugins/record/Record-ALSA.cpp:1120
-#: plugins/record/Record-ALSA.cpp:1140
+#: plugins/playback/PlayBack-ALSA.cpp:941
+#: plugins/playback/PlayBack-ALSA.cpp:961 plugins/record/Record-ALSA.cpp:1121
+#: plugins/record/Record-ALSA.cpp:1141
 #, kde-format
 msgid "Card %1: "
 msgstr "कार्ड %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:942
-#: plugins/playback/PlayBack-ALSA.cpp:962 plugins/record/Record-ALSA.cpp:1122
-#: plugins/record/Record-ALSA.cpp:1142
+#: plugins/playback/PlayBack-ALSA.cpp:943
+#: plugins/playback/PlayBack-ALSA.cpp:963 plugins/record/Record-ALSA.cpp:1123
+#: plugins/record/Record-ALSA.cpp:1143
 #, kde-format
 msgid "Device %1: "
 msgstr "डिवाइस %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:964 plugins/record/Record-ALSA.cpp:1144
+#: plugins/playback/PlayBack-ALSA.cpp:965 plugins/record/Record-ALSA.cpp:1145
 #, kde-format
 msgid "Subdevice %1: "
 msgstr "उपडिवाइस %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:1020 plugins/record/Record-ALSA.cpp:1202
+#: plugins/playback/PlayBack-ALSA.cpp:1021 plugins/record/Record-ALSA.cpp:1203
 #, kde-format
 msgid "Virtual / ALSA Plugins"
 msgstr ""
@@ -6145,33 +6145,33 @@ msgstr "प्रारूप समर्थित नहीं है"
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Qt मल्टीमीडिया डिवाइस '%1' को खोलना विफल रहा"
 
-#: plugins/playback/PlayBackDialog.cpp:520
+#: plugins/playback/PlayBackDialog.cpp:515
 #, kde-format
 msgid "%1 Bytes"
 msgstr "%1 बाइट्स"
 
-#: plugins/playback/PlayBackDialog.cpp:522
+#: plugins/playback/PlayBackDialog.cpp:517
 #, kde-format
 msgid "%1 kB"
 msgstr "%1 केबी"
 
-#: plugins/playback/PlayBackDialog.cpp:620
+#: plugins/playback/PlayBackDialog.cpp:615
 #, kde-format
 msgid "(mono)"
 msgstr "(मोनो)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/playback/PlayBackDialog.cpp:621 plugins/playback/PlayBackDlg.ui:350
+#: plugins/playback/PlayBackDialog.cpp:616 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
 msgstr "(स्टीरियो)"
 
-#: plugins/playback/PlayBackDialog.cpp:622
+#: plugins/playback/PlayBackDialog.cpp:617
 #, kde-format
 msgid "(quadro)"
 msgstr "(चौखटा)"
 
-#: plugins/playback/PlayBackDialog.cpp:652
+#: plugins/playback/PlayBackDialog.cpp:647
 #, kde-format
 msgid "Select Playback Device"
 msgstr "प्लेबैक डिवाइस चुनें"
@@ -6420,7 +6420,7 @@ msgstr ""
 "अब आपको %1 हर्ट्ज परीक्षण ध्वनि सुनाई देगी।<br/><br/> (यदि आपको क्लिक या ड्रॉपआउट की "
 "आवाज़ सुनाई दे तो कृपया आवाज़ बढ़ाएँ)<br/> बफर आकार और पुनः प्रयास करें)"
 
-#: plugins/record/LevelMeter.cpp:278 plugins/record/LevelMeter.cpp:302
+#: plugins/record/LevelMeter.cpp:280 plugins/record/LevelMeter.cpp:304
 #, kde-format
 msgid "%1 dB"
 msgstr "%1 डीबी"
@@ -7034,23 +7034,23 @@ msgstr "रिकॉर्डिंग डिवाइस व्यस्त प
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr "रिकॉर्डिंग डिवाइस से पढ़ना विफल हुआ। त्रुटि संख्या = %1 (%2)"
 
-#: plugins/reverse/ReversePlugin.cpp:77
-#: plugins/reverse/UndoReverseAction.cpp:44
+#: plugins/reverse/ReversePlugin.cpp:72
+#: plugins/reverse/UndoReverseAction.cpp:39
 #, kde-format
 msgid "Reverse"
 msgstr "रिवर्स"
 
-#: plugins/samplerate/SampleRatePlugin.cpp:100
+#: plugins/samplerate/SampleRatePlugin.cpp:95
 #, kde-format
 msgid "Change sample rate"
 msgstr "नमूना दर बदलें"
 
-#: plugins/samplerate/SampleRatePlugin.cpp:161
+#: plugins/samplerate/SampleRatePlugin.cpp:156
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "नमूना दर को %1 kHz से %2 kHz में परिवर्तित किया जा रहा है..."
 
-#: plugins/saveblocks/SaveBlocksDialog.cpp:205
+#: plugins/saveblocks/SaveBlocksDialog.cpp:200
 #, kde-format
 msgid "Please choose where to save the files"
 msgstr ""
@@ -7178,18 +7178,18 @@ msgstr "उदाहरण:"
 msgid "Save selection only"
 msgstr "केवल चयन सहेजें"
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:169
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:164
 #, kde-format
 msgid "..."
 msgstr "..."
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:272
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:267
 #, kde-format
 msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr "इससे निम्न फ़ाइलें अधिलेखित हो जाएंगी: %1क्या आप वास्तव में जारी रखना चाहते हैं?"
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:285
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:280
 #, kde-format
 msgid ""
 "The following directories do not exist: %1Do you want to create them and "
@@ -7204,7 +7204,7 @@ msgstr "शुरू"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectRangeDlg)
 #: plugins/selectrange/SelectRangeDlg.ui:15
-#: plugins/selectrange/SelectRangePlugin.cpp:121
+#: plugins/selectrange/SelectRangePlugin.cpp:116
 #, kde-format
 msgid "Select Range"
 msgstr "रेंज चुनें"
@@ -7381,7 +7381,7 @@ msgid "?:"
 msgstr "?:"
 
 #: plugins/sonagram/SonagramPlugin.cpp:74
-#: plugins/sonagram/SonagramWindow.cpp:529
+#: plugins/sonagram/SonagramWindow.cpp:524
 #, kde-format
 msgid "Sonagram"
 msgstr "सोनाग्राम"
@@ -7436,22 +7436,22 @@ msgstr "आयाम: 0 %"
 msgid "Save Sonagram"
 msgstr "सोनग्राम बचाओ"
 
-#: plugins/sonagram/SonagramWindow.cpp:528
+#: plugins/sonagram/SonagramWindow.cpp:523
 #, kde-format
 msgid "Sonagram of %1"
 msgstr "%1 का सोनाग्राम"
 
-#: plugins/sonagram/SonagramWindow.cpp:552
+#: plugins/sonagram/SonagramWindow.cpp:547
 #, kde-format
 msgid "Time: %1"
 msgstr "समय: %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:556
+#: plugins/sonagram/SonagramWindow.cpp:551
 #, kde-format
 msgid "Frequency: %1 Hz"
 msgstr "आवृत्ति: %1 हर्ट्ज"
 
-#: plugins/sonagram/SonagramWindow.cpp:565
+#: plugins/sonagram/SonagramWindow.cpp:560
 #, kde-format
 msgid "Amplitude: %1%"
 msgstr "आयाम: %1%"
@@ -7474,7 +7474,7 @@ msgstr "कमांड दर्ज करें:"
 msgid "please enter a text command here..."
 msgstr "कृपया यहां एक पाठ आदेश दर्ज करें..."
 
-#: plugins/stringenter/StringEnterPlugin.cpp:58
+#: plugins/stringenter/StringEnterPlugin.cpp:53
 msgctxt "menu: /Settings/Enter Command"
 msgid "Enter Command"
 msgstr "कमांड दर्ज करें"
@@ -7532,7 +7532,7 @@ msgstr ""
 "लॉगरिदमिक स्केल (डेसिबल) में वॉल्यूम बढ़ाता या घटाता है। उदाहरण के लिए: \"+3 डीबी\", "
 "\"+ 6 डीबी\", \"-3 डीबी\"।"
 
-#: plugins/zero/ZeroPlugin.cpp:61
+#: plugins/zero/ZeroPlugin.cpp:56
 #, kde-format
 msgid "Silence"
 msgstr "मौन"

@@ -211,9 +211,7 @@ namespace Kwave
             }
 
             /** Destructor */
-            virtual ~List()
-            {
-            }
+            virtual ~List() = default;
 
             /** returns the index of the first sample */
             inline sample_index_t left() const { return m_left; }

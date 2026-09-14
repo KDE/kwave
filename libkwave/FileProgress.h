@@ -57,7 +57,7 @@ namespace Kwave
             unsigned int tracks);
 
         /** Destructor */
-        ~FileProgress() override {}
+        ~FileProgress() override = default;
 
         /**
          * Returns true if the dialog is unusable or the user

@@ -40,7 +40,7 @@ namespace Kwave
                         QIODevice &dev, quint64 dev_offset);
 
         /** Destructor */
-        ~RecoveryMapping() override {}
+        ~RecoveryMapping() override = default;
 
         /** implementation of Recoverysource::read */
         qint64 read(quint64 offset, char *data, unsigned int bytes) override;

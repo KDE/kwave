@@ -27,7 +27,7 @@ namespace Kwave
     public:
 
         /** Destructor */
-        virtual ~Runnable() {}
+        virtual ~Runnable() = default;
 
         /** "run function" */
         virtual void run_wrapper(const QVariant &params) = 0;

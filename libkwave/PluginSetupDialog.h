@@ -31,7 +31,7 @@ namespace Kwave
     public:
 
         /** virtual destructor, really needed for proper shutdown */
-        virtual ~PluginSetupDialog() {}
+        virtual ~PluginSetupDialog() = default;
 
         /**
          * Sets the parameters, from a string list representation

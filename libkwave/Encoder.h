@@ -49,7 +49,7 @@ namespace Kwave
         Encoder();
 
         /** Destructor */
-        ~Encoder() override {}
+        ~Encoder() override = default;
 
         /** Returns a new instance of the encoder */
         virtual Instance instance() = 0;

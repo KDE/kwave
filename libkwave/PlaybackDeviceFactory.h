@@ -31,7 +31,7 @@ namespace Kwave
     {
     public:
         /** virtual destructor */
-        virtual ~PlaybackDeviceFactory() { }
+        virtual ~PlaybackDeviceFactory() = default;
 
         /**
          * Create a playback device matching the given playback method.

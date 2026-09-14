@@ -54,7 +54,7 @@ namespace Kwave
         SampleFormat(const SampleFormat &f) { assign(f); }
 
         /** Destructor */
-        virtual ~SampleFormat() {}
+        virtual ~SampleFormat() = default;
 
         /** conversion operator to Format */
         inline operator Format() const { return m_format; }

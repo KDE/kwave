@@ -6,6 +6,7 @@ Checks: '
   bugprone-*,
   -bugprone-assignment-in-if-condition,
   -bugprone-branch-clone,
+  -bugprone-derived-method-shadowing-base-method,
   -bugprone-easily-swappable-parameters,
   -bugprone-integer-division,
   -bugprone-narrowing-conversions,
@@ -18,11 +19,13 @@ Checks: '
   -clang-analyzer-deadcode.DeadStores,
   -clang-analyzer-optin.core.EnumCastOutOfRange,
   -clang-analyzer-security.FloatLoopCounter,
+  -clang-analyzer-optin.performance.Padding,
   modernize-use-equals-default,
   -performance-*
 '
 
-HeaderFilterRegex: '^(?!.*(export\.h|ui_.*\.h|moc_.*\.cpp)$).*'
+HeaderFilterRegex: '.*'
+ExcludeHeaderFilterRegex: '(export\.h|ui_.*\.h|moc_.*\.cpp)$'
 WarningsAsErrors: '*'
 
 #############################################################################

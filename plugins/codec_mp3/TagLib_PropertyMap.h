@@ -54,7 +54,7 @@ namespace Kwave
         TagLib_PropertyMap();
 
         /** destructor */
-        virtual ~TagLib_PropertyMap() {}
+        virtual ~TagLib_PropertyMap() = default;
 
         /**
          * returns the frame ID of a property or an empty byte vector

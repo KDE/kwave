@@ -196,7 +196,7 @@ namespace Kwave
         }
 
         /** Destructor */
-        ~MultiTrackSource() override { }
+        ~MultiTrackSource() override = default;
     };
 
 }

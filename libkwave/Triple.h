@@ -27,11 +27,7 @@ namespace Kwave
     {
     public:
         /** Stupid default constructor (sometimes needed but should not) */
-        Triple()
-            :m_first(),
-             m_second(),
-             m_third()
-        {}
+        Triple() = default;
 
         /** Constructor with initialization data */
         Triple(const T1 &first, const T2 &second, const T3 &third)
@@ -48,7 +44,7 @@ namespace Kwave
         {}
 
         /** Destructor */
-        virtual ~Triple() {}
+        virtual ~Triple() = default;
 
         /** assignment operator */
         Triple<T1,T2,T3> &operator = (const Triple<T1,T2,T3> &t2) {

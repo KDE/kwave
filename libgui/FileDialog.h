@@ -71,9 +71,7 @@ namespace Kwave
                    const QString last_ext = QString());
 
         /** Destructor */
-        ~FileDialog() override
-        {
-        }
+        ~FileDialog() override = default;
 
         /**
          * execute the QFileDialog

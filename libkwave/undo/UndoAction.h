@@ -48,9 +48,7 @@ namespace Kwave
     public:
 
         /** Destructor */
-        virtual ~UndoAction()
-        {
-        }
+        virtual ~UndoAction() = default;
 
         /**
          * Returns a verbose short description of the action.

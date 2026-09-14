@@ -48,7 +48,7 @@ namespace Kwave
     public:
 
         /** Destructor */
-        virtual ~PlayBackDevice() {}
+        virtual ~PlayBackDevice() = default;
 
         /**
          * Opens the device for playback.

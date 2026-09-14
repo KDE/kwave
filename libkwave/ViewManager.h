@@ -34,7 +34,7 @@ namespace Kwave
     {
     public:
         /** Destructor */
-        virtual ~ViewManager() {}
+        virtual ~ViewManager() = default;
 
         /**
          * Insert a new signal view into this widget (or the upper/lower

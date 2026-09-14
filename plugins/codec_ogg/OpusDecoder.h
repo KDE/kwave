@@ -61,7 +61,7 @@ namespace Kwave
                     ogg_packet &op);
 
         /** destructor */
-        ~OpusDecoder() override {}
+        ~OpusDecoder() override = default;
 
         /**
          * parse the header of the stream and initialize the decoder

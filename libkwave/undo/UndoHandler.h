@@ -33,11 +33,10 @@ namespace Kwave
     public:
 
         /** Default constructor */
-        UndoHandler()
-        {}
+        UndoHandler() = default;
 
         /** Destructor */
-        virtual ~UndoHandler() {}
+        virtual ~UndoHandler() = default;
 
         /**
          * Called by an undo manager to notify the handler that

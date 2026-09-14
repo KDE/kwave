@@ -26,12 +26,13 @@ class QWidget;
 namespace Kwave
 {
     class FileInfo;
+    class MultiTrackReader;
 
     class OggSubEncoder
     {
     public:
         /** Destructor */
-        virtual ~OggSubEncoder() {}
+        virtual ~OggSubEncoder() = default;
 
         /**
          * parse the header of the stream and initialize the decoder

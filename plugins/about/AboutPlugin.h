@@ -38,7 +38,7 @@ namespace Kwave
         AboutPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        ~AboutPlugin() override {}
+        ~AboutPlugin() override = default;
 
         /** Returns the name of the plugin. */
         QString name() const override { return _("about"); }

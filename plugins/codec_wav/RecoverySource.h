@@ -35,7 +35,7 @@ namespace Kwave
         RecoverySource(quint64 offset, quint64 length);
 
         /** Destructor */
-        virtual ~RecoverySource() {}
+        virtual ~RecoverySource() = default;
 
         /** Returns the start offset in the recovered file */
         virtual quint64 offset() const;

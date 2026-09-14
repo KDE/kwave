@@ -31,7 +31,7 @@ namespace Kwave
     {
     public:
         /** Destructor */
-        virtual ~OggSubDecoder() {}
+        virtual ~OggSubDecoder() = default;
 
         /**
          * parse the header of the stream and initialize the decoder

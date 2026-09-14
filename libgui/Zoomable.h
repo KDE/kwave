@@ -29,10 +29,10 @@ namespace Kwave
     public:
 
         /** default constructor */
-        Zoomable() {}
+        Zoomable() = default;
 
         /** destructor */
-        virtual ~Zoomable() {}
+        virtual ~Zoomable() = default;
 
         /**
          * Returns the width of the visible area

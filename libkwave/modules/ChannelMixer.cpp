@@ -86,6 +86,9 @@ Kwave::ChannelMixer::~ChannelMixer()
         delete m_output_buffer[0];
         m_output_buffer.remove(0);
     }
+
+    delete m_matrix;
+    m_matrix = nullptr;
 }
 
 //***************************************************************************

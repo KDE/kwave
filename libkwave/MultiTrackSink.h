@@ -178,7 +178,7 @@ namespace Kwave
         }
 
         /** Destructor */
-        ~MultiTrackSink() override { }
+        ~MultiTrackSink() override = default;
     };
 
 }

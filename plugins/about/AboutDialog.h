@@ -33,20 +33,18 @@ class QWidget;
 namespace Kwave
 {
     /**
-    * Dialog for Help/About
-    */
-    class AboutDialog: public QDialog,
-                       public Ui::AboutDialogBase
+     * Dialog for Help/About
+     */
+    class AboutDialog: public QDialog, public Ui::AboutDialogBase
     {
         Q_OBJECT
-
     public:
 
         /**
-        * Constructor
-        * @param parent the parent widget
-        * @param plugin_info list of plugin info structures (unsorted)
-        */
+         * Constructor
+         * @param parent the parent widget
+         * @param plugin_info list of plugin info structures (unsorted)
+         */
         AboutDialog(QWidget *parent,
             const QList<Kwave::PluginManager::PluginModule> &plugin_info);
 

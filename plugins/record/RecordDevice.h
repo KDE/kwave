@@ -39,10 +39,10 @@ namespace Kwave
     public:
 
         /** Constructor */
-        RecordDevice() {}
+        RecordDevice() = default;
 
         /** Destructor */
-        virtual ~RecordDevice() {}
+        virtual ~RecordDevice() = default;
 
         /**
          * Open the record device.

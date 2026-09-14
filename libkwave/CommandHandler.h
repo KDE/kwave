@@ -29,10 +29,10 @@ namespace Kwave
     public:
 
         /** default constructor */
-        CommandHandler() {}
+        CommandHandler() = default;
 
         /** destructor */
-        virtual ~CommandHandler() {}
+        virtual ~CommandHandler() = default;
 
         /**
          * Execute a Kwave text command

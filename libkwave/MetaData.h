@@ -156,11 +156,7 @@ namespace Kwave
         }
 
         /** assignment operator */
-        inline MetaData & operator = (const MetaData &other)
-        {
-            m_data = other.m_data;
-            return *this;
-        }
+        MetaData & operator = (const MetaData &other) = default;
 
         /** returns a list with all property names */
         QStringList keys() const;

@@ -52,7 +52,7 @@ namespace Kwave
                                ogg_packet &op);
 
         /** destructor */
-        ~VorbisDecoder() override {}
+        ~VorbisDecoder() override = default;
 
         /**
          * parse the header of the stream and initialize the decoder

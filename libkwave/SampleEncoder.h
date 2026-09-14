@@ -33,10 +33,10 @@ namespace Kwave
     {
     public:
         /** Constructor */
-        SampleEncoder() {}
+        SampleEncoder() = default;
 
         /** Destructor */
-        virtual ~SampleEncoder() {}
+        virtual ~SampleEncoder() = default;
 
         /**
          * Encodes a buffer with samples into a buffer with raw data.

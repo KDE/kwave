@@ -39,7 +39,7 @@ namespace Kwave
         }
 
         /** Destructor */
-        virtual ~FixedPool() { }
+        virtual ~FixedPool() = default;
 
         /**
          * Allocate an element from the pool

@@ -23,9 +23,9 @@
 #include <QList>
 #include <QString>
 
-class UndoAction;
-
 namespace Kwave {
+
+    class UndoAction;
 
     /**
      * @class UndoTransaction

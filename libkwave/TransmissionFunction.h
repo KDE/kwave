@@ -27,7 +27,7 @@ namespace Kwave
     public:
 
         /** Destructor */
-        virtual ~TransmissionFunction() {}
+        virtual ~TransmissionFunction() = default;
 
         /**
          * Returns the value of the transmission function at a given

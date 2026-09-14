@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-13 00:44+0000\n"
-"PO-Revision-Date: 2026-08-30 18:43+0200\n"
+"PO-Revision-Date: 2026-09-10 22:30+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -6110,7 +6110,7 @@ msgstr "Sotto-dispositivo %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:1021 plugins/record/Record-ALSA.cpp:1203
 #, kde-format
 msgid "Virtual / ALSA Plugins"
-msgstr ""
+msgstr "Estensioni virtuali / ALSA"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6956,10 +6956,9 @@ msgstr "Selezio&na..."
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0%"
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181

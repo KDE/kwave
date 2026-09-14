@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-13 00:44+0000\n"
-"PO-Revision-Date: 2026-08-29 17:26+0100\n"
+"PO-Revision-Date: 2026-09-14 00:13+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -4024,15 +4024,12 @@ msgid "MPEG layer I audio"
 msgstr "Audio MPEG de capa I"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:173
-#, fuzzy, kde-format
-#| msgid ""
-#| "The file contains an invalid channel mode 0x%1\n"
-#| "Assuming Mono..."
+#, kde-format
 msgid ""
 "The file contains an invalid channel mode (%1).\n"
 "Assuming Mono..."
 msgstr ""
-"El archivo contiene un modo de canal no válido 0x%1\n"
+"El archivo contiene un modo de canal no válido (%1).\n"
 "Se asume que es en mono…"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:549
@@ -6118,7 +6115,7 @@ msgstr "Subdispositivo %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:1021 plugins/record/Record-ALSA.cpp:1203
 #, kde-format
 msgid "Virtual / ALSA Plugins"
-msgstr ""
+msgstr "Complementos Virtual / ALSA"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6961,10 +6958,9 @@ msgstr "Sele&ccionar…"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0 %"
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
@@ -7611,25 +7607,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Silencio"
-
-#~ msgid "DMIX plugin"
-#~ msgstr "Complemento DMIX"
-
-#~ msgid "DSNOOP plugin"
-#~ msgstr "Complemento DSNOOP"
-
-#~ msgid "T.H.F. Klok and Cedric Tefft"
-#~ msgstr "T.H.F. Klok y Cedric Tefft"
-
-#~ msgid "Maintainers of the 'id3lib' library"
-#~ msgstr "Responsables de la biblioteca «id3lib»"
-
-#~ msgid "http://www.id3lib.org/"
-#~ msgstr "http://www.id3lib.org/"
-
-#~ msgid ""
-#~ "The opened file is no MPEG file or it is damaged.\n"
-#~ "No header information has been found."
-#~ msgstr ""
-#~ "El archivo abierto no es un archivo MPEG o está dañado.\n"
-#~ "No se ha encontrado ninguna información de cabecera."

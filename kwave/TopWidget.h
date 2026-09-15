@@ -341,7 +341,7 @@ namespace Kwave
          * a MDI sub window or TAB. In SDI mode it contains only one
          * entry, corresponding to a null pointer as index.
          */
-        QMap<QMdiSubWindow *, Kwave::FileContext *> m_context_map;
+        QMap<QMdiSubWindow *, QPointer<Kwave::FileContext>> m_context_map;
 
         /** toolbar with playback/record and seek controls */
         Kwave::PlayerToolBar *m_toolbar_record_playback = nullptr;

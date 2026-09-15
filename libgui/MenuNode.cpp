@@ -33,8 +33,9 @@ Kwave::MenuNode::MenuNode(Kwave::MenuNode *parent,
                           const QString &command,
                           const QKeySequence &shortcut,
                           const QString &uid)
-    :QObject(), m_children(), m_groups(), m_uid(uid), m_shortcut(shortcut),
-     m_name(name), m_command(command), m_parentNode(parent)
+    :QObject(parent), m_children(), m_groups(), m_uid(uid),
+     m_shortcut(shortcut), m_name(name), m_command(command),
+     m_parentNode(parent)
 {
 }
 

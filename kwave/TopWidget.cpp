@@ -233,7 +233,8 @@ Kwave::FileContext *Kwave::TopWidget::currentContext() const
         if (!m_context_map.contains(current_sub)) {
             qWarning("WARNING: unassociated MDI sub window %p?",
                      static_cast<void *>(current_sub));
-            QMapIterator<QMdiSubWindow*, Kwave::FileContext*> it(m_context_map);
+            QMapIterator<QMdiSubWindow*, QPointer<Kwave::FileContext>>
+                it(m_context_map);
             Kwave::FileContext *context = nullptr;
             while (it.hasNext()) {
                 it.next();
@@ -466,6 +467,11 @@ bool Kwave::TopWidget::init()
 //***************************************************************************
 Kwave::TopWidget::~TopWidget()
 {
+    // discard any pending deferred delete events for this instance, we
+    // already are in the destructor and must prevent a second invocation
+    // of the destructor (use after free).
+    QCoreApplication::removePostedEvents(this, QEvent::DeferredDelete);
+
     // close the current file (no matter what the user wants)
     closeAllSubWindows();
 
@@ -478,8 +484,10 @@ Kwave::TopWidget::~TopWidget()
     delete m_menu_manager;
     m_menu_manager = nullptr;
 
-    while (!m_context_map.isEmpty())
-        delete m_context_map.take(m_context_map.lastKey());
+    while (!m_context_map.isEmpty()) {
+        FileContext *context = m_context_map.take(m_context_map.lastKey());
+        delete context;
+    }
 
     m_application.toplevelWindowHasClosed(this);
 }
@@ -489,7 +497,7 @@ QList<Kwave::App::FileAndInstance> Kwave::TopWidget::openFiles() const
 {
     QList<Kwave::App::FileAndInstance> all_files;
 
-    for (QMap<QMdiSubWindow *, Kwave::FileContext *>::const_iterator
+    for (QMap<QMdiSubWindow *, QPointer<Kwave::FileContext>>::const_iterator
          it(m_context_map.constBegin()); it != m_context_map.constEnd();
          ++it)
     {
@@ -509,11 +517,12 @@ QList<Kwave::FileContext *> Kwave::TopWidget::detachAllContexts()
 {
     QList<Kwave::FileContext *> list;
 
-    QMutableMapIterator<QMdiSubWindow *, Kwave::FileContext *> i(m_context_map);
+    QMutableMapIterator<QMdiSubWindow *, QPointer<Kwave::FileContext>>
+        i(m_context_map);
     while (i.hasNext()) {
         i.next();
-        QMdiSubWindow      *sub     = i.key();
-        Kwave::FileContext *context = i.value();
+        QMdiSubWindow               *sub     = i.key();
+        QPointer<Kwave::FileContext> context = i.value();
 
         // remove the entry from the map to prevent damage
         i.remove();
@@ -835,12 +844,14 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("window:activate")
         if (m_mdi_area) {
             QString title = parser.nextParam();
-            for (QMap<QMdiSubWindow *, Kwave::FileContext *>::const_iterator
-                it(m_context_map.constBegin()); it != m_context_map.constEnd();
+            for (QMap<QMdiSubWindow *,
+                QPointer<Kwave::FileContext>>::const_iterator
+                it(m_context_map.constBegin());
+                it != m_context_map.constEnd();
                 ++it)
             {
-                QMdiSubWindow            *sub     = it.key();
-                const Kwave::FileContext *context = it.value();
+                QMdiSubWindow                      *sub     = it.key();
+                const QPointer<Kwave::FileContext> &context = it.value();
                 if (!sub  || !context) continue;
 
                 // identify the window by its title
@@ -894,13 +905,13 @@ bool Kwave::TopWidget::closeAllSubWindows()
 {
     bool allowed = true;
 
-    QMutableMapIterator<QMdiSubWindow *, Kwave::FileContext *>
+    QMutableMapIterator<QMdiSubWindow *, QPointer<Kwave::FileContext>>
         it(m_context_map);
     it.toBack();
     while (it.hasPrevious()) {
         it.previous();
-        QMdiSubWindow      *sub     = it.key();
-        Kwave::FileContext *context = it.value();
+        QMdiSubWindow               *sub     = it.key();
+        QPointer<Kwave::FileContext> context = it.value();
 
         if (!sub) {
             // reached the default context (without sub windows)
@@ -926,6 +937,9 @@ bool Kwave::TopWidget::closeAllSubWindows()
                 m_context_map[nullptr] = context;
                 break;
             }
+            // context is not the last one and longer used
+            // -> must be released
+            context->release();
         }
     }
 
@@ -1367,7 +1381,8 @@ void Kwave::TopWidget::updateMenu()
         // update the "Windows" menu
         m_menu_manager->clearNumberedMenu(_("ID_WINDOW_LIST"));
         unsigned int win_count = 0;
-        for (QMap<QMdiSubWindow *, Kwave::FileContext *>::const_iterator
+        for (QMap<QMdiSubWindow *,
+             QPointer<Kwave::FileContext>>::const_iterator
              it(m_context_map.constBegin()); it != m_context_map.constEnd();
              ++it)
         {

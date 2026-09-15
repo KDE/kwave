@@ -225,6 +225,7 @@ void Kwave::App::addRecentFile(const QString &newfile)
 int Kwave::App::newWindow(const QUrl &url)
 {
     int retval = 0;
+    bool created_a_new_one = false;
     Kwave::TopWidget *new_top_widget = nullptr;
 
     Kwave::Splash::showMessage(i18n("Opening main window..."));
@@ -253,6 +254,7 @@ int Kwave::App::newWindow(const QUrl &url)
             delete new_top_widget;
             return ECANCELED;
         }
+        created_a_new_one = true;
 
         if (!m_top_widgets.isEmpty()) {
             // create a new widget with the same geometry as
@@ -271,8 +273,11 @@ int Kwave::App::newWindow(const QUrl &url)
     }
 
     retval = (!url.isEmpty()) ? new_top_widget->loadFile(url) : 0;
-    if (retval == ECANCELED)
+    if (retval == ECANCELED) {
+        if (created_a_new_one)
+            m_top_widgets.removeAll(new_top_widget);
         delete new_top_widget;
+    }
 
     Kwave::Splash::showMessage(i18n("Startup done"));
     return retval;

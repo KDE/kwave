@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-13 00:44+0000\n"
-"PO-Revision-Date: 2026-04-06 19:11+0200\n"
+"PO-Revision-Date: 2026-09-14 16:45+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1826,10 +1826,6 @@ msgid "Album"
 msgstr "Album"
 
 #: libkwave/FileInfo.cpp:38
-#, fuzzy
-#| msgid ""
-#| "Name of the album if the source is an album\n"
-#| "that consist of more medias."
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more media."
@@ -3965,39 +3961,30 @@ msgstr ""
 "'%1'"
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:463
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
 msgstr ""
-"Iste codec supporta solmente files mono o stereo, %1 canales non es "
-"supportate."
+"Iste formato de file supporta solmente  mono, %1 canales non es supportate."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:467
 #: plugins/codec_flac/FlacEncoder.cpp:200
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
 "supported."
 msgstr ""
-"Iste codec supporta solmente files mono o stereo, %1 canales non es "
-"supportate."
+"Iste formato de file supporta solmente usque a %1 canales,  %2 canales non "
+"es supportate."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:474
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "Incapace a aperir le file per salveguardar."
+msgstr "Incapace a aperir le dispositivo de destination per scriber."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:524
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "Incapace a aperir le codificator de FLAC."
+msgstr "Incapace a initialisar le codificator libaudiofile."
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
@@ -4040,15 +4027,12 @@ msgid "MPEG layer I audio"
 msgstr "MPEG layer I audio"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:173
-#, fuzzy, kde-format
-#| msgid ""
-#| "The file contains an invalid channel mode 0x%1\n"
-#| "Assuming Mono..."
+#, kde-format
 msgid ""
 "The file contains an invalid channel mode (%1).\n"
 "Assuming Mono..."
 msgstr ""
-"Le file contine un modo de canale invalide 0x%1\n"
+"Le file contine un modo de canale invalide  (%1).\n"
 "assumente Mono..."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:549
@@ -4750,15 +4734,11 @@ msgid "End of file before finding all Vorbis headers."
 msgstr "Fin de file ante trovar one capites de Vorbis."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
 msgstr ""
-"Iste codec supporta solmente files mono o stereo, %1 canales non es "
-"supportate."
+"Iste codec supporta solmente 1 ... 255 canales, %1 canales non es supportate."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:137
 #, kde-format
@@ -4766,6 +4746,8 @@ msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
+"Ogg/Vorbis non supporta le modo ABR quando on usa plus de duo canales. "
+"Passar al modo VBR con %1% e continuar?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:158
 #, kde-format
@@ -6124,7 +6106,7 @@ msgstr "Subdispositivo %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:1021 plugins/record/Record-ALSA.cpp:1203
 #, kde-format
 msgid "Virtual / ALSA Plugins"
-msgstr ""
+msgstr "Virtual / ALSA Plugins"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6310,22 +6292,7 @@ msgstr "Methodo o systema usate per reproducer"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:128
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Playback Method:</b><p>Choose a method or system used for\n"
-#| "playback. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, capable of mono and stereo output. Deprecated since linux "
-#| "kernel 2.6, but still wide spread. Might collide with PulseAudio or other "
-#| "sound applications, only one application at a time can use OSS playback !"
-#| "</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware. Might collide with other "
-#| "applications like OSS does, but has a plugin called <i>dmix</i> as a way "
-#| "out.</p>\n"
-#| "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
-#| "Multiple applications can play at the same time.</p>"
+#, kde-format
 msgid ""
 "<b>Playback Method:</b><p>Choose a method or system used for\n"
 "playback. Depending on the compilation options you can select one of the "
@@ -6345,16 +6312,16 @@ msgstr ""
 "reproducer. In dependentia del optiones de compilation tu pote seliger un "
 "del methodos sequente:</p>\n"
 "<p><b><i>OSS (Open Sound System)</i></b>: Le plus vetere implementation de "
-"linux, capabile de exito mono e stereo output. Deprecate desde le kernel de "
-"linux 2.6, ma ancora largemente usate. Poterea collider con PulsAudio o "
-"altere applicationes de sono, solmente un application al vice pote usar "
+"linux, capabile de exito mono e stereo. Deprecate desde le kernel de linux "
+"2.6, ma ancora largemente usate. Poterea collider con PulsAudio o altere "
+"applicationes de sono, solmente un application al vice pote usar "
 "reproduction con OSS !</p>\n"
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supplanta OSS, "
 "supporta plus characteristicas e plus hardware. Poterea collider con altere "
 "applicationes como per OSS does, ma il ha un plugin appellate <i>dmix</i> "
 "como via de exito.</p>\n"
 "<p><b><i>PulseAudio</i></b>: Le modo preferite de facer reproduction in KDE. "
-"Applicationes multiple pote sonar almesme tempore.</p>"
+"Applicationes multiple pote sonar al mesme tempore.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: plugins/playback/PlayBackDlg.ui:137
@@ -6930,16 +6897,7 @@ msgstr "Methodo o systema uste pe registrar"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1028
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Recording method:</b><p>Choose a method or system used for\n"
-#| "recording. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, only capable of mono and stereo input. Deprecated since "
-#| "linux kernel 2.6, but still wide spread.</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware.</p>"
+#, kde-format
 msgid ""
 "<b>Recording method:</b><p>Choose a method or system used for\n"
 "recording. Depending on the compilation options you can select one of the "
@@ -6955,7 +6913,7 @@ msgstr ""
 "methodos sequente:</p>\n"
 "<p><b><i>OSS (Open Sound System)</i></b>: Le plus vetere implementation de "
 "linux, solmente capabile de entrata mono e stereo. Deprecate desde del "
-"kernel de linux 2.6, ma ancor alargemente usate.</p>\n"
+"kernel de linux 2.6, ma ancora largemente usate.</p>\n"
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supplanta OSS, "
 "supporta plus characteristicas e plus hardware.</p>"
 
@@ -6992,10 +6950,9 @@ msgstr "Selec&tiona..."
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0%"
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181

@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-13 00:44+0000\n"
-"PO-Revision-Date: 2020-10-01 21:36+0200\n"
-"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
+"PO-Revision-Date: 2026-09-14 20:10+0200\n"
+"Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -3951,39 +3951,29 @@ msgstr ""
 "'%1'"
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:463
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
-msgstr ""
-"Tento kodek podporuje iba mono alebo stereo súbory, %1 kanály nie sú "
-"podporované."
+msgstr "Tento formát súboru podporuje iba mono, %1 kanály nie sú podporované."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:467
 #: plugins/codec_flac/FlacEncoder.cpp:200
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
 "supported."
 msgstr ""
-"Tento kodek podporuje iba mono alebo stereo súbory, %1 kanály nie sú "
+"Tento formát súboru podporuje najviac %1 kanálov, %2 kanály nie sú "
 "podporované."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:474
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "Nepodarilo sa otvoriť súbor na uloženie."
+msgstr "Nepodarilo sa otvoriť cieľové zariadenie na zápis."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:524
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "Nepodarilo sa otvoriť kódovač FLAC."
+msgstr "Nepodarilo sa inicializovať kódovač libaudiofile."
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
@@ -4026,15 +4016,12 @@ msgid "MPEG layer I audio"
 msgstr "MPEG layer I audio"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:173
-#, fuzzy, kde-format
-#| msgid ""
-#| "The file contains an invalid channel mode 0x%1\n"
-#| "Assuming Mono..."
+#, kde-format
 msgid ""
 "The file contains an invalid channel mode (%1).\n"
 "Assuming Mono..."
 msgstr ""
-"Súbor obsahuje neplatný kanálový režim 0x%1\n"
+"Súbor obsahuje neplatný kanálový režim (%1).\n"
 "Predpokladá sa Mono..."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:549
@@ -4735,15 +4722,11 @@ msgid "End of file before finding all Vorbis headers."
 msgstr "Koniec súboru pred nájdením všetkých hlavičiek Vorbis."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
 msgstr ""
-"Tento kodek podporuje iba mono alebo stereo súbory, %1 kanály nie sú "
-"podporované."
+"Tento kodek podporuje iba 1 ... 255 kanálov, %1 kanály nie sú podporované."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:137
 #, kde-format
@@ -4751,6 +4734,8 @@ msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
+"Ogg/Vorbis nepodporuje režim ABR pri viac ako dvoch kanáloch. Prepnúť na "
+"režim VBR s %1% a pokračovať?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:158
 #, kde-format
@@ -6106,7 +6091,7 @@ msgstr "Podzariadenie %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:1021 plugins/record/Record-ALSA.cpp:1203
 #, kde-format
 msgid "Virtual / ALSA Plugins"
-msgstr ""
+msgstr "Virtuálne / ALSA moduly"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6954,10 +6939,9 @@ msgstr "Vybrať..."
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0%"
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181

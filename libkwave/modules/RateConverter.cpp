@@ -50,7 +50,8 @@ void Kwave::RateConverter::goOn()
 void Kwave::RateConverter::input(Kwave::SampleArray &data)
 {
     // shortcut for ratio == 1:1
-    if ((m_ratio == 1.0) || data.isEmpty()) {
+    if (qFuzzyCompare(m_ratio, 0.0) || qFuzzyCompare(m_ratio, 1.0) ||
+        data.isEmpty()) {
         output(data);
         return;
     }

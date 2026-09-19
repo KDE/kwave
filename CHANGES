@@ -56,6 +56,7 @@
      and IEEE Float (32 bit)
    - suppress notice about changed sample format when switching to A-Law/U-Law
    - improved error handling
+ * stringenter plugin: keep a history with the previous 20 commands
 
 24.12.0 [2024-11-09]
 

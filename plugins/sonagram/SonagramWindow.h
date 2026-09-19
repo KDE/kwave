@@ -25,6 +25,7 @@
 #include <KMainWindow>
 
 class QImage;
+class QLabel;
 
 /** height of the overview widget in a sonagram window [pixels] */
 #define SONAGRAM_OVERVIEW_HEIGHT 30

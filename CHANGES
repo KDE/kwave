@@ -57,6 +57,9 @@
    - suppress notice about changed sample format when switching to A-Law/U-Law
    - improved error handling
  * stringenter plugin: keep a history with the previous 20 commands
+ * sonagram plugin:
+   - implemented loading from file
+   - added commands for loading and saving
 
 24.12.0 [2024-11-09]
 

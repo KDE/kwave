@@ -6862,7 +6862,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters; (default mode)</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -6963,6 +6963,69 @@
 		</variablelist>
 	    </listitem>
 	</varlistentry>
+
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters; (load from file mode)</emphasis></term>
+	    <listitem>
+		<variablelist>
+			<varlistentry>
+				<term><literal>load</literal></term>
+				<listitem>
+					<para>
+					If the first parameter is the word "<literal>load</literal>"
+					then the following parameter will be interpreted as a file name
+					for loading.
+					</para>
+				</listitem>
+			</varlistentry>
+		    <varlistentry>
+			<term><replaceable>filename</replaceable></term>
+			<listitem>
+			    <para>
+				Name of the file to load.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters; (save to file mode)</emphasis></term>
+	    <listitem>
+		<variablelist>
+			<varlistentry>
+				<term><literal>save</literal></term>
+				<listitem>
+					<para>
+					If the first parameter is the word "<literal>save</literal>"
+					then the following parameters will be interpreted as an
+					index of the sonagram and a file name for saving.
+					</para>
+				</listitem>
+			</varlistentry>
+		    <varlistentry>
+			<term><replaceable>index</replaceable></term>
+			<listitem>
+			    <para>
+				The numeric index of the sonagram window that shows the sonagram to be saved.
+				This is an index which is determined from the internal list of currently
+				open sonagram windows, starting from zero.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>filename</replaceable></term>
+			<listitem>
+			    <para>
+				Name of the file to load.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+		</listitem>
+	</varlistentry>
+
     </variablelist>
     </sect1>
 

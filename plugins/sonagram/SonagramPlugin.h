@@ -205,7 +205,31 @@ namespace Kwave
         void createNewImage(const unsigned int width,
             const unsigned int height);
 
+        /**
+         * Loads a sonagram from a file. The file format is currently
+         * a simple bitmap with 8 bits depth.
+         * @param filename name of the file to load
+         * @return 0 if ok, or an error code if failed
+         */
+        int loadFromFile(const QString &filename);
+
+        /**
+         * Saves the data of an opened sonagram window to a file.
+         * The file format is currently a simple bitmap with 8
+         * bits depth.
+         * @param index the index of the window
+         * @param filename name of the file to save
+         * @return 0 if ok, or an error code if failed
+         */
+        int saveToFile(quint64 index, const QString &filename);
+
     private:
+
+        enum {
+            MODE_VIEW = 0,
+            MODE_LOAD,
+            MODE_SAVE
+        } m_mode;
 
         /** the main view of the plugin, a SonagramWindow */
         Kwave::SonagramWindow *m_sonagram_window;

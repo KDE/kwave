@@ -19,6 +19,7 @@
 
 #include <errno.h>
 #include <math.h>
+#include <qnumeric.h>
 #include <stdlib.h>
 
 #include <limits>
@@ -62,6 +63,7 @@ KWAVE_PLUGIN(sonagram, SonagramPlugin)
 Kwave::SonagramPlugin::SonagramPlugin(QObject *parent,
                                       const QVariantList &args)
     :Kwave::Plugin(parent, args),
+     m_mode(MODE_VIEW),
      m_sonagram_window(nullptr),
      m_selection(nullptr),
      m_slices(0), m_fft_points(0),
@@ -130,29 +132,60 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
     QString param;
 
     // evaluate the parameter list
-    if (params.count() != 5) return -EINVAL;
+    // we have different modes:
+    // 1) <fft points>, <window type>, <color>,
+    //    <track changes>, <follow_selection>,
+    //    ["window"|"view"]
+    // 2) "load", <filename>, ["window"|"view"]
+    // 3) "save", <filename>
 
-    param = params[0];
-    m_fft_points = param.toUInt(&ok);
-    if (!ok) return -EINVAL;
-    if (m_fft_points > MAX_FFT_POINTS) m_fft_points = MAX_FFT_POINTS;
+    if ((params.count() >= 2) && (params[0] == _("load"))) {
+        // determine the last used window function
+        QStringList last_params = manager().defaultParams(name());
+        param = last_params[1];
+        m_window_type = Kwave::WindowFunction::findFromName(param);
 
-    param = params[1];
-    m_window_type = Kwave::WindowFunction::findFromName(param);
+        m_mode = MODE_LOAD;
+        m_fft_points       = 0;
+        m_color            = false;
+        m_track_changes    = false;
+        m_follow_selection = false;
+        return 0;
+    } else if ((params.count() >= 3) && (params[0] == _("save"))) {
+        // nothing to do here, saving is done in start()
+        m_mode = MODE_SAVE;
+        return 0;
+    } else if (params.count() >= 5) {
+        m_mode = MODE_VIEW;
 
-    param = params[2];
-    m_color = (param.toUInt(&ok) != 0);
-    if (!ok) return -EINVAL;
+        param = params[0];
+        m_fft_points = param.toUInt(&ok);
+        if (!ok) return -EINVAL;
+        if (m_fft_points > MAX_FFT_POINTS) m_fft_points = MAX_FFT_POINTS;
 
-    param = params[3];
-    m_track_changes = (param.toUInt(&ok) != 0);
-    if (!ok) return -EINVAL;
+        param = params[1];
+        m_window_type = Kwave::WindowFunction::findFromName(param);
 
-    param = params[4];
-    m_follow_selection = (param.toUInt(&ok) != 0);
-    if (!ok) return -EINVAL;
+        param = params[2];
+        m_color = (param.toUInt(&ok) != 0);
+        if (!ok) return -EINVAL;
 
-    return 0;
+        param = params[3];
+        m_track_changes = (param.toUInt(&ok) != 0);
+        if (!ok) return -EINVAL;
+
+        param = params[4];
+        m_follow_selection = (param.toUInt(&ok) != 0);
+        if (!ok) return -EINVAL;
+
+        return 0;
+    } else {
+        qWarning("SonagramPlugin::interpreteParameters(): "
+                 "invalid parameter list: %s",
+                 DBG(params.join(_(", "))));
+    }
+
+    return -EINVAL;
 }
 
 //***************************************************************************
@@ -174,72 +207,95 @@ int Kwave::SonagramPlugin::start(QStringList &params)
 
     // create an empty sonagram window
     m_sonagram_window = new(std::nothrow)
-        Kwave::SonagramWindow(parentWidget(), signalName());
+        Kwave::SonagramWindow(parentWidget());
     Q_ASSERT(m_sonagram_window);
     if (!m_sonagram_window) return -ENOMEM;
+    if (m_mode == MODE_LOAD) {
+        m_sonagram_window->setWindowTitle(
+            i18n("Sonagram loaded from %1", params[1]));
+    } else {
+        m_sonagram_window->setName(signalName());
+    }
 
     // if the signal closes, close the sonagram window too
     QObject::connect(&manager(), SIGNAL(sigClosed()),
                      m_sonagram_window, SLOT(close()));
 
-    // get the current selection
-    QVector<unsigned int> selected_channels;
-    sample_index_t offset = 0;
-    sample_index_t length = 0;
-    length = selection(&selected_channels, &offset, nullptr, true);
+    // forward the (menu) commands to the plugin
+    QObject::connect(m_sonagram_window, SIGNAL(sigCommand(QString)),
+                     this, SLOT(emitCommand(QString)));
 
-    // abort if nothing is selected
-    if (!length || selected_channels.isEmpty())
-        return -EINVAL;
+    if (m_mode == MODE_VIEW) {
+        // get the current selection
+        QVector<unsigned int> selected_channels;
+        sample_index_t offset = 0;
+        sample_index_t length = 0;
+        length = selection(&selected_channels, &offset, nullptr, true);
 
-    // calculate the number of slices (width of image)
-    m_slices = Kwave::toUint(ceil(static_cast<double>(length) /
-                                  static_cast<double>(m_fft_points)));
-    if (m_slices > MAX_SLICES) m_slices = MAX_SLICES;
+        // abort if nothing is selected
+        if (!length || selected_channels.isEmpty())
+            return -EINVAL;
 
-    /* limit selection to INT_MAX samples (limitation of the cache index) */
-    if ((length / m_fft_points) >= SAMPLE_INDEX_MAX) {
-        Kwave::MessageBox::error(parentWidget(),
-                                 i18n("File or selection too large"));
-        return -EFBIG;
-    }
+        // calculate the number of slices (width of image)
+        m_slices = Kwave::toUint(ceil(static_cast<double>(length) /
+                                    static_cast<double>(m_fft_points)));
+        if (m_slices > MAX_SLICES) m_slices = MAX_SLICES;
 
-    // create a selection tracker
-    m_selection = new(std::nothrow) Kwave::SelectionTracker(
-        &sig_mgr, offset, length, &selected_channels);
-    Q_ASSERT(m_selection);
-    if (!m_selection) return -ENOMEM;
+        /* limit selection to INT_MAX samples (limitation of the cache index) */
+        if ((length / m_fft_points) >= SAMPLE_INDEX_MAX) {
+            Kwave::MessageBox::error(parentWidget(),
+                                    i18n("File or selection too large"));
+            return -EFBIG;
+        }
 
-    connect(m_selection, SIGNAL(sigTrackInserted(quint64)),
-            this,        SLOT(slotTrackInserted(quint64)));
-    connect(m_selection, SIGNAL(sigTrackDeleted(quint64)),
-            this,        SLOT(slotTrackDeleted(quint64)));
-    connect(
-        m_selection,
-        SIGNAL(sigInvalidated(quint64,sample_index_t,sample_index_t)),
-        this,
-        SLOT(slotInvalidated(quint64,sample_index_t,sample_index_t))
-    );
+        // create a selection tracker
+        m_selection = new(std::nothrow) Kwave::SelectionTracker(
+            &sig_mgr, offset, length, &selected_channels);
+        Q_ASSERT(m_selection);
+        if (!m_selection) return -ENOMEM;
 
-    // create a new empty image
-    createNewImage(m_slices, m_fft_points / 2);
+        connect(m_selection, SIGNAL(sigTrackInserted(quint64)),
+                this,        SLOT(slotTrackInserted(quint64)));
+        connect(m_selection, SIGNAL(sigTrackDeleted(quint64)),
+                this,        SLOT(slotTrackDeleted(quint64)));
+        connect(
+            m_selection,
+            SIGNAL(sigInvalidated(quint64,sample_index_t,sample_index_t)),
+            this,
+            SLOT(slotInvalidated(quint64,sample_index_t,sample_index_t))
+        );
 
-    // set the overview
-    m_overview_cache = new(std::nothrow)
-        Kwave::OverViewCache(sig_mgr, offset, length, &selected_channels);
-    Q_ASSERT(m_overview_cache);
-    if (!m_overview_cache) return -ENOMEM;
+        // create a new empty image
+        createNewImage(m_slices, m_fft_points / 2);
 
-    refreshOverview(); // <- this needs the m_overview_cache
+        // set the overview
+        m_overview_cache = new(std::nothrow)
+            Kwave::OverViewCache(sig_mgr, offset, length, &selected_channels);
+        Q_ASSERT(m_overview_cache);
+        if (!m_overview_cache) return -ENOMEM;
 
-    if (m_track_changes) {
-        // stay informed about changes in the signal
-        connect(m_overview_cache, SIGNAL(changed()),
-                this, SLOT(refreshOverview()));
-    } else {
-        // overview cache is no longer needed
-        delete m_overview_cache;
-        m_overview_cache = nullptr;
+        refreshOverview(); // <- this needs the m_overview_cache
+
+        if (m_track_changes && (m_mode == MODE_VIEW)) {
+            // stay informed about changes in the signal
+            connect(m_overview_cache, SIGNAL(changed()),
+                    this, SLOT(refreshOverview()));
+        } else {
+            // overview cache is no longer needed
+            delete m_overview_cache;
+            m_overview_cache = nullptr;
+        }
+    } else if ((m_mode == MODE_LOAD) && (params.count() >= 2)) {
+        // load the sonagram from a file
+        result = loadFromFile(params[1]);
+        if (result) return result;
+    } else if ((m_mode == MODE_SAVE) && (params.count() >= 3)) {
+        // save the sonagram to a file
+        bool ok = false;
+        quint64 id = params[1].toULongLong(&ok);
+        if (!ok) return -EINVAL;
+        result = saveToFile(id, params[2]);
+        return result;
     }
 
     // connect all needed signals
@@ -254,7 +310,7 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     m_sonagram_window->setRate(signalRate());
     m_sonagram_window->show();
 
-    if (m_track_changes) {
+    if (m_track_changes && (m_mode == MODE_VIEW)) {
         QObject::connect(static_cast<QObject*>(&(manager())),
             SIGNAL(sigSignalNameChanged(QString)),
             m_sonagram_window, SLOT(setName(QString)));
@@ -616,6 +672,76 @@ void Kwave::SonagramPlugin::windowDestroyed()
     m_overview_cache = nullptr;
 
     release();
+}
+
+//***************************************************************************
+int Kwave::SonagramPlugin::loadFromFile(const QString &filename)
+{
+    qDebug("loading %s", DBG(filename));
+    if (filename.isEmpty()) return -EINVAL;
+
+    QImage image(filename);
+    if (image.isNull()) return -ENOENT;
+
+    m_color      = !image.isGrayscale();
+    m_slices     = image.width();
+    m_fft_points = image.height() * 2;
+
+    // try to find out the sample rate
+    if (m_sonagram_window) {
+        // try to find it in file meta data
+        bool ok = false;
+        double rate = m_image.text(_("x-kwave/sample-rate")).toDouble(&ok);
+        if (!ok) {
+            // fallback #1: use dpi setting
+            if (m_image.dotsPerMeterX() == m_image.dotsPerMeterY()) {
+                rate = m_image.dotsPerMeterX();
+                ok = !qFuzzyIsNull(rate) && (rate >= 8000.0);
+            }
+        }
+        if (!ok) {
+            // fallback #2: use current signal
+            Kwave::SignalManager &mgr = signalManager();
+            rate = mgr.rate();
+            ok = !qFuzzyIsNull(rate) && (rate >= 8000.0);
+        }
+        if (!ok) {
+            // fallback #3: assume some default rate
+            rate = 44100.0;
+        }
+        m_sonagram_window->setRate(rate);
+    }
+
+    m_image = std::move(image);
+    return 0;
+}
+
+//***************************************************************************
+int Kwave::SonagramPlugin::saveToFile(quint64 index, const QString &filename)
+{
+    qDebug("saving sonagram #%llu to %s", index, DBG(filename));
+    if (filename.isEmpty()) return -EINVAL;
+
+    // find the sonagram window with the given index
+    Kwave::SonagramWindow *win = Kwave::SonagramWindow::fromIndex(index);
+    if (win == nullptr) return -EINVAL;
+
+    // get a copy of the image
+    QImage image(win->image());
+
+    // attach some meta data to the image for loading it later
+    double rate = win->rate();
+    if (qFuzzyIsNull(rate) || (rate < 8000.0))
+        rate = signalRate();
+    if (!qFuzzyIsNull(rate) && (rate >= 8000.0)) {
+        // try to save as file meta data
+        image.setText(_("x-kwave/sample-rate"), QString::number(rate));
+        // also save as dpi as fallback
+        image.setDotsPerMeterX(Kwave::toInt(rate));
+        image.setDotsPerMeterY(Kwave::toInt(rate));
+    }
+
+    return (image.save(filename, "BMP")) ? 0 : -EIO;
 }
 
 //***************************************************************************

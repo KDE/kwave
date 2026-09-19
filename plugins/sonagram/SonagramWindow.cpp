@@ -23,6 +23,7 @@
 #include <QBitmap>
 #include <QImage>
 #include <QLabel>
+#include <QList>
 #include <QMenuBar>
 #include <QPointer>
 #include <QLayout>
@@ -80,8 +81,11 @@ static const char *background[] = {
 "..........##########"
 };
 
+/** global list with all sonagram windows */
+static QList<Kwave::SonagramWindow *> g_windows;
+
 //****************************************************************************
-Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
+Kwave::SonagramWindow::SonagramWindow(QWidget *parent)
     :KMainWindow(parent),
      m_status_time(nullptr),
      m_status_freq(nullptr),
@@ -96,7 +100,6 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
      m_yscale(nullptr),
      m_refresh_timer()
 {
-
     for (unsigned int i = 0; i < 256; ++i) { m_histogram[i] = 0; }
 
     QWidget *mainwidget = new(std::nothrow) QWidget(this);
@@ -120,9 +123,11 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     Q_ASSERT(file);
     if (!file) return ;
 
-//    bar->addAction(i18n("&Spectral Data"), spectral);
-//    file->addAction(i18n("&Import from Bitmap..."), this, SLOT(load()));
-
+    file->addAction(
+        QIcon::fromTheme(_("document-import")),
+        i18n("&Import from Bitmap..."),
+        this, SLOT(load())
+    );
     file->addAction(
         QIcon::fromTheme(_("document-export")),
         i18n("&Export to Bitmap..."),
@@ -187,8 +192,6 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     connect(&m_refresh_timer, SIGNAL(timeout()),
             this, SLOT(refresh_view()));
 
-    setName(name);
-
     top_layout->setRowStretch(0, 100);
     top_layout->setRowStretch(1, 0);
     top_layout->setRowStretch(2, 0);
@@ -207,7 +210,26 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     if ((h * 5 / 3) < w) h = (w * 3) / 5;
     resize(w, h);
 
+    g_windows.push_back(this);
     show();
+}
+
+//****************************************************************************
+Kwave::SonagramWindow::~SonagramWindow()
+{
+    g_windows.removeAll(this);
+}
+
+//****************************************************************************
+quint64 Kwave::SonagramWindow::index() const
+{
+    return g_windows.indexOf(this);
+}
+
+//****************************************************************************
+Kwave::SonagramWindow *Kwave::SonagramWindow::fromIndex(quint64 index)
+{
+    return (qsizetype(index) < g_windows.size()) ? g_windows[index] : nullptr;
 }
 
 //****************************************************************************
@@ -230,7 +252,11 @@ void Kwave::SonagramWindow::save()
     dlg->setWindowTitle(i18n("Save Sonagram"));
     if (dlg->exec() == QDialog::Accepted) {
         QString filename = dlg->selectedUrl().toLocalFile();
-        if (!filename.isEmpty()) m_image.save(filename, "BMP");
+        if (!filename.isEmpty()) {
+            emit sigCommand(_("plugin:execute(sonagram,save,") +
+                            QString::number(index()) + _(",") +
+                            filename + _(")"));
+        }
     }
     delete dlg;
 }
@@ -238,42 +264,21 @@ void Kwave::SonagramWindow::save()
 //****************************************************************************
 void Kwave::SonagramWindow::load()
 {
-//    if (image) {
-//      QString filename = QFileDialog::getOpenFileName(this, QString(),
-//                                                      "", "*.bmp");
-//      printf ("loading %s\n", filename.local8Bit().data());
-//      if (!filename.isNull()) {
-//          printf ("loading %s\n", filename.local8Bit().data());
-//          QImage *newimage = new QImage (filename);
-//          Q_ASSERT(newimage);
-//          if (newimage) {
-//              if ((image->height() == newimage->height())
-//                  && (image->width() == newimage->width())) {
-//
-//                  for (int i = 0; i < x; i++) {
-//                      for (int j = 0; j < points / 2; j++) {
-//                          if (data[i]) {
-//                              // data[i][j].real;
-//                          }
-//
-//                      }
-//                  }
-//
-//                  delete image;
-//                  image = newimage;
-//                  view->setImage (image);
-//              } else {
-//                  char buf[128];
-//                  delete newimage;
-//                  snprintf(buf, sizeof(buf), i18n("Bitmap must be %dx%d"),
-//                           image->width(), image->height());
-//                  KMsgBox::message (this, "Info", buf, 2);
-//              }
-//          } else
-//              KMsgBox::message (this, i18n("Error"),
-//                                i18n("Could not open Bitmap"), 2);
-//      }
-//    }
+    QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
+        _("kfiledialog:///kwave_sonagram_import"),
+        Kwave::FileDialog::OpenFile, QString(),
+        this, QUrl(), _("*.bmp")
+    );
+    if (!dlg) return;
+    dlg->setWindowTitle(i18n("Load Sonagram"));
+    if (dlg->exec() == QDialog::Accepted) {
+        QString filename = dlg->selectedUrl().toLocalFile();
+        if (!filename.isEmpty()) {
+            emit sigCommand(_("plugin:execute(sonagram,load,") +
+                            filename + _(")"));
+        }
+    }
+    delete dlg;
 }
 
 //****************************************************************************
@@ -473,14 +478,16 @@ void Kwave::SonagramWindow::toSignal()
 void Kwave::SonagramWindow::translatePixels2TF(const QPoint p,
                                                double *ms, double *f)
 {
+    if (qFuzzyIsNull(m_rate)) {
+        if (ms) *ms = 0.0;
+        if (f)  *f  = 0.0;
+    }
+
     if (ms) {
-        // get the time coordinate [0...(N_samples-1)* (1/f_sample) ]
-        if (!qFuzzyIsNull(m_rate)) {
-            *ms = static_cast<double>(p.x()) *
-                  static_cast<double>(m_points) * 1000.0 / m_rate;
-        } else {
-            *ms = 0;
-        }
+        // get the time coordinate [0...(N_samples-1) * (1/f_sample) ]
+        double t = static_cast<double>(p.x()) *
+                   static_cast<double>(m_points) * 1000.0 / m_rate;
+        *ms = (!qIsNaN(t) && !qIsInf(t)) ? t : 0.0;
     }
 
     if (f) {
@@ -488,15 +495,16 @@ void Kwave::SonagramWindow::translatePixels2TF(const QPoint p,
         double py = (m_points >= 2) ? (m_points / 2) - 1 : 0;
         double y = py - p.y();
         if (y < 0) y = 0;
-        *f = y / py * (m_rate / 2.0);
+        double freq = !qFuzzyIsNull(py) ? (y / py * (m_rate / 2.0)) : 0.0;
+        *f = (!qIsNaN(freq) && !qIsInf(freq)) ? freq : 0.0;
     }
 }
 
 //***************************************************************************
 void Kwave::SonagramWindow::updateScaleWidgets()
 {
-    double ms;
-    double f;
+    double ms = 0.0;
+    double f  = 0.0;
 
     translatePixels2TF(QPoint(m_image.width() - 1, 0), &ms, &f);
 
@@ -531,7 +539,6 @@ void Kwave::SonagramWindow::cursorPosChanged(const QPoint pos)
     QStatusBar *status = statusBar();
     Q_ASSERT(status);
     Q_ASSERT(m_points);
-    Q_ASSERT(!qFuzzyIsNull(m_rate));
     if (!status) return;
     if (m_image.isNull()) return;
     if (!m_points) return;

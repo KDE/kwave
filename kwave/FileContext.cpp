@@ -119,7 +119,8 @@ void Kwave::FileContext::use()
 //***************************************************************************
 void Kwave::FileContext::release()
 {
-    Q_ASSERT(int(m_use_count) > 0);
+    Q_ASSERT(int(m_use_count) >= 0);
+    if (int(m_use_count) == 0) return;
     if (m_use_count.deref() == false) {
         disconnect();
         deleteLater();

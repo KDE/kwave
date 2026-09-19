@@ -49,15 +49,24 @@ namespace Kwave
         /**
          * Constructor.
          * @param parent the parent widget
-         * @param name reference to the initial name of the signal (used for
-         *        setting the window title, might be an empty string)
          */
-        SonagramWindow(QWidget *parent, const QString &name);
+        SonagramWindow(QWidget *parent);
 
         /**
          * Destructor.
          */
-        ~SonagramWindow() override = default;
+        ~SonagramWindow() override;
+
+        /** Get the index of this instance */
+        quint64 index() const;
+
+        /**
+         * Get the instance of a sonagram window from index
+         * @param index zero based index within the list of open
+         *              sonagram windows
+         * @return the SonagramWindow corresponding to the index or nullptr
+         */
+        static SonagramWindow *fromIndex(quint64 index);
 
         /**
          * Sets a new sonagram image to display.
@@ -79,6 +88,23 @@ namespace Kwave
          * @param slice array with the byte data
          */
         void insertSlice(const unsigned int slice_nr, const QByteArray &slice);
+
+        /**
+         * Returns the sample rate.
+         * @return the sample rate in samples per second
+         */
+        double rate() const { return m_rate; }
+
+        /**
+         * Returns the image, needed for saving
+         * @return the current QImage
+         */
+         const QImage &image() const { return m_image; }
+
+    signals:
+
+        /** forward a sigCommand to the next layer */
+        void sigCommand(const QString &command);
 
     public slots:
 

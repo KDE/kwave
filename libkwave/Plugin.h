@@ -258,9 +258,6 @@ namespace Kwave
          */
         int execute(QStringList &params);
 
-        /** emits a sigCommand() */
-        void emitCommand(const QString &command);
-
         /** increments the usage counter */
         void use();
 
@@ -328,6 +325,12 @@ namespace Kwave
 
         /** decrements the usage counter */
         void release();
+
+    protected slots:
+
+        /** emits a sigCommand() */
+        void emitCommand(const QString &command);
+
 
     private slots:
 

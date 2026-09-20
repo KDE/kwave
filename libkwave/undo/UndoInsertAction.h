@@ -22,6 +22,7 @@
 
 #include <QList>
 #include <QObject>
+#include <QPointer>
 #include <QString>
 #include <QVector>
 
@@ -48,7 +49,7 @@ namespace Kwave
          * @param offset index of the first inserted sample
          * @param length number of inserted samples
          */
-        UndoInsertAction(QWidget *parent_widget,
+        UndoInsertAction(QPointer<QWidget> parent_widget,
                          const QVector<unsigned int> &track_list,
                          sample_index_t offset,
                          sample_index_t length);
@@ -91,7 +92,7 @@ namespace Kwave
     protected:
 
         /** parent widget for showing error messages */
-        QWidget *m_parent_widget;
+        QPointer<QWidget> m_parent_widget;
 
         /** list of affected tracks */
         QVector<unsigned int> m_track_list;

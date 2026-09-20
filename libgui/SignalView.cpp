@@ -48,9 +48,8 @@
 //***************************************************************************
 //***************************************************************************
 Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
-                              Kwave::SignalManager *signal_manager,
-                              Location preferred_location,
-                              int track)
+            QPointer<Kwave::SignalManager> &signal_manager,
+            Location preferred_location, int track)
     :QWidget(parent),
      m_controls(controls),
      m_signal_manager(signal_manager),

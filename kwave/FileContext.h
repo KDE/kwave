@@ -37,7 +37,6 @@ class QSize;
 class QTextStream;
 class QWidget;
 
-
 namespace Kwave
 {
 
@@ -70,7 +69,7 @@ namespace Kwave
          * @param top_widget pointer to the toplevel widget
          * @return true if successful
          */
-        bool init(Kwave::TopWidget *top_widget);
+        bool init(QPointer<Kwave::TopWidget> top_widget);
 
         /**
          * create a main widget, within the MDI area
@@ -84,7 +83,7 @@ namespace Kwave
          * migrate this context to a different toplevel widget
          * @param top_widget pointer to the new toplevel widget
          */
-        void setParent(Kwave::TopWidget *top_widget);
+        void setParent(QPointer<Kwave::TopWidget> top_widget);
 
         /** returns a reference to the application instance */
         Kwave::App           &app() const { return m_application; }
@@ -95,10 +94,10 @@ namespace Kwave
         QWidget              *mainWidget() const;
 
         /** returns a pointer to the signal manager of this context */
-        Kwave::SignalManager *signalManager() const;
+        QPointer<Kwave::SignalManager> signalManager() const;
 
         /** returns a pointer to the plugin manager of this context */
-        Kwave::PluginManager *pluginManager() const;
+        QPointer<Kwave::PluginManager> pluginManager() const;
 
         /**
          * Returns a pointer to a GUI element that receives zoom info

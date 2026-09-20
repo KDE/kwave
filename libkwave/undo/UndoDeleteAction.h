@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QList>
+#include <QPointer>
 #include <QString>
 #include <QVector>
 
@@ -48,7 +49,7 @@ namespace Kwave
          * @param offset index of the first deleted sample
          * @param length number of samples to delete
          */
-        UndoDeleteAction(QWidget *parent_widget,
+        UndoDeleteAction(QPointer<QWidget> parent_widget,
                          const QVector<unsigned int> &track_list,
                          sample_index_t offset, sample_index_t length);
 
@@ -85,7 +86,7 @@ namespace Kwave
     private:
 
         /** parent widget for showing error messages */
-        QWidget *m_parent_widget;
+        QPointer<QWidget> m_parent_widget;
 
         /** storage for all deleted stripes */
         QList<Kwave::Stripe::List> m_stripes;

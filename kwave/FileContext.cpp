@@ -133,9 +133,10 @@ bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
     Q_ASSERT(!m_main_widget);
 
     // create the main widget
-    m_main_widget = new(std::nothrow) Kwave::MainWidget(
-        m_top_widget, *this, preferred_size
-    );
+    m_main_widget = QPointer<Kwave::MainWidget>(
+        new(std::nothrow) Kwave::MainWidget(
+            m_top_widget, *this, preferred_size
+    ));
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return false;
     if (!(m_main_widget->isOK())) {
@@ -161,7 +162,7 @@ bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
 }
 
 //***************************************************************************
-bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
+bool Kwave::FileContext::init(QPointer<Kwave::TopWidget> top_widget)
 {
     Kwave::FileContext::UsageGuard _keep(this);
 
@@ -169,32 +170,35 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     Q_ASSERT(m_top_widget);
     if (!m_top_widget) return false;
 
-    m_signal_manager = new(std::nothrow)
-        Kwave::SignalManager(m_top_widget);
+    m_signal_manager = QPointer<Kwave::SignalManager>(new(std::nothrow)
+        Kwave::SignalManager(m_top_widget));
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return false;
 
-    m_plugin_manager = new(std::nothrow)
-        Kwave::PluginManager(m_top_widget, *m_signal_manager);
+    m_plugin_manager = QPointer<Kwave::PluginManager>(new(std::nothrow)
+        Kwave::PluginManager(m_top_widget, *m_signal_manager));
     Q_ASSERT(m_plugin_manager);
     if (!m_plugin_manager) return false;
 
     // connect the signal manager
-    connect(m_signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
-            this,             SLOT(metaDataChanged(Kwave::MetaDataList)));
+    connect(m_signal_manager.data(),
+            SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            this,
+            SLOT(metaDataChanged(Kwave::MetaDataList)));
     connect(&(m_signal_manager->selection()),
             SIGNAL(changed(sample_index_t,sample_index_t)),
             this,
             SLOT(selectionChanged(sample_index_t,sample_index_t)));
-    connect(m_signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
-                                                     const QString&)),
-            this, SLOT(setUndoRedoInfo(QString,QString)));
-    connect(m_signal_manager, SIGNAL(sigModified()),
-            this,             SLOT(modifiedChanged()));
+    connect(m_signal_manager.data(),
+            SIGNAL(sigUndoRedoInfo(const QString&, const QString&)),
+            this,
+            SLOT(setUndoRedoInfo(QString,QString)));
+    connect(m_signal_manager.data(), SIGNAL(sigModified()),
+            this,                    SLOT(modifiedChanged()));
 
     // connect the plugin manager
-    connect(m_plugin_manager, SIGNAL(sigCommand(QString)),
-            this,             SLOT(executeCommand(QString)));
+    connect(m_plugin_manager.data(), SIGNAL(sigCommand(QString)),
+            this,                    SLOT(executeCommand(QString)));
 
     // connect the playback controller
     connect(&(m_signal_manager->playbackController()),
@@ -241,7 +245,7 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     if (!m_plugin_manager->loadAllPlugins()) {
         statusBarMessage(i18n("Failed"), 1000);
         QApplication::restoreOverrideCursor();
-        Kwave::MessageBox::error(top_widget,
+        Kwave::MessageBox::error(top_widget.data(),
             i18n("Kwave has not been properly installed. "\
                  "No plugins found!")
         );
@@ -254,16 +258,18 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
 }
 
 //***************************************************************************
-void Kwave::FileContext::setParent(Kwave::TopWidget *top_widget)
+void Kwave::FileContext::setParent(QPointer<Kwave::TopWidget> top_widget)
 {
     if (m_top_widget) {
-        Kwave::TopWidget *old = m_top_widget;
+        QPointer<Kwave::TopWidget> old(m_top_widget);
 
         // disconnect all old signal/slot relationships
         if (m_plugin_manager)
-            disconnect(m_plugin_manager, SIGNAL(sigProgress(QString)),
-                       old,              SLOT(showInSplashSreen(QString)));
-        disconnect(old,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
+            disconnect(m_plugin_manager.data(), SIGNAL(sigProgress(QString)),
+                       old.data(),
+                       SLOT(showInSplashSreen(QString)));
+        disconnect(old.data(),
+                   SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
                    this, SLOT(contextSwitched(Kwave::FileContext*)));
 
         if (m_signal_manager) m_signal_manager->setParentWidget(nullptr);
@@ -277,13 +283,13 @@ void Kwave::FileContext::setParent(Kwave::TopWidget *top_widget)
     m_top_widget = top_widget;
 
     if (m_top_widget) {
-        QWidget *top = m_top_widget;
+        QWidget *top = m_top_widget.data();
 
         connect(top,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
                 this, SLOT(contextSwitched(Kwave::FileContext*)));
         if (m_plugin_manager)
-            connect(m_plugin_manager, SIGNAL(sigProgress(QString)),
-                    top,              SLOT(showInSplashSreen(QString)));
+            connect(m_plugin_manager.data(), SIGNAL(sigProgress(QString)),
+                    top,                     SLOT(showInSplashSreen(QString)));
 
         if (m_signal_manager) m_signal_manager->setParentWidget(m_top_widget);
         if (m_plugin_manager) m_plugin_manager->setParentWidget(m_top_widget);
@@ -298,14 +304,14 @@ QWidget *Kwave::FileContext::mainWidget() const
 }
 
 //***************************************************************************
-Kwave::SignalManager *Kwave::FileContext::signalManager() const
+QPointer<Kwave::SignalManager> Kwave::FileContext::signalManager() const
 {
     Q_ASSERT(m_signal_manager);
     return m_signal_manager;
 }
 
 //***************************************************************************
-Kwave::PluginManager *Kwave::FileContext::pluginManager() const
+QPointer<Kwave::PluginManager> Kwave::FileContext::pluginManager() const
 {
     return m_plugin_manager;
 }
@@ -775,7 +781,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
         // NOTE: this could theoretically also be a command that modifies
         //       or even deletes the current context!
         result = EAGAIN;
-        const Kwave::FileContext *current_ctx = (m_top_widget) ?
+        const QSharedPointer<Kwave::FileContext> current_ctx = (m_top_widget) ?
             m_top_widget->currentContext() : nullptr;
         if (current_ctx && (current_ctx != this))
             result = m_top_widget->forwardCommand(line);
@@ -987,10 +993,11 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
         }
 
         QString filter = Kwave::CodecManager::encodingFilter();
-        QScopedPointer<Kwave::FileDialog> dlg(new(std::nothrow)Kwave::FileDialog(
-            _("kfiledialog:///kwave_save_as"),
-            Kwave::FileDialog::SaveFile,
-            filter, m_top_widget, current_url, extension
+        QScopedPointer<Kwave::FileDialog> dlg(new(std::nothrow)
+            Kwave::FileDialog(
+                _("kfiledialog:///kwave_save_as"),
+                Kwave::FileDialog::SaveFile,
+                filter, m_top_widget, current_url, extension
         ));
         if (!dlg) return 0;
         dlg->setWindowTitle(i18n("Save As"));

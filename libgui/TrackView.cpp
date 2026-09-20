@@ -45,8 +45,8 @@
 
 //***************************************************************************
 Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
-                            Kwave::SignalManager *signal_manager,
-                            Kwave::Track *track)
+            QPointer<Kwave::SignalManager> &signal_manager,
+            Kwave::Track *track)
     :Kwave::SignalView(parent, controls, signal_manager,
                        Kwave::SignalView::AboveTrackTop),
      m_pixmap(*track),
@@ -103,7 +103,7 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
    }
 
     // get informed about meta data changes
-    connect(signal_manager, SIGNAL(
+    connect(signal_manager.data(), SIGNAL(
             sigMetaDataChanged(Kwave::MetaDataList)),
             this,           SLOT(refreshMarkersLayer()),
             Qt::QueuedConnection);
@@ -168,8 +168,7 @@ void Kwave::TrackView::setVerticalZoom(double zoom)
 //***************************************************************************
 QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
 {
-    QSharedPointer<Kwave::ViewItem> item =
-        QSharedPointer<Kwave::ViewItem>(nullptr);
+    QSharedPointer<Kwave::ViewItem> item(nullptr);
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return item;
 

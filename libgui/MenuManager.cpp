@@ -53,8 +53,7 @@ Kwave::MenuManager::MenuManager(QWidget *parent, QMenuBar &bar)
     if (m_menu_root) {
         connect(
             m_menu_root, SIGNAL(sigCommand(QString)),
-            this, SIGNAL(sigMenuCommand(QString)),
-            Qt::QueuedConnection
+            this, SIGNAL(sigMenuCommand(QString))
         );
     }
 
@@ -133,13 +132,9 @@ Kwave::MenuManager::MenuManager(QWidget *parent, QMenuBar &bar)
 }
 
 //***************************************************************************
-int Kwave::MenuManager::executeCommand(const QString &command)
+int Kwave::MenuManager::executeCommand(Kwave::Parser &parser)
 {
-
-    Q_ASSERT(command.length());
     if (!m_menu_root) return -EINVAL; // makes no sense if no menu root
-
-    Kwave::Parser parser(command);
 
     QKeySequence shortcut;  // keyboard shortcut (optional)
     QString id ;            // string id (optional)

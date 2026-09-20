@@ -27,6 +27,7 @@
 #include <QObject>
 #include <QPointer>
 #include <QPolygon>
+#include <QPointer>
 #include <QSharedPointer>
 #include <QSize>
 #include <QString>
@@ -77,7 +78,7 @@ namespace Kwave
          *              not related to a specific track (default)
          */
         SignalView(QWidget *parent, QWidget *controls,
-                   Kwave::SignalManager *signal_manager,
+                   QPointer<Kwave::SignalManager> &signal_manager,
                    Location preferred_location,
                    int track = -1);
 
@@ -98,7 +99,7 @@ namespace Kwave
         }
 
         /** returns the associated signal manager */
-        inline Kwave::SignalManager *signalManager() const {
+        inline QPointer<Kwave::SignalManager> signalManager() const {
             return m_signal_manager;
         }
 
@@ -334,7 +335,7 @@ namespace Kwave
         QWidget *m_controls;
 
         /** the signal manager */
-        Kwave::SignalManager *m_signal_manager;
+        QPointer<Kwave::SignalManager> m_signal_manager;
 
         /** the preferred location, as per construction */
         Location m_preferred_location;

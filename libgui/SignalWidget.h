@@ -28,6 +28,7 @@
 #include <QList>
 #include <QObject>
 #include <QPainter>
+#include <QPointer>
 #include <QPixmap>
 #include <QPointer>
 #include <QPolygon>
@@ -60,7 +61,7 @@ namespace Kwave
      * views that belong to a signal.
      */
     class LIBKWAVEGUI_EXPORT SignalWidget: public QWidget,
-                                      public Kwave::ViewManager
+                                           public Kwave::ViewManager
     {
         Q_OBJECT
 
@@ -74,7 +75,7 @@ namespace Kwave
          * @param lower_dock layout of the lower docking area
          */
         SignalWidget(QWidget *parent,
-                     Kwave::SignalManager *signal_manager,
+                     QPointer<Kwave::SignalManager> signal_manager,
                      QVBoxLayout *upper_dock, QVBoxLayout *lower_dock);
 
         /** Destructor */
@@ -245,7 +246,7 @@ namespace Kwave
     private:
 
         /** the signal manager of the corresponding context */
-        Kwave::SignalManager *m_signal_manager;
+        QPointer<Kwave::SignalManager> m_signal_manager;
 
         /**
          * list of signal views. Contains one entry for each signal view,
@@ -253,7 +254,7 @@ namespace Kwave
          * and at the end the ones from m_lower_dock.
          * The list is sorted in the order of the appearance in the GUI.
          */
-        QList< QPointer<Kwave::SignalView> > m_views;
+        QList<QPointer<Kwave::SignalView>> m_views;
 
         /** the central layout with the views */
         QGridLayout m_layout;

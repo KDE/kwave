@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-
 #include <math.h>
 
 #include <QApplication>
@@ -76,7 +75,8 @@ Kwave::OverViewWidget::OverViewWidget(Kwave::SignalManager &signal,
      m_signal_length(0), m_selection_start(0), m_selection_length(0),
      m_cursor_position(SAMPLE_INDEX_MAX), m_last_offset(0),
      m_cache(signal, 0, 0, nullptr), m_repaint_timer(), m_labels(),
-     m_worker_thread(this)
+     m_worker_thread(this),
+     m_lock()
 {
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
@@ -257,6 +257,7 @@ void Kwave::OverViewWidget::metaDataChanged(Kwave::MetaDataList meta)
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
+    QMutexLocker<QMutex> lock(&m_lock);
     m_labels = Kwave::LabelList(meta);
 
     // only re-start the repaint timer, this hides some GUI update artifacts
@@ -399,26 +400,34 @@ void Kwave::OverViewWidget::calculateBitmap()
 
     // draw labels
     int last_label_pos = width + 1;
-    for (const Kwave::Label &label : m_labels) {
-        sample_index_t pos = label.pos();
-        int x = Kwave::toInt(static_cast<double>(pos) * scale);
+    {
+        QMutexLocker<QMutex> lock(&m_lock);
 
-        // position must differ from the last one, otherwise we
-        // would wipe out the last one with XOR mode
-        if (x == last_label_pos) continue;
+        for (const Kwave::Label &label : m_labels) {
+            sample_index_t pos = label.pos();
+            int x = Kwave::toInt(static_cast<double>(pos) * scale);
 
-        // draw a line for each label
-        p.setPen(QPen(Qt::cyan));
-        p.setCompositionMode(QPainter::CompositionMode_Exclusion);
-        p.drawLine(x, 0, x, height);
-        drawMark(p, x, height, Qt::cyan);
+            // position must differ from the last one, otherwise we
+            // would wipe out the last one with XOR mode
+            if (x == last_label_pos) continue;
 
-        last_label_pos = x;
+            // draw a line for each label
+            p.setPen(QPen(Qt::cyan));
+            p.setCompositionMode(QPainter::CompositionMode_Exclusion);
+            p.drawLine(x, 0, x, height);
+            drawMark(p, x, height, Qt::cyan);
+
+            last_label_pos = x;
+        }
     }
 
     // draw playback position
-    if (m_cursor_position != SAMPLE_INDEX_MAX) {
-        const sample_index_t pos = m_cursor_position;
+    sample_index_t pos;
+    {
+        QMutexLocker<QMutex> lock(&m_lock);
+        pos = m_cursor_position;
+    }
+    if (pos != SAMPLE_INDEX_MAX) {
         int x = Kwave::toInt(static_cast<double>(pos) * scale);
 
         // draw a line for the playback position

@@ -25,6 +25,7 @@
 #include <QMap>
 #include <QMdiArea>
 #include <QPointer>
+#include <QSharedPointer>
 #include <QString>
 #include <QUrl>
 
@@ -94,19 +95,19 @@ namespace Kwave
          * null).
          * @return pointer to a active FileContext within m_context_map
          */
-        Kwave::FileContext *currentContext() const;
+        QSharedPointer<Kwave::FileContext> currentContext() const;
 
         /**
          * Detaches all file contexts from this instance
          * @return a list of Kwave::FileContext pointers (non-null)
          */
-        QList<Kwave::FileContext *> detachAllContexts();
+        QList<QSharedPointer<Kwave::FileContext>> detachAllContexts();
 
         /**
          * Insert a new file context into this instance
          * @param context the new file context
          */
-        void insertContext(Kwave::FileContext *context);
+        void insertContext(QSharedPointer<Kwave::FileContext> context);
 
         /**
          * Loads a new file and updates the widget's title, menu, status bar
@@ -282,7 +283,8 @@ namespace Kwave
          * @retval  0 if succeeded and done (SDI mode)
          * @retval  1 if succeeded but window is still empty (MDI or TAB mode)
          */
-        int newWindow(Kwave::FileContext *&context, const QUrl &url);
+        int newWindow(QSharedPointer<Kwave::FileContext> &context,
+                       const QUrl &url);
 
         /**
          * Closes the current file and creates a new empty signal.
@@ -329,7 +331,7 @@ namespace Kwave
          * @return the new file context or null pointer if
          *         creation or initialization failed
          */
-        Kwave::FileContext *newFileContext();
+        QSharedPointer<Kwave::FileContext> newFileContext();
 
     private:
 
@@ -341,7 +343,7 @@ namespace Kwave
          * a MDI sub window or TAB. In SDI mode it contains only one
          * entry, corresponding to a null pointer as index.
          */
-        QMap<QMdiSubWindow *, QPointer<Kwave::FileContext>> m_context_map;
+        QMap<QMdiSubWindow *, QSharedPointer<FileContext>> m_context_map;
 
         /** toolbar with playback/record and seek controls */
         Kwave::PlayerToolBar *m_toolbar_record_playback = nullptr;

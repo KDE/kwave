@@ -80,9 +80,8 @@
 
 //***************************************************************************
 Kwave::SignalWidget::SignalWidget(QWidget *parent,
-                                  Kwave::SignalManager *signal_manager,
-                                  QVBoxLayout *upper_dock,
-                                  QVBoxLayout *lower_dock)
+        QPointer<Kwave::SignalManager> signal_manager,
+        QVBoxLayout *upper_dock, QVBoxLayout *lower_dock)
     :QWidget(parent),
      m_signal_manager(signal_manager),
      m_views(),
@@ -97,8 +96,7 @@ Kwave::SignalWidget::SignalWidget(QWidget *parent,
 //    qDebug("SignalWidget::SignalWidget()");
 
     // connect to the signal manager's signals
-    Kwave::SignalManager *sig = m_signal_manager;
-
+    Kwave::SignalManager *sig = m_signal_manager.data();
     connect(sig,  SIGNAL(sigTrackInserted(uint,Kwave::Track*)),
             this, SLOT(slotTrackInserted(uint,Kwave::Track*)));
     connect(sig,  SIGNAL(sigTrackDeleted(uint,Kwave::Track*)),

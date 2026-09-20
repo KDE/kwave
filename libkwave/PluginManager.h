@@ -186,7 +186,7 @@ namespace Kwave
          * assigns a new parent widget, to be used for messages
          * @param new_parent pointer to a QWidget
          */
-        inline void setParentWidget(QWidget *new_parent) {
+        inline void setParentWidget(QPointer<QWidget> new_parent) {
             m_parent_widget = new_parent;
         }
 

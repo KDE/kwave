@@ -186,16 +186,16 @@ void Kwave::TopWidget::connectContext(Kwave::FileContext *context)
 }
 
 //***************************************************************************
-Kwave::FileContext *Kwave::TopWidget::newFileContext()
+QSharedPointer<Kwave::FileContext> Kwave::TopWidget::newFileContext()
 {
     Q_ASSERT(m_toolbar_zoom);
     if (!m_toolbar_zoom) return nullptr;
 
-    Kwave::FileContext *context =
-        new(std::nothrow) Kwave::FileContext(m_application);
+    QSharedPointer<Kwave::FileContext> context(
+        new(std::nothrow) Kwave::FileContext(m_application));
     if (!context) return nullptr;
     if (!context->init(this)) {
-        delete context;
+        context.reset();
         return nullptr;
     }
 
@@ -205,17 +205,17 @@ Kwave::FileContext *Kwave::TopWidget::newFileContext()
     m_context_map[nullptr] = context;
 
     // do all signal/slot connections
-    connectContext(context);
+    connectContext(context.data());
 
     // if we reach this point everything was ok, now we can safely switch
     // to the new context
-    emit sigFileContextSwitched(context);
+    emit sigFileContextSwitched(context.data());
 
     return context;
 }
 
 //***************************************************************************
-Kwave::FileContext *Kwave::TopWidget::currentContext() const
+QSharedPointer<Kwave::FileContext> Kwave::TopWidget::currentContext() const
 {
     if (m_context_map.isEmpty()) return nullptr;
 
@@ -233,9 +233,9 @@ Kwave::FileContext *Kwave::TopWidget::currentContext() const
         if (!m_context_map.contains(current_sub)) {
             qWarning("WARNING: unassociated MDI sub window %p?",
                      static_cast<void *>(current_sub));
-            QMapIterator<QMdiSubWindow*, QPointer<Kwave::FileContext>>
+            QMapIterator<QMdiSubWindow*, QSharedPointer<Kwave::FileContext>>
                 it(m_context_map);
-            Kwave::FileContext *context = nullptr;
+            QSharedPointer<Kwave::FileContext> context;
             while (it.hasNext()) {
                 it.next();
                 context = it.value();
@@ -289,7 +289,7 @@ bool Kwave::TopWidget::init()
             this,                    SLOT(forwardCommand(QString)));
 
     // -- create a new file context ---
-    Kwave::FileContext *context = newFileContext();
+    QSharedPointer<Kwave::FileContext> context(newFileContext());
     if (!context) return false;
 
     QWidget *central_widget = nullptr;
@@ -481,12 +481,12 @@ Kwave::TopWidget::~TopWidget()
     delete m_toolbar_record_playback;
     m_toolbar_record_playback = nullptr;
 
+    m_menu_manager->disconnect();
     delete m_menu_manager;
     m_menu_manager = nullptr;
 
     while (!m_context_map.isEmpty()) {
-        FileContext *context = m_context_map.take(m_context_map.lastKey());
-        delete context;
+        m_context_map.take(m_context_map.lastKey());
     }
 
     m_application.toplevelWindowHasClosed(this);
@@ -497,11 +497,12 @@ QList<Kwave::App::FileAndInstance> Kwave::TopWidget::openFiles() const
 {
     QList<Kwave::App::FileAndInstance> all_files;
 
-    for (QMap<QMdiSubWindow *, QPointer<Kwave::FileContext>>::const_iterator
+    for (QMap<QMdiSubWindow *,
+         QSharedPointer<Kwave::FileContext>>::const_iterator
          it(m_context_map.constBegin()); it != m_context_map.constEnd();
          ++it)
     {
-        const Kwave::FileContext *context = it.value();
+        const QSharedPointer<Kwave::FileContext> context(it.value());
         if (!context) continue;
         QString name = context->signalName();
         if (!name.length()) continue;
@@ -513,16 +514,16 @@ QList<Kwave::App::FileAndInstance> Kwave::TopWidget::openFiles() const
 }
 
 //***************************************************************************
-QList<Kwave::FileContext *> Kwave::TopWidget::detachAllContexts()
+QList<QSharedPointer<Kwave::FileContext>> Kwave::TopWidget::detachAllContexts()
 {
-    QList<Kwave::FileContext *> list;
+    QList<QSharedPointer<Kwave::FileContext>> list;
 
-    QMutableMapIterator<QMdiSubWindow *, QPointer<Kwave::FileContext>>
+    QMutableMapIterator<QMdiSubWindow *, QSharedPointer<Kwave::FileContext>>
         i(m_context_map);
     while (i.hasNext()) {
         i.next();
-        QMdiSubWindow               *sub     = i.key();
-        QPointer<Kwave::FileContext> context = i.value();
+        QMdiSubWindow                     *sub     = i.key();
+        QSharedPointer<Kwave::FileContext> context = i.value();
 
         // remove the entry from the map to prevent damage
         i.remove();
@@ -566,9 +567,10 @@ QList<Kwave::FileContext *> Kwave::TopWidget::detachAllContexts()
 }
 
 //***************************************************************************
-void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
+void Kwave::TopWidget::insertContext(
+    QSharedPointer<Kwave::FileContext> context)
 {
-    Kwave::FileContext *old_default_context = nullptr;
+    QSharedPointer<Kwave::FileContext> old_default_context(nullptr);
 
     // if no context was given: create a new empty default context
     if (!context) {
@@ -589,14 +591,14 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
             // we may have an empty default context -> get rid of it
             Q_ASSERT(m_context_map.count() <= 1);
             if (!m_context_map.isEmpty()) {
-                Kwave::FileContext *ctx = m_context_map[nullptr];
+                QSharedPointer<Kwave::FileContext> ctx(m_context_map[nullptr]);
                 m_context_map.remove(nullptr);
-                Q_ASSERT(ctx != context);
+                Q_ASSERT(ctx.data() != context.data());
                 old_default_context = ctx;
             }
             // take over the new context
             m_context_map[nullptr] = context;
-            connectContext(context);
+            connectContext(context.data());
             context->setParent(this);
 
             // set the central widget to the new main widget
@@ -644,7 +646,7 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
                         sub,                   SLOT(close()));
                 connect(sub,  SIGNAL(destroyed(QObject*)),
                         this, SLOT(subWindowDeleted(QObject*)));
-                connectContext(context);
+                connectContext(context.data());
 
                 if (m_application.guiType() != Kwave::App::GUI_SDI) {
                     // this really sucks...
@@ -696,7 +698,7 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 
     // update the menu bar, toolbar etc.
     emit sigFileContextSwitched(nullptr);
-    emit sigFileContextSwitched(context);
+    emit sigFileContextSwitched(context.data());
 
     updateMenu();
     updateToolbar();
@@ -845,13 +847,13 @@ int Kwave::TopWidget::executeCommand(const QString &line)
         if (m_mdi_area) {
             QString title = parser.nextParam();
             for (QMap<QMdiSubWindow *,
-                QPointer<Kwave::FileContext>>::const_iterator
+                QSharedPointer<Kwave::FileContext>>::const_iterator
                 it(m_context_map.constBegin());
                 it != m_context_map.constEnd();
                 ++it)
             {
-                QMdiSubWindow                      *sub     = it.key();
-                const QPointer<Kwave::FileContext> &context = it.value();
+                QMdiSubWindow                     *sub     = it.key();
+                QSharedPointer<Kwave::FileContext> context(it.value());
                 if (!sub  || !context) continue;
 
                 // identify the window by its title
@@ -880,7 +882,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 //***************************************************************************
 int Kwave::TopWidget::forwardCommand(const QString &command)
 {
-    Kwave::FileContext *context = currentContext();
+    QSharedPointer<Kwave::FileContext> context(currentContext());
     if (!context) return EAGAIN;
 
     // execute the command in the current context
@@ -893,8 +895,8 @@ int Kwave::TopWidget::forwardCommand(const QString &command)
     // synchronize after the command
     context = currentContext();
     if (context != nullptr) {
-        Kwave::PluginManager *plugin_manager = context->pluginManager();
-        if (plugin_manager != nullptr) plugin_manager->sync();
+        QPointer<Kwave::PluginManager> pm(context->pluginManager());
+        if (pm) pm->sync();
     }
 
     return retval;
@@ -905,13 +907,13 @@ bool Kwave::TopWidget::closeAllSubWindows()
 {
     bool allowed = true;
 
-    QMutableMapIterator<QMdiSubWindow *, QPointer<Kwave::FileContext>>
+    QMutableMapIterator<QMdiSubWindow *, QSharedPointer<Kwave::FileContext>>
         it(m_context_map);
     it.toBack();
     while (it.hasPrevious()) {
         it.previous();
-        QMdiSubWindow               *sub     = it.key();
-        QPointer<Kwave::FileContext> context = it.value();
+        QMdiSubWindow                     *sub     = it.key();
+        QSharedPointer<Kwave::FileContext> context = it.value();
 
         if (!sub) {
             // reached the default context (without sub windows)
@@ -947,16 +949,17 @@ bool Kwave::TopWidget::closeAllSubWindows()
 }
 
 //***************************************************************************
-int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const QUrl &url)
+int Kwave::TopWidget::newWindow(QSharedPointer<Kwave::FileContext> &context,
+                                const QUrl &url)
 {
     switch (m_application.guiType()) {
         case Kwave::App::GUI_SDI: {
             // SDI mode and already something loaded
             // -> open a new toplevel window
             //    (except for processing commands per kwave: URL
-            Kwave::SignalManager *signal_manager = (context) ?
-                context->signalManager() : nullptr;
-            if ( signal_manager && !signal_manager->isEmpty() &&
+            QPointer<Kwave::SignalManager> signal_manager(nullptr);
+            if (context) signal_manager = context->signalManager();
+            if (signal_manager && !signal_manager->isEmpty() &&
                 (url.scheme().toLower() != Kwave::urlScheme()) )
                 return m_application.newWindow(url);
 
@@ -986,7 +989,7 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const QUrl &url)
                 disconnect(
                     this,
                     SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
-                    context,
+                    context.data(),
                     SLOT(contextSwitched(Kwave::FileContext*))
                 );
                 context->release();
@@ -1013,7 +1016,7 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const QUrl &url)
 //***************************************************************************
 int Kwave::TopWidget::loadFile(const QUrl &url)
 {
-    Kwave::FileContext *context = currentContext();
+    QSharedPointer<Kwave::FileContext> context(currentContext());
 
     // special handling for kwave: URLs
     if (url.scheme().toLower() == Kwave::urlScheme()) {
@@ -1025,7 +1028,7 @@ int Kwave::TopWidget::loadFile(const QUrl &url)
     }
 
     if (!context) return -1;
-    Kwave::SignalManager *signal_manager = context->signalManager();
+    QPointer<SignalManager> signal_manager(context->signalManager());
     Q_ASSERT(signal_manager);
 
     // add an entry to the list of recent files
@@ -1121,10 +1124,10 @@ int Kwave::TopWidget::openFile()
 int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
                                 unsigned int bits, unsigned int tracks)
 {
-    Kwave::FileContext *context = currentContext();
+    QSharedPointer<Kwave::FileContext> context(currentContext());
     if (!context) return -1;
 
-    Kwave::SignalManager *signal_manager = context->signalManager();
+    QPointer<SignalManager> signal_manager(context->signalManager());
     if (!signal_manager) return -1;
 
     QUrl url = Kwave::Parser::toUrl(
@@ -1192,10 +1195,9 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 void Kwave::TopWidget::selectionChanged(sample_index_t offset,
                                         sample_index_t length)
 {
-    const Kwave::FileContext *context = currentContext();
+    QSharedPointer<Kwave::FileContext> context(currentContext());
     if (!context) return;
-
-    Kwave::SignalManager *signal_manager = context->signalManager();
+    QPointer<SignalManager> signal_manager(context->signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
     Q_ASSERT(statusBar());
@@ -1334,9 +1336,9 @@ void Kwave::TopWidget::updateRecentFiles()
 //***************************************************************************
 void Kwave::TopWidget::updateMenu()
 {
-    const Kwave::FileContext *context = currentContext();
-    Kwave::SignalManager *signal_manager =
-        (context) ? context->signalManager() : nullptr;
+    QSharedPointer<Kwave::FileContext> context(currentContext());
+    QPointer<SignalManager> signal_manager;
+    if (context) signal_manager = (context->signalManager());
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
@@ -1382,11 +1384,11 @@ void Kwave::TopWidget::updateMenu()
         m_menu_manager->clearNumberedMenu(_("ID_WINDOW_LIST"));
         unsigned int win_count = 0;
         for (QMap<QMdiSubWindow *,
-             QPointer<Kwave::FileContext>>::const_iterator
+             QSharedPointer<Kwave::FileContext>>::const_iterator
              it(m_context_map.constBegin()); it != m_context_map.constEnd();
              ++it)
         {
-            const Kwave::FileContext *ctx = it.value();
+            QSharedPointer<Kwave::FileContext> ctx(it.value());
             if (!ctx) continue;
             QString caption = ctx->windowCaption(false);
             if (!caption.length()) continue;
@@ -1517,10 +1519,10 @@ void Kwave::TopWidget::resetToolbarToDefaults()
 //***************************************************************************
 void Kwave::TopWidget::updateToolbar()
 {
-    const Kwave::FileContext *context = currentContext();
+    QSharedPointer<Kwave::FileContext> context(currentContext());
     if (!context) return;
 
-    Kwave::SignalManager *signal_manager = context->signalManager();
+    QPointer<SignalManager> signal_manager(context->signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
@@ -1557,7 +1559,7 @@ void Kwave::TopWidget::modifiedChanged()
 //***************************************************************************
 void Kwave::TopWidget::updateCaption()
 {
-    const Kwave::FileContext *context = currentContext();
+    QSharedPointer<Kwave::FileContext> context(currentContext());
     QString caption = (context) ? context->windowCaption(true) : QString();
     setCaption(caption);
 }
@@ -1591,7 +1593,7 @@ void Kwave::TopWidget::showStatusBarMessage(const QString &msg,
 void Kwave::TopWidget::subWindowActivated(QMdiSubWindow *sub)
 {
     if (!sub || !m_context_map.contains(sub)) return;
-    emit sigFileContextSwitched(currentContext());
+    emit sigFileContextSwitched(currentContext().data());
 }
 
 //***************************************************************************
@@ -1603,7 +1605,7 @@ void Kwave::TopWidget::subWindowDeleted(QObject *obj)
         return;
     }
 
-    Kwave::FileContext *context = m_context_map[sub];
+    QSharedPointer<Kwave::FileContext> context = m_context_map[sub];
     Q_ASSERT(context);
     if (!context) return;
 

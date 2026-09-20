@@ -25,6 +25,7 @@
 #include <QList>
 #include <QMap>
 #include <QObject>
+#include <QPointer>
 #include <QRecursiveMutex>
 #include <QString>
 
@@ -410,7 +411,7 @@ namespace Kwave
          * assigns a new parent widget, to be used for messages
          * @param new_parent pointer to a QWidget
          */
-        inline void setParentWidget(QWidget *new_parent) {
+        inline void setParentWidget(QPointer<QWidget> new_parent) {
             m_parent_widget = new_parent;
         }
 
@@ -656,7 +657,9 @@ namespace Kwave
         void setModified(bool mod);
 
         /** returns the associated parent widget, to be used for messages */
-        QWidget *parentWidget() const { return m_parent_widget; }
+        QPointer<QWidget> parentWidget() const {
+            return m_parent_widget;
+        }
 
     private:
 
@@ -699,7 +702,7 @@ namespace Kwave
     private:
 
         /** Parent widget, used for showing messages */
-        QWidget *m_parent_widget;
+        QPointer<QWidget> m_parent_widget;
 
         /** true if the signal is closed */
         bool m_closed;

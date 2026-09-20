@@ -148,8 +148,8 @@ void Kwave::PlayerToolBar::contextSwitched(Kwave::FileContext *context)
     // use the new context
     m_context = context;
 
-    Kwave::SignalManager *signal =
-        (m_context) ? m_context->signalManager() : nullptr;
+    QPointer<SignalManager> signal;
+    if (m_context) signal = m_context->signalManager();
     m_playback = (signal) ? &signal->playbackController() : nullptr;
 
     // connect the playback controller of the new context

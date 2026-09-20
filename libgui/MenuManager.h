@@ -33,6 +33,7 @@ namespace Kwave
 {
 
     class MenuRoot;
+    class Parser;
 
     /**
      * @class MenuManager
@@ -60,11 +61,12 @@ namespace Kwave
 
         /**
          * Executes menu commands.
-         * @param command string with the command
+         * @param parser a parser which provides the commands
+         *               and parameters
          * @retval 0 if succeeded
          * @retval -EINVAL if failed
          */
-        int executeCommand(const QString &command);
+        int executeCommand(Kwave::Parser &parser);
 
         /**
          * Deletes all entries of a numbered menu

@@ -30,7 +30,7 @@
 
 //***************************************************************************
 Kwave::UndoDeleteAction::UndoDeleteAction(
-    QWidget *parent_widget,
+    QPointer<QWidget> parent_widget,
     const QVector<unsigned int> &track_list,
     sample_index_t offset,
     sample_index_t length

@@ -54,7 +54,7 @@ namespace Kwave
          * @param track the track object this view is bound to
          */
         TrackView(QWidget *parent, QWidget *controls,
-                  Kwave::SignalManager *signal_manager,
+                  QPointer<Kwave::SignalManager> &signal_manager,
                   Kwave::Track *track);
 
         /** Destructor */

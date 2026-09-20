@@ -226,7 +226,7 @@ int Kwave::App::newWindow(const QUrl &url)
 {
     int retval = 0;
     bool created_a_new_one = false;
-    Kwave::TopWidget *new_top_widget = nullptr;
+    QPointer<Kwave::TopWidget> new_top_widget;
 
     Kwave::Splash::showMessage(i18n("Opening main window..."));
 
@@ -247,11 +247,13 @@ int Kwave::App::newWindow(const QUrl &url)
     }
 
     if (!new_top_widget) {
-        new_top_widget = new(std::nothrow) Kwave::TopWidget(*this);
+        new_top_widget = QPointer<Kwave::TopWidget>(
+            new(std::nothrow) Kwave::TopWidget(*this));
         if (!new_top_widget || !new_top_widget->init()) {
             // init failed
             qWarning("ERROR: initialization of TopWidget failed");
             delete new_top_widget;
+            new_top_widget = nullptr;
             return ECANCELED;
         }
         created_a_new_one = true;
@@ -269,7 +271,7 @@ int Kwave::App::newWindow(const QUrl &url)
 
         // inform the widget about changes in the list of recent files
         connect(this, SIGNAL(recentFilesChanged()),
-                new_top_widget, SLOT(updateRecentFiles()));
+                new_top_widget.data(), SLOT(updateRecentFiles()));
     }
 
     retval = (!url.isEmpty()) ? new_top_widget->loadFile(url) : 0;
@@ -277,6 +279,7 @@ int Kwave::App::newWindow(const QUrl &url)
         if (created_a_new_one)
             m_top_widgets.removeAll(new_top_widget);
         delete new_top_widget;
+        new_top_widget = nullptr;
     }
 
     Kwave::Splash::showMessage(i18n("Startup done"));
@@ -301,7 +304,7 @@ bool Kwave::App::toplevelWindowHasClosed(Kwave::TopWidget *todel)
 QList<Kwave::App::FileAndInstance> Kwave::App::openFiles() const
 {
     QList<Kwave::App::FileAndInstance> all_files;
-    for (const Kwave::TopWidget *topwidget : m_top_widgets) {
+    for (QPointer<const Kwave::TopWidget> topwidget : m_top_widgets) {
         if (!topwidget) continue;
         QList<Kwave::App::FileAndInstance> files = topwidget->openFiles();
         if (!files.isEmpty())
@@ -311,7 +314,8 @@ QList<Kwave::App::FileAndInstance> Kwave::App::openFiles() const
 }
 
 //***************************************************************************
-void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
+void Kwave::App::switchGuiType(QPointer<Kwave::TopWidget> top,
+                               GuiType new_type)
 {
     Q_ASSERT(top);
     if (!top) return;
@@ -319,17 +323,16 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
 
     // collect all contexts of all toplevel widgets, and delete all except
     // the new top widget that is calling us
-    QList<Kwave::FileContext *> all_contexts;
-    QMutableListIterator<Kwave::TopWidget *> it(m_top_widgets);
+    QList<QSharedPointer<Kwave::FileContext>> all_contexts;
+    QMutableListIterator<QPointer<Kwave::TopWidget>> it(m_top_widgets);
     while (it.hasNext()) {
-        Kwave::TopWidget *topwidget = it.next();
+        QPointer<Kwave::TopWidget> topwidget = it.next();
         if (!topwidget) { it.remove(); continue; }
-        QList<Kwave::FileContext *> contexts = topwidget->detachAllContexts();
+        QList<QSharedPointer<Kwave::FileContext>> contexts =
+            topwidget->detachAllContexts();
         if (!contexts.isEmpty()) all_contexts += contexts;
         if (topwidget != top) {
             it.remove();
-            delete topwidget;
-            topwidget = nullptr;
         }
     }
 
@@ -340,8 +343,8 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
     // context and a list of contexts (which may be empty)
     if (!all_contexts.isEmpty()) {
         bool first = true;
-        for (Kwave::FileContext *context : all_contexts) {
-            Kwave::TopWidget *top_widget = nullptr;
+        for (QSharedPointer<Kwave::FileContext> context : all_contexts) {
+            QPointer<Kwave::TopWidget> top_widget;
 
             switch (m_gui_type) {
                 case GUI_SDI:
@@ -356,16 +359,15 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
                         } else {
                             // for all other contexts we have to create a new
                             // toplevel widget
-                            top_widget = new(std::nothrow)
-                                Kwave::TopWidget(*this);
+                            top_widget = QPointer<Kwave::TopWidget>(
+                                new(std::nothrow) Kwave::TopWidget(*this));
                             if (!top_widget || !top_widget->init()) {
                                 // init failed
                                 qWarning("ERROR: initialization of "
                                          "TopWidget failed");
                                 delete top_widget;
-                                delete context;
                                 top_widget = nullptr;
-                                context    = nullptr;
+                                context.reset();
                                 break;
                             }
                             m_top_widgets.append(top_widget);
@@ -374,7 +376,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
                             // inform the widget about changes in the list of
                             // recent files
                             connect(this, SIGNAL(recentFilesChanged()),
-                                    top_widget, SLOT(updateRecentFiles()));
+                                    top_widget.data(), SLOT(updateRecentFiles()));
                         }
                     } else {
                         // probably this context is only executing a script and

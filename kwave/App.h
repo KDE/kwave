@@ -24,6 +24,7 @@
 #include <QList>
 #include <QObject>
 #include <QPair>
+#include <QPointer>
 #include <QStringList>
 
 class QCommandLineParser;
@@ -123,7 +124,8 @@ namespace Kwave
          * @param top the current toplevel widget
          * @param new_type the new GUI type
          */
-        void switchGuiType(Kwave::TopWidget *top, GuiType new_type);
+        void switchGuiType(QPointer<Kwave::TopWidget> top,
+                           GuiType new_type);
 
         /** Returns the command line parameters passed to the application */
         inline const QCommandLineParser *cmdline() const { return m_cmdline; }
@@ -185,7 +187,7 @@ namespace Kwave
         QStringList m_recent_files;
 
         /** list of toplevel widgets */
-        QList<Kwave::TopWidget *> m_top_widgets;
+        QList<QPointer<Kwave::TopWidget>> m_top_widgets;
 
         /** the GUI type, e.g. SDI or MDI */
         GuiType m_gui_type;

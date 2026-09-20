@@ -154,7 +154,7 @@ void Kwave::ZoomToolBar::updateToolbar()
     bool is_closed      = true;
 
     if (m_context) {
-        Kwave::SignalManager *signal_manager = m_context->signalManager();
+        QPointer<SignalManager> signal_manager(m_context->signalManager());
         Q_ASSERT(signal_manager);
         if (!signal_manager) return;
         have_signal    = (signal_manager->tracks() != 0);
@@ -193,7 +193,7 @@ void Kwave::ZoomToolBar::selectZoom(int index)
 {
     if (!m_context) return;
 
-    Kwave::SignalManager *signal_manager = m_context->signalManager();
+    QPointer<SignalManager> signal_manager(m_context->signalManager());
     Q_ASSERT(signal_manager);
     Q_ASSERT(m_zoomselect);
     if (!signal_manager) return;
@@ -230,7 +230,7 @@ void Kwave::ZoomToolBar::setZoomInfo(Kwave::FileContext *context, double zoom)
 {
     if (!m_context || (context != m_context)) return;
 
-    Kwave::SignalManager *signal_manager = m_context->signalManager();
+    QPointer<SignalManager> signal_manager(m_context->signalManager());
     Kwave::Zoomable *zoomable = m_context->zoomable();
     Q_ASSERT(zoom >= 0);
     Q_ASSERT(m_zoomselect);

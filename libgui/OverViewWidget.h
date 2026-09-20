@@ -24,6 +24,7 @@
 #include <QtGlobal>
 #include <QBitmap>
 #include <QColor>
+#include <QMutex>
 #include <QSize>
 #include <QThread>
 #include <QTimer>
@@ -226,6 +227,9 @@ namespace Kwave
 
         /** worker thread for updates in background */
         WorkerThread m_worker_thread;
+
+        /** lock for protecting m_labels */
+        QMutex m_lock;
 
     };
 }

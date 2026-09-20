@@ -115,11 +115,11 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     setAcceptDrops(true); // enable drag&drop
 
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
-    Kwave::PluginManager *plugin_manager = context.pluginManager();
+    QPointer<Kwave::PluginManager> plugin_manager(context.pluginManager());
     Q_ASSERT(plugin_manager);
     if (!plugin_manager) return;
     plugin_manager->registerViewManager(&m_signal_widget);
@@ -201,15 +201,15 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     // -- connect all signals from/to the signal manager --
 
-    connect(signal_manager,
+    connect(signal_manager.data(),
             SIGNAL(sigTrackInserted(uint,Kwave::Track*)),
             this,
             SLOT(slotTrackInserted(uint,Kwave::Track*)));
-    connect(signal_manager,
+    connect(signal_manager.data(),
             SIGNAL(sigTrackDeleted(uint,Kwave::Track*)),
             this,
             SLOT(slotTrackDeleted(uint,Kwave::Track*)));
-    connect(signal_manager,
+    connect(signal_manager.data(),
             SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
             this,
             SLOT(updateViewRange()));
@@ -231,9 +231,9 @@ bool Kwave::MainWidget::isOK()
 //***************************************************************************
 Kwave::MainWidget::~MainWidget()
 {
-    Kwave::PluginManager *plugin_manager = m_context.pluginManager();
-    Q_ASSERT(plugin_manager);
-    if (plugin_manager) plugin_manager->registerViewManager(nullptr);
+    QPointer<Kwave::PluginManager> pm(m_context.pluginManager());
+    Q_ASSERT(pm);
+    if (pm) pm->registerViewManager(nullptr);
 }
 
 //***************************************************************************
@@ -273,7 +273,7 @@ void Kwave::MainWidget::dropEvent(QDropEvent *event)
     if (!event) return;
     if (!event->mimeData()) return;
 
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
@@ -363,7 +363,7 @@ void Kwave::MainWidget::slotTrackInserted(unsigned int index,
     Q_UNUSED(track)
 
     // when the first track has been inserted, set some reasonable zoom
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     bool first_track = (signal_manager && (signal_manager->tracks() == 1));
     if (first_track)
         zoomAll();
@@ -392,7 +392,7 @@ double Kwave::MainWidget::zoom() const
 //***************************************************************************
 int Kwave::MainWidget::executeCommand(const QString &command)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return -EINVAL;
     if (!command.length()) return -EINVAL;
@@ -521,20 +521,22 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 //***************************************************************************
 void Kwave::MainWidget::refreshHorizontalScrollBar()
 {
-    if (!m_horizontal_scrollbar || !m_context.signalManager()) return;
+    if (!m_horizontal_scrollbar) return;
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
+    if (!signal_manager) return;
 
     m_horizontal_scrollbar->blockSignals(true);
 
     // show/hide the overview widget
-    if (!m_context.signalManager()->isEmpty() && !m_overview->isVisible())
+    if (!signal_manager->isEmpty() && !m_overview->isVisible())
         m_overview->show();
-    if (m_context.signalManager()->isEmpty() && m_overview->isVisible())
+    if (signal_manager->isEmpty() && m_overview->isVisible())
         m_overview->hide();
 
     // adjust the limits of the horizontal scrollbar
-    if (m_context.signalManager()->length() > 1) {
+    if (signal_manager->length() > 1) {
         // get the view information in samples
-        sample_index_t length  = m_context.signalManager()->length();
+        sample_index_t length  = signal_manager->length();
         sample_index_t visible = visibleSamples();
         if (visible > length) visible = length;
 
@@ -596,20 +598,19 @@ void Kwave::MainWidget::horizontalScrollBarMoved(int newval)
 //***************************************************************************
 void Kwave::MainWidget::updateViewRange()
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     sample_index_t total = (signal_manager) ? signal_manager->length() : 0;
 
-    if (m_overview) {
+    if (m_overview && signal_manager) {
         m_overview->setRange(m_offset, visibleSamples(), total);
 
         // show/hide the overview widget and the horizontal scroll bar
-        if (!m_context.signalManager()->isEmpty()) {
+        if (!signal_manager->isEmpty()) {
             if (!m_overview->isVisible())
                 m_overview->show();
             if (!m_horizontal_scrollbar->isVisible())
                 m_horizontal_scrollbar->show();
-        }
-        if (m_context.signalManager()->isEmpty()) {
+        } else {
             if (m_overview->isVisible())
                 m_overview->hide();
             if (m_horizontal_scrollbar->isVisible())
@@ -626,7 +627,7 @@ void Kwave::MainWidget::updateViewRange()
 //***************************************************************************
 sample_index_t Kwave::MainWidget::ms2samples(double ms)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return 0;
 
@@ -667,7 +668,7 @@ double Kwave::MainWidget::fullZoom() const
     const int width = visibleWidth();
     if (width <= 0) return 0.0; // no zoom info, window is not yet ready
 
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return 0.0;
     if (signal_manager->isEmpty()) return 0.0;    // no zoom if no signal
@@ -721,7 +722,7 @@ void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
     m_zoom   = zoom;
     m_offset = offset;
 
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
     if (!width) return;
@@ -817,7 +818,7 @@ void Kwave::MainWidget::scrollTo(sample_index_t pos)
 //***************************************************************************
 void Kwave::MainWidget::zoomSelection()
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
@@ -888,9 +889,10 @@ void Kwave::MainWidget::zoomOut(int pos)
 }
 
 //***************************************************************************
-void Kwave::MainWidget::addLabel(sample_index_t pos, const QString &description)
+void Kwave::MainWidget::addLabel(sample_index_t pos,
+                                 const QString &description)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
@@ -921,7 +923,7 @@ void Kwave::MainWidget::addLabel(sample_index_t pos, const QString &description)
 //****************************************************************************
 int Kwave::MainWidget::loadLabels(const QString &filename)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return -1;
 
@@ -952,7 +954,7 @@ int Kwave::MainWidget::loadLabels(const QString &filename)
 //****************************************************************************
 int Kwave::MainWidget::saveLabels(const QString &filename)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return false;
 
@@ -1024,7 +1026,7 @@ int Kwave::MainWidget::saveLabels(const QString &filename)
 //***************************************************************************
 bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    QPointer<SignalManager> signal_manager(m_context.signalManager());
     Q_ASSERT(signal_manager);
     if (!signal_manager) return false;
 

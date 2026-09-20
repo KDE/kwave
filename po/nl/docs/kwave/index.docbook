@@ -10697,7 +10697,7 @@
 	<varlistentry>
 	    <term
 ><emphasis role="bold"
->&i18n-plugin_lbl_parameters;</emphasis
+>&i18n-plugin_lbl_parameters; (standaard modus)</emphasis
 ></term>
 	    <listitem>
 		<variablelist>
@@ -10825,6 +10825,83 @@
 		</variablelist>
 	    </listitem>
 	</varlistentry>
+
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>&i18n-plugin_lbl_parameters; (laden uit bestandsmodus)</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+			<varlistentry>
+				<term
+><literal
+>laden</literal
+></term>
+				<listitem>
+					<para
+>Als de eerste parameter het woord "<literal
+>load</literal
+>" is, wordt de volgende parameter geïnterpreteerd als de bestandsnaam om te laden. </para>
+				</listitem>
+			</varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>bestandsnaam</replaceable
+></term>
+			<listitem>
+			    <para
+>Naam van het te landen bestand. </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>&i18n-plugin_lbl_parameters; (opslaan naar bestandsmodus)</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+			<varlistentry>
+				<term
+><literal
+>opslaan</literal
+></term>
+				<listitem>
+					<para
+>Als de eerste parameter het woord "<literal
+>save</literal
+>" is, worden de volgende parameters geïnterpreteerd als een index van het sonogram en een bestandsnaam om het op te slaan. </para>
+				</listitem>
+			</varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>index</replaceable
+></term>
+			<listitem>
+			    <para
+>De numerieke index van het sonogramvenster dat het op te slaan sonogram toont. Deze index wordt bepaald op basis van de interne lijst van momenteel geopende sonogramvensters, beginnend bij nul. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>bestandsnaam</replaceable
+></term>
+			<listitem>
+			    <para
+>Naam van het te landen bestand. </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+		</listitem>
+	</varlistentry>
+
     </variablelist>
     </sect1>
 

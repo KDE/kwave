@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-20 00:44+0000\n"
+"POT-Creation-Date: 2026-09-20 16:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
@@ -38,47 +38,47 @@ msgstr ""
 msgid "Opening main window..."
 msgstr ""
 
-#: kwave/App.cpp:282
+#: kwave/App.cpp:285
 #, kde-format
 msgid "Startup done"
 msgstr ""
 
-#: kwave/FileContext.cpp:206
+#: kwave/FileContext.cpp:210
 #, kde-format
 msgid "Scanning plugins..."
 msgstr ""
 
-#: kwave/FileContext.cpp:239 kwave/FileContext.cpp:240
+#: kwave/FileContext.cpp:243 kwave/FileContext.cpp:244
 #, kde-format
 msgid "Loading plugins..."
 msgstr ""
 
-#: kwave/FileContext.cpp:242
+#: kwave/FileContext.cpp:246
 #, kde-format
 msgid "Failed"
 msgstr ""
 
-#: kwave/FileContext.cpp:245
+#: kwave/FileContext.cpp:249
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
 msgstr ""
 
-#: kwave/FileContext.cpp:251
+#: kwave/FileContext.cpp:255
 #, kde-format
 msgid "Ready"
 msgstr ""
 
-#: kwave/FileContext.cpp:531
+#: kwave/FileContext.cpp:537
 #, kde-format
 msgid "Playback: %1"
 msgstr ""
 
-#: kwave/FileContext.cpp:533
+#: kwave/FileContext.cpp:539
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr ""
 
-#: kwave/FileContext.cpp:875
+#: kwave/FileContext.cpp:881
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -86,32 +86,32 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr ""
 
-#: kwave/FileContext.cpp:881
+#: kwave/FileContext.cpp:887
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr ""
 
-#: kwave/FileContext.cpp:916
+#: kwave/FileContext.cpp:922
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
 "Do you want to continue?"
 msgstr ""
 
-#: kwave/FileContext.cpp:996
+#: kwave/FileContext.cpp:1003
 #, kde-format
 msgid "Save As"
 msgstr ""
 
-#: kwave/FileContext.cpp:1033 kwave/MainWidget.cpp:992
+#: kwave/FileContext.cpp:1040 kwave/MainWidget.cpp:994
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
 "Do you really want to overwrite it?"
 msgstr ""
 
-#: kwave/FileContext.cpp:1101
+#: kwave/FileContext.cpp:1108
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -415,29 +415,29 @@ msgstr ""
 msgid "Kwave label list"
 msgstr ""
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1894
+#: kwave/MainWidget.cpp:903 libkwave/SignalManager.cpp:1894
 #, kde-format
 msgid "Add Label"
 msgstr ""
 
-#: kwave/MainWidget.cpp:936 kwave/MainWidget.cpp:947
+#: kwave/MainWidget.cpp:938 kwave/MainWidget.cpp:949
 #, kde-format
 msgid "Load Labels"
 msgstr ""
 
-#: kwave/MainWidget.cpp:971
+#: kwave/MainWidget.cpp:973
 #, kde-format
 msgid "Save Labels"
 msgstr ""
 
-#: kwave/MainWidget.cpp:1075
+#: kwave/MainWidget.cpp:1077
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
 "Do you want to replace it?"
 msgstr ""
 
-#: kwave/MainWidget.cpp:1102
+#: kwave/MainWidget.cpp:1104
 #, kde-format
 msgid "Modify Label"
 msgstr ""
@@ -1066,82 +1066,82 @@ msgctxt "%1=Version number"
 msgid "v%1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:256
+#: kwave/TopWidget.cpp:252
 #, kde-format
 msgid "Loading main menu..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:330
+#: kwave/TopWidget.cpp:326
 #, kde-format
 msgid "Initializing toolbar..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:339
+#: kwave/TopWidget.cpp:335
 #, kde-format
 msgid "Create a new empty file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:344
+#: kwave/TopWidget.cpp:340
 #, kde-format
 msgid "Open an existing file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:349
+#: kwave/TopWidget.cpp:345
 #, kde-format
 msgid "Save the current file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:354
+#: kwave/TopWidget.cpp:350
 #, kde-format
 msgid "Save the current file under a different name or file format..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:359
+#: kwave/TopWidget.cpp:355
 #, kde-format
 msgid "Close the current file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:370
+#: kwave/TopWidget.cpp:366
 #, kde-format
 msgid "Undo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:375
+#: kwave/TopWidget.cpp:371
 #, kde-format
 msgid "Redo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:380 libkwave/SignalManager.cpp:704
+#: kwave/TopWidget.cpp:376 libkwave/SignalManager.cpp:704
 #, kde-format
 msgid "Cut"
 msgstr ""
 
-#: kwave/TopWidget.cpp:385
+#: kwave/TopWidget.cpp:381
 #, kde-format
 msgid "Copy"
 msgstr ""
 
-#: kwave/TopWidget.cpp:390 libkwave/undo/UndoInsertAction.cpp:46
+#: kwave/TopWidget.cpp:386 libkwave/undo/UndoInsertAction.cpp:46
 #, kde-format
 msgid "Insert"
 msgstr ""
 
-#: kwave/TopWidget.cpp:398
+#: kwave/TopWidget.cpp:394
 #, kde-format
 msgid "Mute selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:403
+#: kwave/TopWidget.cpp:399
 #, kde-format
 msgid "Delete selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:759
+#: kwave/TopWidget.cpp:763
 #, kde-format
 msgid "Reset the toolbar to default settings?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:784
+#: kwave/TopWidget.cpp:791
 #, kde-format
 msgid ""
 "Re-enable all disabled notifications?\n"
@@ -1149,22 +1149,22 @@ msgid ""
 "again\" checkbox will then be enabled again."
 msgstr ""
 
-#: kwave/TopWidget.cpp:1023
+#: kwave/TopWidget.cpp:1036
 #, kde-format
 msgid "Executing command '%1'..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:1043
+#: kwave/TopWidget.cpp:1056
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:1053
+#: kwave/TopWidget.cpp:1066
 #, kde-format
 msgid "Loading file '%1'..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:1065 plugins/codec_audiofile/AudiofileDecoder.cpp:103
+#: kwave/TopWidget.cpp:1078 plugins/codec_audiofile/AudiofileDecoder.cpp:103
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:500
 #: plugins/codec_flac/FlacEncoder.cpp:267
 #: plugins/codec_flac/FlacEncoder.cpp:285
@@ -1180,35 +1180,35 @@ msgstr ""
 msgid "Out of memory"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1069
+#: kwave/TopWidget.cpp:1082
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1073
+#: kwave/TopWidget.cpp:1086
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1111
+#: kwave/TopWidget.cpp:1117
 #, kde-format
 msgid "Open"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1162
+#: kwave/TopWidget.cpp:1168
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1173
+#: kwave/TopWidget.cpp:1179
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1219
+#: kwave/TopWidget.cpp:1224
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -1216,7 +1216,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1231
+#: kwave/TopWidget.cpp:1236
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -1224,72 +1224,72 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1250
+#: kwave/TopWidget.cpp:1255
 #, kde-format
 msgid "Position: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1276
+#: kwave/TopWidget.cpp:1281
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1278
+#: kwave/TopWidget.cpp:1283
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1287
+#: kwave/TopWidget.cpp:1292
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1289
+#: kwave/TopWidget.cpp:1294
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1299
+#: kwave/TopWidget.cpp:1304
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1300
+#: kwave/TopWidget.cpp:1305
 #, kde-format
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1306
+#: kwave/TopWidget.cpp:1311
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1307
+#: kwave/TopWidget.cpp:1312
 #, kde-format
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1424
+#: kwave/TopWidget.cpp:1429
 #, kde-format
 msgctxt "special entry in the list of labels to delete all"
 msgid "(All)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1433
+#: kwave/TopWidget.cpp:1438
 #, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1436
+#: kwave/TopWidget.cpp:1441
 #, kde-format
 msgctxt "list menu entry of a label, without description, %1=index"
 msgid "#%1"
@@ -1442,12 +1442,12 @@ msgctxt "tooltip of a label, without description, %1=index"
 msgid "Label #%1"
 msgstr ""
 
-#: libgui/LabelItem.cpp:93 libgui/TrackView.cpp:267
+#: libgui/LabelItem.cpp:93 libgui/TrackView.cpp:266
 #, kde-format
 msgid "Label"
 msgstr ""
 
-#: libgui/LabelItem.cpp:104 libgui/TrackView.cpp:274
+#: libgui/LabelItem.cpp:104 libgui/TrackView.cpp:273
 #, kde-format
 msgid "New"
 msgstr ""
@@ -1541,7 +1541,7 @@ msgstr ""
 msgid "Selection, right border"
 msgstr ""
 
-#: libgui/SelectionItem.cpp:82 libgui/SignalView.cpp:593
+#: libgui/SelectionItem.cpp:82 libgui/SignalView.cpp:592
 #, kde-format
 msgid "Drag and Drop"
 msgstr ""
@@ -1647,52 +1647,52 @@ msgstr ""
 msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:191
+#: libgui/SignalWidget.cpp:189
 #, kde-format
 msgid "&Undo"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:203
+#: libgui/SignalWidget.cpp:201
 #, kde-format
 msgid "&Redo"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:216
+#: libgui/SignalWidget.cpp:214
 #, kde-format
 msgid "Cu&t"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:222
+#: libgui/SignalWidget.cpp:220
 #, kde-format
 msgid "&Copy"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:228
+#: libgui/SignalWidget.cpp:226
 #, kde-format
 msgid "&Paste"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:246 libkwave/undo/UndoSelection.cpp:46
+#: libgui/SignalWidget.cpp:244 libkwave/undo/UndoSelection.cpp:46
 #, kde-format
 msgid "Selection"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:253
+#: libgui/SignalWidget.cpp:251
 #, kde-format
 msgid "&Save..."
 msgstr ""
 
-#: libgui/SignalWidget.cpp:260
+#: libgui/SignalWidget.cpp:258
 #, kde-format
 msgid "&Expand to Labels"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:270
+#: libgui/SignalWidget.cpp:268
 #, kde-format
 msgid "To Next Labels"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:280
+#: libgui/SignalWidget.cpp:278
 #, kde-format
 msgid "To Previous Labels"
 msgstr ""
@@ -3450,7 +3450,7 @@ msgid "Manual Selection"
 msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btNew)
-#: libkwave/SignalManager.h:43 plugins/record/RecordDlg.ui:153
+#: libkwave/SignalManager.h:44 plugins/record/RecordDlg.ui:153
 #, kde-format
 msgid "New File"
 msgstr ""

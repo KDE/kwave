@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-20 00:44+0000\n"
-"PO-Revision-Date: 2026-09-07 21:19+0200\n"
+"PO-Revision-Date: 2026-09-20 12:31+0200\n"
 "Last-Translator: Libor Filipek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -7436,10 +7436,9 @@ msgid "Sonagram"
 msgstr "Sonagram"
 
 #: plugins/sonagram/SonagramPlugin.cpp:215
-#, fuzzy, kde-format
-#| msgid "Sonagram of %1"
+#, kde-format
 msgid "Sonagram loaded from %1"
-msgstr "Sonagram %1"
+msgstr "Sonagram načten z %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:122
 #, kde-format
@@ -7447,15 +7446,14 @@ msgid "&Sonagram"
 msgstr "&Sonagram"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
-#, fuzzy, kde-format
-#| msgid "&Export to Bitmap..."
+#, kde-format
 msgid "&Import from Bitmap..."
-msgstr "&Uložit do bitmapy..."
+msgstr "&Importovat bitmapy..."
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
 msgid "&Export to Bitmap..."
-msgstr "&Uložit do bitmapy..."
+msgstr "&Exportovat do bitmapy..."
 
 #: plugins/sonagram/SonagramWindow.cpp:138
 #, kde-format
@@ -7498,10 +7496,9 @@ msgid "Save Sonagram"
 msgstr "Uložit sonagram"
 
 #: plugins/sonagram/SonagramWindow.cpp:273
-#, fuzzy, kde-format
-#| msgid "Save Sonagram"
+#, kde-format
 msgid "Load Sonagram"
-msgstr "Uložit sonagram"
+msgstr "Načíst sonagram"
 
 #: plugins/sonagram/SonagramWindow.cpp:531
 #, kde-format

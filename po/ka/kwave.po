@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-20 00:44+0000\n"
-"PO-Revision-Date: 2026-09-07 04:53+0200\n"
+"PO-Revision-Date: 2026-09-20 03:47+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -7423,10 +7423,9 @@ msgid "Sonagram"
 msgstr "სონოგრამა"
 
 #: plugins/sonagram/SonagramPlugin.cpp:215
-#, fuzzy, kde-format
-#| msgid "Sonagram of %1"
+#, kde-format
 msgid "Sonagram loaded from %1"
-msgstr "%1-ის სონაგრამა"
+msgstr "სონაგრამა ჩაიტვირთა %1-დან"
 
 #: plugins/sonagram/SonagramWindow.cpp:122
 #, kde-format
@@ -7434,10 +7433,9 @@ msgid "&Sonagram"
 msgstr "&სონაგრამა"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
-#, fuzzy, kde-format
-#| msgid "&Export to Bitmap..."
+#, kde-format
 msgid "&Import from Bitmap..."
-msgstr "გატანა bitmap &ფაილში..."
+msgstr "შემოტანა Bitman-&იდან..."
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7485,10 +7483,9 @@ msgid "Save Sonagram"
 msgstr "სონაგრამის შენახვა"
 
 #: plugins/sonagram/SonagramWindow.cpp:273
-#, fuzzy, kde-format
-#| msgid "Save Sonagram"
+#, kde-format
 msgid "Load Sonagram"
-msgstr "სონაგრამის შენახვა"
+msgstr "სონაგრამის ჩატვირთვა"
 
 #: plugins/sonagram/SonagramWindow.cpp:531
 #, kde-format

@@ -10653,7 +10653,7 @@
 	<varlistentry>
 	    <term
 ><emphasis role="bold"
->&i18n-plugin_lbl_parameters;</emphasis
+>&i18n-plugin_lbl_parameters; (типовий режим)</emphasis
 ></term>
 	    <listitem>
 		<variablelist>
@@ -10781,6 +10781,83 @@
 		</variablelist>
 	    </listitem>
 	</varlistentry>
+
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>&i18n-plugin_lbl_parameters; (режим завантаження з файла)</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+			<varlistentry>
+				<term
+><literal
+>load</literal
+></term>
+				<listitem>
+					<para
+>Якщо першим параметром є слово «<literal
+>load</literal
+>», то наступний параметр буде оброблено як назву файла для завантаження. </para>
+				</listitem>
+			</varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>назва_файла</replaceable
+></term>
+			<listitem>
+			    <para
+>Назва файла для завантаження. </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>&i18n-plugin_lbl_parameters; (режим збереження до файла)</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+			<varlistentry>
+				<term
+><literal
+>save</literal
+></term>
+				<listitem>
+					<para
+>Якщо першим параметром є слово «<literal
+>save</literal
+>», то наступні параметри буде оброблено як індекс сонограми та назву файла для збереження. </para>
+				</listitem>
+			</varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>index</replaceable
+></term>
+			<listitem>
+			    <para
+>Числовий індекс вікна сонограми, що відповідає сонограмі, яку слід зберегти. Цей індекс визначається на основі внутрішнього списку відкритих на даний момент вікон сонограм, відлік починається з нуля. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>назва_файла</replaceable
+></term>
+			<listitem>
+			    <para
+>Назва файла для завантаження. </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+		</listitem>
+	</varlistentry>
+
     </variablelist>
     </sect1>
 
@@ -11443,16 +11520,6 @@
 	    <listitem>
 	    	<para
 ><emphasis role="bold"
->Aaron Holtzman <email
->aholtzma@ess.engr.uvic.ca</email
-> </emphasis
-></para
-><para
->libkwave/cpu_accel.cpp </para>
-	    </listitem>
-	    <listitem>
-	    	<para
-><emphasis role="bold"
 > Bertrand Songis <email
 >bsongis@gmail.com</email
 > </emphasis
@@ -11589,14 +11656,6 @@
 ></para
 ><para
 >cmake/FindAlsa.cmake </para>
-	    </listitem>
-	    <listitem>
-	    	<para
-><emphasis role="bold"
->Miguel Freitas </emphasis
-></para
-><para
->частина libkwave/memcpy.c </para>
 	    </listitem>
 	    <listitem>
 	    	<para

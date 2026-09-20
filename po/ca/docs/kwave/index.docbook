@@ -10591,7 +10591,7 @@
 	<varlistentry>
 	    <term
 ><emphasis role="bold"
->&i18n-plugin_lbl_parameters;</emphasis
+>&i18n-plugin_lbl_parameters; (mode predeterminat)</emphasis
 ></term>
 	    <listitem>
 		<variablelist>
@@ -10719,6 +10719,83 @@
 		</variablelist>
 	    </listitem>
 	</varlistentry>
+
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>&i18n-plugin_lbl_parameters; (carrega des del mode de fitxer)</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+			<varlistentry>
+				<term
+><literal
+>load</literal
+></term>
+				<listitem>
+					<para
+>Si el primer paràmetre és la paraula «<literal
+>load</literal
+>», el paràmetre següent s'interpretarà com un nom de fitxer a carregar. </para>
+				</listitem>
+			</varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>nom_de_fitxer</replaceable
+></term>
+			<listitem>
+			    <para
+>Nom del fitxer a carregar. </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>&i18n-plugin_lbl_parameters; (desa al mode de fitxer)</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+			<varlistentry>
+				<term
+><literal
+>save</literal
+></term>
+				<listitem>
+					<para
+>Si el primer paràmetre és la paraula «<literal
+>save</literal
+>», els paràmetres següents s'interpretaran com un índex del sonograma i un nom de fitxer a desar. </para>
+				</listitem>
+			</varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>index</replaceable
+></term>
+			<listitem>
+			    <para
+>L'índex numèric de la finestra del sonagrama que mostra el sonagrama a desar. Aquest és un índex que es determina a partir de la llista interna de finestres de sonagrama obertes actualment, començant des de zero. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>nom_de_fitxer</replaceable
+></term>
+			<listitem>
+			    <para
+>Nom del fitxer a carregar. </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+		</listitem>
+	</varlistentry>
+
     </variablelist>
     </sect1>
 

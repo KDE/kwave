@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-20 00:44+0000\n"
-"PO-Revision-Date: 2026-09-07 14:11+0300\n"
+"PO-Revision-Date: 2026-09-20 14:35+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -912,7 +912,7 @@ msgstr "Шум"
 #: kwave/menus.config:217
 msgctxt "menu: /Calculate/Sonagram"
 msgid "Sonagram"
-msgstr "Сонаграма"
+msgstr "Сонограма"
 
 #: kwave/menus.config:227
 msgctxt "menu: /Window"
@@ -7359,7 +7359,7 @@ msgstr "Оновити"
 #: plugins/sonagram/SonagramDlg.ui:87
 #, kde-format
 msgid "Automatically update the sonagram <br>if the signal data has changed"
-msgstr "Автоматично оновлювати сонаграму,<br>якщо змінено дані сигналу"
+msgstr "Автоматично оновлювати сонограму,<br>якщо змінено дані сигналу"
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbTrackChanges)
 #: plugins/sonagram/SonagramDlg.ui:90
@@ -7374,7 +7374,7 @@ msgid ""
 "Automatically update the sonagram if the selection<br>has been enlarged, "
 "reduced or moved"
 msgstr ""
-"Автоматично оновлювати сонаграму, якщо позначену<br>область було збільшено, "
+"Автоматично оновлювати сонограму, якщо позначену<br>область було збільшено, "
 "зменшено або пересунуто"
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbFollowSelection)
@@ -7481,24 +7481,22 @@ msgstr "?:"
 #: plugins/sonagram/SonagramWindow.cpp:532
 #, kde-format
 msgid "Sonagram"
-msgstr "Сонаграма"
+msgstr "Сонограма"
 
 #: plugins/sonagram/SonagramPlugin.cpp:215
-#, fuzzy, kde-format
-#| msgid "Sonagram of %1"
+#, kde-format
 msgid "Sonagram loaded from %1"
-msgstr "Сонаграма %1"
+msgstr "Сонораму завантажено з %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:122
 #, kde-format
 msgid "&Sonagram"
-msgstr "Со&награма"
+msgstr "Со&нограма"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
-#, fuzzy, kde-format
-#| msgid "&Export to Bitmap..."
+#, kde-format
 msgid "&Import from Bitmap..."
-msgstr "&Експортувати до растрового зображення…"
+msgstr "&Імпортувати з растрового зображення…"
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7543,18 +7541,17 @@ msgstr "Амплітуда: 0 %"
 #: plugins/sonagram/SonagramWindow.cpp:252
 #, kde-format
 msgid "Save Sonagram"
-msgstr "Зберегти сонаграму"
+msgstr "Зберегти сонограму"
 
 #: plugins/sonagram/SonagramWindow.cpp:273
-#, fuzzy, kde-format
-#| msgid "Save Sonagram"
+#, kde-format
 msgid "Load Sonagram"
-msgstr "Зберегти сонаграму"
+msgstr "Завантажити сонограму"
 
 #: plugins/sonagram/SonagramWindow.cpp:531
 #, kde-format
 msgid "Sonagram of %1"
-msgstr "Сонаграма %1"
+msgstr "Сонограма %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:554
 #, kde-format

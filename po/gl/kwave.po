@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-16 00:44+0000\n"
+"POT-Creation-Date: 2026-09-20 00:44+0000\n"
 "PO-Revision-Date: 2025-01-26 21:07+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -43,42 +43,42 @@ msgstr "Abrindo a xanela principal…"
 msgid "Startup done"
 msgstr "Rematou a preparación."
 
-#: kwave/FileContext.cpp:205
+#: kwave/FileContext.cpp:206
 #, kde-format
 msgid "Scanning plugins..."
 msgstr "Examinando os complementos…"
 
-#: kwave/FileContext.cpp:238 kwave/FileContext.cpp:239
+#: kwave/FileContext.cpp:239 kwave/FileContext.cpp:240
 #, kde-format
 msgid "Loading plugins..."
 msgstr "Cargando os complementos…"
 
-#: kwave/FileContext.cpp:241
+#: kwave/FileContext.cpp:242
 #, kde-format
 msgid "Failed"
 msgstr "Fallou"
 
-#: kwave/FileContext.cpp:244
+#: kwave/FileContext.cpp:245
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
 msgstr "Kwave non se instalou axeitadamente. Non se atoparon complementos!"
 
-#: kwave/FileContext.cpp:250
+#: kwave/FileContext.cpp:251
 #, kde-format
 msgid "Ready"
 msgstr "Listo"
 
-#: kwave/FileContext.cpp:530
+#: kwave/FileContext.cpp:531
 #, kde-format
 msgid "Playback: %1"
 msgstr "Reprodución: %1"
 
-#: kwave/FileContext.cpp:532
+#: kwave/FileContext.cpp:533
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Reprodución: %1 mostras"
 
-#: kwave/FileContext.cpp:874
+#: kwave/FileContext.cpp:875
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -86,13 +86,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:880
+#: kwave/FileContext.cpp:881
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (modificado)"
 
-#: kwave/FileContext.cpp:915
+#: kwave/FileContext.cpp:916
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -101,12 +101,12 @@ msgstr ""
 "O ficheiro modificouse, perderanse os cambios.\n"
 "Quere continuar?"
 
-#: kwave/FileContext.cpp:995
+#: kwave/FileContext.cpp:996
 #, kde-format
 msgid "Save As"
 msgstr "Gardar como"
 
-#: kwave/FileContext.cpp:1032 kwave/MainWidget.cpp:992
+#: kwave/FileContext.cpp:1033 kwave/MainWidget.cpp:992
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -115,7 +115,7 @@ msgstr ""
 "O ficheiro «%1» xa existe.\n"
 "Seguro que quere substituílo?"
 
-#: kwave/FileContext.cpp:1100
+#: kwave/FileContext.cpp:1101
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -3751,7 +3751,7 @@ msgid "License agreement"
 msgstr "Acordo da licenza"
 
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:43
-#: plugins/sonagram/SonagramWindow.cpp:165
+#: plugins/sonagram/SonagramWindow.cpp:170
 #, kde-format
 msgid "ms"
 msgstr "ms"
@@ -3795,7 +3795,7 @@ msgstr "Esvaer o final"
 #: plugins/band_pass/BandPassDialog.cpp:63 plugins/band_pass/BandPassDlg.ui:117
 #: plugins/lowpass/LowPassDialog.cpp:61
 #: plugins/notch_filter/NotchFilterDialog.cpp:65
-#: plugins/sonagram/SonagramWindow.cpp:172
+#: plugins/sonagram/SonagramWindow.cpp:177
 #, kde-format
 msgid "Hz"
 msgstr "Hz"
@@ -4900,7 +4900,7 @@ msgstr "&Si, usar G711"
 msgid "&No, store uncompressed"
 msgstr "&Non, gardar sen comprimir"
 
-#: plugins/codec_wav/WavEncoder.cpp:496 plugins/sonagram/SonagramPlugin.cpp:203
+#: plugins/codec_wav/WavEncoder.cpp:496 plugins/sonagram/SonagramPlugin.cpp:247
 #, kde-format
 msgid "File or selection too large"
 msgstr "O ficheiro ou a selección son demasiado grandes."
@@ -7513,78 +7513,96 @@ msgstr "4096"
 msgid "?:"
 msgstr "?:"
 
-#: plugins/sonagram/SonagramPlugin.cpp:74
-#: plugins/sonagram/SonagramWindow.cpp:524
+#: plugins/sonagram/SonagramPlugin.cpp:76
+#: plugins/sonagram/SonagramWindow.cpp:532
 #, kde-format
 msgid "Sonagram"
 msgstr "Espectrograma"
 
-#: plugins/sonagram/SonagramWindow.cpp:119
+#: plugins/sonagram/SonagramPlugin.cpp:215
+#, fuzzy, kde-format
+#| msgid "Sonagram of %1"
+msgid "Sonagram loaded from %1"
+msgstr "Espectrograma de %1"
+
+#: plugins/sonagram/SonagramWindow.cpp:122
 #, kde-format
 msgid "&Sonagram"
 msgstr "E&spectrograma"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
-#, kde-format
-msgid "&Export to Bitmap..."
+#, fuzzy, kde-format
+#| msgid "&Export to Bitmap..."
+msgid "&Import from Bitmap..."
 msgstr "&Exportar como mapa de bits…"
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
+msgid "&Export to Bitmap..."
+msgstr "&Exportar como mapa de bits…"
+
+#: plugins/sonagram/SonagramWindow.cpp:138
+#, kde-format
 msgid "&Close"
 msgstr "&Pechar"
 
-#: plugins/sonagram/SonagramWindow.cpp:146
+#: plugins/sonagram/SonagramWindow.cpp:151
 #, kde-format
 msgid "Time: ------ ms"
 msgstr "Duración: ------ ms"
 
-#: plugins/sonagram/SonagramWindow.cpp:148
+#: plugins/sonagram/SonagramWindow.cpp:153
 #, kde-format
 msgid "Frequency: ------ Hz"
 msgstr "Frecuencia: ------ Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:150
+#: plugins/sonagram/SonagramWindow.cpp:155
 #, kde-format
 msgid "Amplitude: --- %"
 msgstr "Amplitude: --- %"
 
-#: plugins/sonagram/SonagramWindow.cpp:199
+#: plugins/sonagram/SonagramWindow.cpp:202
 #, kde-format
 msgid "Time: 0 ms"
 msgstr "Duración: 0 ms"
 
-#: plugins/sonagram/SonagramWindow.cpp:200
+#: plugins/sonagram/SonagramWindow.cpp:203
 #, kde-format
 msgid "Frequency: 0 Hz"
 msgstr "Frecuencia: 0 Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:201
+#: plugins/sonagram/SonagramWindow.cpp:204
 #, kde-format
 msgid "Amplitude: 0 %"
 msgstr "Amplitude: 0%"
 
-#: plugins/sonagram/SonagramWindow.cpp:230
+#: plugins/sonagram/SonagramWindow.cpp:252
 #, kde-format
 msgid "Save Sonagram"
 msgstr "Gardar o espectrograma"
 
-#: plugins/sonagram/SonagramWindow.cpp:523
+#: plugins/sonagram/SonagramWindow.cpp:273
+#, fuzzy, kde-format
+#| msgid "Save Sonagram"
+msgid "Load Sonagram"
+msgstr "Gardar o espectrograma"
+
+#: plugins/sonagram/SonagramWindow.cpp:531
 #, kde-format
 msgid "Sonagram of %1"
 msgstr "Espectrograma de %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:547
+#: plugins/sonagram/SonagramWindow.cpp:554
 #, kde-format
 msgid "Time: %1"
 msgstr "Tempo: %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:551
+#: plugins/sonagram/SonagramWindow.cpp:558
 #, kde-format
 msgid "Frequency: %1 Hz"
 msgstr "Frecuencia: %1 Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:560
+#: plugins/sonagram/SonagramWindow.cpp:567
 #, kde-format
 msgid "Amplitude: %1%"
 msgstr "Amplitude: %1%"
@@ -7601,8 +7619,8 @@ msgstr "Insira unha orde…"
 msgid "Enter Command:"
 msgstr "Insira unha orde:"
 
-#. i18n: ectx: property (toolTip), widget (QLineEdit, edCommand)
-#: plugins/stringenter/StringEnterDlg.ui:68
+#. i18n: ectx: property (toolTip), widget (QComboBox, cbCommand)
+#: plugins/stringenter/StringEnterDlg.ui:74
 #, kde-format
 msgid "please enter a text command here..."
 msgstr "Insira o texto da orde…"

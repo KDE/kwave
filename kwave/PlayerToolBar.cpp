@@ -45,13 +45,11 @@ using namespace Qt::Literals::StringLiterals;
     m_menu_manager.setItemEnabled(_(__entry__), \
                                   m_action_##__action__->isEnabled())
 
-/** useful macro for command parsing */
-#define CASE_COMMAND(x) } else if (command == _(x)) {
-
 //***************************************************************************
 Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
                                     Kwave::MenuManager &menu_manager)
     :KToolBar(name, parent, true),
+     Kwave::CommandHandler(),
      m_context(nullptr),
      m_action_prev(nullptr),
      m_action_rewind(nullptr),
@@ -428,29 +426,48 @@ void Kwave::PlayerToolBar::updatePlaybackPos(sample_index_t pos)
 //***************************************************************************
 int Kwave::PlayerToolBar::executeCommand(const QString &command)
 {
-    int result = 0;
-    Kwave::Parser parser(command);
-
-    if (false) {
-    CASE_COMMAND("prev")
+    const Kwave::CommandHandler::List commands = {
+    { KWAVE_COMMAND("prev") {
         m_action_prev->activate(QAction::Trigger);
-    CASE_COMMAND("rewind")
+        return 0;
+    }},
+    { KWAVE_COMMAND("rewind") {
         m_action_rewind->activate(QAction::Trigger);
-    CASE_COMMAND("start")
+        return 0;
+    }},
+    { KWAVE_COMMAND("start") {
         m_action_play->activate(QAction::Trigger);
-    CASE_COMMAND("loop")
+        return 0;
+    }},
+    { KWAVE_COMMAND("loop") {
         m_action_loop->activate(QAction::Trigger);
-    CASE_COMMAND("pause")
+        return 0;
+    }},
+    { KWAVE_COMMAND("pause") {
         m_action_pause->activate(QAction::Trigger);
-    CASE_COMMAND("continue")
+        return 0;
+    }},
+    { KWAVE_COMMAND("continue") {
         m_action_pause->activate(QAction::Trigger);
-    CASE_COMMAND("stop")
+        return 0;
+    }},
+    { KWAVE_COMMAND("stop") {
         m_action_stop->activate(QAction::Trigger);
-    CASE_COMMAND("forward")
+        return 0;
+    }},
+    { KWAVE_COMMAND("forward") {
         m_action_forward->activate(QAction::Trigger);
-    CASE_COMMAND("next")
+        return 0;
+    }},
+    { KWAVE_COMMAND("next") {
         m_action_next->activate(QAction::Trigger);
-    } else {
+        return 0;
+    }}
+    };
+
+    Kwave::Parser parser(command);
+    int result = handleCommandList(commands, parser);
+    if (result == ENOSYS) {
         result = -1; // unknown command ?
     }
 

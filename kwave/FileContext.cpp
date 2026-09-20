@@ -49,11 +49,6 @@
 #include "Splash.h"
 #include "TopWidget.h"
 
-/**
- * useful macro for command parsing
- */
-#define CASE_COMMAND(x) } else if (parser.command() == _(x)) {
-
 //***************************************************************************
 /**
  * struct for info about a label within a Kwave script
@@ -62,13 +57,13 @@
 namespace Kwave {
     typedef struct {
         qint64       pos;  /**< position within the stream      */
-        unsigned int hits; /**< number of "goto"s to this label */
+        unsigned int hits; /**< number of "goto's to this label */
     } label_t;
 }
 
 //***************************************************************************
 Kwave::FileContext::FileContext(Kwave::App &app)
-    :QObject(),
+    :QObject(), Kwave::CommandHandler(),
      m_use_count(1),
      m_application(app),
      m_top_widget(nullptr),
@@ -437,61 +432,81 @@ int Kwave::FileContext::executeCommand(const QString &line)
     if ((result = m_top_widget->executeCommand(command)) != ENOSYS)
         return result;
 
-    if (false) {
-    CASE_COMMAND("close")
-        result = closeFile() ? 0 : 1;
-    CASE_COMMAND("delayed")
-        if (parser.count() != 2)
+    const Kwave::CommandHandler::List commands = {
+    { KWAVE_COMMAND("close") {
+        return closeFile() ? 0 : 1;
+    }},
+    { KWAVE_COMMAND("delayed") {
+        if (p.count() != 2)
             return -EINVAL;
-        unsigned int delay         = parser.firstParam().toUInt();
-        QString      delayed_cmd   = parser.nextParam();
+        unsigned int delay         = p.firstParam().toUInt();
+        QString      delayed_cmd   = p.nextParam();
         enqueueCommand(delay, delayed_cmd);
-        result = 0;
-    CASE_COMMAND("loadbatch")
-        result = loadBatch(QUrl(parser.nextParam()));
-    CASE_COMMAND("plugin")
-        QString name(parser.firstParam());
-        QStringList params(parser.remainingParams());
+        return 0;
+    }},
+    { KWAVE_COMMAND("loadbatch") {
+        return loadBatch(QUrl(p.nextParam()));
+    }},
+    { KWAVE_COMMAND("plugin") {
+        QString name(p.firstParam());
+        QStringList params(p.remainingParams());
         qDebug("FileContext::executeCommand(): loading plugin '%s'", DBG(name));
-        qDebug("FileContext::executeCommand(): with %lld parameter(s)",
-                params.count());
-        result = m_plugin_manager->executePlugin(
+        qDebug("FileContext::executeCommand(): with %u parameter(s)",
+                static_cast<unsigned int>(p.count()));
+        return m_plugin_manager->executePlugin(
             name, params.count() ? &params : nullptr);
-    CASE_COMMAND("plugin:execute")
-        QString name(parser.firstParam());
-        QStringList params(parser.remainingParams());
-        result = m_plugin_manager->executePlugin(name, &params);
-    CASE_COMMAND("plugin:setup")
-        QString name(parser.firstParam());
-        QStringList params(parser.remainingParams());
-        result = m_plugin_manager->setupPlugin(name, params);
-        if (result > 0) result = 0;
-    CASE_COMMAND("revert")
-        result = revert();
-    CASE_COMMAND("save")
-        result = saveFile();
-    CASE_COMMAND("saveas")
-        result = saveFileAs(parser.nextParam(), false);
-    CASE_COMMAND("saveselect")
-        result = saveFileAs(QString(), true);
-    CASE_COMMAND("sync")
+    }},
+    { KWAVE_COMMAND("plugin:execute") {
+        QString name(p.firstParam());
+        QStringList params(p.remainingParams());
+        return m_plugin_manager->executePlugin(name, &params);
+    }},
+    { KWAVE_COMMAND("plugin:setup") {
+        QString name(p.firstParam());
+        QStringList params(p.remainingParams());
+        int res = m_plugin_manager->setupPlugin(name, params);
+        return (res > 0) ? 0 : res;
+    }},
+    { KWAVE_COMMAND("revert") {
+        return revert();
+    }},
+    { KWAVE_COMMAND("save") {
+        return saveFile();
+    }},
+    { KWAVE_COMMAND("saveas") {
+        return saveFileAs(p.nextParam(), false);
+    }},
+    { KWAVE_COMMAND("saveselect") {
+        return saveFileAs(QString(), true);
+    }},
+    { KWAVE_COMMAND("sync") {
         while (!m_delayed_command_queue.isEmpty()) {
             qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
         }
-        result = 0;
-    CASE_COMMAND("window:click")
-        result = delegateCommand("debug", parser, 3);
-    CASE_COMMAND("window:close")
-        result = delegateCommand("debug", parser, 1);
-    CASE_COMMAND("window:mousemove")
-        result = delegateCommand("debug", parser, 3);
-    CASE_COMMAND("window:resize")
-        result = delegateCommand("debug", parser, 3);
-    CASE_COMMAND("window:sendkey")
-        result = delegateCommand("debug", parser, 2);
-    CASE_COMMAND("window:screenshot")
-        result = delegateCommand("debug", parser, 2);
-    } else {
+        return 0;
+    }},
+    { KWAVE_COMMAND("window:click") {
+        return delegateCommand("debug", p, 3);
+    }},
+    { KWAVE_COMMAND("window:close") {
+        return delegateCommand("debug", p, 1);
+    }},
+    { KWAVE_COMMAND("window:mousemove") {
+        return delegateCommand("debug", p, 3);
+    }},
+    { KWAVE_COMMAND("window:resize") {
+        return delegateCommand("debug", p, 3);
+    }},
+    { KWAVE_COMMAND("window:sendkey") {
+        return delegateCommand("debug", p, 2);
+    }},
+    { KWAVE_COMMAND("window:screenshot") {
+        return delegateCommand("debug", p, 2);
+    }}
+    };
+
+    result = handleCommandList(commands, parser);
+    if (result == ENOSYS) {
         // pass the command to the layer below (main widget)
         Kwave::CommandHandler *layer_below = m_main_widget;
         result = (layer_below) ? layer_below->executeCommand(command) : -ENOSYS;
@@ -764,8 +779,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
             m_plugin_manager->sync();
 
         // the "msgbox" command (useful for debugging)
-        if (false) {
-        CASE_COMMAND("msgbox")
+        if (parser.command() == _("msgbox")) {
             QApplication::restoreOverrideCursor();
             result = (Kwave::MessageBox::questionYesNo(mainWidget(),
                 parser.firstParam()) == KMessageBox::PrimaryAction) ? 0 : 1;
@@ -903,10 +917,10 @@ int Kwave::FileContext::loadBatch(const QUrl &url)
 
     // use a text stream for parsing the commands
     QTextStream stream(&file);
-    int result = parseCommands(stream);
+    int res = parseCommands(stream);
     file.close();
 
-    return result;
+    return res;
 }
 
 //***************************************************************************

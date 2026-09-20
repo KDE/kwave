@@ -64,11 +64,6 @@
 #include "MainWidget.h"
 
 /**
- * useful macro for command parsing
- */
-#define CASE_COMMAND(x) } else if (parser.command() == _(x)) {
-
-/**
  * Limits the zoom to a minimum number of samples visible in one
  * screen.
  */
@@ -401,46 +396,68 @@ int Kwave::MainWidget::executeCommand(const QString &command)
     const sample_index_t visible_samples = visibleSamples();
     const sample_index_t signal_length   = signal_manager->length();
 
-    if (false) {
-
+    const Kwave::CommandHandler::List commands = {
     // -- zoom --
-    CASE_COMMAND("view:zoom_selection")
+    { KWAVE_COMMAND("view:zoom_selection") {
         zoomSelection();
-    CASE_COMMAND("view:zoom_in")
-        int x = parser.hasParams() ? parser.toInt() : -1;
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:zoom_in") {
+        int x = p.hasParams() ? p.toInt() : -1;
         zoomIn(x);
-    CASE_COMMAND("view:zoom_out")
-        int x = parser.hasParams() ? parser.toInt() : -1;
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:zoom_out") {
+        int x = p.hasParams() ? p.toInt() : -1;
         zoomOut(x);
-    CASE_COMMAND("view:zoom_normal")
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:zoom_normal") {
         zoomNormal();
-    CASE_COMMAND("view:zoom_all")
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:zoom_all") {
         zoomAll();
-
+        return 0;
+    }},
     // -- navigation --
-    CASE_COMMAND("goto")
-        sample_index_t offset = parser.toSampleIndex();
+    { KWAVE_COMMAND("goto") {
+        sample_index_t offset = p.toSampleIndex();
         setOffset((offset > (visible_samples / 2)) ?
                   (offset - (visible_samples / 2)) : 0);
         signal_manager->selectRange(offset, 0);
-    CASE_COMMAND("view:scroll_right")
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:scroll_right") {
         const sample_index_t step = visible_samples / 10;
         setOffset(m_offset + step);
-    CASE_COMMAND("view:scroll_left")
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:scroll_left") {
         const sample_index_t step = visible_samples / 10;
         setOffset((step < m_offset) ? (m_offset - step) : 0);
-    CASE_COMMAND("view:scroll_start")
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:scroll_start") {
         setOffset(0);
         signal_manager->selectRange(0, 0);
-    CASE_COMMAND("view:scroll_end")
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:scroll_end") {
         if (signal_length >= visible_samples)
             setOffset(signal_length - visible_samples);
-    CASE_COMMAND("view:scroll_next")
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:scroll_next") {
         setOffset(m_offset + visible_samples);
-    CASE_COMMAND("view:scroll_prev")
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:scroll_prev") {
         setOffset((visible_samples < m_offset) ?
                   (m_offset - visible_samples) : 0);
-    CASE_COMMAND("view:scroll_next_label")
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:scroll_next_label") {
         sample_index_t ofs =
             Kwave::LabelList(signal_manager->metaData()).nextLabelRight(
                 m_offset + (visible_samples / 2));
@@ -448,74 +465,100 @@ int Kwave::MainWidget::executeCommand(const QString &command)
             ofs = signal_length - 1;
         setOffset((ofs > (visible_samples / 2)) ?
                   (ofs - (visible_samples / 2)) : 0);
-    CASE_COMMAND("view:scroll_prev_label")
+        return 0;
+    }},
+    { KWAVE_COMMAND("view:scroll_prev_label") {
         sample_index_t ofs =
             Kwave::LabelList(signal_manager->metaData()).nextLabelLeft(
                 m_offset + (visible_samples / 2));
         setOffset((ofs > (visible_samples / 2)) ?
                   (ofs - (visible_samples / 2)) : 0);
+                  return 0;
+    }},
+
     // -- selection --
-    CASE_COMMAND("selectall")
+    { KWAVE_COMMAND("selectall") {
         signal_manager->selectRange(0, signal_manager->length());
-    CASE_COMMAND("selectnext")
+        return 0;
+    }},
+    { KWAVE_COMMAND("selectnext") {
         if (signal_manager->selection().length())
             signal_manager->selectRange(signal_manager->selection().last() + 1,
                         signal_manager->selection().length());
         else
             signal_manager->selectRange(signal_manager->length() - 1, 0);
-    CASE_COMMAND("selectprev")
+        return 0;
+    }},
+    { KWAVE_COMMAND("selectprev") {
         sample_index_t ofs = signal_manager->selection().first();
         sample_index_t len = signal_manager->selection().length();
         if (!len) len = 1;
         if (len > ofs) len = ofs;
         signal_manager->selectRange(ofs - len, len);
-    CASE_COMMAND("selecttoleft")
+        return 0;
+    }},
+    { KWAVE_COMMAND("selecttoleft") {
         signal_manager->selectRange(0, signal_manager->selection().last() + 1);
-    CASE_COMMAND("selecttoright")
+        return 0;
+    }},
+    { KWAVE_COMMAND("selecttoright") {
         signal_manager->selectRange(signal_manager->selection().first(),
             signal_manager->length() - signal_manager->selection().first()
         );
-    CASE_COMMAND("selectvisible")
+        return 0;
+    }},
+    { KWAVE_COMMAND("selectvisible") {
         signal_manager->selectRange(m_offset, visibleSamples());
-    CASE_COMMAND("selectnone")
+        return 0;
+    }},
+    { KWAVE_COMMAND("selectnone") {
         signal_manager->selectRange(m_offset, 0);
+        return 0;
+    }},
 
     // label handling
-    CASE_COMMAND("label:add")
-        sample_index_t pos = parser.toSampleIndex();
-        if (!parser.isDone()) {
+    { KWAVE_COMMAND("label:add") {
+        sample_index_t pos = p.toSampleIndex();
+        if (!p.isDone()) {
             // 2 parameters: position + description
-            QString description = parser.nextParam();
+            QString description = p.nextParam();
             signal_manager->addLabel(pos, description);
         } else {
             // 1 parameter only: open dialog for editing the description
             addLabel(pos, QString());
         }
-    CASE_COMMAND("label:edit")
-        int index = parser.toInt();
+        return 0;
+    }},
+    { KWAVE_COMMAND("label:edit") {
+        int index = p.toInt();
         Kwave::LabelList labels(signal_manager->metaData());
         if ((index >= labels.count()) || (index < 0))
             return -EINVAL;
         Kwave::Label label = labels.at(index);
         labelProperties(label);
-    CASE_COMMAND("label:load")
-        QString filename = parser.nextParam();
+        return 0;
+    }},
+    { KWAVE_COMMAND("label:load") {
+        QString filename = p.nextParam();
         return loadLabels(filename);
-   CASE_COMMAND("label:save")
-        QString filename = parser.nextParam();
+    }},
+    { KWAVE_COMMAND("label:save") {
+        QString filename = p.nextParam();
         return saveLabels(filename);
-
-//    CASE_COMMAND("label:by_intensity")
+    }}
+//    { KWAVE_COMMAND(("label:by_intensity")
 //      markSignal(command);
-//    CASE_COMMAND("label:to_pitch")
+//    { KWAVE_COMMAND(("label:to_pitch")
 //      convertMarkstoPitch(command);
-//    CASE_COMMAND("label:by_period")
+//    { KWAVE_COMMAND(("label:by_period")
 //      markPeriods(command);
+    };
 
-    } else
+    int result = handleCommandList(commands, parser);
+    if (result == ENOSYS) {
         return signal_manager->executeCommand(command);
-
-    return 0;
+    }
+    return result;
 }
 
 //***************************************************************************

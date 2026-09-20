@@ -73,11 +73,10 @@
 #include "libkwave/undo/UndoTransaction.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
-#define CASE_COMMAND(x) } else if (parser.command() == _(x)) {
-
 //***************************************************************************
 Kwave::SignalManager::SignalManager(QWidget *parent)
     :QObject(),
+    Kwave::CommandHandler(),
     m_parent_widget(parent),
     m_closed(true),
     m_empty(true),
@@ -644,21 +643,29 @@ int Kwave::SignalManager::executeCommand(const QString &command)
     if (!command.length()) return -EINVAL;
     Kwave::Parser parser(command);
 
-    if (false) {
+    const Kwave::CommandHandler::List commands = {
+
     // --- undo / redo ---
-    CASE_COMMAND("undo")
+    { KWAVE_COMMAND("undo") {
         undo();
-    CASE_COMMAND("redo")
+        return 0;
+    }},
+    { KWAVE_COMMAND("redo") {
         redo();
-    CASE_COMMAND("undo_all")
+        return 0;
+    }},
+    { KWAVE_COMMAND("undo_all") {
         while (m_undo_enabled && !m_undo_buffer.isEmpty())
             undo();
-    CASE_COMMAND("redo_all")
+        return 0;
+    }},
+    { KWAVE_COMMAND("redo_all") {
         while (!m_redo_buffer.isEmpty())
             redo();
-
+        return 0;
+    }},
     // --- copy & paste + clipboard ---
-    CASE_COMMAND("copy")
+    { KWAVE_COMMAND("copy") {
         if (length) {
             Kwave::ClipBoard &clip = Kwave::ClipBoard::instance();
             clip.copy(
@@ -670,26 +677,32 @@ int Kwave::SignalManager::executeCommand(const QString &command)
             // remember the last selection
             rememberCurrentSelection();
         }
-    CASE_COMMAND("insert_at")
+        return 0;
+    }},
+    { KWAVE_COMMAND("insert_at") {
         Kwave::ClipBoard &clip = Kwave::ClipBoard::instance();
         if (clip.isEmpty()) return 0;
         if (!selectedTracks().size()) return 0;
-        sample_index_t ofs = parser.toSampleIndex();
+        sample_index_t ofs = p.toSampleIndex();
 
         Kwave::UndoTransactionGuard undo(*this,
                                          i18n("Insert Clipboard at position"));
 
         selectRange(ofs, 0);
         clip.paste(m_parent_widget, *this, ofs, 0);
+        return 0;
+    }},
 
-    CASE_COMMAND("paste")
+    { KWAVE_COMMAND("paste") {
         Kwave::ClipBoard &clip = Kwave::ClipBoard::instance();
         if (clip.isEmpty()) return 0;
         if (!selectedTracks().size()) return 0;
 
         Kwave::UndoTransactionGuard undo(*this, i18n("Paste"));
         clip.paste(m_parent_widget, *this, offset, length);
-    CASE_COMMAND("cut")
+        return 0;
+    }},
+    { KWAVE_COMMAND("cut") {
         if (length) {
             // remember the last selection
             rememberCurrentSelection();
@@ -705,9 +718,13 @@ int Kwave::SignalManager::executeCommand(const QString &command)
             deleteRange(offset, length);
             selectRange(m_selection.offset(), 0);
         }
-    CASE_COMMAND("clipboard_flush")
+        return 0;
+    }},
+    { KWAVE_COMMAND("clipboard_flush") {
         Kwave::ClipBoard::instance().clear();
-    CASE_COMMAND("crop")
+        return 0;
+    }},
+    { KWAVE_COMMAND("crop") {
         if (length) {
             Kwave::UndoTransactionGuard undo(*this, i18n("Crop"));
             sample_index_t rest = this->length() - offset;
@@ -727,12 +744,16 @@ int Kwave::SignalManager::executeCommand(const QString &command)
                 selectRange(0, length);
             }
         }
-    CASE_COMMAND("delete")
+        return 0;
+    }},
+    { KWAVE_COMMAND("delete") {
         Kwave::UndoTransactionGuard undo(*this, i18n("Delete"));
         deleteRange(offset, length);
         selectRange(m_selection.offset(), 0);
+        return 0;
+    }},
 
-//    CASE_COMMAND("mixpaste")
+//    { KWAVE_COMMAND("mixpaste") {
 //      if (globals.clipboard) {
 //          SignalManager *toinsert = globals.clipboard->getSignal();
 //          if (toinsert) {
@@ -753,12 +774,16 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 //              }
 //          }
 //      }
+//        return 0;
+//    }},
 
-    CASE_COMMAND("label:delete")
-        int index = parser.toInt();
+    { KWAVE_COMMAND("label:delete") {
+        int index = p.toInt();
         deleteLabel(index, true);
+        return 0;
+    }},
 
-    CASE_COMMAND("expandtolabel")
+    { KWAVE_COMMAND("expandtolabel") {
         Kwave::UndoTransactionGuard undo(*this,
                                          i18n("Expand Selection to Label"));
         sample_index_t selection_left  = m_selection.first();
@@ -787,19 +812,22 @@ int Kwave::SignalManager::executeCommand(const QString &command)
             (this->length() - 1) : label_right.pos();
         sample_index_t len = selection_right - selection_left + 1;
         selectRange(selection_left, len);
+        return 0;
+    }},
 
-    CASE_COMMAND("selectnextlabels")
-        Kwave::UndoTransactionGuard undo(*this, i18n("Select Next Labels"));
-        sample_index_t selection_left;
-        sample_index_t selection_right = m_selection.last();
-        Kwave::Label label_left  = Kwave::Label();
-        Kwave::Label label_right = Kwave::Label();
+    { KWAVE_COMMAND("selectnextlabels") {
         Kwave::LabelList labels(m_meta_data);
         if (labels.isEmpty()) return false; // we need labels for this
 
+        Kwave::UndoTransactionGuard undo(*this, i18n("Select Next Labels"));
+        sample_index_t selection_left;
+        sample_index_t selection_right  = m_selection.last();
+        sample_index_t left             = labels.last().pos();
+        sample_index_t right            = this->length() - 1;
+
         // special case: nothing selected -> select up to the first label
         if (selection_right == 0) {
-            label_right = labels.first();
+            right = labels.first().pos();
             selection_left = 0;
         } else {
             // find the first label starting after the current selection
@@ -808,106 +836,124 @@ int Kwave::SignalManager::executeCommand(const QString &command)
                 Kwave::Label label = it.next();
                 if (label.pos() >= selection_right) {
                     // take it as selection start
-                    label_left  = label;
-                    // and it's next one as selection end (might be null)
-                    label_right = it.hasNext() ? it.next() : Kwave::Label();
+                    left  = label.pos();
+                    // and its next one as selection end (might be null)
+                    if (it.hasNext())
+                        right = it.next().pos();
                     break;
                 }
             }
             // default selection start = last label
-            if (label_left.isNull()) label_left = labels.last();
-            if (label_left.isNull()) return false; // no labels at all !?
-            selection_left = label_left.pos();
+            selection_left = left;
         }
         // default selection end = end of the file
-        selection_right = (label_right.isNull()) ?
-            (this->length() - 1) : label_right.pos();
+        selection_right = right;
         sample_index_t len = (selection_right > selection_left) ?
             (selection_right - selection_left + 1) : 1;
         selectRange(selection_left, len);
+        return 0;
+    }},
 
-    CASE_COMMAND("selectprevlabels")
-        Kwave::UndoTransactionGuard undo(*this, i18n("Select Previous Labels"));
-        sample_index_t selection_left  = selection().first();
-        Kwave::Label label_left  = Kwave::Label();
-        Kwave::Label label_right = Kwave::Label();
+    { KWAVE_COMMAND("selectprevlabels") {
         Kwave::LabelList labels(m_meta_data);
-        if (labels.isEmpty()) return false; // we need labels for this
+        if (labels.isEmpty())
+            return -1; // we need labels for this
 
-        // find the last label before the start of the selection
-        for (const Kwave::Label &label : labels) {
+        Kwave::UndoTransactionGuard undo(*this, i18n("Select Previous Labels"));
+        sample_index_t selection_left = selection().first();
+        sample_index_t left           = 0;
+        sample_index_t right          = labels.first().pos();
+        sample_index_t prev_pos       = 0;
+
+        // find last label before selection start
+        for (const Kwave::Label &label : labels)
+        {
             if (label.pos() > selection_left)
-                break; // done
-            label_left  = label_right;
-            label_right = label;
+                break;
+            left     = prev_pos;
+            right    = label.pos();
+            prev_pos = right;
         }
-        // default selection start = start of file
-        selection_left = (label_left.isNull()) ? 0 :
-            label_left.pos();
-        // default selection end = first label
-        if (label_right.isNull()) label_right = labels.first();
-        if (label_right.isNull()) return false; // no labels at all !?
-        sample_index_t selection_right = label_right.pos();
-        sample_index_t len = selection_right - selection_left + 1;
-        selectRange(selection_left, len);
+
+        sample_index_t len = (right > left) ? (right - left + 1) : 1;
+        selectRange(left, len);
+        return 0;
+    }},
 
     // --- track related functions ---
-    CASE_COMMAND("add_track")
+    { KWAVE_COMMAND("add_track") {
         appendTrack();
-    CASE_COMMAND("delete_track")
-        Kwave::Parser p(command);
+        return 0;
+    }},
+    { KWAVE_COMMAND("delete_track") {
         unsigned int track = p.toUInt();
         if (track >= tracks()) return -EINVAL;
         deleteTrack(track);
-    CASE_COMMAND("insert_track")
-        Kwave::Parser p(command);
+        return 0;
+    }},
+    { KWAVE_COMMAND("insert_track") {
         unsigned int track = p.toUInt();
         insertTrack(track);
+        return 0;
+    }},
 
     // track selection
-    CASE_COMMAND("select_track:all")
+    { KWAVE_COMMAND("select_track:all") {
         Kwave::UndoTransactionGuard undo(*this, i18n("Select All Tracks"));
         for (unsigned int track : allTracks())
             selectTrack(track, true);
-    CASE_COMMAND("select_track:none")
+        return 0;
+    }},
+    { KWAVE_COMMAND("select_track:none") {
         Kwave::UndoTransactionGuard undo(*this, i18n("Deselect all tracks"));
         for (unsigned int track : allTracks())
             selectTrack(track, false);
-    CASE_COMMAND("select_track:invert")
+        return 0;
+    }},
+    { KWAVE_COMMAND("select_track:invert") {
         Kwave::UndoTransactionGuard undo(*this, i18n("Invert Track Selection"));
         for (unsigned int track : allTracks())
             selectTrack(track, !trackSelected(track));
-    CASE_COMMAND("select_track:on")
-        unsigned int track = parser.toUInt();
+        return 0;
+    }},
+    { KWAVE_COMMAND("select_track:on") {
+        unsigned int track = p.toUInt();
         if (track >= tracks()) return -EINVAL;
         Kwave::UndoTransactionGuard undo(*this, i18n("Select Track"));
         selectTrack(track, true);
-    CASE_COMMAND("select_track:off")
-        unsigned int track = parser.toUInt();
+        return 0;
+    }},
+    { KWAVE_COMMAND("select_track:off") {
+        unsigned int track = p.toUInt();
         if (track >= tracks()) return -EINVAL;
         Kwave::UndoTransactionGuard undo(*this, i18n("Deselect Track"));
         selectTrack(track, false);
-    CASE_COMMAND("select_track:toggle")
-        unsigned int track = parser.toUInt();
+        return 0;
+    }},
+    { KWAVE_COMMAND("select_track:toggle") {
+        unsigned int track = p.toUInt();
         if (track >= tracks()) return -EINVAL;
         Kwave::UndoTransactionGuard undo(*this, i18n("Toggle Track Selection"));
         selectTrack(track, !(trackSelected(track)));
+        return 0;
+    }},
 
     // playback control
-    CASE_COMMAND("playback_start")
+    { KWAVE_COMMAND("playback_start") {
         m_playback_controller.playbackStart();
-
-    CASE_COMMAND("fileinfo")
-        QString property = parser.firstParam();
-        QString value    = parser.nextParam();
+        return 0;
+    }},
+    { KWAVE_COMMAND("fileinfo") {
+        QString property = p.firstParam();
+        QString value    = p.nextParam();
         Kwave::FileInfo info(m_meta_data);
         bool found = false;
-        for (Kwave::FileProperty p : info.allKnownProperties()) {
-            if (info.name(p) == property) {
+        for (Kwave::FileProperty fp : info.allKnownProperties()) {
+            if (info.name(fp) == property) {
                 if (value.length())
-                    info.set(p, QVariant(value)); // add/modify
+                    info.set(fp, QVariant(value)); // add/modify
                 else
-                    info.set(p, QVariant());      // delete
+                    info.set(fp, QVariant());      // delete
                 found = true;
                 break;
             }
@@ -919,14 +965,16 @@ int Kwave::SignalManager::executeCommand(const QString &command)
             emit sigMetaDataChanged(m_meta_data);
         } else
             return -EINVAL;
-    CASE_COMMAND("dump_metadata")
-        qDebug("DUMP OF META DATA => %s", DBG(parser.firstParam()));
+        return 0;
+    }},
+    { KWAVE_COMMAND("dump_metadata") {
+        qDebug("DUMP OF META DATA => %s", DBG(p.firstParam()));
         m_meta_data.dump();
-    } else {
-        return -ENOSYS;
-    }
+        return 0;
+    }}
+    };
 
-    return 0;
+    return handleCommandList(commands, parser);
 }
 
 //***************************************************************************

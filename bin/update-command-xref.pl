@@ -37,7 +37,7 @@ sub scan_file
         $line =~ s/\s+$//;
         $line =~ s/^\s+|\s+$//g;
 
-        if ($line =~ /^CASE_COMMAND\s*\(\"(.+)\"\s*\)/) {
+        if ($line =~ /^KWAVE_COMMAND\s*\(\"(.+)\"\s*\)/) {
             my $cmd = $1;
             push(@scanned_cmds, $cmd) if (! grep {$_ eq $cmd} @scanned_cmds);
         }

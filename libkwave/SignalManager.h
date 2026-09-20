@@ -29,6 +29,7 @@
 #include <QRecursiveMutex>
 #include <QString>
 
+#include "libkwave/CommandHandler.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
 #include "libkwave/MetaData.h"
@@ -58,7 +59,8 @@ namespace Kwave
     /**
      * The SignalManager class manages multi channel signals.
      */
-    class LIBKWAVE_EXPORT SignalManager: public QObject
+    class LIBKWAVE_EXPORT SignalManager: public QObject,
+                                         public Kwave::CommandHandler
     {
         Q_OBJECT
 
@@ -110,7 +112,7 @@ namespace Kwave
          * @retval negative error code if failed
          * @retval -ENOSYS if the command is unknown in this component
          */
-        int executeCommand(const QString &command);
+        int executeCommand(const QString &command) override;
 
         /**
          * Returns a reference to the current name of the signal. If no

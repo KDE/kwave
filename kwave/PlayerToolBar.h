@@ -26,6 +26,7 @@
 
 #include <KToolBar>
 
+#include "libkwave/CommandHandler.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
@@ -40,7 +41,8 @@ namespace Kwave
     class MenuManager;
     class PlaybackController;
 
-    class PlayerToolBar: public KToolBar
+    class PlayerToolBar: public KToolBar,
+                         public Kwave::CommandHandler
     {
         Q_OBJECT
     public:
@@ -77,7 +79,7 @@ namespace Kwave
          * Executes a playback command
          * @param command string with the command
          */
-        int executeCommand(const QString &command);
+        int executeCommand(const QString &command) override;
 
         /**
          * Called when the meta data of the current signal has changed, to

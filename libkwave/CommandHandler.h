@@ -33,16 +33,7 @@
  * @param name an ASCII string with the name of the command
  */
 #define KWAVE_COMMAND(name) QLatin1String(name), \
-                            [this] (Kwave::Parser &p) -> int
-
-/**
- * convenience macro for defining an entry in a command list, same
- * as KWAVE_COMMAND but without parameter (avoids the compiler
- * warning about the unused parameter "p")
- * @param name an ASCII string with the name of the command
- */
-#define KWAVE_COMMAND_NP(name) QLatin1String(name), \
-                               [this] (Kwave::Parser &) -> int
+    [&] ([[maybe_unused]] Kwave::Parser &p) -> int
 
 namespace Kwave
 {

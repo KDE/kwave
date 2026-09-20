@@ -30,6 +30,7 @@
 #include <QTimer>
 #include <QUrl>
 
+#include "libkwave/CommandHandler.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
 
@@ -48,7 +49,8 @@ namespace Kwave
     class TopWidget;
     class Zoomable;
 
-    class Q_DECL_EXPORT FileContext: public QObject
+    class Q_DECL_EXPORT FileContext: public QObject,
+                                     public Kwave::CommandHandler
     {
         Q_OBJECT
     public:
@@ -246,7 +248,7 @@ namespace Kwave
          * @param command a text command
          * @return zero if succeeded or negative error code if failed
          */
-        int executeCommand(const QString &command);
+        int executeCommand(const QString &command) override;
 
     private slots:
 

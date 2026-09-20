@@ -722,7 +722,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
         return result;
 
     const Kwave::CommandHandler::List commands = {
-    { KWAVE_COMMAND_NP("about_kde") {
+    { KWAVE_COMMAND("about_kde") {
         KHelpMenu *dlg = new(std::nothrow) KHelpMenu(this);
         if (dlg) dlg->aboutKDE();
         return 0;
@@ -753,11 +753,11 @@ int Kwave::TopWidget::executeCommand(const QString &line)
         QString filename = p.nextParam();
         return loadFile(Kwave::URLfromUserInput(filename));
     }},
-    { KWAVE_COMMAND_NP("quit") {
+    { KWAVE_COMMAND("quit") {
         qApp->setQuitOnLastWindowClosed(false);
         return (close()) ? EBUSY : -1;
     }},
-    { KWAVE_COMMAND_NP("reset_toolbars") {
+    { KWAVE_COMMAND("reset_toolbars") {
         int res;
         if ((res = (Kwave::MessageBox::questionYesNo(this,
             i18n("Reset the toolbar to default settings?"))
@@ -785,7 +785,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
         m_application.switchGuiType(this, new_type);
         return 0;
     }},
-    { KWAVE_COMMAND_NP("reenable_dna") {
+    { KWAVE_COMMAND("reenable_dna") {
         int res;
         if ((res = (Kwave::MessageBox::questionYesNo(this,
             i18n("Re-enable all disabled notifications?\n"
@@ -798,7 +798,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
         }
         return 0;
     }},
-    { KWAVE_COMMAND_NP("window:minimize") {
+    { KWAVE_COMMAND("window:minimize") {
         if (m_application.guiType() == Kwave::App::GUI_MDI) {
             // in case of MDI mode: minimize the current sub window
             if (m_mdi_area) {
@@ -812,23 +812,23 @@ int Kwave::TopWidget::executeCommand(const QString &line)
         }
         return 0;
     }},
-    { KWAVE_COMMAND_NP("window:next_sub") {
+    { KWAVE_COMMAND("window:next_sub") {
         if (m_mdi_area) m_mdi_area->activateNextSubWindow();
         return 0;
     }},
-    { KWAVE_COMMAND_NP("window:prev_sub") {
+    { KWAVE_COMMAND("window:prev_sub") {
         if (m_mdi_area) m_mdi_area->activatePreviousSubWindow();
         return 0;
     }},
-    { KWAVE_COMMAND_NP("window:cascade") {
+    { KWAVE_COMMAND("window:cascade") {
         if (m_mdi_area) m_mdi_area->cascadeSubWindows();
         return 0;
     }},
-    { KWAVE_COMMAND_NP("window:tile") {
+    { KWAVE_COMMAND("window:tile") {
         if (m_mdi_area) m_mdi_area->tileSubWindows();
         return 0;
     }},
-    { KWAVE_COMMAND_NP("window:tile_vertical") {
+    { KWAVE_COMMAND("window:tile_vertical") {
         if (!m_mdi_area) return 0;
 
         // determine the number of not minimized sub windows

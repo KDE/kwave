@@ -81,11 +81,6 @@
 
 using namespace Qt::StringLiterals;
 
-/**
- * useful macro for command parsing
- */
-#define CASE_COMMAND(x) } else if (parser.command() == _(x)) {
-
 /** toolbar name: file operations */
 #define TOOLBAR_FILE        _("MainWidget File")
 
@@ -102,6 +97,7 @@ using namespace Qt::StringLiterals;
 //***************************************************************************
 Kwave::TopWidget::TopWidget(Kwave::App &app)
     :KMainWindow(),
+     Kwave::CommandHandler(),
      m_application(app),
      m_context_map()
 {
@@ -711,61 +707,68 @@ void Kwave::TopWidget::insertContext(
 //***************************************************************************
 int Kwave::TopWidget::executeCommand(const QString &line)
 {
-    int result = 0;
-    QString command = line;
-
-//     qDebug("TopWidget::executeCommand(%s)", DBG(command));
-    if (!command.length()) return 0; // empty line -> nothing to do
+    //     qDebug("TopWidget::executeCommand(%s)", DBG(line));
+    if (line.isEmpty()) return 0; // empty line -> nothing to do
 
     // parse one single command
-    Kwave::Parser parser(command);
+    Kwave::Parser parser(line);
 
     // playback commands are always possible
     if ( (parser.command() == _("playback")) && (m_toolbar_record_playback) )
         return m_toolbar_record_playback->executeCommand(parser.firstParam());
 
-    if ((result = m_application.executeCommand(command)) != ENOSYS)
+    int result = 0;
+    if ((result = m_application.executeCommand(line)) != ENOSYS)
         return result;
-    result = 0;
-    if (false) {
-    CASE_COMMAND("about_kde")
-        // Help / About KDE
+
+    const Kwave::CommandHandler::List commands = {
+    { KWAVE_COMMAND_NP("about_kde") {
         KHelpMenu *dlg = new(std::nothrow) KHelpMenu(this);
         if (dlg) dlg->aboutKDE();
-        result = 0;
-    CASE_COMMAND("menu")
+        return 0;
+    }},
+    { KWAVE_COMMAND("menu") {
         Q_ASSERT(m_menu_manager);
-        if (m_menu_manager) result = m_menu_manager->executeCommand(command);
-    CASE_COMMAND("newsignal")
-        sample_index_t samples = parser.toSampleIndex();
-        double         rate    = parser.toDouble();
-        unsigned int   bits    = parser.toUInt();
-        unsigned int   tracks  = parser.toUInt();
-        result = newSignal(samples, rate, bits, tracks);
-    CASE_COMMAND("open")
-        QString filename = parser.nextParam();
+        return (m_menu_manager) ?
+            m_menu_manager->executeCommand(p) : ENOSYS;
+    }},
+    { KWAVE_COMMAND("newsignal") {
+        sample_index_t samples = p.toSampleIndex();
+        double         rate    = p.toDouble();
+        unsigned int   bits    = p.toUInt();
+        unsigned int   tracks  = p.toUInt();
+        return newSignal(samples, rate, bits, tracks);
+    }},
+    { KWAVE_COMMAND("open") {
+        QString filename = p.nextParam();
         if (!filename.isEmpty()) {
             // open the selected file
-            result = loadFile(Kwave::URLfromUserInput(filename));
+            return loadFile(Kwave::URLfromUserInput(filename));
         } else {
             // show file open dialog
-            result = openFile();
+            return openFile();
         }
-    CASE_COMMAND("openrecent")
-        result = openRecent(command);
-    CASE_COMMAND("quit")
+    }},
+    { KWAVE_COMMAND("openrecent") {
+        QString filename = p.nextParam();
+        return loadFile(Kwave::URLfromUserInput(filename));
+    }},
+    { KWAVE_COMMAND_NP("quit") {
         qApp->setQuitOnLastWindowClosed(false);
-        result = (close()) ? EBUSY : -1;
-    CASE_COMMAND("reset_toolbars")
-        if ((result = (Kwave::MessageBox::questionYesNo(this,
+        return (close()) ? EBUSY : -1;
+    }},
+    { KWAVE_COMMAND_NP("reset_toolbars") {
+        int res;
+        if ((res = (Kwave::MessageBox::questionYesNo(this,
             i18n("Reset the toolbar to default settings?"))
             == KMessageBox::PrimaryAction) ? 1 : 0))
         {
             resetToolbarToDefaults();
         }
-        result = 0;
-    CASE_COMMAND("select_gui_type")
-        QString gui_type = parser.nextParam();
+        return 0;
+    }},
+    { KWAVE_COMMAND("select_gui_type") {
+        QString gui_type = p.nextParam();
         Kwave::App::GuiType new_type = Kwave::App::GUI_SDI;
 
         if (gui_type == _("SDI"))
@@ -780,9 +783,11 @@ int Kwave::TopWidget::executeCommand(const QString &line)
         KConfigGroup cfg = KSharedConfig::openConfig()->group(u"Global"_s);
         cfg.writeEntry(_("UI Type"), gui_type);
         m_application.switchGuiType(this, new_type);
-        result = 0;
-    CASE_COMMAND("reenable_dna")
-        if ((result = (Kwave::MessageBox::questionYesNo(this,
+        return 0;
+    }},
+    { KWAVE_COMMAND_NP("reenable_dna") {
+        int res;
+        if ((res = (Kwave::MessageBox::questionYesNo(this,
             i18n("Re-enable all disabled notifications?\n"
                  "All messages that you previously turned off by activating "
                  "the \"Do not ask again\" checkbox will then be enabled again."
@@ -791,8 +796,9 @@ int Kwave::TopWidget::executeCommand(const QString &line)
         {
             KMessageBox::enableAllMessages();
         }
-        result = 0;
-    CASE_COMMAND("window:minimize")
+        return 0;
+    }},
+    { KWAVE_COMMAND_NP("window:minimize") {
         if (m_application.guiType() == Kwave::App::GUI_MDI) {
             // in case of MDI mode: minimize the current sub window
             if (m_mdi_area) {
@@ -804,20 +810,25 @@ int Kwave::TopWidget::executeCommand(const QString &line)
             // in case of TAB or SDI mode: minimize the toplevel window
             setWindowState(windowState() | Qt::WindowMinimized);
         }
-        result = 0;
-    CASE_COMMAND("window:next_sub")
+        return 0;
+    }},
+    { KWAVE_COMMAND_NP("window:next_sub") {
         if (m_mdi_area) m_mdi_area->activateNextSubWindow();
-        result = 0;
-    CASE_COMMAND("window:prev_sub")
+        return 0;
+    }},
+    { KWAVE_COMMAND_NP("window:prev_sub") {
         if (m_mdi_area) m_mdi_area->activatePreviousSubWindow();
-        result = 0;
-    CASE_COMMAND("window:cascade")
+        return 0;
+    }},
+    { KWAVE_COMMAND_NP("window:cascade") {
         if (m_mdi_area) m_mdi_area->cascadeSubWindows();
-        result = 0;
-    CASE_COMMAND("window:tile")
+        return 0;
+    }},
+    { KWAVE_COMMAND_NP("window:tile") {
         if (m_mdi_area) m_mdi_area->tileSubWindows();
-        result = 0;
-    CASE_COMMAND("window:tile_vertical")
+        return 0;
+    }},
+    { KWAVE_COMMAND_NP("window:tile_vertical") {
         if (!m_mdi_area) return 0;
 
         // determine the number of not minimized sub windows
@@ -841,11 +852,11 @@ int Kwave::TopWidget::executeCommand(const QString &line)
             sub->move(0, y);
             y += increment;
         }
-        result = 0;
-
-    CASE_COMMAND("window:activate")
+        return 0;
+    }},
+    { KWAVE_COMMAND("window:activate") {
         if (m_mdi_area) {
-            QString title = parser.nextParam();
+            QString title = p.nextParam();
             for (QMap<QMdiSubWindow *,
                 QSharedPointer<Kwave::FileContext>>::const_iterator
                 it(m_context_map.constBegin());
@@ -870,13 +881,12 @@ int Kwave::TopWidget::executeCommand(const QString &line)
                     return 0;
                 }
             }
-        } else return ENOSYS;
+        } else
+            return ENOSYS;
         return EINVAL;
-    } else {
-        return ENOSYS; // command not implemented (here)
-    }
-
-    return result;
+    }}
+    };
+    return handleCommandList(commands, parser);
 }
 
 //***************************************************************************
@@ -1093,13 +1103,6 @@ int Kwave::TopWidget::loadFile(const QUrl &url)
     updateToolbar();
 
     return 0;
-}
-
-//***************************************************************************
-int Kwave::TopWidget::openRecent(const QString &str)
-{
-    Kwave::Parser parser(str);
-    return loadFile(Kwave::URLfromUserInput(parser.firstParam()));
 }
 
 //***************************************************************************

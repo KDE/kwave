@@ -31,6 +31,7 @@
 
 #include <KMainWindow>
 
+#include "libkwave/CommandHandler.h"
 #include "libkwave/Sample.h"
 #include "libkwave/String.h"
 
@@ -56,7 +57,8 @@ namespace Kwave
      * Toplevel widget of the Kwave application. Holds a main widget, a menu
      * bar, a status bar and a toolbar.
      */
-    class Q_DECL_EXPORT TopWidget: public KMainWindow
+    class Q_DECL_EXPORT TopWidget: public KMainWindow,
+                                   public Kwave::CommandHandler
     {
         Q_OBJECT
 
@@ -134,7 +136,7 @@ namespace Kwave
          * @retval EBUSY if the command closes the widget (quit)
          * @retval negative error code if failed
          */
-        int executeCommand(const QString &command);
+        int executeCommand(const QString &command) override;
 
         /**
          * forward a Kwave text command coming from an upper layer to
@@ -309,13 +311,6 @@ namespace Kwave
          * @return true if closing is allowed
          */
          bool closeAllSubWindows();
-
-        /**
-         * Opens a file contained in the list of recent files.
-         * @param str the entry contained in the list
-         * @return zero if succeeded, non-zero if failed
-         */
-        int openRecent(const QString &str);
 
         /** Updates the window caption */
         void updateCaption();

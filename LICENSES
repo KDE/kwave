@@ -305,6 +305,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libkwave/CodecManager.h                         GPL2+
         libkwave/CodecPlugin.cpp                        GPL2+
         libkwave/CodecPlugin.h                          GPL2+
+        libkwave/CommandHandler.cpp                     GPL2+
         libkwave/CommandHandler.h                       GPL2+
         libkwave/Compression.cpp                        GPL2+
         libkwave/Compression.h                          GPL2+

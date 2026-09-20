@@ -45,12 +45,12 @@ namespace Kwave
         virtual ~Parser() = default;
 
         /** Returns the command part of the line */
-        inline QString command() {
+        inline const QString command() const {
             return m_command;
         }
 
         /** Returns the complete list of parameters */
-        inline const QStringList &params() {
+        inline const QStringList &params() const {
             return m_param;
         }
 

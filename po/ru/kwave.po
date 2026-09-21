@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-20 16:16+0000\n"
+"POT-Creation-Date: 2026-09-21 00:44+0000\n"
 "PO-Revision-Date: 2025-12-11 18:40+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -45,44 +45,44 @@ msgstr "Открытие главного окна..."
 msgid "Startup done"
 msgstr "Программа запущена"
 
-#: kwave/FileContext.cpp:210
+#: kwave/FileContext.cpp:205
 #, kde-format
 msgid "Scanning plugins..."
 msgstr "Поиск подключаемых модулей..."
 
-#: kwave/FileContext.cpp:243 kwave/FileContext.cpp:244
+#: kwave/FileContext.cpp:238 kwave/FileContext.cpp:239
 #, kde-format
 msgid "Loading plugins..."
 msgstr "Загрузка подключаемых модулей..."
 
-#: kwave/FileContext.cpp:246
+#: kwave/FileContext.cpp:241
 #, kde-format
 msgid "Failed"
 msgstr "Ошибка"
 
-#: kwave/FileContext.cpp:249
+#: kwave/FileContext.cpp:244
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
 msgstr ""
 "Подключаемые подули не найдены, приложение Kwave не установлено должным "
 "образом."
 
-#: kwave/FileContext.cpp:255
+#: kwave/FileContext.cpp:250
 #, kde-format
 msgid "Ready"
 msgstr "Готово"
 
-#: kwave/FileContext.cpp:537
+#: kwave/FileContext.cpp:552
 #, kde-format
 msgid "Playback: %1"
 msgstr "Воспроизведение: %1"
 
-#: kwave/FileContext.cpp:539
+#: kwave/FileContext.cpp:554
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Воспроизведение: %1 отсчётов"
 
-#: kwave/FileContext.cpp:881
+#: kwave/FileContext.cpp:895
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -90,13 +90,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:887
+#: kwave/FileContext.cpp:901
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (изменён)"
 
-#: kwave/FileContext.cpp:922
+#: kwave/FileContext.cpp:936
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -105,12 +105,12 @@ msgstr ""
 "Файл был изменён, изменения будут потеряны.\n"
 "Продолжить?"
 
-#: kwave/FileContext.cpp:1003
+#: kwave/FileContext.cpp:1017
 #, kde-format
 msgid "Save As"
 msgstr "Сохранение в файл"
 
-#: kwave/FileContext.cpp:1040 kwave/MainWidget.cpp:994
+#: kwave/FileContext.cpp:1054 kwave/MainWidget.cpp:1037
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -119,7 +119,7 @@ msgstr ""
 "Файл «%1» уже существует.\n"
 "Перезаписать его?"
 
-#: kwave/FileContext.cpp:1108
+#: kwave/FileContext.cpp:1122
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -422,27 +422,27 @@ msgstr "Аудиоредактор на основе KDE Frameworks 5"
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "© Thomas Eschenbacher, 2016"
 
-#: kwave/MainWidget.cpp:93
+#: kwave/MainWidget.cpp:88
 #, kde-format
 msgid "Kwave label list"
 msgstr "список отметок Kwave"
 
-#: kwave/MainWidget.cpp:903 libkwave/SignalManager.cpp:1894
+#: kwave/MainWidget.cpp:946 libkwave/SignalManager.cpp:1942
 #, kde-format
 msgid "Add Label"
 msgstr "Добавить отметку"
 
-#: kwave/MainWidget.cpp:938 kwave/MainWidget.cpp:949
+#: kwave/MainWidget.cpp:981 kwave/MainWidget.cpp:992
 #, kde-format
 msgid "Load Labels"
 msgstr "Загрузка отметок"
 
-#: kwave/MainWidget.cpp:973
+#: kwave/MainWidget.cpp:1016
 #, kde-format
 msgid "Save Labels"
 msgstr "Сохранение отметок"
 
-#: kwave/MainWidget.cpp:1077
+#: kwave/MainWidget.cpp:1120
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
@@ -451,7 +451,7 @@ msgstr ""
 "В этой позиции уже есть отметка.\n"
 "Заменить?"
 
-#: kwave/MainWidget.cpp:1104
+#: kwave/MainWidget.cpp:1147
 #, kde-format
 msgid "Modify Label"
 msgstr "Изменить отметку"
@@ -1027,53 +1027,53 @@ msgstr "О KDE"
 # BUGME: please add @title:window context --aspotashev
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
-#: kwave/PlayerToolBar.cpp:75 plugins/record/RecordDlg.ui:17
+#: kwave/PlayerToolBar.cpp:73 plugins/record/RecordDlg.ui:17
 #: plugins/record/RecordDlg.ui:207
 #, kde-format
 msgid "Record"
 msgstr "Запись звука"
 
-#: kwave/PlayerToolBar.cpp:80
+#: kwave/PlayerToolBar.cpp:78
 #, kde-format
 msgid "Start playback"
 msgstr "Начать воспроизведение"
 
-#: kwave/PlayerToolBar.cpp:91
+#: kwave/PlayerToolBar.cpp:89
 #, kde-format
 msgid "Stop playback or loop"
 msgstr "Остановить воспроизведение"
 
-#: kwave/PlayerToolBar.cpp:96
+#: kwave/PlayerToolBar.cpp:94
 #, kde-format
 msgid "Start playback and loop"
 msgstr "Начать воспроизведение в цикле"
 
-#: kwave/PlayerToolBar.cpp:101
+#: kwave/PlayerToolBar.cpp:99
 #, kde-format
 msgid "Previous"
 msgstr "Предыдущий"
 
-#: kwave/PlayerToolBar.cpp:106
+#: kwave/PlayerToolBar.cpp:104
 #, kde-format
 msgid "Rewind"
 msgstr "Назад"
 
-#: kwave/PlayerToolBar.cpp:111
+#: kwave/PlayerToolBar.cpp:109
 #, kde-format
 msgid "Forward"
 msgstr "Вперёд"
 
-#: kwave/PlayerToolBar.cpp:116
+#: kwave/PlayerToolBar.cpp:114
 #, kde-format
 msgid "Next"
 msgstr "Следующий"
 
-#: kwave/PlayerToolBar.cpp:412
+#: kwave/PlayerToolBar.cpp:410
 #, kde-format
 msgid "Continue playback"
 msgstr "Продолжить воспроизведение"
 
-#: kwave/PlayerToolBar.cpp:415
+#: kwave/PlayerToolBar.cpp:413
 #, kde-format
 msgid "Pause playback"
 msgstr "Приостановить воспроизведение"
@@ -1129,7 +1129,7 @@ msgstr "Отменить действие"
 msgid "Redo"
 msgstr "Повторить действие"
 
-#: kwave/TopWidget.cpp:376 libkwave/SignalManager.cpp:704
+#: kwave/TopWidget.cpp:376 libkwave/SignalManager.cpp:717
 #, kde-format
 msgid "Cut"
 msgstr "Вырезать"
@@ -1383,7 +1383,7 @@ msgstr "В первую половину"
 msgid "Into second half"
 msgstr "Во вторую половину"
 
-#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:731
+#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:750
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -3387,12 +3387,12 @@ msgstr ""
 "64-bit IEEE Double Precision Floating-Point (число двойной точности с "
 "плавающей запятой)"
 
-#: libkwave/SignalManager.cpp:363
+#: libkwave/SignalManager.cpp:362
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "Пустой сигнал; сохранять нечего."
 
-#: libkwave/SignalManager.cpp:393
+#: libkwave/SignalManager.cpp:392
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3404,118 +3404,118 @@ msgstr ""
 "%1\n"
 "Продолжить?"
 
-#: libkwave/SignalManager.cpp:429 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:428 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1094
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(на основе KDE Frameworks %1)"
 
-#: libkwave/SignalManager.cpp:486
+#: libkwave/SignalManager.cpp:485
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "Ошибка сохранения файла."
 
-#: libkwave/SignalManager.cpp:497
+#: libkwave/SignalManager.cpp:496
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "Файл усечён и может быть повреждён."
 
-#: libkwave/SignalManager.cpp:506
+#: libkwave/SignalManager.cpp:505
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "Данный формат файла не поддерживается."
 
-#: libkwave/SignalManager.cpp:680
+#: libkwave/SignalManager.cpp:689
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "Вставить содержимое буфера обмена в позицию"
 
-#: libkwave/SignalManager.cpp:690
+#: libkwave/SignalManager.cpp:701
 #, kde-format
 msgid "Paste"
 msgstr "Вставить"
 
-#: libkwave/SignalManager.cpp:712
+#: libkwave/SignalManager.cpp:729
 #, kde-format
 msgid "Crop"
 msgstr "Кадрировать"
 
-#: libkwave/SignalManager.cpp:763
+#: libkwave/SignalManager.cpp:788
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "Продлить выделение до отметки"
 
-#: libkwave/SignalManager.cpp:792
+#: libkwave/SignalManager.cpp:822
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Выбрать следующие отметки"
 
-#: libkwave/SignalManager.cpp:830
+#: libkwave/SignalManager.cpp:862
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Выбрать предыдущие отметки"
 
-#: libkwave/SignalManager.cpp:869
+#: libkwave/SignalManager.cpp:902
 #, kde-format
 msgid "Select All Tracks"
 msgstr "Выбрать все дорожки"
 
-#: libkwave/SignalManager.cpp:873
+#: libkwave/SignalManager.cpp:908
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "Отменить выбор всех дорожек"
 
-#: libkwave/SignalManager.cpp:877
+#: libkwave/SignalManager.cpp:914
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Инвертировать выделение дорожки"
 
-#: libkwave/SignalManager.cpp:883
+#: libkwave/SignalManager.cpp:922
 #, kde-format
 msgid "Select Track"
 msgstr "Выбрать дорожку"
 
-#: libkwave/SignalManager.cpp:888
+#: libkwave/SignalManager.cpp:929
 #, kde-format
 msgid "Deselect Track"
 msgstr "Отменить выбор дорожки"
 
-#: libkwave/SignalManager.cpp:893
+#: libkwave/SignalManager.cpp:936
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Переключить выбор дорожки"
 
-#: libkwave/SignalManager.cpp:935
+#: libkwave/SignalManager.cpp:983
 #, kde-format
 msgid "Append Track"
 msgstr "Добавить дорожку"
 
-#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoInsertTrack.cpp:39
+#: libkwave/SignalManager.cpp:990 libkwave/undo/UndoInsertTrack.cpp:39
 #, kde-format
 msgid "Insert Track"
 msgstr "Вставить дорожку"
 
-#: libkwave/SignalManager.cpp:965 libkwave/undo/UndoDeleteTrack.cpp:40
+#: libkwave/SignalManager.cpp:1013 libkwave/undo/UndoDeleteTrack.cpp:40
 #, kde-format
 msgid "Delete Track"
 msgstr "Удалить дорожку"
 
-#: libkwave/SignalManager.cpp:1118
+#: libkwave/SignalManager.cpp:1166
 #, kde-format
 msgid "Insert Space"
 msgstr "Вставить пробел"
 
-#: libkwave/SignalManager.cpp:1390
+#: libkwave/SignalManager.cpp:1438
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "Недостаточно памяти для сохранения данных для отмены действий."
 
-#: libkwave/SignalManager.cpp:1392
+#: libkwave/SignalManager.cpp:1440
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Продолжить без возможности отмены действия?"
 
-#: libkwave/SignalManager.cpp:1394
+#: libkwave/SignalManager.cpp:1442
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3524,49 +3524,49 @@ msgstr ""
 "<b>Подсказка</b>: можно настроить объём памяти,<br>доступной для сохранения "
 "данных для отмены действия, в пункте «%1»/«%2»."
 
-#: libkwave/SignalManager.cpp:1396
+#: libkwave/SignalManager.cpp:1444
 #, kde-format
 msgid "Settings"
 msgstr "Настройка"
 
-#: libkwave/SignalManager.cpp:1397
+#: libkwave/SignalManager.cpp:1445
 #, kde-format
 msgid "Memory"
 msgstr "Настройка использования памяти..."
 
-#: libkwave/SignalManager.cpp:1541 libkwave/SignalManager.cpp:1548
+#: libkwave/SignalManager.cpp:1589 libkwave/SignalManager.cpp:1596
 #, kde-format
 msgid "Last Action"
 msgstr "Последнее действие"
 
-#: libkwave/SignalManager.cpp:1843
+#: libkwave/SignalManager.cpp:1891
 #, kde-format
 msgid "Modify File Info"
 msgstr "Изменить сведения о файле"
 
-#: libkwave/SignalManager.cpp:1921
+#: libkwave/SignalManager.cpp:1969
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Удалить все отметки"
 
-#: libkwave/SignalManager.cpp:1940
+#: libkwave/SignalManager.cpp:1988
 #, kde-format
 msgid "Delete Label"
 msgstr "Удалить отметку"
 
-#: libkwave/SignalManager.cpp:2038
+#: libkwave/SignalManager.cpp:2086
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Выбрать дорожку вручную"
 
-#: libkwave/SignalManager.cpp:2041
+#: libkwave/SignalManager.cpp:2089
 #, kde-format
 msgid "Manual Selection"
 msgstr "Выбрать вручную"
 
 # "Создать новый файл" for plugins/record/RecordDlg.ui:153 --aspotashev
 #. i18n: ectx: property (toolTip), widget (QPushButton, btNew)
-#: libkwave/SignalManager.h:44 plugins/record/RecordDlg.ui:153
+#: libkwave/SignalManager.h:45 plugins/record/RecordDlg.ui:153
 #, kde-format
 msgid "New File"
 msgstr "Создать новый файл"

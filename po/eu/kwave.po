@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-20 16:16+0000\n"
+"POT-Creation-Date: 2026-09-21 00:44+0000\n"
 "PO-Revision-Date: 2026-08-20 12:28+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -46,42 +46,42 @@ msgstr "Leiho nagusia irekitzen..."
 msgid "Startup done"
 msgstr "Abiatzea egin da"
 
-#: kwave/FileContext.cpp:210
+#: kwave/FileContext.cpp:205
 #, kde-format
 msgid "Scanning plugins..."
 msgstr "Pluginak aztertzen..."
 
-#: kwave/FileContext.cpp:243 kwave/FileContext.cpp:244
+#: kwave/FileContext.cpp:238 kwave/FileContext.cpp:239
 #, kde-format
 msgid "Loading plugins..."
 msgstr "Pluginak zamatzen..."
 
-#: kwave/FileContext.cpp:246
+#: kwave/FileContext.cpp:241
 #, kde-format
 msgid "Failed"
 msgstr "Huts egin du"
 
-#: kwave/FileContext.cpp:249
+#: kwave/FileContext.cpp:244
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
 msgstr "Kwave ez da behar bezala instalatu. Ez da pluginik aurkitu!"
 
-#: kwave/FileContext.cpp:255
+#: kwave/FileContext.cpp:250
 #, kde-format
 msgid "Ready"
 msgstr "Prest"
 
-#: kwave/FileContext.cpp:537
+#: kwave/FileContext.cpp:552
 #, kde-format
 msgid "Playback: %1"
 msgstr "Atzera-jo: %1"
 
-#: kwave/FileContext.cpp:539
+#: kwave/FileContext.cpp:554
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Atzera-jo: %1 laginak"
 
-#: kwave/FileContext.cpp:881
+#: kwave/FileContext.cpp:895
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -89,13 +89,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:887
+#: kwave/FileContext.cpp:901
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (aldatua)"
 
-#: kwave/FileContext.cpp:922
+#: kwave/FileContext.cpp:936
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -104,12 +104,12 @@ msgstr ""
 "Fitxategi hau aldatu egin da, aldaketak galduko dira.\n"
 "Jarraitu nahi duzu?"
 
-#: kwave/FileContext.cpp:1003
+#: kwave/FileContext.cpp:1017
 #, kde-format
 msgid "Save As"
 msgstr "Gorde honela"
 
-#: kwave/FileContext.cpp:1040 kwave/MainWidget.cpp:994
+#: kwave/FileContext.cpp:1054 kwave/MainWidget.cpp:1037
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -118,7 +118,7 @@ msgstr ""
 "'%1' fitxategia lehendik ere badago.\n"
 "Benetan gainidatzi nahi duzu?"
 
-#: kwave/FileContext.cpp:1108
+#: kwave/FileContext.cpp:1122
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -421,27 +421,27 @@ msgstr "KDE Frameworks 5ekin eraikitako soinu editore bat"
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016, Thomas Eschenbacher"
 
-#: kwave/MainWidget.cpp:93
+#: kwave/MainWidget.cpp:88
 #, kde-format
 msgid "Kwave label list"
 msgstr "Kwave etiketa zerrenda"
 
-#: kwave/MainWidget.cpp:903 libkwave/SignalManager.cpp:1894
+#: kwave/MainWidget.cpp:946 libkwave/SignalManager.cpp:1942
 #, kde-format
 msgid "Add Label"
 msgstr "Gehitu etiketa"
 
-#: kwave/MainWidget.cpp:938 kwave/MainWidget.cpp:949
+#: kwave/MainWidget.cpp:981 kwave/MainWidget.cpp:992
 #, kde-format
 msgid "Load Labels"
 msgstr "Zamatu etiketak"
 
-#: kwave/MainWidget.cpp:973
+#: kwave/MainWidget.cpp:1016
 #, kde-format
 msgid "Save Labels"
 msgstr "Gorde etiketak"
 
-#: kwave/MainWidget.cpp:1077
+#: kwave/MainWidget.cpp:1120
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
@@ -450,7 +450,7 @@ msgstr ""
 "Etiketa bat dago jada hautatu duzun kokalekuan.\n"
 "Hura ordeztu nahi duzu?"
 
-#: kwave/MainWidget.cpp:1104
+#: kwave/MainWidget.cpp:1147
 #, kde-format
 msgid "Modify Label"
 msgstr "Aldatu etiketa"
@@ -1022,53 +1022,53 @@ msgstr "KDEri buruz"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
-#: kwave/PlayerToolBar.cpp:75 plugins/record/RecordDlg.ui:17
+#: kwave/PlayerToolBar.cpp:73 plugins/record/RecordDlg.ui:17
 #: plugins/record/RecordDlg.ui:207
 #, kde-format
 msgid "Record"
 msgstr "Grabatu"
 
-#: kwave/PlayerToolBar.cpp:80
+#: kwave/PlayerToolBar.cpp:78
 #, kde-format
 msgid "Start playback"
 msgstr "hasi atzera-jotzen"
 
-#: kwave/PlayerToolBar.cpp:91
+#: kwave/PlayerToolBar.cpp:89
 #, kde-format
 msgid "Stop playback or loop"
 msgstr "Gelditu atzera-jotzea eta begizta"
 
-#: kwave/PlayerToolBar.cpp:96
+#: kwave/PlayerToolBar.cpp:94
 #, kde-format
 msgid "Start playback and loop"
 msgstr "Hasi atzera-jotzea eta begizta"
 
-#: kwave/PlayerToolBar.cpp:101
+#: kwave/PlayerToolBar.cpp:99
 #, kde-format
 msgid "Previous"
 msgstr "Aurrekoa"
 
-#: kwave/PlayerToolBar.cpp:106
+#: kwave/PlayerToolBar.cpp:104
 #, kde-format
 msgid "Rewind"
 msgstr "Errebobinatu"
 
-#: kwave/PlayerToolBar.cpp:111
+#: kwave/PlayerToolBar.cpp:109
 #, kde-format
 msgid "Forward"
 msgstr "Aurrera"
 
-#: kwave/PlayerToolBar.cpp:116
+#: kwave/PlayerToolBar.cpp:114
 #, kde-format
 msgid "Next"
 msgstr "Hurrengoa"
 
-#: kwave/PlayerToolBar.cpp:412
+#: kwave/PlayerToolBar.cpp:410
 #, kde-format
 msgid "Continue playback"
 msgstr "Jarraitu atzera-jotzea"
 
-#: kwave/PlayerToolBar.cpp:415
+#: kwave/PlayerToolBar.cpp:413
 #, kde-format
 msgid "Pause playback"
 msgstr "Eten aurrera-jotzea"
@@ -1124,7 +1124,7 @@ msgstr "Desegin"
 msgid "Redo"
 msgstr "Berregin"
 
-#: kwave/TopWidget.cpp:376 libkwave/SignalManager.cpp:704
+#: kwave/TopWidget.cpp:376 libkwave/SignalManager.cpp:717
 #, kde-format
 msgid "Cut"
 msgstr "Ebaki"
@@ -1377,7 +1377,7 @@ msgstr "Lehenengo erdian"
 msgid "Into second half"
 msgstr "Bigarren erdian"
 
-#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:731
+#: libgui/CurveWidget.cpp:103 libkwave/SignalManager.cpp:750
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -3377,12 +3377,12 @@ msgstr "32-bit IEEE koma-higikorra"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-bit IEEE doitasun bikoitzeko koma-higikorra"
 
-#: libkwave/SignalManager.cpp:363
+#: libkwave/SignalManager.cpp:362
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "Seinalea hutsik dago, ez dago gordetzeko ezer."
 
-#: libkwave/SignalManager.cpp:393
+#: libkwave/SignalManager.cpp:392
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3393,118 +3393,118 @@ msgstr ""
 "%1\n"
 "Oraindik jarraitu nahi duzu?"
 
-#: libkwave/SignalManager.cpp:429 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:428 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1094
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(KDE Frameworks %1(r)ekin eraikia)"
 
-#: libkwave/SignalManager.cpp:486
+#: libkwave/SignalManager.cpp:485
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "Errore bat gertatu da fitxategia gordetzean."
 
-#: libkwave/SignalManager.cpp:497
+#: libkwave/SignalManager.cpp:496
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "Fitxategia moztu egin da eta hondatua egon daiteke."
 
-#: libkwave/SignalManager.cpp:506
+#: libkwave/SignalManager.cpp:505
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "Barkatu, fitxategi mota ez da onartzen."
 
-#: libkwave/SignalManager.cpp:680
+#: libkwave/SignalManager.cpp:689
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "Txertatu arbeleko edukia ondoko kokapenean"
 
-#: libkwave/SignalManager.cpp:690
+#: libkwave/SignalManager.cpp:701
 #, kde-format
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: libkwave/SignalManager.cpp:712
+#: libkwave/SignalManager.cpp:729
 #, kde-format
 msgid "Crop"
 msgstr "Moztu"
 
-#: libkwave/SignalManager.cpp:763
+#: libkwave/SignalManager.cpp:788
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "Hedatu hautapena etiketetara"
 
-#: libkwave/SignalManager.cpp:792
+#: libkwave/SignalManager.cpp:822
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Hautatu hurrengo etiketak"
 
-#: libkwave/SignalManager.cpp:830
+#: libkwave/SignalManager.cpp:862
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Hautatu aurreko etiketak"
 
-#: libkwave/SignalManager.cpp:869
+#: libkwave/SignalManager.cpp:902
 #, kde-format
 msgid "Select All Tracks"
 msgstr "Hautatu aztarna guztiak"
 
-#: libkwave/SignalManager.cpp:873
+#: libkwave/SignalManager.cpp:908
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "Desautatu aztarna guztiak"
 
-#: libkwave/SignalManager.cpp:877
+#: libkwave/SignalManager.cpp:914
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Alderantzikatu aztarna hautapena"
 
-#: libkwave/SignalManager.cpp:883
+#: libkwave/SignalManager.cpp:922
 #, kde-format
 msgid "Select Track"
 msgstr "Hautatu aztarna"
 
-#: libkwave/SignalManager.cpp:888
+#: libkwave/SignalManager.cpp:929
 #, kde-format
 msgid "Deselect Track"
 msgstr "Desautatu aztarna"
 
-#: libkwave/SignalManager.cpp:893
+#: libkwave/SignalManager.cpp:936
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Txandakatu aztarna hautapena"
 
-#: libkwave/SignalManager.cpp:935
+#: libkwave/SignalManager.cpp:983
 #, kde-format
 msgid "Append Track"
 msgstr "Erantsi aztarna"
 
-#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoInsertTrack.cpp:39
+#: libkwave/SignalManager.cpp:990 libkwave/undo/UndoInsertTrack.cpp:39
 #, kde-format
 msgid "Insert Track"
 msgstr "Txertatu aztarna"
 
-#: libkwave/SignalManager.cpp:965 libkwave/undo/UndoDeleteTrack.cpp:40
+#: libkwave/SignalManager.cpp:1013 libkwave/undo/UndoDeleteTrack.cpp:40
 #, kde-format
 msgid "Delete Track"
 msgstr "Ezabatu aztarna"
 
-#: libkwave/SignalManager.cpp:1118
+#: libkwave/SignalManager.cpp:1166
 #, kde-format
 msgid "Insert Space"
 msgstr "Txertatu zuriunea"
 
-#: libkwave/SignalManager.cpp:1390
+#: libkwave/SignalManager.cpp:1438
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "Ez dago desegite informazioa gordetzeko behar adina memoria."
 
-#: libkwave/SignalManager.cpp:1392
+#: libkwave/SignalManager.cpp:1440
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Jarraitu nahi duzu desegite aukerarik gabe?"
 
-#: libkwave/SignalManager.cpp:1394
+#: libkwave/SignalManager.cpp:1442
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3513,48 +3513,48 @@ msgstr ""
 "<b>Argibidea</b>: desegiteko memoria erabilgarri kopurua konfigura dezakezu "
 "'%1'/'%2'(e)tik behera."
 
-#: libkwave/SignalManager.cpp:1396
+#: libkwave/SignalManager.cpp:1444
 #, kde-format
 msgid "Settings"
 msgstr "Ezarpenak"
 
-#: libkwave/SignalManager.cpp:1397
+#: libkwave/SignalManager.cpp:1445
 #, kde-format
 msgid "Memory"
 msgstr "Memoria"
 
-#: libkwave/SignalManager.cpp:1541 libkwave/SignalManager.cpp:1548
+#: libkwave/SignalManager.cpp:1589 libkwave/SignalManager.cpp:1596
 #, kde-format
 msgid "Last Action"
 msgstr "Azken ekintza"
 
-#: libkwave/SignalManager.cpp:1843
+#: libkwave/SignalManager.cpp:1891
 #, kde-format
 msgid "Modify File Info"
 msgstr "Aldatu fitxategi informazioa"
 
-#: libkwave/SignalManager.cpp:1921
+#: libkwave/SignalManager.cpp:1969
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Ezabatu etiketa guztiak"
 
-#: libkwave/SignalManager.cpp:1940
+#: libkwave/SignalManager.cpp:1988
 #, kde-format
 msgid "Delete Label"
 msgstr "Ezabatu etiketa"
 
-#: libkwave/SignalManager.cpp:2038
+#: libkwave/SignalManager.cpp:2086
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Aztarnak eskuz hautatzea"
 
-#: libkwave/SignalManager.cpp:2041
+#: libkwave/SignalManager.cpp:2089
 #, kde-format
 msgid "Manual Selection"
 msgstr "Eskuz hautatzea"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btNew)
-#: libkwave/SignalManager.h:44 plugins/record/RecordDlg.ui:153
+#: libkwave/SignalManager.h:45 plugins/record/RecordDlg.ui:153
 #, kde-format
 msgid "New File"
 msgstr "Fitxategi berria"

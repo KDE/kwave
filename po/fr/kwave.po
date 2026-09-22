@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-21 00:44+0000\n"
-"PO-Revision-Date: 2026-09-08 17:46+0200\n"
+"PO-Revision-Date: 2026-09-21 09:15+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -7480,10 +7480,9 @@ msgid "Sonagram"
 msgstr "Sonagraphe"
 
 #: plugins/sonagram/SonagramPlugin.cpp:215
-#, fuzzy, kde-format
-#| msgid "Sonagram of %1"
+#, kde-format
 msgid "Sonagram loaded from %1"
-msgstr "Sonagramme de %1"
+msgstr "Sonagram chargé à partir de %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:122
 #, kde-format
@@ -7491,10 +7490,9 @@ msgid "&Sonagram"
 msgstr "&Sonagraphe"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
-#, fuzzy, kde-format
-#| msgid "&Export to Bitmap..."
+#, kde-format
 msgid "&Import from Bitmap..."
-msgstr "&Exporter vers un Bitmap..."
+msgstr "&Importer vers un fichier « Bitmap »..."
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7542,10 +7540,9 @@ msgid "Save Sonagram"
 msgstr "Enregistrer le sonagramme"
 
 #: plugins/sonagram/SonagramWindow.cpp:273
-#, fuzzy, kde-format
-#| msgid "Save Sonagram"
+#, kde-format
 msgid "Load Sonagram"
-msgstr "Enregistrer le sonagramme"
+msgstr "Charger Sonagramme"
 
 #: plugins/sonagram/SonagramWindow.cpp:531
 #, kde-format

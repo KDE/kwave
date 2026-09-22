@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-21 00:44+0000\n"
-"PO-Revision-Date: 2026-05-31 19:59-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
@@ -398,7 +398,7 @@ msgstr ""
 #: kwave/main.cpp:188
 #, kde-format
 msgid "Kwave"
-msgstr "Kwave"
+msgstr ""
 
 #: kwave/main.cpp:190
 #, kde-format
@@ -1318,7 +1318,7 @@ msgstr ""
 #: kwave/ZoomToolBar.cpp:96 kwave/ZoomToolBar.cpp:97 kwave/ZoomToolBar.cpp:98
 #, kde-format
 msgid "%1 ms"
-msgstr "%1 ms"
+msgstr ""
 
 #: kwave/ZoomToolBar.cpp:99 kwave/ZoomToolBar.cpp:100 kwave/ZoomToolBar.cpp:101
 #, kde-format
@@ -1544,7 +1544,7 @@ msgstr ""
 #: libgui/SelectionItem.cpp:82 libgui/SignalView.cpp:592
 #, kde-format
 msgid "Drag and Drop"
-msgstr ""
+msgstr "سۆرەپ تاشلاش"
 
 #. i18n: ectx: property (windowTitle), widget (QGroupBox, SelectTimeWidgetBase)
 #: libgui/SelectTimeWidgetBase.ui:20
@@ -1639,7 +1639,7 @@ msgstr ""
 #: libgui/SelectTimeWidgetBase.ui:366 plugins/newsignal/NewSigDlg.ui:653
 #, no-c-format, kde-format
 msgid "100%"
-msgstr "100%"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slidePercents)
 #: libgui/SelectTimeWidgetBase.ui:387
@@ -1730,7 +1730,7 @@ msgstr ""
 
 #: libkwave/Compression.cpp:126
 msgid "GSM"
-msgstr "GSM"
+msgstr ""
 
 #: libkwave/Compression.cpp:132
 msgid "G722"
@@ -1880,7 +1880,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:81
 msgid "CD"
-msgstr "CD"
+msgstr ""
 
 #: libkwave/FileInfo.cpp:83
 msgid "Number of the CD, if the source is an album of more CDROMs"
@@ -2758,7 +2758,7 @@ msgstr ""
 
 #: libkwave/GenreType.cpp:185
 msgid "Bebop"
-msgstr "Bebop"
+msgstr ""
 
 #: libkwave/GenreType.cpp:186
 msgid "Latin"
@@ -3521,7 +3521,7 @@ msgstr ""
 #, kde-format
 msgctxt "time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds"
 msgid "%1:%2:%3.%4"
-msgstr "%1:%2:%3.%4"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
 #: libkwave/WindowFunction.cpp:32 plugins/fileinfo/FileInfoDlg.ui:987
@@ -3626,13 +3626,13 @@ msgstr ""
 #: plugins/sonagram/SonagramWindow.cpp:170
 #, kde-format
 msgid "ms"
-msgstr "ms"
+msgstr ""
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbRecordTrigger)
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:48 plugins/record/RecordDlg.ui:314
 #, no-c-format, kde-format
 msgid "%"
-msgstr "%"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, AmplifyFreeDlg)
 #: plugins/amplifyfree/AmplifyFreeDlg.ui:15
@@ -3670,7 +3670,7 @@ msgstr ""
 #: plugins/sonagram/SonagramWindow.cpp:177
 #, kde-format
 msgid "Hz"
-msgstr "Hz"
+msgstr ""
 
 #: plugins/band_pass/BandPassDialog.cpp:68 plugins/lowpass/LowPassDialog.cpp:66
 #: plugins/noise/NoiseDialog.cpp:277
@@ -3715,7 +3715,7 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftDlg.ui:152
 #, kde-format
 msgid " Hz"
-msgstr " Hz"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btListen)
 #: plugins/band_pass/BandPassDlg.ui:155 plugins/lowpass/LowPassDlg.ui:148
@@ -4971,7 +4971,7 @@ msgstr ""
 #: plugins/fileinfo/CompressionWidgetBase.ui:184
 #, no-c-format, kde-format
 msgid " %"
-msgstr " %"
+msgstr ""
 
 #: plugins/fileinfo/FileInfoDialog.cpp:215
 #, kde-format
@@ -5156,14 +5156,14 @@ msgstr "ھۆججەت"
 #: plugins/fileinfo/FileInfoDlg.ui:2076
 #, kde-format
 msgid "#"
-msgstr "#"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lblBits_2)
 #. i18n: ectx: property (text), widget (QLabel, lblBits)
 #: plugins/fileinfo/FileInfoDlg.ui:283 plugins/record/RecordDlg.ui:946
 #, kde-format
 msgid "bit"
-msgstr "bit"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:335 plugins/newsignal/NewSigDlg.ui:49
@@ -5512,7 +5512,7 @@ msgstr "بىت"
 #: plugins/newsignal/NewSigDlg.ui:260 plugins/newsignal/NewSigDlg.ui:700
 #, no-c-format, kde-format
 msgid "%1"
-msgstr "%1"
+msgstr ""
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbChannels)
 #: plugins/newsignal/NewSigDlg.ui:288
@@ -5957,7 +5957,7 @@ msgstr ""
 #: plugins/playback/PlayBackDialog.cpp:517
 #, kde-format
 msgid "%1 kB"
-msgstr "%1 kB"
+msgstr ""
 
 #: plugins/playback/PlayBackDialog.cpp:615
 #, kde-format
@@ -6137,7 +6137,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:388
 #, kde-format
 msgid "1"
-msgstr "1"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btTest)
 #: plugins/playback/PlayBackDlg.ui:458
@@ -6430,7 +6430,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:285
 #, kde-format
 msgid " s"
-msgstr " s"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordStartTime)
 #: plugins/record/RecordDlg.ui:353
@@ -6482,7 +6482,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:471
 #, kde-format
 msgid " ms"
-msgstr " ms"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpFading)
 #: plugins/record/RecordDlg.ui:521

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-21 00:44+0000\n"
-"PO-Revision-Date: 2026-09-14 16:45+0200\n"
+"PO-Revision-Date: 2026-09-21 15:00+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -7445,10 +7445,9 @@ msgid "Sonagram"
 msgstr "Sonagram (graphico de sono)"
 
 #: plugins/sonagram/SonagramPlugin.cpp:215
-#, fuzzy, kde-format
-#| msgid "Sonagram of %1"
+#, kde-format
 msgid "Sonagram loaded from %1"
-msgstr "Sonagram (graphico de sono) %1"
+msgstr "Sonagram (graphico de sono) cargate ex %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:122
 #, kde-format
@@ -7456,10 +7455,9 @@ msgid "&Sonagram"
 msgstr "&Sonagram (graphico de sono)"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
-#, fuzzy, kde-format
-#| msgid "&Export to Bitmap..."
+#, kde-format
 msgid "&Import from Bitmap..."
-msgstr "&Exporta a Bitmap..."
+msgstr "&Importa ex Bitmap..."
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7507,10 +7505,9 @@ msgid "Save Sonagram"
 msgstr "Salveguarda Sonagram (graphico de sono)"
 
 #: plugins/sonagram/SonagramWindow.cpp:273
-#, fuzzy, kde-format
-#| msgid "Save Sonagram"
+#, kde-format
 msgid "Load Sonagram"
-msgstr "Salveguarda Sonagram (graphico de sono)"
+msgstr "Carga Sonagram (graphico de sono)"
 
 #: plugins/sonagram/SonagramWindow.cpp:531
 #, kde-format

@@ -111,14 +111,14 @@ namespace Kwave
         /** closes the sonagram window */
         void close();
 
-        /** not implemented yet */
+        /** Save the current sonagram to a bmp file */
         void save();
 
-        /** not implemented yet */
+        /**
+         * Load a sonagram from a file (just for visualization,
+         * re-transformation to a signal is impossible)
+         */
         void load();
-
-        /** not implemented yet */
-        void toSignal();
 
         /**
          * Sets the name of the signal / title of the window

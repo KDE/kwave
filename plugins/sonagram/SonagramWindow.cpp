@@ -140,9 +140,6 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent)
         this, SLOT(close())
     );
 
-//    spectral->addAction(i18n("&Retransform to Signal"), this,
-//                        SLOT(toSignal()));
-
     QStatusBar *status = statusBar();
     Q_ASSERT(status);
     if (!status) return ;
@@ -404,74 +401,6 @@ void Kwave::SonagramWindow::refresh_view()
     if (!m_view) return;
     adjustBrightness();
     m_view->setImage(m_image);
-}
-
-//****************************************************************************
-void Kwave::SonagramWindow::toSignal()
-{
-/** @todo needs to be ported to fftw and re-activated */
-//    gsl_fft_complex_wavetable table;
-//
-//    gsl_fft_complex_wavetable_alloc (points, &table);
-//    gsl_fft_complex_init (points, &table);
-//
-//    Kwave::TopWidget *win = new Kwave::TopWidget(...);
-//
-//    Q_ASSERT(win);
-//    if (win) {
-//
-//      Kwave::Signal *newsig = new Kwave::Signal(length, rate);
-//      Q_ASSERT(newsig);
-//
-//      //assure 10 Hz for correction signal, this should not be audible
-//      int slopesize = rate / 10;
-//
-//      double *slope = new double [slopesize];
-//
-//      if (slope && newsig) {
-//          for (int i = 0; i < slopesize; i++)
-//              slope[i] = 0.5 + 0.5 * cos( ((double) i) * M_PI / slopesize);
-//
-//          win->show();
-//
-//          int *output = newsig->getSample();     // sample data
-//          // this window holds the data for ifft and after that
-//          // part of the signal
-//          complex *tmp = new complex [points];
-//
-//          if (output && tmp && data) {
-//              for (int i = 0; i < x; i++) {
-//                  if (data[i]) memcpy (tmp, data[i], sizeof(complex)*points);
-//                  gsl_fft_complex_inverse (tmp, points, &table);
-//
-//                  for (int j = 0; j < points; j++)
-//                      output[i*points + j] =
-//                          (int)(tmp[j].real * ((1 << 23)-1));
-//              }
-//              int dif ;
-//              int max;
-//              for (int i = 1; i < x; i++) //remove gaps between windows
-//              {
-//                  max = slopesize;
-//                  if (max > length - i*points) max = length - i * points;
-//                  dif = output[i * points] - output[i * points - 1];
-//                  if (dif < 2)
-//                      for (int j = 0; j < max; j++)
-//                          output[i*points + j] += (int) (slope[j] * dif );
-//              }
-//
-//              win->setSignal (new SignalManager (newsig));
-//
-//              if (tmp) delete[] tmp;
-//          } else {
-//              if (newsig) delete newsig;
-//              if (win) delete win;
-//              KMsgBox::message(this, i18n("Error"),
-//                               i18n("Out of memory !"), 2);
-//          }
-//      }
-//      if (slope) delete[] slope;
-//    }
 }
 
 //***************************************************************************

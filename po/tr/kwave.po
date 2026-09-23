@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-21 00:44+0000\n"
+"POT-Creation-Date: 2026-09-23 00:51+0000\n"
 "PO-Revision-Date: 2026-09-20 20:25+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -3731,7 +3731,7 @@ msgid "License agreement"
 msgstr "Lisans anlaşması"
 
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:43
-#: plugins/sonagram/SonagramWindow.cpp:170
+#: plugins/sonagram/SonagramWindow.cpp:167
 #, kde-format
 msgid "ms"
 msgstr "ms"
@@ -3775,7 +3775,7 @@ msgstr "Artarak Çıkış"
 #: plugins/band_pass/BandPassDialog.cpp:63 plugins/band_pass/BandPassDlg.ui:117
 #: plugins/lowpass/LowPassDialog.cpp:61
 #: plugins/notch_filter/NotchFilterDialog.cpp:65
-#: plugins/sonagram/SonagramWindow.cpp:177
+#: plugins/sonagram/SonagramWindow.cpp:174
 #, kde-format
 msgid "Hz"
 msgstr "Hz"
@@ -7418,7 +7418,7 @@ msgid "?:"
 msgstr "?:"
 
 #: plugins/sonagram/SonagramPlugin.cpp:76
-#: plugins/sonagram/SonagramWindow.cpp:532
+#: plugins/sonagram/SonagramWindow.cpp:461
 #, kde-format
 msgid "Sonagram"
 msgstr "Sonagram"
@@ -7448,62 +7448,62 @@ msgstr "&Biteşlem Olarak Dışa Aktar…"
 msgid "&Close"
 msgstr "&Kapat"
 
-#: plugins/sonagram/SonagramWindow.cpp:151
+#: plugins/sonagram/SonagramWindow.cpp:148
 #, kde-format
 msgid "Time: ------ ms"
 msgstr "Zaman: ------ ms"
 
-#: plugins/sonagram/SonagramWindow.cpp:153
+#: plugins/sonagram/SonagramWindow.cpp:150
 #, kde-format
 msgid "Frequency: ------ Hz"
 msgstr "Frekans: ------ Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:155
+#: plugins/sonagram/SonagramWindow.cpp:152
 #, kde-format
 msgid "Amplitude: --- %"
 msgstr "Genişleme: --- %"
 
-#: plugins/sonagram/SonagramWindow.cpp:202
+#: plugins/sonagram/SonagramWindow.cpp:199
 #, kde-format
 msgid "Time: 0 ms"
 msgstr "Zaman: 0 ms"
 
-#: plugins/sonagram/SonagramWindow.cpp:203
+#: plugins/sonagram/SonagramWindow.cpp:200
 #, kde-format
 msgid "Frequency: 0 Hz"
 msgstr "Frekans: 0 Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:204
+#: plugins/sonagram/SonagramWindow.cpp:201
 #, kde-format
 msgid "Amplitude: 0 %"
 msgstr "Genişleme: %​0"
 
-#: plugins/sonagram/SonagramWindow.cpp:252
+#: plugins/sonagram/SonagramWindow.cpp:249
 #, kde-format
 msgid "Save Sonagram"
 msgstr "Sonagramı kaydet"
 
-#: plugins/sonagram/SonagramWindow.cpp:273
+#: plugins/sonagram/SonagramWindow.cpp:270
 #, kde-format
 msgid "Load Sonagram"
 msgstr "Sonagramı Yükle"
 
-#: plugins/sonagram/SonagramWindow.cpp:531
+#: plugins/sonagram/SonagramWindow.cpp:460
 #, kde-format
 msgid "Sonagram of %1"
 msgstr "%1 sonagramı"
 
-#: plugins/sonagram/SonagramWindow.cpp:554
+#: plugins/sonagram/SonagramWindow.cpp:483
 #, kde-format
 msgid "Time: %1"
 msgstr "Süre: %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:558
+#: plugins/sonagram/SonagramWindow.cpp:487
 #, kde-format
 msgid "Frequency: %1 Hz"
 msgstr "Frekans: %1 Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:567
+#: plugins/sonagram/SonagramWindow.cpp:496
 #, kde-format
 msgid "Amplitude: %1%"
 msgstr "Genişleme: %​%1"

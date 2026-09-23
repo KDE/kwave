@@ -43,7 +43,6 @@ SPDX-FileCopyrightText: none
   <name xml:lang="sl">Kwave</name>
   <name xml:lang="sv">Kwave</name>
   <name xml:lang="tr">K Dalga</name>
-  <name xml:lang="ug">Kwave</name>
   <name xml:lang="uk">Kwave</name>
   <name xml:lang="zh-CN">Kwave</name>
   <name xml:lang="zh-TW">Kwave</name>
@@ -651,7 +650,6 @@ SPDX-FileCopyrightText: none
       <li xml:lang="sl">WAV (*.wav)</li>
       <li xml:lang="sv">WAV (*.wav)</li>
       <li xml:lang="tr">WAV (*.wav)</li>
-      <li xml:lang="ug">WAV (*.wav)</li>
       <li xml:lang="uk">WAV (*.wav)</li>
       <li>Ogg/Opus (*.opus)</li>
       <li xml:lang="ar">Ogg/Opus (*.opus)</li>
@@ -679,7 +677,6 @@ SPDX-FileCopyrightText: none
       <li xml:lang="sl">Ogg/Opus (*.opus)</li>
       <li xml:lang="sv">Ogg/Opus (*.opus)</li>
       <li xml:lang="tr">Ogg/Opus (*.opus)</li>
-      <li xml:lang="ug">Ogg/Opus (*.opus)</li>
       <li xml:lang="uk">Ogg/Opus (*.opus)</li>
       <li>Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="ar">Ogg/Vorbis (*.ogg)</li>
@@ -707,7 +704,6 @@ SPDX-FileCopyrightText: none
       <li xml:lang="sl">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="sv">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="tr">Ogg/Vorbis (*.ogg)</li>
-      <li xml:lang="ug">Ogg/Vorbis (*.ogg)</li>
       <li xml:lang="uk">Ogg/Vorbis (*.ogg)</li>
       <li>MP3 (*.mp3)</li>
       <li xml:lang="ar">MP3 (*.mp3)</li>
@@ -735,7 +731,6 @@ SPDX-FileCopyrightText: none
       <li xml:lang="sl">MP3 (*.mp3)</li>
       <li xml:lang="sv">MP3 (*.mp3)</li>
       <li xml:lang="tr">MP3 (*.mp3)</li>
-      <li xml:lang="ug">MP3 (*.mp3)</li>
       <li xml:lang="uk">MP3 (*.mp3)</li>
       <li>FLAC (*.flac)</li>
       <li xml:lang="ar">FLAC (*.flac)</li>
@@ -763,7 +758,6 @@ SPDX-FileCopyrightText: none
       <li xml:lang="sl">FLAC (*.flac)</li>
       <li xml:lang="sv">FLAC (*.flac)</li>
       <li xml:lang="tr">FLAC (*.flac)</li>
-      <li xml:lang="ug">FLAC (*.flac)</li>
       <li xml:lang="uk">FLAC (*.flac)</li>
       <li>ASCII coded audio (*.ascii)</li>
       <li xml:lang="ar">صوت مرمز بـ ASCII (*.ascii)</li>

@@ -6,8 +6,7 @@
   <!ENTITY % Russian "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "20.07.70">
-  <!ENTITY version_year "2020">
+  <!ENTITY version "24.12.0">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -18,6 +17,7 @@
   <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
   <!ENTITY url_debian "https://www.debian.org">
   <!ENTITY url_flac "https://xiph.org/flac/">
+  <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
@@ -30,7 +30,6 @@
   <!ENTITY url_licenses "&url_prefix_gitweb;LICENSES">
   <!ENTITY url_ogg_vorbis "https://www.xiph.org">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
-  <!ENTITY url_sourceforge "https://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_web_sf "https://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY i18n-cmd_syntax "Синтаксис: ">
@@ -342,29 +341,33 @@
 ></copyright>
     <copyright
 ><year
->&version_year;</year
+>2020</year
 ><holder
 >Thomas Eschenbacher</holder
+></copyright>
+    <copyright
+><year
+>2024</year
+><holder
+>Mark Penner</holder
 ></copyright>
 
     <legalnotice
 >&FDLNotice;</legalnotice>
 
     <date
->2020-07-06</date>
+>9 ноября 2024 г.</date>
     <releaseinfo
->20.07.70</releaseinfo>
+>&version;</releaseinfo>
 
     <abstract
 ><para
->&kwave; — это простой аудиоредактор на основе &kf5-full;.</para
+>&kwave; — это простой аудиоредактор на основе &kde-frameworks;.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
-	<keyword
->KF5</keyword>
 	<keyword
 >мультимедиа</keyword>
 	<keyword
@@ -399,10 +402,10 @@
 >Введение</title>
 
     <para
->&kwave; — это простой аудиоредактор на основе &kf5-full;. Его функционал включает в себя: <itemizedlist>
+>&kwave; — это простой аудиоредактор на основе &kde-frameworks;. Его возможности: <itemizedlist>
     	<listitem
 ><para
->пользовательский интерфейс, имеющий три режима работы с открытыми файлами: SDI («В отдельных окнах»), MDI («В отдельных окнах») и во вкладках; </para
+>пользовательский интерфейс, имеющий три режима показа открытых файлов: SDI («В отдельных окнах»), MDI («Во вложенных окнах») и «Во вкладках»; </para
 ></listitem>
     	<listitem
 ><para
@@ -434,11 +437,11 @@
 ></listitem>
     	<listitem
 ><para
->воспроизведение с использованием подсистем Qt, PulseAudio, ALSA и OSS; </para
+>воспроизведение с использованием ALSA, PulseAudio, Qt и OSS; </para
 ></listitem>
     	<listitem
 ><para
->запись с использованием подсистем PulseAudio, ALSA и OSS; </para
+>запись с использованием ALSA, PulseAudio, Qt и OSS; </para
 ></listitem>
     	<listitem
 ><para
@@ -508,7 +511,9 @@
 ><para
 >Домашняя страница проекта<anchor id="project-homepage"/></para
 ><para
->Для получения информации о новых актуальных выпусках или другой информации об этом проекте обратитесь к <ulink url="&url_homepage;"
+>Для получения информации о новых актуальных выпусках обратитесь к <ulink url="&url_apps_kde;"
+>странице &kwave;</ulink
+> на сайте apps.kde.org. Другую информацию можно найти на <ulink url="&url_homepage;"
 >домашней странице &kwave;</ulink
 >. </para
 ></listitem>
@@ -516,15 +521,11 @@
 ><para
 >Репозиторий Git<anchor id="git-repository"/> </para>
 	<para
->Существует репозиторий Git, размещённый на серверах &kde; и на <ulink url="&url_sourceforge;"
+>Репозиторий Git размещён на сервере Gitlab проекта &kde; (<ulink url="&url_git_web_kde;"
+>здесь</ulink
+>), зеркало — на <ulink url="&url_git_web_sf;"
 >SourceForge</ulink
->, где доступны исходные коды самой свежей версии, находящейся в разработке. Инструкции по получению доступа к репозиторию представлены в документации разработчика в главе о <ulink url="&url_devel_fetching_from_git;"
->сборке из Git</ulink
->. Кроме того, есть интерфейсы <ulink url="&url_git_web_kde;"
->&kde;</ulink
-> и <ulink url="&url_git_web_sf;"
->SourceForge</ulink
->, которые позволяют просматривать источники проекта. </para
+>. </para
 ></listitem>
     </itemizedlist>
 
@@ -544,8 +545,8 @@
     <para
 >Начиная с версии 0.8.0 журнал изменений &kwave; больше не включается в это руководство. С полной историей изменений можно ознакомиться по этой ссылке: <ulink url="&url_changelog;"
 > &url_changelog;</ulink
->, либо с помощью <ulink url="&url_git_web_kde;"
->интерфейса Git</ulink
+>, либо самостоятельно просмотреть исходный код через <ulink url="&url_git_web_kde;"
+>веб-интерфейс Git</ulink
 >. </para>
 
     <para
@@ -914,7 +915,7 @@
 ><title
 >Список файлов или команд</title>
 	    <para
->При запуске &kwave; из командной строки возможно указать список файлов, которые следует открыть. Сначала будет открыт первый указанный файл, затем все остальные. Каждый файл будет открыт в новом окне или вложенном окне того же экземпляра приложения. При использовании подстановочных знаков возможно  открыть сразу большое количество файлов. </para>
+>При запуске &kwave; из командной строки возможно указать список файлов, которые следует открыть. Сначала будет открыт первый указанный файл, затем все остальные. Каждый файл будет открыт в новом окне или вложенном окне того же экземпляра приложения. При использовании подстановочных знаков возможно открыть сразу большое количество файлов. </para>
 	    <para
 >Например, следующая команда запускает &kwave; и открывает все звуковые файлы, являющиеся частью звукового оформления freedesktop XDG, в новом или вложенном окне: <screen
 ><prompt
@@ -1232,7 +1233,9 @@
 ><title
 >Формат файлов ASCII</title>
 	<para
->Формат файлов ASCII удобен в использовании в научных и образовательных целях. Из-за его простой структуры возможно либо написать простые файлы с помощью текстового редактора, либо использовать входные данные другого приложения и преобразовать их в ASCII. Поскольку формат действительно простой, при написании конвертера не должно возникать никаких проблем, а большинство научных приложений даже имеет свой собственный формат ASCII для экспорта данных. </para>
+>Формат файлов ASCII удобен в использовании в научных и образовательных целях. Благодаря простому формату можно либо самостоятельно написать простые файлы с помощью текстового редактора, либо использовать выходные данные другого приложения и преобразовать их в ASCII. Поскольку формат <emphasis
+>действительно</emphasis
+> простой, при написании конвертера не должно возникать больших проблем, а большинство научных приложений, как правило, имеют собственный формат ASCII для экспорта данных. </para>
 
         <para
 >Формат ASCII достаточно прост и руководствуется следующими правилами: <orderedlist>
@@ -1348,7 +1351,7 @@
 >Запись</title>
 
     <para
->&kwave; способен записывать аудиоданные из различных источников с любой частотой дискретизации, форматами сэмплов и другими режимами, которые поддерживает оборудование пользователя. В текущей версии приложение &kwave; записывает данные с помощью устаревшего звукового интерфейса OSS и, начиная с версии 0.7.4, более современного и мощного интерфейса ALSA, который предпочтителен для ядер Linux, начиная с версии 2.6. </para>
+>&kwave; способен записывать аудиоданные из различных источников со всеми частотами дискретизации, форматами сэмплов и другими режимами, которые поддерживает звуковое оборудование. &kwave; может записывать звук с помощью механизмов ALSA, PulseAudio, Qt и OSS. </para>
     <para
 >Для начала записи воспользуйтесь пунктом меню <menuchoice
 > <guimenu
@@ -1514,7 +1517,15 @@
 ></listitem>
 	<listitem
 ><para
->OSS (Open Sound System, открытая звуковая система): самая старая реализация звуковой подсистемы для Linux, поддерживает монофонический и стереофонический выход. Устарела c Linux 2.6, но всё ещё широко распространена. Может конфликтовать с другими приложениями для работы со звуком; использование OSS возможно только в одном приложении (одновременное использование в нескольких приложениях не поддерживается). </para
+>PulseAudio: распространённый звуковой сервер общего назначения в Linux. PulseAudio может не обеспечивать такую же низкую задержку, как ALSA. </para
+></listitem>
+	<listitem
+><para
+>Qt Multimedia: не предназначен для звука с малой задержкой, но работает с большими размерами буфера. </para
+></listitem>
+	<listitem
+><para
+>OSS (Open Sound System, открытая звуковая система): самая старая реализация звуковой подсистемы для Linux, поддерживает монофонический и стереофонический выход. Устарела начиная с ядра Linux 2.6. Может конфликтовать с другими приложениями для работы со звуком: воспроизводить звук через OSS одновременно может только одно приложение. </para
 ></listitem>
     </itemizedlist
 ></para>
@@ -1537,8 +1548,6 @@
 	</screenshot>
     </para>
 
-    <para
->В текущей версии &kwave; поддерживает только воспроизведение 8-битного и 16-битного звука с монофоническим и стереофоническим выводом через интерфейс OSS. Более широкую поддержку режимов воспроизведения и оборудования возможно получить при использовании интерфейса ALSA. </para>
     <para
 >Если в звуковом файле используется больше или меньше каналов, чем позволяет воспроизведение, все каналы будут смешаны во время воспроизведения. Например, если есть файл с тремя звуковыми дорожками, и используется режим стерео для воспроизведения, левый канал будет воспроизводить дорожку 0 (верхнюю) и половину дорожки 1 (среднюю), правый канал будет воспроизводить половину дорожки 1 (среднюю) и дорожку 2 (нижнюю). </para>
     <para
@@ -1680,8 +1689,8 @@
 ><para
 ><emphasis
 >увеличить масштаб:</emphasis
-> увеличивает масштаб, чтобы можно было рассмотреть больше деталей. Увеличивает на масштабирующий множитель 3. <itemizedlist>
-	    <listitem
+> увеличивает масштаб, чтобы можно было рассмотреть больше деталей. Увеличивает на масштабирующий множитель 3. <itemizedlist
+> <listitem
 ><para
 >пункт меню / комбинация клавиш: <menuchoice
 > <shortcut
@@ -1697,21 +1706,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->кнопка на панели инструментов: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_in.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->увеличить масштаб</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
 	</para
 ></listitem>
@@ -1720,8 +1714,8 @@
 ><para
 ><emphasis
 >уменьшить масштаб:</emphasis
-> уменьшает масштаб, чтобы скрыть некоторые детали. <itemizedlist>
-	    <listitem
+> уменьшает масштаб, чтобы скрыть некоторые детали. <itemizedlist
+> <listitem
 ><para
 >пункт меню / комбинация клавиш: <menuchoice
 > <shortcut
@@ -1737,21 +1731,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->кнопка на панели инструментов: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_out.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->уменьшить масштаб</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1760,8 +1739,8 @@
 ><para
 ><emphasis
 >масштаб по выделению:</emphasis
-> увеличивает таким образом, чтобы текущее выделение заполнило всю текущую область просмотра. <itemizedlist>
-	    <listitem
+> увеличивает таким образом, чтобы текущее выделение заполнило всю текущую область просмотра. <itemizedlist
+> <listitem
 ><para
 >пункт меню / комбинация клавиш: <menuchoice
 > <shortcut
@@ -1775,21 +1754,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->кнопка на панели инструментов: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmag.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->масштабировать по выделению</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1798,8 +1762,8 @@
 ><para
 ><emphasis
 >вместить весь сигнал в окно:</emphasis
-> увеличивает так, чтобы весь звуковой сигнал отображался в текущем окне. <itemizedlist>
-	    <listitem
+> увеличивает так, чтобы весь звуковой сигнал отображался в текущем окне. <itemizedlist
+> <listitem
 ><para
 >пункт меню: <menuchoice
 > <guimenu
@@ -1809,21 +1773,6 @@
 > </menuchoice
 > </para
 ></listitem>
-	    <listitem
-><para
->кнопка на панели инструментов: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
-        </imageobject
-><textobject
-><phrase
-><quote
->вместить весь сигнал в окно</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
-></listitem>
 	    </itemizedlist>
         </para
 ></listitem>
@@ -1832,8 +1781,8 @@
 ><para
 ><emphasis
 >масштаб 100%:</emphasis
-> масштабирует так, чтобы один сэмпл был представлен одним пикселом на экране. <itemizedlist>
-	    <listitem
+> масштабирует так, чтобы один сэмпл был представлен одним пикселом на экране. <itemizedlist
+> <listitem
 ><para
 >пункт меню: <menuchoice
 > <guimenu
@@ -1842,21 +1791,6 @@
 >Масштаб 100%</guimenuitem
 > </menuchoice
 > </para
-></listitem>
-	    <listitem
-><para
->кнопка на панели инструментов: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->масштаб 100%</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para
 ></listitem>
 	    </itemizedlist>
         </para
@@ -1954,19 +1888,6 @@
 >Предыдущая страница</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->кнопка на панели инструментов: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->предыдущая страница</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- next page -->
        <listitem
@@ -1986,19 +1907,6 @@
 >Следующая страница</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->кнопка на панели инструментов: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->следующая страница</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll right -->
         <listitem
@@ -2018,19 +1926,6 @@
 >Прокрутить вправо</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->кнопка на панели инструментов: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->прокрутить вправо</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll left -->
         <listitem
@@ -2050,19 +1945,6 @@
 >Прокрутить влево</guimenuitem
 > </menuchoice
 > </para>
-	    <para
->кнопка на панели инструментов: <inlinemediaobject
-><imageobject>
-		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
-		</imageobject
-><textobject
-><phrase
-><quote
->прокрутить влево</quote
-></phrase
-></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	</itemizedlist>
     </para>
@@ -8663,17 +8545,6 @@
 			<varlistentry>
 			    <term
 ><replaceable
->имя файла</replaceable
-></term>
-			    <listitem>
-				<para
->Имя файла проекта K3b, будет использоваться в качестве основы имени для всех файлов. </para>
-			    </listitem>
-			</varlistentry>
-
-			<varlistentry>
-			    <term
-><replaceable
 >шаблон</replaceable
 ></term>
 			    <listitem>
@@ -8778,45 +8649,22 @@
 			<varlistentry>
 			    <term
 ><replaceable
+>файл проекта</replaceable
+></term>
+			    <listitem>
+				<para
+>Имя файла проекта K3b, которое также будет использоваться в качестве основы имён экспортируемых файлов. </para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
+			    <term
+><replaceable
 >экспорт в папку</replaceable
 ></term>
 			    <listitem>
 				<para
->Определить место, в которое будут сохраняться блоки. <informaltable frame='all'
-> <tgroup cols='2'>
-					    <thead>
-						<row>
-						    <entry align='left'
->значение</entry>
-						    <entry align='left'
->описание</entry>
-						</row>
-					    </thead>
-					    <tbody>
-						<row>
-						    <entry
->&no-i18n-tag;<command
->0</command
-></entry>
-						    <entry
->Сохранить в том же месте, что и файл проекта K3b </entry>
-						</row>
-						<row>
-						    <entry
->&no-i18n-tag;<command
->1</command
-></entry>
-						    <entry
->Сохранить во вложенную папку в расположении файла проекта K3b с использованием в качестве базы имя проекта и добавляя расширение «<command
-><literal
->.dir</literal
-></command
->». </entry>
-						</row>
-					    </tbody>
-					</tgroup>
-				    </informaltable>
-				</para>
+>Место, в которое будут сохраняться блоки. </para>
 			    </listitem>
 			</varlistentry>
 
@@ -10348,17 +10196,6 @@
 		    <varlistentry>
 			<term
 ><replaceable
->имя</replaceable
-></term>
-			<listitem>
-			    <para
->Имя оригинального файла, будет использоваться в качестве базового имени для всех файлов </para>
-			</listitem>
-		    </varlistentry>
-
-		    <varlistentry>
-			<term
-><replaceable
 >шаблон</replaceable
 ></term>
 			<listitem>
@@ -10489,6 +10326,28 @@
 				    </tgroup>
 				</informaltable>
 			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>расширение</replaceable
+></term>
+			<listitem>
+			    <para
+>Расширение имени файла, используемое для сохраняемых блоков. Определяет применяемую кодировку. </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term
+><replaceable
+>экспорт в папку</replaceable
+></term>
+			<listitem>
+			    <para
+>Место для экспорта сохранённых блоков. </para>
 			</listitem>
 		    </varlistentry>
 
@@ -11245,7 +11104,7 @@
 	    </question>
     	    <answer>
 	    	<para
->Для работы &kwave; не требуется специальная звуковая карта. Достаточно поддержки звуковой карты со стороны операционной системы, так как &kwave; использует интерфейс драйвера звуковой подсистемы с помощью OSS или ALSA. </para>
+>Для работы &kwave; не требуется специальная звуковая карта. Достаточно поддержки звуковой карты со стороны операционной системы, так как &kwave; использует интерфейс звукового драйвера операционной системы через ALSA, PulseAudio, Qt или OSS. </para>
 	    </answer>
 	</qandaentry>
 
@@ -11411,9 +11270,13 @@
 >, в котором перечислены все авторы и участники &kwave;. </para>
 
     <para
->Авторские права на документацию, &version_year;: Thomas Eschenbacher <email
+>© Thomas Eschenbacher <email
 >thomas.eschenbacher@gmx.de</email
-> </para>
+>, 2020 (документация) </para>
+    <para
+>© Mark Penner <email
+>mrp@markpenner.space</email
+>, 2024 (документация) </para>
 <para
 >Перевод на русский язык: Мария Шикунова<email
 >translation-team@basealt.ru</email
@@ -11495,6 +11358,16 @@
 >интернационализация, перевод на французский язык, заставка при запуске, бета-тестирование </para>
 	    </listitem>
 	    <listitem>
+		<para
+><emphasis role="bold"
+>Mark Penner <email
+>mrp@markpenner.space</email
+> </emphasis
+></para
+><para
+>разработка </para>
+	    </listitem>
+	    <listitem>
 	    	<para
 ><emphasis role="bold"
 >Pavel Fric <email
@@ -11533,16 +11406,6 @@
 >Второстепенные авторы, правообладатели и другие лица</title>
     <para>
     	<itemizedlist>
-	    <listitem>
-	    	<para
-><emphasis role="bold"
->Aaron Holtzman <email
->aholtzma@ess.engr.uvic.ca</email
-> </emphasis
-></para
-><para
->libkwave/cpu_accel.cpp </para>
-	    </listitem>
 	    <listitem>
 	    	<para
 ><emphasis role="bold"
@@ -11682,14 +11545,6 @@
 ></para
 ><para
 >cmake/FindAlsa.cmake </para>
-	    </listitem>
-	    <listitem>
-	    	<para
-><emphasis role="bold"
->Miguel Freitas </emphasis
-></para
-><para
->части libkwave/memcpy.c </para>
 	    </listitem>
 	    <listitem>
 	    	<para
@@ -12136,7 +11991,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Emphasis</entry>
 	    <entry colname='c2'
->Режим Еmphasis </entry>
+>Режим Emphasis </entry>
 	</row>
 	<row id="INF_MPEG_LAYER">
 	    <entry colname='c1'

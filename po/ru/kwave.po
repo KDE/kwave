@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-01 00:43+0000\n"
-"PO-Revision-Date: 2025-12-11 18:40+0300\n"
+"PO-Revision-Date: 2026-09-23 08:52+0200\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -2172,7 +2172,7 @@ msgstr "Emphasis"
 
 #: libkwave/FileInfo.cpp:199
 msgid "Audio emphasis mode"
-msgstr "Режим Еmphasis"
+msgstr "Режим Emphasis"
 
 #: libkwave/FileInfo.cpp:202
 msgid "Layer"

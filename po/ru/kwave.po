@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-23 00:51+0000\n"
-"PO-Revision-Date: 2025-12-11 18:40+0300\n"
+"PO-Revision-Date: 2026-09-23 08:52+0200\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -1833,16 +1833,12 @@ msgid "Album"
 msgstr "Альбом"
 
 #: libkwave/FileInfo.cpp:38
-#, fuzzy
-#| msgid ""
-#| "Name of the album if the source is an album\n"
-#| "that consist of more medias."
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more media."
 msgstr ""
 "Название альбома, если источником является альбом,\n"
-"в котором есть дополнительные медиафайлы."
+"в котором несколько медиафайлов."
 
 #: libkwave/FileInfo.cpp:42
 msgid "Annotation"
@@ -2162,7 +2158,7 @@ msgstr "Emphasis"
 
 #: libkwave/FileInfo.cpp:199
 msgid "Audio emphasis mode"
-msgstr "Режим Еmphasis"
+msgstr "Режим Emphasis"
 
 #: libkwave/FileInfo.cpp:202
 msgid "Layer"
@@ -3970,39 +3966,31 @@ msgstr ""
 "«%1»"
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:463
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
 msgstr ""
-"Кодек поддерживает только монофонические или стереофонические файлы, %1 "
-"каналов не поддерживается."
+"Этот формат файла поддерживает только моно; число каналов %1 не "
+"поддерживается."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:467
 #: plugins/codec_flac/FlacEncoder.cpp:200
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
 "supported."
 msgstr ""
-"Кодек поддерживает только монофонические или стереофонические файлы, %1 "
-"каналов не поддерживается."
+"Этот формат файла поддерживает не более %1 каналов; число каналов %2 не "
+"поддерживается."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:474
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "Невозможно открыть файл для сохранения."
+msgstr "Не удалось открыть устройство назначения для записи."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:524
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "Не удалось открыть кодировщик FLAC."
+msgstr "Не удалось инициализировать кодировщик libaudiofile."
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
@@ -4045,16 +4033,13 @@ msgid "MPEG layer I audio"
 msgstr "Аудио в формате MPEG layer I"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:173
-#, fuzzy, kde-format
-#| msgid ""
-#| "The file contains an invalid channel mode 0x%1\n"
-#| "Assuming Mono..."
+#, kde-format
 msgid ""
 "The file contains an invalid channel mode (%1).\n"
 "Assuming Mono..."
 msgstr ""
-"В файле содержится неверный режим каналов 0x%1\n"
-"Выполняется для монофонического режима..."
+"В файле содержится неверный режим каналов (%1).\n"
+"Предполагается монофонический режим…"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:549
 #, kde-format
@@ -4758,15 +4743,11 @@ msgid "End of file before finding all Vorbis headers."
 msgstr "Достигнут конец файла. Найдены не все заголовки Vorbis."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
 msgstr ""
-"Кодек поддерживает только монофонические или стереофонические файлы, %1 "
-"каналов не поддерживается."
+"Кодек поддерживает от 1 до 255 каналов; число каналов %1 не поддерживается."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:137
 #, kde-format
@@ -4774,6 +4755,8 @@ msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
+"Ogg/Vorbis не поддерживает режим ABR при использовании более двух каналов. "
+"Переключиться на режим VBR с %1% и продолжить?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:158
 #, kde-format
@@ -6132,7 +6115,7 @@ msgstr "Подустройство %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:1021 plugins/record/Record-ALSA.cpp:1203
 #, kde-format
 msgid "Virtual / ALSA Plugins"
-msgstr ""
+msgstr "Виртуальные модули / модули ALSA"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6318,22 +6301,7 @@ msgstr "Способ или система воспроизведения"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:128
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Playback Method:</b><p>Choose a method or system used for\n"
-#| "playback. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, capable of mono and stereo output. Deprecated since linux "
-#| "kernel 2.6, but still wide spread. Might collide with PulseAudio or other "
-#| "sound applications, only one application at a time can use OSS playback !"
-#| "</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware. Might collide with other "
-#| "applications like OSS does, but has a plugin called <i>dmix</i> as a way "
-#| "out.</p>\n"
-#| "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
-#| "Multiple applications can play at the same time.</p>"
+#, kde-format
 msgid ""
 "<b>Playback Method:</b><p>Choose a method or system used for\n"
 "playback. Depending on the compilation options you can select one of the "
@@ -6351,13 +6319,13 @@ msgid ""
 msgstr ""
 "<b>Способ воспроизведения:</b><p>Выбор способа или системы\n"
 "воспроизведения. В зависимости от параметров компиляции приложения могут "
-"бытьдоступны следующие способы:</p>\n"
+"быть доступны следующие способы:</p>\n"
 "<p><b><i>OSS (Open Sound System)</i></b>: самая старая реализация звуковой "
-"подсистемы для Linux,поддерживает монофонический и стереофонический выход. "
-"Устарела c Linux 2.6, но всё ещё широко распространена. Может конфликтовать "
-"с PulseAudio и другими приложениями для работы со звуком; использование OSS "
-"возможно только в одном приложении (одновременное использование в нескольких "
-"приложениях не поддерживается).</p>\n"
+"подсистемы для Linux, поддерживает монофонический и стереофонический выход. "
+"Устарела с ядра Linux 2.6, но всё ещё широко распространена. Может "
+"конфликтовать с PulseAudio и другими приложениями для работы со звуком; "
+"использование OSS возможно только в одном приложении (одновременное "
+"использование в нескольких приложениях не поддерживается).</p>\n"
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: пришла на смену "
 "OSS, поддерживает больше функций и оборудования. Возможны конфликты с "
 "другими приложениями, как у OSS, но проблема решается с помощью модуля "
@@ -6943,16 +6911,7 @@ msgstr "Способ или система записи"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1028
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Recording method:</b><p>Choose a method or system used for\n"
-#| "recording. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, only capable of mono and stereo input. Deprecated since "
-#| "linux kernel 2.6, but still wide spread.</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware.</p>"
+#, kde-format
 msgid ""
 "<b>Recording method:</b><p>Choose a method or system used for\n"
 "recording. Depending on the compilation options you can select one of the "
@@ -6964,11 +6923,11 @@ msgid ""
 "supports more features and more hardware.</p>"
 msgstr ""
 "<b>Способ записи:</b><p>Выбор способа или системы\n"
-"записи. В зависимости от параметров компиляции могут бытьдоступны следующие "
+"записи. В зависимости от параметров компиляции могут быть доступны следующие "
 "способы:</p>\n"
-"<p><b><i>OSS (Open Sound System)</i></b>: самая старая реализация для Linux,"
-"поддерживает монофонический и стереофонический выход. Устарела c Linux 2.6, "
-"но всё ещё широко распространена.</p>\n"
+"<p><b><i>OSS (Open Sound System)</i></b>: самая старая реализация для Linux, "
+"поддерживает только монофонический и стереофонический вход. Устарела с ядра "
+"Linux 2.6, но всё ещё широко распространена.</p>\n"
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: пришла на смену "
 "OSS, поддерживает больше функций и оборудования.</p>"
 
@@ -7004,10 +6963,9 @@ msgstr "Выбра&ть..."
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0%"
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
@@ -7495,10 +7453,9 @@ msgid "Sonagram"
 msgstr "Сонаграмма"
 
 #: plugins/sonagram/SonagramPlugin.cpp:215
-#, fuzzy, kde-format
-#| msgid "Sonagram of %1"
+#, kde-format
 msgid "Sonagram loaded from %1"
-msgstr "Сонаграмма %1"
+msgstr "Сонаграмма загружена из %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:122
 #, kde-format
@@ -7506,10 +7463,9 @@ msgid "&Sonagram"
 msgstr "&Сонаграмма"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
-#, fuzzy, kde-format
-#| msgid "&Export to Bitmap..."
+#, kde-format
 msgid "&Import from Bitmap..."
-msgstr "&Экспорт в Bitmap..."
+msgstr "&Импорт из Bitmap…"
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7557,10 +7513,9 @@ msgid "Save Sonagram"
 msgstr "Сохранить сонаграмму"
 
 #: plugins/sonagram/SonagramWindow.cpp:270
-#, fuzzy, kde-format
-#| msgid "Save Sonagram"
+#, kde-format
 msgid "Load Sonagram"
-msgstr "Сохранить сонаграмму"
+msgstr "Загрузить сонаграмму"
 
 #: plugins/sonagram/SonagramWindow.cpp:460
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-23 00:51+0000\n"
-"PO-Revision-Date: 2026-09-09 17:58+0400\n"
+"PO-Revision-Date: 2026-09-23 17:29+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -7405,10 +7405,9 @@ msgid "Sonagram"
 msgstr "السونوغرام"
 
 #: plugins/sonagram/SonagramPlugin.cpp:215
-#, fuzzy, kde-format
-#| msgid "Sonagram of %1"
+#, kde-format
 msgid "Sonagram loaded from %1"
-msgstr "سونوغرام %1"
+msgstr "حُمّل السونوغرام من %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:122
 #, kde-format
@@ -7416,10 +7415,9 @@ msgid "&Sonagram"
 msgstr "ال&سونوغرام"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
-#, fuzzy, kde-format
-#| msgid "&Export to Bitmap..."
+#, kde-format
 msgid "&Import from Bitmap..."
-msgstr "&صدّر إلى صورة نقطية…"
+msgstr "ا&ستورد من صورة نقطية…"
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7467,10 +7465,9 @@ msgid "Save Sonagram"
 msgstr "احفظ السونوغرام"
 
 #: plugins/sonagram/SonagramWindow.cpp:270
-#, fuzzy, kde-format
-#| msgid "Save Sonagram"
+#, kde-format
 msgid "Load Sonagram"
-msgstr "احفظ السونوغرام"
+msgstr "حمّل السونوغرام"
 
 #: plugins/sonagram/SonagramWindow.cpp:460
 #, kde-format

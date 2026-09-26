@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-23 00:51+0000\n"
-"PO-Revision-Date: 2026-09-10 22:30+0200\n"
+"PO-Revision-Date: 2026-09-22 11:29+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -7459,10 +7459,9 @@ msgid "Sonagram"
 msgstr "Sonogramma"
 
 #: plugins/sonagram/SonagramPlugin.cpp:215
-#, fuzzy, kde-format
-#| msgid "Sonagram of %1"
+#, kde-format
 msgid "Sonagram loaded from %1"
-msgstr "Sonogramma di %1"
+msgstr "Sonogramma caricato da %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:122
 #, kde-format
@@ -7470,10 +7469,9 @@ msgid "&Sonagram"
 msgstr "&Sonogramma"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
-#, fuzzy, kde-format
-#| msgid "&Export to Bitmap..."
+#, kde-format
 msgid "&Import from Bitmap..."
-msgstr "&Esporta in bitmap..."
+msgstr "&Importa da bitmap..."
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7521,10 +7519,9 @@ msgid "Save Sonagram"
 msgstr "Salva sonogramma"
 
 #: plugins/sonagram/SonagramWindow.cpp:270
-#, fuzzy, kde-format
-#| msgid "Save Sonagram"
+#, kde-format
 msgid "Load Sonagram"
-msgstr "Salva sonogramma"
+msgstr "Carica sonogramma"
 
 #: plugins/sonagram/SonagramWindow.cpp:460
 #, kde-format

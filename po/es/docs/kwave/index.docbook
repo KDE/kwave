@@ -10723,7 +10723,7 @@
 	<varlistentry>
 	    <term
 ><emphasis role="bold"
->&i18n-plugin_lbl_parameters;</emphasis
+>&i18n-plugin_lbl_parameters; (modo predeterminado)</emphasis
 ></term>
 	    <listitem>
 		<variablelist>
@@ -10851,6 +10851,83 @@
 		</variablelist>
 	    </listitem>
 	</varlistentry>
+
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>&i18n-plugin_lbl_parameters; (abrir desde modo archivo)</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+			<varlistentry>
+				<term
+><literal
+>abrir</literal
+></term>
+				<listitem>
+					<para
+>Si el primer parámetro es la palabra "<literal
+>abrir</literal
+>" entonces el siguiente parámetro se interpretará como el nombre de archivo a abrir. </para>
+				</listitem>
+			</varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>nombre de archivo</replaceable
+></term>
+			<listitem>
+			    <para
+>Nombre del archivo a abrir. </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>&i18n-plugin_lbl_parameters; (guardar en modo archivo)</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+			<varlistentry>
+				<term
+><literal
+>guardar</literal
+></term>
+				<listitem>
+					<para
+>Si el primer parámetro es la palabra "<literal
+>guardar</literal
+>" entonces los siguientes parámetros se interpretarán como el índice de un sonograma y el archivo a guardar. </para>
+				</listitem>
+			</varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>índice</replaceable
+></term>
+			<listitem>
+			    <para
+>El índice numérico de la ventana del sonograma que muestra el sonograma a guardar. Éste es un índice que es determinado a partir de la lista interna de ventana de sonogramas abiertos, empezando de cero. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>nombre de archivo</replaceable
+></term>
+			<listitem>
+			    <para
+>Nombre del archivo a abrir. </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+		</listitem>
+	</varlistentry>
+
     </variablelist>
     </sect1>
 

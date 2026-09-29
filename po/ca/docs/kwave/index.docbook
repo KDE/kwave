@@ -619,9 +619,9 @@
 ><para
 >El senyal conté <emphasis
 >soroll</emphasis
->. El soroll és l'enemic més gran per algú que ha de manejar els senyals d'àudio. El soroll és un efecte analògic típic, «pertorba» el senyal d'àudio i és molest, sempre està present i no es pot evitar. Només es pot intentar utilitzar components d'alta qualitat que produeixin el mínim soroll possible, de manera que no es pugui escoltar. Normalment, el soroll té un cert volum, de manera que el so interessant hauria de ser molt més fort en comparació amb el soroll. Això s'anomena <emphasis
+>. El soroll és l'enemic més gran per algú que ha de manejar els senyals d'àudio. El soroll és un efecte analògic típic, «pertorba» el senyal d'àudio i és molest, sempre està present i no es pot evitar. Només es pot intentar utilitzar components d'alta qualitat que produeixin el mínim soroll possible, de manera que no es pugui sentir. Normalment, el soroll té un cert volum, de manera que el so interessant hauria de ser molt més fort en comparació amb el soroll. Això s'anomena <emphasis
 >relació senyal/soroll (SNR)</emphasis
->, com més alt sigui, millor serà la qualitat del so. Els sons que tenen un volum més baix que el soroll no es poden escoltar. </para
+>, com més alt sigui, millor serà la qualitat del so. Els sons que tenen un volum més baix que el soroll no es poden sentir. </para
 ></listitem>
 	</orderedlist>
     </para>
@@ -1488,7 +1488,7 @@
 >Reproducció</title>
 
     <para
->Segons les opcions de compilació, el &kwave; pot reproduir sons mitjançant d'un dels mètodes de reproducció següents: </para>
+>Segons les opcions de compilació, el &kwave; pot reproduir sons mitjançant un dels mètodes de reproducció següents: </para>
     <para
 ><itemizedlist>
 	<listitem
@@ -4762,7 +4762,7 @@
 	    <para
 >Correspon al botó <guibutton
 >Següent</guibutton
-> de la barra d'eines. Si s'està executant la reproducció, saltarà endavant cap a la propera etiqueta. Si la reproducció no s'està executant, aquesta farà el mateix que l'ordre: <command
+> de la barra d'eines. Si s'està executant la reproducció, saltarà endavant cap a l'etiqueta següent. Si la reproducció no s'està executant, aquesta farà el mateix que l'ordre: <command
 >&no-i18n-cmd_view_scroll_next_label;</command
 >(). </para>
 	</simplesect>
@@ -10157,7 +10157,7 @@
 	    <para
 >Desa totes les seccions entre els marcadors, cadascuna dins de fitxers separats. A cada fitxer se li dona un nom que es pot personalitzar utilitzant un patró que pot contenir el nom del fitxer original, un índex i el nombre de seccions. </para>
 	    <para
->Es permet que el patró del nom de fitxer contingui barres com a separadors del camí, permetent desar les seccions en diferents subdirectoris. Tingueu en compte que tots els espais al voltant d'aquests separadors de camí seran eliminats silenciosament, evitant crear noms de directori que comencin o acabin amb un espai en blanc. </para>
+>Es permet que el patró del nom de fitxer contingui barres com a separadors del camí, això permet desar les seccions en diferents subdirectoris. Tingueu en compte que tots els espais al voltant d'aquests separadors de camí seran eliminats silenciosament, evitant crear noms de directori que comencin o acabin amb un espai en blanc. </para>
 	    </listitem>
 	</varlistentry>
 	<varlistentry>

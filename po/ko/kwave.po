@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-23 00:51+0000\n"
-"PO-Revision-Date: 2026-05-25 21:44+0200\n"
+"PO-Revision-Date: 2026-10-03 20:06+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -1820,10 +1820,6 @@ msgid "Album"
 msgstr "앨범"
 
 #: libkwave/FileInfo.cpp:38
-#, fuzzy
-#| msgid ""
-#| "Name of the album if the source is an album\n"
-#| "that consist of more medias."
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more media."
@@ -3948,37 +3944,27 @@ msgstr ""
 "'%1'"
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:463
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
-msgstr ""
-"이 코덱에서는 모노나 스테레오 파일만 지원하며 %1채널은 지원하지 않습니다."
+msgstr "이 파일 형식은 모노만 지원하며 %1채널은 지원하지 않습니다."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:467
 #: plugins/codec_flac/FlacEncoder.cpp:200
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
 "supported."
-msgstr ""
-"이 코덱에서는 모노나 스테레오 파일만 지원하며 %1채널은 지원하지 않습니다."
+msgstr "이 파일 형식은 최대 %1채널까지 지원하며 %2채널은 지원하지 않습니다."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:474
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "파일에 저장하려고 열 수 없습니다."
+msgstr "대상 장치에 쓰기 위해 열 수 없습니다."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:524
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "FLAC 인코더를 열 수 없습니다."
+msgstr "libaudiofile 인코더를 초기화할 수 없습니다."
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
@@ -4021,15 +4007,12 @@ msgid "MPEG layer I audio"
 msgstr "MPEG 레이어 I 오디오"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:173
-#, fuzzy, kde-format
-#| msgid ""
-#| "The file contains an invalid channel mode 0x%1\n"
-#| "Assuming Mono..."
+#, kde-format
 msgid ""
 "The file contains an invalid channel mode (%1).\n"
 "Assuming Mono..."
 msgstr ""
-"파일의 채널 모드 0x%1이(가) 잘못되었습니다\n"
+"파일의 채널 모드(%1)가 잘못되었습니다\n"
 "모노로 간주합니다..."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:549
@@ -4726,14 +4709,10 @@ msgid "End of file before finding all Vorbis headers."
 msgstr "모든 Vorbis 헤더를 찾기 전에 파일이 끝났습니다."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
-msgstr ""
-"이 코덱에서는 모노나 스테레오 파일만 지원하며 %1채널은 지원하지 않습니다."
+msgstr "이 코덱에서는 1 ... 255 채널만 지원하며 %1채널은 지원하지 않습니다."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:137
 #, kde-format
@@ -4741,6 +4720,8 @@ msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
+"Ogg/Vorbis에서는 3채널 이상을 사용할 때 ABR 모드를 지원하지 않습니다. %1% "
+"VBR 모드로 변경하여 계속 진행하시겠습니까?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:158
 #, kde-format
@@ -6090,7 +6071,7 @@ msgstr "하위 장치 %1:"
 #: plugins/playback/PlayBack-ALSA.cpp:1021 plugins/record/Record-ALSA.cpp:1203
 #, kde-format
 msgid "Virtual / ALSA Plugins"
-msgstr ""
+msgstr "가상/ALSA 플러그인"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6275,22 +6256,7 @@ msgstr "재생 방법이나 시스템"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:128
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Playback Method:</b><p>Choose a method or system used for\n"
-#| "playback. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, capable of mono and stereo output. Deprecated since linux "
-#| "kernel 2.6, but still wide spread. Might collide with PulseAudio or other "
-#| "sound applications, only one application at a time can use OSS playback !"
-#| "</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware. Might collide with other "
-#| "applications like OSS does, but has a plugin called <i>dmix</i> as a way "
-#| "out.</p>\n"
-#| "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
-#| "Multiple applications can play at the same time.</p>"
+#, kde-format
 msgid ""
 "<b>Playback Method:</b><p>Choose a method or system used for\n"
 "playback. Depending on the compilation options you can select one of the "
@@ -6875,16 +6841,7 @@ msgstr "녹음에 사용할 방법이나 시스템"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1028
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Recording method:</b><p>Choose a method or system used for\n"
-#| "recording. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, only capable of mono and stereo input. Deprecated since "
-#| "linux kernel 2.6, but still wide spread.</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware.</p>"
+#, kde-format
 msgid ""
 "<b>Recording method:</b><p>Choose a method or system used for\n"
 "recording. Depending on the compilation options you can select one of the "
@@ -6934,10 +6891,9 @@ msgstr "선택(&T)..."
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0%"
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
@@ -7417,10 +7373,9 @@ msgid "Sonagram"
 msgstr "소너그램"
 
 #: plugins/sonagram/SonagramPlugin.cpp:215
-#, fuzzy, kde-format
-#| msgid "Sonagram of %1"
+#, kde-format
 msgid "Sonagram loaded from %1"
-msgstr "%1의 소너그램"
+msgstr "%1에서 소너그램 불러옴"
 
 #: plugins/sonagram/SonagramWindow.cpp:122
 #, kde-format
@@ -7428,10 +7383,9 @@ msgid "&Sonagram"
 msgstr "소너그램(&S)"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
-#, fuzzy, kde-format
-#| msgid "&Export to Bitmap..."
+#, kde-format
 msgid "&Import from Bitmap..."
-msgstr "비트맵으로 내보내기(&E)..."
+msgstr "비트맵에서 가져오기(&I)..."
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7479,10 +7433,9 @@ msgid "Save Sonagram"
 msgstr "소너그램 저장"
 
 #: plugins/sonagram/SonagramWindow.cpp:270
-#, fuzzy, kde-format
-#| msgid "Save Sonagram"
+#, kde-format
 msgid "Load Sonagram"
-msgstr "소너그램 저장"
+msgstr "소너그램 불러오기"
 
 #: plugins/sonagram/SonagramWindow.cpp:460
 #, kde-format

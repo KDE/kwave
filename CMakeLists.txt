@@ -382,6 +382,21 @@ ADD_CUSTOM_TARGET(wrapper
 ### install translations                                                  ###
 
 ki18n_install(po)
+
+# workaround for naming of XML catalogs, the naming scheme of the
+# kdoctools is different from the one used in the host file system.
+# example: the host file system uses "pt_br" but the kdoctools use "pt-BR"
+STRING(CONCAT _kdoctools_locale_param
+    "'local.l10n.xml=document(concat("
+    "\"xsl/\",translate(/*/@lang,"
+    "\"ABCDEFGHIJKLMNOPQRSTUVWXYZ-\","
+    "\"abcdefghijklmnopqrstuvwxyz_\"),"
+    "\".xml\"))'"
+)
+LIST(APPEND KDOCTOOLS_MEINPROC_EXECUTABLE
+    --param
+    "${_kdoctools_locale_param}"
+)
 kdoctools_install(po)
 
 #############################################################################

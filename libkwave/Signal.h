@@ -34,6 +34,7 @@
 #include "libkwave/ReaderMode.h"
 #include "libkwave/Sample.h"
 #include "libkwave/Stripe.h"
+#include "libkwave/Track.h"
 #include "libkwave/WindowFunction.h"
 
 //**********************************************************************
@@ -41,7 +42,6 @@ namespace Kwave
 {
 
     class SampleReader;
-    class Track;
     class Writer;
 
     class LIBKWAVE_EXPORT Signal: public QObject

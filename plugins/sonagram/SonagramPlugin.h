@@ -20,10 +20,12 @@
 
 #include "config.h"
 
+#include <array>
+
 #include <fftw3.h>
 
 #include <QBitArray>
-#include <QByteArray>
+#include <QColor>
 #include <QFuture>
 #include <QImage>
 #include <QList>
@@ -63,6 +65,13 @@ namespace Kwave
         Q_OBJECT
     public:
 
+        typedef enum {
+            COLOR_MODE_NONE      = -1, /**< invalid/unknown     */
+            COLOR_MODE_GRAYSCALE =  0, /**< grayscale 8 bit     */
+            COLOR_MODE_8BIT      =  1, /**< color 8 bit rainbow */
+            COLOR_MODE_HSV       =  2  /**< color RGBA complex  */
+        } ColorMode;
+
         /**
          * Constructor
          * @param parent reference to our plugin manager
@@ -101,7 +110,7 @@ namespace Kwave
             fftw_complex m_output[MAX_FFT_POINTS];
 
             /** rendered FFT result data */
-            unsigned char m_result[MAX_FFT_POINTS];
+            std::array<QColor, MAX_FFT_POINTS> m_result;
         } Slice;
 
     signals:
@@ -246,8 +255,8 @@ namespace Kwave
         /** index of the window function */
         Kwave::window_function_t m_window_type;
 
-        /** if true, use color display, else use greyscale */
-        bool m_color;
+        /** color format to use for rendering the image */
+        ColorMode m_color_mode;
 
         /** if true, update the sonagram if the signal changes */
         bool m_track_changes;

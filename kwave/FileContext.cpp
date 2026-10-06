@@ -90,7 +90,7 @@ Kwave::FileContext::FileContext(Kwave::App &app)
 //***************************************************************************
 Kwave::FileContext::~FileContext()
 {
-    // prevent re-use of the m_top_widget early, we are disconnected
+    // prevent reuse of the m_top_widget early, we are disconnected
     // from it when this destructor is called
     m_top_widget = nullptr;
 

@@ -20,8 +20,10 @@
 #include <errno.h>
 #include <math.h>
 #include <qnumeric.h>
+#include <qtypes.h>
 #include <stdlib.h>
 
+#include <complex>
 #include <limits>
 #include <new>
 
@@ -67,7 +69,8 @@ Kwave::SonagramPlugin::SonagramPlugin(QObject *parent,
      m_sonagram_window(nullptr),
      m_selection(nullptr),
      m_slices(0), m_fft_points(0),
-     m_window_type(Kwave::WINDOW_FUNC_NONE), m_color(true),
+     m_window_type(Kwave::WINDOW_FUNC_NONE),
+     m_color_mode(COLOR_MODE_NONE),
      m_track_changes(true), m_follow_selection(false), m_image(),
      m_overview_cache(nullptr), m_slice_pool(), m_valid(MAX_SLICES, false),
      m_pending_jobs(), m_lock_job_list(), m_future(),
@@ -111,7 +114,7 @@ QStringList *Kwave::SonagramPlugin::setup(QStringList &previous_params)
     if (!dlg) return nullptr;
 
     dlg->setWindowFunction(m_window_type);
-    dlg->setColorMode(m_color ? 1 : 0);
+    dlg->setColorMode(m_color_mode);
     dlg->setTrackChanges(m_track_changes);
     dlg->setFollowSelection(m_follow_selection);
 
@@ -147,7 +150,7 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
 
         m_mode = MODE_LOAD;
         m_fft_points       = 0;
-        m_color            = false;
+        m_color_mode       = COLOR_MODE_NONE;
         m_track_changes    = false;
         m_follow_selection = false;
         return 0;
@@ -167,8 +170,15 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
         m_window_type = Kwave::WindowFunction::findFromName(param);
 
         param = params[2];
-        m_color = (param.toUInt(&ok) != 0);
+        unsigned int mode = param.toUInt(&ok);
         if (!ok) return -EINVAL;
+        switch (mode)
+        {
+            case 0: m_color_mode = COLOR_MODE_GRAYSCALE; break;
+            case 1: m_color_mode = COLOR_MODE_8BIT;      break;
+            case 2: m_color_mode = COLOR_MODE_HSV;       break;
+            default: return -EINVAL;
+        }
 
         param = params[3];
         m_track_changes = (param.toUInt(&ok) != 0);
@@ -304,7 +314,7 @@ int Kwave::SonagramPlugin::start(QStringList &params)
 
     // activate the window with an initial image
     // and all necessary information
-    m_sonagram_window->setColorMode((m_color) ? 1 : 0);
+    m_sonagram_window->setColorMode(m_color_mode);
     m_sonagram_window->setImage(m_image);
     m_sonagram_window->setPoints(m_fft_points);
     m_sonagram_window->setRate(signalRate());
@@ -366,6 +376,14 @@ void Kwave::SonagramPlugin::makeAllValid()
 //     qDebug("SonagramPlugin[%p]::makeAllValid() [%llu .. %llu]",
 //      static_cast<void *>(this), first_sample, last_sample);
 
+    QColor transparent;
+    switch (m_color_mode) {
+        case COLOR_MODE_GRAYSCALE: /* FALLTHROUGH */
+        case COLOR_MODE_8BIT: transparent.setRgb(0xFF);    break;
+        case COLOR_MODE_HSV:  transparent.setHsv(0, 0, 0); break;
+        default: break;
+    }
+
     QFutureSynchronizer<void> synchronizer;
     for (unsigned int slice_nr = 0; slice_nr < slices; slice_nr++) {
 //      qDebug("SonagramPlugin::run(): calculating slice %d of %d",
@@ -384,9 +402,9 @@ void Kwave::SonagramPlugin::makeAllValid()
         memset(slice->m_input,  0x00, sizeof(slice->m_input));
         memset(slice->m_output, 0x00, sizeof(slice->m_output));
 
+        // initialize result with zeroes
+        slice->m_result.fill(transparent);
         if ((pos <= last_sample) && (tracks)) {
-            // initialize result with zeroes
-            memset(slice->m_result, 0x00, sizeof(slice->m_result));
 
             // seek to the start of the slice
             source.seek(pos);
@@ -417,8 +435,7 @@ void Kwave::SonagramPlugin::makeAllValid()
                 &Kwave::SonagramPlugin::calculateSlice, this, slice)
             );
         } else {
-            // range has been deleted -> fill with "empty"
-            memset(slice->m_result, 0xFF, sizeof(slice->m_result));
+            // range has been deleted -> keep filled with "empty"
             m_pending_jobs.lockForRead();
             emit sliceAvailable(slice);
         }
@@ -474,14 +491,35 @@ void Kwave::SonagramPlugin::calculateSlice(Kwave::SonagramPlugin::Slice *slice)
     fftw_execute(p);
 
     // norm all values to [0...254] and use them as pixel value
-    const double scale = static_cast<double>(m_fft_points) / 254.0;
     for (unsigned int j = 0; j < m_fft_points / 2; j++) {
-        // get signal energy and scale to [0 .. 254]
-        double rea = slice->m_output[j][0];
-        double ima = slice->m_output[j][1];
-        double a = ((rea * rea) + (ima * ima)) / scale;
+        // get signal energy and scale to [0 .. 1]
+        std::complex<double> z{slice->m_output[j][0], slice->m_output[j][1]};
+        double magnitude = std::abs(z) / static_cast<double>(m_fft_points / 2);
+        const double minDb = -60.0;
+        double db = 20.0 * std::log10(std::max(magnitude, 1E-6));
+        double a = (db - minDb) / (-minDb);
+        a = qBound(0.0, a, 1.0);
 
-        slice->m_result[j] = static_cast<unsigned char>(qMin(a, double(254.0)));
+        QColor c{};
+        switch (m_color_mode)
+        {
+            case COLOR_MODE_GRAYSCALE:
+            case COLOR_MODE_8BIT: /* FALLTHROUGH */
+                // grayscale or rainbow effect (indexed)
+                c.setRgb(static_cast<quint8>(a * 254.0), 0, 0, 255);
+                break;
+            case COLOR_MODE_HSV:
+            {
+                // rainbow effect + angle
+                float h = static_cast<float>((std::arg(z) + M_PI) / (2 * M_PI));
+                float s = static_cast<float>(1.0);
+                float v = static_cast<float>(a);
+                c.setHsvF(s, h, v);
+                break;
+            }
+            default: break;
+        }
+        slice->m_result[j] = c;
     }
 
     // free the allocated FFT resources
@@ -506,13 +544,10 @@ void Kwave::SonagramPlugin::insertSlice(Kwave::SonagramPlugin::Slice *slice)
     Q_ASSERT(slice);
     if (!slice) return;
 
-    QByteArray result;
-    result.setRawData(reinterpret_cast<char *>(&(slice->m_result[0])),
-                      m_fft_points / 2);
-    unsigned int nr = slice->m_index;
 
     // forward the slice to the window to display it
-    if (m_sonagram_window) m_sonagram_window->insertSlice(nr, result);
+    if (m_sonagram_window)
+        m_sonagram_window->insertSlice(slice->m_index, slice->m_result);
 
     // return the slice into the pool
     m_slice_pool.release(slice);
@@ -540,18 +575,34 @@ void Kwave::SonagramPlugin::createNewImage(const unsigned int width,
     if ((width >= 32767) || (height >= 32767)) return;
 
     // create the new image object
-    m_image = QImage(width, height, QImage::Format_Indexed8);
+    QImage::Format format;
+    switch (m_color_mode)
+    {
+        case COLOR_MODE_GRAYSCALE: /* FALLTHROUGH */
+        case COLOR_MODE_8BIT:
+            format = QImage::Format_Indexed8;
+            break;
+        case COLOR_MODE_HSV:
+            format = QImage::Format_RGBA8888;
+            break;
+        default:
+            return;
+    }
+    m_image = QImage(width, height, format);
     Q_ASSERT(!m_image.isNull());
     if (m_image.isNull()) return;
 
     // initialize the image's palette with transparency
-    m_image.setColorCount(256);
-    for (int i = 0; i < 256; i++) {
-        m_image.setColor(i, 0x00000000);
+    if (m_color_mode != COLOR_MODE_HSV) {
+        m_image.setColorCount(256);
+        for (int i = 0; i < 256; i++) {
+            m_image.setColor(i, 0x00000000);
+        }
+
+        // fill the image with "empty" (transparent)
+        m_image.fill(0xFF);
     }
 
-    // fill the image with "empty" (transparent)
-    m_image.fill(0xFF);
 }
 
 //***************************************************************************
@@ -683,7 +734,18 @@ int Kwave::SonagramPlugin::loadFromFile(const QString &filename)
     QImage image(filename);
     if (image.isNull()) return -ENOENT;
 
-    m_color      = !image.isGrayscale();
+    // detect the color mode
+    if (image.colorCount() >= 255) {
+        m_color_mode = COLOR_MODE_GRAYSCALE;
+        for (const QColor c : image.colorTable()) {
+            if ((c.red() != c.green()) || (c.green() != c.blue())) {
+                m_color_mode = COLOR_MODE_8BIT;
+                break;
+            }
+        }
+    } else
+        m_color_mode = COLOR_MODE_HSV;
+
     m_slices     = image.width();
     m_fft_points = image.height() * 2;
 
@@ -710,6 +772,7 @@ int Kwave::SonagramPlugin::loadFromFile(const QString &filename)
             rate = 44100.0;
         }
         m_sonagram_window->setRate(rate);
+        m_sonagram_window->setColorMode(m_color_mode);
     }
 
     m_image = std::move(image);

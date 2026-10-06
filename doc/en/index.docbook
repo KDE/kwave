@@ -3,7 +3,7 @@
   <!ENTITY kwave "<application>Kwave</application>">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "24.12.0">
+  <!ENTITY version "26.11.70">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -16,7 +16,7 @@
   <!ENTITY url_flac "https://xiph.org/flac/">
   <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
-  <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_taglib "https://taglib.org/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
   <!ENTITY url_k3b "https://userbase.kde.org/K3b/">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
@@ -1024,7 +1024,7 @@
 	    is available through
 	    <ulink url="&url_libmad;">libmad</ulink>
 	    for the MP3 decoding in combination with
-	    <ulink url="&url_id3lib;">id3lib</ulink> for decoding
+	    <ulink url="&url_taglib;">taglib</ulink> for decoding
 	    ID3 tags and
 	    <ulink url="&url_lame;">lame</ulink> for encoding.
 	</para></listitem>
@@ -6931,11 +6931,34 @@
 		    </varlistentry>
 
 		    <varlistentry>
-			<term><replaceable>use colors</replaceable></term>
+			<term><replaceable>color mode</replaceable></term>
 			<listitem>
 			    <para>
-				If set to non-zero, use colors for intensity,
-				if set to zero use grayscales.
+				The color mode can be set to one of the following values:
+				<informaltable frame='all'>
+				    <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'>value</entry>
+						<entry align='left'>description</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry align='center'>&no-i18n-tag;<command>0</command></entry>
+						<entry>grayscale</entry>
+					    </row>
+					    <row>
+						<entry align='center'>&no-i18n-tag;<command>1</command></entry>
+						<entry>color (RGB)</entry>
+					    </row>
+					    <row>
+						<entry align='center'>&no-i18n-tag;<command>2</command></entry>
+						<entry>color (HSV)</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
 			    </para>
 			</listitem>
 		    </varlistentry>
@@ -7793,10 +7816,7 @@
 	    <listitem>
 		<para><emphasis role="bold">
 		    T.H.F. Klok and Cedric Tefft
-		</emphasis></para><para>
-		    maintainers of the <ulink url="&url_id3lib;">
-		    id3lib</ulink> library
-		</para>
+		</emphasis></para>
 	    </listitem>
 	    <listitem>
 		<para><emphasis role="bold">

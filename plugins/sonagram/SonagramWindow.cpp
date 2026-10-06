@@ -15,9 +15,10 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "SonagramPlugin.h"
 #include "config.h"
 
-#include <math.h>
+#include <cmath>
 #include <new>
 
 #include <QBitmap>
@@ -29,6 +30,7 @@
 #include <QLayout>
 #include <QStatusBar>
 #include <QTimer>
+#include <qnumeric.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -91,7 +93,7 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent)
      m_status_freq(nullptr),
      m_status_ampl(nullptr),
      m_image(),
-     m_color_mode(0),
+     m_color_mode(Kwave::SonagramPlugin::ColorMode::COLOR_MODE_NONE),
      m_view(nullptr),
      m_overview(nullptr),
      m_points(0),
@@ -287,13 +289,15 @@ void Kwave::SonagramWindow::setImage(const QImage &image)
     m_image = image;
 
     // re-initialize histogram over all pixels
-    for (unsigned int i = 0; i < 256; i++)
-        m_histogram[i] = 0;
-    if (!m_image.isNull()) {
-        for (int x = 0; x < m_image.width(); x++) {
-            for (int y = 0; y < m_image.height(); y++) {
-                quint8 p = static_cast<quint8>(m_image.pixelIndex(x, y));
-                m_histogram[p]++;
+    if (m_color_mode != Kwave::SonagramPlugin::COLOR_MODE_HSV) {
+        for (unsigned int i = 0; i < 256; i++)
+            m_histogram[i] = 0;
+        if (!m_image.isNull()) {
+            for (int x = 0; x < m_image.width(); x++) {
+                for (int y = 0; y < m_image.height(); y++) {
+                    quint8 p = static_cast<quint8>(m_image.pixelIndex(x, y));
+                    m_histogram[p]++;
+                }
             }
         }
     }
@@ -308,8 +312,9 @@ void Kwave::SonagramWindow::setOverView(const QImage &overview)
 }
 
 //****************************************************************************
-void Kwave::SonagramWindow::insertSlice(const unsigned int slice_nr,
-                                        const QByteArray &slice)
+void Kwave::SonagramWindow::insertSlice(
+    const unsigned int slice_nr,
+    const std::array<QColor, MAX_FFT_POINTS> &slice)
 {
     Q_ASSERT(m_view);
     if (!m_view) return;
@@ -322,21 +327,29 @@ void Kwave::SonagramWindow::insertSlice(const unsigned int slice_nr,
     if (slice_nr >= image_width) return;
 
     unsigned int y;
-    unsigned int size = static_cast<unsigned int>(slice.size());
+    unsigned int size = m_points / 2;
     for (y = 0; y < size; y++) {
-        quint8 p;
+        const QColor &p = slice[(size - 1) - y];
 
-        // remove the current pixel from the histogram
-        p = static_cast<quint8>(m_image.pixelIndex(slice_nr, y));
-        m_histogram[p]--;
+        if (m_color_mode == SonagramPlugin::COLOR_MODE_HSV) {
+            // --- direct color mode ---
+            m_image.setPixelColor(slice_nr, y, p);
+        } else {
+            // --- index mode ---
 
-        // set the new pixel value
-        p = slice[(size - 1) - y];
-        m_image.setPixel(slice_nr, y, p);
+            // remove the previous pixel value from the histogram
+            int idx = m_image.pixelIndex(slice_nr, y);
+            m_histogram[static_cast<uint8_t>(idx)]--;
 
-        // insert the new pixel into the histogram
-        m_histogram[p]++;
+            // set the new pixel value
+            idx = p.red();
+            m_image.setPixel(slice_nr, y, idx);
+
+            // update the new pixel value in the histogram
+            m_histogram[static_cast<uint8_t>(idx)]++;
+        }
     }
+
     while (y < image_height) { // fill the rest with blank
         m_image.setPixel(slice_nr, y++, 0xFE);
         m_histogram[0xFE]++;
@@ -349,9 +362,10 @@ void Kwave::SonagramWindow::insertSlice(const unsigned int slice_nr,
 }
 
 //****************************************************************************
-void Kwave::SonagramWindow::adjustBrightness()
+void Kwave::SonagramWindow::createPalette()
 {
-    if (m_image.isNull()) return;
+    if (m_image.isNull() || (m_color_mode == SonagramPlugin::COLOR_MODE_HSV))
+        return;
 
     // get the sum of pixels != 0
     unsigned long int sum = 0;
@@ -399,7 +413,7 @@ void Kwave::SonagramWindow::refresh_view()
 {
     Q_ASSERT(m_view);
     if (!m_view) return;
-    adjustBrightness();
+    createPalette();
     m_view->setImage(m_image);
 }
 
@@ -442,15 +456,11 @@ void Kwave::SonagramWindow::updateScaleWidgets()
 }
 
 //***************************************************************************
-void Kwave::SonagramWindow::setColorMode(int mode)
+void Kwave::SonagramWindow::setColorMode(Kwave::SonagramPlugin::ColorMode mode)
 {
-    Q_ASSERT(mode >= 0);
-    Q_ASSERT(mode <= 1);
-
-    if (mode != m_color_mode) {
-        m_color_mode = mode;
-        setImage(m_image);
-    }
+    Q_ASSERT(mode != Kwave::SonagramPlugin::COLOR_MODE_NONE);
+    m_color_mode = mode;
+    setImage(m_image);
 }
 
 //***************************************************************************
@@ -488,12 +498,26 @@ void Kwave::SonagramWindow::cursorPosChanged(const QPoint pos)
 
     // item 3: amplitude in %
     if (m_image.valid(pos.x(), pos.y())) {
-        a = m_image.pixelIndex(pos.x(), pos.y()) * (100.0 / 254.0);
+        if (m_image.format() == QImage::Format_Indexed8)
+            a = static_cast<double>(
+                m_image.pixelIndex(pos.x(), pos.y())) / 254.0;
+        else {
+            float h, s, v = 0.0;
+            QColor c = m_image.pixelColor(pos.x(), pos.y());
+            c.getHsvF(&h, &s, &v);
+            a = static_cast<double>(v);
+        }
     } else {
         a = 0.0;
     }
-    if (m_status_ampl)
-        m_status_ampl->setText(i18n("Amplitude: %1%", Kwave::toInt(a)));
+
+    if (m_status_ampl) {
+        if (qFuzzyIsNull(a) || qIsNaN(a) || qIsInf(a))
+            m_status_ampl->setText(i18n("Amplitude: 0"));
+        else
+            m_status_ampl->setText(i18n("Amplitude: %1 dB",
+                QString::number(20.0 * std::log10(a), 'f', 1)));
+    }
 }
 
 //****************************************************************************

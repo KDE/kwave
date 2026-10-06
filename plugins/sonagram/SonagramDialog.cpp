@@ -50,9 +50,11 @@ Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     setupUi(this);
     setModal(true);
 
+    Q_ASSERT(cbColorMode);
     Q_ASSERT(pointbox);
     Q_ASSERT(pointslider);
     Q_ASSERT(windowtypebox);
+    if (!cbColorMode) return;
     if (!pointbox) return;
     if (!pointslider) return;
     if (!windowtypebox) return;
@@ -104,7 +106,7 @@ void Kwave::SonagramDialog::parameters(QStringList &list)
 {
     Q_ASSERT(pointbox);
     Q_ASSERT(windowtypebox);
-    Q_ASSERT(rbColor);
+    Q_ASSERT(cbColorMode);
 
     QString param;
     list.clear();
@@ -119,8 +121,8 @@ void Kwave::SonagramDialog::parameters(QStringList &list)
     param = Kwave::WindowFunction::name(wf);
     list.append(param);
 
-    // parameter #2: flag: use color instead of greyscale
-    param.setNum(rbColor ? (rbColor->isChecked() ? 1 : 0) : 0);
+    // parameter #2: color mode: 0=Grayscale8, 1=Indexed8, 2=RGB888
+    param.setNum(cbColorMode->currentIndex());
     list.append(param);
 
     // parameter #3: flag: track changes
@@ -162,13 +164,11 @@ void Kwave::SonagramDialog::setWindowFunction(Kwave::window_function_t type)
 }
 
 //***************************************************************************
-void Kwave::SonagramDialog::setColorMode(int color)
+void Kwave::SonagramDialog::setColorMode(Kwave::SonagramPlugin::ColorMode mode)
 {
-    Q_ASSERT(rbColor);
-    if (!rbColor) return;
-
-    rbColor->setChecked(color);
-    rbGreyScale->setChecked(!color);
+    Q_ASSERT(cbColorMode);
+    if (!cbColorMode) return;
+    cbColorMode->setCurrentIndex(static_cast<int>(mode));
 }
 
 //***************************************************************************

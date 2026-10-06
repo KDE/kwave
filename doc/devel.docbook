@@ -43,14 +43,14 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2020-07-06</date>
+    <date>2026-10-06</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor built on &kf5-full;.</para></abstract>
 
     <keywordset>
 	<keyword>KDE</keyword>
-	<keyword>KF5</keyword>
+	<keyword>KF6</keyword>
 	<keyword>multimedia</keyword>
 	<keyword>sound</keyword>
 	<keyword>audio</keyword>
@@ -167,9 +167,9 @@
 	    <listitem><para>
 		flac-1.2.0 or higher (for FLAC import/export)
 	    </para></listitem>
-            <listitem><para>
-                libsamplerate-0.1.3 or higher (sample rate conversion)
-            </para></listitem>
+        <listitem><para>
+        libsamplerate-0.1.3 or higher (sample rate conversion)
+        </para></listitem>
 	</itemizedlist>
     </para>
 

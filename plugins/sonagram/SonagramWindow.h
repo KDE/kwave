@@ -20,9 +20,13 @@
 
 #include "config.h"
 
+#include <QColor>
 #include <QTimer>
+#include <QVector>
 
 #include <KMainWindow>
+
+#include "SonagramPlugin.h"
 
 class QImage;
 class QLabel;
@@ -85,9 +89,10 @@ namespace Kwave
          * if less data is present, it will be filled with 0xFF. The previous
          * content of the image slice will be cleared or updated in all cases.
          * @param slice_nr index of the slice (horizontal position) [0..n-1]
-         * @param slice array with the byte data
+         * @param slice array with the color data
          */
-        void insertSlice(const unsigned int slice_nr, const QByteArray &slice);
+        void insertSlice(const unsigned int slice_nr,
+                         const std::array<QColor, MAX_FFT_POINTS> &slice);
 
         /**
          * Returns the sample rate.
@@ -130,7 +135,7 @@ namespace Kwave
          * Sets a new color mode. If the mode is different from the current
          * one, the image will be automatically refreshed.
          */
-        void setColorMode(int mode);
+        void setColorMode(Kwave::SonagramPlugin::ColorMode mode);
 
         /**
          * Used to update the display of the current position of the cursor.
@@ -163,11 +168,8 @@ namespace Kwave
         /** updates the scale widgets */
         void updateScaleWidgets();
 
-        /**
-         * adjust the brightness so that the color space is optimally
-         * used and the user doesn't just see a white image
-         */
-        void adjustBrightness();
+        /** create a palette in indexed mode */
+        void createPalette();
 
         /**
          * Translates pixel coordinates relative to the lower left corner
@@ -196,11 +198,8 @@ namespace Kwave
         /** the QImage to be displayed */
         QImage m_image;
 
-        /**
-         * the color mode to be used. Currently only 0 (black/white)
-         * and 1 (rainbow colors) are used.
-         */
-        int m_color_mode;
+        /** color mode of the image */
+        Kwave::SonagramPlugin::ColorMode m_color_mode;
 
         /** an ImageView to display the m_image and fit it into our window */
         Kwave::ImageView *m_view;

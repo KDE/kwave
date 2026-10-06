@@ -18,6 +18,7 @@
 #ifndef SONAGRAM_DIALOG_H
 #define SONAGRAM_DIALOG_H
 
+#include "SonagramPlugin.h"
 #include "config.h"
 
 #include <QDialog>
@@ -59,11 +60,8 @@ namespace Kwave
         /** selects a window function */
         void setWindowFunction(Kwave::window_function_t type);
 
-        /**
-         * sets the color mode. Currently only black/white (0) and
-         * rainbow color (1) are supported.
-         */
-        void setColorMode(int color);
+        /** sets the color mode */
+        void setColorMode(Kwave::SonagramPlugin::ColorMode mode);
 
         /** enables/disables the "track changes" mode */
         void setTrackChanges(bool track_changes);

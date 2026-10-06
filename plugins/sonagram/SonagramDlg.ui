@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>518</width>
-    <height>319</height>
+    <width>512</width>
+    <height>346</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,61 +20,12 @@
    <string>Set FFT/Time Resolution Parameters</string>
   </property>
   <layout class="QGridLayout">
-   <property name="margin">
+   <property name="margin" stdset="0">
     <number>10</number>
    </property>
    <property name="spacing">
     <number>10</number>
    </property>
-   <item row="2" column="0" colspan="2">
-    <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
-     </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QDialogButtonBox" name="buttonBox">
-       <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Ok</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="1" column="0">
-    <widget class="QGroupBox" name="buttonGroup1">
-     <property name="title">
-      <string>display</string>
-     </property>
-     <layout class="QVBoxLayout">
-      <item>
-       <widget class="QRadioButton" name="rbColor">
-        <property name="toolTip">
-         <string>Use different colors for amplitude</string>
-        </property>
-        <property name="text">
-         <string>Use colors</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="rbGreyScale">
-        <property name="toolTip">
-         <string>Use grayscale only for amplitude</string>
-        </property>
-        <property name="text">
-         <string>Grayscale</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item row="1" column="1">
     <widget class="QGroupBox" name="groupBox3">
      <property name="title">
@@ -134,10 +85,10 @@
         <item>
          <spacer>
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Orientation::Horizontal</enum>
           </property>
           <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
+           <enum>QSizePolicy::Policy::Minimum</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -164,10 +115,10 @@
         <item>
          <spacer>
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Orientation::Horizontal</enum>
           </property>
           <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
+           <enum>QSizePolicy::Policy::Minimum</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -288,7 +239,7 @@ The computation will be much faster!</string>
          <number>2</number>
         </property>
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
        </widget>
       </item>
@@ -327,6 +278,68 @@ The computation will be much faster!</string>
      </layout>
     </widget>
    </item>
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="buttonGroup1">
+     <property name="title">
+      <string>Display</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <widget class="QComboBox" name="cbLocation">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>show in separate window</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>show below signal</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="cbColorMode">
+        <item>
+         <property name="text">
+          <string>use grayscale</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>use colors (RGB)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>use colors (HSV)</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <layout class="QHBoxLayout">
+     <property name="spacing">
+      <number>6</number>
+     </property>
+     <property name="margin" stdset="0">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Help|QDialogButtonBox::StandardButton::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="10" margin="10"/>
@@ -341,7 +354,8 @@ The computation will be much faster!</string>
   <tabstop>pointbox</tabstop>
   <tabstop>windowtypebox</tabstop>
   <tabstop>pointslider</tabstop>
-  <tabstop>rbColor</tabstop>
+  <tabstop>cbLocation</tabstop>
+  <tabstop>cbColorMode</tabstop>
   <tabstop>cbTrackChanges</tabstop>
   <tabstop>cbFollowSelection</tabstop>
  </tabstops>

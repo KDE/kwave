@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-01 00:43+0000\n"
-"PO-Revision-Date: 2026-09-27 19:10+0300\n"
+"PO-Revision-Date: 2026-10-07 18:34+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -7461,7 +7461,7 @@ msgstr "Frekans: ------ Hz"
 #: plugins/sonagram/SonagramWindow.cpp:150
 #, kde-format
 msgid "Amplitude: --- %"
-msgstr "Genişleme: --- %"
+msgstr "Genlik: %‒‒"
 
 #: plugins/sonagram/SonagramWindow.cpp:199
 #, kde-format
@@ -7476,7 +7476,7 @@ msgstr "Frekans: 0 Hz"
 #: plugins/sonagram/SonagramWindow.cpp:201
 #, kde-format
 msgid "Amplitude: 0 %"
-msgstr "Genişleme: %​0"
+msgstr "Genlik: %​0"
 
 #: plugins/sonagram/SonagramWindow.cpp:230
 #, kde-format

@@ -32,7 +32,7 @@
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_web_sf "https://sourceforge.net/p/kwave/code/commit_browser">
-  <!ENTITY i18n-cmd_syntax "Syntax: ">
+  <!ENTITY i18n-cmd_syntax "Syntaxis: ">
   <!ENTITY i18n-plugin_lbl_internal_name "Interne&nbsp;naam:">
   <!ENTITY i18n-plugin_lbl_type "Type&nbsp;plug-in:">
   <!ENTITY i18n-plugin_lbl_commands "Commando's:">

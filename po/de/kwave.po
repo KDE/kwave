@@ -7493,7 +7493,8 @@ msgstr "?:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroup1)
 #: plugins/sonagram/SonagramDlg.ui:284
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Display"
 msgid "Display"
 msgstr "Anzeige"
 

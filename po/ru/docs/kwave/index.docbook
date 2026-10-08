@@ -6,7 +6,7 @@
   <!ENTITY % Russian "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "24.12.0">
+  <!ENTITY version "26.11.70">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -19,7 +19,7 @@
   <!ENTITY url_flac "https://xiph.org/flac/">
   <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
-  <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_taglib "https://taglib.org/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
   <!ENTITY url_k3b "https://userbase.kde.org/K3b/">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
@@ -1158,8 +1158,8 @@
 >.mp2</filename
 > доступен через библиотеку <ulink url="&url_libmad;"
 >libmad</ulink
-> для декодирования MP3, <ulink url="&url_id3lib;"
->id3lib</ulink
+> для декодирования MP3, <ulink url="&url_taglib;"
+>taglib</ulink
 > для декодирования меток ID3 и <ulink url="&url_lame;"
 >lame</ulink
 > для кодирования. </para
@@ -10668,7 +10668,7 @@
 						<entry
 >окно <personname
 > <surname
->Хемминга</surname
+>Хэмминга</surname
 > </personname
 > </entry>
 					    </row>
@@ -10702,7 +10702,7 @@
 >triangular</command
 ></entry>
 						<entry
->Треугольное окно</entry>
+>треугольное окно</entry>
 					    </row>
 					</tbody>
 				    </tgroup>
@@ -10714,11 +10714,49 @@
 		    <varlistentry>
 			<term
 ><replaceable
->использовать цвета</replaceable
+>цветовой режим</replaceable
 ></term>
 			<listitem>
 			    <para
->Если установлено ненулевое значение, использовать цвета. Если установлено нулевое значение, для отображения интенсивности будут использованы оттенки серого. </para>
+>Цветовой режим может принимать одно из следующих значений: <informaltable frame='all'
+> <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'
+>значение</entry>
+						<entry align='left'
+>описание</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry align='center'
+>&no-i18n-tag;<command
+>0</command
+></entry>
+						<entry
+>в оттенках серого</entry>
+					    </row>
+					    <row>
+						<entry align='center'
+>&no-i18n-tag;<command
+>1</command
+></entry>
+						<entry
+>в цвете (RGB)</entry>
+					    </row>
+					    <row>
+						<entry align='center'
+>&no-i18n-tag;<command
+>2</command
+></entry>
+						<entry
+>в цвете (HSV)</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+			    </para>
 			</listitem>
 		    </varlistentry>
 
@@ -11722,11 +11760,7 @@
 		<para
 ><emphasis role="bold"
 >T.H.F. Klok и Cedric Tefft </emphasis
-></para
-><para
->сопровождающие библиотеки <ulink url="&url_id3lib;"
-> id3lib</ulink
-> </para>
+></para>
 	    </listitem>
 	    <listitem>
 		<para

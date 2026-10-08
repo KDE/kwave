@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-07 00:47+0000\n"
-"PO-Revision-Date: 2026-09-23 08:52+0200\n"
+"PO-Revision-Date: 2026-10-07 08:39+0200\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -2402,20 +2402,20 @@ msgstr ""
 #, kde-format
 msgctxt "file progress dialog"
 msgid "File: "
-msgstr "Файл:"
+msgstr "Файл: "
 
 # BUGME: надо уницифировать перевод "length", посмотреть в amarok --aspotashev
 #: libkwave/FileProgress.cpp:99
 #, kde-format
 msgctxt "file progress dialog"
 msgid "Length: "
-msgstr "Длительность:"
+msgstr "Длительность: "
 
 #: libkwave/FileProgress.cpp:107
 #, kde-format
 msgctxt "file progress dialog"
 msgid "Sample Rate: "
-msgstr "Частота дискретизации:"
+msgstr "Частота дискретизации: "
 
 #: libkwave/FileProgress.cpp:109
 #, kde-format
@@ -2439,7 +2439,7 @@ msgstr "%1 бит на отсчёт"
 #, kde-format
 msgctxt "file progress dialog"
 msgid "Tracks: "
-msgstr "Дорожки:"
+msgstr "Дорожки: "
 
 #: libkwave/FileProgress.cpp:125
 #, kde-format
@@ -3647,7 +3647,7 @@ msgstr "Окно Хэмминга"
 
 #: libkwave/WindowFunction.cpp:36
 msgid "Hanning"
-msgstr "Окно Хеннинга"
+msgstr "Окно Хэннинга"
 
 #: libkwave/WindowFunction.cpp:38
 msgid "Blackman"
@@ -4431,7 +4431,7 @@ msgstr "50/15 мс"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:622
 #, kde-format
 msgid "parameter for 50/15ms emphasis"
-msgstr "параметр для emphasis 50/15 мс "
+msgstr "параметр для emphasis 50/15 мс"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEmphasisCCIT_J17)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:638
@@ -6071,7 +6071,7 @@ msgid ""
 "properly configured."
 msgstr ""
 "Ошибка ввода/вывода. Возможно, драйвер\n"
-"настроен неправильно или отсутствует в ядре. "
+"настроен неправильно или отсутствует в ядре."
 
 #: plugins/playback/PlayBack-ALSA.cpp:625 plugins/playback/PlayBack-OSS.cpp:146
 #, kde-format
@@ -7339,7 +7339,7 @@ msgstr "Количество точек БПФ:"
 #: plugins/sonagram/SonagramDlg.ui:108
 #, kde-format
 msgid "Window function:"
-msgstr "Функция окна:"
+msgstr "Оконная функция:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, windowtypebox)
 #. i18n: ectx: property (whatsThis), widget (KComboBox, windowtypebox)
@@ -7349,7 +7349,7 @@ msgid ""
 "Choose windowing function here.<br>\n"
 "If the transformation should stay reversible, use the type \"None\"."
 msgstr ""
-"Выбор функции оконной системы.<br>\n"
+"Выбор оконной функции.<br>\n"
 "Для сохранения возможности обращать трансформацию выберите тип «Нет»."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, pointbox)
@@ -7418,43 +7418,39 @@ msgstr "?:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroup1)
 #: plugins/sonagram/SonagramDlg.ui:284
-#, fuzzy, kde-format
-#| msgid "display"
+#, kde-format
 msgid "Display"
-msgstr "Отображение"
+msgstr "Вид"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbLocation)
 #: plugins/sonagram/SonagramDlg.ui:294
 #, kde-format
 msgid "show in separate window"
-msgstr ""
+msgstr "Показывать в отдельном окне"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbLocation)
 #: plugins/sonagram/SonagramDlg.ui:299
 #, kde-format
 msgid "show below signal"
-msgstr ""
+msgstr "Показывать под сигналом"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:308
-#, fuzzy, kde-format
-#| msgid "Grayscale"
+#, kde-format
 msgid "use grayscale"
 msgstr "В оттенках серого"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:313
-#, fuzzy, kde-format
-#| msgid "Use colors"
+#, kde-format
 msgid "use colors (RGB)"
-msgstr "В цвете"
+msgstr "В цвете (RGB)"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:318
-#, fuzzy, kde-format
-#| msgid "Use colors"
+#, kde-format
 msgid "use colors (HSV)"
-msgstr "В цвете"
+msgstr "В цвете (HSV)"
 
 #: plugins/sonagram/SonagramPlugin.cpp:79
 #: plugins/sonagram/SonagramWindow.cpp:471
@@ -7480,7 +7476,7 @@ msgstr "&Импорт из Bitmap…"
 #: plugins/sonagram/SonagramWindow.cpp:135
 #, kde-format
 msgid "&Export to Bitmap..."
-msgstr "&Экспорт в Bitmap..."
+msgstr "&Экспорт в Bitmap…"
 
 #: plugins/sonagram/SonagramWindow.cpp:140
 #, kde-format
@@ -7543,16 +7539,14 @@ msgid "Frequency: %1 Hz"
 msgstr "Частота: %1 Гц"
 
 #: plugins/sonagram/SonagramWindow.cpp:516
-#, fuzzy, kde-format
-#| msgid "Amplitude: 0 %"
+#, kde-format
 msgid "Amplitude: 0"
-msgstr "Амплитуда: 0%"
+msgstr "Амплитуда: 0"
 
 #: plugins/sonagram/SonagramWindow.cpp:518
-#, fuzzy, kde-format
-#| msgid "Amplitude: %1%"
+#, kde-format
 msgid "Amplitude: %1 dB"
-msgstr "Амплитуда: %1%"
+msgstr "Амплитуда: %1 дБ"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, StringEnterDlg)
 #: plugins/stringenter/StringEnterDlg.ui:21

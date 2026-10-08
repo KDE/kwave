@@ -6,7 +6,7 @@
   <!ENTITY % Ukrainian "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "24.12.0">
+  <!ENTITY version "26.11.70">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -19,7 +19,7 @@
   <!ENTITY url_flac "https://xiph.org/flac/">
   <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
-  <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_taglib "https://taglib.org/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
   <!ENTITY url_k3b "https://userbase.kde.org/K3b/">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
@@ -1158,8 +1158,8 @@
 >.mp2</filename
 > виконується за допомогою бібліотеки <ulink url="&url_libmad;"
 >libmad</ulink
->, призначеної для декодування даних MP3, у поєднанні з бібліотекою <ulink url="&url_id3lib;"
->id3lib</ulink
+>, призначеної для декодування даних MP3, у поєднанні з бібліотекою <ulink url="&url_taglib;"
+>taglib</ulink
 >, призначеною для декодування міток ID3. Кодування даних здійснюється за допомогою бібліотеки <ulink url="&url_lame;"
 >lame</ulink
 >. </para
@@ -10748,11 +10748,49 @@
 		    <varlistentry>
 			<term
 ><replaceable
->використовувати кольори</replaceable
+>режим кольору</replaceable
 ></term>
 			<listitem>
 			    <para
->Якщо встановлено ненульове значення, використовувати кольори. Якщо встановлено нульове значення, для показу інтенсивності буде використано відтінки сірого. </para>
+>Режим кольорів можна встановити в одне з таких значень: <informaltable frame='all'
+> <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'
+>значення</entry>
+						<entry align='left'
+>опис</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry align='center'
+>&no-i18n-tag;<command
+>0</command
+></entry>
+						<entry
+>сірі півтони</entry>
+					    </row>
+					    <row>
+						<entry align='center'
+>&no-i18n-tag;<command
+>1</command
+></entry>
+						<entry
+>колір (RGB)</entry>
+					    </row>
+					    <row>
+						<entry align='center'
+>&no-i18n-tag;<command
+>2</command
+></entry>
+						<entry
+>колір (HSV)</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+			    </para>
 			</listitem>
 		    </varlistentry>
 
@@ -11756,11 +11794,7 @@
 		<para
 ><emphasis role="bold"
 >T.H.F. Klok та Cedric Tefft </emphasis
-></para
-><para
->Супровідники бібліотеки <ulink url="&url_id3lib;"
->id3lib</ulink
-> </para>
+></para>
 	    </listitem>
 	    <listitem>
 		<para

@@ -6,7 +6,7 @@
   <!ENTITY % Catalan  "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "24.12.0">
+  <!ENTITY version "26.11.70">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -19,7 +19,7 @@
   <!ENTITY url_flac "https://xiph.org/flac/">
   <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
-  <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_taglib "https://taglib.org/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
   <!ENTITY url_k3b "https://userbase.kde.org/K3b/">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
@@ -1138,8 +1138,8 @@
 >.mp2</filename
 > està disponible a través de la <ulink url="&url_libmad;"
 >libmad</ulink
-> per a la descodificació d'MP3 en combinació amb la <ulink url="&url_id3lib;"
->id3lib</ulink
+> per a la descodificació d'MP3 en combinació amb la <ulink url="&url_taglib;"
+>taglib</ulink
 > per a la descodificació de les etiquetes ID3 i el <ulink url="&url_lame;"
 >lame</ulink
 > per a la codificació. </para
@@ -10686,11 +10686,49 @@
 		    <varlistentry>
 			<term
 ><replaceable
->utilitza els colors</replaceable
+>mode de color</replaceable
 ></term>
 			<listitem>
 			    <para
->Si s'estableix a un valor diferent de 0, utilitzarà colors per a la intensitat, si s'estableix a 0, utilitzarà una escala de grisos. </para>
+>El mode de color es pot establir a un dels valors següents: <informaltable frame='all'
+> <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'
+>&nbsp;Valor&nbsp;</entry>
+						<entry align='left'
+>&nbsp;Descripció</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry align='center'
+>&nbsp;&no-i18n-tag;<command
+>0</command
+></entry>
+						<entry
+>escala de grisos</entry>
+					    </row>
+					    <row>
+						<entry align='center'
+>&nbsp;&no-i18n-tag;<command
+>1</command
+></entry>
+						<entry
+>color (RGB)</entry>
+					    </row>
+					    <row>
+						<entry align='center'
+>&nbsp;&no-i18n-tag;<command
+>2</command
+></entry>
+						<entry
+>color (HSV)</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+			    </para>
 			</listitem>
 		    </varlistentry>
 
@@ -11692,11 +11730,7 @@
 		<para
 ><emphasis role="bold"
 >T.H.F. Klok i Cedric Tefft </emphasis
-></para
-><para
->Mantenidors de la biblioteca <ulink url="&url_id3lib;"
->id3lib</ulink
-> </para>
+></para>
 	    </listitem>
 	    <listitem>
 		<para

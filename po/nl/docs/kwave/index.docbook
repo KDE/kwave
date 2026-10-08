@@ -6,7 +6,7 @@
   <!ENTITY % Dutch "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "24.12.0">
+  <!ENTITY version "26.11.70">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
@@ -19,7 +19,7 @@
   <!ENTITY url_flac "https://xiph.org/flac/">
   <!ENTITY url_apps_kde "https://apps.kde.org/kwave">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
-  <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_taglib "https://taglib.org/">
   <!ENTITY url_isrc "http://isrc.ifpi.org/">
   <!ENTITY url_k3b "https://userbase.kde.org/K3b/">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
@@ -32,7 +32,7 @@
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_web_sf "https://sourceforge.net/p/kwave/code/commit_browser">
-  <!ENTITY i18n-cmd_syntax "Syntax: ">
+  <!ENTITY i18n-cmd_syntax "Syntaxis: ">
   <!ENTITY i18n-plugin_lbl_internal_name "Interne&nbsp;naam:">
   <!ENTITY i18n-plugin_lbl_type "Type&nbsp;plug-in:">
   <!ENTITY i18n-plugin_lbl_commands "Commando's:">
@@ -1150,9 +1150,9 @@
 >.mp2</filename
 > importeren is beschikbaar via <ulink url="&url_libmad;"
 >libmad</ulink
-> voor de MP3-decodering in combinatie met <ulink url="&url_id3lib;"
->id3lib</ulink
-> voor decodering ID3-tags en <ulink url="&url_lame;"
+> voor de MP3-decodering in combinatie met <ulink url="&url_taglib;"
+>taglib</ulink
+> voor decodering van ID3-tags en <ulink url="&url_lame;"
 >lame</ulink
 > voor codering. </para
 ></listitem>
@@ -10792,11 +10792,49 @@
 		    <varlistentry>
 			<term
 ><replaceable
->kleuren gebruiken</replaceable
+>kleurmodus</replaceable
 ></term>
 			<listitem>
 			    <para
->Indien niet-nul, gebruik kleuren voor intensiteit, indien nul gebruik grijswaarden. </para>
+>De kleurmodus kan worden ingesteld op een van de volgende waarden: <informaltable frame='all'
+> <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'
+>waarde</entry>
+						<entry align='left'
+>beschrijving</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry align='center'
+>&no-i18n-tag;<command
+>0</command
+></entry>
+						<entry
+>grijswaarden</entry>
+					    </row>
+					    <row>
+						<entry align='center'
+>&no-i18n-tag;<command
+>1</command
+></entry>
+						<entry
+>kleur (RGB)</entry>
+					    </row>
+					    <row>
+						<entry align='center'
+>&no-i18n-tag;<command
+>2</command
+></entry>
+						<entry
+>kleur (HSV)</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+			    </para>
 			</listitem>
 		    </varlistentry>
 
@@ -11796,11 +11834,7 @@
 		<para
 ><emphasis role="bold"
 >T.H.F. Klok en Cedric Tefft </emphasis
-></para
-><para
->onderhouders van de bibliotheek <ulink url="&url_id3lib;"
-> id3lib</ulink
-> </para>
+></para>
 	    </listitem>
 	    <listitem>
 		<para

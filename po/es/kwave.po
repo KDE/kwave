@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-07 00:47+0000\n"
-"PO-Revision-Date: 2026-09-26 17:37+0100\n"
+"PO-Revision-Date: 2026-10-10 15:28+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -7422,43 +7422,39 @@ msgstr "?:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroup1)
 #: plugins/sonagram/SonagramDlg.ui:284
-#, fuzzy, kde-format
-#| msgid "display"
+#, kde-format
 msgid "Display"
-msgstr "mostrar"
+msgstr "Mostrar"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbLocation)
 #: plugins/sonagram/SonagramDlg.ui:294
 #, kde-format
 msgid "show in separate window"
-msgstr ""
+msgstr "mostrar en ventana separada"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbLocation)
 #: plugins/sonagram/SonagramDlg.ui:299
 #, kde-format
 msgid "show below signal"
-msgstr ""
+msgstr "mostrar bajo la señal"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:308
-#, fuzzy, kde-format
-#| msgid "Grayscale"
+#, kde-format
 msgid "use grayscale"
-msgstr "Escala de grises"
+msgstr "usar escala de grises"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:313
-#, fuzzy, kde-format
-#| msgid "Use colors"
+#, kde-format
 msgid "use colors (RGB)"
-msgstr "Usar colores"
+msgstr "usar colores (RGB)"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:318
-#, fuzzy, kde-format
-#| msgid "Use colors"
+#, kde-format
 msgid "use colors (HSV)"
-msgstr "Usar colores"
+msgstr "usar colores (HSV)"
 
 #: plugins/sonagram/SonagramPlugin.cpp:79
 #: plugins/sonagram/SonagramWindow.cpp:471
@@ -7547,16 +7543,14 @@ msgid "Frequency: %1 Hz"
 msgstr "Frecuencia: %1 Hz"
 
 #: plugins/sonagram/SonagramWindow.cpp:516
-#, fuzzy, kde-format
-#| msgid "Amplitude: 0 %"
+#, kde-format
 msgid "Amplitude: 0"
-msgstr "Amplitud: 0 %"
+msgstr "Amplitud: 0"
 
 #: plugins/sonagram/SonagramWindow.cpp:518
-#, fuzzy, kde-format
-#| msgid "Amplitude: %1%"
+#, kde-format
 msgid "Amplitude: %1 dB"
-msgstr "Amplitud: %1 %"
+msgstr "Amplitud: %1 dB"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, StringEnterDlg)
 #: plugins/stringenter/StringEnterDlg.ui:21
@@ -7639,9 +7633,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Silencio"
-
-#~ msgid "Use different colors for amplitude"
-#~ msgstr "Usar diferentes colores para la amplitud"
-
-#~ msgid "Use grayscale only for amplitude"
-#~ msgstr "Usar solo escala de grises para la amplitud"

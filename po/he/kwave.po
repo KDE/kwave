@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-01 00:43+0000\n"
-"PO-Revision-Date: 2026-09-04 10:48+0300\n"
+"PO-Revision-Date: 2026-10-15 16:48+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4329,37 +4329,37 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:751
 #, kde-format
 msgid "Copyright:"
-msgstr ""
+msgstr "זכויות יוצרים:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edCopyright)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:770
 #, kde-format
 msgid "parameter for marking the file as copyrighted"
-msgstr ""
+msgstr "משתנה לסימון הקובץ כמוגן בזכויות יוצרים"
 
 #. i18n: ectx: property (text), widget (QLabel, lblOriginal)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:786
 #, kde-format
 msgid "Original:"
-msgstr ""
+msgstr "מקור:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edOriginal)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:805
 #, kde-format
 msgid "parameter for marking the signal as original (not a copy)"
-msgstr ""
+msgstr "משתנה לסימון האות כמקורי (לא עותק)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblProtect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:821
 #, kde-format
 msgid "Protect:"
-msgstr ""
+msgstr "הגנה:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edProtect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:840
 #, kde-format
 msgid "parameter to enable CRC protection"
-msgstr ""
+msgstr "משתנה להפעלת הגנת CRC"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPrepend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:866
@@ -4389,31 +4389,31 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:926
 #, kde-format
 msgid "Info"
-msgstr ""
+msgstr "פרטים"
 
 #. i18n: ectx: property (text), widget (QLabel, lblHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:932
 #, kde-format
 msgid "Encoder Help:"
-msgstr ""
+msgstr "עזרה עם המקודד:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:957
 #, kde-format
 msgid "parameter for getting usage information of the encoder"
-msgstr ""
+msgstr "משתנה לקבלת פרטי שימוש במקודד"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEncoderInfo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:967
 #, kde-format
 msgid "Version Info:"
-msgstr ""
+msgstr "פרטי גרסה:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edVersionInfo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1005
 #, kde-format
 msgid "parameter for getting the encoder version information"
-msgstr ""
+msgstr "משתנה לקבלת פרטי גרסת המקודד"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btTest)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1047
@@ -4425,7 +4425,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1050
 #, kde-format
 msgid "Test..."
-msgstr ""
+msgstr "בדיקה…"
 
 #: plugins/codec_ogg/OggCodecPlugin.h:60
 #, kde-format
@@ -4785,7 +4785,7 @@ msgstr ""
 #: plugins/export_k3b/K3BExportDialogBase.ui:35
 #, kde-format
 msgid "Input Settings"
-msgstr ""
+msgstr "הגדרות קלט"
 
 #. i18n: ectx: property (text), widget (QLabel, lblLabelFormat)
 #: plugins/export_k3b/K3BExportDialogBase.ui:46
@@ -4825,19 +4825,19 @@ msgstr ""
 #: plugins/export_k3b/K3BExportDialogBase.ui:86
 #, kde-format
 msgid "Use Selection only"
-msgstr ""
+msgstr "להשתמש בבחירה בלבד"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpOutputSettings)
 #: plugins/export_k3b/K3BExportDialogBase.ui:99
 #, kde-format
 msgid "Output Settings"
-msgstr ""
+msgstr "הגדרות פלט"
 
 #. i18n: ectx: property (text), widget (QLabel, lblOverwritePolicy)
 #: plugins/export_k3b/K3BExportDialogBase.ui:111
 #, kde-format
 msgid "Overwrite Policy:"
-msgstr ""
+msgstr "מדיניות שכתוב:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportDialogBase.ui:127
@@ -4851,13 +4851,13 @@ msgstr ""
 #: plugins/export_k3b/K3BExportDialogBase.ui:134
 #, kde-format
 msgid "Overwrite Existing Files"
-msgstr ""
+msgstr "שכתוב קבצים קיימים"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportDialogBase.ui:139
 #, kde-format
 msgid "Use new File Names"
-msgstr ""
+msgstr "להשתמש בשמות קבצים חדשים"
 
 #. i18n: ectx: property (text), widget (QLabel, lblDirectory)
 #. i18n: ectx: property (text), widget (QLabel, lblLocation)
@@ -4865,7 +4865,7 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksDialogBase.ui:147
 #, kde-format
 msgid "Export Location:"
-msgstr ""
+msgstr "מקום ייצוא:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFilename)
 #: plugins/export_k3b/K3BExportDialogBase.ui:154
@@ -4883,24 +4883,24 @@ msgstr ""
 #: plugins/export_k3b/K3BExportDialogBase.ui:173
 #, kde-format
 msgid "Project File"
-msgstr ""
+msgstr "קובץ מיזם"
 
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:180
 #, kde-format
 msgid "Location to export the audio files to"
-msgstr ""
+msgstr "המקום אליו לייצא את קובצי השמע"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, dirUrlRequester)
 #: plugins/export_k3b/K3BExportDialogBase.ui:189
 #, kde-format
 msgid "Export Location"
-msgstr ""
+msgstr "מקום ייצוא"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:280
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
-msgstr ""
+msgstr "ייצוא למיזם K3b…"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:599
 #, kde-format
@@ -4982,12 +4982,12 @@ msgstr ""
 #: plugins/fileinfo/CompressionWidgetBase.ui:184
 #, no-c-format, kde-format
 msgid " %"
-msgstr ""
+msgstr " %"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:213
 #, kde-format
 msgid "%1 bytes"
-msgstr ""
+msgstr "%1 בתים"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:215
 #, kde-format
@@ -5004,7 +5004,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
-msgstr ""
+msgstr "קצב דגימה:"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:234
 #, kde-format
@@ -5019,7 +5019,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:912
 #, kde-format
 msgid "Resolution:"
-msgstr ""
+msgstr "רזולוציה:"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:243
 #, kde-format
@@ -5053,6 +5053,8 @@ msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
 msgstr ""
+"הצגת אורך הקובץ בדגימות\n"
+"ואם אפשר כזמן."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:270
 #, kde-format
@@ -5070,19 +5072,19 @@ msgstr "%1  דגימות"
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
-msgstr ""
+msgstr "(מונו)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:604
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
-msgstr ""
+msgstr "(סטריאו)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:607
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
-msgstr ""
+msgstr "(קואדרו)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:832
 #: plugins/fileinfo/FileInfoDialog.cpp:838
@@ -5176,7 +5178,7 @@ msgstr "מס׳"
 #: plugins/newsignal/NewSigDlg.ui:700
 #, no-c-format, kde-format
 msgid "%1"
-msgstr ""
+msgstr "%1"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBits_2)
 #. i18n: ectx: property (text), widget (QLabel, lblBits)
@@ -5334,31 +5336,31 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDlg.ui:1035
 #, kde-format
 msgid "Layer I"
-msgstr ""
+msgstr "שכבה I"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegLayer)
 #: plugins/fileinfo/FileInfoDlg.ui:1040
 #, kde-format
 msgid "Layer II"
-msgstr ""
+msgstr "שכבה II"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegLayer)
 #: plugins/fileinfo/FileInfoDlg.ui:1045
 #, kde-format
 msgid "Layer III"
-msgstr ""
+msgstr "שכבה III"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_content)
 #: plugins/fileinfo/FileInfoDlg.ui:1080
 #, kde-format
 msgid "Content"
-msgstr ""
+msgstr "תוכן"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btSelectDate)
 #: plugins/fileinfo/FileInfoDlg.ui:1267
 #, kde-format
 msgid "Select a date from the calendar."
-msgstr ""
+msgstr "נא לבחור תאריך מלוח השנה."
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDate)
 #: plugins/fileinfo/FileInfoDlg.ui:1270
@@ -5377,14 +5379,14 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDlg.ui:1298
 #, kde-format
 msgid "&Today"
-msgstr ""
+msgstr "היו&ם"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: plugins/fileinfo/FileInfoDlg.ui:1405 plugins/fileinfo/FileInfoDlg.ui:1464
 #, kde-format
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_author)
 #: plugins/fileinfo/FileInfoDlg.ui:1719
@@ -5396,7 +5398,7 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDlg.ui:2000
 #, kde-format
 msgid "Miscellaneous"
-msgstr ""
+msgstr "שונות"
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:85
 #, kde-format
@@ -5410,7 +5412,7 @@ msgstr ""
 #: plugins/fileinfo/FileInfoPlugin.cpp:91
 #, kde-format
 msgid "&Convert"
-msgstr ""
+msgstr "המ&רה"
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:92
 #, kde-format
@@ -5454,13 +5456,13 @@ msgstr ""
 #: plugins/fileinfo/KeywordWidgetBase.ui:82
 #, kde-format
 msgid "List of keywords."
-msgstr ""
+msgstr "רשימת מילות המפתח."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectDateDlg)
 #: plugins/fileinfo/SelectDateDlg.ui:20
 #, kde-format
 msgid "Select Date"
-msgstr ""
+msgstr "בחירת תאריך"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, GotoDlg)
 #: plugins/goto/GotoDlg.ui:15
@@ -5505,7 +5507,7 @@ msgstr ""
 #: plugins/newsignal/NewSigDlg.ui:15
 #, kde-format
 msgid "New Signal"
-msgstr ""
+msgstr "אות חדש"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbSampleRate)
 #: plugins/newsignal/NewSigDlg.ui:39
@@ -5519,13 +5521,13 @@ msgstr ""
 #: plugins/newsignal/NewSigDlg.ui:168 plugins/record/RecordDlg.ui:670
 #, kde-format
 msgid "Samples per second"
-msgstr ""
+msgstr "דגימות לשנייה"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBits)
 #: plugins/newsignal/NewSigDlg.ui:224
 #, kde-format
 msgid "Bit"
-msgstr ""
+msgstr "סיביות"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbChannels)
 #: plugins/newsignal/NewSigDlg.ui:288
@@ -5554,13 +5556,13 @@ msgstr ""
 #: plugins/newsignal/NewSigDlg.ui:350
 #, kde-format
 msgid "Time"
-msgstr ""
+msgstr "זמן"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbSamples)
 #: plugins/newsignal/NewSigDlg.ui:357
 #, kde-format
 msgid "Select this to enter the number of samples directly"
-msgstr ""
+msgstr "יש לבחור כדי למלא את מספר הדגימות ישירות"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbSamples)
 #: plugins/newsignal/NewSigDlg.ui:360
@@ -5590,7 +5592,7 @@ msgstr "מרבי"
 #: plugins/newsignal/NewSigDlg.ui:571
 #, kde-format
 msgid "Sets the file size by the percentage of the possible maximum"
-msgstr ""
+msgstr "הגדרת גודל הקובץ לפי האחוזים של הכמות המרבית האפשרית"
 
 #: plugins/newsignal/NewSignalDialog.cpp:327
 #, kde-format
@@ -5898,7 +5900,7 @@ msgstr "קצב הנגינה %1 הרץ לא נתמך"
 #: plugins/playback/PlayBack-OSS.cpp:210
 #, kde-format
 msgid "Unusable buffer size: %1"
-msgstr ""
+msgstr "גודל חוצץ לא שמיש: %1"
 
 #: plugins/playback/PlayBack-OSS.cpp:404
 #, kde-format
@@ -5919,7 +5921,7 @@ msgstr "כל התקן שהוא (*)"
 #: plugins/playback/PlayBack-PulseAudio.cpp:465
 #, kde-format
 msgid "%1 channels are not supported, maximum is 255"
-msgstr ""
+msgstr "אין תמיכה ב־%1 ערוצים, הכמות המרבית היא 255"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:472
 #, kde-format
@@ -5949,7 +5951,7 @@ msgstr ""
 #: plugins/playback/PlayBack-PulseAudio.cpp:821
 #, kde-format
 msgid "(Use server default)"
-msgstr ""
+msgstr "(להשתמש בברירת המחדל של השרת)"
 
 #: plugins/playback/PlayBack-Qt.cpp:129
 #, kde-format
@@ -5964,7 +5966,7 @@ msgstr "התבנית לא נתמכת"
 #: plugins/playback/PlayBack-Qt.cpp:209
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
-msgstr ""
+msgstr "פתיחה בהתקן מולטימדיה של Qt‏ ‚%1’ נכשלה."
 
 #: plugins/playback/PlayBackDialog.cpp:519
 #, kde-format
@@ -5979,23 +5981,23 @@ msgstr "%1 ק״ב"
 #: plugins/playback/PlayBackDialog.cpp:619
 #, kde-format
 msgid "(mono)"
-msgstr ""
+msgstr "(מונו)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
 #: plugins/playback/PlayBackDialog.cpp:620 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
-msgstr ""
+msgstr "(סטריאו)"
 
 #: plugins/playback/PlayBackDialog.cpp:621
 #, kde-format
 msgid "(quadro)"
-msgstr ""
+msgstr "(קואדרו)"
 
 #: plugins/playback/PlayBackDialog.cpp:651
 #, kde-format
 msgid "Select Playback Device"
-msgstr ""
+msgstr "בחירת התקן נגינה"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PlayBackDlg)
 #: plugins/playback/PlayBackDlg.ui:20
@@ -6069,26 +6071,26 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:137
 #, kde-format
 msgid "Playback method:"
-msgstr ""
+msgstr "שיטת נגינה:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: plugins/playback/PlayBackDlg.ui:147 plugins/record/RecordDlg.ui:1158
 #, kde-format
 msgid "Device:"
-msgstr ""
+msgstr "התקן:"
 
 #. i18n: ectx: property (text), widget (QLabel, txtBufferSize)
 #: plugins/playback/PlayBackDlg.ui:165
 #, kde-format
 msgid "256 Bytes"
-msgstr ""
+msgstr "256 בתים"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slBufferSize)
 #: plugins/playback/PlayBackDlg.ui:187
 #, kde-format
 msgid "Size of the playback buffer in bytes"
-msgstr ""
+msgstr "גודל חוצץ הנגינה בבתים"
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slBufferSize)
 #: plugins/playback/PlayBackDlg.ui:190
@@ -6106,13 +6108,13 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:220 plugins/record/RecordDlg.ui:990
 #, kde-format
 msgid "Buffer size:"
-msgstr ""
+msgstr "גודל חוצץ"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: plugins/playback/PlayBackDlg.ui:256
 #, kde-format
 msgid "Bits per sample:"
-msgstr ""
+msgstr "סיביות לדגימה:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbBitsPerSample)
 #: plugins/playback/PlayBackDlg.ui:280
@@ -6135,7 +6137,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:325
 #, kde-format
 msgid "Number of channels: mono, stereo..."
-msgstr ""
+msgstr "מספר ערוצים: מונו, סטריאו…"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbChannels)
 #: plugins/playback/PlayBackDlg.ui:328
@@ -6241,25 +6243,25 @@ msgstr ""
 #: plugins/record/RecordDialog.cpp:630
 #, kde-format
 msgid "Select Record Device"
-msgstr ""
+msgstr "בחירת התקן הקלטה"
 
 #: plugins/record/RecordDialog.cpp:717 plugins/record/RecordPlugin.cpp:544
 #: plugins/record/RecordPlugin.cpp:552
 #, kde-format
 msgid "Mono"
-msgstr ""
+msgstr "מונו"
 
 #: plugins/record/RecordDialog.cpp:720 plugins/record/RecordPlugin.cpp:545
 #: plugins/record/RecordPlugin.cpp:553
 #, kde-format
 msgid "Stereo"
-msgstr ""
+msgstr "סטריאו"
 
 #: plugins/record/RecordDialog.cpp:723 plugins/record/RecordPlugin.cpp:546
 #: plugins/record/RecordPlugin.cpp:554
 #, kde-format
 msgid "Quadro"
-msgstr ""
+msgstr "קואדרו"
 
 #: plugins/record/RecordDialog.cpp:734
 #, kde-format
@@ -6473,7 +6475,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:353
 #, kde-format
 msgid "Start at a given date and time"
-msgstr ""
+msgstr "התחלה בתאריך ושעה שצוינו"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordStartTime)
 #: plugins/record/RecordDlg.ui:356
@@ -6495,7 +6497,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:380 plugins/record/RecordDlg.ui:389
 #, kde-format
 msgid "Level"
-msgstr ""
+msgstr "רמה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLevelAGC)
 #: plugins/record/RecordDlg.ui:420
@@ -6507,7 +6509,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:433
 #, kde-format
 msgid "Amplify:"
-msgstr ""
+msgstr "הגברה:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelAmplify)
 #: plugins/record/RecordDlg.ui:452
@@ -6525,7 +6527,7 @@ msgstr " מ״ש"
 #: plugins/record/RecordDlg.ui:521
 #, kde-format
 msgid "Fading"
-msgstr ""
+msgstr "עמעום"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_format)
 #: plugins/record/RecordDlg.ui:621

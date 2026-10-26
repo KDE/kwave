@@ -119,5 +119,6 @@ Exec=kwave %F
 Icon=org.kde.kwave
 MimeType=${KWAVE_DESKTOP_MIME_TYPES}
 Categories=Qt;KDE;AudioVideo;Audio;Player;Recorder;AudioVideoEditing;
+X-DocPath=kwave/index.html
 X-DBUS-StartupType=Unique
 X-SuSE-translate=true

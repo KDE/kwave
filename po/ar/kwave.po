@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kwave package.
-# SPDX-FileCopyrightText: 2024, 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2024-2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-07 00:47+0000\n"
-"PO-Revision-Date: 2026-09-23 17:29+0400\n"
+"PO-Revision-Date: 2026-10-31 20:07+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -7370,8 +7370,7 @@ msgstr "?:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroup1)
 #: plugins/sonagram/SonagramDlg.ui:284
-#, fuzzy, kde-format
-#| msgid "display"
+#, kde-format
 msgid "Display"
 msgstr "العرض"
 
@@ -7379,34 +7378,31 @@ msgstr "العرض"
 #: plugins/sonagram/SonagramDlg.ui:294
 #, kde-format
 msgid "show in separate window"
-msgstr ""
+msgstr "اعرض في نافذة منفصلة"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbLocation)
 #: plugins/sonagram/SonagramDlg.ui:299
 #, kde-format
 msgid "show below signal"
-msgstr ""
+msgstr "اعرض أسفل الإشارة"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:308
-#, fuzzy, kde-format
-#| msgid "Grayscale"
+#, kde-format
 msgid "use grayscale"
-msgstr "تدرج الرمادي"
+msgstr "استخدم تدرج الرمادي"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:313
-#, fuzzy, kde-format
-#| msgid "Use colors"
+#, kde-format
 msgid "use colors (RGB)"
-msgstr "استخدم الألوان"
+msgstr "استخدم الألوان (RGB)"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:318
-#, fuzzy, kde-format
-#| msgid "Use colors"
+#, kde-format
 msgid "use colors (HSV)"
-msgstr "استخدم الألوان"
+msgstr "استخدم الألوان (HSV)"
 
 #: plugins/sonagram/SonagramPlugin.cpp:79
 #: plugins/sonagram/SonagramWindow.cpp:471
@@ -7495,16 +7491,14 @@ msgid "Frequency: %1 Hz"
 msgstr "التّردّد: %1 هرتز"
 
 #: plugins/sonagram/SonagramWindow.cpp:516
-#, fuzzy, kde-format
-#| msgid "Amplitude: 0 %"
+#, kde-format
 msgid "Amplitude: 0"
-msgstr "السعه: --- ٪"
+msgstr "السعة: 0"
 
 #: plugins/sonagram/SonagramWindow.cpp:518
-#, fuzzy, kde-format
-#| msgid "Amplitude: %1%"
+#, kde-format
 msgid "Amplitude: %1 dB"
-msgstr "مجال: %1٪"
+msgstr "السعة: %1 ديسيبل"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, StringEnterDlg)
 #: plugins/stringenter/StringEnterDlg.ui:21

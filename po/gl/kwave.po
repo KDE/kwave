@@ -1304,9 +1304,7 @@ msgid "#%1 (%2)"
 msgstr "Núm. %1 (%2)"
 
 #: kwave/TopWidget.cpp:1441
-#, fuzzy, kde-format
-#| msgctxt "list menue entry of a label, without description, %1=index"
-#| msgid "#%1"
+#, kde-format
 msgctxt "list menu entry of a label, without description, %1=index"
 msgid "#%1"
 msgstr "Núm. %1"

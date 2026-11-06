@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-07 00:47+0000\n"
-"PO-Revision-Date: 2026-01-10 20:52+0200\n"
+"PO-Revision-Date: 2026-10-11 14:42+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -1832,16 +1832,12 @@ msgid "Album"
 msgstr "Albumi"
 
 #: libkwave/FileInfo.cpp:38
-#, fuzzy
-#| msgid ""
-#| "Name of the album if the source is an album\n"
-#| "that consist of more medias."
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more media."
 msgstr ""
 "Albumin nimi, jos lähde on useammasta\n"
-"mediamuodosta koostuva albumi."
+"mediasta koostuva albumi."
 
 #: libkwave/FileInfo.cpp:42
 msgid "Annotation"
@@ -3968,37 +3964,27 @@ msgstr ""
 "”%1”"
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:463
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid "This file format supports only mono, %1 channels are not supported."
-msgstr ""
-"Koodekki tukee vain mono- ja stereotiedostoja: %1-kanavaääntä ei tueta."
+msgstr "Tiedostomuoto tukee vain monoa: %1-kanavaääntä ei tueta."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:467
 #: plugins/codec_flac/FlacEncoder.cpp:200
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This file format supports only up to %1 channels, %2 channels are not "
 "supported."
-msgstr ""
-"Koodekki tukee vain mono- ja stereotiedostoja: %1-kanavaääntä ei tueta."
+msgstr "Tiedostomuoto tukee enintään %1 kanavaa: %2-kanavaääntä ei tueta."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:474
-#, fuzzy, kde-format
-#| msgid "Unable to open the file for saving."
+#, kde-format
 msgid "Unable to open the destination device for writing."
-msgstr "Tiedostoa ei voitu avata tallennettavaksi."
+msgstr "Kohdelaitetta ei voitu avata kirjoitettavaksi."
 
 #: plugins/codec_audiofile/AudiofileEncoder.cpp:524
-#, fuzzy, kde-format
-#| msgid "Unable to open the FLAC encoder."
+#, kde-format
 msgid "Unable to initialize libaudiofile encoder."
-msgstr "FLAC-koodausohjelmaa ei voitu avata."
+msgstr "libaudiofile-koodainta ei voitu valmistella."
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
@@ -4041,15 +4027,12 @@ msgid "MPEG layer I audio"
 msgstr "MPEG layer I -ääni"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:173
-#, fuzzy, kde-format
-#| msgid ""
-#| "The file contains an invalid channel mode 0x%1\n"
-#| "Assuming Mono..."
+#, kde-format
 msgid ""
 "The file contains an invalid channel mode (%1).\n"
 "Assuming Mono..."
 msgstr ""
-"Tiedoston kanavatila 0x%1 on virheellinen.\n"
+"Tiedosto sisältää virheellinen kanavatilan (%1).\n"
 "Oletetaan mono…"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:549
@@ -4749,14 +4732,10 @@ msgid "End of file before finding all Vorbis headers."
 msgstr "Tiedosto loppui ennen kuin kaikki Vorbis-otsakkeet löytyivät."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "This codec supports only mono or stereo files, %1 channels are not "
-#| "supported."
+#, kde-format
 msgid ""
 "This codec supports only 1 ... 255 channels, %1 channels are not supported."
-msgstr ""
-"Koodekki tukee vain mono- ja stereotiedostoja: %1-kanavaääntä ei tueta."
+msgstr "Koodekki tukee vain 1–255 kanavaa: %1-kanavaääntä ei tueta."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:137
 #, kde-format
@@ -4764,6 +4743,8 @@ msgid ""
 "Ogg/Vorbis does not support ABR mode when using more than two channels. "
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
+"Ogg/Vorbis ei tue ABR-tilaa käytettäessä yli kahta kanavaa. Jatketaanko "
+"vaihtamalla VBR-tilaan (%1 %)?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:158
 #, kde-format
@@ -6123,7 +6104,7 @@ msgstr "Alilaite %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:1021 plugins/record/Record-ALSA.cpp:1203
 #, kde-format
 msgid "Virtual / ALSA Plugins"
-msgstr ""
+msgstr "Virtuaaliset/ALSA-liitännäiset"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
@@ -6309,22 +6290,7 @@ msgstr "Äänitysmenetelmä tai -järjestelmä"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:128
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Playback Method:</b><p>Choose a method or system used for\n"
-#| "playback. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, capable of mono and stereo output. Deprecated since linux "
-#| "kernel 2.6, but still wide spread. Might collide with PulseAudio or other "
-#| "sound applications, only one application at a time can use OSS playback !"
-#| "</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware. Might collide with other "
-#| "applications like OSS does, but has a plugin called <i>dmix</i> as a way "
-#| "out.</p>\n"
-#| "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
-#| "Multiple applications can play at the same time.</p>"
+#, kde-format
 msgid ""
 "<b>Playback Method:</b><p>Choose a method or system used for\n"
 "playback. Depending on the compilation options you can select one of the "
@@ -6923,16 +6889,7 @@ msgstr "Äänitysmenetelmä tai -järjestelmä"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1028
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Recording method:</b><p>Choose a method or system used for\n"
-#| "recording. Depending on the compilation options you can select one of the "
-#| "following methods:</p>\n"
-#| "<p><b><i>OSS (Open Sound System)</i></b>: The oldest linux "
-#| "implementation, only capable of mono and stereo input. Deprecated since "
-#| "linux kernel 2.6, but still wide spread.</p>\n"
-#| "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes "
-#| "OSS, supports more features and more hardware.</p>"
+#, kde-format
 msgid ""
 "<b>Recording method:</b><p>Choose a method or system used for\n"
 "recording. Depending on the compilation options you can select one of the "
@@ -6984,10 +6941,9 @@ msgstr "&Valitse…"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
 #: plugins/record/RecordDlg.ui:1133
-#, fuzzy, kde-format
-#| msgid "0%"
+#, kde-format
 msgid "0"
-msgstr "0 %"
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
@@ -7482,10 +7438,9 @@ msgid "Sonagram"
 msgstr "Spektrogrammi"
 
 #: plugins/sonagram/SonagramPlugin.cpp:225
-#, fuzzy, kde-format
-#| msgid "Sonagram of %1"
+#, kde-format
 msgid "Sonagram loaded from %1"
-msgstr "Spektrogrammi – %1"
+msgstr "Spektrogrammi ladattu tiedostosta %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:124
 #, kde-format
@@ -7493,10 +7448,9 @@ msgid "&Sonagram"
 msgstr "&Spektrogrammi"
 
 #: plugins/sonagram/SonagramWindow.cpp:130
-#, fuzzy, kde-format
-#| msgid "&Export to Bitmap..."
+#, kde-format
 msgid "&Import from Bitmap..."
-msgstr "Vie &bittikartaksi…"
+msgstr "&Tuo bittikartasta…"
 
 #: plugins/sonagram/SonagramWindow.cpp:135
 #, kde-format
@@ -7544,10 +7498,9 @@ msgid "Save Sonagram"
 msgstr "Tallenna spektrogrammi"
 
 #: plugins/sonagram/SonagramWindow.cpp:272
-#, fuzzy, kde-format
-#| msgid "Save Sonagram"
+#, kde-format
 msgid "Load Sonagram"
-msgstr "Tallenna spektrogrammi"
+msgstr "Lataa spektrogrammi"
 
 #: plugins/sonagram/SonagramWindow.cpp:470
 #, kde-format

@@ -1,4 +1,4 @@
-26.11.70 [2026-08-25]
+26.11.70 [2026-11-10]
  * added support for building with clang-tidy (optional, per default OFF)
  * codec_audiofile:
    - parallelized decoding
@@ -60,6 +60,9 @@
  * sonagram plugin:
    - implemented loading from file
    - added commands for loading and saving
+   - implemented view mode "below signal"
+   - implemented new color mode "HSV" (theoretically inversible)
+   - fixed "follow selection" mode
 
 24.12.0 [2024-11-09]
 

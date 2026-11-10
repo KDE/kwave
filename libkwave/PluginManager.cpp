@@ -497,6 +497,12 @@ void Kwave::PluginManager::insertView(Kwave::SignalView *view,
 }
 
 //***************************************************************************
+Kwave::SignalView *Kwave::PluginManager::findView(const QString &name) const
+{
+    return (m_view_manager) ? m_view_manager->findView(name) : nullptr;
+}
+
+//***************************************************************************
 void Kwave::PluginManager::registerViewManager(Kwave::ViewManager *view_manager)
 {
     Q_ASSERT(!view_manager || !m_view_manager);

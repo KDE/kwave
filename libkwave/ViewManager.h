@@ -21,6 +21,7 @@
 #include "libkwave_export.h"
 
 class QWidget;
+class QString;
 
 namespace Kwave
 {
@@ -42,7 +43,15 @@ namespace Kwave
          * @param view the signal view, must not be a null pointer
          * @param controls a widget with controls, optionally, can be null
          */
-        virtual void insertView(Kwave::SignalView *view, QWidget *controls) = 0;
+        virtual void insertView(Kwave::SignalView *view,
+                                QWidget *controls) = 0;
+
+        /**
+         * Finds a registered view by its virtual name.
+         * @param name the name to look up
+         * @return the matching view, or nullptr if no view matches
+         */
+        virtual Kwave::SignalView *findView(const QString &name) const = 0;
     };
 }
 

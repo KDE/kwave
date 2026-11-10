@@ -69,12 +69,19 @@ namespace Kwave
         /** enables/disables the "follow selection mode */
         void setFollowSelection(bool follow_selection);
 
+        /** sets the location */
+        void setLocation(Kwave::SonagramPlugin::ViewMode m);
+
+        /** sets the number of points in the box */
         void setBoxPoints(int num);
 
     private slots:
 
         /** invoke the online help */
         void invokeHelp();
+
+        /** enable follow-selection only for window mode */
+        void updateFollowSelectionEnabled();
 
     private:
 

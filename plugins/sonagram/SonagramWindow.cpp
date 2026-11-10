@@ -41,18 +41,12 @@
 #include "libgui/ScaleWidget.h"
 
 #include "SonagramWindow.h"
+#include "SonagramImage.h"
 
 /**
  * delay between two screen updates [ms]
  */
 #define REFRESH_DELAY 100
-
-/**
- * Color values below this limit are cut off when adjusting the
- * sonagram image's brightness
- * I found out by experiments that 0.1% seems to be reasonable
- */
-#define COLOR_CUTOFF_RATIO (0.1/100.0)
 
 static const char *background[] = {
 /* width height num_colors chars_per_pixel */
@@ -93,7 +87,6 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent)
      m_status_freq(nullptr),
      m_status_ampl(nullptr),
      m_image(),
-     m_color_mode(Kwave::SonagramPlugin::ColorMode::COLOR_MODE_NONE),
      m_view(nullptr),
      m_overview(nullptr),
      m_points(0),
@@ -102,8 +95,6 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent)
      m_yscale(nullptr),
      m_refresh_timer()
 {
-    for (unsigned int i = 0; i < 256; ++i) { m_histogram[i] = 0; }
-
     QWidget *mainwidget = new(std::nothrow) QWidget(this);
     Q_ASSERT(mainwidget);
     if (!mainwidget) return;
@@ -286,22 +277,15 @@ void Kwave::SonagramWindow::setImage(const QImage &image)
     Q_ASSERT(m_view);
     if (!m_view) return;
 
-    m_image = image;
+    m_image.setImage(image);
 
-    // re-initialize histogram over all pixels
-    if (m_color_mode != Kwave::SonagramPlugin::COLOR_MODE_HSV) {
-        for (unsigned int i = 0; i < 256; i++)
-            m_histogram[i] = 0;
-        if (!m_image.isNull()) {
-            for (int x = 0; x < m_image.width(); x++) {
-                for (int y = 0; y < m_image.height(); y++) {
-                    quint8 p = static_cast<quint8>(m_image.pixelIndex(x, y));
-                    m_histogram[p]++;
-                }
-            }
-        }
-    }
+    refresh_view();
+}
 
+//****************************************************************************
+void Kwave::SonagramWindow::resizeImage(unsigned int width)
+{
+    m_image.resizeWidth(width);
     refresh_view();
 }
 
@@ -320,40 +304,7 @@ void Kwave::SonagramWindow::insertSlice(
     if (!m_view) return;
     if (m_image.isNull()) return;
 
-    unsigned int image_width  = m_image.width();
-    unsigned int image_height = m_image.height();
-
-    // slice is out of range ?
-    if (slice_nr >= image_width) return;
-
-    unsigned int y;
-    unsigned int size = m_points / 2;
-    for (y = 0; y < size; y++) {
-        const QColor &p = slice[(size - 1) - y];
-
-        if (m_color_mode == SonagramPlugin::COLOR_MODE_HSV) {
-            // --- direct color mode ---
-            m_image.setPixelColor(slice_nr, y, p);
-        } else {
-            // --- index mode ---
-
-            // remove the previous pixel value from the histogram
-            int idx = m_image.pixelIndex(slice_nr, y);
-            m_histogram[static_cast<uint8_t>(idx)]--;
-
-            // set the new pixel value
-            idx = p.red();
-            m_image.setPixel(slice_nr, y, idx);
-
-            // update the new pixel value in the histogram
-            m_histogram[static_cast<uint8_t>(idx)]++;
-        }
-    }
-
-    while (y < image_height) { // fill the rest with blank
-        m_image.setPixel(slice_nr, y++, 0xFE);
-        m_histogram[0xFE]++;
-    }
+    m_image.insertSlice(slice_nr, m_points / 2, slice);
 
     if (!m_refresh_timer.isActive()) {
         m_refresh_timer.setSingleShot(true);
@@ -362,58 +313,11 @@ void Kwave::SonagramWindow::insertSlice(
 }
 
 //****************************************************************************
-void Kwave::SonagramWindow::createPalette()
-{
-    if (m_image.isNull() || (m_color_mode == SonagramPlugin::COLOR_MODE_HSV))
-        return;
-
-    // get the sum of pixels != 0
-    unsigned long int sum = 0;
-    for (unsigned int i = 1; i <= 254; i++)
-        sum += m_histogram[i];
-
-    // cut off all parts below the cutoff ratio (e.g. 0.1%)
-    unsigned int cutoff = Kwave::toUint(
-        static_cast<double>(sum) * COLOR_CUTOFF_RATIO);
-
-    // get the last used color from the histogram
-    int last = 254;
-    while ((last >= 0) && (m_histogram[last] <= cutoff))
-        last--;
-
-    QColor c;
-    for (int i = 0; i < 255; i++) {
-        int v;
-
-        if (i >= last) {
-            v = 254;
-        } else {
-            // map [0...last] to [254...0]
-            v = ((last - i) * 254) / last;
-        }
-
-        if (m_color_mode == 1) {
-            // rainbow effect
-            c.setHsv( (v * 255) / 255, 255, 255, 255);
-        } else {
-            // greyscale palette
-            c.setRgb(v, v, v, 255);
-        }
-
-        m_image.setColor(i, c.rgba());
-//      qDebug("color[%3d] = 0x%08X",i, c.rgba());
-    }
-
-    // use color 0xFF for transparency !
-    m_image.setColor(0xFF, QColor(0, 0, 0, 0).rgba());
-}
-
-//****************************************************************************
 void Kwave::SonagramWindow::refresh_view()
 {
     Q_ASSERT(m_view);
     if (!m_view) return;
-    createPalette();
+    m_image.createPalette();
     m_view->setImage(m_image);
 }
 
@@ -459,8 +363,8 @@ void Kwave::SonagramWindow::updateScaleWidgets()
 void Kwave::SonagramWindow::setColorMode(Kwave::SonagramPlugin::ColorMode mode)
 {
     Q_ASSERT(mode != Kwave::SonagramPlugin::COLOR_MODE_NONE);
-    m_color_mode = mode;
-    setImage(m_image);
+    m_image.setColorMode(mode);
+    refresh_view();
 }
 
 //***************************************************************************

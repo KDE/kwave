@@ -188,6 +188,10 @@ bool Kwave::FileContext::init(QPointer<Kwave::TopWidget> top_widget)
             SIGNAL(sigUndoRedoInfo(const QString&, const QString&)),
             this,
             SLOT(setUndoRedoInfo(QString,QString)));
+    connect(this,
+            SIGNAL(sigSelectionChanged(sample_index_t,sample_index_t)),
+            m_plugin_manager.data(),
+            SIGNAL(sigSelectionChanged(sample_index_t,sample_index_t)));
     connect(m_signal_manager.data(), SIGNAL(sigModified()),
             this,                    SLOT(modifiedChanged()));
 

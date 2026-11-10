@@ -54,6 +54,8 @@ namespace Kwave
         Q_OBJECT
     public:
 
+        typedef QPointer<SignalView> Ptr;
+
         /** preferred location of the SignalView */
         typedef enum {
             UpperDockTop,     /**< upper dock area, top               */
@@ -97,6 +99,12 @@ namespace Kwave
         Location preferredLocation() const {
             return m_preferred_location;
         }
+
+        /**
+         * Returns this view's lookup name, defaulting to objectName().
+         * @return the name used to find this view
+         */
+        virtual QString name() const { return objectName(); }
 
         /** returns the associated signal manager */
         inline QPointer<Kwave::SignalManager> signalManager() const {
@@ -223,7 +231,7 @@ namespace Kwave
          * throttled to reduce GUI load
          * @param view pointer to the view that needs to be repainted
          */
-        void sigNeedRepaint(Kwave::SignalView *view);
+        void sigNeedRepaint(Kwave::SignalView::Ptr view);
 
         /** forward a sigCommand to the next layer */
         void sigCommand(const QString &command);

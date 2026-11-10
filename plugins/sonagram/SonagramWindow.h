@@ -26,6 +26,7 @@
 
 #include <KMainWindow>
 
+#include "SonagramImage.h"
 #include "SonagramPlugin.h"
 
 class QImage;
@@ -77,6 +78,9 @@ namespace Kwave
          * @param image the bitmap with the sonagram
          */
         void setImage(const QImage &image);
+
+        /** Resize the displayed bitmap while preserving its existing columns. */
+        void resizeImage(unsigned int width);
 
         /**
          * Sets a new overview bitmap for the signal space
@@ -168,9 +172,6 @@ namespace Kwave
         /** updates the scale widgets */
         void updateScaleWidgets();
 
-        /** create a palette in indexed mode */
-        void createPalette();
-
         /**
          * Translates pixel coordinates relative to the lower left corner
          * of the QImage into time and frequency coordinates of the signal.
@@ -195,11 +196,8 @@ namespace Kwave
         /** status bar label for amplitude */
         QLabel *m_status_ampl;
 
-        /** the QImage to be displayed */
-        QImage m_image;
-
-        /** color mode of the image */
-        Kwave::SonagramPlugin::ColorMode m_color_mode;
+        /** Bitmap and palette state. */
+        Kwave::SonagramImage m_image;
 
         /** an ImageView to display the m_image and fit it into our window */
         Kwave::ImageView *m_view;
@@ -221,9 +219,6 @@ namespace Kwave
 
         /** timer used for refreshing the view from time to time */
         QTimer m_refresh_timer;
-
-        /** histogram of color indices, used for auto-contrast */
-        unsigned int m_histogram[256];
 
     };
 }

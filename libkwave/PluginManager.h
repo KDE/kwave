@@ -44,6 +44,7 @@ namespace Kwave
     class PlayBackParam;
     class Plugin;
     class SampleSink;
+    class SignalView;
     class SignalManager;
 
     /**
@@ -211,6 +212,13 @@ namespace Kwave
         void insertView(Kwave::SignalView *view, QWidget *controls);
 
         /**
+         * Finds a registered view by its virtual name.
+         * @param name the name to look up
+         * @return the matching view, or nullptr if no view matches
+         */
+        Kwave::SignalView *findView(const QString &name) const;
+
+        /**
          * registers a view manager, must only be called once!
          */
         void registerViewManager(Kwave::ViewManager *view_manager);
@@ -258,6 +266,14 @@ namespace Kwave
         void setActive() { m_active_instance = this; }
 
     signals:
+
+        /**
+         * Forwards selection range changes from the active file context.
+         * @param offset first sample in the selection
+         * @param length number of selected samples
+         */
+        void sigSelectionChanged(sample_index_t offset,
+                                 sample_index_t length);
 
         /**
          * Forwards commands to the parent TopWidget execute a command

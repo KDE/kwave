@@ -376,7 +376,8 @@ void Kwave::App::switchGuiType(QPointer<Kwave::TopWidget> top,
                             // inform the widget about changes in the list of
                             // recent files
                             connect(this, SIGNAL(recentFilesChanged()),
-                                    top_widget.data(), SLOT(updateRecentFiles()));
+                                    top_widget.data(),
+                                    SLOT(updateRecentFiles()));
                         }
                     } else {
                         // probably this context is only executing a script and

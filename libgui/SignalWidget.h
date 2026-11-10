@@ -48,8 +48,6 @@ class QPoint;
 class QVBoxLayout;
 class QWheelEvent;
 
-
-
 namespace Kwave
 {
 
@@ -109,20 +107,40 @@ namespace Kwave
          */
         void insertView(Kwave::SignalView *view, QWidget *controls) override;
 
+        /**
+         * Finds a registered view by its virtual name.
+         * @param name the name to look up
+         * @return the matching view, or nullptr if no view matches
+         */
+        Kwave::SignalView *findView(const QString &name) const override;
+
     signals:
 
         /** child views can connected to this signal to synchronize repaints */
         void sigRepaint();
+
+        /** emitted when the signal area geometry may have changed */
+        void sigSignalAreaChanged();
+
+        /**
+         * Emitted when the number of lower-dock views changes.
+         * @param count the current number of lower-dock views
+         */
+        void sigLowerDockViewsChanged(int count);
 
     public slots:
 
         /**
          * can be called by views to request a repaint, synchronized and
          * throttled through our repaint timer
+         * @param view pointer to the view that needs a repaint
          */
-        void requestRepaint(Kwave::SignalView *view);
+        void requestRepaint(Kwave::SignalView::Ptr view);
 
-        /** forward a sigCommand to the next layer */
+        /**
+         * forward a sigCommand to the next layer
+         * @param command the command to forward
+         */
         void forwardCommand(const QString &command);
 
     protected slots:
@@ -254,7 +272,7 @@ namespace Kwave
          * and at the end the ones from m_lower_dock.
          * The list is sorted in the order of the appearance in the GUI.
          */
-        QList<QPointer<Kwave::SignalView>> m_views;
+        QList<Kwave::SignalView::Ptr> m_views;
 
         /** the central layout with the views */
         QGridLayout m_layout;
@@ -281,7 +299,7 @@ namespace Kwave
         QTimer m_repaint_timer;
 
         /** queue with pointers to all signal views that need a repaint */
-        QQueue< QPointer<Kwave::SignalView> > m_repaint_queue;
+        QQueue<Kwave::SignalView::Ptr> m_repaint_queue;
     };
 }
 

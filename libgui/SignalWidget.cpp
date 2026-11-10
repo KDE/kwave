@@ -129,8 +129,8 @@ Kwave::SignalWidget::SignalWidget(QWidget *parent,
 void Kwave::SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
 {
     Q_ASSERT(zoom >= 0.0);
-    for (QPointer<Kwave::SignalView> view : m_views)
-        view->setZoomAndOffset(zoom, offset);
+    for (Kwave::SignalView::Ptr view : m_views)
+        if (view) view->setZoomAndOffset(zoom, offset);
 }
 
 //***************************************************************************
@@ -140,10 +140,10 @@ void Kwave::SignalWidget::forwardCommand(const QString &command)
 }
 
 //***************************************************************************
-void Kwave::SignalWidget::requestRepaint(Kwave::SignalView *view)
+void Kwave::SignalWidget::requestRepaint(Kwave::SignalView::Ptr view)
 {
     // add the view to the repaint queue (if not already there)
-    if (!m_repaint_queue.contains(view))
+    if (view && !m_repaint_queue.contains(view))
         m_repaint_queue.enqueue(view);
 
     if (!m_repaint_timer.isActive()) {
@@ -159,7 +159,7 @@ void Kwave::SignalWidget::repaintTimerElapsed()
 {
     while (!m_repaint_queue.isEmpty())
     {
-        Kwave::SignalView *view = m_repaint_queue.dequeue();
+        Kwave::SignalView::Ptr view(m_repaint_queue.dequeue());
         if (!view) continue;
         view->refresh();
     }
@@ -416,6 +416,8 @@ void Kwave::SignalWidget::insertRow(int index, Kwave::SignalView *view,
         qApp->processEvents(QEventLoop::ExcludeUserInputEvents |
                             QEventLoop::ExcludeSocketNotifiers);
     }
+
+    emit sigSignalAreaChanged();
 }
 
 //***************************************************************************
@@ -437,6 +439,7 @@ void Kwave::SignalWidget::deleteRow(int index)
             }
         }
     }
+    emit sigSignalAreaChanged();
 }
 
 //***************************************************************************
@@ -452,10 +455,24 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
     // set initial vertical zoom
     view->setVerticalZoom(m_vertical_zoom);
 
+    const Kwave::SignalView::Location where = view->preferredLocation();
+    const bool lower_dock_view =
+        (where == Kwave::SignalView::LowerDockTop) ||
+        (where == Kwave::SignalView::LowerDockBottom);
+
+    // automatically remove the view from the list when it gets deleted
+    connect(view, &QObject::destroyed, this,
+            [this, lower_dock_view](QObject *obj) {
+                m_views.removeIf([obj](const Kwave::SignalView::Ptr &p) {
+                    return ((p.data() == obj) || p.isNull());
+                });
+                if (lower_dock_view)
+                    emit sigLowerDockViewsChanged(m_lower_dock->count());
+            });
+
     // find the proper row to insert the track view
     int index = 0;
     int track = (view) ? view->track() : -1;
-    const Kwave::SignalView::Location where = view->preferredLocation();
     switch (where) {
         case Kwave::SignalView::UpperDockTop: {
             // upper dock area, top
@@ -540,6 +557,8 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
             // lower dock area, top
             index = m_upper_dock->count() + m_layout.rowCount();
             m_lower_dock->insertWidget(0, view);
+            if (m_lower_dock->parentWidget())
+                m_lower_dock->parentWidget()->show();
             Q_ASSERT(!controls);
             break;
         }
@@ -548,6 +567,8 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
             index = m_upper_dock->count() + m_layout.rowCount() +
                     m_lower_dock->count();
             m_lower_dock->addWidget(view);
+            if (m_lower_dock->parentWidget())
+                m_lower_dock->parentWidget()->show();
             Q_ASSERT(!controls);
             break;
         DEFAULT_IMPOSSIBLE;
@@ -558,6 +579,8 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
     Q_ASSERT(index < m_upper_dock->count() + m_layout.rowCount() +
              m_lower_dock->count());
     m_views.insert(index, view);
+    if (lower_dock_view)
+        emit sigLowerDockViewsChanged(m_lower_dock->count());
 
     // initially set the current view info
     view->setZoomAndOffset(m_zoom, m_offset);
@@ -567,8 +590,8 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
             this,       SIGNAL(sigCommand(QString)),
             Qt::QueuedConnection);
 
-    connect(view,       SIGNAL(sigNeedRepaint(Kwave::SignalView*)),
-            this,       SLOT(requestRepaint(Kwave::SignalView*)));
+    connect(view,       SIGNAL(sigNeedRepaint(Kwave::SignalView::Ptr)),
+            this,       SLOT(requestRepaint(Kwave::SignalView::Ptr)));
 
     connect(view,       SIGNAL(contentSizeChanged()),
             this,       SLOT(updateMinimumHeight()));
@@ -580,6 +603,15 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
             view,       SLOT(showCursor(sample_index_t)));
 
     updateMinimumHeight();
+}
+
+//***************************************************************************
+Kwave::SignalView *Kwave::SignalWidget::findView(const QString &name) const
+{
+    for (const Kwave::SignalView::Ptr &view : m_views)
+        if (view && (view->name() == name)) return view.data();
+
+    return nullptr;
 }
 
 //***************************************************************************
@@ -604,8 +636,8 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
     }
 
     // loop over all views and adjust the track index of the following ones
-    for (QPointer<Kwave::SignalView> view : m_views) {
-        if (view->track() >= Kwave::toInt(index))
+    for (Kwave::SignalView::Ptr view : m_views) {
+        if (view && view->track() >= Kwave::toInt(index))
             view->setTrack(view->track() + 1);
     }
 
@@ -624,16 +656,16 @@ void Kwave::SignalWidget::slotTrackDeleted(unsigned int index,
     // loop over all views, delete those that are bound to this track
     // and adjust the index of the following ones
     bool empty = true;
-    QMutableListIterator<QPointer<Kwave::SignalView> > it(m_views);
+    QMutableListIterator<Kwave::SignalView::Ptr> it(m_views);
     while (it.hasNext()) {
-        Kwave::SignalView *view = it.next();
-        if (view->track() == Kwave::toInt(index)) {
+        Kwave::SignalView::Ptr view = it.next();
+        if (view && view->track() == Kwave::toInt(index)) {
             it.remove();
             delete view;
-        } else if (view->track() > Kwave::toInt(index)) {
+        } else if (view && view->track() > Kwave::toInt(index)) {
             view->setTrack(view->track() - 1);
             empty = false;
-        } else if (view->track() != -1) {
+        } else if (view && view->track() != -1) {
             empty = false;
         }
     }

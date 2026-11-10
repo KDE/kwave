@@ -825,8 +825,12 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/sonagram/SonagramDialog.cpp             GPL2+
         plugins/sonagram/SonagramDialog.h               GPL2+
         plugins/sonagram/SonagramDlg.ui                 (should be GPL2+)
+        plugins/sonagram/SonagramImage.cpp              GPL2+
+        plugins/sonagram/SonagramImage.h                GPL2+
         plugins/sonagram/SonagramPlugin.cpp             GPL2+
         plugins/sonagram/SonagramPlugin.h               GPL2+
+        plugins/sonagram/SonagramView.cpp               GPL2+
+        plugins/sonagram/SonagramView.h                 GPL2+
         plugins/sonagram/SonagramWindow.cpp             GPL2+
         plugins/sonagram/SonagramWindow.h               GPL2+
 

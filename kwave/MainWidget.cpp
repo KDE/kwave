@@ -38,8 +38,10 @@
 #include <QWheelEvent>
 #include <QtGlobal>
 
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KSharedConfig>
 
 #include "libkwave/Drag.h"
 #include "libkwave/FileDrag.h"
@@ -94,13 +96,15 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
     :QWidget(parent),
      Kwave::CommandHandler(),
      Kwave::Zoomable(),
-     m_context(context), m_upper_dock(), m_lower_dock(),
+     m_context(context), m_upper_dock(), m_lower_dock(Qt::Vertical, this),
+     m_lower_dock_area(), m_lower_dock_layout(&m_lower_dock_area),
+     m_lower_dock_state_restored(false),
      m_scroll_area(this), m_horizontal_scrollbar(nullptr),
      m_signal_widget(
          &m_scroll_area,
          context.signalManager(),
          &m_upper_dock,
-         &m_lower_dock
+         &m_lower_dock_layout
      ),
      m_overview(nullptr), m_offset(0), m_zoom(1.0),
      m_preferred_size(preferred_size),
@@ -121,8 +125,7 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     // topLayout:
     // - upper dock
-    // - view port
-    // - lower dock
+    // - vertical splitter with the view port and lower dock
     // - overview
     // - horizontal scroll bar
     QVBoxLayout *topLayout = new(std::nothrow) QVBoxLayout(this);
@@ -145,10 +148,28 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
     m_scroll_area.setWidgetResizable(true);
     m_scroll_area.setWidget(&m_signal_widget);
 
-    topLayout->addWidget(&m_scroll_area);
+    // -- vertical splitter: view port and lower dock --
+    m_lower_dock_layout.setSpacing(0);
+    m_lower_dock_layout.setContentsMargins(0, 0, 0, 0);
+    m_lower_dock.addWidget(&m_scroll_area);
+    m_lower_dock.addWidget(&m_lower_dock_area);
+    m_lower_dock.setStretchFactor(0, 1);
+    m_lower_dock.setCollapsible(0, false);
+    m_lower_dock.setCollapsible(1, true);
+    topLayout->addWidget(&m_lower_dock);
 
-    // -- lower dock --
-    topLayout->addLayout(&m_lower_dock);
+    connect(&m_lower_dock, &QSplitter::splitterMoved,
+            this, [this](int, int) { updateLowerDockMargins(); });
+    connect(m_scroll_area.verticalScrollBar(), &QScrollBar::rangeChanged,
+            this, [this](int, int) { updateLowerDockMargins(); },
+            Qt::QueuedConnection);
+    connect(&m_signal_widget, &Kwave::SignalWidget::sigSignalAreaChanged,
+            this, &Kwave::MainWidget::updateLowerDockMargins,
+            Qt::QueuedConnection);
+    connect(&m_signal_widget,
+            &Kwave::SignalWidget::sigLowerDockViewsChanged,
+            this, &Kwave::MainWidget::lowerDockViewsChanged);
+    updateLowerDockMargins();
 
     // -- overview widget --
 
@@ -226,15 +247,54 @@ bool Kwave::MainWidget::isOK()
 //***************************************************************************
 Kwave::MainWidget::~MainWidget()
 {
+    if (m_lower_dock_layout.count()) saveLowerDockState();
+
     QPointer<Kwave::PluginManager> pm(m_context.pluginManager());
     Q_ASSERT(pm);
     if (pm) pm->registerViewManager(nullptr);
 }
 
 //***************************************************************************
+void Kwave::MainWidget::lowerDockViewsChanged(int count)
+{
+    if (count && !m_lower_dock_state_restored) {
+        restoreLowerDockState();
+        m_lower_dock_state_restored = true;
+        return;
+    }
+
+    saveLowerDockState();
+    if (!count) m_lower_dock_state_restored = false;
+}
+
+//***************************************************************************
+void Kwave::MainWidget::restoreLowerDockState()
+{
+    const KConfigGroup config =
+        KSharedConfig::openConfig()->group(QStringLiteral("MainWidget"));
+    const QByteArray splitter_state =
+        config.readEntry("LowerDockSplitter", QByteArray());
+    if (!splitter_state.isEmpty())
+        m_lower_dock.restoreState(splitter_state);
+
+    m_lower_dock.setCollapsible(0, false);
+    m_lower_dock.setCollapsible(1, true);
+}
+
+//***************************************************************************
+void Kwave::MainWidget::saveLowerDockState()
+{
+    KConfigGroup config =
+        KSharedConfig::openConfig()->group(QStringLiteral("MainWidget"));
+    config.writeEntry("LowerDockSplitter", m_lower_dock.saveState());
+    KSharedConfig::openConfig()->sync();
+}
+
+//***************************************************************************
 void Kwave::MainWidget::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
+    updateLowerDockMargins();
 
     if (!m_context.isActive() &&
         (m_context.app().guiType() == Kwave::App::GUI_TAB))
@@ -248,6 +308,20 @@ void Kwave::MainWidget::resizeEvent(QResizeEvent *event)
         // update immediately
         updateViewRange();
     }
+}
+
+//***************************************************************************
+void Kwave::MainWidget::updateLowerDockMargins()
+{
+    const QWidget *viewport = m_scroll_area.viewport();
+    const auto signal_views =
+        m_signal_widget.findChildren<Kwave::SignalView *>(
+        QString(), Qt::FindDirectChildrenOnly);
+    const int left = signal_views.isEmpty() ? 0 :
+        signal_views.first()->geometry().left();
+    const int right = m_scroll_area.width() - viewport->x() -
+                      viewport->width();
+    m_lower_dock_layout.setContentsMargins(left, 0, qMax(0, right), 0);
 }
 
 //***************************************************************************

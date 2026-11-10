@@ -38,11 +38,15 @@ ENDIF(NOT FFTW_FOUND)
 
 SET(plugin_sonagram_LIB_SRCS
     SonagramDialog.cpp
+    SonagramImage.cpp
     SonagramPlugin.cpp
+    SonagramView.cpp
     SonagramWindow.cpp
 
     SonagramDialog.h
+    SonagramImage.h
     SonagramPlugin.h
+    SonagramView.h
     SonagramWindow.h
 )
 

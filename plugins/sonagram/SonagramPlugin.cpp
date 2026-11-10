@@ -49,9 +49,11 @@
 
 #include "libgui/OverViewCache.h"
 #include "libgui/SelectionTracker.h"
+#include "libgui/SignalView.h"
 
 #include "SonagramDialog.h"
 #include "SonagramPlugin.h"
+#include "SonagramView.h"
 #include "SonagramWindow.h"
 
 KWAVE_PLUGIN(sonagram, SonagramPlugin)
@@ -65,13 +67,15 @@ KWAVE_PLUGIN(sonagram, SonagramPlugin)
 Kwave::SonagramPlugin::SonagramPlugin(QObject *parent,
                                       const QVariantList &args)
     :Kwave::Plugin(parent, args),
-     m_mode(MODE_VIEW),
+     m_mode(MODE_VIEW_IN_WINDOW),
      m_sonagram_window(nullptr),
+     m_dock_widget(nullptr),
      m_selection(nullptr),
      m_slices(0), m_fft_points(0),
      m_window_type(Kwave::WINDOW_FUNC_NONE),
      m_color_mode(COLOR_MODE_NONE),
-     m_track_changes(true), m_follow_selection(false), m_image(),
+     m_track_changes(true), m_follow_selection(false),
+     m_follow_selection_pending(false), m_image(),
      m_overview_cache(nullptr), m_slice_pool(), m_valid(MAX_SLICES, false),
      m_pending_jobs(), m_lock_job_list(), m_future(),
      m_repaint_timer()
@@ -96,6 +100,9 @@ Kwave::SonagramPlugin::~SonagramPlugin()
     delete m_sonagram_window;
     m_sonagram_window = nullptr;
 
+    delete m_dock_widget;
+    m_dock_widget = nullptr;
+
     delete m_selection;
     m_selection = nullptr;
 }
@@ -117,6 +124,7 @@ QStringList *Kwave::SonagramPlugin::setup(QStringList &previous_params)
     dlg->setColorMode(m_color_mode);
     dlg->setTrackChanges(m_track_changes);
     dlg->setFollowSelection(m_follow_selection);
+    dlg->setLocation(m_mode);
 
     if ((dlg->exec() == QDialog::Accepted) && dlg) {
         result = new(std::nothrow) QStringList();
@@ -159,7 +167,7 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
         m_mode = MODE_SAVE;
         return 0;
     } else if (params.count() >= 5) {
-        m_mode = MODE_VIEW;
+        m_mode = MODE_VIEW_IN_WINDOW;
 
         param = params[0];
         m_fft_points = param.toUInt(&ok);
@@ -188,6 +196,17 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
         m_follow_selection = (param.toUInt(&ok) != 0);
         if (!ok) return -EINVAL;
 
+        if (params.count() >= 6) {
+            param = params[5];
+            if (param == _("window")) {
+                m_mode = MODE_VIEW_IN_WINDOW;
+            } else if (param == _("dock")) {
+                m_mode = MODE_VIEW_IN_DOCK;
+            } else {
+                return -EINVAL;
+            }
+        }
+
         return 0;
     } else {
         qWarning("SonagramPlugin::interpreteParameters(): "
@@ -202,8 +221,7 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
 int Kwave::SonagramPlugin::start(QStringList &params)
 {
     // clean up leftovers from last run
-    delete m_sonagram_window;
-    m_sonagram_window = nullptr;
+    m_follow_selection_pending = false;
     delete m_selection;
     m_selection = nullptr;
     delete m_overview_cache;
@@ -216,31 +234,75 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     if (result) return result;
 
     // create an empty sonagram window
-    m_sonagram_window = new(std::nothrow)
-        Kwave::SonagramWindow(parentWidget());
-    Q_ASSERT(m_sonagram_window);
-    if (!m_sonagram_window) return -ENOMEM;
-    if (m_mode == MODE_LOAD) {
-        m_sonagram_window->setWindowTitle(
-            i18n("Sonagram loaded from %1", params[1]));
-    } else {
-        m_sonagram_window->setName(signalName());
+    if (m_mode == MODE_VIEW_IN_WINDOW) {
+        delete m_sonagram_window;
+        m_sonagram_window = new(std::nothrow)
+            Kwave::SonagramWindow(parentWidget());
+        Q_ASSERT(m_sonagram_window);
+        if (!m_sonagram_window) return -ENOMEM;
+    } else if (m_mode == MODE_VIEW_IN_DOCK) {
+        m_dock_widget = qobject_cast<Kwave::SonagramView *>(
+            manager().findView(QStringLiteral("sonagram")));
+
+        if (m_dock_widget) {
+            m_dock_widget->prepareForReuse();
+        } else {
+            QPointer<Kwave::SignalManager> mgr(&(this->signalManager()));
+            m_dock_widget = new(std::nothrow) Kwave::SonagramView(
+                nullptr, mgr);
+            Q_ASSERT(m_dock_widget);
+            if (!m_dock_widget) return -ENOMEM;
+
+            manager().insertView(m_dock_widget, nullptr);
+        }
+
+        // close this instance when the dock widget gets destroyed
+        QObject::connect(m_dock_widget, SIGNAL(destroyed()),
+                         this, SLOT(widgetDestroyed()));
+
+        // release this plugin if another instance reuses the view
+        QObject::connect(m_dock_widget,
+                         SIGNAL(sigAboutToBeReused()),
+                         this, SLOT(viewReused()));
+
+        // if the signal closes, close the dock widget too
+        QObject::connect(&manager(), SIGNAL(sigClosed()),
+                         m_dock_widget, SLOT(close()));
+
+        // increment the usage counter and release the plugin instance
+        // when the sonagram widget gets destroyed
+        use();
     }
 
-    // if the signal closes, close the sonagram window too
-    QObject::connect(&manager(), SIGNAL(sigClosed()),
-                     m_sonagram_window, SLOT(close()));
+    if (m_sonagram_window) {
+        if (m_mode == MODE_LOAD) {
+            m_sonagram_window->setWindowTitle(
+                i18n("Sonagram loaded from %1", params[1]));
+        } else {
+            m_sonagram_window->setName(signalName());
+        }
 
-    // forward the (menu) commands to the plugin
-    QObject::connect(m_sonagram_window, SIGNAL(sigCommand(QString)),
-                     this, SLOT(emitCommand(QString)));
+        // if the signal closes, close the sonagram window too
+        QObject::connect(&manager(), SIGNAL(sigClosed()),
+                         m_sonagram_window, SLOT(close()));
 
-    if (m_mode == MODE_VIEW) {
+        // forward the (menu) commands to the plugin
+        QObject::connect(m_sonagram_window, SIGNAL(sigCommand(QString)),
+                         this, SLOT(emitCommand(QString)));
+    }
+
+    if ((m_mode == MODE_VIEW_IN_WINDOW) ||
+        (m_mode == MODE_VIEW_IN_DOCK)) {
         // get the current selection
         QVector<unsigned int> selected_channels;
         sample_index_t offset = 0;
         sample_index_t length = 0;
-        length = selection(&selected_channels, &offset, nullptr, true);
+        if (m_mode == MODE_VIEW_IN_DOCK) {
+            length = sig_mgr.length();
+            selected_channels = sig_mgr.allTracks();
+        } else {
+            length = selection(&selected_channels, &offset, nullptr, true);
+        }
 
         // abort if nothing is selected
         if (!length || selected_channels.isEmpty())
@@ -275,8 +337,21 @@ int Kwave::SonagramPlugin::start(QStringList &params)
             SLOT(slotInvalidated(quint64,sample_index_t,sample_index_t))
         );
 
+        if (m_follow_selection && (m_mode == MODE_VIEW_IN_WINDOW)) {
+            connect(&manager(),
+                SIGNAL(sigSelectionChanged(sample_index_t,sample_index_t)),
+                this, SLOT(followSelectionChanged()));
+            connect(&sig_mgr, SIGNAL(sigTrackSelectionChanged(bool)),
+                    this, SLOT(followSelectionChanged()));
+        }
+
         // create a new empty image
         createNewImage(m_slices, m_fft_points / 2);
+        if (m_dock_widget) {
+            m_dock_widget->setColorMode(m_color_mode);
+            m_dock_widget->setFftPoints(m_fft_points);
+            m_dock_widget->setImage(m_image);
+        }
 
         // set the overview
         m_overview_cache = new(std::nothrow)
@@ -286,7 +361,7 @@ int Kwave::SonagramPlugin::start(QStringList &params)
 
         refreshOverview(); // <- this needs the m_overview_cache
 
-        if (m_track_changes && (m_mode == MODE_VIEW)) {
+        if (m_track_changes && (m_mode == MODE_VIEW_IN_WINDOW)) {
             // stay informed about changes in the signal
             connect(m_overview_cache, SIGNAL(changed()),
                     this, SLOT(refreshOverview()));
@@ -309,26 +384,28 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     }
 
     // connect all needed signals
-    connect(m_sonagram_window, SIGNAL(destroyed()),
-            this, SLOT(windowDestroyed()));
+    if (m_sonagram_window) {
+        connect(m_sonagram_window, SIGNAL(destroyed()),
+                this, SLOT(windowDestroyed()));
 
-    // activate the window with an initial image
-    // and all necessary information
-    m_sonagram_window->setColorMode(m_color_mode);
-    m_sonagram_window->setImage(m_image);
-    m_sonagram_window->setPoints(m_fft_points);
-    m_sonagram_window->setRate(signalRate());
-    m_sonagram_window->show();
+        // activate the window with an initial image
+        // and all necessary information
+        m_sonagram_window->setColorMode(m_color_mode);
+        m_sonagram_window->setImage(m_image);
+        m_sonagram_window->setPoints(m_fft_points);
+        m_sonagram_window->setRate(signalRate());
+        m_sonagram_window->show();
 
-    if (m_track_changes && (m_mode == MODE_VIEW)) {
-        QObject::connect(static_cast<QObject*>(&(manager())),
-            SIGNAL(sigSignalNameChanged(QString)),
-            m_sonagram_window, SLOT(setName(QString)));
+        if (m_track_changes && (m_mode == MODE_VIEW_IN_WINDOW)) {
+            QObject::connect(static_cast<QObject*>(&(manager())),
+                SIGNAL(sigSignalNameChanged(QString)),
+                m_sonagram_window, SLOT(setName(QString)));
+        }
+
+        // increment the usage counter and release the plugin when the
+        // sonagram window closed
+        use();
     }
-
-    // increment the usage counter and release the plugin when the
-    // sonagram window closed
-    use();
 
     return 0;
 }
@@ -548,6 +625,8 @@ void Kwave::SonagramPlugin::insertSlice(Kwave::SonagramPlugin::Slice *slice)
     // forward the slice to the window to display it
     if (m_sonagram_window)
         m_sonagram_window->insertSlice(slice->m_index, slice->m_result);
+    if (m_dock_widget)
+        m_dock_widget->insertSlice(slice->m_index, slice->m_result);
 
     // return the slice into the pool
     m_slice_pool.release(slice);
@@ -563,6 +642,7 @@ void Kwave::SonagramPlugin::createNewImage(const unsigned int width,
     // delete the previous image
     m_image = QImage();
     if (m_sonagram_window) m_sonagram_window->setImage(m_image);
+    if (m_dock_widget)     m_dock_widget->setImage(m_image);
 
     // do not create a new image if one dimension is zero!
     Q_ASSERT(width);
@@ -633,13 +713,63 @@ void Kwave::SonagramPlugin::requestValidation()
 void Kwave::SonagramPlugin::validate()
 {
     // wait for previously running jobs to finish
-    if (m_future.isRunning()) {
+    if (isRunning() || m_future.isRunning()) {
         requestValidation();
-        return; // job is still running, come back later...
+        return; // wait until the current calculation has finished
+    }
+
+    if (m_follow_selection_pending) {
+        m_follow_selection_pending = false;
+        updateFollowSelection();
     }
 
     // queue a background thread for updates
     m_future = QtConcurrent::run(&Kwave::SonagramPlugin::makeAllValid, this);
+}
+
+//***************************************************************************
+void Kwave::SonagramPlugin::followSelectionChanged()
+{
+    if (!m_follow_selection || (m_mode != MODE_VIEW_IN_WINDOW)) return;
+
+    m_follow_selection_pending = true;
+    requestValidation();
+}
+
+//***************************************************************************
+void Kwave::SonagramPlugin::updateFollowSelection()
+{
+    if (!m_selection || !m_sonagram_window) return;
+
+    QVector<unsigned int> selected_tracks;
+    sample_index_t offset = 0;
+    const sample_index_t length = selection(
+        &selected_tracks, &offset, nullptr, true);
+    if (!length || (m_fft_points < 4)) return;
+
+    m_slices = Kwave::toUint(ceil(static_cast<double>(length) /
+                                  static_cast<double>(m_fft_points)));
+    if (m_slices > MAX_SLICES) m_slices = MAX_SLICES;
+
+    QList<quint64> selected_track_ids;
+    if (selected_tracks.isEmpty()) {
+        for (unsigned int track : signalManager().allTracks())
+            selected_track_ids.append(signalManager().uidOfTrack(track));
+    } else {
+        for (unsigned int track : selected_tracks)
+            selected_track_ids.append(signalManager().uidOfTrack(track));
+    }
+
+    m_sonagram_window->resizeImage(m_slices);
+    m_selection->selectRange(selected_track_ids, offset, length);
+
+    delete m_overview_cache;
+    m_overview_cache = new(std::nothrow) Kwave::OverViewCache(
+        signalManager(), offset, length, &selected_tracks);
+    Q_ASSERT(m_overview_cache);
+    if (!m_overview_cache) return;
+
+    refreshOverview();
 }
 
 //***************************************************************************
@@ -650,10 +780,10 @@ void Kwave::SonagramPlugin::slotTrackInserted(quint64 track_id)
     Q_UNUSED(track_id)
 
     // check for "track changes" mode
-    if (!m_track_changes) return;
+    if (!m_track_changes && !m_follow_selection) return;
 
     // invalidate complete signal
-    m_valid.fill(false, m_slices);
+    m_valid.fill(false);
     requestValidation();
 }
 
@@ -665,10 +795,10 @@ void Kwave::SonagramPlugin::slotTrackDeleted(quint64 track_id)
     Q_UNUSED(track_id)
 
     // check for "track changes" mode
-    if (!m_track_changes) return;
+    if (!m_track_changes && !m_follow_selection) return;
 
     // invalidate complete signal
-    m_valid.fill(false, m_slices);
+    m_valid.fill(false);
     requestValidation();
 }
 
@@ -685,7 +815,7 @@ void Kwave::SonagramPlugin::slotInvalidated(quint64 track_id,
 //         (track_id) ? DBG(track_id->toString()) : "*", first, last);
 
     // check for "track changes" mode
-    if (!m_track_changes) return;
+    if (!m_track_changes && !m_follow_selection) return;
 
     // adjust offsets, absolute -> relative
     sample_index_t offset = (m_selection) ? m_selection->offset() : 0;
@@ -696,6 +826,8 @@ void Kwave::SonagramPlugin::slotInvalidated(quint64 track_id,
     last  -= offset;
 
     unsigned int first_idx = Kwave::toUint(first / m_fft_points);
+    if (!m_slices || (first_idx >= m_slices)) return;
+
     unsigned int last_idx;
     if (last >= (SAMPLE_INDEX_MAX - (m_fft_points - 1)))
         last_idx = m_slices - 1;
@@ -705,16 +837,46 @@ void Kwave::SonagramPlugin::slotInvalidated(quint64 track_id,
             static_cast<sample_index_t>(m_slices - 1))
         );
 
+    last_idx = qMin(last_idx, m_slices - 1);
+    if (last_idx < first_idx) return;
+
     m_valid.fill(false, first_idx, last_idx + 1);
     requestValidation();
 }
 
 //***************************************************************************
+void Kwave::SonagramPlugin::widgetDestroyed()
+{
+    if (!m_dock_widget) return;
+
+    m_dock_widget = nullptr; // closes itself !
+    releaseViewResources();
+}
+
+//***************************************************************************
+void Kwave::SonagramPlugin::viewReused()
+{
+    if (!m_dock_widget) return;
+
+    disconnect(&manager(), SIGNAL(sigClosed()),
+               m_dock_widget, SLOT(close()));
+    m_dock_widget = nullptr;
+    releaseViewResources();
+}
+
+//***************************************************************************
 void Kwave::SonagramPlugin::windowDestroyed()
 {
-    cancel();
-
     m_sonagram_window = nullptr; // closes itself !
+
+    releaseViewResources();
+}
+
+//***************************************************************************
+void Kwave::SonagramPlugin::releaseViewResources()
+{
+    cancel();
+    m_repaint_timer.stop();
 
     delete m_selection;
     m_selection = nullptr;

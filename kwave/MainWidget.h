@@ -25,6 +25,7 @@
 #include <QTimer>
 
 #include <QScrollArea>
+#include <QSplitter>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -335,14 +336,38 @@ namespace Kwave
 
     private:
 
+        /** Align lower dock views with the signal area and scrollbar. */
+        void updateLowerDockMargins();
+
+        /**
+         * Restore the splitter after lower-dock views have been inserted.
+         * @param count the current number of lower-dock views
+         */
+        void lowerDockViewsChanged(int count);
+
+        /** Restore the saved lower-dock splitter state. */
+        void restoreLowerDockState();
+
+        /** Save the current lower-dock splitter state. */
+        void saveLowerDockState();
+
         /** context of the Kwave application instance */
         Kwave::FileContext &m_context;
 
         /** upper docking area, managed by the signal widget */
         QVBoxLayout m_upper_dock;
 
-        /** lower docking area, managed by the signal widget */
-        QVBoxLayout m_lower_dock;
+        /** vertical splitter for the signal view and lower docking area */
+        QSplitter m_lower_dock;
+
+        /** container for views in the lower docking area */
+        QWidget m_lower_dock_area;
+
+        /** layout for views in the lower docking area */
+        QVBoxLayout m_lower_dock_layout;
+
+        /** true once the saved splitter state has been restored */
+        bool m_lower_dock_state_restored;
 
         /** container widget that contains the signal widget. */
         QScrollArea m_scroll_area;
@@ -370,6 +395,7 @@ namespace Kwave
 
         /** timer for delayed update */
         QTimer m_delayed_update_timer;
+
     };
 }
 

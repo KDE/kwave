@@ -96,6 +96,8 @@ Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     );
     connect(pointslider, SIGNAL(valueChanged(int)), SLOT(setPoints(int)));
     connect(pointbox,    SIGNAL(activated(int)),    SLOT(setBoxPoints(int)));
+    connect(cbLocation,  SIGNAL(currentIndexChanged(int)),
+            this,        SLOT(updateFollowSelectionEnabled()));
 
     // set the focus onto the "OK" button
     buttonBox->button(QDialogButtonBox::Ok)->setFocus();
@@ -135,6 +137,10 @@ void Kwave::SonagramDialog::parameters(QStringList &list)
         ? 1 : 0);
     list.append(param);
 
+    // parameter #5: view mode: "window" or "dock"
+    param = (cbLocation && cbLocation->currentIndex() == 1)
+        ? _("dock") : _("window");
+    list.append(param);
 }
 
 //***************************************************************************
@@ -185,6 +191,30 @@ void Kwave::SonagramDialog::setFollowSelection(bool follow_selection)
     Q_ASSERT(cbFollowSelection);
     if (!cbFollowSelection) return;
     cbFollowSelection->setChecked(follow_selection);
+}
+
+//***************************************************************************
+void Kwave::SonagramDialog::setLocation(Kwave::SonagramPlugin::ViewMode m)
+{
+    Q_ASSERT(cbLocation);
+    if (!cbLocation) return;
+    cbLocation->setCurrentIndex(static_cast<int>(
+        (m == Kwave::SonagramPlugin::MODE_VIEW_IN_DOCK) ? 1 : 0)
+    );
+    updateFollowSelectionEnabled();
+}
+
+//***************************************************************************
+void Kwave::SonagramDialog::updateFollowSelectionEnabled()
+{
+    Q_ASSERT(cbLocation);
+    Q_ASSERT(cbFollowSelection);
+    if (!cbLocation || !cbFollowSelection) return;
+
+    const bool window_mode =
+        (cbLocation->currentIndex() != static_cast<int>(
+            Kwave::SonagramPlugin::MODE_VIEW_IN_DOCK));
+    cbFollowSelection->setEnabled(window_mode);
 }
 
 //***************************************************************************

@@ -55,22 +55,30 @@ namespace Kwave
 {
     class OverViewCache;
     class SelectionTracker;
+    class SonagramView;
     class SonagramWindow;
 
     /**
-     * plugin that shows a sonagram window
-     */
+    * plugin that shows a sonagram window
+    */
     class SonagramPlugin: public Kwave::Plugin
     {
         Q_OBJECT
-    public:
+        public:
 
-        typedef enum {
+        enum ColorMode {
             COLOR_MODE_NONE      = -1, /**< invalid/unknown     */
             COLOR_MODE_GRAYSCALE =  0, /**< grayscale 8 bit     */
             COLOR_MODE_8BIT      =  1, /**< color 8 bit rainbow */
             COLOR_MODE_HSV       =  2  /**< color RGBA complex  */
-        } ColorMode;
+        };
+
+        enum ViewMode {
+            MODE_VIEW_IN_WINDOW = 0,
+            MODE_VIEW_IN_DOCK   = 1,
+            MODE_LOAD,
+            MODE_SAVE
+        };
 
         /**
          * Constructor
@@ -129,6 +137,15 @@ namespace Kwave
         void validate();
 
         /**
+         * Connected to the dock widget's "destroyed()" signal.
+         * @see class SonagramView
+         */
+        void widgetDestroyed();
+
+        /** release this plugin's ownership before the dock view is reused */
+        void viewReused();
+
+        /**
          * Connected to the SonagramWindow's "destroyed()" signal.
          * @see class SonagramWindow
          */
@@ -172,6 +189,9 @@ namespace Kwave
                              sample_index_t first,
                              sample_index_t last);
 
+        /** Queue a Follow Selection update after the current FFT job. */
+        void followSelectionChanged();
+
     protected:
 
         /**
@@ -190,8 +210,11 @@ namespace Kwave
          */
         void makeAllValid();
 
+        /** rebuild the sonagram after selection changes */
+        void updateFollowSelection();
+
         /**
-         * Requests an update of the sonagram or portions of it
+         * requests an update of the sonagram or portions of it
          */
         void requestValidation();
 
@@ -232,16 +255,19 @@ namespace Kwave
          */
         int saveToFile(quint64 index, const QString &filename);
 
+        /** Stop processing and release resources owned by an open view. */
+        void releaseViewResources();
+
     private:
 
-        enum {
-            MODE_VIEW = 0,
-            MODE_LOAD,
-            MODE_SAVE
-        } m_mode;
+        /** view or operation mode */
+        ViewMode m_mode;
 
-        /** the main view of the plugin, a SonagramWindow */
+        /** main sonagram window in case of view mode MODE_VIEW_IN_WINDOW */
         Kwave::SonagramWindow *m_sonagram_window;
+
+        /** widget in the dock, in case of view mode MODE_VIEW_IN_DOCK */
+        Kwave::SonagramView *m_dock_widget;
 
         /** selection tracker */
         Kwave::SelectionTracker *m_selection;
@@ -263,6 +289,9 @@ namespace Kwave
 
         /** if true, update the sonagram if the selection changed */
         bool m_follow_selection;
+
+        /** selection update is pending */
+        bool m_follow_selection_pending;
 
         /** stores the image that is currently in process */
         QImage m_image;

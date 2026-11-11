@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:47+0000\n"
+"POT-Creation-Date: 2026-11-11 01:00+0000\n"
 "PO-Revision-Date: 2026-10-03 20:06+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -42,42 +42,42 @@ msgstr "주 창 여는 중..."
 msgid "Startup done"
 msgstr "시작 완료"
 
-#: kwave/FileContext.cpp:205
+#: kwave/FileContext.cpp:209
 #, kde-format
 msgid "Scanning plugins..."
 msgstr "플러그인 검색 중..."
 
-#: kwave/FileContext.cpp:238 kwave/FileContext.cpp:239
+#: kwave/FileContext.cpp:242 kwave/FileContext.cpp:243
 #, kde-format
 msgid "Loading plugins..."
 msgstr "플러그인 불러오는 중..."
 
-#: kwave/FileContext.cpp:241
+#: kwave/FileContext.cpp:245
 #, kde-format
 msgid "Failed"
 msgstr "실패"
 
-#: kwave/FileContext.cpp:244
+#: kwave/FileContext.cpp:248
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
 msgstr "Kwave가 올바르게 설치되지 않았습니다. 플러그인을 찾을 수 없습니다!"
 
-#: kwave/FileContext.cpp:250
+#: kwave/FileContext.cpp:254
 #, kde-format
 msgid "Ready"
 msgstr "준비"
 
-#: kwave/FileContext.cpp:552
+#: kwave/FileContext.cpp:556
 #, kde-format
 msgid "Playback: %1"
 msgstr "재생: %1"
 
-#: kwave/FileContext.cpp:554
+#: kwave/FileContext.cpp:558
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "재생: 샘플 %1개"
 
-#: kwave/FileContext.cpp:895
+#: kwave/FileContext.cpp:899
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -85,13 +85,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:901
+#: kwave/FileContext.cpp:905
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1(수정됨)"
 
-#: kwave/FileContext.cpp:936
+#: kwave/FileContext.cpp:940
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -100,12 +100,12 @@ msgstr ""
 "이 파일이 수정되었습니다. 변경 사항이 손실됩니다.\n"
 "계속 진행하시겠습니까?"
 
-#: kwave/FileContext.cpp:1017
+#: kwave/FileContext.cpp:1021
 #, kde-format
 msgid "Save As"
 msgstr "다른 이름으로 저장"
 
-#: kwave/FileContext.cpp:1054 kwave/MainWidget.cpp:1037
+#: kwave/FileContext.cpp:1058 kwave/MainWidget.cpp:1111
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -114,7 +114,7 @@ msgstr ""
 "파일 '%1'이(가) 이미 존재합니다.\n"
 "덮어쓰시겠습니까?"
 
-#: kwave/FileContext.cpp:1122
+#: kwave/FileContext.cpp:1126
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -415,27 +415,27 @@ msgstr "KDE 프레임워크 5 기반 소리 편집기"
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016, Thomas Eschenbacher"
 
-#: kwave/MainWidget.cpp:88
+#: kwave/MainWidget.cpp:90
 #, kde-format
 msgid "Kwave label list"
 msgstr "Kwave 이름표 목록"
 
-#: kwave/MainWidget.cpp:946 libkwave/SignalManager.cpp:1942
+#: kwave/MainWidget.cpp:1020 libkwave/SignalManager.cpp:1942
 #, kde-format
 msgid "Add Label"
 msgstr "이름표 추가"
 
-#: kwave/MainWidget.cpp:981 kwave/MainWidget.cpp:992
+#: kwave/MainWidget.cpp:1055 kwave/MainWidget.cpp:1066
 #, kde-format
 msgid "Load Labels"
 msgstr "이름표 불러오기"
 
-#: kwave/MainWidget.cpp:1016
+#: kwave/MainWidget.cpp:1090
 #, kde-format
 msgid "Save Labels"
 msgstr "이름표 저장"
 
-#: kwave/MainWidget.cpp:1120
+#: kwave/MainWidget.cpp:1194
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
@@ -444,7 +444,7 @@ msgstr ""
 "지정한 위치에 이름표가 이미 존재합니다.\n"
 "덮어쓰시겠습니까?"
 
-#: kwave/MainWidget.cpp:1147
+#: kwave/MainWidget.cpp:1221
 #, kde-format
 msgid "Modify Label"
 msgstr "이름표 수정"
@@ -3344,7 +3344,7 @@ msgstr "'%1' 플러그인을 알 수 없거나 잘못되었습니다."
 msgid "Error On Loading Plugin"
 msgstr "플러그인 불러오기 오류"
 
-#: libkwave/PluginManager.cpp:673
+#: libkwave/PluginManager.cpp:679
 #, kde-format
 msgid "Loading plugin %1..."
 msgstr "%1 플러그인 불러오는 중..."
@@ -3721,7 +3721,7 @@ msgid "License agreement"
 msgstr "라이선스 조항"
 
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:43
-#: plugins/sonagram/SonagramWindow.cpp:169
+#: plugins/sonagram/SonagramWindow.cpp:160
 #, kde-format
 msgid "ms"
 msgstr "밀리초"
@@ -3765,7 +3765,7 @@ msgstr "리드아웃 페이드"
 #: plugins/band_pass/BandPassDialog.cpp:63 plugins/band_pass/BandPassDlg.ui:117
 #: plugins/lowpass/LowPassDialog.cpp:61
 #: plugins/notch_filter/NotchFilterDialog.cpp:65
-#: plugins/sonagram/SonagramWindow.cpp:176
+#: plugins/sonagram/SonagramWindow.cpp:167
 #, kde-format
 msgid "Hz"
 msgstr "Hz"
@@ -4841,7 +4841,7 @@ msgstr "예, G.711을 사용합니다(&Y)"
 msgid "&No, store uncompressed"
 msgstr "아니요, 무압축 저장합니다(&N)"
 
-#: plugins/codec_wav/WavEncoder.cpp:496 plugins/sonagram/SonagramPlugin.cpp:257
+#: plugins/codec_wav/WavEncoder.cpp:496 plugins/sonagram/SonagramPlugin.cpp:319
 #, kde-format
 msgid "File or selection too large"
 msgstr "파일이나 선택 영역이 너무 큼"
@@ -7195,12 +7195,12 @@ msgstr "시작"
 msgid "Select Range"
 msgstr "범위 선택"
 
-#: plugins/sonagram/SonagramDialog.cpp:150
+#: plugins/sonagram/SonagramDialog.cpp:156
 #, kde-format
 msgid "(resulting window size: %1)"
 msgstr "(결과 창 크기: %1)"
 
-#: plugins/sonagram/SonagramDialog.cpp:153
+#: plugins/sonagram/SonagramDialog.cpp:159
 #, kde-format
 msgid "Size of bitmap: %1x%2"
 msgstr "비트맵 크기: %1x%2"
@@ -7376,99 +7376,99 @@ msgstr "색상 사용"
 msgid "use colors (HSV)"
 msgstr "색상 사용"
 
-#: plugins/sonagram/SonagramPlugin.cpp:79
-#: plugins/sonagram/SonagramWindow.cpp:471
+#: plugins/sonagram/SonagramPlugin.cpp:83
+#: plugins/sonagram/SonagramWindow.cpp:375
 #, kde-format
 msgid "Sonagram"
 msgstr "소너그램"
 
-#: plugins/sonagram/SonagramPlugin.cpp:225
+#: plugins/sonagram/SonagramPlugin.cpp:280
 #, kde-format
 msgid "Sonagram loaded from %1"
 msgstr "%1에서 소너그램 불러옴"
 
-#: plugins/sonagram/SonagramWindow.cpp:124
+#: plugins/sonagram/SonagramWindow.cpp:115
 #, kde-format
 msgid "&Sonagram"
 msgstr "소너그램(&S)"
 
-#: plugins/sonagram/SonagramWindow.cpp:130
+#: plugins/sonagram/SonagramWindow.cpp:121
 #, kde-format
 msgid "&Import from Bitmap..."
 msgstr "비트맵에서 가져오기(&I)..."
 
-#: plugins/sonagram/SonagramWindow.cpp:135
+#: plugins/sonagram/SonagramWindow.cpp:126
 #, kde-format
 msgid "&Export to Bitmap..."
 msgstr "비트맵으로 내보내기(&E)..."
 
-#: plugins/sonagram/SonagramWindow.cpp:140
+#: plugins/sonagram/SonagramWindow.cpp:131
 #, kde-format
 msgid "&Close"
 msgstr "닫기(&C)"
 
-#: plugins/sonagram/SonagramWindow.cpp:150
+#: plugins/sonagram/SonagramWindow.cpp:141
 #, kde-format
 msgid "Time: ------ ms"
 msgstr "시간: ------ ms"
 
-#: plugins/sonagram/SonagramWindow.cpp:152
+#: plugins/sonagram/SonagramWindow.cpp:143
 #, kde-format
 msgid "Frequency: ------ Hz"
 msgstr "주파수: ------ Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:154
+#: plugins/sonagram/SonagramWindow.cpp:145
 #, kde-format
 msgid "Amplitude: --- %"
 msgstr "진폭: --- %"
 
-#: plugins/sonagram/SonagramWindow.cpp:201
+#: plugins/sonagram/SonagramWindow.cpp:192
 #, kde-format
 msgid "Time: 0 ms"
 msgstr "시간: 0 ms"
 
-#: plugins/sonagram/SonagramWindow.cpp:202
+#: plugins/sonagram/SonagramWindow.cpp:193
 #, kde-format
 msgid "Frequency: 0 Hz"
 msgstr "주파수: 0 Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:203
+#: plugins/sonagram/SonagramWindow.cpp:194
 #, kde-format
 msgid "Amplitude: 0 %"
 msgstr "진폭: 0 %"
 
-#: plugins/sonagram/SonagramWindow.cpp:251
+#: plugins/sonagram/SonagramWindow.cpp:242
 #, kde-format
 msgid "Save Sonagram"
 msgstr "소너그램 저장"
 
-#: plugins/sonagram/SonagramWindow.cpp:272
+#: plugins/sonagram/SonagramWindow.cpp:263
 #, kde-format
 msgid "Load Sonagram"
 msgstr "소너그램 불러오기"
 
-#: plugins/sonagram/SonagramWindow.cpp:470
+#: plugins/sonagram/SonagramWindow.cpp:374
 #, kde-format
 msgid "Sonagram of %1"
 msgstr "%1의 소너그램"
 
-#: plugins/sonagram/SonagramWindow.cpp:493
+#: plugins/sonagram/SonagramWindow.cpp:397
 #, kde-format
 msgid "Time: %1"
 msgstr "시간: %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:497
+#: plugins/sonagram/SonagramWindow.cpp:401
 #, kde-format
 msgid "Frequency: %1 Hz"
 msgstr "주파수: %1 Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:516
+#: plugins/sonagram/SonagramWindow.cpp:420
 #, fuzzy, kde-format
 #| msgid "Amplitude: 0 %"
 msgid "Amplitude: 0"
 msgstr "진폭: 0 %"
 
-#: plugins/sonagram/SonagramWindow.cpp:518
+#: plugins/sonagram/SonagramWindow.cpp:422
 #, fuzzy, kde-format
 #| msgid "Amplitude: %1%"
 msgid "Amplitude: %1 dB"

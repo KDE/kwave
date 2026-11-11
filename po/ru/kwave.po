@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:47+0000\n"
+"POT-Creation-Date: 2026-11-11 01:00+0000\n"
 "PO-Revision-Date: 2026-10-07 08:39+0200\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -45,44 +45,44 @@ msgstr "Открытие главного окна..."
 msgid "Startup done"
 msgstr "Программа запущена"
 
-#: kwave/FileContext.cpp:205
+#: kwave/FileContext.cpp:209
 #, kde-format
 msgid "Scanning plugins..."
 msgstr "Поиск подключаемых модулей..."
 
-#: kwave/FileContext.cpp:238 kwave/FileContext.cpp:239
+#: kwave/FileContext.cpp:242 kwave/FileContext.cpp:243
 #, kde-format
 msgid "Loading plugins..."
 msgstr "Загрузка подключаемых модулей..."
 
-#: kwave/FileContext.cpp:241
+#: kwave/FileContext.cpp:245
 #, kde-format
 msgid "Failed"
 msgstr "Ошибка"
 
-#: kwave/FileContext.cpp:244
+#: kwave/FileContext.cpp:248
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
 msgstr ""
 "Подключаемые подули не найдены, приложение Kwave не установлено должным "
 "образом."
 
-#: kwave/FileContext.cpp:250
+#: kwave/FileContext.cpp:254
 #, kde-format
 msgid "Ready"
 msgstr "Готово"
 
-#: kwave/FileContext.cpp:552
+#: kwave/FileContext.cpp:556
 #, kde-format
 msgid "Playback: %1"
 msgstr "Воспроизведение: %1"
 
-#: kwave/FileContext.cpp:554
+#: kwave/FileContext.cpp:558
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Воспроизведение: %1 отсчётов"
 
-#: kwave/FileContext.cpp:895
+#: kwave/FileContext.cpp:899
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -90,13 +90,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:901
+#: kwave/FileContext.cpp:905
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (изменён)"
 
-#: kwave/FileContext.cpp:936
+#: kwave/FileContext.cpp:940
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -105,12 +105,12 @@ msgstr ""
 "Файл был изменён, изменения будут потеряны.\n"
 "Продолжить?"
 
-#: kwave/FileContext.cpp:1017
+#: kwave/FileContext.cpp:1021
 #, kde-format
 msgid "Save As"
 msgstr "Сохранение в файл"
 
-#: kwave/FileContext.cpp:1054 kwave/MainWidget.cpp:1037
+#: kwave/FileContext.cpp:1058 kwave/MainWidget.cpp:1111
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -119,7 +119,7 @@ msgstr ""
 "Файл «%1» уже существует.\n"
 "Перезаписать его?"
 
-#: kwave/FileContext.cpp:1122
+#: kwave/FileContext.cpp:1126
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -422,27 +422,27 @@ msgstr "Аудиоредактор на основе KDE Frameworks 5"
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "© Thomas Eschenbacher, 2016"
 
-#: kwave/MainWidget.cpp:88
+#: kwave/MainWidget.cpp:90
 #, kde-format
 msgid "Kwave label list"
 msgstr "список отметок Kwave"
 
-#: kwave/MainWidget.cpp:946 libkwave/SignalManager.cpp:1942
+#: kwave/MainWidget.cpp:1020 libkwave/SignalManager.cpp:1942
 #, kde-format
 msgid "Add Label"
 msgstr "Добавить отметку"
 
-#: kwave/MainWidget.cpp:981 kwave/MainWidget.cpp:992
+#: kwave/MainWidget.cpp:1055 kwave/MainWidget.cpp:1066
 #, kde-format
 msgid "Load Labels"
 msgstr "Загрузка отметок"
 
-#: kwave/MainWidget.cpp:1016
+#: kwave/MainWidget.cpp:1090
 #, kde-format
 msgid "Save Labels"
 msgstr "Сохранение отметок"
 
-#: kwave/MainWidget.cpp:1120
+#: kwave/MainWidget.cpp:1194
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
@@ -451,7 +451,7 @@ msgstr ""
 "В этой позиции уже есть отметка.\n"
 "Заменить?"
 
-#: kwave/MainWidget.cpp:1147
+#: kwave/MainWidget.cpp:1221
 #, kde-format
 msgid "Modify Label"
 msgstr "Изменить отметку"
@@ -3359,7 +3359,7 @@ msgstr "Неизвестный или недопустимый модуль «%1
 msgid "Error On Loading Plugin"
 msgstr "Ошибка при загрузке модуля"
 
-#: libkwave/PluginManager.cpp:673
+#: libkwave/PluginManager.cpp:679
 #, kde-format
 msgid "Loading plugin %1..."
 msgstr "Загрузка модуля %1..."
@@ -3742,7 +3742,7 @@ msgid "License agreement"
 msgstr "Лицензионное соглашение"
 
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:43
-#: plugins/sonagram/SonagramWindow.cpp:169
+#: plugins/sonagram/SonagramWindow.cpp:160
 #, kde-format
 msgid "ms"
 msgstr "мс"
@@ -3786,7 +3786,7 @@ msgstr "Затухание в конце"
 #: plugins/band_pass/BandPassDialog.cpp:63 plugins/band_pass/BandPassDlg.ui:117
 #: plugins/lowpass/LowPassDialog.cpp:61
 #: plugins/notch_filter/NotchFilterDialog.cpp:65
-#: plugins/sonagram/SonagramWindow.cpp:176
+#: plugins/sonagram/SonagramWindow.cpp:167
 #, kde-format
 msgid "Hz"
 msgstr "Гц"
@@ -4876,7 +4876,7 @@ msgstr "&Да, использовать G711"
 msgid "&No, store uncompressed"
 msgstr "&Нет, сохранить без сжатия"
 
-#: plugins/codec_wav/WavEncoder.cpp:496 plugins/sonagram/SonagramPlugin.cpp:257
+#: plugins/codec_wav/WavEncoder.cpp:496 plugins/sonagram/SonagramPlugin.cpp:319
 #, kde-format
 msgid "File or selection too large"
 msgstr "Слишком большой размер файла или выделения"
@@ -7273,12 +7273,12 @@ msgstr "Начало"
 msgid "Select Range"
 msgstr "Выделение диапазона"
 
-#: plugins/sonagram/SonagramDialog.cpp:150
+#: plugins/sonagram/SonagramDialog.cpp:156
 #, kde-format
 msgid "(resulting window size: %1)"
 msgstr "(размер полученного окна: %1)"
 
-#: plugins/sonagram/SonagramDialog.cpp:153
+#: plugins/sonagram/SonagramDialog.cpp:159
 #, kde-format
 msgid "Size of bitmap: %1x%2"
 msgstr "Размер растрового изображения: %1x%2"
@@ -7452,98 +7452,98 @@ msgstr "В цвете (RGB)"
 msgid "use colors (HSV)"
 msgstr "В цвете (HSV)"
 
-#: plugins/sonagram/SonagramPlugin.cpp:79
-#: plugins/sonagram/SonagramWindow.cpp:471
+#: plugins/sonagram/SonagramPlugin.cpp:83
+#: plugins/sonagram/SonagramWindow.cpp:375
 #, kde-format
 msgid "Sonagram"
 msgstr "Сонаграмма"
 
-#: plugins/sonagram/SonagramPlugin.cpp:225
+#: plugins/sonagram/SonagramPlugin.cpp:280
 #, kde-format
 msgid "Sonagram loaded from %1"
 msgstr "Сонаграмма загружена из %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:124
+#: plugins/sonagram/SonagramWindow.cpp:115
 #, kde-format
 msgid "&Sonagram"
 msgstr "&Сонаграмма"
 
-#: plugins/sonagram/SonagramWindow.cpp:130
+#: plugins/sonagram/SonagramWindow.cpp:121
 #, kde-format
 msgid "&Import from Bitmap..."
 msgstr "&Импорт из Bitmap…"
 
-#: plugins/sonagram/SonagramWindow.cpp:135
+#: plugins/sonagram/SonagramWindow.cpp:126
 #, kde-format
 msgid "&Export to Bitmap..."
 msgstr "&Экспорт в Bitmap…"
 
-#: plugins/sonagram/SonagramWindow.cpp:140
+#: plugins/sonagram/SonagramWindow.cpp:131
 #, kde-format
 msgid "&Close"
 msgstr "&Закрыть"
 
-#: plugins/sonagram/SonagramWindow.cpp:150
+#: plugins/sonagram/SonagramWindow.cpp:141
 #, kde-format
 msgid "Time: ------ ms"
 msgstr "Время: ------ мс"
 
-#: plugins/sonagram/SonagramWindow.cpp:152
+#: plugins/sonagram/SonagramWindow.cpp:143
 #, kde-format
 msgid "Frequency: ------ Hz"
 msgstr "Частота: ------ Гц"
 
-#: plugins/sonagram/SonagramWindow.cpp:154
+#: plugins/sonagram/SonagramWindow.cpp:145
 #, kde-format
 msgid "Amplitude: --- %"
 msgstr "Амплитуда: --- %"
 
-#: plugins/sonagram/SonagramWindow.cpp:201
+#: plugins/sonagram/SonagramWindow.cpp:192
 #, kde-format
 msgid "Time: 0 ms"
 msgstr "Время: 0 мс"
 
-#: plugins/sonagram/SonagramWindow.cpp:202
+#: plugins/sonagram/SonagramWindow.cpp:193
 #, kde-format
 msgid "Frequency: 0 Hz"
 msgstr "Частота: 0 Гц"
 
-#: plugins/sonagram/SonagramWindow.cpp:203
+#: plugins/sonagram/SonagramWindow.cpp:194
 #, kde-format
 msgid "Amplitude: 0 %"
 msgstr "Амплитуда: 0%"
 
-#: plugins/sonagram/SonagramWindow.cpp:251
+#: plugins/sonagram/SonagramWindow.cpp:242
 #, kde-format
 msgid "Save Sonagram"
 msgstr "Сохранить сонаграмму"
 
-#: plugins/sonagram/SonagramWindow.cpp:272
+#: plugins/sonagram/SonagramWindow.cpp:263
 #, kde-format
 msgid "Load Sonagram"
 msgstr "Загрузить сонаграмму"
 
-#: plugins/sonagram/SonagramWindow.cpp:470
+#: plugins/sonagram/SonagramWindow.cpp:374
 #, kde-format
 msgid "Sonagram of %1"
 msgstr "Сонаграмма %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:493
+#: plugins/sonagram/SonagramWindow.cpp:397
 #, kde-format
 msgid "Time: %1"
 msgstr "Время: %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:497
+#: plugins/sonagram/SonagramWindow.cpp:401
 #, kde-format
 msgid "Frequency: %1 Hz"
 msgstr "Частота: %1 Гц"
 
-#: plugins/sonagram/SonagramWindow.cpp:516
+#: plugins/sonagram/SonagramWindow.cpp:420
 #, kde-format
 msgid "Amplitude: 0"
 msgstr "Амплитуда: 0"
 
-#: plugins/sonagram/SonagramWindow.cpp:518
+#: plugins/sonagram/SonagramWindow.cpp:422
 #, kde-format
 msgid "Amplitude: %1 dB"
 msgstr "Амплитуда: %1 дБ"

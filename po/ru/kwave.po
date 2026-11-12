@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-07 00:47+0000\n"
-"PO-Revision-Date: 2026-10-07 08:39+0200\n"
+"PO-Revision-Date: 2026-11-11 22:57+0200\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -739,7 +739,7 @@ msgstr "Вместить весь сигнал в окно"
 #: kwave/menus.config:129
 msgctxt "menu: /View/Zoom to 100%"
 msgid "Zoom to 100%"
-msgstr "Масштаб 100 %"
+msgstr "Масштаб 100 %"
 
 #: kwave/menus.config:131
 msgctxt "menu: /Play"
@@ -1324,7 +1324,7 @@ msgstr "Масштаб по выделению"
 #: kwave/ZoomToolBar.cpp:78 kwave/ZoomToolBar.cpp:79
 #, kde-format
 msgid "Zoom to 100%"
-msgstr "Масштаб 100%"
+msgstr "Масштаб 100 %"
 
 #: kwave/ZoomToolBar.cpp:84 kwave/ZoomToolBar.cpp:85
 #, kde-format
@@ -1656,21 +1656,21 @@ msgstr "часы"
 #: libgui/SelectTimeWidgetBase.ui:314 plugins/newsignal/NewSigDlg.ui:601
 #, no-c-format, kde-format
 msgid "0%"
-msgstr "0%"
+msgstr "0 %"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel3_2)
 #. i18n: ectx: property (text), widget (QLabel, TextLabel3)
 #: libgui/SelectTimeWidgetBase.ui:340 plugins/newsignal/NewSigDlg.ui:627
 #, no-c-format, kde-format
 msgid "50%"
-msgstr "50%"
+msgstr "50 %"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2_2)
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2)
 #: libgui/SelectTimeWidgetBase.ui:366 plugins/newsignal/NewSigDlg.ui:653
 #, no-c-format, kde-format
 msgid "100%"
-msgstr "100%"
+msgstr "100 %"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slidePercents)
 #: libgui/SelectTimeWidgetBase.ui:387
@@ -2482,7 +2482,7 @@ msgstr "Готово %1 МБ из %2 МБ"
 #, kde-format
 msgctxt "%1=Progress in percentage, %2=path to file"
 msgid "(%1%) %2"
-msgstr "(%1%) %2"
+msgstr "(%1 %) %2"
 
 #: libkwave/FileProgress.cpp:369
 #, kde-format
@@ -4756,7 +4756,7 @@ msgid ""
 "Switch to VBR mode with %1% and continue?"
 msgstr ""
 "Ogg/Vorbis не поддерживает режим ABR при использовании более двух каналов. "
-"Переключиться на режим VBR с %1% и продолжить?"
+"Переключиться на режим VBR с %1 % и продолжить?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:158
 #, kde-format
@@ -4888,11 +4888,11 @@ msgstr "Формат WAV"
 
 #: plugins/debug/DebugPlugin.cpp:84
 msgid "Generate 50% DC Level"
-msgstr "Создать уровень DC 50 %"
+msgstr "Создать уровень DC 50 %"
 
 #: plugins/debug/DebugPlugin.cpp:86
 msgid "Generate 100% DC Level"
-msgstr "Создать уровень DC 100 %"
+msgstr "Создать уровень DC 100 %"
 
 #: plugins/debug/DebugPlugin.cpp:88
 msgid "MinMax Pattern"
@@ -5853,7 +5853,7 @@ msgid ""
 msgstr ""
 "Добавляет уровень шума, заданный как процент от максимального уровня "
 "громкости.\n"
-"Например: «1 %», «15%» или «100%»"
+"Например: «1 %», «15 %» или «100 %»"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:61 plugins/volume/VolumeDlg.ui:91
@@ -6028,7 +6028,7 @@ msgid ""
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
 "Устанавливает скорость в процентах от исходной скорости.\n"
-"Например: «50 %», «75%» или «125%»"
+"Например: «50 %», «75 %» или «125 %»"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:222
@@ -6432,8 +6432,8 @@ msgstr ""
 "должно соответствовать количеству дорожек в текущем файле. Kwave "
 "автоматически микширует дорожки файла для указанных каналов. </"
 "p><p><i>Пример:</i> если имеются три дорожки и задано воспроизведение в "
-"режиме «стерео», левый канал будет содержать первую дорожку + 50% второй "
-"дорожки, правый канал — 50% второй дорожки и третью дорожку.</p>"
+"режиме «стерео», левый канал будет содержать первую дорожку + 50 % второй "
+"дорожки, правый канал — 50 % второй дорожки и третью дорожку.</p>"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/playback/PlayBackDlg.ui:388
@@ -7511,7 +7511,7 @@ msgstr "Частота: 0 Гц"
 #: plugins/sonagram/SonagramWindow.cpp:203
 #, kde-format
 msgid "Amplitude: 0 %"
-msgstr "Амплитуда: 0%"
+msgstr "Амплитуда: 0 %"
 
 #: plugins/sonagram/SonagramWindow.cpp:251
 #, kde-format
@@ -7607,7 +7607,7 @@ msgid ""
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
 "Устанавливает громкость в процентах от исходного уровня\n"
-"Например: «50 %», «75%» или «125%»"
+"Например: «50 %», «75 %» или «125 %»"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:104

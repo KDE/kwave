@@ -443,7 +443,7 @@
 ></listitem>
     	<listitem
 ><para
->algunes funcions d'anàlisi com Sonagram </para
+>algunes funcions d'anàlisi com Sonograma </para
 ></listitem>
     	<listitem
 ><para
@@ -10817,7 +10817,7 @@
 ></term>
 			<listitem>
 			    <para
->L'índex numèric de la finestra del sonagrama que mostra el sonagrama a desar. Aquest és un índex que es determina a partir de la llista interna de finestres de sonagrama obertes actualment, començant des de zero. </para>
+>L'índex numèric de la finestra del sonograma que mostra el sonograma a desar. Aquest és un índex que es determina a partir de la llista interna de finestres de sonograma obertes actualment, començant des de zero. </para>
 			</listitem>
 		    </varlistentry>
 		    <varlistentry>

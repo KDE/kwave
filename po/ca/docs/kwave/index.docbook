@@ -443,7 +443,7 @@
 ></listitem>
     	<listitem
 ><para
->algunes funcions d'anàlisi com Sonagram </para
+>algunes funcions d'anàlisi com Sonograma </para
 ></listitem>
     	<listitem
 ><para
@@ -10754,6 +10754,47 @@
 			</listitem>
 		    </varlistentry>
 
+		    <varlistentry>
+			<term
+><replaceable
+>ubicació</replaceable
+></term>
+			<listitem>
+			    <para
+>Ubicació opcional de la finestra del sonograma, que es pot establir a un dels valors següents: <informaltable frame='all'
+> <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'
+>&nbsp;Valor&nbsp;</entry>
+						<entry align='left'
+>&nbsp;Descripció</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>finestra</command
+></entry>
+						<entry
+>finestra separada (predeterminat)</entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>acoblador</command
+></entry>
+						<entry
+>finestra acoblada</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+			    </para>
+			</listitem>
+		    </varlistentry>
+
 		</variablelist>
 	    </listitem>
 	</varlistentry>
@@ -10817,7 +10858,7 @@
 ></term>
 			<listitem>
 			    <para
->L'índex numèric de la finestra del sonagrama que mostra el sonagrama a desar. Aquest és un índex que es determina a partir de la llista interna de finestres de sonagrama obertes actualment, començant des de zero. </para>
+>L'índex numèric de la finestra del sonograma que mostra el sonograma a desar. Aquest és un índex que es determina a partir de la llista interna de finestres de sonograma obertes actualment, començant des de zero. </para>
 			</listitem>
 		    </varlistentry>
 		    <varlistentry>

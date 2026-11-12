@@ -10816,6 +10816,47 @@
 			</listitem>
 		    </varlistentry>
 
+		    <varlistentry>
+			<term
+><replaceable
+>місце</replaceable
+></term>
+			<listitem>
+			    <para
+>Необов'язкові дані щодо місця вікна сонаграми, для яких можна встановити одне з таких значень: <informaltable frame='all'
+> <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'
+>значення</entry>
+						<entry align='left'
+>опис</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>window</command
+></entry>
+						<entry
+>окреме вікно (типовий варіант)</entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>dock</command
+></entry>
+						<entry
+>пришвартована панель</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+			    </para>
+			</listitem>
+		    </varlistentry>
+
 		</variablelist>
 	    </listitem>
 	</varlistentry>

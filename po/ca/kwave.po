@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-11 01:00+0000\n"
-"PO-Revision-Date: 2026-10-07 09:38+0200\n"
+"PO-Revision-Date: 2026-11-20 20:40+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -1340,7 +1340,7 @@ msgstr "%1 ms"
 #: kwave/ZoomToolBar.cpp:99 kwave/ZoomToolBar.cpp:100 kwave/ZoomToolBar.cpp:101
 #, kde-format
 msgid "%1 sec"
-msgstr "%1 seg"
+msgstr "%1 s"
 
 #: kwave/ZoomToolBar.cpp:102 kwave/ZoomToolBar.cpp:103
 #: kwave/ZoomToolBar.cpp:104 kwave/ZoomToolBar.cpp:105
@@ -1445,7 +1445,7 @@ msgstr " min"
 #: plugins/record/RecordDlg.ui:572
 #, kde-format
 msgid " sec"
-msgstr " seg"
+msgstr " s"
 
 #: libgui/LabelItem.cpp:74
 #, kde-format
@@ -4655,7 +4655,7 @@ msgstr "Les dades comprimides passades estan malmeses."
 #: plugins/codec_ogg/OpusCommon.cpp:67
 #, kde-format
 msgid "Invalid/unsupported request number."
-msgstr "Nombre de petició no vàlid o no permès."
+msgstr "Número de petició no vàlid o no permès."
 
 #: plugins/codec_ogg/OpusCommon.cpp:70
 #, kde-format

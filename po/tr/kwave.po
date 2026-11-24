@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-11 01:00+0000\n"
-"PO-Revision-Date: 2026-10-16 20:07+0300\n"
+"PO-Revision-Date: 2026-11-23 18:16+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1149,7 +1149,7 @@ msgstr "Seçimi sil"
 #: kwave/TopWidget.cpp:763
 #, kde-format
 msgid "Reset the toolbar to default settings?"
-msgstr "Araç çubuğunu öntanımlı ayara sıfırlansın mı?"
+msgstr "Araç çubuğunu varsayılan ayara sıfırlansın mı?"
 
 #: kwave/TopWidget.cpp:791
 #, kde-format
@@ -4196,7 +4196,7 @@ msgstr "&Seç…"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:66
 #, kde-format
 msgid "select one of the predefined encoder setups"
-msgstr "Öntanımlı kodlayıcı kurulumlarından birini seçin"
+msgstr "Varsayılan kodlayıcı kurulumlarından birini seçin"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btDetect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:89
@@ -6174,7 +6174,7 @@ msgstr "(Sunucunun varsayılanını kullan)"
 #: plugins/playback/PlayBack-Qt.cpp:44 plugins/record/Record-Qt.cpp:49
 #, kde-format
 msgid "Default device"
-msgstr "Öntanımlı Aygıt"
+msgstr "Varsayılan Aygıt"
 
 #: plugins/playback/PlayBack-Qt.cpp:132
 #, kde-format

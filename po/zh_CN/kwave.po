@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kwave/kwave.pot\n"
-"X-Crowdin-File-ID: 55098\n"
+"X-Crowdin-File: /kf6-stable/messages/kwave/kwave.pot\n"
+"X-Crowdin-File-ID: 56668\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -7100,10 +7100,9 @@ msgstr "?:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroup1)
 #: plugins/sonagram/SonagramDlg.ui:284
-#, fuzzy, kde-format
-#| msgid "display"
+#, kde-format
 msgid "Display"
-msgstr "显示"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbLocation)
 #: plugins/sonagram/SonagramDlg.ui:294
@@ -7119,24 +7118,21 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:308
-#, fuzzy, kde-format
-#| msgid "Grayscale"
+#, kde-format
 msgid "use grayscale"
-msgstr "灰阶"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:313
-#, fuzzy, kde-format
-#| msgid "Use colors"
+#, kde-format
 msgid "use colors (RGB)"
-msgstr "使用颜色"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cbColorMode)
 #: plugins/sonagram/SonagramDlg.ui:318
-#, fuzzy, kde-format
-#| msgid "Use colors"
+#, kde-format
 msgid "use colors (HSV)"
-msgstr "使用颜色"
+msgstr ""
 
 #: plugins/sonagram/SonagramPlugin.cpp:79
 #: plugins/sonagram/SonagramWindow.cpp:471
@@ -7145,10 +7141,9 @@ msgid "Sonagram"
 msgstr "声图"
 
 #: plugins/sonagram/SonagramPlugin.cpp:225
-#, fuzzy, kde-format
-#| msgid "Sonagram of %1"
+#, kde-format
 msgid "Sonagram loaded from %1"
-msgstr "%1 的声图"
+msgstr ""
 
 #: plugins/sonagram/SonagramWindow.cpp:124
 #, kde-format
@@ -7156,10 +7151,9 @@ msgid "&Sonagram"
 msgstr "声图(&S)"
 
 #: plugins/sonagram/SonagramWindow.cpp:130
-#, fuzzy, kde-format
-#| msgid "&Export to Bitmap..."
+#, kde-format
 msgid "&Import from Bitmap..."
-msgstr "导出为位图(&E)..."
+msgstr ""
 
 #: plugins/sonagram/SonagramWindow.cpp:135
 #, kde-format
@@ -7207,10 +7201,9 @@ msgid "Save Sonagram"
 msgstr "保存声图"
 
 #: plugins/sonagram/SonagramWindow.cpp:272
-#, fuzzy, kde-format
-#| msgid "Save Sonagram"
+#, kde-format
 msgid "Load Sonagram"
-msgstr "保存声图"
+msgstr ""
 
 #: plugins/sonagram/SonagramWindow.cpp:470
 #, kde-format
@@ -7228,16 +7221,14 @@ msgid "Frequency: %1 Hz"
 msgstr "频率：%1 Hz"
 
 #: plugins/sonagram/SonagramWindow.cpp:516
-#, fuzzy, kde-format
-#| msgid "Amplitude: 0 %"
+#, kde-format
 msgid "Amplitude: 0"
-msgstr "振幅：0 %"
+msgstr ""
 
 #: plugins/sonagram/SonagramWindow.cpp:518
-#, fuzzy, kde-format
-#| msgid "Amplitude: %1%"
+#, kde-format
 msgid "Amplitude: %1 dB"
-msgstr "振幅：%1%"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, StringEnterDlg)
 #: plugins/stringenter/StringEnterDlg.ui:21
@@ -7320,9 +7311,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "无声"
-
-#~ msgid "Use different colors for amplitude"
-#~ msgstr "为振幅使用不同的颜色"
-
-#~ msgid "Use grayscale only for amplitude"
-#~ msgstr "仅对振幅使用灰度"
